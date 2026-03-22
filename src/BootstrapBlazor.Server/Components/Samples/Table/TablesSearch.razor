@@ -34,48 +34,6 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SearchTableTitle"]"
-           Introduction="@Localizer["SearchTableIntro"]"
-           Name="SearchTable">
-    <section ignore>
-        <ul class="ul-demo mb-3">
-            <li>@((MarkupString)Localizer["SearchTableLi1"].Value)</li>
-            <li>@((MarkupString)Localizer["SearchTableLi2"].Value)</li>
-            <li>@((MarkupString)Localizer["SearchTableLi3"].Value)</li>
-        </ul>
-        @((MarkupString)Localizer["AutoHeightIntro"].Value)
-    </section>
-    <div style="height: 600px;">
-        <Table TItem="Foo"
-               IsPagination="true" PageItemsSource="new int[] {10, 20}"
-               IsStriped="true" IsBordered="true" ShowMoreButton="true"
-               ShowToolbar="true" ShowSearch="true" ShowCardView="true" IsMultipleSelect="true" ShowExtendButtons="true"
-               AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
-               SearchModel="@SearchModel" SearchMode="SearchMode.Top" ShowEmpty="true"
-               OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
-               OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Address" />
-                <TableColumn @bind-Field="@context.Education" />
-            </TableColumns>
-            <SearchTemplate>
-                <GroupBox Title="@Localizer["SearchTableGroupBoxText"]">
-                    <div class="row g-3 form-inline">
-                        <div class="col-12 col-sm-6">
-                            <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@Localizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Name)]" />
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@Localizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Address)]" />
-                        </div>
-                    </div>
-                </GroupBox>
-            </SearchTemplate>
-        </Table>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["AutoGenerateSearchTitle"]"
            Introduction="@Localizer["AutoGenerateSearchIntro"]"
            Name="AutoGenerateSearch">
@@ -122,6 +80,48 @@
             <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchTableTitle"]"
+           Introduction="@Localizer["SearchTableIntro"]"
+           Name="SearchTable">
+    <section ignore>
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["SearchTableLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchTableLi2"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchTableLi3"].Value)</li>
+        </ul>
+        @((MarkupString)Localizer["AutoHeightIntro"].Value)
+    </section>
+    <div style="height: 600px;">
+        <Table TItem="Foo"
+               IsPagination="true" PageItemsSource="new int[] {10, 20}"
+               IsStriped="true" IsBordered="true" ShowMoreButton="true"
+               ShowToolbar="true" ShowSearch="true" ShowCardView="true" IsMultipleSelect="true" ShowExtendButtons="true"
+               AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+               SearchModel="@SearchModel" SearchMode="SearchMode.Top" ShowEmpty="true"
+               OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+               OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" />
+                <TableColumn @bind-Field="@context.Education" />
+            </TableColumns>
+            <SearchTemplate>
+                <GroupBox Title="@Localizer["SearchTableGroupBoxText"]">
+                    <div class="row g-3 form-inline">
+                        <div class="col-12 col-sm-6">
+                            <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@Localizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Name)]" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@Localizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Address)]" />
+                        </div>
+                    </div>
+                </GroupBox>
+            </SearchTemplate>
+        </Table>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomColSearchTitle"]"
