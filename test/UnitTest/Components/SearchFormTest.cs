@@ -197,6 +197,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(EnumEducation));
 
         Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+        item.Reset();
     }
 
     [Fact]
@@ -206,6 +207,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(int));
 
         Assert.IsType<NumberSearchMetaData>(item.BuildSearchMetaData(options));
+        item.Reset();
     }
 
     [Fact]
@@ -215,6 +217,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(bool));
 
         Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+        item.Reset();
     }
 
     [Fact]
@@ -224,6 +227,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(DateTime));
 
         Assert.IsType<DateTimeRangeSearchMetaData>(item.BuildSearchMetaData(options));
+        item.Reset();
     }
 
     [Fact]
