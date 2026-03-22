@@ -115,7 +115,7 @@ public class ITableColumnExtensionsTest
             IsRequiredWhenAdd = true,
             IsRequiredWhenEdit = true,
 
-            SearchFormItemMetaData = new StringSearchMetaData()
+            SearchFormItemMetaData = new StringSearchMetadata1()
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);

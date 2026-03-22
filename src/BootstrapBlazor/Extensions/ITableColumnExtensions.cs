@@ -35,7 +35,7 @@ public static class IEditItemExtensions
         return item;
     }
 
-    private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column, SearchFormLocalizerOptions options)
+    private static ISearchFormItemMetadata1 BuildSearchMetaData(this ITableColumn column, SearchFormLocalizerOptions options)
     {
         // 自定义搜索项逻辑
         if (column.SearchFormItemMetaData is not null)
@@ -43,33 +43,33 @@ public static class IEditItemExtensions
             return column.SearchFormItemMetaData;
         }
 
-        ISearchFormItemMetaData? metaData = null;
+        ISearchFormItemMetadata1? metaData = null;
         var fieldType = column.PropertyType;
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         if (Utility.IsCheckboxList(type, column.ComponentType))
         {
-            metaData = new CheckboxListSearchMetaData()
+            metaData = new CheckboxListSearchMetadata1()
             {
                 Items = column.Items
             };
         }
         else if (column.IsLookup())
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata1()
             {
                 Items = column.Items
             };
         }
         else if (type.IsEnum)
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata1()
             {
                 Items = type.ToSelectList(new SelectedItem() { Value = "", Text = options.SelectAllText }),
             };
         }
         else if (fieldType.IsNumberWithDotSeparator())
         {
-            metaData = new NumberSearchMetaData()
+            metaData = new NumberSearchMetadata1()
             {
                 StartValueLabelText = options.NumberStartValueLabelText,
                 EndValueLabelText = options.NumberEndValueLabelText,
@@ -78,7 +78,7 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsBoolean())
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata1()
             {
                 Items = new List<SelectedItem>()
                 {
@@ -90,11 +90,11 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsDateTime())
         {
-            metaData = new DateTimeRangeSearchMetaData();
+            metaData = new DateTimeRangeSearchMetadata1();
         }
         else
         {
-            metaData = new StringSearchMetaData() { FilterAction = FilterAction.Contains };
+            metaData = new StringSearchMetadata1() { FilterAction = FilterAction.Contains };
         }
 
         return metaData;

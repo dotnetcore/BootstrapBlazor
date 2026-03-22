@@ -37,7 +37,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc cref="ITableColumn.SearchFormItemMetaData"/>
     /// </summary>
-    public ISearchFormItemMetaData? SearchFormItemMetaData { get; set; }
+    public ISearchFormItemMetadata1? SearchFormItemMetaData { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="ITableColumn.Width"/>

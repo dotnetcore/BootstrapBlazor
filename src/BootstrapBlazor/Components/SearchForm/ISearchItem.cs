@@ -68,7 +68,7 @@ public interface ISearchItem
     /// <para lang="zh">获得/设置 搜索元数据</para>
     /// <para lang="en">Gets or sets the search metadata</para>
     /// </summary>
-    ISearchFormItemMetaData? MetaData { get; set; }
+    ISearchFormItemMetadata1? MetaData { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得 过滤器实例</para>

@@ -210,7 +210,7 @@ public class AutoGenerateClassTest
         attrInterface.IsRequiredWhenEdit = true;
         Assert.True(attrInterface.IsRequiredWhenEdit);
 
-        attrInterface.SearchFormItemMetaData = new StringSearchMetaData();
+        attrInterface.SearchFormItemMetaData = new StringSearchMetadata1();
         Assert.NotNull(attrInterface.SearchFormItemMetaData);
 
         var attrEditor = (IEditorItem)attr;

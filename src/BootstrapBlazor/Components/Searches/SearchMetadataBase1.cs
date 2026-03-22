@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">搜索元数据基类</para>
 /// <para lang="en">Search meta data base class</para>
 /// </summary>
-public abstract class SearchMetaDataBase : ISearchFormItemMetaData
+public abstract class SearchMetadataBase1 : ISearchFormItemMetadata1
 {
     /// <summary>
     /// <para lang="zh">获得/设置 占位符文本</para>
@@ -20,29 +20,29 @@ public abstract class SearchMetaDataBase : ISearchFormItemMetaData
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetaData.ValueChanged"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata1.ValueChanged"/>
     /// </summary>
     public Func<Task>? ValueChanged { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetaData.FilterLogic"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata1.FilterLogic"/>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterLogic FilterLogic { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetaData.FilterAction"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata1.FilterAction"/>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterAction FilterAction { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetaData.GetFilterCallback"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata1.GetFilterCallback"/>
     /// </summary>
     public Func<object?, FilterKeyValueAction>? GetFilterCallback { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetaData.GetFilter(string)"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata1.GetFilter(string)"/>
     /// </summary>
     public abstract FilterKeyValueAction? GetFilter(string fieldName);
 

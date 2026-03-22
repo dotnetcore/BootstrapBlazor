@@ -308,7 +308,7 @@ public class TableDialogTest : TableDialogTestBase
                 new SearchItem("Name", typeof(string), "Name"),
                 new SearchItem("Address", typeof(string), "Address")
                 {
-                    MetaData = new StringSearchMetaData() { PlaceHolder = "Address-Placeholder" }
+                    MetaData = new StringSearchMetadata1() { PlaceHolder = "Address-Placeholder" }
                 }
             });
             pb.Add(a => a.OnQueryAsync, options =>
