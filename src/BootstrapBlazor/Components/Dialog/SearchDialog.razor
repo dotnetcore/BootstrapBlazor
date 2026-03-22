@@ -6,11 +6,10 @@
 {
     <SearchForm Items="SearchItems" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
                 OnChanged="OnSearchFormFilterChanged">
+        <Buttons>
+            @RenderButtons
+        </Buttons>
     </SearchForm>
-    <div class="form-footer">
-        <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-        <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
-    </div>
 }
 else if (BodyTemplate != null)
 {
@@ -18,8 +17,7 @@ else if (BodyTemplate != null)
         @BodyTemplate.Invoke(Model)
     </div>
     <div class="form-footer">
-        <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-        <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+        @RenderButtons
     </div>
 }
 else
@@ -27,8 +25,7 @@ else
     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
         <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-                <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+                @RenderButtons
             </Buttons>
         </EditorForm>
     </CascadingValue>

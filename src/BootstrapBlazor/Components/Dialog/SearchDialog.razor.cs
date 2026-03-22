@@ -116,9 +116,26 @@ public partial class SearchDialog<TModel>
 
     private async Task OnSearchFormFilterChanged(FilterKeyValueAction action)
     {
+        // 通知父组件过滤器改变事件，此时并没有触发 OnSearchClick 搜索事件，父组件可以在 OnChanged 事件中获取当前过滤器状态并决定是否触发搜索事件
         if (OnChanged != null)
         {
             await OnChanged(action);
         }
     }
+
+    private RenderFragment RenderButtons => builder =>
+    {
+        builder.OpenComponent<DialogCloseButton>(0);
+        builder.AddAttribute(10, nameof(DialogCloseButton.Icon), ClearIcon);
+        builder.AddAttribute(20, nameof(DialogCloseButton.Text), ResetButtonText);
+        builder.AddAttribute(30, nameof(DialogCloseButton.OnClickWithoutRender), OnResetSearchClick);
+        builder.CloseComponent();
+
+        builder.OpenComponent<DialogCloseButton>(100);
+        builder.AddAttribute(101, nameof(DialogCloseButton.Color), Color.Primary);
+        builder.AddAttribute(110, nameof(DialogCloseButton.Icon), SearchIcon);
+        builder.AddAttribute(120, nameof(DialogCloseButton.Text), QueryButtonText);
+        builder.AddAttribute(130, nameof(DialogCloseButton.OnClickWithoutRender), OnSearchClick);
+        builder.CloseComponent();
+    };
 }
