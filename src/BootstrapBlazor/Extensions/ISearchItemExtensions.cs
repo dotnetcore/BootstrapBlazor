@@ -16,24 +16,24 @@ public static class ISearchItemExtensions
     extension(ISearchItem item)
     {
         /// <summary>
-        /// <para lang="zh">通过 <see cref="ISearchItem.PropertyType"/> 数据类型推断 <see cref="ISearchFormItemMetadata1" /> 实例</para>
+        /// <para lang="zh">通过 <see cref="ISearchItem.PropertyType"/> 数据类型推断 <see cref="ISearchFormItemMetadata" /> 实例</para>
         /// <para lang="en"></para>
         /// </summary>
         /// <param name="options"></param>
-        public ISearchFormItemMetadata1 BuildSearchMetadata(SearchFormLocalizerOptions options)
+        public ISearchFormItemMetadata BuildSearchMetadata(SearchFormLocalizerOptions options)
         {
             var fieldType = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
-            ISearchFormItemMetadata1? metaData = null;
+            ISearchFormItemMetadata? metaData = null;
             if (fieldType.IsEnum)
             {
-                metaData = new SelectSearchMetadata1()
+                metaData = new SelectSearchMetadata()
                 {
                     Items = fieldType.ToSelectList(new SelectedItem() { Value = "", Text = options.SelectAllText }),
                 };
             }
             else if (fieldType.IsNumberWithDotSeparator())
             {
-                metaData = new NumberSearchMetadata1()
+                metaData = new NumberSearchMetadata()
                 {
                     StartValueLabelText = options.NumberStartValueLabelText,
                     EndValueLabelText = options.NumberEndValueLabelText,
@@ -42,7 +42,7 @@ public static class ISearchItemExtensions
             }
             else if (fieldType.IsBoolean())
             {
-                metaData = new SelectSearchMetadata1()
+                metaData = new SelectSearchMetadata()
                 {
                     Items = new List<SelectedItem>()
                     {
@@ -54,7 +54,7 @@ public static class ISearchItemExtensions
             }
             else if (fieldType.IsDateTime())
             {
-                metaData = new DateTimeRangeSearchMetadata1();
+                metaData = new DateTimeRangeSearchMetadata();
             }
             else
             {
@@ -73,22 +73,22 @@ public static class ISearchItemExtensions
             var metaData = item.MetaData;
             switch (metaData)
             {
-                case NumberSearchMetadata1 numberSearchMetaData:
+                case NumberSearchMetadata numberSearchMetaData:
                     builder.AddNumberSearchComponent(item, numberSearchMetaData);
                     break;
-                case DateTimeSearchMetadata1 datetimeSearchMetaData:
+                case DateTimeSearchMetadata datetimeSearchMetaData:
                     builder.AddDateTimeSearchComponent(item, datetimeSearchMetaData);
                     break;
-                case DateTimeRangeSearchMetadata1 datetimeRangeSearchMetaData:
+                case DateTimeRangeSearchMetadata datetimeRangeSearchMetaData:
                     builder.AddDateTimeRangeSearchComponent(item, datetimeRangeSearchMetaData);
                     break;
-                case CheckboxListSearchMetadata1 checkboxListSearchMetaData:
+                case CheckboxListSearchMetadata checkboxListSearchMetaData:
                     builder.AddCheckboxListSearchComponent(item, checkboxListSearchMetaData);
                     break;
-                case MultipleSelectSearchMetadata1 multipleSelectSearchMetaData:
+                case MultipleSelectSearchMetadata multipleSelectSearchMetaData:
                     builder.AddMultipleSelectSearchComponent(item, multipleSelectSearchMetaData);
                     break;
-                case SelectSearchMetadata1 selectSearchMetaData:
+                case SelectSearchMetadata selectSearchMetaData:
                     builder.AddSelectSearchComponent(item, selectSearchMetaData);
                     break;
                 case StringSearchMetadata1 stringSearchMetaData:
@@ -113,7 +113,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddNumberSearchComponent(ISearchItem item, NumberSearchMetadata1 numberSearchMetaData)
+        private void AddNumberSearchComponent(ISearchItem item, NumberSearchMetadata numberSearchMetaData)
         {
             if (item.ShowLabel ?? true)
             {
@@ -149,7 +149,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddSelectSearchComponent(ISearchItem item, SelectSearchMetadata1 selectSearchMetaData)
+        private void AddSelectSearchComponent(ISearchItem item, SelectSearchMetadata selectSearchMetaData)
         {
             builder.OpenComponent<Select<string>>(0);
             builder.AddAttribute(10, nameof(Select<>.Value), selectSearchMetaData.Value);
@@ -163,7 +163,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddMultipleSelectSearchComponent(ISearchItem item, MultipleSelectSearchMetadata1 multipleSelectSearchMetaData)
+        private void AddMultipleSelectSearchComponent(ISearchItem item, MultipleSelectSearchMetadata multipleSelectSearchMetaData)
         {
             builder.OpenComponent<MultiSelect<string>>(0);
             builder.AddAttribute(10, nameof(MultiSelect<>.Value), multipleSelectSearchMetaData.Value);
@@ -177,7 +177,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddCheckboxListSearchComponent(ISearchItem item, CheckboxListSearchMetadata1 checkboxListSearchMetaData)
+        private void AddCheckboxListSearchComponent(ISearchItem item, CheckboxListSearchMetadata checkboxListSearchMetaData)
         {
             builder.OpenComponent<CheckboxList<string>>(0);
             builder.AddAttribute(10, nameof(CheckboxList<>.Value), checkboxListSearchMetaData.Value);
@@ -190,7 +190,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddDateTimeRangeSearchComponent(ISearchItem item, DateTimeRangeSearchMetadata1 datetimeRangeSearchMetaData)
+        private void AddDateTimeRangeSearchComponent(ISearchItem item, DateTimeRangeSearchMetadata datetimeRangeSearchMetaData)
         {
             builder.OpenComponent<DateTimeRange>(0);
             builder.AddAttribute(10, nameof(DateTimeRange.Value), datetimeRangeSearchMetaData.Value);
@@ -202,7 +202,7 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddDateTimeSearchComponent(ISearchItem item, DateTimeSearchMetadata1 datetimeSearchMetaData)
+        private void AddDateTimeSearchComponent(ISearchItem item, DateTimeSearchMetadata datetimeSearchMetaData)
         {
             builder.OpenComponent<DateTimePicker<DateTime?>>(0);
             builder.AddAttribute(10, nameof(DateTimePicker<>.Value), datetimeSearchMetaData.Value);

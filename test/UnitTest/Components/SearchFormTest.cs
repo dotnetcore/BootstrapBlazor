@@ -171,27 +171,27 @@ public class SearchFormTest : BootstrapBlazorTestBase
             {
                 new SearchItem(nameof(Foo.Count), typeof(string), nameof(Foo.Count))
                 {
-                    MetaData = new NumberSearchMetadata1()
+                    MetaData = new NumberSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
                 {
-                    MetaData = new DateTimeSearchMetadata1()
+                    MetaData = new DateTimeSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
                 {
-                    MetaData = new DateTimeRangeSearchMetadata1()
+                    MetaData = new DateTimeRangeSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new SelectSearchMetadata1()
+                    MetaData = new SelectSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new MultipleSelectSearchMetadata1()
+                    MetaData = new MultipleSelectSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new CheckboxListSearchMetadata1()
+                    MetaData = new CheckboxListSearchMetadata()
                 }
             });
         });
@@ -216,7 +216,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(EnumEducation));
 
         item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<SelectSearchMetadata1>(item.MetaData);
+        Assert.IsType<SelectSearchMetadata>(item.MetaData);
         item.Reset();
     }
 
@@ -227,7 +227,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(int));
 
         item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<NumberSearchMetadata1>(item.MetaData);
+        Assert.IsType<NumberSearchMetadata>(item.MetaData);
         item.Reset();
     }
 
@@ -238,7 +238,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(bool));
 
         item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<SelectSearchMetadata1>(item.MetaData);
+        Assert.IsType<SelectSearchMetadata>(item.MetaData);
         item.Reset();
     }
 
@@ -249,16 +249,16 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var item = new SearchItem("Name", typeof(DateTime));
 
         item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<DateTimeRangeSearchMetadata1>(item.MetaData);
+        Assert.IsType<DateTimeRangeSearchMetadata>(item.MetaData);
         item.Reset();
     }
 
     [Fact]
     public void BuildSearchMetaData_DateTime_Ok()
     {
-        var item = new SearchItem("Name", typeof(DateTime)) { MetaData = new DateTimeSearchMetadata1() };
+        var item = new SearchItem("Name", typeof(DateTime)) { MetaData = new DateTimeSearchMetadata() };
 
-        Assert.IsType<DateTimeSearchMetadata1>(item.MetaData);
+        Assert.IsType<DateTimeSearchMetadata>(item.MetaData);
         item.Reset();
     }
 

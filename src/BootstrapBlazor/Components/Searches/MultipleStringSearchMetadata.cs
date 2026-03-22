@@ -9,10 +9,10 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">多个字符串搜索元数据类</para>
 /// <para lang="en">Multiple string search meta data class</para>
 /// </summary>
-public class MultipleStringSearchMetadata1 : StringSearchMetadata1
+public class MultipleStringSearchMetadata : StringSearchMetadata1
 {
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetadata1.GetFilter(string)"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata.GetFilter(string)"/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {

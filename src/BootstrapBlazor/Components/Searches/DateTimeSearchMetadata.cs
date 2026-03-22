@@ -6,19 +6,19 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">字符串搜索元数据类</para>
-/// <para lang="en">String search meta data class</para>
+/// <para lang="zh">时间搜索元数据类</para>
+/// <para lang="en">DateTime search meta data class</para>
 /// </summary>
-public class StringSearchMetadata1 : SearchMetadataBase1
+public class DateTimeSearchMetadata : SearchMetadataBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>
-    /// <para lang="en">Gets or sets the search value</para>
+    /// <para lang="en">Gets or sets the search start value</para>
     /// </summary>
-    public string? Value { get; set; }
+    public DateTime? Value { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetadata1.GetFilter(string)"/>
+    /// <inheritdoc/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {
@@ -28,7 +28,7 @@ public class StringSearchMetadata1 : SearchMetadataBase1
             return GetFilterCallback(Value);
         }
 
-        if (string.IsNullOrEmpty(Value))
+        if (Value == null)
         {
             return null;
         }
@@ -47,9 +47,9 @@ public class StringSearchMetadata1 : SearchMetadataBase1
     /// <para lang="en">Search value changed event handler</para>
     /// </summary>
     /// <param name="value"></param>
-    public async Task ValueChangedHandler(string? value)
+    public async Task ValueChangedHandler(DateTime? value)
     {
-        Value = string.IsNullOrEmpty(value) ? null : value;
+        Value = value;
 
         if (ValueChanged != null)
         {

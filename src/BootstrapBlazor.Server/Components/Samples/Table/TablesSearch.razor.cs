@@ -44,13 +44,13 @@ public partial class TablesSearch
         set => SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
     }
 
-    private ISearchFormItemMetadata1 _nameSearchFormItemMetaData = new StringSearchMetadata1()
+    private ISearchFormItemMetadata _nameSearchFormItemMetaData = new StringSearchMetadata1()
     {
         PlaceHolder = "请输入名称搜索（支持模糊匹配）",
         FilterAction = FilterAction.Contains,
     };
 
-    private ISearchFormItemMetadata1 _addressSearchFormItemMetaData = new StringSearchMetadata1()
+    private ISearchFormItemMetadata _addressSearchFormItemMetaData = new StringSearchMetadata1()
     {
         PlaceHolder = "请输入地址搜索（支持模糊匹配）",
         FilterAction = FilterAction.Contains,

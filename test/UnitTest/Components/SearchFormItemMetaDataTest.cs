@@ -69,7 +69,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public void MultipleStringSearchFormItemMetaData_Ok()
     {
-        var meta = new MultipleStringSearchMetadata1();
+        var meta = new MultipleStringSearchMetadata();
         var action = meta.GetFilter("fieldKey");
         Assert.Null(action);
 
@@ -105,7 +105,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public void SelectSearchFormItemMetaData_Ok()
     {
-        var meta = new SelectSearchMetadata1()
+        var meta = new SelectSearchMetadata()
         {
             Items = new List<SelectedItem>()
             {
@@ -127,7 +127,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public void MultipleSelectSearchFormItemMetaData_Ok()
     {
-        var meta = new MultipleSelectSearchMetadata1()
+        var meta = new MultipleSelectSearchMetadata()
         {
             Items = new List<SelectedItem>()
             {
@@ -170,7 +170,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public async Task NumberSearchFormItemMetaData_Ok()
     {
-        var meta = new NumberSearchMetadata1()
+        var meta = new NumberSearchMetadata()
         {
             StartValue = "10",
             StartValueLabelText = "Start",
@@ -258,7 +258,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public void NumberSearchFormItemMetaData_ValueType()
     {
-        var meta = new NumberSearchMetadata1()
+        var meta = new NumberSearchMetadata()
         {
             StartValue = "10",
             EndValue = "20",
@@ -279,7 +279,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public async Task DateTimeSearchFormItemMetaData_Ok()
     {
-        var meta = new DateTimeSearchMetadata1();
+        var meta = new DateTimeSearchMetadata();
 
         var valueChanged = false;
         meta.ValueChanged = () =>
@@ -318,7 +318,7 @@ public class SearchFormItemMetaDataTest
     [Fact]
     public async Task DateTimeRangeSearchFormItemMetaData_Ok()
     {
-        var meta = new DateTimeRangeSearchMetadata1();
+        var meta = new DateTimeRangeSearchMetadata();
 
         var valueChanged = false;
         meta.ValueChanged = () =>

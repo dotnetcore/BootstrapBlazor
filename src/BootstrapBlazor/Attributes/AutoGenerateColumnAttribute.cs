@@ -180,7 +180,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
 
     bool? ITableColumn.Searchable { get => Searchable; set => Searchable = value ?? false; }
 
-    ISearchFormItemMetadata1? ITableColumn.SearchFormItemMetaData { get; set; }
+    ISearchFormItemMetadata? ITableColumn.SearchFormItemMetaData { get; set; }
 
     bool? ITableColumn.Filterable { get => Filterable; set => Filterable = value ?? false; }
 

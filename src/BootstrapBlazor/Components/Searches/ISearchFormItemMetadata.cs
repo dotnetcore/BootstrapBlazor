@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">搜索元数据接口</para>
 /// <para lang="en">Search metadata interface</para>
 /// </summary>
-public interface ISearchFormItemMetadata1
+public interface ISearchFormItemMetadata
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值变化回调</para>
