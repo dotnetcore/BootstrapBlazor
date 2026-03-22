@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -90,6 +92,10 @@ public partial class SearchForm : IShowLabel
     [Parameter]
     public EditorFormGroupType GroupType { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SearchFormLocalizerOptions>? SearchFormLocalizer { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-editor bb-search-form")
         .AddClass("bb-editor-group-row-header", GroupType == EditorFormGroupType.RowHeader)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -122,44 +128,38 @@ public partial class SearchForm : IShowLabel
         Items ??= [];
     }
 
-    /// <summary>
-    /// <para lang="zh">获得当前搜索表单过滤结果</para>
-    /// <para lang="en">Gets the current search form filter result</para> 
-    /// </summary>
-    public FilterKeyValueAction GetFilterKeyValueAction()
-    {
-        var action = new FilterKeyValueAction()
-        {
-            Filters = []
-        };
-
-        foreach (var item in Items)
-        {
-            var filter = item.GetFilter();
-            if (filter != null)
-            {
-                action.Filters.Add(filter);
-            }
-        }
-
-        return action;
-    }
-
     private RenderFragment AutoGenerateTemplate(ISearchItem item)
     {
-        item.ShowLabel ??= ShowLabel;
+        item.ShowLabel ??= ShowLabel ?? true;
         item.ShowLabelTooltip ??= ShowLabelTooltip;
+        item.MetaData ??= item.BuildSearchMetaData(GetSearchOptions());
         item.MetaData?.ValueChanged ??= async () =>
         {
-            var action = GetFilterKeyValueAction();
-
             if (OnChanged != null)
             {
-                await OnChanged.Invoke(action);
+                var filter = Items.ToFilter();
+                await OnChanged.Invoke(filter);
             }
         };
 
         return item.CreateRenderFragment();
+    }
+
+    private SearchFormLocalizerOptions? _options;
+
+    private SearchFormLocalizerOptions GetSearchOptions()
+    {
+        _options ??= new SearchFormLocalizerOptions()
+        {
+            SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+            BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+            BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+            BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+            NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+            NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+        };
+
+        return _options.Value;
     }
 
     private string? GetCssString(ISearchItem item)
