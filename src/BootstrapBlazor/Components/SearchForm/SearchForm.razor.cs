@@ -92,6 +92,13 @@ public partial class SearchForm : IShowLabel
     [Parameter]
     public EditorFormGroupType GroupType { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SearchFormLocalizerOptions>? SearchFormLocalizer { get; set; }
@@ -149,7 +156,7 @@ public partial class SearchForm : IShowLabel
 
     private SearchFormLocalizerOptions GetSearchOptions()
     {
-        _options ??= new SearchFormLocalizerOptions()
+        _options ??= SearchFormLocalizerOptions ?? new SearchFormLocalizerOptions()
         {
             SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
             BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],

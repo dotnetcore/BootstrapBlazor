@@ -70,7 +70,8 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
             [nameof(SearchDialog<TModel>.UseSearchForm)] = option.UseSearchForm,
             [nameof(SearchDialog<TModel>.SearchItems)] = option.SearchItems,
-            [nameof(SearchDialog<TModel>.OnChanged)] = option.OnFilterChanged
+            [nameof(SearchDialog<TModel>.OnChanged)] = option.OnFilterChanged,
+            [nameof(SearchDialog<TModel>.SearchFormLocalizerOptions)] = option.SearchFormLocalizerOptions
         };
         option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
         await service.Show(option, dialog);

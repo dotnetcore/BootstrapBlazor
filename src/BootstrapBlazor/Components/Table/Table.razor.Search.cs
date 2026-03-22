@@ -224,6 +224,7 @@ public partial class Table<TItem>
             _searchFilter = null;
             _advanceSearchFilter = null;
 
+            // 重置 SearchItems 中的搜索条件值
             if (_searchItems != null)
             {
                 foreach (var item in _searchItems)
@@ -343,6 +344,7 @@ public partial class Table<TItem>
             IsDraggable = SearchDialogIsDraggable,
             ShowMaximizeButton = SearchDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            SearchFormLocalizerOptions = SearchFormLocalizerOptions,
             UseSearchForm = true,
             SearchItems = SearchFormItems,
             OnFilterChanged = action =>

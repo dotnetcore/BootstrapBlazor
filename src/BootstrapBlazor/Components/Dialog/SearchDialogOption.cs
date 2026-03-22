@@ -110,4 +110,10 @@ public class SearchDialogOption<TModel> : DialogOption
     /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
     /// </summary>
     public Func<FilterKeyValueAction, Task>? OnFilterChanged { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
 }

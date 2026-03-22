@@ -80,6 +80,13 @@ public partial class SearchDialog<TModel>
     [Parameter]
     public Func<FilterKeyValueAction, Task>? OnChanged { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SearchDialog<TModel>>? Localizer { get; set; }
