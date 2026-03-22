@@ -149,7 +149,7 @@ public partial class SearchForm : IShowLabel
             }
         };
 
-        return item.CreateRenderFragment();
+        return item.CreateSearchItemComponentByMetadata();
     }
 
     private SearchFormLocalizerOptions? _options;
