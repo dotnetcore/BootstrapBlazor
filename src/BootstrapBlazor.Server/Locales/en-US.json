@@ -5066,6 +5066,7 @@
     "NamePlaceholder": "Please enter your name within 50 characters",
     "SearchFormDesc": "When <code>UseSearchForm</code> is enabled and <code>SearchItems</code> is not provided, it will default to using <code>TableColumn</code> with <code>Searchable=\"true\"</code>. You can customize the metadata through the <code>SearchFormItemMetaData</code> property in <code>TableColumn</code>",
     "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
+    "SearchFormTips": "Enabling <code>UseSearchForm</code> will prevent <code>SearchTemplate</code>, <code>CustomerSearchModel</code>, and <code>CustomerSearchTemplate</code> from taking effect.",
     "SearchFormTitle": "Search Form",
     "SearchTableGroupBoxText": "Search Criteria",
     "SearchTableIntro": "Set <code>ShowSearch</code> to display the query component, customize the search UI by setting the <code>SearchTemplate</code> template",
