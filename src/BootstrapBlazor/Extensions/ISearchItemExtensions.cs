@@ -65,12 +65,17 @@ public static class ISearchItemExtensions
         }
 
         /// <summary>
-        /// <para lang="zh">创建 搜索项的 RenderFragment 实例</para>
-        /// <para lang="en">Creates a RenderFragment instance for the search item</para>
+        /// <para lang="zh">通过 SearchItem 实例 Metadata 创建搜索项 UI 方法</para>
+        /// <para lang="en">Creates a search item UI method through the SearchItem instance Metadata</para>
         /// </summary>
         public RenderFragment CreateSearchItemComponentByMetadata() => builder =>
         {
             var metaData = item.Metadata;
+            if (metaData == null)
+            {
+                return;
+            }
+
             switch (metaData)
             {
                 case NumberSearchMetadata numberSearchMetadata:
@@ -93,6 +98,10 @@ public static class ISearchItemExtensions
                     break;
                 case StringSearchMetadata stringSearchMetadata:
                     builder.AddStringSearchComponent(item, stringSearchMetadata);
+                    break;
+                default:
+                    // 不是内置 Metadata 类型，直接渲染 Metadata 中的 RenderFragment
+                    builder.AddContent(0, metaData.RenderFragment);
                     break;
             }
         };
