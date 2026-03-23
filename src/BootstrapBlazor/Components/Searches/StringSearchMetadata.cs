@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">字符串搜索元数据类</para>
 /// <para lang="en">String search meta data class</para>
 /// </summary>
-public class StringSearchMetadata : SearchMetadataBase
+public class StringSearchMetadata : SearchFormItemMetadataBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>

@@ -58,4 +58,11 @@ public interface ISearchFormItemMetadata
     /// <para lang="en">Reset method</para>
     /// </summary>
     void Reset();
+
+    /// <summary>
+    /// <para lang="zh">渲染自定义内容方法</para>
+    /// <para lang="en">Render custom content method</para>
+    /// </summary>
+    /// <returns></returns>
+    RenderFragment? RenderContent();
 }

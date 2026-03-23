@@ -1100,7 +1100,9 @@
             <BodyTemplate>
                 @if (UseSearchForm)
                 {
-                    <SearchForm Items="SearchFormItems"
+                    <SearchForm Items="SearchFormItems" RowType="SearchDialogRowType" ItemsPerRow="SearchDialogItemsPerRow"
+                                LabelAlign="SearchDialogLabelAlign" ShowLabel="true" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
+                                SearchFormLocalizerOptions="SearchFormLocalizerOptions"
                                 OnChanged="OnSearchFormFilterChanged">
                     </SearchForm>
                 }

@@ -35,4 +35,20 @@ internal static class IStringLocalizerExtensions
         }
         return ret;
     }
+
+    /// <summary>
+    /// <para lang="zh">通过资源文件获取 SearchFormLocalizerOptions 实例</para>
+    /// <para lang="en">Get the SearchFormLocalizerOptions instance from the resource file</para>
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static SearchFormLocalizerOptions GetSearchFormLocalizerOptions(this IStringLocalizer<SearchFormLocalizerOptions> localizer) => new SearchFormLocalizerOptions()
+    {
+        SelectAllText = localizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+        BooleanAllText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+        BooleanTrueText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+        BooleanFalseText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+        NumberStartValueLabelText = localizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+        NumberEndValueLabelText = localizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+    };
 }

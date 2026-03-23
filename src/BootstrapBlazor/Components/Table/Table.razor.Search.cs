@@ -185,15 +185,7 @@ public partial class Table<TItem>
 
         if (SearchFormLocalizerOptions is null)
         {
-            SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
-            {
-                SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
-                BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
-                BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
-                BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
-                NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
-                NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
-            };
+            SearchFormLocalizerOptions = SearchFormLocalizer.GetSearchFormLocalizerOptions();
         }
         return GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
     }

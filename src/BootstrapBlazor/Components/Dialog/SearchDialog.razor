@@ -4,8 +4,10 @@
 
 @if (UseSearchForm)
 {
-    <SearchForm Items="SearchItems" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
-                SearchFormLocalizerOptions="SearchFormLocalizerOptions" OnChanged="OnSearchFormFilterChanged">
+    <SearchForm Items="SearchItems" RowType="RowType" ItemsPerRow="ItemsPerRow"
+                LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
+                SearchFormLocalizerOptions="SearchFormLocalizerOptions"
+                OnChanged="OnSearchFormFilterChanged">
         <Buttons>
             @RenderButtons
         </Buttons>
