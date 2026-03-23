@@ -40,7 +40,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="zh">负责将 DataRow 与 Items 关联起来方便查找提高效率</para>
     /// <para lang="en">Responsible for associating DataRow with Items to facilitate lookup and improve efficiency</para>
     /// </summary>
-    private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> Caches { get; } = new();
+    private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> _dataCache = new();
 
     /// <summary>
     /// <para lang="zh">添加行回调委托</para>
@@ -136,7 +136,7 @@ public class DataTableDynamicContext : DynamicObjectContext
 
     private List<IDynamicObject> BuildItems()
     {
-        Caches.Clear();
+        _dataCache.Clear();
         var ret = new List<IDynamicObject>();
         foreach (DataRow row in DataTable.Rows)
         {
@@ -155,7 +155,7 @@ public class DataTableDynamicContext : DynamicObjectContext
 
                     d.Row = row;
                     d.DynamicObjectPrimaryKey = Guid.NewGuid();
-                    Caches.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
+                    _dataCache.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
                     ret.Add(d);
                 }
             }
@@ -203,7 +203,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             var indexOfRow = 0;
             var item = selectedItems.FirstOrDefault();
 
-            if (item != null && Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var c))
+            if (item != null && _dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var c))
             {
                 indexOfRow = DataTable.Rows.IndexOf(c.Row);
             }
@@ -232,7 +232,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             Items?.Insert(indexOfRow, dynamicObject);
 
             // 缓存更新数据
-            Caches.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
+            _dataCache.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
         }
     }
 
@@ -252,7 +252,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             var changed = false;
             foreach (var item in items)
             {
-                if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var row))
+                if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var row))
                 {
                     changed = true;
 
@@ -260,7 +260,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                     DataTable.Rows.Remove(row.Row);
 
                     // 清理缓存
-                    Caches.TryRemove(item.DynamicObjectPrimaryKey, out _);
+                    _dataCache.TryRemove(item.DynamicObjectPrimaryKey, out _);
 
                     // 清理 Table 组件数据源
                     Items?.Remove(item);
@@ -289,7 +289,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     private Task OnCellValueChanged(IDynamicObject item, ITableColumn column, object? val)
     {
         // 更新内部 DataRow
-        if (Caches.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
+        if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
         {
             cacheItem.Row[column.GetFieldName()] = val;
             Items = null;
