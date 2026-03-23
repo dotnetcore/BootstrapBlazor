@@ -5070,6 +5070,7 @@
     "SearchFormIntro": "通过设置 <code>UseSearchForm=\"true\"</code> 开启搜索表单功能，通过 <code>SearchItems</code> 配置搜索表单内搜索项，适用于自定义复杂搜索条件的场景",
     "SearchFormTips": "开启 <code>UseSearchForm</code> 后 <code>SearchModel</code> <code>SearchTemplate</code> <code>CustomerSearchModel</code> <code>CustomerSearchTemplate</code> 均不生效",
     "SearchFormTitle": "搜索表单",
+    "SearchFormWarningTips": "<code>BootstrapBlazor</code> v10.4.2 版本后增加 <code>UseSearchForm</code> 参数后以下示例均可以不学习了，强烈推荐使用 <code>UseSearchForm</code>",
     "SearchTableGroupBoxText": "搜索条件",
     "SearchTableIntro": "设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI",
     "SearchTableLi1": "通过设置 <code>ShowEmpty=\"true\"</code> 开启无数据显示功能",

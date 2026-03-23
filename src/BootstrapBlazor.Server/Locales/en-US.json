@@ -5070,6 +5070,7 @@
     "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
     "SearchFormTips": "Enabling <code>UseSearchForm</code> will prevent <code>SearchModel</code> <code>SearchTemplate</code>, <code>CustomerSearchModel</code>, and <code>CustomerSearchTemplate</code> from taking effect.",
     "SearchFormTitle": "Search Form",
+    "SearchFormWarningTips": "<code>BootstrapBlazor</code> v10.4.2 introduced the <code>UseSearchForm</code> parameter, making the following examples obsolete. It is strongly recommended to use <code>UseSearchForm</code>.",
     "SearchTableGroupBoxText": "Search Criteria",
     "SearchTableIntro": "Set <code>ShowSearch</code> to display the query component, customize the search UI by setting the <code>SearchTemplate</code> template",
     "SearchTableLi1": "Enable no data display function by setting <code>ShowEmpty=\"true\"</code>",
