@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .datetime-range {
     --bb-dt-range-bar-color: #{$bb-dt-range-bar-color};
@@ -83,6 +83,11 @@
         &:hover {
             color: inherit;
         }
+    }
+}
+@media (max-width: 768px) {
+    .range-panel-body {
+        flex-direction:column;
     }
 }
 

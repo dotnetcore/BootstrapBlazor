@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
@@ -179,8 +179,8 @@
     }
     @if (ShowFooter)
     {
-        <div class="picker-panel-footer">
-            <div class="flex-fill">
+        <div class="picker-panel-footer justify-content-between">
+            <div>
                 @if (ShowClearButton)
                 {
                     <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickClearButton">
