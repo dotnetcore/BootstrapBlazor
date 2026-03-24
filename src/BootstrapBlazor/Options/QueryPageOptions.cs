@@ -85,37 +85,13 @@ public class QueryPageOptions
     /// <para lang="zh">获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合</para>
     /// <para lang="en">Get IFilterAction collection assembled by <see cref="ITableColumn.Searchable"/> columns in column collection and <see cref="SearchText"/></para>
     /// </summary>
-    [Obsolete("This property is obsolete. Use Searches instead. 已过期，请使用 Searches 参数")]
-    [ExcludeFromCodeCoverage]
-    public List<IFilterAction> Searchs => Searches;
-
-    /// <summary>
-    /// <para lang="zh">获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合</para>
-    /// <para lang="en">Get IFilterAction collection assembled by <see cref="ITableColumn.Searchable"/> columns in column collection and <see cref="SearchText"/></para>
-    /// </summary>
     public List<IFilterAction> Searches { get; } = new(20);
-
-    /// <summary>
-    /// <para lang="zh">获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得</para>
-    /// <para lang="en">Gets <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> template中的条件请使用 <see cref="AdvanceSearches" />Gets</para>
-    /// </summary>
-    [Obsolete("This property is obsolete. Use CustomerSearches instead. 已过期，请使用 CustomerSearches 参数")]
-    [ExcludeFromCodeCoverage]
-    public List<IFilterAction> CustomerSearchs => CustomerSearches;
 
     /// <summary>
     /// <para lang="zh">获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得</para>
     /// <para lang="en">Get filter conditions in <see cref="Table{TItem}.CustomerSearchModel"/> please use <see cref="AdvanceSearches" /> to get conditions in <see cref="Table{TItem}.SearchTemplate"/> template</para>
     /// </summary>
     public List<IFilterAction> CustomerSearches { get; } = new(20);
-
-    /// <summary>
-    /// <para lang="zh">获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件</para>
-    /// <para lang="en">Get filter conditions in <see cref="Table{TItem}.SearchModel"/></para>
-    /// </summary>
-    [Obsolete("This property is obsolete. Use AdvanceSearches instead. 已过期，请使用 AdvanceSearches 参数")]
-    [ExcludeFromCodeCoverage]
-    public List<IFilterAction> AdvanceSearchs => AdvanceSearches;
 
     /// <summary>
     /// <para lang="zh">获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件</para>
@@ -128,15 +104,6 @@ public class QueryPageOptions
     /// <para lang="en">Get filter condition collection equivalent to <see cref="Table{TItem}.Filters"/> value</para>
     /// </summary>
     public List<IFilterAction> Filters { get; } = new(20);
-
-    /// <summary>
-    /// <para lang="zh">获得 是否为首次查询 默认 false</para>
-    /// <para lang="en">Get whether is first query default false</para>
-    /// </summary>
-    /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
-    [Obsolete("This property is obsolete. Use IsFirstQuery. 已弃用单词拼写错误，请使用 IsFirstQuery")]
-    [ExcludeFromCodeCoverage]
-    public bool IsFristQuery { get => IsFirstQuery; set => IsFirstQuery = value; }
 
     /// <summary>
     /// <para lang="zh">获得 是否为首次查询 默认 false</para>

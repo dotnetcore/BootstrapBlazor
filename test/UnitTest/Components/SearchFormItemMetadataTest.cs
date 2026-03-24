@@ -107,6 +107,7 @@ public class SearchFormItemMetadataTest
     {
         var meta = new SelectSearchMetadata()
         {
+            ShowSearch = true,
             Items = new List<SelectedItem>()
             {
                 new SelectedItem("v1", "v1"),

@@ -12,6 +12,12 @@ namespace BootstrapBlazor.Components;
 public class SelectSearchMetadata : StringSearchMetadata
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示搜索框 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets a value indicating whether to show the search box. Default is false.</para>
+    /// </summary>
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 选择项集合</para>
     /// <para lang="en">Gets or sets the collection of select items</para>
     /// </summary>

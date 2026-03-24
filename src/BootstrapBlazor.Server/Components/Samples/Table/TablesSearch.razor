@@ -16,6 +16,10 @@
            Name="SearchForm">
     <section ignore>
         <p>@((MarkupString)Localizer["SearchFormDesc"].Value)</p>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["SearchFormDescItem1"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormDescItem2"].Value)</li>
+        </ul>
         <div>@((MarkupString)Localizer["SearchFormTips"].Value)</div>
     </section>
     <Table TItem="Foo"
@@ -81,6 +85,10 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+
+<Tips class="mt-3">
+    <div>@((MarkupString)Localizer["SearchFormWarningTips"].Value)</div>
+</Tips>
 
 <DemoBlock Title="@Localizer["SearchTableTitle"]"
            Introduction="@Localizer["SearchTableIntro"]"
