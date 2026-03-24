@@ -40,7 +40,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="zh">负责将 DataRow 与 Items 关联起来方便查找提高效率</para>
     /// <para lang="en">Responsible for associating DataRow with Items to facilitate lookup and improve efficiency</para>
     /// </summary>
-    private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> _dataCache = new();
+    private readonly ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> _dataCache = new();
 
     /// <summary>
     /// <para lang="zh">添加行回调委托</para>
