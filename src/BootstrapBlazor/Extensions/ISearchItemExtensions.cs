@@ -160,6 +160,7 @@ public static class ISearchItemExtensions
             builder.AddAttribute(60, nameof(Select<>.Items), selectSearchMetadata.Items);
             builder.AddAttribute(70, nameof(Select<>.PlaceHolder), selectSearchMetadata.PlaceHolder);
             builder.AddAttribute(80, nameof(Select<>.SkipValidate), true);
+            builder.AddAttribute(90, nameof(Select<>.ShowSearch), selectSearchMetadata.ShowSearch);
             builder.CloseComponent();
         }
 
