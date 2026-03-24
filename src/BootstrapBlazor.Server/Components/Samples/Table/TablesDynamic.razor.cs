@@ -47,6 +47,8 @@ public partial class TablesDynamic
         DataTableDynamicContext = new DataTableDynamicContext(UserData, (context, col) =>
         {
             var propertyName = col.GetFieldName();
+            // 使用 Text 设置显示名称示例
+            col.Text = FooLocalizer[propertyName];
             if (propertyName == nameof(Foo.DateTime))
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
@@ -56,8 +58,6 @@ public partial class TablesDynamic
             else if (propertyName == nameof(Foo.Name))
             {
                 context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
-                // 使用 Text 设置显示名称示例
-                col.Text = FooLocalizer[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
