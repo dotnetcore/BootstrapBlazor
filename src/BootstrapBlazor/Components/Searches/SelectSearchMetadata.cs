@@ -35,4 +35,10 @@ public class SelectSearchMetadata : StringSearchMetadata
     /// </summary>
     /// <returns></returns>
     public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否使用 Popover 渲染下拉框 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to use Popover to render dropdown. Default false</para>
+    /// </summary>
+    public bool IsPopover { get; set; }
 }
