@@ -161,6 +161,9 @@ public static class ISearchItemExtensions
             builder.AddAttribute(70, nameof(Select<>.PlaceHolder), selectSearchMetadata.PlaceHolder);
             builder.AddAttribute(80, nameof(Select<>.SkipValidate), true);
             builder.AddAttribute(90, nameof(Select<>.ShowSearch), selectSearchMetadata.ShowSearch);
+            builder.AddAttribute(100, nameof(Select<>.OnSearchTextChanged), selectSearchMetadata.OnSearchTextChanged);
+            builder.AddAttribute(110, nameof(Select<>.ItemTemplate), selectSearchMetadata.ItemTemplate);
+            builder.AddAttribute(120, nameof(Select<>.IsPopover), true);
             builder.CloseComponent();
         }
 
