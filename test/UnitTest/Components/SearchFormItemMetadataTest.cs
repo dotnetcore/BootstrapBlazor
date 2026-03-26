@@ -108,6 +108,12 @@ public class SearchFormItemMetadataTest
         var meta = new SelectSearchMetadata()
         {
             ShowSearch = true,
+            IsPopover = true,
+            OnSearchTextChanged = key => [],
+            ItemTemplate = item => builder =>
+            {
+                builder.AddContent(0, item.Text);
+            },
             Items = new List<SelectedItem>()
             {
                 new SelectedItem("v1", "v1"),
