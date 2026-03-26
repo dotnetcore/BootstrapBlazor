@@ -20,7 +20,30 @@
             <li>@((MarkupString)Localizer["SearchFormDescItem1"].Value)</li>
             <li>@((MarkupString)Localizer["SearchFormDescItem2"].Value)</li>
         </ul>
-        <div>@((MarkupString)Localizer["SearchFormTips"].Value)</div>
+        <p>@((MarkupString)Localizer["SearchFormTips"].Value)</p>
+        <p>@((MarkupString)Localizer["SearchFormItemMetadataListDesc"].Value)</p>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP1"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP2"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP3"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP4"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP5"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP6"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP7"].Value)</li>
+            <li>@((MarkupString)Localizer["SearchFormItemMetadataListP8"].Value)</li>
+        </ul>
+        <p>@((MarkupString)Localizer["SearchFormItemMetadataCustom"].Value)</p>
+        <Pre>public class CustomSelectTableSearchMetadata : StringSearchMetadata
+{
+    public override RenderFragment? RenderContent() => builder =>
+    {
+        builder.OpenComponent&lt;SelectTable&lt;string&gt;&gt;(0);
+        builder.AddAttribute(10, nameof(SelectTable&lt;&gt;.Value), Value);
+        builder.AddAttribute(20, nameof(SelectTable&lt;&gt;.OnValueChanged), ValueChangedHandler);
+        // ...
+        builder.CloseComponent();
+    };
+}</Pre>
     </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
