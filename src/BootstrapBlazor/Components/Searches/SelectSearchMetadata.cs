@@ -18,6 +18,18 @@ public class SelectSearchMetadata : StringSearchMetadata
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 搜索文本改变时的回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when the search text changes</para>
+    /// </summary>
+    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 项目模板</para>
+    /// <para lang="en">Gets or sets the item template</para>
+    /// </summary>
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 选择项集合</para>
     /// <para lang="en">Gets or sets the collection of select items</para>
     /// </summary>
