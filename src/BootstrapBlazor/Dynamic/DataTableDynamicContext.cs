@@ -80,7 +80,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         var cols = InternalGetColumns();
 
         // Emit 生成动态类
-        DynamicObjectType = CreateType();
+        DynamicObjectType = GetOrCreateType();
 
         // 获得显示列
         Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
@@ -88,19 +88,19 @@ public class DataTableDynamicContext : DynamicObjectContext
         OnValueChanged = OnCellValueChanged;
 
         [ExcludeFromCodeCoverage]
-        Type CreateType()
+        Type GetOrCreateType()
         {
             // Emit 生成动态类 (使用缓存)
             var columnNames = string.Join('|', table.Columns.Cast<DataColumn>().Select(static c => $"{c.ColumnName}:{c.DataType.FullName}"));
             var cacheKey = $"BootstrapBlazor-{nameof(DataTableDynamicContext)}-{columnNames}";
-            var dynamicType = CacheManager.GetDynamicObjectTypeByName(cacheKey, cols, OnColumnCreating, out var cached);
+            var dynamicType = CacheManager.GetOrCreateDynamicObjectTypeByName(cacheKey, cols, OnColumnCreating, out var cached);
 
             // 缓存命中时仍需调用回调以处理列属性
-            if (cached && AddAttributesCallback != null)
+            if (!cached && AddAttributesCallback != null)
             {
                 foreach (var col in cols)
                 {
-                    AddAttributesCallback?.Invoke(this, col);
+                    AddAttributesCallback(this, col);
                 }
             }
 

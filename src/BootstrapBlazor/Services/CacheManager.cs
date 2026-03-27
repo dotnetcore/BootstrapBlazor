@@ -766,7 +766,7 @@ internal class CacheManager : ICacheManager
     private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter) => new(v => formatter(v));
     #endregion
 
-    internal static Type? GetDynamicObjectTypeByName(string key, IEnumerable<ITableColumn> cols, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback, out bool cached)
+    internal static Type? GetOrCreateDynamicObjectTypeByName(string key, IEnumerable<ITableColumn> cols, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback, out bool cached)
     {
         var created = false;
         var type = Instance.GetOrCreate(key, _ =>
@@ -776,7 +776,7 @@ internal class CacheManager : ICacheManager
         });
 
         // 是否从缓存中获取到的值
-        cached = !created;
+        cached = created;
         return type;
     }
 }

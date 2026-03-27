@@ -33,24 +33,31 @@ public static class EmitHelper
     /// </param>
     public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
     {
-        var typeBuilder = CreateTypeBuilderByName(typeName, parent);
-
-        foreach (var col in cols)
+        var moduleBuilder = _moduleBuilderLazy.Value;
+        var type = moduleBuilder.GetType(typeName);
+        if (type != null)
         {
-            var attributeBuilds = creatingCallback?.Invoke(col);
-            typeBuilder.CreateProperty(col, attributeBuilds);
+            return type;
+        }
+
+        var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Public, parent);
+        if (creatingCallback != null)
+        {
+            foreach (var col in cols)
+            {
+                var attributeBuilds = creatingCallback(col);
+                typeBuilder.CreateProperty(col, attributeBuilds);
+            }
         }
         return typeBuilder.CreateType();
     }
 
-    private static TypeBuilder CreateTypeBuilderByName(string typeName, Type? parent = null)
+    private static Lazy<ModuleBuilder> _moduleBuilderLazy = new Lazy<ModuleBuilder>(() =>
     {
         var assemblyName = new AssemblyName("BootstrapBlazor_DynamicAssembly");
         var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
-        var moduleBuilder = assemblyBuilder.DefineDynamicModule("BootstrapBlazor_DynamicAssembly_Module");
-        var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Public, parent);
-        return typeBuilder;
-    }
+        return assemblyBuilder.DefineDynamicModule("BootstrapBlazor_DynamicAssembly_Module");
+    });
 
     private static void CreateProperty(this TypeBuilder typeBuilder, IEditorItem col, IEnumerable<CustomAttributeBuilder>? attributeBuilds = null) => CreateProperty(typeBuilder, col.GetFieldName(), col.PropertyType, attributeBuilds);
 
