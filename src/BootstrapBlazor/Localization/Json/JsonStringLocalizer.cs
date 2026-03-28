@@ -108,7 +108,9 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
 
     /// <summary>
-    /// 清除缓存方法
+    /// <para lang="zh">清除缓存方法</para>
+    /// <para lang="en">Reset cache method</para>
+    /// <para>v<version>10.5.0</version></para> 
     /// </summary>
     public void ResetMissingMainifestCache() => _missingManifestCache.Clear();
 

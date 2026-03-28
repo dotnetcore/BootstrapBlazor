@@ -116,7 +116,9 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     }
 
     /// <summary>
-    /// 重置方法
+    /// <para lang="zh">清除缓存方法</para>
+    /// <para lang="en">Reset cache method</para>
+    /// <para>v<version>10.5.0</version></para> 
     /// </summary>
     public void Reset()
     {
