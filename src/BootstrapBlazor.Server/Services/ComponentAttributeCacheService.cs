@@ -119,10 +119,10 @@ public static class ComponentAttributeCacheService
     /// </summary>
     private static string? GetVersion(XDocument? xmlDoc, PropertyInfo property)
     {
-        if (xmlDoc == null) return null;
-
         var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
-        var memberElement = xmlDoc.Descendants("member")
+        var memberElement = xmlDoc?.Descendants("member")
+            .FirstOrDefault(x => x.Attribute("name")?.Value == memberName)
+            ?? _xmlDoc?.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
         // 在 summary 节点下查找包含 version 的 para 节点

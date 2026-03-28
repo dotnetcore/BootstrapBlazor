@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <para lang="zh">搜索元数据基类</para>
 /// <para lang="en">Search meta data base class</para>
+/// <para>v<version>10.5.0</version></para>
 /// </summary>
 public abstract class SearchFormItemMetadataBase : ISearchFormItemMetadata
 {
