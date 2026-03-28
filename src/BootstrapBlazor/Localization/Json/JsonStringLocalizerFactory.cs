@@ -19,6 +19,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     private readonly JsonLocalizationOptions _jsonLocalizationOptions;
     private readonly ILocalizationMissingItemHandler _localizationMissingItemHandler;
     private string? _typeName;
+    private JsonStringLocalizer? _localizer;
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
@@ -108,5 +109,17 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     /// <param name="assembly"><para lang="zh">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para><para lang="en">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para></param>
     /// <param name="baseName"><para lang="zh">The base name of the resource to search for</para><para lang="en">The base name of the resource to search for</para></param>
-    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, _typeName!, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
+    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName)
+    {
+        _localizer = new JsonStringLocalizer(assembly, _typeName!, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
+        return _localizer;
+    }
+
+    /// <summary>
+    /// 重置方法
+    /// </summary>
+    public void Reset()
+    {
+        _localizer?.ResetMissingMainifestCache();
+    }
 }

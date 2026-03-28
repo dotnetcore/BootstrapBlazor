@@ -106,6 +106,12 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     }
 
     private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
+
+    /// <summary>
+    /// 清除缓存方法
+    /// </summary>
+    public void ResetMissingMainifestCache() => _missingManifestCache.Clear();
+
     private string? GetStringFromJson(string name)
     {
         // <para lang="zh">从 json 本地化文件中获取字符串</para>
@@ -172,11 +178,16 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private void HandleMissingResourceItem(string name)
     {
         localizationMissingItemHandler.HandleMissingItem(name, typeName, CultureInfo.CurrentUICulture.Name);
-        if (jsonLocalizationOptions.IgnoreLocalizerMissing == false)
+        if (jsonLocalizationOptions.IgnoreLocalizerMissing)
+        {
+            _missingManifestCache.TryAdd($"name={name}&culture={CultureInfo.CurrentUICulture.Name}", null);
+            return;
+        }
+
+        if (Logger.IsEnabled(LogLevel.Information))
         {
             Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
         }
-        _missingManifestCache.TryAdd($"name={name}&culture={CultureInfo.CurrentUICulture.Name}", null);
     }
 
     private List<LocalizedString>? _allLocalizedStrings;

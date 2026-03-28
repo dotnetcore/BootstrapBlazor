@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
@@ -215,7 +216,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.NotEmpty(items);
         Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
 
-        var name = Utility.GetDisplayName(typeof(Dummy), "DummyName");
+        var type = typeof(Dummy);
+        var name = Utility.GetDisplayName(type, "DummyName");
         Assert.Equal("test-name", name);
     }
 
@@ -498,5 +500,31 @@ public class JsonStringLocalizerFactoryTest
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         var item = localizer["Foo.Name"];
         Assert.NotEqual("Foo.Name", item);
+
+        item = localizer["missing-item"];
+        Assert.True(item.ResourceNotFound);
+
+        // 测试 Reset
+        var cacheManager = provider.GetRequiredService<ICacheManager>();
+        cacheManager.Clear();
+
+        // 测试内部缓存值为空集合
+        var localizerInfo = localizer.GetType().GetField("_localizer", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(localizerInfo);
+        var v = localizerInfo.GetValue(localizer);
+        Assert.NotNull(v);
+
+        var fieldInfo = v.GetType().GetField("_missingManifestCache", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(fieldInfo);
+
+        var val = fieldInfo.GetValue(v);
+        Assert.NotNull(val);
+
+        bool useCache = false;
+        if (val is ConcurrentDictionary<string, object?> cache)
+        {
+            useCache = cache.IsEmpty;
+        }
+        Assert.True(useCache);
     }
 }
