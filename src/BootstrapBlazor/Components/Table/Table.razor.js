@@ -677,7 +677,7 @@ const setResizeListener = table => {
                         const rows = [...tbody.children].filter(i => i.nodeName === 'TR');
                         rows.forEach(row => {
                             const header = row.children.item(colIndex);
-                            if (header.classList.contains('fixed')) {
+                            if (header !== null && header.classList.contains('fixed')) {
                                 resizeNextFixedColumnWidth(header, calcColWidth);
                             }
                         });
