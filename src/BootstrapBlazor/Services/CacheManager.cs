@@ -772,7 +772,7 @@ internal class CacheManager : ICacheManager
         var type = Instance.GetOrCreate(key, _ =>
         {
             created = true;
-            return EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{key}", cols, typeof(DataTableDynamicObject), creatingCallback);
+            return EmitHelper.CreateTypeByName(key, cols, typeof(DataTableDynamicObject), creatingCallback);
         });
 
         // 是否从缓存中获取到的值
