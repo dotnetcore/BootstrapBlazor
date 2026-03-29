@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <para lang="zh">搜索元数据接口</para>
 /// <para lang="en">Search metadata interface</para>
+/// <para>v<version>10.5.0</version></para>
 /// </summary>
 public interface ISearchFormItemMetadata
 {

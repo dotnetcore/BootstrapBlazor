@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <para lang="zh">时间区间搜索元数据类</para>
 /// <para lang="en">DateTime range search meta data class</para>
+/// <para>v<version>10.5.0</version></para>
 /// </summary>
 public class DateTimeRangeSearchMetadata : SearchFormItemMetadataBase
 {

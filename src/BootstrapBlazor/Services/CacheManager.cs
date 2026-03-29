@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Reflection.Emit;
 
 #if NET8_0_OR_GREATER
 using System.Runtime.CompilerServices;
@@ -765,18 +764,4 @@ internal class CacheManager : ICacheManager
 
     private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter) => new(v => formatter(v));
     #endregion
-
-    internal static Type? GetOrCreateDynamicObjectTypeByName(string key, IEnumerable<ITableColumn> cols, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback, out bool cached)
-    {
-        var created = false;
-        var type = Instance.GetOrCreate(key, _ =>
-        {
-            created = true;
-            return EmitHelper.CreateTypeByName(key, cols, typeof(DataTableDynamicObject), creatingCallback);
-        });
-
-        // 是否从缓存中获取到的值
-        cached = created;
-        return type;
-    }
 }

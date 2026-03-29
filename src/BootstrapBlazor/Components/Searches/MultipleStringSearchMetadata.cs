@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <para lang="zh">多个字符串搜索元数据类</para>
 /// <para lang="en">Multiple string search meta data class</para>
+/// <para>v<version>10.5.0</version></para>
 /// </summary>
 public class MultipleStringSearchMetadata : StringSearchMetadata
 {

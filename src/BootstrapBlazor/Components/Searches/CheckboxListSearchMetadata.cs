@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <para lang="zh">CheckboxList 搜索类型元数据类</para>
 /// <para lang="en">CheckboxList search meta data class</para>
+/// <para version="10.5.0"/>
 /// </summary>
 public class CheckboxListSearchMetadata : MultipleSelectSearchMetadata
 {

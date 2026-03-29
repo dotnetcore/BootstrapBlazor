@@ -99,7 +99,11 @@ public class DataTableDynamicContext : DynamicObjectContext
         Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
 
         [ExcludeFromCodeCoverage]
-        Type GetOrCreateType() => dynamicType ?? throw new InvalidOperationException();
+        Type CreateType()
+        {
+            var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
+            return dynamicType ?? throw new InvalidOperationException();
+        }
     }
 
     private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)

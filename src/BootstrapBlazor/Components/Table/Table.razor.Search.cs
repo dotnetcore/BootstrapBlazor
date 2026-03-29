@@ -117,6 +117,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false 开启本功能后 CustomerSearchTemplate 与 SearchTemplate 均不生效</para>
     /// <para lang="en">Gets or sets Whether to use search form. Default false. When enabled, both CustomerSearchTemplate and SearchTemplate are disabled</para>
+    /// <para>v<version>10.5.0</version></para>
     /// </summary>
     [Parameter]
     public bool UseSearchForm { get; set; }
@@ -124,6 +125,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索表单项集合</para>
     /// <para lang="en">Gets or sets Search Form Items collection</para>
+    /// <para>v<version>10.5.0</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<ISearchItem>? SearchItems { get; set; }
@@ -131,6 +133,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
     /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// <para>v<version>10.5.0</version></para>
     /// </summary>
     [Parameter]
     public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
