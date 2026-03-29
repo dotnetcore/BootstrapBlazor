@@ -89,20 +89,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         [ExcludeFromCodeCoverage]
         Type CreateType()
         {
-            // Emit 生成动态类 (使用缓存)
-            var columnNames = string.Join('|', table.Columns.Cast<DataColumn>().Select(static c => $"{c.ColumnName}:{c.DataType.FullName}"));
-            var cacheKey = $"BootstrapBlazor-{nameof(DataTableDynamicContext)}-{columnNames}";
-            var dynamicType = CacheManager.GetDynamicObjectTypeByName(cacheKey, cols, OnColumnCreating, out var cached);
-
-            // 缓存命中时仍需调用回调以处理列属性
-            if (cached && AddAttributesCallback != null)
-            {
-                foreach (var col in cols)
-                {
-                    AddAttributesCallback?.Invoke(this, col);
-                }
-            }
-
+            var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
             return dynamicType ?? throw new InvalidOperationException();
         }
     }
