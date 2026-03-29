@@ -31,16 +31,16 @@ public static class EmitHelper
     ///  <para lang="zh">回调委托</para>
     ///  <para lang="en">Callback delegate</para>
     /// </param>
-    public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
+    public static Type CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
     {
         var typeBuilder = CreateTypeBuilderByName(typeName, parent);
-
         foreach (var col in cols)
         {
             var attributeBuilds = creatingCallback?.Invoke(col);
             typeBuilder.CreateProperty(col, attributeBuilds);
         }
-        return typeBuilder.CreateType();
+
+        return typeBuilder.CreateType()!;
     }
 
     private static TypeBuilder CreateTypeBuilderByName(string typeName, Type? parent = null)

@@ -80,17 +80,11 @@ public class DataTableDynamicContext : DynamicObjectContext
         // 获得 DataTable 列信息转换为 ITableColumn 集合
         var cols = InternalGetColumns();
 
-        DynamicObjectType = CreateType();
+        // 生成动态类型 DataTableDynamicObjectType 继承 DataTableDynamicObject 并添加属性
+        DynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
 
         // 获得显示列
         Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
-
-        [ExcludeFromCodeCoverage]
-        Type CreateType()
-        {
-            var dynamicType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
-            return dynamicType ?? throw new InvalidOperationException();
-        }
     }
 
     private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
