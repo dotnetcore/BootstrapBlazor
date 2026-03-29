@@ -215,7 +215,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.NotEmpty(items);
         Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
 
-        var name = Utility.GetDisplayName(typeof(Dummy), "DummyName");
+        var type = typeof(Dummy);
+        var name = Utility.GetDisplayName(type, "DummyName");
         Assert.Equal("test-name", name);
     }
 
@@ -498,5 +499,8 @@ public class JsonStringLocalizerFactoryTest
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         var item = localizer["Foo.Name"];
         Assert.NotEqual("Foo.Name", item);
+
+        item = localizer["missing-item"];
+        Assert.True(item.ResourceNotFound);
     }
 }
