@@ -122,6 +122,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     public void Reset()
     {
-        _localizer?.ResetMissingMainifestCache();
+        _localizer?.ResetMissingManifestCache();
     }
 }

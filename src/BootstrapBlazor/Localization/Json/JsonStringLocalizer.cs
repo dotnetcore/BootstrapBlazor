@@ -112,7 +112,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     /// <para lang="en">Reset cache method</para>
     /// <para>v<version>10.5.0</version></para> 
     /// </summary>
-    public void ResetMissingMainifestCache() => _missingManifestCache.Clear();
+    public void ResetMissingManifestCache() => _missingManifestCache.Clear();
 
     private string? GetStringFromJson(string name)
     {
