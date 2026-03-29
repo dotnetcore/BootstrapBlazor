@@ -75,37 +75,16 @@ public class DataTableDynamicContext : DynamicObjectContext
     {
         DataTable = table;
         AddAttributesCallback = addAttributesCallback;
+        OnValueChanged = OnCellValueChanged;
 
         // 获得 DataTable 列信息转换为 ITableColumn 集合
         var cols = InternalGetColumns();
 
-        // Emit 生成动态类
-        DynamicObjectType = CreateType();
+        // 生成动态类型 DataTableDynamicObjectType 继承 DataTableDynamicObject 并添加属性
+        DynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
 
         // 获得显示列
         Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
-
-        OnValueChanged = OnCellValueChanged;
-
-        [ExcludeFromCodeCoverage]
-        Type CreateType()
-        {
-            // Emit 生成动态类 (使用缓存)
-            var columnNames = string.Join('|', table.Columns.Cast<DataColumn>().Select(static c => $"{c.ColumnName}:{c.DataType.FullName}"));
-            var cacheKey = $"BootstrapBlazor-{nameof(DataTableDynamicContext)}-{columnNames}";
-            var dynamicType = CacheManager.GetDynamicObjectTypeByName(cacheKey, cols, OnColumnCreating, out var cached);
-
-            // 缓存命中时仍需调用回调以处理列属性
-            if (cached && AddAttributesCallback != null)
-            {
-                foreach (var col in cols)
-                {
-                    AddAttributesCallback?.Invoke(this, col);
-                }
-            }
-
-            return dynamicType ?? throw new InvalidOperationException();
-        }
     }
 
     private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
