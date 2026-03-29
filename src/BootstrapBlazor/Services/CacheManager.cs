@@ -109,16 +109,6 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
-
-            // 资源文件
-            var factories = Provider.GetServices<IStringLocalizerFactory>();
-            foreach (var factory in factories)
-            {
-                if (factory is JsonStringLocalizerFactory f)
-                {
-                    f.Reset();
-                }
-            }
         }
     }
 

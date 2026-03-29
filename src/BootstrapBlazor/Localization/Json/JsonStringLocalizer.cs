@@ -5,7 +5,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -105,41 +104,28 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         return ret;
     }
 
-    private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
-
-    /// <summary>
-    /// <para lang="zh">清除缓存方法</para>
-    /// <para lang="en">Reset cache method</para>
-    /// <para>v<version>10.5.0</version></para> 
-    /// </summary>
-    public void ResetMissingManifestCache() => _missingManifestCache.Clear();
-
     private string? GetStringFromJson(string name)
     {
-        // <para lang="zh">从 json 本地化文件中获取字符串</para>
-        // <para lang="en">get string from json localization file</para>
         var localizerStrings = MergeResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
         var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
         string? ret = null;
-        if (!_missingManifestCache.ContainsKey(cacheKey))
-        {
-            var l = localizerStrings.Find(i => i.Name == name);
-            if (l is { ResourceNotFound: false })
-            {
-                ret = l.Value;
-            }
-            else
-            {
-                // <para lang="zh">如果没有找到资源信息则尝试从父类中查找</para>
-                // <para lang="en">If resource info not found, try to find from base class</para>
-                ret ??= GetStringFromBaseType(name);
 
-                if (ret is null)
-                {
-                    // <para lang="zh">加入缺失资源信息缓存中</para>
-                    // <para lang="en">Add to missing resource info cache</para>
-                    HandleMissingResourceItem(name);
-                }
+        var l = localizerStrings.Find(i => i.Name == name);
+        if (l is { ResourceNotFound: false })
+        {
+            ret = l.Value;
+        }
+        else
+        {
+            // <para lang="zh">如果没有找到资源信息则尝试从父类中查找</para>
+            // <para lang="en">If resource info not found, try to find from base class</para>
+            ret ??= GetStringFromBaseType(name);
+
+            if (ret is null)
+            {
+                // <para lang="zh">加入缺失资源信息缓存中</para>
+                // <para lang="en">Add to missing resource info cache</para>
+                HandleMissingResourceItem(name);
             }
         }
         return ret;
@@ -182,7 +168,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         localizationMissingItemHandler.HandleMissingItem(name, typeName, CultureInfo.CurrentUICulture.Name);
         if (jsonLocalizationOptions.IgnoreLocalizerMissing)
         {
-            _missingManifestCache.TryAdd($"name={name}&culture={CultureInfo.CurrentUICulture.Name}", null);
             return;
         }
 
