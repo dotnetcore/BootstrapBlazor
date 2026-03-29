@@ -75,6 +75,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     {
         DataTable = table;
         AddAttributesCallback = addAttributesCallback;
+        OnValueChanged = OnCellValueChanged;
 
         // 获得 DataTable 列信息转换为 ITableColumn 集合
         var cols = InternalGetColumns();
@@ -84,8 +85,6 @@ public class DataTableDynamicContext : DynamicObjectContext
 
         // 获得显示列
         Columns = Utility.GetTableColumns(DynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns));
-
-        OnValueChanged = OnCellValueChanged;
 
         [ExcludeFromCodeCoverage]
         Type CreateType()
