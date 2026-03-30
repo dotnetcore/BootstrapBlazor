@@ -52,7 +52,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     [Parameter]
     public bool IsInvisibleOnTouchMove { get; set; }
 
-
     [Inject, NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
@@ -143,16 +142,15 @@ public class ContextMenuTrigger : BootstrapComponentBase
         }
     }
 
-    private void OnTouchMove()
+    private void OnTouchMove(TouchEventArgs e)
     {
         if (IsInvisibleOnTouchMove)
         {
-            IsBusy = false;
             IsTouchStarted = false;
         }
     }
 
-    private void OnTouchEnd()
+    private void OnTouchEnd(TouchEventArgs e)
     {
         IsTouchStarted = false;
     }
