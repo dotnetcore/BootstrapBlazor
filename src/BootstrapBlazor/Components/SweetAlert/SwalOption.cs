@@ -49,6 +49,12 @@ public class SwalOption : PopupOptionBase
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 Footer 文本字符串</para>
+    /// <para lang="en">Gets or sets Footer content string</para>
+    /// </summary>
+    public string? Footer { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Footer 组件</para>
     /// <para lang="en">Gets or sets Footer Component</para>
     /// </summary>

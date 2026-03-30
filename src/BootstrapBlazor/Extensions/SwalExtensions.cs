@@ -61,6 +61,7 @@ public static class SwalExtensions
         [nameof(SweetAlertBody.Title)] = option.Title,
         [nameof(SweetAlertBody.Content)] = option.Content,
         [nameof(SweetAlertBody.BodyTemplate)] = option.BodyTemplate,
+        [nameof(SweetAlertBody.Footer)] = option.Footer,
         [nameof(SweetAlertBody.FooterTemplate)] = option.FooterTemplate,
         [nameof(SweetAlertBody.ButtonTemplate)] = option.ButtonTemplate,
         [nameof(SweetAlertBody.CloseButtonIcon)] = option.CloseButtonIcon,
