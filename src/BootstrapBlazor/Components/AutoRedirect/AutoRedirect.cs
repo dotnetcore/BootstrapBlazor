@@ -27,11 +27,11 @@ public class AutoRedirect : BootstrapModuleComponentBase
     public bool IsForceLoad { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自动锁屏间隔单位 秒 默认 60000 毫秒</para>
-    /// <para lang="en">Gets or sets the auto lock screen interval in milliseconds. Default is 60000 ms</para>
+    /// <para lang="zh">获得/设置 自动锁屏间隔单位 秒 默认 0 内部使用 60000 毫秒</para>
+    /// <para lang="en">Gets or sets the auto lock interval in seconds. Default is 0, internally uses 60000 milliseconds</para>
     /// </summary>
     [Parameter]
-    public int Interval { get; set; } = 60000;
+    public int Interval { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 地址跳转前回调方法 返回 true 时中止跳转</para>
@@ -52,6 +52,20 @@ public class AutoRedirect : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Interval, nameof(Lock));
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Interval <= 0)
+        {
+            // 默认 10 分钟
+            Interval = 10 * 60 * 1000;
+        }
+    }
 
     /// <summary>
     /// <para lang="zh">锁屏操作由 JS 调用</para>
