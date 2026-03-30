@@ -45,6 +45,14 @@ public class ContextMenuTrigger : BootstrapComponentBase
     [Parameter]
     public int? OnTouchDelay { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">标记滚动时上下文菜单是否应不可见。默认值为  <see langword="false"/>。</para>
+    /// <para lang="en">Flags whether the context menu should be invisible while scrolling. Default is <see langword="false"/>.</para>
+    /// </summary>
+    [Parameter]
+    public bool IsInvisibleOnTouchMove { get; set; }
+
+
     [Inject, NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
@@ -67,14 +75,16 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, WrapperTag);
-        builder.AddMultipleAttributes(10, AdditionalAttributes);
-        builder.AddAttribute(20, "class", ClassString);
-        builder.AddAttribute(30, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
-        builder.AddAttribute(35, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
-        builder.AddAttribute(36, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
-        builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
-        builder.AddContent(50, ChildContent);
+        int i = 0;
+        builder.OpenElement(i++, WrapperTag);
+        builder.AddMultipleAttributes(i++, AdditionalAttributes);
+        builder.AddAttribute(i++, "class", ClassString);
+        builder.AddAttribute(i++, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.AddAttribute(i++, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
+        builder.AddAttribute(i++, "ontouchmove", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchMove));
+        builder.AddAttribute(i++, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
+        builder.AddEventPreventDefaultAttribute(i++, "oncontextmenu", true);
+        builder.AddContent(i, ChildContent);
         builder.CloseElement();
     }
 
@@ -130,6 +140,15 @@ public class ContextMenuTrigger : BootstrapComponentBase
                 }
             }
             IsBusy = false;
+        }
+    }
+
+    private void OnTouchMove()
+    {
+        if (IsInvisibleOnTouchMove)
+        {
+            IsBusy = false;
+            IsTouchStarted = false;
         }
     }
 
