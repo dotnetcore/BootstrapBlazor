@@ -735,10 +735,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="zh">获得/设置 是否自动刷新表格 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to auto refresh. Default false</para>
     /// </summary>
-    /// <remarks>
-    /// <para lang="zh">此参数在 <see cref="IsExcel"/> 模式下不生效</para>
-    /// <para lang="en">Not effective in <see cref="IsExcel"/> mode</para>
-    /// </remarks>
     [Parameter]
     public bool IsAutoRefresh { get; set; }
 
