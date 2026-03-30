@@ -12,7 +12,8 @@ using System.Xml.Linq;
 namespace BootstrapBlazor.Server.Services;
 
 /// <summary>
-/// 组件属性缓存服务
+/// <para lang="zh">组件属性缓存服务</para>
+/// <para lang="en">Component Attribute Cache Service</para>
 /// </summary>
 public static class ComponentAttributeCacheService
 {
@@ -21,7 +22,8 @@ public static class ComponentAttributeCacheService
     private static XDocument? _xmlDoc;
 
     /// <summary>
-    /// 通过组件类型获取组件的 AttributeItem 列表
+    /// <para lang="zh">通过组件类型获取组件的 AttributeItem 列表</para>
+    /// <para lang="en">Get the list of AttributeItem for a component type</para>
     /// </summary>
     public static List<AttributeItem> GetAttributes(Type componentType)
     {
@@ -65,7 +67,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 从 XML 注释获取 summary（支持多语言）
+    /// <para lang="zh">从 XML 注释获取 summary（支持多语言）</para>
+    /// <para lang="en">Get the summary from XML comments (supports multiple languages)</para>
     /// </summary>
     private static string? GetSummary(XDocument? xmlDoc, PropertyInfo property)
     {
@@ -115,7 +118,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 从 XML 注释的 para version 节点获取版本信息
+    /// <para lang="zh">从 XML 注释的 para version 节点获取版本信息</para>
+    /// <para lang="en">Get the version information from the para version node in XML comments</para>
     /// </summary>
     private static string? GetVersion(XDocument? xmlDoc, PropertyInfo property)
     {
@@ -138,7 +142,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 获取友好的类型名称
+    /// <para lang="zh">获取友好的类型名称</para>
+    /// <para lang="en">Get the friendly type name</para>
     /// </summary>
     private static string GetFriendlyTypeName(Type type)
     {
@@ -168,7 +173,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 获取 XML 文档
+    /// <para lang="zh">获取 XML 文档</para>
+    /// <para lang="en">Get the XML documentation</para>
     /// </summary>
     private static XDocument? GetXmlDocumentation(Assembly? assembly)
     {
@@ -217,7 +223,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 清除缓存
+    /// <para lang="zh">清除缓存</para>
+    /// <para lang="en">Clear the cache</para>
     /// </summary>
     public static void ClearCache()
     {
