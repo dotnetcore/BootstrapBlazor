@@ -51,6 +51,7 @@ public class SwalOption : PopupOptionBase
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 文本字符串</para>
     /// <para lang="en">Gets or sets Footer content string</para>
+    /// <para>v<version>10.5.0</version></para>
     /// </summary>
     public string? Footer { get; set; }
 
