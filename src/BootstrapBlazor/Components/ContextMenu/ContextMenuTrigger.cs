@@ -45,6 +45,13 @@ public class ContextMenuTrigger : BootstrapComponentBase
     [Parameter]
     public int? OnTouchDelay { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">标记滚动时上下文菜单是否应不可见。默认值为 false。</para>
+    /// <para lang="en">Flags whether the context menu should be invisible while scrolling. Default is false.</para>
+    /// </summary>
+    [Parameter]
+    public bool IsInvisibleWhenTouchMove { get; set; }
+
     [Inject, NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
@@ -73,6 +80,10 @@ public class ContextMenuTrigger : BootstrapComponentBase
         builder.AddAttribute(30, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
         builder.AddAttribute(35, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
         builder.AddAttribute(36, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
+        if (IsInvisibleWhenTouchMove)
+        {
+            builder.AddAttribute(37, "ontouchmove", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchMove));
+        }
         builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
         builder.AddContent(50, ChildContent);
         builder.CloseElement();
@@ -97,6 +108,8 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     private bool IsBusy { get; set; }
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(TouchEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(TouchPoint))]
     private async Task OnTouchStart(TouchEventArgs e)
     {
         if (!IsBusy)
@@ -130,6 +143,14 @@ public class ContextMenuTrigger : BootstrapComponentBase
                 }
             }
             IsBusy = false;
+        }
+    }
+
+    private void OnTouchMove()
+    {
+        if (IsInvisibleWhenTouchMove)
+        {
+            IsTouchStarted = false;
         }
     }
 
