@@ -74,17 +74,14 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        int i = 0;
-        builder.OpenElement(i++, WrapperTag);
-        builder.AddMultipleAttributes(i++, AdditionalAttributes);
-        builder.AddAttribute(i++, "class", ClassString);
-        builder.AddAttribute(i++, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
-        builder.AddAttribute(i++, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
-        builder.AddAttribute(i++, "ontouchmove", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchMove));
-        builder.AddAttribute(i++, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
-        builder.AddEventPreventDefaultAttribute(i++, "oncontextmenu", true);
-        builder.AddContent(i, ChildContent);
-        builder.CloseElement();
+        builder.OpenElement(0, WrapperTag);
+        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(20, "class", ClassString);
+        builder.AddAttribute(30, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.AddAttribute(35, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
+        builder.AddAttribute(36, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
+        builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
+        builder.AddContent(50, ChildContent);
     }
 
     /// <summary>
@@ -144,7 +141,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
         }
     }
 
-    private void OnTouchMove(TouchEventArgs e)
+    private void OnTouchMove()
     {
         if (IsInvisibleWhenTouchMove)
         {
@@ -152,7 +149,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
         }
     }
 
-    private void OnTouchEnd(TouchEventArgs e)
+    private void OnTouchEnd()
     {
         IsTouchStarted = false;
     }
