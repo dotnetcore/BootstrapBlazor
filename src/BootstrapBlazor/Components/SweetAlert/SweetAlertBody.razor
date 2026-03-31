@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div class="swal2-header">
@@ -70,6 +70,13 @@ else
 @if (ShowFooter)
 {
     <div class="swal2-footer d-flex">
-        @FooterTemplate
+        @if (FooterTemplate != null)
+        {
+            @FooterTemplate
+        }
+        else
+        {
+            @Footer
+        }
     </div>
 }

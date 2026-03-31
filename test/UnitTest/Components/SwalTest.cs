@@ -55,9 +55,12 @@ public class SwalTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => swal.Show(new SwalOption()
         {
             Content = "I am Eror",
-            Category = SwalCategory.Information
+            Category = SwalCategory.Information,
+            ShowFooter = true,
+            Footer = "I am Footer"
         }));
         Assert.Contains("swal2-info", cut.Markup);
+        Assert.Contains("I am Footer", cut.Markup);
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 测试 Category
