@@ -106,6 +106,8 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     private bool IsBusy { get; set; }
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(TouchEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(TouchPoint))]
     private async Task OnTouchStart(TouchEventArgs e)
     {
         if (!IsBusy)
