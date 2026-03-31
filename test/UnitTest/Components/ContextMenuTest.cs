@@ -26,6 +26,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.WrapperTag, "div");
                 pb.Add(a => a.ContextItem, foo);
+                pb.Add(a => a.IsInvisibleWhenTouchMove, true);
                 pb.AddChildContent(pb =>
                 {
                     pb.OpenElement(0, "div");
@@ -99,12 +100,12 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         item.Click();
         Assert.True(menuCallback);
 
-        // 测试 Touch 事件
-        TriggerTouchStart(row);
-
         await Task.Delay(500);
         row.TouchEnd();
         Assert.True(clicked);
+
+        // 触发 TouchMove 事件
+        row.TouchMove();
     }
 
     [Theory]
