@@ -46,11 +46,11 @@ public class ContextMenuTrigger : BootstrapComponentBase
     public int? OnTouchDelay { get; set; }
 
     /// <summary>
-    /// <para lang="zh">标记滚动时上下文菜单是否应不可见。默认值为  <see langword="false"/>。</para>
-    /// <para lang="en">Flags whether the context menu should be invisible while scrolling. Default is <see langword="false"/>.</para>
+    /// <para lang="zh">标记滚动时上下文菜单是否应不可见。默认值为 false。</para>
+    /// <para lang="en">Flags whether the context menu should be invisible while scrolling. Default is false.</para>
     /// </summary>
     [Parameter]
-    public bool IsInvisibleOnTouchMove { get; set; }
+    public bool IsInvisibleWhenTouchMove { get; set; }
 
     [Inject, NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
@@ -144,7 +144,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
 
     private void OnTouchMove(TouchEventArgs e)
     {
-        if (IsInvisibleOnTouchMove)
+        if (IsInvisibleWhenTouchMove)
         {
             IsTouchStarted = false;
         }
