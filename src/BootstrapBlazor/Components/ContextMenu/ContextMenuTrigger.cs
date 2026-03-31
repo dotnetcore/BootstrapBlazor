@@ -86,6 +86,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
         }
         builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
         builder.AddContent(50, ChildContent);
+        builder.CloseElement();
     }
 
     /// <summary>
