@@ -80,6 +80,10 @@ public class ContextMenuTrigger : BootstrapComponentBase
         builder.AddAttribute(30, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
         builder.AddAttribute(35, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
         builder.AddAttribute(36, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
+        if (IsInvisibleWhenTouchMove)
+        {
+            builder.AddAttribute(37, "ontouchmove", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchMove));
+        }
         builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
         builder.AddContent(50, ChildContent);
     }
