@@ -100,6 +100,9 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         item.Click();
         Assert.True(menuCallback);
 
+        // 测试 Touch 事件
+        TriggerTouchStart(row);
+
         await Task.Delay(500);
         row.TouchEnd();
         Assert.True(clicked);
