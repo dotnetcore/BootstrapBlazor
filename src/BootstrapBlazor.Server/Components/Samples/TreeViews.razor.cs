@@ -35,6 +35,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> DraggableItems { get; set; } = [];
 
+    private List<TreeFoo> DraggableSourceItems { get; } = GetDraggableItems();
+
     private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
     private List<TreeViewItem<TreeFoo>>? AccordionItems { get; } = TreeFoo.GetAccordionItems();
@@ -43,7 +45,7 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
-    private static List<TreeViewItem<TreeFoo>> IconItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> IconItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> ClickExpandItems { get; } = TreeFoo.GetTreeItems();
 
@@ -86,8 +88,7 @@ public sealed partial class TreeViews
     {
         base.OnInitialized();
 
-        var items = GetDraggableItems();
-        DraggableItems = TreeFoo.CascadingTree(items);
+        DraggableItems = TreeFoo.CascadingTree(DraggableSourceItems);
         DraggableItems[0].IsExpand = true;
         if (DraggableItems.Count > 1)
         {
@@ -109,11 +110,10 @@ public sealed partial class TreeViews
     {
         // 本例是使用静态数据模拟数据库操作的，实战中应该是更新节点的父级 Id 可能还需要更改排序字段等信息，然后重构 TreeView 数据源即可
         // 根据 context 处理原始数据
-        var items = GetDraggableItems();
-        var source = items.Find(i => i.Id == context.Source.Value.Id);
+        var source = DraggableSourceItems.Find(i => i.Id == context.Source.Value.Id);
         if (source != null)
         {
-            var target = items.Find(i => i.Id == context.Target.Value.Id);
+            var target = DraggableSourceItems.Find(i => i.Id == context.Target.Value.Id);
             if (target != null)
             {
                 source.ParentId = context.IsChildren ? target.Id : target.ParentId;
@@ -132,7 +132,7 @@ public sealed partial class TreeViews
                 }
             };
         }
-        DraggableItems = TreeFoo.CascadingTree(items, cb);
+        DraggableItems = TreeFoo.CascadingTree(DraggableSourceItems, cb);
         DraggableItems[0].IsExpand = true;
         if (DraggableItems.Count > 1)
         {
@@ -186,25 +186,20 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static List<TreeFoo>? _dragItems = null;
-    private static List<TreeFoo> GetDraggableItems()
-    {
-        _dragItems ??=
-        [
-            new() { Text = "Item A", Id = "1", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
+    private static List<TreeFoo> GetDraggableItems() =>
+    [
+        new() { Text = "Item A", Id = "1", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
 
-            new() { Text = "Item B", Id = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item G", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item B", Id = "2", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item G", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
-            new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" }
-        ];
-        return _dragItems;
-    }
+        new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" }
+    ];
 
     private static List<TreeViewItem<TreeFoo>> GetDisabledItems()
     {
