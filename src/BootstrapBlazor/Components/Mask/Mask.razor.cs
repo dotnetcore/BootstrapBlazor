@@ -47,7 +47,8 @@ public partial class Mask
             {
                 Show = _options != null,
                 _options?.ContainerId,
-                _options?.Selector
+                _options?.Selector,
+                _options?.AppendToBody
             });
         }
     }

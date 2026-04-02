@@ -1,7 +1,7 @@
-﻿export function update(id, options) {
+export function update(id, options) {
     const mask = document.getElementById(id);
     if (mask) {
-        const { show } = options;
+        const { show, appendToBody } = options;
         const el = document.querySelector(`[data-bb-mask="${id}"]`);
         const container = getContainerBySelector(options);
         if (container) {
@@ -14,7 +14,7 @@
                 container.appendChild(el);
             }
         }
-        else {
+        else if (appendToBody === true) {
             document.body.appendChild(el);
         }
 
