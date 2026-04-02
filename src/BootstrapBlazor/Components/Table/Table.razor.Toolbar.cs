@@ -1134,12 +1134,20 @@ public partial class Table<TItem>
         {
             await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
             ResetDynamicContext();
+
+            // 触发删除回调方法
+            await TriggerDeleteCallback();
+
             SelectedRows.Clear();
             await OnSelectedRowsChanged();
         }
         else if (IsExcel)
         {
             await InternalOnDeleteAsync();
+
+            // 触发删除回调方法
+            await TriggerDeleteCallback();
+
             await QueryAsync();
         }
         else
@@ -1183,18 +1191,27 @@ public partial class Table<TItem>
                         }
                     }
                 }
-                if (OnAfterDeleteAsync != null)
-                {
-                    await OnAfterDeleteAsync(SelectedRows);
-                }
-                if (OnAfterModifyAsync != null)
-                {
-                    await OnAfterModifyAsync();
-                }
+
+                // 触发删除回调方法
+                await TriggerDeleteCallback();
+
+                // 清空选中行
                 SelectedRows.Clear();
                 await QueryAsync();
             }
             return ret;
+        }
+    }
+
+    private async Task TriggerDeleteCallback()
+    {
+        if (OnAfterDeleteAsync != null)
+        {
+            await OnAfterDeleteAsync(SelectedRows);
+        }
+        if (OnAfterModifyAsync != null)
+        {
+            await OnAfterModifyAsync();
         }
     }
 
