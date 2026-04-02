@@ -5,7 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Routing;
 using System.Collections.ObjectModel;
 
 namespace BootstrapBlazor.Components;
@@ -89,16 +88,16 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
 
         void BuildQueryParameters()
         {
-            var queryParameterSupplier = QueryParameterValueSupplier.ForType(Type);
-            if (queryParameterSupplier is not null)
-            {
-                // Since this component does accept some parameters from query, we must supply values for all of them,
-                // even if the querystring in the URI is empty. So don't skip the following logic.
-                var url = NavigationManager.Uri;
-                var queryStartPos = url.IndexOf('?');
-                var query = queryStartPos < 0 ? default : url.AsMemory(queryStartPos);
-                queryParameterSupplier.RenderParametersFromQueryString(builder, query);
-            }
+            //var queryParameterSupplier = QueryParameterValueSupplier.ForType(Type);
+            //if (queryParameterSupplier is not null)
+            //{
+            //    // Since this component does accept some parameters from query, we must supply values for all of them,
+            //    // even if the querystring in the URI is empty. So don't skip the following logic.
+            //    var url = NavigationManager.Uri;
+            //    var queryStartPos = url.IndexOf('?');
+            //    var query = queryStartPos < 0 ? default : url.AsMemory(queryStartPos);
+            //    queryParameterSupplier.RenderParametersFromQueryString(builder, query);
+            //}
         }
     }
 }
