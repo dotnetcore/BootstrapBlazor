@@ -46,4 +46,11 @@ public class MaskOption
     /// <para lang="en">Gets or sets Mask Parent Container Selector. Default null</para>
     /// </summary>
     public string? Selector { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否将遮罩追加到 body 元素 默认 true</para>
+    /// <para lang="en">Gets or sets whether to append the mask to the body element. Default true</para>
+    /// <para>v<vesion>10.5.1</vesion></para>
+    /// </summary>
+    public bool AppendToBody { get; set; } = true;
 }
