@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.DataProtection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -99,9 +98,7 @@ public static class ServiceCollectionSharedExtensions
         services.AddBootstrapBlazorRegionService();
 
         // 增加密钥存储配置
-        services.AddDataProtection()
-            .SetApplicationName("BootstrapBlazor")
-            .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(AppContext.BaseDirectory, "keys")));
+        services.AddDataProtection();
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
