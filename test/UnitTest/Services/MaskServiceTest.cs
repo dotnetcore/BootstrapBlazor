@@ -25,7 +25,8 @@ public class MaskServiceTest : BootstrapBlazorTestBase
                         BackgroundColor = "#000",
                         Opacity = 0.5f,
                         ZIndex = 1050,
-                        ChildContent = builder => builder.AddContent(0, "test-mask-content")
+                        ChildContent = builder => builder.AddContent(0, "test-mask-content"),
+                        AppendToBody = true
                     });
                 });
             });
