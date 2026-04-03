@@ -1146,9 +1146,9 @@
     RenderFragment<ColumnVisibleItem> RenderColumnListItem => item =>
         @<div class="dropdown-item">
             <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
-                        IsDisabled="@GetColumnsListState(item)"
-                        @bind-Value="@item.Visible"
-                        OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
+                      IsDisabled="@GetColumnsListState(item)"
+                      @bind-Value="@item.Visible"
+                      OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
             </Checkbox>
         </div>;
 
