@@ -56,16 +56,17 @@ public partial class Mask
 
     private Task Show(MaskOption? option)
     {
-        if (option != null)
+        if (option == null)
+        {
+            // 服务关闭遮罩调用
+            _options?.ChildContent = null;
+            _show = false;
+        }
+        else
         {
             // 服务打开遮罩调用
             _options = option;
             _show = true;
-        }
-        else
-        {
-            // 服务关闭遮罩调用
-            _show = false;
         }
         StateHasChanged();
         return Task.CompletedTask;
