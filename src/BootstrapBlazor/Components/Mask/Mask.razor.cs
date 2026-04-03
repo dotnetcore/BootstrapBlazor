@@ -22,6 +22,7 @@ public partial class Mask
         .Build();
 
     private MaskOption? _options;
+    private bool _show = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -45,22 +46,46 @@ public partial class Mask
         {
             await InvokeVoidAsync("update", Id, new
             {
-                Show = _options != null,
+                Show = _show,
                 _options?.ContainerId,
-                _options?.Selector
+                _options?.Selector,
+                _options?.AppendToBody
             });
         }
     }
 
     private Task Show(MaskOption? option)
     {
-        _options = option;
+        if (option == null)
+        {
+            // 服务关闭遮罩调用
+            _options?.ChildContent = null;
+            _show = false;
+        }
+        else
+        {
+            // 服务打开遮罩调用
+            _options = option;
+            _show = true;
+        }
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private Task CloseAsync()
+    private Task CloseAsync() => Show(null);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
-        return Show(null);
+        await base.DisposeAsync(disposing);
+
+        if (disposing)
+        {
+            MaskService.UnRegister(this);
+        }
     }
 }

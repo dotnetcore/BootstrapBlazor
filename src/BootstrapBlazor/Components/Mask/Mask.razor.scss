@@ -1,11 +1,10 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .bb-mask {
     --bb-mask-zindex: #{$bb-mask-zindex};
     --bb-mask-bg: #{$bb-mask-bg};
     --bb-mask-opacity: #{$bb-mask-opacity};
-    --bb-mask-position: fixed;
-    position: var(--bb-mask-position);
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;

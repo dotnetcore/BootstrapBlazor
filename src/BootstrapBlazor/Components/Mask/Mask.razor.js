@@ -1,7 +1,7 @@
-﻿export function update(id, options) {
+export function update(id, options) {
     const mask = document.getElementById(id);
     if (mask) {
-        const { show } = options;
+        const { show, appendToBody } = options;
         const el = document.querySelector(`[data-bb-mask="${id}"]`);
         const container = getContainerBySelector(options);
         if (container) {
@@ -9,23 +9,22 @@
             if (position === '' || position === 'static') {
                 container.style.setProperty('position', 'relative');
             }
-            if (show) {
-                el.style.setProperty('--bb-mask-position', 'absolute');
-                container.appendChild(el);
-            }
+            reset(el, mask, container, show);
         }
-        else {
-            document.body.appendChild(el);
+        else if (appendToBody === true) {
+            reset(el, mask, document.body, show);
         }
+    }
+}
 
-        if (show) {
-            el.classList.add('show');
-        }
-        else {
-            el.classList.remove('show');
-            el.style.removeProperty('--bb-mask-position');
-            mask.appendChild(el);
-        }
+const reset = (el, mask, container, status) => {
+    if (status) {
+        container.appendChild(el);
+        el.classList.add('show');
+    }
+    else {
+        el.classList.remove('show');
+        mask.appendChild(el);
     }
 }
 
