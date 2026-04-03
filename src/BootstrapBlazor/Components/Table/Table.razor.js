@@ -540,7 +540,9 @@ const resetTableWidth = table => {
         const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
         if (group) {
             const width = getTableWidthByColumnGroup(t, 100);
-            t.style.width = `${width}px`;
+            if (width >= t.offsetWidth) {
+                t.style.width = `${width}px`;
+            }
 
             saveColumnWidth(table);
         }
