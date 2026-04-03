@@ -19,9 +19,11 @@ public partial class Mask
         .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
         .AddClass($"--bb-mask-bg: {_options.BackgroundColor};", _options.BackgroundColor != null)
         .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
+        .AddClass($"--bb-mask-position: absolute;", !string.IsNullOrEmpty(_options.ContainerId) || !string.IsNullOrEmpty(_options.Selector))
         .Build();
 
     private MaskOption? _options;
+    private bool _show = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -45,7 +47,7 @@ public partial class Mask
         {
             await InvokeVoidAsync("update", Id, new
             {
-                Show = _options != null,
+                Show = _show,
                 _options?.ContainerId,
                 _options?.Selector,
                 _options?.AppendToBody
@@ -55,7 +57,17 @@ public partial class Mask
 
     private Task Show(MaskOption? option)
     {
-        _options = option;
+        if (option != null)
+        {
+            // 服务打开遮罩调用
+            _options = option;
+            _show = true;
+        }
+        else
+        {
+            // 服务关闭遮罩调用
+            _show = false;
+        }
         StateHasChanged();
         return Task.CompletedTask;
     }
