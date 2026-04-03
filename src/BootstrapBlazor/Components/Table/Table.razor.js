@@ -536,17 +536,39 @@ const setExcelKeyboardListener = table => {
 }
 
 const resetTableWidth = table => {
+    const { options: { scrollWidth } } = table;
     table.tables.forEach(t => {
         const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
         if (group) {
+            const colgroup = getLastColgroup(t, group);
+            if (colgroup) {
+                colgroup.style = null;
+            }
             const width = getTableWidthByColumnGroup(t, 100);
-            if (width >= t.offsetWidth) {
+            if (width >= t.parentElement.offsetWidth + scrollWidth) {
                 t.style.width = `${width}px`;
+            }
+            else {
+                t.style.width = null;
             }
 
             saveColumnWidth(table);
         }
     })
+}
+
+const getLastColgroup = (table, group) => {
+    const p = table.parentElement;
+    if (p) {
+        const length = group.children.length;
+        if (p.classList.contains("table-fixed-header")) {
+            return group.children[length - 2];
+        }
+        else {
+            return group.children[length - 1];
+        }
+    }
+    return null;
 }
 
 const setResizeListener = table => {
