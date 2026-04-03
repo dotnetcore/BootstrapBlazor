@@ -117,6 +117,26 @@ public class MaskServiceTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
+    [Fact]
+    public async Task Show_Ok()
+    {
+        var maskService = Context.Services.GetRequiredService<MaskService>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClickWithoutRender, async () =>
+                {
+                    await maskService.Show((MaskOption)null!);
+                });
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        // 遮罩参数 MaskOption 强制为 null 不报错
+    }
+
     class MockComponent : ComponentBase
     {
         [CascadingParameter]
