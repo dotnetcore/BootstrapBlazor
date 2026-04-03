@@ -19,7 +19,6 @@ public partial class Mask
         .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
         .AddClass($"--bb-mask-bg: {_options.BackgroundColor};", _options.BackgroundColor != null)
         .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
-        .AddClass($"--bb-mask-position: absolute;", !string.IsNullOrEmpty(_options.ContainerId) || !string.IsNullOrEmpty(_options.Selector))
         .Build();
 
     private MaskOption? _options;
