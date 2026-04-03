@@ -60,10 +60,7 @@ public partial class Mask
         return Task.CompletedTask;
     }
 
-    private Task CloseAsync()
-    {
-        return Show(null);
-    }
+    private Task CloseAsync() => Show(null);
 
     /// <summary>
     /// <inheritdoc/>
