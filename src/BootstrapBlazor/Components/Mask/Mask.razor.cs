@@ -64,4 +64,19 @@ public partial class Mask
     {
         return Show(null);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(disposing);
+
+        if (disposing)
+        {
+            MaskService.UnRegister(this);
+        }
+    }
 }
