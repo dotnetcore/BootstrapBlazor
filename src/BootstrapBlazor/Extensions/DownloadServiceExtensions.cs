@@ -18,26 +18,50 @@ public static class DownloadServiceExtensions
     /// <para lang="en">Download file</para>
     /// </summary>
     /// <param name="download"></param>
-    /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
-    /// <param name="stream"><para lang="zh">文件流</para><para lang="en">File stream</para></param>
+    /// <param name="downloadFileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="stream">
+    ///   <para lang="zh">文件流</para>
+    ///   <para lang="en">File stream</para>
+    /// </param>
     public static Task DownloadFromStreamAsync(this DownloadService download, string downloadFileName, Stream stream) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
 
     /// <summary>
     /// <para lang="zh">下载文件方法</para>
     /// <para lang="en">Download file</para>
     /// </summary>
-    /// <param name="download"></param>
-    /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
-    /// <param name="data"><para lang="zh">Byte[] 数组</para><para lang="en">Byte array</para></param>
+    /// <param name="download">
+    ///   <para lang="zh">下载服务实例</para>
+    ///   <para lang="en">The instance of DownloadService</para>
+    /// </param>
+    /// <param name="downloadFileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="data">
+    ///   <para lang="zh">Byte[] 数组</para>
+    ///   <para lang="en">Byte array</para>
+    /// </param>
     public static Task DownloadFromByteArrayAsync(this DownloadService download, string downloadFileName, byte[] data) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = new MemoryStream(data) });
 
     /// <summary>
     /// <para lang="zh">下载文件夹方法</para>
     /// <para lang="en">Download folder</para>
     /// </summary>
-    /// <param name="download"></param>
-    /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
-    /// <param name="folder"><para lang="zh">文件夹路径</para><para lang="en">Folder path</para></param>
+    /// <param name="download">
+    ///   <para lang="zh">下载服务实例</para>
+    ///   <para lang="en">The instance of DownloadService</para>
+    /// </param>
+    /// <param name="downloadFileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="folder">
+    ///   <para lang="zh">文件夹路径</para>
+    ///   <para lang="en">Folder path</para>
+    /// </param>
     public static async Task DownloadFolderAsync(this DownloadService download, string downloadFileName, string folder)
     {
         if (!Directory.Exists(folder))
@@ -59,18 +83,36 @@ public static class DownloadServiceExtensions
     /// <para lang="zh">获取文件连接方法</para>
     /// <para lang="en">Get file url</para>
     /// </summary>
-    /// <param name="download"></param>
-    /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
-    /// <param name="url"><para lang="zh">文件地址</para><para lang="en">File url</para></param>
+    /// <param name="download">
+    ///   <para lang="zh">下载服务实例</para>
+    ///   <para lang="en">The instance of DownloadService</para>
+    /// </param>
+    /// <param name="downloadFileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="url">
+    ///   <para lang="zh">文件地址</para>
+    ///   <para lang="en">File url</para>
+    /// </param>
     public static Task DownloadFromUrlAsync(this DownloadService download, string downloadFileName, string url) => download.DownloadFromUrlAsync(new DownloadOption() { FileName = downloadFileName, Url = url });
 
     /// <summary>
     /// <para lang="zh">下载文件扩展方法</para>
     /// <para lang="en">Download file extension</para>
     /// </summary>
-    /// <param name="download"></param>
-    /// <param name="fileName"></param>
-    /// <param name="physicalFilePath"></param>
+    /// <param name="download">
+    ///   <para lang="zh">下载服务实例</para>
+    ///   <para lang="en">The instance of DownloadService</para>
+    /// </param>
+    /// <param name="fileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="physicalFilePath">
+    ///   <para lang="zh">物理文件路径</para>
+    ///   <para lang="en">Physical file path</para>
+    /// </param>
     public static async Task DownloadFromFileAsync(this DownloadService download, string fileName, string physicalFilePath)
     {
         if (File.Exists(physicalFilePath))
