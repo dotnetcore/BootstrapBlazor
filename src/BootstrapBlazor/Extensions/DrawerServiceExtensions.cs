@@ -15,9 +15,18 @@ public static class DrawerServiceExtensions
     /// <para lang="zh">弹出搜索对话框</para>
     /// <para lang="en">Show search dialog</para>
     /// </summary>
-    /// <param name="service"><para lang="zh">DrawerService 服务实例</para><para lang="en">DrawerService instance</para></param>
-    /// <param name="parameters"></param>
-    /// <param name="option"><para lang="zh">DrawerOption 配置类实例</para><para lang="en">DrawerOption instance</para></param>
+    /// <param name="service">
+    ///   <para lang="zh">DrawerService 服务实例</para>
+    ///   <para lang="en">DrawerService instance</para>
+    /// </param>
+    /// <param name="parameters">
+    ///   <para lang="zh">组件参数字典</para>
+    ///   <para lang="en">Component parameters dictionary</para>
+    /// </param>
+    /// <param name="option">
+    ///   <para lang="zh">DrawerOption 配置类实例</para>
+    ///   <para lang="en">DrawerOption instance</para>
+    /// </param>
     public static async Task Show<TComponent>(this DrawerService service, DrawerOption? option = null, IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         option ??= new DrawerOption();
@@ -29,10 +38,22 @@ public static class DrawerServiceExtensions
     /// <para lang="zh">弹出搜索对话框</para>
     /// <para lang="en">Show search dialog</para>
     /// </summary>
-    /// <param name="service"><para lang="zh">DrawerService 服务实例</para><para lang="en">DrawerService instance</para></param>
-    /// <param name="type"></param>
-    /// <param name="parameters"></param>
-    /// <param name="option"><para lang="zh">DrawerOption 配置类实例</para><para lang="en">DrawerOption instance</para></param>
+    /// <param name="service">
+    ///   <para lang="zh">DrawerService 服务实例</para>
+    ///   <para lang="en">DrawerService instance</para>
+    /// </param>
+    /// <param name="type">
+    ///   <para lang="zh">组件类型</para>
+    ///   <para lang="en">Component type</para>
+    /// </param>
+    /// <param name="parameters">
+    ///   <para lang="zh">组件参数字典</para>
+    ///   <para lang="en">Component parameters dictionary</para>
+    /// </param>
+    /// <param name="option">
+    ///   <para lang="zh">DrawerOption 配置类实例</para>
+    ///   <para lang="en">DrawerOption instance</para>
+    /// </param>
     public static async Task Show(this DrawerService service, Type type, DrawerOption? option = null, IDictionary<string, object?>? parameters = null)
     {
         option ??= new DrawerOption();
