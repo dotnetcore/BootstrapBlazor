@@ -7,22 +7,26 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">DirectoryInfo 扩展方法</para>
-/// <para lang="en">DirectoryInfo 扩展方法</para>
+/// <para lang="en">DirectoryInfo extensions method</para>
 /// </summary>
 public static class DirectoryInfoExtensions
 {
     /// <summary>
-    /// <para lang="zh">Copies the 内容s of the current directory to a specified destination directory</para>
+    /// <para lang="zh">将当前目录的内容复制到指定的目标目录</para>
     /// <para lang="en">Copies the contents of the current directory to a specified destination directory</para>
     /// </summary>
-    /// <remarks>This method creates the destination directory if it does not already exist. Files in the
-    /// source directory are copied to the destination directory, and if <paramref name="recursive"/> is <see
-    /// langword="true"/>, all subdirectories and their contents are also copied recursively.</remarks>
-    /// <param name="dir">The source directory to copy from.</param>
-    /// <param name="destinationDir">The path of the destination directory where the contents will be copied.</param>
-    /// <param name="recursive"><see langword="true"/> to copy all subdirectories and their contents recursively; otherwise, <see
-    /// langword="false"/>.</param>
-    /// <exception cref="DirectoryNotFoundException">Thrown if the source directory specified by <paramref name="dir"/> does not exist.</exception>
+    /// <param name="dir">
+    ///   <para lang="zh">源目录</para>
+    ///   <para lang="en">The source directory to copy from.</para>
+    /// </param>
+    /// <param name="destinationDir">
+    ///   <para lang="zh">目标目录路径</para>
+    ///   <para lang="en">The path of the destination directory where the contents will be copied.</para>
+    /// </param>
+    /// <param name="recursive">
+    ///   <para lang="zh">是否递归复制子目录及其内容</para>
+    ///   <para lang="en"><see langword="true"/> to copy all subdirectories and their contents recursively; otherwise, <see langword="false"/>.</para>
+    /// </param>
     public static void Copy(this DirectoryInfo dir, string destinationDir, bool recursive = true)
     {
         // Check if the source directory exists
