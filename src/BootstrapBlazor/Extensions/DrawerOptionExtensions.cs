@@ -15,6 +15,9 @@ public static class DrawerOptionExtensions
     /// <para lang="zh">获得 组件渲染块</para>
     /// <para lang="en">Get component render fragment</para>
     /// </summary>
-    /// <param name="drawerOption"></param>
+    /// <param name="drawerOption">
+    ///  <para lang="zh"><see cref="DrawerOption"/> 实例</para>
+    ///  <para lang="en"><see cref="DrawerOption"/> instance</para>
+    /// </param>
     public static RenderFragment? GetContent(this DrawerOption drawerOption) => drawerOption.ChildContent ?? drawerOption.Component?.Render();
 }
