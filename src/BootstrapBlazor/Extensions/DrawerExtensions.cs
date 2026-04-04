@@ -15,9 +15,18 @@ public static class DrawerExtensions
     /// <para lang="zh">弹出编辑抽屉</para>
     /// <para lang="en">Show edit drawer</para>
     /// </summary>
-    /// <param name="service"><para lang="zh"><see cref="DrawerService"/> 服务实例</para><para lang="en"><see cref="DrawerService"/> instance</para></param>
-    /// <param name="editDialogOption"><para lang="zh"><see cref="ITableEditDialogOption{TModel}"/> 配置类实例</para><para lang="en"><see cref="ITableEditDialogOption{TModel}"/> option instance</para></param>
-    /// <param name="option"><para lang="zh"><see cref="DrawerOption"/> 配置类实例</para><para lang="en"><see cref="DrawerOption"/> option instance</para></param>
+    /// <param name="service">
+    ///   <para lang="zh"><see cref="DrawerService"/> 服务实例</para>
+    ///   <para lang="en"><see cref="DrawerService"/> instance</para>
+    /// </param>
+    /// <param name="editDialogOption">
+    ///   <para lang="zh"><see cref="ITableEditDialogOption{TModel}"/> 配置类实例</para>
+    ///   <para lang="en"><see cref="ITableEditDialogOption{TModel}"/> option instance</para>
+    /// </param>
+    /// <param name="option">
+    ///   <para lang="zh"><see cref="DrawerOption"/> 配置类实例</para>
+    ///   <para lang="en"><see cref="DrawerOption"/> option instance</para>
+    /// </param>
     public static async Task ShowEditDrawer<TModel>(this DrawerService service, TableEditDrawerOption<TModel> editDialogOption, DrawerOption option)
     {
         var parameters = editDialogOption.ToParameter();
