@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .form-control {
     --bb-form-control-padding: #{$bb-form-control-padding}
@@ -61,6 +61,7 @@ form {
 .was-validated .custom-select:valid:focus,
 .custom-select.is-valid:focus {
     border-color: var(--bs-success);
+    box-shadow: none;
 }
 
 .input-number-fix::-webkit-outer-spin-button,
