@@ -1091,11 +1091,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SearchModel ??= CreateSearchModel();
     }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 是否为第一次 Render</para>
-    /// <para lang="en">Gets or sets Whether it is the first Render</para>
-    /// </summary>
-    protected bool FirstRender { get; set; } = true;
+    private bool _firstRender = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
@@ -1140,7 +1136,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsTree = false;
         }
 
-        if (!FirstRender)
+        if (!_firstRender)
         {
             // 动态列模式
             ResetDynamicContext();
@@ -1151,6 +1147,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 重置搜索表单条件
         _searchItems = null;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (!_firstRender)
+        {
+            // 重新读取浏览器设置
+            await OnTableColumnReset();
+        }
     }
 
     /// <summary>
@@ -1234,6 +1245,54 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _loop = true;
             await LoopQueryAsync();
             _loop = false;
+        }
+    }
+
+    private async Task OnTableColumnReset()
+    {
+        // 动态列模式
+        var cols = new List<ITableColumn>();
+        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        {
+            cols.AddRange(DynamicContext.GetColumns());
+        }
+        else if (AutoGenerateColumns)
+        {
+            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
+        }
+        else
+        {
+            cols.AddRange(Columns);
+        }
+
+        if (ColumnOrderCallback != null)
+        {
+            cols = [.. ColumnOrderCallback(cols)];
+        }
+
+        await ReloadColumnOrdersFromBrowserAsync(cols);
+
+        // 查看是否开启列宽序列化
+        await ReloadColumnWidthFromBrowserAsync(cols);
+
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(cols);
+        }
+
+        InternalResetVisibleColumns(cols);
+
+        await ReloadColumnVisibleFromBrowserAsync();
+
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
+
+        // set default sortName
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+        if (col != null)
+        {
+            SortName = col.GetFieldName();
+            SortOrder = col.DefaultSortOrder;
         }
     }
 
@@ -1372,52 +1431,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         IsLoading = true;
 
         // 设置渲染完毕
-        FirstRender = false;
+        _firstRender = false;
 
-        // 动态列模式
-        var cols = new List<ITableColumn>();
-        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
-        {
-            cols.AddRange(DynamicContext.GetColumns());
-        }
-        else if (AutoGenerateColumns)
-        {
-            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
-        }
-        else
-        {
-            cols.AddRange(Columns);
-        }
-
-        if (ColumnOrderCallback != null)
-        {
-            cols = [.. ColumnOrderCallback(cols)];
-        }
-
-        await ReloadColumnOrdersFromBrowserAsync(cols);
-
-        // 查看是否开启列宽序列化
-        await ReloadColumnWidthFromBrowserAsync(cols);
-
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(cols);
-        }
-
-        InternalResetVisibleColumns(cols);
-
-        await ReloadColumnVisibleFromBrowserAsync();
-
-        Columns.Clear();
-        Columns.AddRange(cols.OrderFunc());
-
-        // set default sortName
-        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (col != null)
-        {
-            SortName = col.GetFieldName();
-            SortOrder = col.DefaultSortOrder;
-        }
+        await OnTableColumnReset();
 
         // 获取是否自动查询参数值
         _autoQuery = IsAutoQueryFirstRender;
