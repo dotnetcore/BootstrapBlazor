@@ -536,39 +536,22 @@ const setExcelKeyboardListener = table => {
 }
 
 const resetTableWidth = table => {
-    const { options: { scrollWidth } } = table;
     table.tables.forEach(t => {
         const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
         if (group) {
-            const colgroup = getLastColgroup(t, group);
-            if (colgroup) {
-                colgroup.style = null;
-            }
-            const width = getTableWidthByColumnGroup(t, 100);
-            if (width >= t.parentElement.offsetWidth + scrollWidth) {
-                t.style.width = `${width}px`;
-            }
-            else {
-                t.style.width = null;
-            }
+            let width = 0;
+            [...group.children].forEach(col => {
+                let colWidth = parseInt(col.style.width);
+                if (isNaN(colWidth)) {
+                    colWidth = 100;
+                }
+                width += colWidth;
+            })
+            t.style.width = `${width}px`;
 
             saveColumnWidth(table);
         }
     })
-}
-
-const getLastColgroup = (table, group) => {
-    const p = table.parentElement;
-    if (p) {
-        const length = group.children.length;
-        if (p.classList.contains("table-fixed-header")) {
-            return group.children[length - 2];
-        }
-        else {
-            return group.children[length - 1];
-        }
-    }
-    return null;
 }
 
 const setResizeListener = table => {
@@ -1064,33 +1047,15 @@ const saveColumnWidth = table => {
     }));
 }
 
-const getTableWidthByColumnGroup = (table, defaultWidth) => {
-    return [...table.querySelectorAll('colgroup col')]
-        .map((col, index) => getColumnRenderWidth(table, col, index, defaultWidth))
-        .reduce((accumulator, val) => accumulator + val, 0);
-}
-
-const getColumnRenderWidth = (table, col, index, defaultWidth) => {
-    let width = parseFloat(col.style.width);
-    if (!isNaN(width) && width > 0) {
-        return width;
-    }
-
-    const header = table.querySelectorAll('thead > tr:last-child > th').item(index);
-    width = header?.offsetWidth ?? 0;
-    if (width > 0) {
-        return width;
-    }
-
-    const row = [...table.querySelectorAll('tbody > tr')].find(i => !i.classList.contains('is-detail'));
-    width = row?.children.item(index)?.offsetWidth ?? 0;
-    return width > 0 ? width : defaultWidth;
-}
-
 const setTableDefaultWidth = table => {
     if (table.tables.length > 0 && isVisible(table.tables[0])) {
         const { scrollWidth, columnMinWidth } = table.options;
-        const tableWidth = getTableWidthByColumnGroup(table.tables[0], columnMinWidth);
+        const tableWidth = [...table.tables[0].querySelectorAll('col')]
+            .map(i => {
+                const colWidth = parseFloat(i.style.width);
+                return isNaN(colWidth) ? columnMinWidth : colWidth;
+            })
+            .reduce((accumulator, val) => accumulator + val, 0);
 
         if (tableWidth > table.el.offsetWidth) {
             table.tables[0].style.setProperty('width', `${tableWidth}px`);
