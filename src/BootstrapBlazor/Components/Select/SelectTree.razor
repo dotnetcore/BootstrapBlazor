@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits PopoverSelectBase<TValue>
 @attribute [BootstrapModuleAutoLoader("Select/SelectTree.razor.js")]
@@ -22,7 +22,7 @@
     <div class="dropdown-menu">
         <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" @ref="_tv"
                   OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer"
-                  ShowSearch="ShowSearch" ShowResetSearchButton="ShowResetSearchButton"
+                  ShowSearch="ShowSearch" ShowResetSearchButton="ShowResetSearchButton" OnSearchAsync="OnSearchAsync"
                   CanExpandWhenDisabled="CanExpandWhenDisabled"
                   CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
     </div>
