@@ -8,7 +8,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(CreateTItem())
     </CascadingValue>
-    @if (FirstRender)
+    @if (_firstRender)
     {
         if (ShowSkeleton)
         {
