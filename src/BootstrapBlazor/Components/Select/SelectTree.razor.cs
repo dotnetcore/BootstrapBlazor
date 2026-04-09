@@ -135,6 +135,14 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 搜索回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the search callback method. Default is null</para>
+    /// </summary>
+    /// <remarks>Enabled by setting <see cref="ShowSearch"/> to true.</remarks>
+    [Parameter]
+    public Func<string?, Task<List<TreeViewItem<TValue>>?>>? OnSearchAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否固定搜索栏 默认 false 不固定</para>
     /// <para lang="en">Gets or sets Whether fixed search box. Default false</para>
     /// </summary>
