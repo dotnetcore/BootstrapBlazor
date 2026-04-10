@@ -476,7 +476,7 @@ public partial class Table<TItem>
     /// <para lang="zh">点击 CardView 按钮回调方法</para>
     /// <para lang="en">Click CardView Button Callback</para>
     /// </summary>
-    protected void OnClickCardView()
+    protected async Task OnClickCardView()
     {
         var model = RenderMode;
         if (model == TableRenderMode.Auto)
@@ -488,7 +488,11 @@ public partial class Table<TItem>
             TableRenderMode.Table => TableRenderMode.CardView,
             _ => TableRenderMode.Table
         };
-        _viewChanged = true;
+
+        // 移除 Table 脚本
+        await InvokeVoidAsync("toggleView", Id);
+
+        // 重绘 UI
         StateHasChanged();
     }
 

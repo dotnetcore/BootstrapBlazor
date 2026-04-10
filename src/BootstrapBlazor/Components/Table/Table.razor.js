@@ -254,11 +254,52 @@ export function scrollTo(id) {
     }
 }
 
-export function toggleView(id) {
+export async function toggleView(id) {
     const table = Data.get(id);
     destroyTable(table);
 
-    reset(id);
+    await reset(id);
+}
+
+export async function execute(id, options) {
+    if (!options) {
+        return;
+    }
+
+    if (options.toggleView) {
+        await toggleView(id);
+    }
+    else if (options.reset) {
+        await reset(id);
+    }
+
+    if (options.resetColumns) {
+        resetColumn(id)
+    }
+
+    if (options.resetColDragListener) {
+        resetColDragListener(id)
+    }
+
+    if (options.bindResizeColumn) {
+        bindResizeColumn(id)
+    }
+
+    if (options.updateSortTooltip) {
+        sort(id)
+    }
+
+    if (options.scrollAlign) {
+        scroll(id, options.scrollAlign)
+    }
+
+    if (options.scrollToTop) {
+        scrollTo(id)
+    }
+
+    if (options.resetColumnList) {
+        resetColumnList(id)
+    }
 }
 
 export function dispose(id) {

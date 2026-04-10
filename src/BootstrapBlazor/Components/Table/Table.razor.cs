@@ -941,8 +941,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private bool UpdateSortTooltip { get; set; }
-
+    private bool _updateSortTooltip;
     private bool _isFilterTrigger;
 
     private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
@@ -1208,9 +1207,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("bindResizeColumn", Id);
         }
 
-        if (UpdateSortTooltip)
+        if (_updateSortTooltip)
         {
-            UpdateSortTooltip = false;
+            _updateSortTooltip = false;
             await InvokeVoidAsync("sort", Id);
         }
 
