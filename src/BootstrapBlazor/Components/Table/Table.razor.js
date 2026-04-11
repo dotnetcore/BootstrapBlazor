@@ -254,11 +254,12 @@ export function scrollTo(id) {
     }
 }
 
-export async function toggleView(id) {
+export async function switchCardView(id) {
     const table = Data.get(id);
-    destroyTable(table);
 
-    await reset(id);
+    if (table) {
+        destroyTable(table);
+    }
 }
 
 export async function execute(id, options) {

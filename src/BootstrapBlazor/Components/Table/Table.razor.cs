@@ -1177,12 +1177,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await ProcessFirstRender();
         }
 
-        if (_viewChanged)
-        {
-            _viewChanged = false;
-            await InvokeVoidAsync("toggleView", Id);
-        }
-
         if (_breakPointChanged)
         {
             _breakPointChanged = false;

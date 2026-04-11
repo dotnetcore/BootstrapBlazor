@@ -489,8 +489,16 @@ public partial class Table<TItem>
             _ => TableRenderMode.Table
         };
 
-        // 移除 Table 脚本
-        await InvokeVoidAsync("toggleView", Id);
+        if (RenderMode == TableRenderMode.CardView)
+        {
+            // 移除 Table 脚本
+            await InvokeVoidAsync("switchCardView", Id);
+        }
+        else
+        {
+            // 重新绑定 Table 脚本
+            _viewChanged = true;
+        }
 
         // 重绘 UI
         StateHasChanged();
