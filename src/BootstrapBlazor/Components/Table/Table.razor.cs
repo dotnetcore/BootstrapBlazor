@@ -512,6 +512,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _resetTable;
     private bool _resetColumnList;
+    private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
@@ -1029,8 +1030,37 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
         }
 
-        // 初始化参数
-        OnInitializeParameters();
+        // 加载配置文件中的参数值
+        LoadParameterFromOptions();
+
+        // 加载主题图标
+        LoadIconFromTheme();
+
+        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
+
+        if (_originPageItems != PageItems)
+        {
+            _originPageItems = PageItems;
+            _pageItems = 0;
+        }
+
+        if (_pageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            _pageItems = _originPageItems ?? PageItemsSource.First();
+        }
+
+        if (ExtendButtonColumnAlignment == Alignment.None)
+        {
+            ExtendButtonColumnAlignment = Alignment.Center;
+        }
+
+        if (LineNoColumnAlignment == Alignment.None)
+        {
+            LineNoColumnAlignment = Alignment.Center;
+        }
+
+        SearchModel ??= CreateSearchModel();
 
         if (ScrollMode == ScrollMode.Virtual)
         {
@@ -1100,6 +1130,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return;
         }
 
+        if (_invoke)
+        {
+            _invoke = false;
+            await InvokeVoidAsync("updateTable", Id, new
+            {
+                ResetColumnListPopover = true
+            });
+        }
         //if (_breakPointChanged)
         //{
         //    _breakPointChanged = false;
@@ -1175,7 +1213,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void OnInitializeParameters()
+    private void LoadParameterFromOptions()
     {
         var op = Options.CurrentValue;
         if (ShowCheckboxTextColumnWidth == 0)
@@ -1207,31 +1245,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
+    }
 
-        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
-
-        if (_originPageItems != PageItems)
-        {
-            _originPageItems = PageItems;
-            _pageItems = 0;
-        }
-
-        if (_pageItems == 0)
-        {
-            // 如果未设置 PageItems 取默认值第一个
-            _pageItems = _originPageItems ?? PageItemsSource.First();
-        }
-
-        if (ExtendButtonColumnAlignment == Alignment.None)
-        {
-            ExtendButtonColumnAlignment = Alignment.Center;
-        }
-
-        if (LineNoColumnAlignment == Alignment.None)
-        {
-            LineNoColumnAlignment = Alignment.Center;
-        }
-
+    private void LoadIconFromTheme()
+    {
         SortIconAsc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIconAsc);
         SortIconDesc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortDesc);
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
@@ -1262,13 +1279,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
         TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
         AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
-
-        SearchModel ??= CreateSearchModel();
     }
 
     private void OnParameterCheckChanged()
     {
-        if (!_firstRender)
+        if (_firstRender)
         {
             // 首次加载保存状态值副本
 
@@ -1283,6 +1298,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             _resetColumnList = true;
+            _invoke = true;
         }
     }
 

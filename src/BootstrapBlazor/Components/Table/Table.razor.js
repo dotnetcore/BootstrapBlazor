@@ -1120,3 +1120,11 @@ export function toggleLoadMask(id, method) {
         }
     }
 }
+
+export function updateTable(id, options) {
+    const table = Data.get(id)
+    if (table) {
+        if (options.resetColumnListPopover) {
+        }
+    }
+}
