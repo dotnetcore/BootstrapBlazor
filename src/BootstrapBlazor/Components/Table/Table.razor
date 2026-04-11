@@ -501,7 +501,7 @@
                 <tfoot @key="Rows" class="@FooterClassString">
                     <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                         <CascadingValue Value="@Rows" Name="TableFooterContext">
-                            <CascadingValue Value="@ScreenSize" Name="TableBreakPoint">
+                            <CascadingValue Value="@_screenSize" Name="TableBreakPoint">
                                 @if (FooterTemplate != null)
                                 {
                                     @FooterTemplate(Rows)
@@ -1132,8 +1132,8 @@
         @<div class="dropdown-item">
             <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
                       IsDisabled="@GetColumnsListState(item)"
-                      @bind-Value="@item.Visible"
-                      OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
+                      Value="@item.Visible"
+                      OnValueChanged="visible => OnToggleColumnVisible(item, visible)">
             </Checkbox>
         </div>;
 

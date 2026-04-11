@@ -49,15 +49,9 @@ public partial class Table<TItem>
     /// </summary>
     protected TableRenderMode ActiveRenderMode => RenderMode switch
     {
-        TableRenderMode.Auto => ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
+        TableRenderMode.Auto => _screenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
         _ => RenderMode
     };
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 客户端屏幕宽度</para>
-    /// <para lang="en">Gets or sets Client Screen Width</para>
-    /// </summary>
-    protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm</para>

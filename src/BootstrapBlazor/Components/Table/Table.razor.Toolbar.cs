@@ -555,7 +555,7 @@ public partial class Table<TItem>
         // <para lang="zh">不可见列</para>
         // <para lang="en">Invisible columns</para>
         var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
-        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
+        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && _screenSize >= i.ShownWithBreakPoint);
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item)
@@ -1233,7 +1233,6 @@ public partial class Table<TItem>
             var queryOption = BuildQueryPageOptions();
 
             QueryDynamicItems(queryOption, DynamicContext);
-            _bindResizeColumn = true;
         }
     }
 

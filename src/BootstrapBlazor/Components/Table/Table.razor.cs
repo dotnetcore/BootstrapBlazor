@@ -508,21 +508,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private ILookupService? InjectLookupService { get; set; }
 
-    private bool _breakPointChanged;
-
+    private BreakPoint _screenSize;
     private bool _resetTable;
     private bool _resetColumnListPopover;
+    private bool _breakPointChanged;
+    private bool _resetColumns;
+    private bool _updateSortTooltip;
     private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
     private async Task OnBreakPointChanged(BreakPoint size)
     {
-        if (size != ScreenSize)
+        if (size != _screenSize)
         {
-            ScreenSize = size;
+            _screenSize = size;
             _breakPointChanged = true;
-            await InvokeAsync(StateHasChanged);
+            _invoke = true;
+            StateHasChanged();
         }
     }
 
@@ -949,7 +952,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
-    private bool _updateSortTooltip;
     private bool _isFilterTrigger;
 
     private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
@@ -960,8 +962,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _lastIsPopoverToolbarDropdownButtonValue = false;
 
     private bool _firstRender = true;
-
-    private bool _bindResizeColumn;
 
     /// <summary>
     /// <inheritdoc/>
@@ -1132,41 +1132,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (_invoke)
         {
+            var resetColumnListPopover = _resetColumnListPopover;
+            var breakPointChanged = _breakPointChanged;
+            var resetColumns = _resetColumns;
+            var updateSortTooltip = _updateSortTooltip;
+
             _invoke = false;
+            _resetColumnListPopover = false;
+            _breakPointChanged = false;
+            _resetColumns = false;
+            _updateSortTooltip = false;
+
             await InvokeVoidAsync("updateTableState", Id, new
             {
-                ResetColumnListPopover = _resetColumnListPopover
+                TableName = ClientTableName,
+                ResetColumnListPopover = resetColumnListPopover,
+                BreakPointChanged = breakPointChanged,
+                ResetColumns = resetColumns,
+                VisibleColumns = resetColumns ? _visibleColumns : null,
+                AllowDragColumn,
+                UpdateSortTooltip = updateSortTooltip
             });
         }
-        //if (_breakPointChanged)
-        //{
-        //    _breakPointChanged = false;
-        //    await InvokeVoidAsync("reset", Id);
-        //}
-
-        //if (_resetColumns)
-        //{
-        //    _resetColumns = false;
-        //    await InvokeVoidAsync("resetColumn", Id);
-        //}
-
-        //if (_resetColDragListener)
-        //{
-        //    _resetColDragListener = false;
-        //    await InvokeVoidAsync("resetColDragListener", Id);
-        //}
-
-        //if (_bindResizeColumn)
-        //{
-        //    _bindResizeColumn = false;
-        //    await InvokeVoidAsync("bindResizeColumn", Id);
-        //}
-
-        //if (_updateSortTooltip)
-        //{
-        //    _updateSortTooltip = false;
-        //    await InvokeVoidAsync("sort", Id);
-        //}
 
         //if (AutoScrollLastSelectedRowToView)
         //{
@@ -1205,12 +1192,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected override async Task InvokeInitAsync()
     {
-        ScreenSize = BreakPoint.None;
-        var breakPoint = await InvokeAsync<BreakPoint>("getResponsive");
-        if (breakPoint != BreakPoint.None)
-        {
-            ScreenSize = breakPoint;
-        }
+        // 首次加载检测屏幕宽度
+        _screenSize = await InvokeAsync<BreakPoint>("getResponsive");
     }
 
     private void LoadParameterFromOptions()
@@ -1283,10 +1266,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void OnParameterCheckChanged()
     {
+        // 首次加载保存状态值副本
         if (_firstRender)
         {
-            // 首次加载保存状态值副本
-
             // 记录上一次 IsPopoverToolbarDropdownButton 参数值用于判断是否需要更新 DropdownListClassString
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             return;
@@ -1462,11 +1444,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
-        if (AllowResizing)
-        {
-            _resetColumns = true;
-        }
-
+        _resetColumns = true;
+        _invoke = true;
         InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }

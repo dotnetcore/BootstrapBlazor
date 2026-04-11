@@ -80,6 +80,7 @@ public partial class Table<TItem>
     protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
     {
         _updateSortTooltip = true;
+        _invoke = true;
 
         if (SortOrder == SortOrder.Unset)
         {

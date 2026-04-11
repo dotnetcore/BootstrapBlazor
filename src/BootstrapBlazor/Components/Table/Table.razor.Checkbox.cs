@@ -143,9 +143,6 @@ public partial class Table<TItem>
         await OnSelectedRowsChanged();
     }
 
-    private bool _resetColumns;
-    private bool _resetColDragListener;
-
     /// <summary>
     /// <para lang="zh">获得/设置 列改变显示状态回调方法</para>
     /// <para lang="en">Gets or sets Column Visible Changed Callback</para>
@@ -153,24 +150,18 @@ public partial class Table<TItem>
     [Parameter]
     public Func<string, bool, Task>? OnColumnVisibleChanged { get; set; }
 
-    private async Task OnToggleColumnVisible(string columnName, bool visible)
+    private async Task OnToggleColumnVisible(ColumnVisibleItem item, bool visible)
     {
-        if (AllowResizing)
-        {
-            _resetColumns = true;
-        }
-        if (AllowDragColumn && visible)
-        {
-            _resetColDragListener = true;
-        }
-        if (IsEnableLocalstorage())
-        {
-            await InvokeVoidAsync("saveColumnList", ClientTableName, _visibleColumns);
-        }
+        var columnName = item.Name;
         if (OnColumnVisibleChanged != null)
         {
             await OnColumnVisibleChanged(columnName, visible);
         }
+
+        _resetColumns = true;
+        _invoke = true;
+        item.Visible = visible;
+        StateHasChanged();
     }
 
     private void TriggerSelectAllColumnList()

@@ -9,5 +9,5 @@ class ColumnWidthState
 {
     public List<ColumnWidth> ColumnWidths { get; set; } = [];
 
-    public string? TableWidth { get; set; }
+    public int TableWidth { get; set; }
 }

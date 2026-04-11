@@ -138,43 +138,6 @@ const observeHeight = table => {
     table.observer = observer;
 }
 
-export function resetColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        setResizeListener(table)
-        resetTableWidth(table)
-    }
-}
-
-export function resetColDragListener(id) {
-    const table = Data.get(id)
-    if (table) {
-        setDraggable(table)
-    }
-}
-
-export function bindResizeColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        if (table.isResizeColumn) {
-            setResizeListener(table)
-        }
-    }
-}
-
-export function sort(id) {
-    const table = Data.get(id)
-    const el = table.el
-
-    const span = el.querySelector('.sortable .table-text[aria-describedby]')
-    if (span) {
-        const tooltip = getDescribedElement(span)
-        if (tooltip) {
-            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
-        }
-    }
-}
-
 export function scroll(id, align, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
@@ -213,43 +176,6 @@ export async function switchCardView(id) {
 
     if (table) {
         destroyTable(table);
-    }
-}
-
-export async function execute(id, options) {
-    if (!options) {
-        return;
-    }
-
-    if (options.toggleView) {
-        await toggleView(id);
-    }
-    else if (options.reset) {
-        await reset(id);
-    }
-
-    if (options.resetColumns) {
-        resetColumn(id)
-    }
-
-    if (options.resetColDragListener) {
-        resetColDragListener(id)
-    }
-
-    if (options.bindResizeColumn) {
-        bindResizeColumn(id)
-    }
-
-    if (options.updateSortTooltip) {
-        sort(id)
-    }
-
-    if (options.scrollAlign) {
-        scroll(id, options.scrollAlign)
-    }
-
-    if (options.scrollToTop) {
-        scrollTo(id)
     }
 }
 
@@ -1034,11 +960,14 @@ export function getColumnStates(tableName) {
     const columnOrderKey = `bb-table-column-order-${tableName}`
     const columnOrderStates = getLocalStorageValue(columnOrderKey);
 
-    return {
+
+    var ret = {
         columnVisibleStates,
         columnWidthState,
         columnOrderStates
-    }
+    };
+    console.log(ret);
+    return ret;
 }
 
 const getLocalStorageValue = key => {
@@ -1065,10 +994,10 @@ const saveColumnWidth = table => {
     const tableName = table.tables[0].getAttribute('data-bb-name')
     const key = `bb-table-column-width-${tableName}`
     localStorage.setItem(key, JSON.stringify({
-        "cols": cols.map(col => {
+        "columnWidths": cols.map(col => {
             return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
         }),
-        "table": tableWidth
+        "tableWidth": tableWidth
     }));
 }
 
@@ -1090,11 +1019,24 @@ export function toggleLoadMask(id, method) {
     }
 }
 
-export function updateTableState(id, options) {
+export async function updateTableState(id, options) {
     const table = Data.get(id)
     if (table) {
+        if (options.breakPointChanged) {
+            await reset(id);
+            return;
+        }
+
+        if (options.resetColumns) {
+            resetColumns(table, options);
+        }
+
         if (options.resetColumnListPopover) {
             resetColumnListPopover(table);
+        }
+
+        if (options.updateSortTooltip) {
+            updateSortTooltip(table);
         }
     }
 }
@@ -1119,6 +1061,31 @@ const resetColumnListPopover = table => {
                     isDisabled: () => false
                 }));
             }
+        }
+    }
+}
+
+const resetColumns = (table, options) => {
+    setResizeListener(table);
+    resetTableWidth(table);
+
+    const { tableName, columns, allowDragColumn } = options;
+    if (tableName && columns) {
+        saveColumnList(tableName, columns);
+    }
+
+    if (allowDragColumn) {
+        setDraggable(table);
+    }
+}
+
+const updateSortTooltip = table => {
+    const el = table.el
+    const span = el.querySelector('.sortable .table-text[aria-describedby]')
+    if (span) {
+        const tooltip = getDescribedElement(span)
+        if (tooltip) {
+            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
         }
     }
 }
