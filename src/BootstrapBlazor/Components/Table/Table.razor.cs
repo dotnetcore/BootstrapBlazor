@@ -1260,23 +1260,30 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols.AddRange(Columns);
         }
 
-        if (ColumnOrderCallback != null)
-        {
-            cols = [.. ColumnOrderCallback(cols)];
-        }
-
-        await ReloadColumnOrdersFromBrowserAsync(cols);
-
-        // 查看是否开启列宽序列化
-        await ReloadColumnWidthFromBrowserAsync(cols);
-
+        // 读取客户端列设置
         if (OnColumnCreating != null)
         {
             await OnColumnCreating(cols);
         }
 
+        // 列排序回调方法
+        if (ColumnOrderCallback != null)
+        {
+            cols = [.. ColumnOrderCallback(cols)];
+        }
+
+        // 列可见性方法
         InternalResetVisibleColumns(cols);
 
+        // TODO: 调用一次 JSInvoke 读取所有需要的配置回来不需要调用三次
+
+        // 读取浏览器列顺序配置
+        await ReloadColumnOrdersFromBrowserAsync(cols);
+
+        // 读取浏览器列宽配置并设置列宽度
+        await ReloadColumnWidthFromBrowserAsync(cols);
+
+        // 读取浏览器列可见配置
         await ReloadColumnVisibleFromBrowserAsync();
 
         Columns.Clear();
@@ -1358,7 +1365,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task ReloadColumnVisibleFromBrowserAsync()
     {
-        if (!string.IsNullOrEmpty(ClientTableName))
+        if (IsEnableLocalstorage())
         {
             // 读取浏览器配置
             var clientColumns = await InvokeAsync<List<ColumnVisibleItem?>>("reloadColumnList", ClientTableName);
@@ -1377,7 +1384,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
     {
         List<ColumnWidth>? ret = null;
-        if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
+        if (IsEnableLocalstorage() && AllowResizing)
         {
             var jsonData = await InvokeAsync<string>("reloadColumnWidth", ClientTableName);
             if (!string.IsNullOrEmpty(jsonData))
@@ -1394,7 +1401,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                         _localStorageTableWidth = tableWidth;
                     }
                 }
-                catch { }
+                catch
+                {
+                    // TODO: 缺少日志记录解析失败情况
+                }
             }
         }
         _clientColumnWidths = ret ?? [];
@@ -1404,7 +1414,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
     {
-        if (!string.IsNullOrEmpty(ClientTableName))
+        if (IsEnableLocalstorage())
         {
             var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
             if (orders != null)
@@ -1420,6 +1430,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
         }
     }
+
+    private bool IsEnableLocalstorage() => !string.IsNullOrEmpty(ClientTableName);
 
     private async Task ProcessFirstRender()
     {
