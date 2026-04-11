@@ -1098,7 +1098,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 首次加载表格不自动查询数据，避免在某些场景下（如表格在 Tab 页中）首次加载时就执行查询导致不必要的性能消耗
             _autoQuery = IsAutoQueryFirstRender;
 
-            await QueryAsync(true, 1, true);
+            await QueryAsync(true, 1, false, true);
 
             // 恢复查询功能
             _autoQuery = true;
