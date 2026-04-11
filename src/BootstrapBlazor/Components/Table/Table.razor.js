@@ -251,10 +251,6 @@ export async function execute(id, options) {
     if (options.scrollToTop) {
         scrollTo(id)
     }
-
-    if (options.resetColumnList) {
-        resetColumnList(id)
-    }
 }
 
 export function dispose(id) {
@@ -1003,33 +999,6 @@ const setToolbarDropdown = (table, toolbar) => {
     })
 }
 
-export function resetColumnList(id) {
-    const table = Data.get(id);
-    if (table) {
-        const { toolbar } = table;
-        if (toolbar) {
-            const dropdown = toolbar.querySelector('.dropdown-column');
-            if (dropdown) {
-                const button = dropdown.querySelector('.dropdown-toggle');
-                const dropdownToggle = bootstrap.Dropdown.getInstance(button);
-                if (dropdownToggle) {
-                    dropdownToggle.dispose();
-                }
-                const p = table.popovers.find(i => i.el === dropdown);
-                if (p) {
-                    table.popovers = table.popovers.filter(i => i !== p);
-                    Popover.dispose(p);
-                }
-                if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
-                    table.popovers.push(Popover.init(dropdown, {
-                        isDisabled: () => false
-                    }));
-                }
-            }
-        }
-    }
-}
-
 const setTableDefaultWidth = table => {
     if (table.tables.length > 0 && isVisible(table.tables[0])) {
         const { scrollWidth, columnMinWidth } = table.options;
@@ -1125,6 +1094,31 @@ export function updateTable(id, options) {
     const table = Data.get(id)
     if (table) {
         if (options.resetColumnListPopover) {
+            resetColumnListPopover(table);
+        }
+    }
+}
+
+const resetColumnListPopover = table => {
+    const { toolbar } = table;
+    if (toolbar) {
+        const dropdown = toolbar.querySelector('.dropdown-column');
+        if (dropdown) {
+            const button = dropdown.querySelector('.dropdown-toggle');
+            const dropdownToggle = bootstrap.Dropdown.getInstance(button);
+            if (dropdownToggle) {
+                dropdownToggle.dispose();
+            }
+            const p = table.popovers.find(i => i.el === dropdown);
+            if (p) {
+                table.popovers = table.popovers.filter(i => i !== p);
+                Popover.dispose(p);
+            }
+            if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
+                table.popovers.push(Popover.init(dropdown, {
+                    isDisabled: () => false
+                }));
+            }
         }
     }
 }
