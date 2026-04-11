@@ -1042,9 +1042,9 @@ const resetColumns = (table, options) => {
     setResizeListener(table);
     resetTableWidth(table);
 
-    const { tableName, columns, allowDragColumn } = options;
-    if (tableName && columns) {
-        saveColumnList(tableName, columns);
+    const { tableName, visibleColumns, allowDragColumn } = options;
+    if (tableName && visibleColumns) {
+        saveColumnList(tableName, visibleColumns);
     }
 
     if (allowDragColumn) {
