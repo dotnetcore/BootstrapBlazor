@@ -1156,11 +1156,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         await base.OnParametersSetAsync();
 
-        if (!_firstRender)
+        if (_firstRender)
         {
-            // 重新读取浏览器设置
-            await OnTableColumnReset();
+            return;
         }
+
+        // 重新读取浏览器设置
+        await OnTableColumnReset();
     }
 
     /// <summary>
