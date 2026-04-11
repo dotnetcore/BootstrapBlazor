@@ -584,6 +584,7 @@ public partial class Table<TItem>
     /// </summary>
     public async Task AddAsync()
     {
+        await ToggleLoading(true);
         if (DynamicContext != null)
         {
             // <para lang="zh">数据源为 DataTable 新建后重建行与列</para>
@@ -605,7 +606,6 @@ public partial class Table<TItem>
         }
         else
         {
-            await ToggleLoading(true);
             await InternalOnAddAsync();
             EditModalTitleString = AddModalTitle;
             if (EditMode == EditMode.Popup)
@@ -628,8 +628,8 @@ public partial class Table<TItem>
                 await ShowEditDrawer(ItemChangedType.Add);
             }
             await OnSelectedRowsChanged();
-            await ToggleLoading(false);
         }
+        await ToggleLoading(false);
     }
 
     private bool ShowEditForm { get; set; }
