@@ -37,8 +37,8 @@ public class QueryData<TItem>
     public bool IsSorted { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数据是否被过滤 默认为 false 未被过滤，设置为 true 表示数据已过滤组件内部不做任何处理，设置为 false 表示数据未过滤组件内部将进行过滤操作</para>
-    /// <para lang="en">Gets or sets whether data is filtered. Default is false. Setting to true indicates data is already filtered and the component will not perform any filtering. Setting to false indicates data is not filtered and the component will perform filtering.</para>
+    /// <para lang="zh">获得/设置 数据是否被搜索 默认为 false 未被搜索，设置为 true 表示数据已搜索组件内部不做任何处理，设置为 false 表示数据未搜索组件内部将进行搜索操作</para>
+    /// <para lang="en">Gets or sets whether data is searched. Default is false. Setting to true indicates data is already searched and the component will not perform any searching. Setting to false indicates data is not searched and the component will perform searching.</para>
     /// </summary>
     public bool IsSearch { get; set; }
 
