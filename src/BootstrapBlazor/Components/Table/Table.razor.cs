@@ -1024,13 +1024,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
         }
 
-        // 初始化参数
-        OnInitializeParameters();
-
         if (Items != null && OnQueryAsync != null)
         {
             throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
         }
+
+        // 初始化参数
+        OnInitializeParameters();
 
         if (ScrollMode == ScrollMode.Virtual)
         {
@@ -1039,7 +1039,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsPagination = false;
         }
 
+        // 重置渲染行缓存
         _rowsCache = null;
+
+        // 重置搜索表单条件
+        _searchItems = null;
 
         if (IsExcel)
         {
@@ -1052,13 +1056,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
-
-            // resize column width;
-            ResetColumnWidth(Columns);
         }
-
-        // 重置搜索表单条件
-        _searchItems = null;
 
         OnParameterCheckChanged();
     }
