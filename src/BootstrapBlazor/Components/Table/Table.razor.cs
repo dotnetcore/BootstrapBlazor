@@ -1288,12 +1288,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols.AddRange(Columns);
         }
 
-        // 读取客户端列设置
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(cols);
-        }
-
         // 列排序回调方法
         if (ColumnOrderCallback != null)
         {
@@ -1305,6 +1299,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 读取浏览器持久化列状态配置
         await ReloadColumnStatesFromBrowserAsync(cols);
+
+        // 调用列创建回调方法
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(cols);
+        }
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
