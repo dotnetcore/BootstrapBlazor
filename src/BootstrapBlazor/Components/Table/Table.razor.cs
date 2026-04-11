@@ -999,107 +999,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void OnInitParameters()
-    {
-        var op = Options.CurrentValue;
-        if (ShowCheckboxTextColumnWidth == 0)
-        {
-            ShowCheckboxTextColumnWidth = op.TableSettings.ShowCheckboxTextColumnWidth;
-        }
-
-        if (DetailColumnWidth == 0)
-        {
-            DetailColumnWidth = op.TableSettings.DetailColumnWidth;
-        }
-
-        if (LineNoColumnWidth == 0)
-        {
-            LineNoColumnWidth = op.TableSettings.LineNoColumnWidth;
-        }
-
-        if (CheckboxColumnWidth == 0)
-        {
-            CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
-        }
-
-        if (CheckboxColumnCompactWidth == 0)
-        {
-            CheckboxColumnCompactWidth = op.TableSettings.CheckboxColumnCompactWidth;
-        }
-
-        if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
-        {
-            RenderMode = op.TableSettings.TableRenderMode.Value;
-        }
-
-        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
-
-        if (_originPageItems != PageItems)
-        {
-            _originPageItems = PageItems;
-            _pageItems = 0;
-        }
-
-        if (_pageItems == 0)
-        {
-            // 如果未设置 PageItems 取默认值第一个
-            _pageItems = _originPageItems ?? PageItemsSource.First();
-        }
-
-        if (ExtendButtonColumnAlignment == Alignment.None)
-        {
-            ExtendButtonColumnAlignment = Alignment.Center;
-        }
-
-        if (LineNoColumnAlignment == Alignment.None)
-        {
-            LineNoColumnAlignment = Alignment.Center;
-        }
-
-        SortIconAsc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIconAsc);
-        SortIconDesc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortDesc);
-        SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
-        FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
-        ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
-        ColumnToolboxIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnToolboxIcon);
-
-        AddButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAddButtonIcon);
-        EditButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableEditButtonIcon);
-        DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableDeleteButtonIcon);
-        MoreButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableMoreButtonIcon);
-        RefreshButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableRefreshButtonIcon);
-        CardViewButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCardViewButtonIcon);
-        ColumnListButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnListButtonIcon);
-        CsvExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportCsvIcon);
-        ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportExcelIcon);
-        PdfExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
-        SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSearchButtonIcon);
-        ResetSearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableResetSearchButtonIcon);
-        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCloseButtonIcon);
-        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSaveButtonIcon);
-        AdvanceButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvanceButtonIcon);
-        CancelButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCancelButtonIcon);
-        CopyColumnButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCopyColumnButtonIcon);
-        GearIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableGearIcon);
-
-        TreeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeIcon);
-        TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
-        TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
-        AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
-
-        SearchModel ??= CreateSearchModel();
-    }
-
-    private bool _firstRender = true;
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
-    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
-    /// </summary>
-    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
-
-    private bool _bindResizeColumn;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1112,7 +1011,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
         }
 
-        OnInitParameters();
+        // 初始化参数
+        OnInitializeParameters();
 
         if (Items != null && OnQueryAsync != null)
         {
@@ -1240,6 +1140,117 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _loop = true;
             await LoopQueryAsync();
             _loop = false;
+        }
+    }
+
+    private void OnInitializeParameters()
+    {
+        var op = Options.CurrentValue;
+        if (ShowCheckboxTextColumnWidth == 0)
+        {
+            ShowCheckboxTextColumnWidth = op.TableSettings.ShowCheckboxTextColumnWidth;
+        }
+
+        if (DetailColumnWidth == 0)
+        {
+            DetailColumnWidth = op.TableSettings.DetailColumnWidth;
+        }
+
+        if (LineNoColumnWidth == 0)
+        {
+            LineNoColumnWidth = op.TableSettings.LineNoColumnWidth;
+        }
+
+        if (CheckboxColumnWidth == 0)
+        {
+            CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
+        }
+
+        if (CheckboxColumnCompactWidth == 0)
+        {
+            CheckboxColumnCompactWidth = op.TableSettings.CheckboxColumnCompactWidth;
+        }
+
+        if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
+        {
+            RenderMode = op.TableSettings.TableRenderMode.Value;
+        }
+
+        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
+
+        if (_originPageItems != PageItems)
+        {
+            _originPageItems = PageItems;
+            _pageItems = 0;
+        }
+
+        if (_pageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            _pageItems = _originPageItems ?? PageItemsSource.First();
+        }
+
+        if (ExtendButtonColumnAlignment == Alignment.None)
+        {
+            ExtendButtonColumnAlignment = Alignment.Center;
+        }
+
+        if (LineNoColumnAlignment == Alignment.None)
+        {
+            LineNoColumnAlignment = Alignment.Center;
+        }
+
+        SortIconAsc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIconAsc);
+        SortIconDesc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortDesc);
+        SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
+        FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
+        ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
+        ColumnToolboxIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnToolboxIcon);
+
+        AddButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAddButtonIcon);
+        EditButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableEditButtonIcon);
+        DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableDeleteButtonIcon);
+        MoreButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableMoreButtonIcon);
+        RefreshButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableRefreshButtonIcon);
+        CardViewButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCardViewButtonIcon);
+        ColumnListButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnListButtonIcon);
+        CsvExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportCsvIcon);
+        ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportExcelIcon);
+        PdfExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
+        SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSearchButtonIcon);
+        ResetSearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableResetSearchButtonIcon);
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCloseButtonIcon);
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSaveButtonIcon);
+        AdvanceButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvanceButtonIcon);
+        CancelButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCancelButtonIcon);
+        CopyColumnButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCopyColumnButtonIcon);
+        GearIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableGearIcon);
+
+        TreeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeIcon);
+        TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
+        TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
+        AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
+
+        SearchModel ??= CreateSearchModel();
+    }
+
+    private void OnParameterCheckChanged()
+    {
+        if (!_firstRender)
+        {
+            // 首次加载保存状态值副本
+
+            // 记录上一次 IsPopoverToolbarDropdownButton 参数值用于判断是否需要更新 DropdownListClassString
+            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
+            return;
+        }
+
+        // 检查 ColumnList 显示状态是否改变如果改变重置 ColumnList 渲染模式
+        if (_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
+        {
+            // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
+            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
+            _resetColumnList = true;
         }
     }
 
