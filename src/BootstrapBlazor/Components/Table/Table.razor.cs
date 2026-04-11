@@ -1058,6 +1058,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             ResetDynamicContext();
         }
 
+        // 检查状态变化
         OnParameterCheckChanged();
     }
 
@@ -1075,7 +1076,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 重新读取浏览器设置
-        await OnTableColumnReset();
+        await BuildTableColumns();
     }
 
     /// <summary>
@@ -1269,7 +1270,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private async Task OnTableColumnReset()
+    private async Task BuildTableColumns()
     {
         // 动态列模式
         var cols = new List<ITableColumn>();
@@ -1286,6 +1287,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols.AddRange(Columns);
         }
 
+        // 调用列创建回调方法
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(cols);
+        }
+
+        // 读取浏览器持久化列状态配置
+        await ReloadColumnStatesFromBrowserAsync(cols);
+
         // 列排序回调方法
         if (ColumnOrderCallback != null)
         {
@@ -1294,15 +1304,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 列可见性方法
         InternalResetVisibleColumns(cols);
-
-        // 读取浏览器持久化列状态配置
-        await ReloadColumnStatesFromBrowserAsync(cols);
-
-        // 调用列创建回调方法
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(cols);
-        }
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1459,7 +1460,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async Task ProcessFirstRender()
     {
 
-        await OnTableColumnReset();
+        await BuildTableColumns();
 
         // 首次渲染结束
         _firstRender = false;
