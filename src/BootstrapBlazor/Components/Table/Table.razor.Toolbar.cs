@@ -17,8 +17,8 @@ public partial class Table<TItem>
     public bool ShowSkeleton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值覆盖此参数</para>
-    /// <para lang="en">Gets or sets Whether to show loading animation when first loading. Default true. Setting <see cref="ShowSkeleton"/> value covers this parameter</para>
+    /// <para lang="zh">获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值优先级高于此参数，优先显示骨架屏</para>
+    /// <para lang="en">Gets or sets Whether to show loading animation when first loading. Default true. The value of <see cref="ShowSkeleton"/> takes precedence over this parameter, showing the skeleton screen first</para>
     /// </summary>
     [Parameter]
     public bool ShowLoadingInFirstRender { get; set; } = true;
