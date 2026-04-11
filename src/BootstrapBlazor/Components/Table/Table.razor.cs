@@ -511,6 +511,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _breakPointChanged;
 
     private bool _resetTable;
+    private bool _resetColumnList;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
@@ -941,6 +942,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
+    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
+    /// </summary>
+    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+
     private bool _updateSortTooltip;
     private bool _isFilterTrigger;
 
@@ -950,6 +957,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     private bool _lastIsPopoverToolbarDropdownButtonValue = false;
+
+    private bool _firstRender = true;
+
+    private bool _bindResizeColumn;
 
     /// <summary>
     /// <inheritdoc/>
@@ -1048,6 +1059,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 重置搜索表单条件
         _searchItems = null;
+
+        OnParameterCheckChanged();
     }
 
     /// <summary>
@@ -1077,8 +1090,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (firstRender)
         {
-            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
+            // 首次渲染执行初始化表格脚本
             await ProcessFirstRender();
+
+            _firstRender = false;
+        }
+        else
+        {
+            // 重置表格脚本状态
         }
 
         if (_breakPointChanged)
@@ -1129,10 +1148,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("scrollTo", Id);
         }
 
-        // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
-        if (_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
+        if (_resetColumnList)
         {
-            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             await InvokeVoidAsync("resetColumnList", Id);
         }
 
@@ -1449,9 +1466,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async Task ProcessFirstRender()
     {
         IsLoading = true;
-
-        // 设置渲染完毕
-        _firstRender = false;
 
         await OnTableColumnReset();
 
