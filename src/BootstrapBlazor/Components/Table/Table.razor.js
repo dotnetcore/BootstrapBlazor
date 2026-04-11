@@ -175,19 +175,6 @@ export function sort(id) {
     }
 }
 
-export function toggleLoadMask(id, method) {
-    const table = Data.get(id)
-    if (table) {
-        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
-        if (method === 'show') {
-            loader.classList.add('show')
-        }
-        else {
-            loader.classList.remove('show')
-        }
-    }
-}
-
 export function scroll(id, align, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
@@ -441,7 +428,7 @@ const setExcelKeyboardListener = table => {
     }
 
     const setFocus = target => {
-        const handler = setTimeout(function() {
+        const handler = setTimeout(function () {
             clearTimeout(handler);
             if (target.focus) {
                 target.focus();
@@ -1068,31 +1055,39 @@ const setTableDefaultWidth = table => {
     }
 }
 
-export function loadColumnStates(tableName) {
+export function getColumnStates(tableName) {
+    const columnVisibleKey = `bb-table-column-visible-${tableName}`
+    const columnVisibleStates = getLocalStorageValue(columnVisibleKey);
 
+    const columnWidthKey = `bb-table-column-width-${tableName}`
+    const columnWidthState = getLocalStorageValue(columnWidthKey);
+
+    const columnOrderKey = `bb-table-column-order-${tableName}`
+    const columnOrderStates = getLocalStorageValue(columnOrderKey);
+
+    return {
+        columnVisibleStates,
+        columnWidthState,
+        columnOrderStates
+    }
 }
 
-export function reloadColumnList(tableName) {
-    const key = `bb-table-column-visiable-${tableName}`
+const getLocalStorageValue = key => {
+    let result = null;
     const json = localStorage.getItem(key);
-    let columns = [];
     if (json) {
         try {
-            columns = JSON.parse(json);
+            result = JSON.parse(json);
         }
         catch { }
     }
-    return columns;
+
+    return result;
 }
 
-export function saveColumnList(tableName, columns) {
-    const key = `bb-table-column-visiable-${tableName}`
+const saveColumnList = (tableName, columns) => {
+    const key = `bb-table-column-visible-${tableName}`
     localStorage.setItem(key, JSON.stringify(columns));
-}
-
-export function reloadColumnWidth(tableName) {
-    const key = `bb-table-column-width-${tableName}`
-    return localStorage.getItem(key);
 }
 
 const saveColumnWidth = table => {
@@ -1108,12 +1103,20 @@ const saveColumnWidth = table => {
     }));
 }
 
-export function reloadColumnOrder(tableName) {
-    const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) ?? [];
-}
-
-export function saveColumnOrder(options) {
+const saveColumnOrder = (options) => {
     const key = `bb-table-column-order-${options.tableName}`
     localStorage.setItem(key, JSON.stringify(options.columns));
+}
+
+export function toggleLoadMask(id, method) {
+    const table = Data.get(id)
+    if (table) {
+        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
+        if (method === 'show') {
+            loader.classList.add('show')
+        }
+        else {
+            loader.classList.remove('show')
+        }
+    }
 }

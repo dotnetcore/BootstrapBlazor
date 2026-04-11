@@ -5,7 +5,6 @@
 
 namespace BootstrapBlazor.Components;
 
-
 /// <summary>
 /// <para lang="zh">列宽设置类</para>
 /// <para lang="en">Column width setting class</para>

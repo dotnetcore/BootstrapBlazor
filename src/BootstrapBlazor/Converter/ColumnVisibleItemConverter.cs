@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ColumnVisibleItem 序列化转化器</para>
-/// <para lang="en">ColumnVisibleItem 序列化转化器</para>
+/// <para lang="en">ColumnVisibleItem Converter</para>
 /// </summary>
 public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
 {
