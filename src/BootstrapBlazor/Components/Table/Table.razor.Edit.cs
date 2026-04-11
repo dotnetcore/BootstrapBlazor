@@ -284,10 +284,10 @@ public partial class Table<TItem>
     [NotNull]
     private IDataService<TItem>? InjectDataService { get; set; }
 
-    private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
+    private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options, bool query = true)
     {
         QueryData<TItem>? ret = null;
-        if (_autoQuery)
+        if (query)
         {
             if (OnQueryAsync != null)
             {
@@ -502,7 +502,7 @@ public partial class Table<TItem>
         }
     }
 
-    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false, bool firstQuery = false)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false, bool firstQuery = false, bool isAutoQuery = true)
     {
         if (ScrollMode == ScrollMode.Virtual && _virtualizeElement != null)
         {
@@ -515,7 +515,7 @@ public partial class Table<TItem>
                 PageIndex = pageIndex.Value;
             }
             await ToggleLoading(true);
-            await QueryData(triggerByPagination, firstQuery);
+            await QueryData(triggerByPagination, firstQuery, isAutoQuery);
             await ToggleLoading(false);
         }
 
@@ -556,7 +556,7 @@ public partial class Table<TItem>
     /// <para lang="zh">调用 OnQuery 回调方法获得数据源</para>
     /// <para lang="en">Call OnQuery callback to get data source</para>
     /// </summary>
-    protected async Task QueryData(bool triggerByPagination = false, bool firstQuery = false)
+    protected async Task QueryData(bool triggerByPagination = false, bool firstQuery = false, bool isAutoQuery = true)
     {
         if (Items == null)
         {
@@ -581,7 +581,7 @@ public partial class Table<TItem>
 
         async Task OnQuery(QueryPageOptions queryOption)
         {
-            var queryData = await InternalOnQueryAsync(queryOption);
+            var queryData = await InternalOnQueryAsync(queryOption, isAutoQuery);
             PageIndex = queryOption.PageIndex;
             _pageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
