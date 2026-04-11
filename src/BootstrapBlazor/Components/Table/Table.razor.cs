@@ -1098,16 +1098,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 首次加载表格不自动查询数据，避免在某些场景下（如表格在 Tab 页中）首次加载时就执行查询导致不必要的性能消耗
             _autoQuery = IsAutoQueryFirstRender;
 
-            _firstQuery = true;
-            await QueryAsync();
-            _firstQuery = false;
+            await QueryAsync(true, 1, true);
 
             // 恢复查询功能
             _autoQuery = true;
-        }
-        else
-        {
-            // 重置表格脚本状态
+
+            return;
         }
 
         if (_breakPointChanged)
@@ -1551,7 +1547,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     private bool _loop;
-    private bool _firstQuery;
     private bool _autoQuery;
 
     private IEnumerable<TItem> QueryItems { get; set; } = [];

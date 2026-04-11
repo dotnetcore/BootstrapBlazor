@@ -502,7 +502,7 @@ public partial class Table<TItem>
         }
     }
 
-    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false, bool firstQuery = false)
     {
         if (ScrollMode == ScrollMode.Virtual && _virtualizeElement != null)
         {
@@ -515,7 +515,7 @@ public partial class Table<TItem>
                 PageIndex = pageIndex.Value;
             }
             await ToggleLoading(true);
-            await QueryData(triggerByPagination);
+            await QueryData(triggerByPagination, firstQuery);
             await ToggleLoading(false);
         }
 
@@ -556,11 +556,11 @@ public partial class Table<TItem>
     /// <para lang="zh">调用 OnQuery 回调方法获得数据源</para>
     /// <para lang="en">Call OnQuery callback to get data source</para>
     /// </summary>
-    protected async Task QueryData(bool triggerByPagination = false)
+    protected async Task QueryData(bool triggerByPagination = false, bool firstQuery = false)
     {
         if (Items == null)
         {
-            var queryOption = BuildQueryPageOptions();
+            var queryOption = BuildQueryPageOptions(firstQuery);
             queryOption.IsTriggerByPagination = triggerByPagination;
 
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
@@ -686,7 +686,7 @@ public partial class Table<TItem>
         }
     }
 
-    private QueryPageOptions BuildQueryPageOptions()
+    private QueryPageOptions BuildQueryPageOptions(bool firstQuery = false)
     {
         var queryOption = new QueryPageOptions()
         {
@@ -706,7 +706,7 @@ public partial class Table<TItem>
         queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
         queryOption.CustomerSearches.AddRange(GetCustomerSearches());
         queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
-        queryOption.IsFirstQuery = _firstQuery;
+        queryOption.IsFirstQuery = firstQuery;
 
         if (!string.IsNullOrEmpty(SortString))
         {
