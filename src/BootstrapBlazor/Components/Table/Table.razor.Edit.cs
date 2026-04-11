@@ -493,6 +493,7 @@ public partial class Table<TItem>
         {
             // 重新绑定 Table 脚本
             _resetTable = true;
+            _invoke = true;
         }
     }
 

@@ -138,39 +138,6 @@ const observeHeight = table => {
     table.observer = observer;
 }
 
-export function scroll(id, align, options = { behavior: 'smooth' }) {
-    const element = document.getElementById(id);
-    if (element) {
-        const selectedRow = getSelectedRow(element);
-        if (selectedRow) {
-            const row = selectedRow.closest('tr');
-            if (row) {
-                options.block = align;
-                row.scrollIntoView(options);
-            }
-        }
-    }
-}
-
-const getSelectedRow = element => {
-    const rows = [...element.querySelectorAll('tr.active')];
-    return rows.pop();
-}
-
-export function scrollTo(id) {
-    const element = document.getElementById(id);
-    if (element) {
-        const scroll = element.querySelector('.scroll');
-        if (scroll) {
-            scroll.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-            });
-        }
-    }
-}
-
 export async function switchCardView(id) {
     const table = Data.get(id);
 
@@ -960,14 +927,11 @@ export function getColumnStates(tableName) {
     const columnOrderKey = `bb-table-column-order-${tableName}`
     const columnOrderStates = getLocalStorageValue(columnOrderKey);
 
-
-    var ret = {
+    return {
         columnVisibleStates,
         columnWidthState,
         columnOrderStates
     };
-    console.log(ret);
-    return ret;
 }
 
 const getLocalStorageValue = key => {
@@ -1020,9 +984,11 @@ export function toggleLoadMask(id, method) {
 }
 
 export async function updateTableState(id, options) {
+    console.log(options);
+
     const table = Data.get(id)
     if (table) {
-        if (options.breakPointChanged) {
+        if (options.resetTable) {
             await reset(id);
             return;
         }
@@ -1037,6 +1003,13 @@ export async function updateTableState(id, options) {
 
         if (options.updateSortTooltip) {
             updateSortTooltip(table);
+        }
+
+        if (options.autoScrollLastSelectedRowToView) {
+            scrollToRow(table, options.autoScrollVerticalAlign, options.scrollIntoViewBehavior);
+        }
+        else if (options.scrollToTop) {
+            scrollToTop(table, options.scrollIntoViewBehavior);
         }
     }
 }
@@ -1087,5 +1060,36 @@ const updateSortTooltip = table => {
         if (tooltip) {
             tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
         }
+    }
+}
+
+const scrollToRow = (table, align, options = { behavior: 'smooth' }) => {
+    const el = table.el;
+    if (el) {
+        const selectedRow = getSelectedRow(el);
+        if (selectedRow) {
+            const row = selectedRow.closest('tr');
+            if (row) {
+                options.block = align;
+                row.scrollIntoView(options);
+            }
+        }
+    }
+}
+
+const getSelectedRow = element => {
+    const rows = [...element.querySelectorAll('tr.active')];
+    return rows.pop();
+}
+
+const scrollToTop = (table, behavior) => {
+    const el = table.el;
+    const scroll = el.querySelector('.scroll');
+    if (scroll) {
+        scroll.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: behavior
+        });
     }
 }

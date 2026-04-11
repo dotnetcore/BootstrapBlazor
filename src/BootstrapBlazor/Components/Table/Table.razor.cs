@@ -445,6 +445,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public ScrollToViewAlign AutoScrollVerticalAlign { get; set; } = ScrollToViewAlign.Center;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 滚动行为，默认值为 <see cref="ScrollIntoViewBehavior.Smooth"/></para>
+    /// <para lang="en">Gets or sets the scroll behavior. The default is <see cref="ScrollIntoViewBehavior.Smooth"/></para>
+    /// <para>v<version>10.5.1</version></para>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 双击单元格回调委托</para>
     /// <para lang="en">Gets or sets Double Click Cell Callback</para>
     /// </summary>
@@ -509,11 +517,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private ILookupService? InjectLookupService { get; set; }
 
     private BreakPoint _screenSize;
+    private bool _lastIsPopoverToolbarDropdownButtonValue = false;
     private bool _resetTable;
     private bool _resetColumnListPopover;
-    private bool _breakPointChanged;
     private bool _resetColumns;
     private bool _updateSortTooltip;
+    private bool _shouldScrollTop;
     private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
@@ -523,7 +532,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (size != _screenSize)
         {
             _screenSize = size;
-            _breakPointChanged = true;
+            _resetTable = true;
             _invoke = true;
             StateHasChanged();
         }
@@ -952,14 +961,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
-    private bool _isFilterTrigger;
-
     private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
         .AddClass("dropdown-menu-controls", ShowColumnListControls)
         .AddClass("dropdown-menu-popover", IsPopoverToolbarDropdownButton)
         .Build();
-
-    private bool _lastIsPopoverToolbarDropdownButtonValue = false;
 
     private bool _firstRender = true;
 
@@ -996,7 +1001,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             TotalCount = 0;
             if (ScrollMode == ScrollMode.Virtual)
             {
-                _isFilterTrigger = true;
+                _shouldScrollTop = true;
+                _invoke = true;
             }
             return QueryAsync();
         };
@@ -1133,50 +1139,33 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_invoke)
         {
             var resetColumnListPopover = _resetColumnListPopover;
-            var breakPointChanged = _breakPointChanged;
+            var resetTable = _resetTable;
             var resetColumns = _resetColumns;
             var updateSortTooltip = _updateSortTooltip;
+            var scrollToTop = _shouldScrollTop;
 
             _invoke = false;
             _resetColumnListPopover = false;
-            _breakPointChanged = false;
+            _resetTable = false;
             _resetColumns = false;
             _updateSortTooltip = false;
+            _shouldScrollTop = false;
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
                 TableName = ClientTableName,
                 ResetColumnListPopover = resetColumnListPopover,
-                BreakPointChanged = breakPointChanged,
+                ResetTable = resetTable,
                 ResetColumns = resetColumns,
                 VisibleColumns = resetColumns ? _visibleColumns : null,
                 AllowDragColumn,
-                UpdateSortTooltip = updateSortTooltip
+                UpdateSortTooltip = updateSortTooltip,
+                AutoScrollLastSelectedRowToView,
+                AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
+                ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
+                ScrollToTop = scrollToTop
             });
         }
-
-        //if (AutoScrollLastSelectedRowToView)
-        //{
-        //    await InvokeVoidAsync("scroll", Id, AutoScrollVerticalAlign.ToDescriptionString());
-        //}
-
-        //if (_isFilterTrigger)
-        //{
-        //    _isFilterTrigger = false;
-        //    _shouldScrollTop = false;
-        //    await InvokeVoidAsync("scrollTo", Id);
-        //}
-
-        //if (_shouldScrollTop)
-        //{
-        //    _shouldScrollTop = false;
-        //    await InvokeVoidAsync("scrollTo", Id);
-        //}
-
-        //if (_resetColumnList)
-        //{
-        //    await InvokeVoidAsync("resetColumnList", Id);
-        //}
 
         // 增加去重保护 _loop 为 false 时执行
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
@@ -1269,7 +1258,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 首次加载保存状态值副本
         if (_firstRender)
         {
-            // 记录上一次 IsPopoverToolbarDropdownButton 参数值用于判断是否需要更新 DropdownListClassString
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             return;
         }
@@ -1404,6 +1392,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (states == null)
         {
             return;
+        }
+
+        if (states.ColumnWidthState is { TableWidth: > 0 })
+        {
+            _localStorageTableWidth = states.ColumnWidthState.TableWidth;
         }
 
         foreach (var col in columns)
@@ -1691,7 +1684,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
-        StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
+        StartIndex = _shouldScrollTop ? 0 : request.StartIndex;
         _pageItems = request.Count;
 
         await ToggleLoading(true);
