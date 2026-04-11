@@ -1075,7 +1075,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return;
         }
 
-        // 重新读取浏览器设置
+        // 重新构建表格列
         await BuildTableColumns();
     }
 
@@ -1089,8 +1089,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (firstRender)
         {
-            // 首次渲染执行初始化表格脚本
-            await ProcessFirstRender();
+            // 构建表格列
+            await BuildTableColumns();
+
+            // 首次渲染结束
+            _firstRender = false;
+
+            // 首次加载表格不自动查询数据，避免在某些场景下（如表格在 Tab 页中）首次加载时就执行查询导致不必要的性能消耗
+            _autoQuery = IsAutoQueryFirstRender;
+
+            _firstQuery = true;
+            await QueryAsync();
+            _firstQuery = false;
+
+            // 恢复查询功能
+            _autoQuery = true;
         }
         else
         {
@@ -1455,25 +1468,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
-    }
-
-    private async Task ProcessFirstRender()
-    {
-
-        await BuildTableColumns();
-
-        // 首次渲染结束
-        _firstRender = false;
-
-        // 获取是否自动查询参数值
-        _autoQuery = IsAutoQueryFirstRender;
-
-        _firstQuery = true;
-        await QueryAsync();
-        _firstQuery = false;
-
-        // 恢复自动查询功能
-        _autoQuery = true;
     }
 
     /// <summary>

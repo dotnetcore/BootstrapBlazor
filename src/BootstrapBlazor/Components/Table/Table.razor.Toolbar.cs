@@ -1231,7 +1231,6 @@ public partial class Table<TItem>
             InternalResetVisibleColumns(Columns);
 
             var queryOption = BuildQueryPageOptions();
-            queryOption.IsFirstQuery = _firstQuery;
 
             QueryDynamicItems(queryOption, DynamicContext);
             _bindResizeColumn = true;

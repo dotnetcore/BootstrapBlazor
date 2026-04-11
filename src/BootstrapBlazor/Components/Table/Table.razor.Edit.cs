@@ -299,6 +299,7 @@ public partial class Table<TItem>
                 ret = await d.QueryAsync(options);
             }
         }
+
         return ret ?? new QueryData<TItem>()
         {
             Items = [],
@@ -557,12 +558,9 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task QueryData(bool triggerByPagination = false)
     {
-        // Design: Items parameter is used without calling OnQueryAsync method
         if (Items == null)
         {
             var queryOption = BuildQueryPageOptions();
-            // Set whether it is the first query
-            queryOption.IsFirstQuery = _firstQuery;
             queryOption.IsTriggerByPagination = triggerByPagination;
 
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
@@ -708,6 +706,7 @@ public partial class Table<TItem>
         queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
         queryOption.CustomerSearches.AddRange(GetCustomerSearches());
         queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
+        queryOption.IsFirstQuery = _firstQuery;
 
         if (!string.IsNullOrEmpty(SortString))
         {
