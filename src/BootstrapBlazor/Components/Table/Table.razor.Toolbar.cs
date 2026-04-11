@@ -1237,11 +1237,11 @@ public partial class Table<TItem>
         }
     }
 
-    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
+    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext context, bool isAutoQuery = true)
     {
-        _rowsCache = null;
-        if (context != null)
+        if (isAutoQuery)
         {
+            _rowsCache = null;
             var items = context.GetItems();
             if (context.OnFilterCallback != null)
             {

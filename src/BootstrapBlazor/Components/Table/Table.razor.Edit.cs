@@ -563,9 +563,9 @@ public partial class Table<TItem>
             var queryOption = BuildQueryPageOptions(firstQuery);
             queryOption.IsTriggerByPagination = triggerByPagination;
 
-            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (DynamicContext != null)
             {
-                QueryDynamicItems(queryOption, DynamicContext);
+                QueryDynamicItems(queryOption, DynamicContext, isAutoQuery);
             }
             else
             {
