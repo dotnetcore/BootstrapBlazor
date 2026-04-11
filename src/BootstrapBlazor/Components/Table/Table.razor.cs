@@ -511,7 +511,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _breakPointChanged;
 
     private bool _resetTable;
-    private bool _resetColumnList;
+    private bool _resetColumnListPopover;
     private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
@@ -1135,7 +1135,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _invoke = false;
             await InvokeVoidAsync("updateTableState", Id, new
             {
-                ResetColumnListPopover = true
+                ResetColumnListPopover = _resetColumnListPopover
             });
         }
         //if (_breakPointChanged)
@@ -1297,7 +1297,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
-            _resetColumnList = true;
+            _resetColumnListPopover = true;
             _invoke = true;
         }
     }
