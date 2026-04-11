@@ -16,16 +16,7 @@
         }
         else if (ShowLoadingInFirstRender)
         {
-            <div class="table-loading">
-                @if (LoadingTemplate is not null)
-                {
-                    @LoadingTemplate
-                }
-                else
-                {
-                    <Spinner Color="Color.Primary" />
-                }
-            </div>
+            @RenderLoader("table-loading")
         }
     }
     else
@@ -388,16 +379,8 @@
         {
             @RenderPagination
         }
-        <div class="table-loader">
-            @if (LoadingTemplate is not null)
-            {
-                @LoadingTemplate
-            }
-            else
-            {
-                <Spinner Color="Color.Primary" />
-            }
-        </div>
+
+        @RenderLoader("table-loader")
 
         <Responsive OnBreakPointChanged="OnBreakPointChanged" />
     }
@@ -1156,4 +1139,16 @@
         @<ValidateForm @ref="_inCellValidateForm" Model="EditModel" IsFormless="true" ShowLabel="false">
             @RenderRowContent(item)
         </ValidateForm>;
+
+    RenderFragment<string> RenderLoader => cssString =>
+    @<div class="@cssString">
+        @if (LoadingTemplate != null)
+        {
+            @LoadingTemplate
+        }
+        else
+        {
+            <Spinner Color="Color.Primary"></Spinner>
+        }
+    </div>;
 }
