@@ -51,7 +51,7 @@ public partial class TablesColumnList
 
     private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        await Task.Delay(10);
+        await Task.Delay(200);
 
         IEnumerable<Foo> items = Items;
         // 过滤

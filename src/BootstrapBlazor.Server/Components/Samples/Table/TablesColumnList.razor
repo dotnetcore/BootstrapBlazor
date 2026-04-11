@@ -12,7 +12,7 @@
            Introduction="@Localizer["VisibleIntro"]"
            Name="Visible">
     <section ignore>
-        <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+@*         <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
         <p>@((MarkupString)Localizer["ShowColumnListControlsDesc"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
@@ -35,14 +35,14 @@
                 </BootstrapInputGroup>
             </div>
         </div>
-    </section>
+ *@    </section>
     <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
 
     <Table TItem="Foo" @ref="TableColumnVisible"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowColumnList="true" ShowColumnListControls="_showColumnListControls"
            IsPopoverToolbarDropdownButton="_isPopoverToolbarDropdownButton"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" ShowLoading="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
            ShowExtendButtons="false" ClientTableName="test_table"
            OnQueryAsync="@OnQueryAsync">
