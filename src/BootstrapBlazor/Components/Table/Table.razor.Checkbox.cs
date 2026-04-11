@@ -163,7 +163,7 @@ public partial class Table<TItem>
         {
             _resetColDragListener = true;
         }
-        if (!string.IsNullOrEmpty(ClientTableName))
+        if (IsEnableLocalstorage())
         {
             await InvokeVoidAsync("saveColumnList", ClientTableName, _visibleColumns);
         }

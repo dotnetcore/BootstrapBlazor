@@ -1922,7 +1922,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
-            if (!string.IsNullOrEmpty(ClientTableName))
+            if (IsEnableLocalstorage())
             {
                 var cols = Columns.Select(i => i.GetFieldName()).ToList();
                 await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = cols });
