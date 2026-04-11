@@ -47,8 +47,8 @@ public class QueryData<TItem>
     /// <para lang="en">Gets or sets whether data has processed custom advanced search <see cref="Table{TItem}.CustomerSearchTemplate"/> default false</para>
     /// </summary>
     /// <remarks>
-    ///  <para lang="zh">设置本属性为 true 时，Table 组件的高级搜索按钮改变颜色</para>
-    ///  <para lang="en">When this property is set to true, the advanced search button of the Table component changes color</para>
+    ///   <para lang="zh">设置本属性为 true 时，Table 组件的高级搜索按钮改变颜色</para>
+    ///   <para lang="en">When this property is set to true, the advanced search button of the Table component changes color</para>
     ///</remarks>
     public bool IsAdvanceSearch { get; set; }
 }
