@@ -960,7 +960,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 初始化节点缓存
         TreeNodeCache ??= new(this);
-        OnInitLocalization();
+
+        // 初始化本地化资源
+        OnInitializeLocalization();
 
         // 设置 OnSort 回调方法
         InternalOnSortAsync = (sortName, sortOrder) =>
