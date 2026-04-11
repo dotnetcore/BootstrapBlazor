@@ -1092,8 +1092,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 首次渲染执行初始化表格脚本
             await ProcessFirstRender();
-
-            _firstRender = false;
         }
         else
         {
@@ -1305,16 +1303,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 列可见性方法
         InternalResetVisibleColumns(cols);
 
-        // TODO: 调用一次 JSInvoke 读取所有需要的配置回来不需要调用三次
-
-        // 读取浏览器列顺序配置
-        await ReloadColumnOrdersFromBrowserAsync(cols);
-
-        // 读取浏览器列宽配置并设置列宽度
-        await ReloadColumnWidthFromBrowserAsync(cols);
-
-        // 读取浏览器列可见配置
-        await ReloadColumnVisibleFromBrowserAsync();
+        // 读取浏览器持久化列状态配置
+        await ReloadColumnStatesFromBrowserAsync(cols);
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1393,6 +1383,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
+    private bool IsEnableLocalstorage() => !string.IsNullOrEmpty(ClientTableName);
+
+    private async Task ReloadColumnStatesFromBrowserAsync(List<ITableColumn> columns)
+    {
+        await InvokeVoidAsync("loadColumnStates", ClientTableName);
+    }
+
     private async Task ReloadColumnVisibleFromBrowserAsync()
     {
         if (IsEnableLocalstorage())
@@ -1446,7 +1443,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (IsEnableLocalstorage())
         {
-            var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
+            var orders = await InvokeAsync<List<string>?>("loadColumnStates", ClientTableName);
             if (orders != null)
             {
                 for (int i = 0; i < orders.Count; i++)
@@ -1461,13 +1458,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private bool IsEnableLocalstorage() => !string.IsNullOrEmpty(ClientTableName);
-
     private async Task ProcessFirstRender()
     {
         IsLoading = true;
 
         await OnTableColumnReset();
+
+        // 首次渲染结束
+        _firstRender = false;
 
         // 获取是否自动查询参数值
         _autoQuery = IsAutoQueryFirstRender;

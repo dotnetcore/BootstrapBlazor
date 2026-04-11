@@ -21,39 +21,6 @@ export async function init(id, invoke, options) {
     await reset(id)
 }
 
-export function saveColumnList(tableName, columns) {
-    const key = `bb-table-column-visiable-${tableName}`
-    localStorage.setItem(key, JSON.stringify(columns));
-}
-
-export function reloadColumnList(tableName) {
-    const key = `bb-table-column-visiable-${tableName}`
-    const json = localStorage.getItem(key);
-    let columns = [];
-    if (json) {
-        try {
-            columns = JSON.parse(json);
-        }
-        catch { }
-    }
-    return columns;
-}
-
-export function reloadColumnWidth(tableName) {
-    const key = `bb-table-column-width-${tableName}`
-    return localStorage.getItem(key);
-}
-
-export function reloadColumnOrder(tableName) {
-    const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) ?? [];
-}
-
-export function saveColumnOrder(options) {
-    const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify(options.columns));
-}
-
 export async function reset(id) {
     const table = Data.get(id)
     if (table === null) {
@@ -1076,19 +1043,6 @@ export function resetColumnList(id) {
     }
 }
 
-const saveColumnWidth = table => {
-    const cols = table.columns
-    const tableWidth = table.tables[0].offsetWidth
-    const tableName = table.tables[0].getAttribute('data-bb-name')
-    const key = `bb-table-column-width-${tableName}`
-    localStorage.setItem(key, JSON.stringify({
-        "cols": cols.map(col => {
-            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
-        }),
-        "table": tableWidth
-    }));
-}
-
 const setTableDefaultWidth = table => {
     if (table.tables.length > 0 && isVisible(table.tables[0])) {
         const { scrollWidth, columnMinWidth } = table.options;
@@ -1112,4 +1066,54 @@ const setTableDefaultWidth = table => {
             }
         }
     }
+}
+
+export function loadColumnStates(tableName) {
+
+}
+
+export function reloadColumnList(tableName) {
+    const key = `bb-table-column-visiable-${tableName}`
+    const json = localStorage.getItem(key);
+    let columns = [];
+    if (json) {
+        try {
+            columns = JSON.parse(json);
+        }
+        catch { }
+    }
+    return columns;
+}
+
+export function saveColumnList(tableName, columns) {
+    const key = `bb-table-column-visiable-${tableName}`
+    localStorage.setItem(key, JSON.stringify(columns));
+}
+
+export function reloadColumnWidth(tableName) {
+    const key = `bb-table-column-width-${tableName}`
+    return localStorage.getItem(key);
+}
+
+const saveColumnWidth = table => {
+    const cols = table.columns
+    const tableWidth = table.tables[0].offsetWidth
+    const tableName = table.tables[0].getAttribute('data-bb-name')
+    const key = `bb-table-column-width-${tableName}`
+    localStorage.setItem(key, JSON.stringify({
+        "cols": cols.map(col => {
+            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
+        }),
+        "table": tableWidth
+    }));
+}
+
+export function reloadColumnOrder(tableName) {
+    const key = `bb-table-column-order-${tableName}`
+    return JSON.parse(localStorage.getItem(key)) ?? [];
+}
+
+export function saveColumnOrder(options) {
+    const key = `bb-table-column-order-${options.tableName}`
+    localStorage.setItem(key, JSON.stringify(options.columns));
 }
