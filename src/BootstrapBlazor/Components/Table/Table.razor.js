@@ -821,7 +821,6 @@ const setDraggable = table => {
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     disposeDragColumns(table.dragColumns);
     table.dragColumns.forEach(col => {
-
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
@@ -965,9 +964,9 @@ const saveColumnWidth = table => {
     }));
 }
 
-const saveColumnOrder = (options) => {
+const saveColumnOrder = options => {
     const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify(options.columns));
+    localStorage.setItem(key, JSON.stringify(options.visibleColumns));
 }
 
 export function toggleLoadMask(id, method) {
@@ -995,6 +994,10 @@ export async function updateTableState(id, options) {
 
         if (options.resetColumns) {
             resetColumns(table, options);
+        }
+
+        if (options.saveColumnOrder) {
+            saveColumnOrder(options);
         }
 
         if (options.resetColumnListPopover) {

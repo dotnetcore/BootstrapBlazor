@@ -523,6 +523,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _resetColumns;
     private bool _updateSortTooltip;
     private bool _shouldScrollTop;
+    private bool _saveColumnOrder;
     private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
@@ -1143,6 +1144,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var resetColumns = _resetColumns;
             var updateSortTooltip = _updateSortTooltip;
             var scrollToTop = _shouldScrollTop;
+            var saveColumnOrder = _saveColumnOrder;
 
             _invoke = false;
             _resetColumnListPopover = false;
@@ -1150,6 +1152,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumns = false;
             _updateSortTooltip = false;
             _shouldScrollTop = false;
+            _saveColumnOrder = false;
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
@@ -1163,7 +1166,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 AutoScrollLastSelectedRowToView,
                 AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
                 ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
-                ScrollToTop = scrollToTop
+                ScrollToTop = scrollToTop,
+                SaveColumnOrder = saveColumnOrder
             });
         }
 
@@ -1871,11 +1875,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
-            if (IsEnableLocalstorage())
-            {
-                var cols = Columns.Select(i => i.GetFieldName()).ToList();
-                await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = cols });
-            }
+
+            _saveColumnOrder = true;
+            _invoke = true;
             StateHasChanged();
         }
     }
