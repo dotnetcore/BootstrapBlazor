@@ -208,7 +208,7 @@ export function sort(id) {
     }
 }
 
-export function load(id, method) {
+export function toggleLoadMask(id, method) {
     const table = Data.get(id)
     if (table) {
         const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));

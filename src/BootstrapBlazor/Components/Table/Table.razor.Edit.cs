@@ -41,7 +41,7 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 是否正在查询数据</para>
     /// <para lang="en">Gets or sets Whether is querying data</para>
     /// </summary>
-    private bool IsLoading { get; set; }
+    private bool _isShowLoading;
 
     /// <summary>
     /// <para lang="zh">获得 渲染模式</para>
@@ -500,13 +500,13 @@ public partial class Table<TItem>
         }
         else
         {
-            await InternalToggleLoading(true);
             if (pageIndex.HasValue)
             {
                 PageIndex = pageIndex.Value;
             }
+            await ToggleLoading(true);
             await QueryData(triggerByPagination);
-            await InternalToggleLoading(false);
+            await ToggleLoading(false);
         }
 
         if (shouldRender)
@@ -528,24 +528,18 @@ public partial class Table<TItem>
     /// <param name="state"><para lang="zh">true 时显示，false 时隐藏</para><para lang="en">true to display, false to hide</para></param>
     public async ValueTask ToggleLoading(bool state)
     {
-        if (ShowLoading)
+        if (!ShowLoading)
         {
-            IsLoading = state;
-            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
+            return;
         }
-    }
 
-    /// <summary>
-    /// <para lang="zh">显示/隐藏 Loading 遮罩</para>
-    /// <para lang="en">Show/Hide Loading Mask</para>
-    /// </summary>
-    /// <param name="state"><para lang="zh">true 时显示，false 时隐藏</para><para lang="en">true to display, false to hide</para></param>
-    protected async ValueTask InternalToggleLoading(bool state)
-    {
-        if (ShowLoading && !IsLoading)
+        if (_isShowLoading == state)
         {
-            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
+            return;
         }
+
+        _isShowLoading = state;
+        await InvokeVoidAsync("toggleLoadMask", Id, state ? "show" : "hide");
     }
 
     /// <summary>
