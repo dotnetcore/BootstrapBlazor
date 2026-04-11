@@ -1133,7 +1133,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_invoke)
         {
             _invoke = false;
-            await InvokeVoidAsync("updateTable", Id, new
+            await InvokeVoidAsync("updateTableState", Id, new
             {
                 ResetColumnListPopover = true
             });
