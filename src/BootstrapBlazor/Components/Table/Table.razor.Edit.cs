@@ -497,11 +497,8 @@ public partial class Table<TItem>
         else
         {
             // 重新绑定 Table 脚本
-            _viewChanged = true;
+            _resetTable = true;
         }
-
-        // 重绘 UI
-        StateHasChanged();
     }
 
     private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)

@@ -510,7 +510,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _breakPointChanged;
 
-    private bool _viewChanged;
+    private bool _resetTable;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
