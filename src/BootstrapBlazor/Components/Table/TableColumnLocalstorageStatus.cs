@@ -10,6 +10,4 @@ class TableColumnLocalstorageStatus
     public List<ColumnVisibleItem>? ColumnVisibleStates { get; set; }
 
     public ColumnWidthState? ColumnWidthState { get; set; }
-
-    public List<string>? ColumnOrderStates { get; set; }
 }

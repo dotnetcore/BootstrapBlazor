@@ -1411,7 +1411,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
 
-            // 设置列可见性
+            // 设置列可见性与顺序
             if (states.ColumnVisibleStates is { Count: > 0 })
             {
                 var columnVisible = states.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
@@ -1419,12 +1419,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 {
                     col.Visible = columnVisible.Visible;
                 }
-            }
-
-            // 设置列顺序
-            if (states.ColumnOrderStates is { Count: > 0 })
-            {
-
             }
         }
     }
