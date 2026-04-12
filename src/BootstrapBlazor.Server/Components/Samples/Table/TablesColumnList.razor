@@ -11,7 +11,7 @@
 <DemoBlock Title="@Localizer["VisibleTitle"]"
            Introduction="@Localizer["VisibleIntro"]"
            Name="Visible">
-    <section ignore>
+@*     <section ignore>
         <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
         <p>@((MarkupString)Localizer["ShowColumnListControlsDesc"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
@@ -36,28 +36,28 @@
             </div>
         </div>
     </section>
-    <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
+ *@    <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
 
-    <Table TItem="Foo" @ref="TableColumnVisible"
+    <Table TItem="Foo" @ref="TableColumnVisible" ShowCardView="true"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowColumnList="true" ShowColumnListControls="_showColumnListControls"
            IsPopoverToolbarDropdownButton="_isPopoverToolbarDropdownButton"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AllowResizing="true" AllowDragColumn="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
-           ShowExtendButtons="false" ClientTableName="test_table"
+           ShowExtendButtons="false" ClientTableName="test-table"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" />
             <TableColumn @bind-Field="@context.Address" Width="290" />
-            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Education" Sortable="true" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
             <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
+@* <DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
            Introduction="@Localizer["ShownWithBreakPointIntro"]"
            Name="ShownWithBreakPoint">
     <section ignore>
@@ -86,3 +86,4 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+ *@
