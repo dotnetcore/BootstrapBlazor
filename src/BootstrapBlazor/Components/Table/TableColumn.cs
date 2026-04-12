@@ -410,7 +410,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>    /// </summary>
+    /// <inheritdoc/>
+    /// </summary>
     [Parameter]
     public int Order { get; set; }
 
