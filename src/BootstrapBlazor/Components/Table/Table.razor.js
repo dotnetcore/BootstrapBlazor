@@ -943,27 +943,25 @@ const getLocalStorageValue = key => {
 }
 
 const saveColumnList = (tableName, columns) => {
-    const key = `bb-table-column-visible-${tableName}`
-    localStorage.setItem(key, JSON.stringify(columns));
+    if (tableName) {
+        const key = `bb-table-column-visible-${tableName}`
+        localStorage.setItem(key, JSON.stringify(columns));
+    }
 }
 
 const saveColumnWidth = table => {
-    const cols = table.columns
-    const tableWidth = table.tables[0].offsetWidth
-    const tableName = table.tables[0].getAttribute('data-bb-name')
-    const key = `bb-table-column-width-${tableName}`
-    localStorage.setItem(key, JSON.stringify({
-        "columnWidths": cols.map(col => {
-            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
-        }),
-        "tableWidth": tableWidth
-    }));
-}
-
-const saveColumnOrder = options => {
-    console.log(options);
-    const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify(options.visibleColumns));
+    const tableName = table.tableName;
+    if (tableName) {
+        const cols = table.columns
+        const tableWidth = table.tables[0].offsetWidth
+        const key = `bb-table-column-width-${tableName}`
+        localStorage.setItem(key, JSON.stringify({
+            "columnWidths": cols.map(col => {
+                return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
+            }),
+            "tableWidth": tableWidth
+        }));
+    }
 }
 
 export function toggleLoadMask(id, method) {
@@ -1038,7 +1036,8 @@ const resetColumns = (table, options) => {
     setResizeListener(table);
     resetTableWidth(table);
 
-    const { tableName, visibleColumns, allowDragColumn } = options;
+    const { visibleColumns, allowDragColumn } = options;
+    const { tableName } = table;
     if (tableName && visibleColumns) {
         saveColumnList(tableName, visibleColumns);
     }

@@ -239,8 +239,7 @@
                     if (IsFixedHeader)
                     {
                         <div class="table-fixed-header">
-                            <table class="@TableClassName" style="@GetTableStyleString(true)"
-                                   data-bb-name="@GetTableName(true)">
+                            <table class="@TableClassName" style="@GetTableStyleString(true)">
                                 @RenderColGroup(true)
                                 @RenderHeader(true)
                             </table>
@@ -388,7 +387,7 @@
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
-        @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)" data-bb-name="@GetTableName(hasHeader)">
+        @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)">
             @RenderColGroup.Invoke(false)
             @if (hasHeader)
             {

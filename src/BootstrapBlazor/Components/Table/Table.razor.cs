@@ -1153,7 +1153,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
-                TableName = ClientTableName,
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
@@ -1325,6 +1324,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await InvokeVoidAsync("init", Id, Interop, new
             {
+                TableName = ClientTableName,
                 DragColumnCallback = nameof(DragColumnCallback),
                 AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
                 FitColumnWidthIncludeHeader,
@@ -1380,14 +1380,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret;
     }
 
-    private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
-
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
-
-    private bool IsEnableLocalstorage() => !string.IsNullOrEmpty(ClientTableName);
 
     private async Task ReloadColumnStatesFromBrowserAsync(List<ITableColumn> columns)
     {
+        // 未开启客户端持久化功能直接返回
+        if (string.IsNullOrEmpty(ClientTableName))
+        {
+            return;
+        }
+
         var states = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
         if (states == null)
         {
