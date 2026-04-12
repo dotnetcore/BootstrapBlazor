@@ -1101,23 +1101,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        if (_firstRender)
-        {
-            return;
-        }
-
-        // 重新构建表格列
-        await BuildTableColumns();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -1125,9 +1108,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (firstRender)
         {
-            // 构建表格列
-            await BuildTableColumns();
-
             // 首次渲染结束
             _firstRender = false;
 
