@@ -1439,24 +1439,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
-        var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
-        if (items != null)
-        {
-            foreach (var column in cols)
-            {
-                var item = items.FirstOrDefault(i => i.Name == column.Name);
-                if (item != null)
-                {
-                    column.Visible = item.Visible;
-                    if (!string.IsNullOrEmpty(item.DisplayName))
-                    {
-                        column.DisplayName = item.DisplayName;
-                    }
-                }
-            }
-        }
+        var visibleItems = items?.ToDictionary(i => i.Name);
+
         _visibleColumns.Clear();
-        _visibleColumns.AddRange(cols);
+        foreach (var col in columns)
+        {
+            var visibleColumn = new ColumnVisibleItem(col.GetFieldName(), col.GetVisible())
+            {
+                DisplayName = col.GetDisplayName()
+            };
+            if (visibleItems != null && visibleItems.TryGetValue(visibleColumn.Name, out var item))
+            {
+                visibleColumn.Visible = item.Visible;
+            }
+            _visibleColumns.Add(visibleColumn);
+        }
     }
 
     /// <summary>
