@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 class TableColumnLocalstorageStatus
 {
-    public List<ColumnVisibleItem>? ColumnVisibleStates { get; set; }
+    public List<ColumnVisibleItem> ColumnVisibleStates { get; set; } = [];
 
-    public ColumnWidthState? ColumnWidthState { get; set; }
+    public ColumnWidthState ColumnWidthState { get; set; } = new();
 }
