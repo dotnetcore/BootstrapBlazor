@@ -1223,7 +1223,7 @@ public partial class Table<TItem>
 
             var cols = DynamicContext.GetColumns();
             Columns.Clear();
-            Columns.AddRange(cols);
+            Columns.AddRange(cols.OrderFunc());
 
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();

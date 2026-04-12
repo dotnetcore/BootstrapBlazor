@@ -523,7 +523,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _resetColumns;
     private bool _updateSortTooltip;
     private bool _shouldScrollTop;
-    private bool _saveColumnOrder;
     private bool _invoke;
 
     private List<ColumnWidth> _clientColumnWidths = [];
@@ -1144,7 +1143,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var resetColumns = _resetColumns;
             var updateSortTooltip = _updateSortTooltip;
             var scrollToTop = _shouldScrollTop;
-            var saveColumnOrder = _saveColumnOrder;
 
             _invoke = false;
             _resetColumnListPopover = false;
@@ -1152,7 +1150,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumns = false;
             _updateSortTooltip = false;
             _shouldScrollTop = false;
-            _saveColumnOrder = false;
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
@@ -1166,8 +1163,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 AutoScrollLastSelectedRowToView,
                 AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
                 ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
-                ScrollToTop = scrollToTop,
-                SaveColumnOrder = saveColumnOrder
+                ScrollToTop = scrollToTop
             });
         }
 
@@ -1308,11 +1304,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols = [.. ColumnOrderCallback(cols)];
         }
 
-        // 列可见性方法
-        InternalResetVisibleColumns(cols);
-
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
+
+        // 列可见性方法
+        InternalResetVisibleColumns(Columns);
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
@@ -1876,7 +1872,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
 
-            _saveColumnOrder = true;
+            InternalResetVisibleColumns(Columns);
+
+            _resetColumns = true;
             _invoke = true;
             StateHasChanged();
         }

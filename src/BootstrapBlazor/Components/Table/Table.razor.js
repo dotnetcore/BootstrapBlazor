@@ -923,13 +923,9 @@ export function getColumnStates(tableName) {
     const columnWidthKey = `bb-table-column-width-${tableName}`
     const columnWidthState = getLocalStorageValue(columnWidthKey);
 
-    const columnOrderKey = `bb-table-column-order-${tableName}`
-    const columnOrderStates = getLocalStorageValue(columnOrderKey);
-
     return {
         columnVisibleStates,
-        columnWidthState,
-        columnOrderStates
+        columnWidthState
     };
 }
 
@@ -965,6 +961,7 @@ const saveColumnWidth = table => {
 }
 
 const saveColumnOrder = options => {
+    console.log(options);
     const key = `bb-table-column-order-${options.tableName}`
     localStorage.setItem(key, JSON.stringify(options.visibleColumns));
 }
@@ -994,10 +991,6 @@ export async function updateTableState(id, options) {
 
         if (options.resetColumns) {
             resetColumns(table, options);
-        }
-
-        if (options.saveColumnOrder) {
-            saveColumnOrder(options);
         }
 
         if (options.resetColumnListPopover) {
