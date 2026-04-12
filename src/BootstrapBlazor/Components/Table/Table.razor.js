@@ -978,10 +978,10 @@ export function toggleLoadMask(id, method) {
 }
 
 export async function updateTableState(id, options) {
-    console.log(options);
-
     const table = Data.get(id)
     if (table) {
+        table.options.tableName = options.tableName;
+
         if (options.resetTable) {
             await reset(id);
             return;

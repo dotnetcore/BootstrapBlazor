@@ -21,26 +21,36 @@
     }
     else
     {
-        @if (ShowSearch && SearchMode == SearchMode.Top)
+        BuildTableColumns();
+
+        if (ShowSearch && SearchMode == SearchMode.Top)
         {
             @RenderSearch
         }
 
-        @if (ShowToolbar)
+        if (ShowToolbar)
         {
             @RenderToolbar
         }
 
-        @if (ShowTopPagination && IsPagination)
+        if (ShowTopPagination && IsPagination)
         {
             @RenderPagination
         }
 
-        <RenderTemplate>
+        <RenderTemplate OnRenderAsync="OnTableRenderAsync">
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
-                    @RenderFixTable()
+                    if (IsFixedHeader)
+                    {
+                        @RenderFixTableHeader
+                        @RenderFixTableBody
+                    }
+                    else
+                    {
+                        @RenderTable(true)
+                    }
                 }
                 else
                 {
@@ -54,7 +64,7 @@
                         }
                         else
                         {
-                            @RenderCardView(item)                      
+                            @RenderCardView(item)
                         }
                     }
                     @if (IsShowFooter)

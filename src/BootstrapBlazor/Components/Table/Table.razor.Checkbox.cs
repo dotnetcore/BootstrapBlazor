@@ -161,6 +161,7 @@ public partial class Table<TItem>
         _resetColumns = true;
         _invoke = true;
         item.Visible = visible;
+
         StateHasChanged();
     }
 

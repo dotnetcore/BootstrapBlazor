@@ -1228,10 +1228,7 @@ public partial class Table<TItem>
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns(Columns);
-
             var queryOption = BuildQueryPageOptions();
-
             QueryDynamicItems(queryOption, DynamicContext);
         }
     }

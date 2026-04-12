@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
-using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -517,15 +516,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private ILookupService? InjectLookupService { get; set; }
 
     private BreakPoint _screenSize;
-    private bool _lastIsPopoverToolbarDropdownButtonValue = false;
+    private string? _clientTableName;
+    private bool _lastIsPopoverToolbarDropdownButtonValue;
     private bool _resetTable;
     private bool _resetColumnListPopover;
     private bool _resetColumns;
     private bool _updateSortTooltip;
     private bool _shouldScrollTop;
     private bool _invoke;
-
-    private bool _loadColumns;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
@@ -1113,6 +1111,27 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 首次渲染结束
             _firstRender = false;
 
+            // 读取浏览器持久化列状态配置
+            await ReloadColumnStatesFromBrowserAsync();
+
+            // 构建列信息
+            BuildTableColumns();
+
+            // 列排序回调方法
+            if (ColumnOrderCallback != null)
+            {
+                Columns.Clear();
+                Columns.AddRange(ColumnOrderCallback(Columns));
+            }
+
+            // 调用列创建回调方法
+            if (OnColumnCreating != null)
+            {
+                await OnColumnCreating(Columns);
+            }
+
+            InternalResetVisibleColumns();
+
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
             return;
@@ -1135,6 +1154,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
+                TableName = ClientTableName,
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
@@ -1239,7 +1259,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 首次加载保存状态值副本
         if (_firstRender)
         {
+            _clientTableName = ClientTableName;
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
+            return;
+        }
+
+        if (_clientTableName != ClientTableName)
+        {
+            _clientTableName = ClientTableName;
+            _resetTable = true;
+            _invoke = true;
             return;
         }
 
@@ -1253,7 +1282,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private async Task BuildTableColumns()
+    private void BuildTableColumns()
     {
         // 动态列模式
         var cols = new List<ITableColumn>();
@@ -1270,36 +1299,39 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols.AddRange(Columns);
         }
 
-        // 调用列创建回调方法
-        if (OnColumnCreating != null)
+        foreach (var col in cols)
         {
-            await OnColumnCreating(cols);
-        }
+            // 设置列宽度
+            if (_tableColumnStateCache is { ColumnWidthState: not null })
+            {
+                var columnWidth = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
+                if (columnWidth.Width > 0)
+                {
+                    col.Width = columnWidth.Width;
+                }
+            }
 
-        // 读取浏览器持久化列状态配置
-        await ReloadColumnStatesFromBrowserAsync(cols);
-
-        // 列排序回调方法
-        if (ColumnOrderCallback != null)
-        {
-            cols = [.. ColumnOrderCallback(cols)];
+            // 设置列可见性与顺序
+            if (_tableColumnStateCache is { ColumnVisibleStates: { Count: > 0 } })
+            {
+                var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
+                if (columnVisible != null)
+                {
+                    col.Visible = columnVisible.Visible;
+                }
+            }
         }
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
-        // 列可见性方法
-        InternalResetVisibleColumns(Columns);
-
         // set default sortName
-        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (col != null)
+        var column = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+        if (column != null)
         {
-            SortName = col.GetFieldName();
-            SortOrder = col.DefaultSortOrder;
+            SortName = column.GetFieldName();
+            SortOrder = column.DefaultSortOrder;
         }
-
-        _loadColumns = true;
     }
 
     private async Task OnTableRenderAsync(bool firstRender)
@@ -1351,22 +1383,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private int? _localStorageTableWidth;
-
     private string? GetTableStyleString(bool hasHeader)
     {
         string? ret = null;
-        if (_localStorageTableWidth.HasValue)
+        if (_tableColumnStateCache is { ColumnWidthState: { TableWidth: > 0 } })
         {
-            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - ActualScrollWidth;
+            var tableWidth = _tableColumnStateCache.ColumnWidthState.TableWidth;
+            var width = hasHeader ? tableWidth : tableWidth - ActualScrollWidth;
             ret = $"width: {width}px;";
         }
         return ret;
     }
 
-    private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
+    private TableColumnLocalstorageStatus? _tableColumnStateCache;
 
-    private async Task ReloadColumnStatesFromBrowserAsync(List<ITableColumn> columns)
+    private async Task ReloadColumnStatesFromBrowserAsync()
     {
         // 未开启客户端持久化功能直接返回
         if (string.IsNullOrEmpty(ClientTableName))
@@ -1374,46 +1405,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return;
         }
 
-        var states = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
-        if (states == null)
+        if (_tableColumnStateCache != null)
         {
             return;
         }
 
-        // 客户端未持久化
-        if (states is { ColumnVisibleStates: null, ColumnWidthState: null })
-        {
-            return;
-        }
-
-        if (states.ColumnWidthState is { TableWidth: > 0 })
-        {
-            _localStorageTableWidth = states.ColumnWidthState.TableWidth;
-        }
-
-        foreach (var col in columns)
-        {
-            // 设置列宽度
-            if (states is { ColumnWidthState: not null })
-            {
-                var columnWidth = states.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
-                if (columnWidth.Width > 0)
-                {
-                    col.Width = columnWidth.Width;
-                }
-            }
-
-            // 设置列可见性与顺序
-            if (states.ColumnVisibleStates is { Count: > 0 })
-            {
-                var columnVisible = states.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
-                if (columnVisible != null)
-                {
-                    col.Visible = columnVisible.Visible;
-                }
-            }
-        }
+        _tableColumnStateCache = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
     }
+
+    private List<ColumnVisibleItem> _penddingVisibleColumns = new(50);
 
     /// <summary>
     /// <para lang="zh">设置 列可见方法</para>
@@ -1423,24 +1423,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
-        _resetColumns = true;
-        _invoke = true;
-        InternalResetVisibleColumns(Columns, columns);
+        InternalResetVisibleColumns(columns);
+
         StateHasChanged();
     }
 
-    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
+    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? columns = null)
     {
-        var visibleItems = items?.ToDictionary(i => i.Name);
+        var visibleItems = columns?.ToDictionary(i => i.Name) ?? [];
 
         _visibleColumns.Clear();
-        foreach (var col in columns)
+        foreach (var col in Columns)
         {
             var visibleColumn = new ColumnVisibleItem(col.GetFieldName(), col.GetVisible())
             {
                 DisplayName = col.GetDisplayName()
             };
-            if (visibleItems != null && visibleItems.TryGetValue(visibleColumn.Name, out var item))
+            if (visibleItems.TryGetValue(visibleColumn.Name, out var item))
             {
                 visibleColumn.Visible = item.Visible;
             }
@@ -1855,7 +1854,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
 
-            InternalResetVisibleColumns(Columns);
+            InternalResetVisibleColumns();
 
             _resetColumns = true;
             _invoke = true;
@@ -1954,31 +1953,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         else
         {
             builder.AddContent(1, RenderRowContent(item));
-        }
-    };
-
-    private RenderFragment RenderFixTable() => builder =>
-    {
-        builder.OpenComponent<TableRenderHandler>(0);
-        builder.AddAttribute(1, nameof(TableRenderHandler.OnLoadTableColumns), BuildTableColumns);
-        builder.AddAttribute(2, nameof(TableRenderHandler.OnRenderAsync), OnTableRenderAsync);
-        builder.AddAttribute(3, nameof(TableRenderHandler.ChildContent), RenderFixTableContent());
-        builder.CloseComponent();
-    };
-
-    private RenderFragment RenderFixTableContent() => builder =>
-    {
-        if (_loadColumns)
-        {
-            if (IsFixedHeader)
-            {
-                builder.AddContent(10, RenderFixTableHeader);
-                builder.AddContent(20, RenderFixTableBody);
-            }
-            else
-            {
-                builder.AddContent(30, RenderTable(true));
-            }
         }
     };
 
