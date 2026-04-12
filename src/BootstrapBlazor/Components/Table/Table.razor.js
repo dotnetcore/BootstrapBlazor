@@ -40,11 +40,11 @@ export async function reset(id) {
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
-            table.isExcel = table.thead.firstChild.classList.contains('table-excel')
+            table.isExcel = table.thead.firstElementChild.classList.contains('table-excel')
             table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
-            table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
-            table.tables.push(table.thead.firstChild)
-            table.tables.push(table.body.firstChild)
+            table.isDraggable = table.thead.firstElementChild.classList.contains('table-draggable')
+            table.tables.push(table.thead.firstElementChild)
+            table.tables.push(table.body.firstElementChild)
             table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
             await fixHeader(table);
 
@@ -56,9 +56,9 @@ export async function reset(id) {
             setTableDefaultWidth(table);
         }
         else {
-            table.isExcel = shim.firstChild.classList.contains('table-excel')
-            table.isDraggable = shim.firstChild.classList.contains('table-draggable')
-            table.tables.push(shim.firstChild)
+            table.isExcel = shim.firstElementChild.classList.contains('table-excel')
+            table.isDraggable = shim.firstElementChild.classList.contains('table-draggable')
+            table.tables.push(shim.firstElementChild)
         }
 
         if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
