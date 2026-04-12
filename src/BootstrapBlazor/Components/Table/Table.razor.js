@@ -950,16 +950,16 @@ const saveColumnList = (tableName, columns) => {
 }
 
 const saveColumnWidth = table => {
-    const tableName = table.tableName;
+    const { options: { tableName } } = table;
     if (tableName) {
         const cols = table.columns
         const tableWidth = table.tables[0].offsetWidth
         const key = `bb-table-column-width-${tableName}`
         localStorage.setItem(key, JSON.stringify({
-            "columnWidths": cols.map(col => {
+            "cols": cols.map(col => {
                 return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
             }),
-            "tableWidth": tableWidth
+            "table": tableWidth
         }));
     }
 }
@@ -1037,7 +1037,7 @@ const resetColumns = (table, options) => {
     resetTableWidth(table);
 
     const { visibleColumns, allowDragColumn } = options;
-    const { tableName } = table;
+    const { options: { tableName } } = table;
     if (tableName && visibleColumns) {
         saveColumnList(tableName, visibleColumns);
     }

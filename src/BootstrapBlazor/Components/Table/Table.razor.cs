@@ -1396,6 +1396,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return;
         }
 
+        // 客户端未持久化
+        if (states is { ColumnVisibleStates: null, ColumnWidthState: null })
+        {
+            return;
+        }
+
         if (states.ColumnWidthState is { TableWidth: > 0 })
         {
             _localStorageTableWidth = states.ColumnWidthState.TableWidth;
