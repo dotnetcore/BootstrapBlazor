@@ -19,32 +19,11 @@ public partial class RenderTemplate : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 加载列前回调方法</para>
-    /// <para lang="en">Gets or sets the callback delegate for loading columns</para>
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnParametersSetCallback { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 首次渲染回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate for the first load</para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnRenderAsync { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        if (OnParametersSetCallback != null)
-        {
-            await OnParametersSetCallback();
-        }
-    }
 
     /// <summary>
     /// <inheritdoc/>
