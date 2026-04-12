@@ -167,7 +167,7 @@ public partial class Table<TItem>
 
     private void TriggerSelectAllColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _visibleColumns.Values)
         {
             column.Visible = true;
         }
@@ -175,14 +175,14 @@ public partial class Table<TItem>
 
     private void TriggerSelectInvertColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _visibleColumns.Values)
         {
             column.Visible = !column.Visible;
         }
 
-        if (_visibleColumns.All(i => i.Visible == false))
+        if (_visibleColumns.Values.All(i => i.Visible == false))
         {
-            _visibleColumns.First().Visible = true;
+            _visibleColumns.Values.First().Visible = true;
         }
     }
 }

@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
-using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -517,6 +516,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private ILookupService? InjectLookupService { get; set; }
 
     private BreakPoint _screenSize;
+    private int _localStorageTableWidth = 0;
     private string? _clientTableName;
     private bool _lastIsPopoverToolbarDropdownButtonValue;
     private bool _resetTable;
@@ -1132,7 +1132,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
 
             // 构建可见列
-            InternalResetVisibleColumns();
+            BuildVisibleColumns();
 
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
@@ -1160,7 +1160,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
-                VisibleColumns = resetColumns ? _visibleColumns : null,
+                VisibleColumns = resetColumns ? _visibleColumns.Values : null,
                 AllowDragColumn,
                 UpdateSortTooltip = updateSortTooltip,
                 AutoScrollLastSelectedRowToView,
@@ -1316,6 +1316,29 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private void BuildVisibleColumns()
+    {
+        var items = new Dictionary<string, ColumnVisibleItem>();
+        foreach (var col in Columns)
+        {
+            var fieldName = col.GetFieldName();
+            var item = new ColumnVisibleItem(fieldName, col.GetVisible())
+            {
+                DisplayName = col.GetDisplayName()
+            };
+
+            // 回复可见性与列宽数据
+            if (_visibleColumns.TryGetValue(fieldName, out var v))
+            {
+                item.Visible = v.Visible;
+                item.Width = v.Width;
+            }
+            items.Add(fieldName, item);
+        }
+
+        _visibleColumns = items;
+    }
+
     private void LoadTableColumnFromCache(List<ITableColumn> cols)
     {
         foreach (var col in cols)
@@ -1344,7 +1367,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 TableName = ClientTableName,
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
                 FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
@@ -1388,13 +1410,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? GetTableStyleString(bool hasHeader)
     {
         string? ret = null;
-        if (_tableColumnStateCache is { ColumnWidthState: { TableWidth: > 0 } })
+        if (_localStorageTableWidth != 0)
         {
-            var tableWidth = _tableColumnStateCache.ColumnWidthState.TableWidth;
-            var width = hasHeader ? tableWidth : tableWidth - ActualScrollWidth;
+            var width = hasHeader ? _localStorageTableWidth : _localStorageTableWidth - ActualScrollWidth;
             ret = $"width: {width}px;";
         }
-        return ret;
+        return null;
     }
 
     private TableColumnLocalstorageStatus _tableColumnStateCache = new();
@@ -1417,8 +1438,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private List<ColumnVisibleItem> _penddingVisibleColumns = new(50);
-
     /// <summary>
     /// <para lang="zh">设置 列可见方法</para>
     /// <para lang="en">Set Column Visible Method</para>
@@ -1427,30 +1446,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
-        InternalResetVisibleColumns(columns);
+        foreach (var col in columns)
+        {
+            if (_visibleColumns.TryGetValue(col.Name, out var item))
+            {
+                item.Visible = col.Visible;
+                item.Width = col.Width;
+            }
+        }
 
         _resetColumns = true;
         _invoke = true;
         StateHasChanged();
-    }
-
-    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? columns = null)
-    {
-        var visibleItems = columns?.ToDictionary(i => i.Name) ?? [];
-
-        _visibleColumns.Clear();
-        foreach (var col in Columns)
-        {
-            var visibleColumn = new ColumnVisibleItem(col.GetFieldName(), col.GetVisible())
-            {
-                DisplayName = col.GetDisplayName()
-            };
-            if (visibleItems.TryGetValue(visibleColumn.Name, out var item))
-            {
-                visibleColumn.Visible = item.Visible;
-            }
-            _visibleColumns.Add(visibleColumn);
-        }
     }
 
     /// <summary>
@@ -1811,16 +1818,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 OnAutoFitColumnWidthCallback 替代; Deprecated, please use OnAutoFitColumnWidthCallback instead")]
-    [ExcludeFromCodeCoverage]
-    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
-    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
-    /// </summary>
-    [Parameter]
-    public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
+    public Func<string, int, Task<int>>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
@@ -1860,10 +1858,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
 
-            //if ()
-            // TODO: 目前仅前端调整列顺序，后续增加后端持久化功能
-
-            InternalResetVisibleColumns();
+            BuildVisibleColumns();
 
             _resetColumns = true;
             _invoke = true;
@@ -1876,13 +1871,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
     [JSInvokable]
-    public async Task ResizeColumnCallback(string name, int width, JsonElement element)
+    public async Task ResizeColumnCallback(string name, int width)
     {
-        // 保存缓存
-        var state = element.Deserialize<ColumnWidthState>();
-        if (state != null)
+        if (_visibleColumns.TryGetValue(name, out var item))
         {
-            _tableColumnStateCache.ColumnWidthState = state;
+            item.Width = width;
         }
 
         // 触发回调
@@ -1890,23 +1883,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await OnResizeColumnAsync(name, width);
         }
-    }
-
-    /// <summary>
-    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
-    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
-    /// </summary>
-    /// <param name="fieldName"><para lang="zh">当前列名称</para><para lang="en">当前列name</para></param>
-    /// <param name="calcWidth"><para lang="zh">当前列宽</para><para lang="en">当前列宽</para></param>
-    [JSInvokable]
-    public async Task<float> AutoFitColumnWidthCallback(string fieldName, float calcWidth)
-    {
-        float ret = 0;
-        if (OnAutoFitColumnWidthCallback != null)
-        {
-            ret = await OnAutoFitColumnWidthCallback(fieldName, calcWidth);
-        }
-        return ret;
     }
 
     /// <summary>

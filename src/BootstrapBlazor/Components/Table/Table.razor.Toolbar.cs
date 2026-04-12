@@ -544,7 +544,7 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 各列是否显示状态集合</para>
     /// <para lang="en">Gets or sets Columns Visibility Status Collection</para>
     /// </summary>
-    private readonly List<ColumnVisibleItem> _visibleColumns = [];
+    private Dictionary<string, ColumnVisibleItem> _visibleColumns = new(50);
 
     /// <summary>
     /// <para lang="zh">获得当前可见列集合</para>
@@ -552,15 +552,13 @@ public partial class Table<TItem>
     /// </summary>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
-        // <para lang="zh">不可见列</para>
-        // <para lang="en">Invisible columns</para>
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
+        var items = _visibleColumns.Where(i => i.Value.Visible).Select(a => a.Key).ToHashSet();
         return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && _screenSize >= i.ShownWithBreakPoint);
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item)
     {
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToHashSet();
+        var items = _visibleColumns.Where(i => i.Value.Visible).Select(a => a.Key).ToHashSet();
         return items.Contains(item.Name) && items.Count == 1;
     }
 

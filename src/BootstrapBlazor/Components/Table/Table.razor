@@ -1048,7 +1048,7 @@
                                 </div>
                                 <Divider />
                                 <div class="column-list-items">
-                                    @foreach (var item in _visibleColumns)
+                                    @foreach (var item in _visibleColumns.Values)
                                     {
                                         @RenderColumnListItem(item)
                                     }
@@ -1056,7 +1056,7 @@
                             }
                             else
                             {
-                                @foreach (var item in _visibleColumns)
+                                @foreach (var item in _visibleColumns.Values)
                                 {
                                     @RenderColumnListItem(item)
                                 }

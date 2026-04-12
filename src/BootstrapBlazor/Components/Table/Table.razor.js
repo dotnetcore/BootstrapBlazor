@@ -108,6 +108,7 @@ export function fitAllColumnWidth(id) {
     columns.forEach(async col => {
         await autoFitColumnWidth(table, col);
     });
+    saveColumnWidth();
 }
 
 const observeHeight = table => {
@@ -515,6 +516,7 @@ const setResizeListener = table => {
             e.preventDefault();
             e.stopPropagation();
             await autoFitColumnWidth(table, col);
+            saveColumnWidth(table);
         });
 
         setColumnResizingListen(table, col);
@@ -669,13 +671,6 @@ const autoFitColumnWidth = async (table, col) => {
         maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
     }
 
-    if (table.options.autoFitColumnWidthCallback !== null) {
-        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
-        if (widthValue > 0) {
-            maxWidth = widthValue;
-        }
-    }
-
     if (maxWidth > 0) {
         table.tables.forEach(table => {
             const colEl = table.querySelectorAll('colgroup col')[index];
@@ -691,10 +686,8 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         setTableDefaultWidth(table);
-
-        if (table.options.resizeColumnCallback) {
-            await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth)
-        }
+        const widthState = getColumnWidthStateObject(table);
+        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth | 0, widthState)
 
         resetColumnWidthTips(table, col);
     }
