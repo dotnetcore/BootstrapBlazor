@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">RenderTemplate component</para>
+/// <para lang="zh">RenderTemplate 组件</para>
 /// <para lang="en">RenderTemplate component</para>
 /// </summary>
-public partial class RenderTemplate
+public partial class RenderTemplate : ComponentBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the child component</para>
+    /// <para lang="zh">获得/设置 子组件内容</para>
     /// <para lang="en">Gets or sets the child component</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 回调 委托 for the first load</para>
+    /// <para lang="zh">获得/设置 首次渲染回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate for the first load</para>
     /// </summary>
     [Parameter]
@@ -40,7 +40,7 @@ public partial class RenderTemplate
     }
 
     /// <summary>
-    /// <para lang="zh">Render method</para>
+    /// <para lang="zh">触发组件重新渲染</para>
     /// <para lang="en">Render method</para>
     /// </summary>
     public void Render()
