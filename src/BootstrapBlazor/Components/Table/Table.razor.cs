@@ -525,6 +525,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _shouldScrollTop;
     private bool _invoke;
 
+    private bool _loadColumns;
+
     private List<ColumnWidth> _clientColumnWidths = [];
 
     private async Task OnBreakPointChanged(BreakPoint size)
@@ -1296,6 +1298,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             SortName = col.GetFieldName();
             SortOrder = col.DefaultSortOrder;
         }
+
+        _loadColumns = true;
     }
 
     private async Task OnTableRenderAsync(bool firstRender)
@@ -1950,6 +1954,31 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         else
         {
             builder.AddContent(1, RenderRowContent(item));
+        }
+    };
+
+    private RenderFragment RenderFixTable() => builder =>
+    {
+        builder.OpenComponent<TableRenderHandler>(0);
+        builder.AddAttribute(1, nameof(TableRenderHandler.OnLoadTableColumns), BuildTableColumns);
+        builder.AddAttribute(2, nameof(TableRenderHandler.OnRenderAsync), OnTableRenderAsync);
+        builder.AddAttribute(3, nameof(TableRenderHandler.ChildContent), RenderFixTableContent());
+        builder.CloseComponent();
+    };
+
+    private RenderFragment RenderFixTableContent() => builder =>
+    {
+        if (_loadColumns)
+        {
+            if (IsFixedHeader)
+            {
+                builder.AddContent(10, RenderFixTableHeader);
+                builder.AddContent(20, RenderFixTableBody);
+            }
+            else
+            {
+                builder.AddContent(30, RenderTable(true));
+            }
         }
     };
 

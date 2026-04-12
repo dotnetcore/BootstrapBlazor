@@ -36,26 +36,11 @@
             @RenderPagination
         }
 
-        <RenderTemplate OnRenderAsync="OnTableRenderAsync">
+        <RenderTemplate>
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
-                    if (IsFixedHeader)
-                    {
-                        <div class="table-fixed-header">
-                            <table class="@TableClassName" style="@GetTableStyleString(true)">
-                                @RenderColGroup(true)
-                                @RenderHeader(true)
-                            </table>
-                        </div>
-                        <div class="table-fixed-body scroll" style="@GetScrollStyleString(true)">
-                            @RenderTable(false)
-                        </div>
-                    }
-                    else
-                    {
-                        @RenderTable(true)
-                    }
+                    @RenderFixTable()
                 }
                 else
                 {
@@ -92,9 +77,22 @@
 </div>
 
 @code {
+    RenderFragment RenderFixTableHeader =>
+        @<div class="table-fixed-header">
+            <table class="@TableClassName" style="@GetTableStyleString(true)">
+                @RenderColGroup(true)
+                @RenderHeader(true)
+            </table>
+        </div>;
+
+    RenderFragment RenderFixTableBody =>
+        @<div class="table-fixed-body scroll" style="@GetScrollStyleString(true)">
+            @RenderTable(false)
+        </div>;
+
     RenderFragment<bool> RenderTable => hasHeader =>
         @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)">
-            @RenderColGroup.Invoke(false)
+            @RenderColGroup(false)
             @if (hasHeader)
             {
                 @RenderHeader(false)
