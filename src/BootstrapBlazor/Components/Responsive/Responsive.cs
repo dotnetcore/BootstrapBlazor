@@ -17,6 +17,7 @@ public class Responsive : BootstrapModuleComponentBase
     /// <para lang="en">Gets or sets the callback method triggered when browser breakpoint threshold changes. Default is null</para>
     /// </summary>
     [Parameter]
+    [EditorRequired]
     public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
 
     private BreakPoint _breakPoint = BreakPoint.None;
