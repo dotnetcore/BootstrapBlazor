@@ -1428,7 +1428,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task ProcessFirstRender()
     {
-        IsLoading = true;
 
         // 设置渲染完毕
         _firstRender = false;
@@ -1444,7 +1443,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 恢复自动查询功能
         _autoQuery = true;
-        IsLoading = false;
     }
 
     /// <summary>
@@ -1734,7 +1732,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
         _pageItems = request.Count;
+
+        await ToggleLoading(true);
         await QueryData();
+        await ToggleLoading(false);
+
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
 
