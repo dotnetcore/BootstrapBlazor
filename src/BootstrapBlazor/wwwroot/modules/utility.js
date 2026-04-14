@@ -3,7 +3,7 @@ import EventHandler from "./event-handler.js"
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
         window.navigator.vibrate([200, 100, 200])
-        const handler = window.setTimeout(function () {
+        const handler = window.setTimeout(function() {
             window.clearTimeout(handler)
             window.navigator.vibrate([])
         }, 1000)
@@ -175,16 +175,10 @@ const normalizeLink = link => {
     return url
 }
 
-/**
- * 添加 script 标签到 head
- * @param {string} content
- * @returns
- */
 const addScript = content => {
-    // content 文件名
     const scripts = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
-    let link = scripts.filter(function (link) {
+    let link = scripts.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
     if (link.length === 0) {
@@ -207,14 +201,10 @@ const addScript = content => {
     })
 }
 
-/**
- * 从 head 移除 script 标签
- * @param {string} content
- */
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
-    const nodes = links.filter(function (link) {
+    const nodes = links.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
@@ -222,57 +212,30 @@ const removeScript = content => {
     }
 }
 
-/**
- * 批量添加 script 标签到 head
- * @param {string[]} content
- * @returns
- */
 const addScriptBatch = content => {
     const promises = content.map(item => addScript(item));
     return Promise.all(promises);
 }
 
-/**
- * 从 head 批量移除 script 标签
- * @param {string[]} content
- * @returns
- */
 const removeScriptBatch = (content) => {
     const promises = content.map(item => removeScript(item));
     return Promise.all(promises);
 }
 
-/**
- * 批量添加 link 标签到 head
- * @param {string[]} href
- * @param {string} rel
- * @returns
- */
 const addLinkBatch = (href, rel = "stylesheet") => {
     const promises = href.map(item => addLink(item, rel));
     return Promise.all(promises);
 }
 
-/**
- * 从 head 批量移除 link 标签
- * @param {string[]} href
- * @returns
- */
 const removeLinkBatch = (href) => {
     const promises = href.map(item => removeLink(item));
     return Promise.all(promises);
 }
 
-/**
- * 添加 link 标签到 head
- * @param {string} href
- * @param {string} rel
- * @returns
- */
 const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
-    let link = links.filter(function (link) {
+    let link = links.filter(function(link) {
         return link.href.indexOf(url) > -1
     })
     if (link.length === 0) {
@@ -296,14 +259,10 @@ const addLink = (href, rel = "stylesheet") => {
     })
 }
 
-/**
- * 从 head 移除 link 标签
- * @param {string} href
- */
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
-    const nodes = links.filter(function (link) {
+    const nodes = links.filter(function(link) {
         return link.href.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
@@ -311,10 +270,6 @@ const removeLink = href => {
     }
 }
 
-/**
- * 自动识别 css 或者 js 链接并添加到 head
- * @param {string[]} fileList
- */
 const autoAdd = (fileList) => {
     const promises = fileList.map(async (item) => {
         const extension = item.match(/\.(\w+)(\?|$)/)[1];
@@ -329,10 +284,6 @@ const autoAdd = (fileList) => {
     return Promise.all(promises);
 }
 
-/**
- * 自动识别 css 或者 js 链接并从 head 中移除
- * @param {string[]} fileList
- */
 const autoRemove = (fileList) => {
     const promises = fileList.map(async (item) => {
         const extension = item.match(/\.(\w+)(\?|$)/)[1];
@@ -456,7 +407,6 @@ const isElement = object => {
 }
 
 const getElement = object => {
-    // it's a jQuery object or a node element
     if (isElement(object)) {
         return object.jquery ? object[0] : object
     }
@@ -495,18 +445,15 @@ const getTransitionDurationFromElement = (element) => {
         return 0
     }
 
-    // Get transition-duration of the element
     let { transitionDuration, transitionDelay } = window.getComputedStyle(element)
 
     const floatTransitionDuration = Number.parseFloat(transitionDuration)
     const floatTransitionDelay = Number.parseFloat(transitionDelay)
 
-    // Return 0 if element or transition duration is not found
     if (!floatTransitionDuration && !floatTransitionDelay) {
         return 0
     }
 
-    // If multiple durations are defined, take the first
     transitionDuration = transitionDuration.split(',')[0]
     transitionDelay = transitionDelay.split(',')[0]
 
@@ -519,7 +466,6 @@ const isVisible = element => {
     }
 
     const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible'
-    // Handle `details` element as its content may falsie appear visible when it is closed
     const closedDetails = element.closest('details:not([open])')
 
     if (!closedDetails) {
@@ -572,10 +518,10 @@ const hackPopover = (popover, css) => {
     }
 }
 
-const hackTooltip = function () {
+const hackTooltip = function() {
     const mock = () => {
         const originalDispose = bootstrap.Tooltip.prototype.dispose;
-        bootstrap.Tooltip.prototype.dispose = function () {
+        bootstrap.Tooltip.prototype.dispose = function() {
             originalDispose.call(this);
             // fix https://github.com/twbs/bootstrap/issues/37474
             this._activeTrigger = {};
@@ -608,14 +554,9 @@ const getOverflowParent = element => {
     return parent
 }
 
-/*
- * @param {function} fn - 原函数
- * @param {number} duration - 防抖时长
- * @return {function} - 条件回调返回真时立即执行
- */
-const debounce = function (fn, duration = 200, callback = null) {
+const debounce = function(fn, duration = 200, callback = null) {
     let handler = null
-    return function () {
+    return function() {
         if (handler) {
             clearTimeout(handler)
         }
@@ -818,7 +759,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
     window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
         _init: false,
         _items: [],
-        register: function (id, cb) {
+        register: function(id, cb) {
             if (id) {
                 this._items.push(id);
             }
@@ -830,7 +771,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             return this;
         },
-        dispose: function (id, cb) {
+        dispose: function(id, cb) {
             if (id) {
                 this._items = this._items.filter(item => item !== id);
             }
@@ -888,10 +829,6 @@ export function drawImage(canvas, image, offsetWidth, offsetHeight) {
     context.drawImage(image, 0, 0, offsetWidth, offsetHeight);
 }
 
-/**
- *  @param {File} file
- *  @returns {Blob}
- */
 export function readFileAsync(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
