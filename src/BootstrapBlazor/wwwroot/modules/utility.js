@@ -716,8 +716,20 @@ export function getHtml(options) {
     return html;
 }
 
-export function getTheme() {
-    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || getAutoThemeValue();
+export function getTheme(useLocalstorage = true) {
+    useLocalstorage = useLocalstorage ?? true;
+    let theme = null;
+    if (useLocalstorage) {
+        theme = localStorage.getItem('theme');
+    }
+    else {
+        theme = document.documentElement.getAttribute('data-bs-theme');
+    }
+
+    if (theme === null || theme === 'auto') {
+        theme = getAutoThemeValue();
+    }
+    return theme;
 }
 
 export function saveTheme(theme) {
