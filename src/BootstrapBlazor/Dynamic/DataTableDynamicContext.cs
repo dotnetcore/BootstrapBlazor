@@ -278,10 +278,19 @@ public class DataTableDynamicContext : DynamicObjectContext
                     // 清理缓存
                     _dataCache.TryRemove(item.DynamicObjectPrimaryKey, out _);
 
-                    // 清理 Table 组件数据源
-                    _items.RemoveAll()
+                    // 清理 UI 数据
+                    if (_items is { Count: > 0 })
+                    {
+                        var d = _items.Find(i => i.DynamicObjectPrimaryKey == item.DynamicObjectPrimaryKey);
+                        if (d != null)
+                        {
+                            _items.Remove(d);
+                        }
+                    }
                 }
             }
+
+            // 检查是否有数据更新
             if (changed)
             {
                 DataTable.AcceptChanges();
