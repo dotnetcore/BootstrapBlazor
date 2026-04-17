@@ -11,35 +11,25 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">DataTable 动态类实例</para>
 /// <para lang="en">DataTable dynamic class instance</para>
 /// </summary>
-public class DataTableDynamicObject : DynamicObject
+public class DataTableDynamicObject(DataRow row) : DynamicObject
 {
-    /// <summary>
-    /// <para lang="zh">获得/设置 DataRow 实例</para>
-    /// <para lang="en">Gets or sets DataRow instance</para>
-    /// </summary>
-    internal DataRow? Row { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     public override object? GetValue(string propertyName)
     {
-        object? ret = null;
-        if (Row != null && Row.RowState != DataRowState.Deleted && Row.RowState != DataRowState.Detached && Row.Table.Columns.Contains(propertyName))
+        if (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached)
         {
-            if (Row.RowState == DataRowState.Added)
-            {
-                // 新建行 Model 同步到 Row 上
-                if (!Row.Table.Columns[propertyName]!.AutoIncrement)
-                {
-                    // 自增长列
-                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName);
-                }
-            }
-            ret = Row[propertyName];
+            return null;
         }
-        return ret ?? Utility.GetPropertyValue(this, propertyName);
+
+        object? ret = null;
+        if (row.Table.Columns.Contains(propertyName))
+        {
+            ret = row[propertyName];
+        }
+        return ret;
     }
 
     /// <summary>
@@ -47,11 +37,14 @@ public class DataTableDynamicObject : DynamicObject
     /// </summary>
     public override void SetValue(string propertyName, object? value)
     {
-        base.SetValue(propertyName, value);
-
-        if (Row != null && Row.Table.Columns.Contains(propertyName))
+        if (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached)
         {
-            Row[propertyName] = value;
+            return;
+        }
+
+        if (row.Table.Columns.Contains(propertyName))
+        {
+            row[propertyName] = value;
         }
     }
 }

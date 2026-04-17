@@ -14,7 +14,6 @@ public class DynamicObject : IDynamicObject
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    [AutoGenerateColumn(Ignore = true)]
     public Guid DynamicObjectPrimaryKey { get; set; }
 
     /// <summary>
@@ -22,7 +21,7 @@ public class DynamicObject : IDynamicObject
     /// <para lang="en">Gets the value of a specified property</para>
     /// </summary>
     /// <param name="propertyName"></param>
-    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
+    public virtual object? GetValue(string propertyName) => null;
 
     /// <summary>
     /// <para lang="zh">给指定属性设置值方法</para>
@@ -30,5 +29,5 @@ public class DynamicObject : IDynamicObject
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>
-    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value);
+    public virtual void SetValue(string propertyName, object? value) { }
 }
