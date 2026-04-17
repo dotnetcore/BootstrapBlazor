@@ -544,7 +544,7 @@ internal class CacheManager : ICacheManager
         return propertyInfo != null;
     }
 
-    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => (model is IDynamicColumnsObject d)
+    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => (model is IDynamicObject d)
         ? (TResult)d.GetValue(fieldName)!
         : GetValue<TModel, TResult>(model, fieldName);
 
