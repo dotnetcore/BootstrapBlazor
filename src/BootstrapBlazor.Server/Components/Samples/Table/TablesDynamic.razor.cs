@@ -35,6 +35,7 @@ public partial class TablesDynamic
 
         // 初始化 DataTable
         InitDataTable();
+
         // 初始化分页表格
         InitPageDataTable();
     }
