@@ -19,7 +19,7 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
     /// <param name="propertyName"></param>
     public override object? GetValue(string propertyName)
     {
-        if (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached)
+        if (row.IsDeletedOrDetached())
         {
             return null;
         }
@@ -37,7 +37,7 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
     /// </summary>
     public override void SetValue(string propertyName, object? value)
     {
-        if (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached)
+        if (row.IsDeletedOrDetached())
         {
             return;
         }

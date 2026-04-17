@@ -45,9 +45,9 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// </summary>
     private readonly ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> _dataCache = new();
 
-    private List<ITableColumn> _columns = [];
+    private readonly List<ITableColumn> _columns = [];
+    private readonly Action<DataTableDynamicContext, ITableColumn>? _addAttributesCallback;
     private List<IDynamicObject>? _items;
-    private Action<DataTableDynamicContext, ITableColumn>? _addAttributesCallback;
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
@@ -121,7 +121,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         var ret = new List<IDynamicObject>();
         foreach (DataRow row in DataTable.Rows)
         {
-            if (row.RowState != DataRowState.Deleted)
+            if (!row.IsDeletedOrDetached())
             {
                 var d = new DataTableDynamicObject(row)
                 {
@@ -244,13 +244,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             // 触发 Changed 回调
             if (OnChanged != null)
             {
-                await OnChanged(new(new[] { dynamicObject }, DynamicItemChangedType.Add));
-            }
-
-            // Table 组件数据源更新数据
-            if (_items != null)
-            {
-                _items.Insert(indexOfRow, dynamicObject);
+                await OnChanged(new DynamicObjectContextArgs([dynamicObject]));
             }
 
             // 缓存更新数据
@@ -285,7 +279,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                     _dataCache.TryRemove(item.DynamicObjectPrimaryKey, out _);
 
                     // 清理 Table 组件数据源
-                    _items = null;
+                    _items.RemoveAll()
                 }
             }
             if (changed)
@@ -293,7 +287,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                 DataTable.AcceptChanges();
                 if (OnChanged != null)
                 {
-                    await OnChanged(new(items, DynamicItemChangedType.Delete));
+                    await OnChanged(new DynamicObjectContextArgs(items, DynamicItemChangedType.Delete));
                 }
             }
             ret = true;
@@ -313,8 +307,8 @@ public class DataTableDynamicContext : DynamicObjectContext
         // 更新内部 DataRow
         if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
         {
+            // 更新原始 DataTable
             cacheItem.Row[column.GetFieldName()] = val;
-            _items = null;
         }
         return Task.CompletedTask;
     }

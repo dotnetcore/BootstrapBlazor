@@ -16,6 +16,6 @@ internal static class DataRowExtensions
 {
     extension(DataRow row)
     {
-        public bool IsValid() => row.RowState
+        public bool IsDeletedOrDetached() => row.RowState != DataRowState.Deleted && row.RowState != DataRowState.Detached;
     }
 }
