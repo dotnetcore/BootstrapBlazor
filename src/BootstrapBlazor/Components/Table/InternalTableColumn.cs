@@ -346,7 +346,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc cref="IEditorItem.GetDisplayName"/>
     /// </summary>
-    public string GetDisplayName() => Text;
+    public string GetDisplayName() => Text ?? FieldName;
 
     /// <summary>
     /// <inheritdoc cref="IEditorItem.GetFieldName"/>
