@@ -1197,19 +1197,19 @@ public static class Utility
     /// </param>
     public static object GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
     {
-        var valueChangedInvoker = CreateLambda(fieldType).Compile();
+        var valueChangedInvoker = CreateValueChangedLambda(fieldType).Compile();
         return valueChangedInvoker(component, model, fieldName);
+    }
 
-        static Expression<Func<ComponentBase, object, string, object>> CreateLambda(Type fieldType)
-        {
-            var exp_p1 = Expression.Parameter(typeof(ComponentBase));
-            var exp_p2 = Expression.Parameter(typeof(object));
-            var exp_p3 = Expression.Parameter(typeof(string));
-            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(fieldType);
-            var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
+    static Expression<Func<ComponentBase, object, string, object>> CreateValueChangedLambda(Type fieldType)
+    {
+        var exp_p1 = Expression.Parameter(typeof(ComponentBase));
+        var exp_p2 = Expression.Parameter(typeof(object));
+        var exp_p3 = Expression.Parameter(typeof(string));
+        var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(fieldType);
+        var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
 
-            return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
-        }
+        return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
     }
 
     /// <summary>
