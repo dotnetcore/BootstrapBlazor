@@ -31,9 +31,17 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
         }
 
         object? ret = null;
-        if (row.Table.Columns.Contains(propertyName))
+        var column = row.Table.Columns[propertyName];
+        if (column != null)
         {
             ret = row[propertyName];
+
+            // 判断 DBNull 情况
+            if (ret is DBNull)
+            {
+                // 此处如果是 DBNull 应该返回当前列数据类型的默认值
+                ret = column.DataType.IsValueType ? Activator.CreateInstance(column.DataType) : null;
+            }
         }
         return ret;
     }
