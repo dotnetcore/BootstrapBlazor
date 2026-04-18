@@ -2018,6 +2018,8 @@
     "Dom2ImageIntro": "将 Html 片段导出为图片",
     "Dom2ImageNormalIntro": "通过指定 <code>Selector</code> 将此节点转成图片",
     "Dom2ImageNormalTitle": "基本用法",
+    "Dom2ImageServiceInjectTip": "使用 <code>Dom2HtmlService</code> 前请先手动注入服务",
+    "Dom2ImageSignalRConfigTip": "同时请配置 SignalR 的最大接收消息大小（示例为 <code>10 MB</code>）",
     "Dom2ImageTitle": "Dom2Image 元素转图片"
   },
   "BootstrapBlazor.Server.Components.Samples.Downloads": {

@@ -6,6 +6,16 @@
 
 <PackageTips Name="BootstrapBlazor.Dom2Image" />
 
+<Tips>
+    <p>@((MarkupString)Localizer["Dom2ImageServiceInjectTip"].Value)</p>
+    <Pre class="no-highlight">services.AddBootstrapBlazorDom2ImageService();</Pre>
+    <p>@((MarkupString)Localizer["Dom2ImageSignalRConfigTip"].Value)</p>
+    <Pre class="no-highlight">builder.Services.AddSignalR(options =>
+{
+    options.MaximumReceiveMessageSize = 10 * 1024 * 1024; // 10 MB
+});</Pre>
+</Tips>
+
 <DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
     <section ignore>
         <p>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</p>
@@ -29,4 +39,3 @@
         }
     </section>
 </DemoBlock>
-
