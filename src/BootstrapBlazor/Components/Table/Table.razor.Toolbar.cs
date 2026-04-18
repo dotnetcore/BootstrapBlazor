@@ -591,6 +591,9 @@ public partial class Table<TItem>
             // <para lang="en">Data source is DataTable, rebuild rows and columns after adding</para>
             await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
 
+            // 重新查询数据
+            await QueryAsync(false);
+
             if (!IsKeepSelectedRowAfterAdd)
             {
                 SelectedRows.Clear();
