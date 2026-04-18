@@ -1150,10 +1150,12 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
 
             // 触发删除回调方法
             await TriggerDeleteCallback();
+
+            // 重新查询数据
+            await QueryAsync(SelectedRowsChanged.HasDelegate);
 
             SelectedRows.Clear();
             await OnSelectedRowsChanged();
