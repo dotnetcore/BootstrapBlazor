@@ -590,7 +590,6 @@ public partial class Table<TItem>
             // <para lang="zh">数据源为 DataTable 新建后重建行与列</para>
             // <para lang="en">Data source is DataTable, rebuild rows and columns after adding</para>
             await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
 
             if (!IsKeepSelectedRowAfterAdd)
             {
