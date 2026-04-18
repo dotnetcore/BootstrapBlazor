@@ -277,16 +277,20 @@ public class DataTableDynamicContext : DynamicObjectContext
                     // 删除数据源
                     DataTable.Rows.Remove(row.Row);
                 }
+
+                if (_items != null)
+                {
+                    var v = _items.Find(i => i.DynamicObjectPrimaryKey == item.DynamicObjectPrimaryKey);
+                    if (v != null)
+                    {
+                        _items.Remove(v);
+                    }
+                }
             }
 
             // 检查是否有数据更新
             if (changed)
             {
-                // 清除缓存重新构造行数据
-                if (_items != null)
-                {
-                    _items.Clear();
-                }
                 DataTable.AcceptChanges();
                 if (OnChanged != null)
                 {
