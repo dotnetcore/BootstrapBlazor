@@ -206,8 +206,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -223,8 +222,7 @@ public abstract class ButtonBase : TooltipWrapperBase
 
     private bool _prevDisable;
     /// <summary>
-    /// <para lang="zh">OnAfterRenderAsync 方法</para>
-    /// <para lang="en">OnAfterRenderAsync method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -329,8 +327,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     }
 
     /// <summary>
-    /// <para lang="zh">DisposeAsyncCore 方法</para>
-    /// <para lang="en">DisposeAsyncCore method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
