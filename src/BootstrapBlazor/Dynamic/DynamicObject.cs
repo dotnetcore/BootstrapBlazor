@@ -17,17 +17,22 @@ public class DynamicObject : IDynamicObject
     public Guid DynamicObjectPrimaryKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得指定属性值方法</para>
-    /// <para lang="en">Gets the value of a specified property</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
     public virtual object? GetValue(string propertyName) => null;
 
     /// <summary>
-    /// <para lang="zh">给指定属性设置值方法</para>
-    /// <para lang="en">Sets the value of a specified property</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
-    /// <param name="value"></param>
     public virtual void SetValue(string propertyName, object? value) { }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public virtual void Cancel() { }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public virtual void Accept() { }
 }

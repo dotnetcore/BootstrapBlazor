@@ -234,6 +234,7 @@ public class DataTableDynamicContext : DynamicObjectContext
 
             // DataTable 数据源增加数据
             DataTable.Rows.InsertAt(row, indexOfRow);
+            DataTable.AcceptChanges();
 
             // 新建动态类型属性赋值
             var dynamicObject = new DataTableDynamicObject(row)

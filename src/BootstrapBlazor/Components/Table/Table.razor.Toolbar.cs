@@ -960,6 +960,8 @@ public partial class Table<TItem>
     protected async Task ShowEditDialog(ItemChangedType changedType)
     {
         var saved = false;
+
+        // 用于判断是否未保存数据直接点击关闭取消数据保存操作
         var triggerFromSave = false;
         var option = new EditDialogOption<TItem>()
         {
@@ -985,7 +987,14 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);
-                triggerFromSave = true;
+
+                if (saved && context.Model is IDynamicObject d)
+                {
+                    d.Accept();
+                }
+
+                // 已保存数据
+                triggerFromSave = saved;
                 return saved;
             }
         };
@@ -1045,8 +1054,14 @@ public partial class Table<TItem>
 
         if (!saved)
         {
-            var d = DataService ?? InjectDataService;
-            if (d is IEntityFrameworkCoreDataService ef)
+            if (EditModel is IDynamicObject d)
+            {
+                d.Cancel();
+                return;
+            }
+
+            var dataService = DataService ?? InjectDataService;
+            if (dataService is IEntityFrameworkCoreDataService ef)
             {
                 // EFCore
                 await ToggleLoading(true);

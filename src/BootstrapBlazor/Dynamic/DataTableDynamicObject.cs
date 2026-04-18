@@ -70,4 +70,22 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
             row[propertyName] = value;
         }
     }
+
+    /// <summary>
+    /// <para lang="zh">撤销数据更改</para>
+    /// <para lang="en">Cancels data changes</para>
+    /// </summary>
+    public override void Cancel()
+    {
+        row.Table.RejectChanges();
+    }
+
+    /// <summary>
+    /// <para lang="zh">接受数据更改</para>
+    /// <para lang="en">Accepts data changes</para>
+    /// </summary>
+    public override void Accept()
+    {
+        row.Table.AcceptChanges();
+    }
 }

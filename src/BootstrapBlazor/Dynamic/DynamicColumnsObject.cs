@@ -40,8 +40,7 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     public DynamicColumnsObject() : this([]) { }
 
     /// <summary>
-    /// <para lang="zh">获得列的值</para>
-    /// <para lang="en">Gets the value of a column</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     public virtual object? GetValue(string propertyName)
@@ -50,11 +49,20 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     }
 
     /// <summary>
-    /// <para lang="zh">设置列的值</para>
-    /// <para lang="en">Sets the value of a column</para>
+    /// <inheritdoc/>
     /// </summary>
     public virtual void SetValue(string propertyName, object? value)
     {
         Columns[propertyName] = value;
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public virtual void Cancel() { }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public virtual void Accept() { }
 }

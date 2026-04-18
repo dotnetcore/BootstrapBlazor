@@ -31,4 +31,16 @@ public interface IDynamicObject
     /// <para lang="en">Gets or sets the data primary key</para>
     /// </summary>
     Guid DynamicObjectPrimaryKey { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">撤销数据更改</para>
+    /// <para lang="en">Cancels data changes</para>
+    /// </summary>
+    void Cancel();
+
+    /// <summary>
+    /// <para lang="zh">接受数据更改</para>
+    /// <para lang="en">Accepts data changes</para>
+    /// </summary>
+    void Accept();
 }
