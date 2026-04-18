@@ -43,7 +43,7 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="zh">负责将 DataRow 与 Items 关联起来方便查找提高效率</para>
     /// <para lang="en">Responsible for associating DataRow with Items to facilitate lookup and improve efficiency</para>
     /// </summary>
-    private readonly ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> _dataCache = new();
+    private readonly ConcurrentDictionary<Guid, DataTableDynamicObject> _dataCache = new();
 
     private readonly List<ITableColumn> _columns = [];
     private readonly Action<DataTableDynamicContext, ITableColumn>? _addAttributesCallback;
@@ -127,7 +127,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                 {
                     DynamicObjectPrimaryKey = Guid.NewGuid()
                 };
-                _dataCache.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
+                _dataCache.TryAdd(d.DynamicObjectPrimaryKey, d);
                 ret.Add(d);
             }
         }
@@ -248,8 +248,9 @@ public class DataTableDynamicContext : DynamicObjectContext
             }
 
             // 缓存更新数据
-            _dataCache.TryAdd(dynamicObject.DynamicObjectPrimaryKey, (dynamicObject, row));
+            _dataCache.TryAdd(dynamicObject.DynamicObjectPrimaryKey, dynamicObject);
         }
+        _items = null;
     }
 
     /// <summary>
@@ -268,31 +269,23 @@ public class DataTableDynamicContext : DynamicObjectContext
             var changed = false;
             foreach (var item in items)
             {
-                if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var row))
+                if (_dataCache.TryRemove(item.DynamicObjectPrimaryKey, out var row))
                 {
                     changed = true;
 
                     // 删除数据源
                     DataTable.Rows.Remove(row.Row);
-
-                    // 清理缓存
-                    _dataCache.TryRemove(item.DynamicObjectPrimaryKey, out _);
-
-                    // 清理 UI 数据
-                    if (_items is { Count: > 0 })
-                    {
-                        var d = _items.Find(i => i.DynamicObjectPrimaryKey == item.DynamicObjectPrimaryKey);
-                        if (d != null)
-                        {
-                            _items.Remove(d);
-                        }
-                    }
                 }
             }
 
             // 检查是否有数据更新
             if (changed)
             {
+                // 清除缓存重新构造行数据
+                if (_items != null)
+                {
+                    _items.Clear();
+                }
                 DataTable.AcceptChanges();
                 if (OnChanged != null)
                 {

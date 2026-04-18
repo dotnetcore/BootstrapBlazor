@@ -14,6 +14,12 @@ namespace BootstrapBlazor.Components;
 public class DataTableDynamicObject(DataRow row) : DynamicObject
 {
     /// <summary>
+    /// <para lang="zh">获得 其关联 DataRow 实例</para>
+    /// <para lang="en">Gets the associated DataRow instance</para>
+    /// </summary>
+    public DataRow Row => row;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
