@@ -73,30 +73,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         OnValueChanged = OnCellValueChanged;
 
         // 获得 DataTable 列信息转换为 ITableColumn 集合
-        BuildTableColumns();
-    }
-
-    private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
-    {
-        var ret = true;
-        var columnName = col.GetFieldName();
-        if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            ret = false;
-        }
-
-        // 隐藏列存在时隐藏列
-        if (ret && hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            col.Visible = false;
-        }
-
-        // 显示列存在时显示列
-        if (ret && shownColumns != null && shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            col.Visible = true;
-        }
-        return ret;
+        BuildTableColumns(invisibleColumns, shownColumns, hiddenColumns);
     }
 
     /// <summary>
@@ -139,14 +116,41 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// </summary>
     public override IEnumerable<ITableColumn> GetColumns() => _columns;
 
-    private void BuildTableColumns()
+    private void BuildTableColumns(IEnumerable<string>? invisibleColumns = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
     {
         _columns.Clear();
         foreach (DataColumn col in DataTable.Columns)
         {
             var column = new InternalTableColumn(col.ColumnName, col.DataType);
+            GetShownColumns(column, invisibleColumns, shownColumns, hiddenColumns);
             OnColumnCreating(column);
-            _columns.Add(column);
+
+            if(column.Ignore is not true)
+            {
+                _columns.Add(column);
+            }
+        }
+    }
+
+    private static void GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
+    {
+        var columnName = col.GetFieldName();
+        if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            col.Ignore = true;
+            return;
+        }
+
+        // 隐藏列存在时隐藏列
+        if (hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            col.Visible = false;
+        }
+
+        // 显示列存在时显示列
+        if (shownColumns != null && shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            col.Visible = true;
         }
     }
 
