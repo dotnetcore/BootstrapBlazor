@@ -577,6 +577,16 @@ public partial class ValidateForm
         AsyncSubmitButtons.Add(button);
     }
 
+    /// <summary>
+    /// <para lang="zh">注销提交按钮</para>
+    /// <para lang="en">Unregisters a submit button</para>
+    /// </summary>
+    /// <param name="button"></param>
+    internal void UnregisterAsyncSubmitButton(ButtonBase button)
+    {
+        AsyncSubmitButtons.Remove(button);
+    }
+
     private TaskCompletionSource<bool>? _tcs;
 
     private async Task OnValidSubmitForm(EditContext context)
