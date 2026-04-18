@@ -1235,6 +1235,48 @@ public static class Utility
     public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
+    /// <para lang="zh">获得 OnValueChanged 回调委托</para>
+    /// <para lang="en">Get OnValueChanged callback delegate</para>
+    /// </summary>
+    /// <param name="model">
+    ///  <para lang="zh">模型实例</para>
+    ///  <para lang="en">Model instance</para>
+    /// </param>
+    /// <param name="fieldName">
+    ///  <para lang="zh">字段名称</para>
+    ///  <para lang="en">Field name</para>
+    /// </param>
+    /// <param name="fieldType">
+    ///  <para lang="zh">字段类型</para>
+    ///  <para lang="en">Field type</para>
+    /// </param>
+    public static object GenerateOnValueChanged(object model, string fieldName, Type fieldType)
+    {
+        var valueChangedInvoker = CreateDynamicObjectOnValueChangedLambda(fieldType).Compile();
+        return valueChangedInvoker(model, fieldName);
+    }
+
+    static Expression<Func<object, string, object>> CreateDynamicObjectOnValueChangedLambda(Type fieldType)
+    {
+        var exp_p1 = Expression.Parameter(typeof(object));
+        var exp_p2 = Expression.Parameter(typeof(string));
+        var method = typeof(Utility).GetMethod(nameof(CreateDynamicObjectOnValueChangedCallback), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
+        var body = Expression.Call(null, method, exp_p1, exp_p2);
+
+        return Expression.Lambda<Func<object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2);
+    }
+
+    static Func<TValue?, Task> CreateDynamicObjectOnValueChangedCallback<TValue>(object model, string fieldName) => v =>
+    {
+        if (model is IDynamicObject d)
+        {
+            d.SetValue(fieldName, v);
+        }
+
+        return Task.CompletedTask;
+    };
+
+    /// <summary>
     /// <para lang="zh">获得指定泛型的 IEditorItem 集合</para>
     /// <para lang="en">Get IEditorItem collection of specified generic type</para>
     /// </summary>
