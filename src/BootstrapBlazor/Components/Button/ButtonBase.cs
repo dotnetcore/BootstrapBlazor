@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -65,7 +63,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="en">Gets or sets the OnClick event</para>
     /// </summary>
     [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
+    public EventCallback OnClick { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件不刷新父组件</para>
@@ -334,6 +332,16 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         if (disposing)
         {
+            if (OnClick.HasDelegate)
+            {
+                OnClick = EventCallback.Empty;
+            }
+
+            if (IsAsync && ValidateForm != null)
+            {
+                ValidateForm.UnregisterAsyncSubmitButton(this);
+            }
+
             await RemoveTooltip();
         }
         await base.DisposeAsync(disposing);
