@@ -40,7 +40,16 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
             if (ret is DBNull)
             {
                 // 此处如果是 DBNull 应该返回当前列数据类型的默认值
-                ret = column.DataType.IsValueType ? Activator.CreateInstance(column.DataType) : null;
+                var columnType = column.DataType;
+                if (Nullable.GetUnderlyingType(columnType) != null)
+                {
+                    // 如果当前列数据类型是可为空的值类型，则返回 null，否则返回当前列数据类型的默认值
+                    ret = null;
+                }
+                else
+                {
+                    ret = columnType.IsValueType ? Activator.CreateInstance(columnType) : null;
+                }
             }
         }
         return ret;
