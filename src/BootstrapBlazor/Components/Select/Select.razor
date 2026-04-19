@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SimpleSelectBase<TValue>
@@ -22,7 +22,8 @@
             }
             else
             {
-                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedRow?.Text" @onchange="OnChange" readonly="@ReadonlyString" />
+                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString"
+                       value="@SelectedRow?.Text" @onchange="@_onChangeEventCallback" readonly="@ReadonlyString" />
             }
             <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
         </div>
@@ -92,7 +93,7 @@
 
 @code {
     RenderFragment<SelectedItem> RenderRow => item =>
-    @<div class="@ActiveItem(item)" @onclick="() => OnClickItem(item)">
+    @<DynamicElement class="@ActiveItem(item)" OnClick="() => OnClickItem(item)">
         @if (ItemTemplate != null)
         {
             @ItemTemplate(item)
@@ -105,7 +106,7 @@
         {
             @item.Text
         }
-    </div>;
+    </DynamicElement>;
 
     RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
     @<div class="dropdown-item">
