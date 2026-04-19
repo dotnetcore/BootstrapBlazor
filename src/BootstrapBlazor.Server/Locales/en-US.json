@@ -2018,7 +2018,7 @@
     "Dom2ImageIntro": "Export HTML snippets as images",
     "Dom2ImageNormalIntro": "Convert the node to an image by specifying a <code>Selector</code>",
     "Dom2ImageNormalTitle": "Basic usage",
-    "Dom2ImageServiceInjectTip": "Before using <code>Dom2HtmlService</code>, manually register the service",
+    "Dom2ImageServiceInjectTip": "Before using <code>IDom2HtmlService</code>, manually register this service",
     "Dom2ImageSignalRConfigTip": "Also configure the SignalR maximum receive message size (example: <code>10 MB</code>)",
     "Dom2ImageTitle": "Dom2Image"
   },
