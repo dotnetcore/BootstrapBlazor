@@ -339,6 +339,11 @@ public abstract class ButtonBase : TooltipWrapperBase
                 OnClick = EventCallback<MouseEventArgs>.Empty;
             }
 
+            if (OnClickWithoutRender != null)
+            {
+                OnClickWithoutRender = null;
+            }
+
             if (IsAsync && ValidateForm != null)
             {
                 ValidateForm.UnregisterAsyncSubmitButton(this);
