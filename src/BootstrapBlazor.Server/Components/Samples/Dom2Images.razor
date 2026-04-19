@@ -1,4 +1,4 @@
-﻿@page "/dom2image"
+@page "/dom2image"
 
 <h3>@Localizer["Dom2ImageTitle"]</h3>
 
@@ -10,10 +10,7 @@
     <p>@((MarkupString)Localizer["Dom2ImageServiceInjectTip"].Value)</p>
     <Pre class="no-highlight">builder.Services.AddBootstrapBlazorDom2ImageService();</Pre>
     <p>@((MarkupString)Localizer["Dom2ImageSignalRConfigTip"].Value)</p>
-    <Pre class="no-highlight">builder.Services.AddSignalR(options =>
-{
-    options.MaximumReceiveMessageSize = 10 * 1024 * 1024; // 10 MB
-});</Pre>
+    <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 </Tips>
 
 <DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
