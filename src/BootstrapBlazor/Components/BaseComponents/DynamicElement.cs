@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">动态元素组件</para>
 /// <para lang="en">Dynamic element component</para>
 /// </summary>
-public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
+public class DynamicElement : BootstrapComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 TagName 属性 默认为 div</para>
@@ -79,6 +79,34 @@ public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
     public bool TriggerContextMenu { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 OnTouchStart 回调委托</para>
+    /// <para lang="en">Gets or sets the OnTouchStart callback delegate</para>
+    /// </summary>
+    [Parameter]
+    public Func<TouchEventArgs, Task>? OnTouchStart { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 OnTouchEnd 回调委托</para>
+    /// <para lang="en">Gets or sets the OnTouchEnd callback delegate</para>
+    /// </summary>
+    [Parameter]
+    public Func<TouchEventArgs, Task>? OnTouchEnd { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否触发 OnTouchStart 事件 默认 false</para>
+    /// <para lang="en">Gets or sets whether to trigger OnTouchStart events. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool TriggerTouchStart { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否触发 OnTouchEnd 事件 默认 false</para>
+    /// <para lang="en">Gets or sets whether to trigger OnTouchEnd events. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool TriggerTouchEnd { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 内容组件</para>
     /// <para lang="en">Gets or sets the child content</para>
     /// </summary>
@@ -139,6 +167,16 @@ public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
             builder.AddEventPreventDefaultAttribute(9, "oncontextmenu", true);
         }
 
+        if (IsTriggerTouchStart())
+        {
+            builder.AddAttribute(11, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTriggerTouchStart));
+        }
+
+        if (IsTriggerTouchEnd())
+        {
+            builder.AddAttribute(12, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTriggerTouchEnd));
+        }
+
         builder.AddContent(10, ChildContent);
 
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
@@ -152,6 +190,10 @@ public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
     private bool IsTriggerDoubleClick() => TriggerDoubleClick && OnDoubleClick != null;
 
     private bool IsTriggerContextMenu() => TriggerContextMenu && OnContextMenu != null;
+
+    private bool IsTriggerTouchStart() => TriggerTouchStart && OnTouchStart != null;
+
+    private bool IsTriggerTouchEnd() => TriggerTouchEnd && OnTouchEnd != null;
 
     private async Task OnTriggerClick()
     {
@@ -177,28 +219,19 @@ public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">异步释放资源</para>
-    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously</para>
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    private async Task OnTriggerTouchStart(TouchEventArgs e)
     {
-        if (disposing)
+        if (OnTouchStart != null)
         {
-            OnClick = null;
-            OnDoubleClick = null;
-            OnContextMenu = null;
-            ChildContent = null;
+            await OnTouchStart(e);
         }
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public async ValueTask DisposeAsync()
+    private async Task OnTriggerTouchEnd(TouchEventArgs e)
     {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
+        if (OnTouchEnd != null)
+        {
+            await OnTouchEnd(e);
+        }
     }
 }

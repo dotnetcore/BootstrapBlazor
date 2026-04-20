@@ -202,8 +202,6 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private string _defaultVirtualizedItemText = "";
 
-    private EventCallback<ChangeEventArgs> _onChangeEventCallback = EventCallback<ChangeEventArgs>.Empty;
-
     private SelectedItem? SelectedItem { get; set; }
 
     private SelectedItem? SelectedRow
@@ -236,10 +234,6 @@ public partial class Select<TValue> : ISelect, ILookup
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
-
-        _onChangeEventCallback = IsEditable
-            ? EventCallback.Factory.Create<ChangeEventArgs>(this, OnChange)
-            : EventCallback<ChangeEventArgs>.Empty;
     }
 
     /// <summary>
@@ -395,8 +389,6 @@ public partial class Select<TValue> : ISelect, ILookup
             _defaultVirtualizedItemText = item.Text;
             await SelectedItemChanged(item);
         }
-
-        StateHasChanged();
     }
 
     private async Task SelectedItemChanged(SelectedItem item)
@@ -508,20 +500,5 @@ public partial class Select<TValue> : ISelect, ILookup
             ?? allItems.Find(i => i.Active)
             ?? allItems.Find(i => !i.IsDisabled);
         return item;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            _onChangeEventCallback = EventCallback<ChangeEventArgs>.Empty;
-        }
-
-        return base.DisposeAsync(disposing);
     }
 }
