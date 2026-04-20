@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">动态元素组件</para>
 /// <para lang="en">Dynamic element component</para>
 /// </summary>
-public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
+public class DynamicElement : BootstrapComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 TagName 属性 默认为 div</para>
@@ -175,30 +175,5 @@ public class DynamicElement : BootstrapComponentBase, IAsyncDisposable
         {
             await OnContextMenu(e);
         }
-    }
-
-    /// <summary>
-    /// <para lang="zh">异步释放资源</para>
-    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously</para>
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            OnClick = null;
-            OnDoubleClick = null;
-            OnContextMenu = null;
-            ChildContent = null;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }
