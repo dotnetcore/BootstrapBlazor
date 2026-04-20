@@ -2000,9 +2000,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void OnTouchEnd()
+    private Task OnTouchEnd(TouchEventArgs e)
     {
         TouchStart = false;
+        return Task.CompletedTask;
     }
 
     private object? GetKeyByITem(TItem item) => SortableList != null ? item : null; //OnGetRowKey?.Invoke(item);
