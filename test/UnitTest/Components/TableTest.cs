@@ -6469,7 +6469,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        var input = cut.FindComponents<Checkbox<Guid>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.True(compared);
     }
@@ -6531,7 +6531,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<DynamicObject>>();
 
         // 选中第一行数据
-        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        var input = cut.FindComponents<Checkbox<Guid>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
@@ -6557,7 +6557,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        var input = cut.FindComponents<Checkbox<Guid>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
@@ -8536,7 +8536,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
+        var check = cut.FindComponents<Checkbox<Guid>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
         Assert.NotNull(check);
 
         context = CreateDynamicContext(localizer);

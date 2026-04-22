@@ -146,7 +146,6 @@ public class DataTableDynamicContext : DynamicObjectContext
                     }
 
                     d.Row = row;
-                    d.DynamicObjectPrimaryKey = Guid.NewGuid();
                     _dataCache.TryAdd(d.DynamicObjectPrimaryKey, (d, row));
                     ret.Add(d);
                 }
@@ -204,7 +203,6 @@ public class DataTableDynamicContext : DynamicObjectContext
             DataTable.Rows.InsertAt(row, indexOfRow);
 
             // 新建动态类型属性赋值
-            dynamicObject.DynamicObjectPrimaryKey = Guid.NewGuid();
             foreach (DataColumn col in DataTable.Columns)
             {
                 if (col.DefaultValue != DBNull.Value)

@@ -15,7 +15,7 @@ public class DynamicObject : IDynamicObject
     /// <inheritdoc/>
     /// </summary>
     [AutoGenerateColumn(Ignore = true)]
-    public Guid DynamicObjectPrimaryKey { get; set; }
+    public Guid DynamicObjectPrimaryKey { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// <para lang="zh">获得指定属性值方法</para>
