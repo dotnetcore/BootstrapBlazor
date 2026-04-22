@@ -1,16 +1,226 @@
 @page "/gantt"
 @inject IStringLocalizer<Gantts> Localizer
+@using BootstrapBlazor.Gantt
 
 <h3>@Localizer["Gantts"]</h3>
 
-<DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntro"]" Name="Normal">
-    <Gantt Items="@Items" OnClick="@OnClick" OnDataChanged="@OnDataChanged" OnProgressChanged="@OnProgressChanged"></Gantt>
-    <ConsoleLogger @ref="@Log"></ConsoleLogger>
-</DemoBlock>
+ <GanttChart Title="交付路线图" Subtitle="第二季度执行窗口" SidebarTitle="工作流" Groups="TaskGroups" ShowViewModeSwitch="true"
+                ShowCriticalPath="true" Showdependencies="false" ShowHierarchyLines="true" IsEditable="true"
+                AutoScheduleDependents="true" OnScheduleUpdated="HandleScheduleUpdated" />
 
-<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeDesc"]" Name="ViewMode">
-    <Segmented Items="ViewModes" TValue="string" class="mb-3" OnValueChanged="@OnValueChanged"></Segmented>
-    <Gantt Items="@Items" @ref="Gantt"></Gantt>
-</DemoBlock>
+  
 
-<AttributeTable Type="typeof(Gantt)"></AttributeTable>
+        <GanttChart Title="教学计划" Subtitle="春季课程执行安排" SidebarTitle="教学任务" Groups="TeachingPlanGroups" SidebarWidth="300"
+                    ShowViewModeSwitch="true" ShowCriticalPath="false" Showdependencies="true" ShowHierarchyLines="true"
+                    ShowSummary="true" IsEditable="true" OnScheduleUpdated="HandleTeachingPlanScheduleUpdated"
+                    EnforceConstraintChecks="true" />
+
+    <AttributeTable Type="typeof(GanttChart)"></AttributeTable>
+
+
+@code {
+    private IReadOnlyList<GanttGroup> TaskGroups =
+    [
+        new(
+            "discovery",
+            "调研阶段",
+            [
+                new("需求梳理", new DateTime(2026, 4, 14), new DateTime(2026, 4, 16), "#7adf89", "产品", 100,  false, id: "requirements"),
+                new("用户访谈", new DateTime(2026, 4, 14), new DateTime(2026, 4, 18), "#57d6a4", "产品", 95, id: "interviews"),
+                new("竞品分析", new DateTime(2026, 4, 15), new DateTime(2026, 4, 19), "#47c1bf", "运营", 88, id: "benchmark"),
+                new("范围确认会", new DateTime(2026, 4, 19), new DateTime(2026, 4, 19), "#89e089", "项目", null, isMilestone: true, id: "scope-review", dependencies:["requirements", "interviews", "benchmark"]),
+                new("界面设计", new DateTime(2026, 4, 16), new DateTime(2026, 4, 20), "#f4c95d", "设计", 80, id: "design", dependencies: ["requirements"])
+            ]),
+        new(
+            "planning",
+            "方案阶段",
+            [
+                new("交互方案", new DateTime(2026, 4, 20), new DateTime(2026, 4, 23), "#f8da6a", "设计", 72, id: "ux-plan", dependencies: ["scope-review"]),
+                new("技术评审", new DateTime(2026, 4, 21), new DateTime(2026, 4, 24), "#7cb8ff", "后端", 65, id: "tech-review", dependencies: ["scope-review"]),
+                new("排期确认", new DateTime(2026, 4, 24), new DateTime(2026, 4, 24), "#9ce08e", "项目", null, isMilestone: true, id: "schedule-review", dependencies: ["ux-plan", "tech-review"]),
+                new("测试方案", new DateTime(2026, 4, 23), new DateTime(2026, 4, 27), "#ffd37a", "测试", 40, id: "qa-plan", dependencies: ["tech-review"])
+            ]),
+        new(
+            "execution",
+            "执行阶段",
+            [
+                new("组件开发", new DateTime(2026, 4, 25), new DateTime(2026, 5, 2), "#69c8ff", "前端", 62, id: "development", dependencies: ["design", "schedule-review"]),
+                new("数据接口", new DateTime(2026, 4, 25), new DateTime(2026, 5, 1), "#58b8ff", "后端", 58, id: "api", dependencies: ["tech-review"]),
+                new("样式联调", new DateTime(2026, 4, 29), new DateTime(2026, 5, 4), "#4ac7ff", "前端", 45, id: "styling", dependencies: ["development"]),
+                new("联调测试", new DateTime(2026, 5, 2), new DateTime(2026, 5, 7), "#ff8a65", "前端", 25, id: "qa", dependencies: ["development", "api", "qa-plan"]),
+                new("性能压测", new DateTime(2026, 5, 5), new DateTime(2026, 5, 9), "#ff9c6b", "测试", 18, id: "perf", dependencies: ["api"]),
+                new("Beta 冻结", new DateTime(2026, 5, 8), new DateTime(2026, 5, 8), "#ffb347", "项目", null, isMilestone: true, id: "beta-freeze", dependencies: ["qa", "perf"]),
+                new("发布上线", new DateTime(2026, 5, 10), new DateTime(2026, 5, 12), "#d4a5ff", "运维", 0, id: "release", dependencies: ["beta-freeze"])
+            ],
+            initiallyCollapsed: false),
+        new(
+            "rollout",
+            "验证阶段",
+            [
+                new("灰度监控", new DateTime(2026, 5, 12), new DateTime(2026, 5, 16), "#b8e986", "运维", 12, id: "observe", dependencies:
+["release"]),
+                new("用户反馈回收", new DateTime(2026, 5, 12), new DateTime(2026, 5, 18), "#7fe2b5", "产品", 10, id: "feedback", dependencies:
+["release"]),
+                new("一期复盘", new DateTime(2026, 5, 19), new DateTime(2026, 5, 20), "#ffd0a8", "项目", 0, id: "retro", dependencies:
+["observe", "feedback"]),
+                new("二期预研", new DateTime(2026, 5, 18), new DateTime(2026, 5, 25), "#8fd3ff", "产品", 5, id: "phase-two", dependencies:
+["feedback"])
+            ]),
+        new(
+            "edge-cases",
+            "异常样例",
+            [
+                new("前端资源冲突 A", new DateTime(2026, 4, 27), new DateTime(2026, 5, 3), "#4fbbff", "前端", 35, id: "conflict-a",
+dependencies: ["schedule-review"]),
+                new("前端资源冲突 B", new DateTime(2026, 4, 29), new DateTime(2026, 5, 4), "#45aef4", "前端", 15, id: "conflict-b",
+dependencies: ["schedule-review"]),
+                new("依赖冲突样例", new DateTime(2026, 4, 22), new DateTime(2026, 4, 26), "#ffc06b", "测试", 0, id: "invalid-dependency",
+dependencies: ["beta-freeze"]),
+                new("时间异常样例", new DateTime(2026, 5, 6), new DateTime(2026, 5, 4), "#ff8d8d", "项目", 0, id: "invalid-range")
+            ],
+            initiallyCollapsed: false)
+    ];
+
+    private IReadOnlyList<GanttGroup> TeachingPlanGroups =
+    [
+        new(
+            "prep",
+            "课前准备",
+            [
+                new("第 0 周 教学大纲确认", new DateTime(2026, 3, 2), new DateTime(2026, 3, 4), "#8ecf9d", "教研组", 100, id: "syllabus"),
+                new("第 0 周 课件制作", new DateTime(2026, 3, 5), new DateTime(2026, 3, 10), "#6fb7ff", "主讲教师", 92, id: "slides",
+dependencies: ["syllabus"]),
+                new("第 0 周 实验环境检查", new DateTime(2026, 3, 6), new DateTime(2026, 3, 8), "#f1c56b", "助教", 100, id: "lab-check"),
+                new("第 1 周 开课说明会", new DateTime(2026, 3, 11), new DateTime(2026, 3, 11), "#f39a88", "班主任", null, isMilestone: true, id:
+"kickoff", dependencies: ["slides", "lab-check"])
+            ]),
+        new(
+            "unit-1",
+            "第一单元 基础入门",
+            [
+                new(
+                    "第一单元教学推进",
+                    new DateTime(2026, 3, 10),
+                    new DateTime(2026, 3, 21),
+                    "#5d95db",
+                    "主讲教师",
+                    null,
+                    false,
+                    true,
+                    "unit-1-summary",
+                    null,
+                    null,
+                    [
+                        new("第 1 周 第 1 讲 课程导入", new DateTime(2026, 3, 10), new DateTime(2026, 3, 12), "#6fb7ff", "主讲教师", 100, id: "lesson-1",
+dependencies: ["kickoff"]),
+                        new("第 2 周 第 2 讲 核心概念", new DateTime(2026, 3, 13), new DateTime(2026, 3, 17), "#6fb7ff", "主讲教师", 88, id: "lesson-2",
+dependencies: ["lesson-1"]),
+                        new("第 2 周 随堂练习一", new DateTime(2026, 3, 18), new DateTime(2026, 3, 20), "#f1c56b", "助教", 84, id: "exercise-1",
+dependencies: ["lesson-2"]),
+                        new("第 3 周 单元测验一", new DateTime(2026, 3, 21), new DateTime(2026, 3, 21), "#f1c56b", "助教", null, isMilestone: true, id:
+"quiz-1", dependencies: ["exercise-1"])
+                    ])
+            ]),
+        new(
+            "unit-2",
+            "第二单元 项目实践",
+            [
+                new("第 3 周 案例讲解", new DateTime(2026, 3, 22), new DateTime(2026, 3, 26), "#6fb7ff", "主讲教师", 60, id: "case-study",
+dependencies: ["quiz-1"]),
+                new(
+                    "项目实践周推进",
+                    new DateTime(2026, 3, 27),
+                    new DateTime(2026, 4, 9),
+                    "#8b73d8",
+                    "班主任",
+                    null,
+                    false,
+                    true,
+                    "project-phase-summary",
+                    ["case-study"],
+                    null,
+                    [
+                        new("第 4 周 分组项目启动", new DateTime(2026, 3, 27), new DateTime(2026, 3, 28), "#f39a88", "班主任", 52, id: "project-kickoff",
+dependencies: ["case-study"]),
+                        new("第 4 至 5 周 项目开发辅导", new DateTime(2026, 3, 29), new DateTime(2026, 4, 8), "#f1c56b", "助教", 38, id:
+"project-coaching", dependencies: ["project-kickoff"]),
+                        new("第 5 周 阶段答疑", new DateTime(2026, 4, 2), new DateTime(2026, 4, 4), "#6fb7ff", "主讲教师", 50, id: "qa-session",
+dependencies: ["project-kickoff"]),
+                        new("第 6 周 中期检查", new DateTime(2026, 4, 9), new DateTime(2026, 4, 9), "#8ecf9d", "教研组", null, isMilestone: true, id:
+"mid-review", dependencies: ["project-coaching", "qa-session"])
+                    ])
+            ]),
+        new(
+            "wrap-up",
+            "结课阶段",
+            [
+                new("第 6 周 成果展示准备", new DateTime(2026, 4, 10), new DateTime(2026, 4, 15), "#c6b2f5", "学生组长", 22, id: "demo-prep",
+dependencies: ["mid-review"]),
+                new("第 7 周 结课展示", new DateTime(2026, 4, 16), new DateTime(2026, 4, 17), "#c6b2f5", "学生组长", 0, id: "final-demo",
+dependencies: ["demo-prep"]),
+                new("第 7 周 课程反馈回收", new DateTime(2026, 4, 18), new DateTime(2026, 4, 20), "#f39a88", "班主任", 0, id: "feedback-form",
+dependencies: ["final-demo"])
+            ]),
+        new(
+            "assessment",
+            "考核与归档",
+            [
+                new("第 7 周 期末测验", new DateTime(2026, 4, 18), new DateTime(2026, 4, 18), "#8ecf9d", "教研组", null, isMilestone: true, id:
+"final-quiz", dependencies: ["final-demo"]),
+                new("第 8 周 成绩录入", new DateTime(2026, 4, 19), new DateTime(2026, 4, 21), "#eea982", "教务", 0, id: "score-entry",
+dependencies: ["final-quiz"]),
+                new("第 8 周 结课归档", new DateTime(2026, 4, 22), new DateTime(2026, 4, 23), "#eea982", "教务", 0, id: "archive", dependencies:
+["feedback-form", "score-entry"]),
+                new("第 8 周 课程完成", new DateTime(2026, 4, 24), new DateTime(2026, 4, 24), "#8ecf9d", "教务", null, isMilestone: true, id:
+"course-complete", dependencies: ["archive"])
+            ])
+    ];
+
+    private Task HandleScheduleUpdated(GanttScheduleUpdate update)
+    {
+        var updates = update.CascadedUpdates
+            .Append(update.PrimaryUpdate)
+            .ToDictionary(item => item.ItemId, item => item.Item);
+
+        TaskGroups = TaskGroups
+            .Select(group => new GanttGroup(group)
+            {
+                Items = ApplyItemUpdates(group.Items, updates)
+            })
+            .ToArray();
+
+        return Task.CompletedTask;
+    }
+
+    private Task HandleTeachingPlanScheduleUpdated(GanttScheduleUpdate update)
+    {
+        var updates = update.CascadedUpdates
+            .Append(update.PrimaryUpdate)
+            .ToDictionary(item => item.ItemId, item => item.Item);
+
+        TeachingPlanGroups = TeachingPlanGroups
+            .Select(group => new GanttGroup(group)
+            {
+                Items = ApplyItemUpdates(group.Items, updates)
+            })
+            .ToArray();
+
+        return Task.CompletedTask;
+    }
+
+    private static string ResolveItemid(GanttItem item) =>
+        string.IsNullOrWhiteSpace(item.Id) ? item.Name : item.Id;
+
+    private static IReadOnlyList<GanttItem> ApplyItemUpdates(
+        IReadOnlyList<GanttItem> items,
+        IReadOnlyDictionary<string, GanttItem> updates) =>
+        items
+            .Select(item =>
+            {
+                var nextItem = updates.TryGetValue(ResolveItemid(item), out var next) ? next : item;
+                return item.Children is { Count: > 0 }
+                    ? new GanttItem(nextItem) { Children = ApplyItemUpdates(item.Children, updates) }
+                    : nextItem;
+            })
+            .ToArray();
+}
