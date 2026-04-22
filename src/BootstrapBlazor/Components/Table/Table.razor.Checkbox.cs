@@ -158,7 +158,7 @@ public partial class Table<TItem>
     protected async Task OnCheckGuid(CheckboxState state, Guid val)
     {
         // 通过 Guid 找到选中行数据
-        var item = Rows.Cast<IDynamicObject>().FirstOrDefault(i => i.DynamicObjectPrimaryKey == val);
+        var item = Rows.OfType<IDynamicObject>().FirstOrDefault(i => i.DynamicObjectPrimaryKey == val);
         if (item != null)
         {
             await OnCheck(state, (TItem)(object)item);
