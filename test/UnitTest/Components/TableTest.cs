@@ -6475,6 +6475,36 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicContext_CardView_CheckGuid_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var selectedRows = new List<DynamicObject>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
+            });
+        });
+
+        // CardView 模式无表头
+        // 共 2 行数据选中第一行数据
+        var input = cut.FindComponents<Checkbox<Guid>>()[0];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+
+        Assert.Single(selectedRows);
+        Assert.Equal(0, selectedRows[0].GetValue("Id"));
+
+        // 取消选中
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+        Assert.Empty(selectedRows);
+    }
+
+    [Fact]
     public async Task DynamicContext_HeaderCheckGuid_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
