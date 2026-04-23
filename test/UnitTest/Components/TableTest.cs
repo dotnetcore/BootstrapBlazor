@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
@@ -6558,6 +6559,40 @@ public class TableTest : BootstrapBlazorTestBase
         var header = cut.FindComponents<Checkbox<Guid>>()[0];
         await cut.InvokeAsync(header.Instance.OnToggleClick);
         Assert.Single(selectedRows);
+    }
+
+
+    [Fact]
+    public async Task DynamicContext_ChangeDetection_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        cut.Dispose();
+
+        // 表格使用动态创建类型后，不能被 Blazor 底层 ChangeDetection 缓存，否则生成的动态 Assembly 无法被释放
+        // 通过反射查看是否被缓存
+        var type = typeof(ComponentBase).Assembly.GetType("Microsoft.AspNetCore.Components.ChangeDetection");
+        Assert.NotNull(type);
+
+        var fieldInfo = type.GetField("_immutableObjectTypesCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        Assert.NotNull(fieldInfo);
+
+        IEnumerable<Type>? items = null;
+        if (fieldInfo.GetValue(null) is ConcurrentDictionary<Type, bool> cache)
+        {
+            items = cache.Keys.Where(i => i.Assembly.GetName().Name == "BootstrapBlazor_DynamicAssembly");
+        }
+        Assert.NotNull(items);
+        Assert.Empty(items);
     }
 
     [Fact]
