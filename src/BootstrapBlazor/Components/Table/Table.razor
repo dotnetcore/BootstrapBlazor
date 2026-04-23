@@ -282,13 +282,15 @@
                                         {
                                             if (item is IDynamicObject d)
                                             {
-                                                <Checkbox Value="@d.DynamicObjectPrimaryKey" State="@RowCheckState(item)" ShowLabel="false"
+                                                <Checkbox Value="@d.DynamicObjectPrimaryKey"
+                                                          State="@RowCheckState(item)" ShowLabel="false"
                                                           OnStateChanged="OnCheckGuid" StopPropagation="true">
                                                 </Checkbox>
                                             }
                                             else
                                             {
-                                                <Checkbox Value="@item" State="@RowCheckState(item)" ShowLabel="false"
+                                                <Checkbox Value="@item"
+                                                          State="@RowCheckState(item)" ShowLabel="false"
                                                           OnStateChanged="OnCheck" StopPropagation="true">
                                                 </Checkbox>
                                             }
