@@ -6475,6 +6475,62 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicContext_HeaderCheckGuid_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var selectedRows = new List<DynamicObject>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
+            });
+        });
+
+        // 无选中行
+        Assert.Empty(selectedRows);
+
+        // 点击表头全选，选中行为 2 行
+        var header = cut.FindComponents<Checkbox<Guid>>()[0];
+        await cut.InvokeAsync(header.Instance.OnToggleClick);
+        Assert.Equal(2, selectedRows.Count);
+
+        // 再次点击表头全选，取消全选
+        await cut.InvokeAsync(header.Instance.OnToggleClick);
+        Assert.Empty(selectedRows);
+    }
+
+    [Fact]
+    public async Task DynamicContext_HeaderCheckGuid_ShowRowCheckboxCallback_Ok()
+    {
+        // 测试包含无法选中行逻辑
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var selectedRows = new List<DynamicObject>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+                pb.Add(a => a.ShowRowCheckboxCallback, row => Equals(row.GetValue("Id"), 0));
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
+            });
+        });
+
+        Assert.Equal(2, cut.FindComponents<Checkbox<Guid>>().Count);
+
+        var header = cut.FindComponents<Checkbox<Guid>>()[0];
+        await cut.InvokeAsync(header.Instance.OnToggleClick);
+        Assert.Single(selectedRows);
+    }
+
+    [Fact]
     public async Task DynamicContext_Add()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
