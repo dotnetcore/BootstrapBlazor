@@ -20,10 +20,10 @@ public class DynamicObject : IDynamicObject
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual object? GetValue(string propertyName) => null;
+    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual void SetValue(string propertyName, object? value) { }
+    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value);
 }
