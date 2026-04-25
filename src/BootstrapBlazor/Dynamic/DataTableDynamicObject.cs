@@ -17,7 +17,6 @@ public class DataTableDynamicObject : DynamicObject
     /// <para lang="zh">获得 其关联 DataRow 实例</para>
     /// <para lang="en">Gets the associated DataRow instance</para>
     /// </summary>
-    [NotNull]
     internal DataRow? Row { get; set; }
 
     /// <summary>
@@ -27,7 +26,7 @@ public class DataTableDynamicObject : DynamicObject
     {
         base.SetValue(propertyName, value);
 
-        if (Row.Table.Columns.Contains(propertyName))
+        if (Row?.Table.Columns.Contains(propertyName) ?? false)
         {
             Row[propertyName] = value;
         }
