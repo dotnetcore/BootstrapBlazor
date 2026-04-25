@@ -544,7 +544,7 @@ internal class CacheManager : ICacheManager
         return propertyInfo != null;
     }
 
-    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => (model is IDynamicObject d)
+    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => (model is IDynamicColumnsObject d)
         ? (TResult)d.GetValue(fieldName)!
         : GetValue<TModel, TResult>(model, fieldName);
 
@@ -577,8 +577,15 @@ internal class CacheManager : ICacheManager
 
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
     {
-        var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName);
-        invoker(model, value);
+        if (model is IDynamicColumnsObject d)
+        {
+            d.SetValue(fieldName, value);
+        }
+        else
+        {
+            var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName);
+            invoker(model, value);
+        }
     }
 
     private static Action<TModel, TValue> GetSetPropertyValueInvoker<TModel, TValue>(TModel model, string fieldName)
