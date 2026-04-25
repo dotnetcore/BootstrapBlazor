@@ -78,7 +78,7 @@ public class DataTableDynamicObject : DynamicObject
     /// </summary>
     public override void Cancel()
     {
-        row.Table.RejectChanges();
+        Row.Table.RejectChanges();
     }
 
     /// <summary>
@@ -87,6 +87,6 @@ public class DataTableDynamicObject : DynamicObject
     /// </summary>
     public override void Accept()
     {
-        row.Table.AcceptChanges();
+        Row.Table.AcceptChanges();
     }
 }

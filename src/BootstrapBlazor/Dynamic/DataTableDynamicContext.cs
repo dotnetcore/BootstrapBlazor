@@ -70,6 +70,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null, IEnumerable<string>? invisibleColumns = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
     {
         DataTable = table;
+        table.AcceptChanges();
+
         _addAttributesCallback = addAttributesCallback;
         OnValueChanged = OnCellValueChanged;
 
@@ -183,7 +185,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         {
             await OnAddAsync(selectedItems);
         }
-        else
+        else if (Activator.CreateInstance(_dynamicObjectType) is DataTableDynamicObject dynamicObject)
         {
             var indexOfRow = 0;
             var item = selectedItems.FirstOrDefault();
@@ -197,10 +199,16 @@ public class DataTableDynamicContext : DynamicObjectContext
 
             // DataTable 数据源增加数据
             DataTable.Rows.InsertAt(row, indexOfRow);
-            DataTable.AcceptChanges();
 
             // 新建动态类型属性赋值
-            var dynamicObject = new DataTableDynamicObject() { Row = row };
+            dynamicObject.Row = row;
+            foreach (DataColumn col in DataTable.Columns)
+            {
+                if (col.DefaultValue != DBNull.Value)
+                {
+                    Utility.SetPropertyValue<object, object?>(dynamicObject, col.ColumnName, col.DefaultValue);
+                }
+            }
 
             // 触发 Changed 回调
             if (OnChanged != null)

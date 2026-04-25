@@ -577,15 +577,8 @@ internal class CacheManager : ICacheManager
 
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
     {
-        if (model is IDynamicObject d)
-        {
-            d.SetValue(fieldName, value);
-        }
-        else
-        {
-            var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName);
-            invoker(model, value);
-        }
+        var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName);
+        invoker(model, value);
     }
 
     private static Action<TModel, TValue> GetSetPropertyValueInvoker<TModel, TValue>(TModel model, string fieldName)
