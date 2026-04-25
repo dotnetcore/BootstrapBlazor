@@ -45,9 +45,10 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// </summary>
     private readonly ConcurrentDictionary<Guid, DataTableDynamicObject> _dataCache = new();
 
-    private readonly List<ITableColumn> _columns = [];
+    private readonly List<ITableColumn> _columns;
     private readonly Action<DataTableDynamicContext, ITableColumn>? _addAttributesCallback;
     private List<IDynamicObject>? _items;
+    private Type _dynamicObjectType;
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
@@ -72,8 +73,36 @@ public class DataTableDynamicContext : DynamicObjectContext
         _addAttributesCallback = addAttributesCallback;
         OnValueChanged = OnCellValueChanged;
 
-        // 获得 DataTable 列信息转换为 ITableColumn 集合
-        BuildTableColumns(invisibleColumns, shownColumns, hiddenColumns);
+        var cols = InternalGetColumns();
+
+        // 生成动态类型 DataTableDynamicObjectType 继承 DataTableDynamicObject 并添加属性
+        _dynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
+
+        // 获得显示列
+        _columns = Utility.GetTableColumns(_dynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns)).ToList();
+    }
+
+    private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
+    {
+        var ret = true;
+        var columnName = col.GetFieldName();
+        if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            ret = false;
+        }
+
+        // 隐藏列存在时隐藏列
+        if (ret && hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            col.Visible = false;
+        }
+
+        // 显示列存在时显示列
+        if (ret && shownColumns != null && shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        {
+            col.Visible = true;
+        }
+        return ret;
     }
 
     /// <summary>
@@ -116,93 +145,14 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// </summary>
     public override IEnumerable<ITableColumn> GetColumns() => _columns;
 
-    private void BuildTableColumns(IEnumerable<string>? invisibleColumns = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
+    private List<ITableColumn> InternalGetColumns()
     {
-        _columns.Clear();
+        var ret = new List<ITableColumn>();
         foreach (DataColumn col in DataTable.Columns)
         {
-            var column = new InternalTableColumn(col.ColumnName, col.DataType);
-            GetShownColumns(column, invisibleColumns, shownColumns, hiddenColumns);
-            OnColumnCreating(column);
-
-            if(column.Ignore is not true)
-            {
-                _columns.Add(column);
-            }
+            ret.Add(new InternalTableColumn(col.ColumnName, col.DataType));
         }
-    }
-
-    private static void GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
-    {
-        var columnName = col.GetFieldName();
-        if (invisibleColumns != null && invisibleColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            col.Ignore = true;
-            return;
-        }
-
-        // 隐藏列存在时隐藏列
-        if (hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            col.Visible = false;
-        }
-
-        // 显示列存在时显示列
-        if (shownColumns != null && shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
-        {
-            col.Visible = true;
-        }
-    }
-
-    internal void ApplyColumnAttribute<TAttribute>(string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) where TAttribute : Attribute
-    {
-        //if (!InternalColumns.TryGetValue(columnName, out var column))
-        //{
-        //    return;
-        //}
-
-        //if (typeof(TAttribute) == typeof(RequiredAttribute))
-        //{
-        //    column.Required = true;
-        //    if (parameters.FirstOrDefault(i => i.Key == nameof(RequiredAttribute.ErrorMessage)).Value is string message)
-        //    {
-        //        column.RequiredErrorMessage = message;
-        //    }
-        //}
-        //else if (typeof(TAttribute) == typeof(DisplayAttribute))
-        //{
-        //    if (parameters.FirstOrDefault(i => i.Key == nameof(DisplayAttribute.Name)).Value is string name)
-        //    {
-        //        column.Text = name;
-        //    }
-        //}
-        //else if (typeof(TAttribute) == typeof(AutoGenerateColumnAttribute))
-        //{
-        //    var attribute = new AutoGenerateColumnAttribute()
-        //    {
-        //        PropertyType = column.PropertyType,
-        //        Text = column.Text
-        //    };
-
-        //    foreach (var kv in parameters)
-        //    {
-        //        var property = attribute.GetType().GetProperty(kv.Key);
-        //        if (property?.CanWrite == true)
-        //        {
-        //            property.SetValue(attribute, kv.Value);
-        //        }
-        //    }
-
-        //    column.CopyValue(attribute);
-        //}
-    }
-
-    internal void ApplyDisplayName(string columnName, string displayName)
-    {
-        //if (InternalColumns.TryGetValue(columnName, out var column))
-        //{
-        //    column.Text = displayName;
-        //}
+        return ret;
     }
 
     /// <summary>

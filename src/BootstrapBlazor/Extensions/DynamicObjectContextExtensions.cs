@@ -99,11 +99,6 @@ public static class DynamicObjectContextExtensions
     /// </param>
     public static void AddMultipleParameterAttribute<TAttribute>(this DynamicObjectContext context, string columnName, IEnumerable<KeyValuePair<string, object?>> parameters) where TAttribute : Attribute
     {
-        if (context is DataTableDynamicContext tableContext)
-        {
-            tableContext.ApplyColumnAttribute<TAttribute>(columnName, parameters);
-        }
-
         var type = typeof(TAttribute);
         var propertyInfos = new List<PropertyInfo>();
         var propertyValues = new List<object?>();
@@ -135,15 +130,7 @@ public static class DynamicObjectContextExtensions
     ///   <para lang="zh">显示名称</para>
     ///   <para lang="en">Display name</para>
     /// </param>
-    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName)
-    {
-        if (context is DataTableDynamicContext tableContext)
-        {
-            tableContext.ApplyDisplayName(columnName, displayName);
-        }
-
-        context.AddAttribute<DisplayNameAttribute>(columnName, [typeof(string)], [displayName]);
-    }
+    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName) => context.AddAttribute<DisplayNameAttribute>(columnName, [typeof(string)], [displayName]);
 
     /// <summary>
     /// <para lang="zh">增加 DescriptionAttribute 扩展方法</para>
@@ -161,15 +148,7 @@ public static class DynamicObjectContextExtensions
     ///   <para lang="zh">描述</para>
     ///   <para lang="en">Description</para>
     /// </param>
-    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description)
-    {
-        if (context is DataTableDynamicContext tableContext)
-        {
-            tableContext.ApplyDisplayName(columnName, description);
-        }
-
-        context.AddAttribute<DescriptionAttribute>(columnName, [typeof(string)], [description]);
-    }
+    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description) => context.AddAttribute<DescriptionAttribute>(columnName, [typeof(string)], [description]);
 
     /// <summary>
     /// <para lang="zh">增加自定义标签泛型方法</para>
