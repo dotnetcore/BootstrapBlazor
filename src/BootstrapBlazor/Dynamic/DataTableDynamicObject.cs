@@ -24,37 +24,7 @@ public class DataTableDynamicObject : DynamicObject
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
-    public override object? GetValue(string propertyName)
-    {
-        if (Row.IsDeletedOrDetached())
-        {
-            return null;
-        }
-
-        object? ret = null;
-        var column = Row.Table.Columns[propertyName];
-        if (column != null)
-        {
-            ret = Row[propertyName];
-
-            // 判断 DBNull 情况
-            if (ret is DBNull)
-            {
-                // 此处如果是 DBNull 应该返回当前列数据类型的默认值
-                var columnType = column.DataType;
-                if (Nullable.GetUnderlyingType(columnType) != null)
-                {
-                    // 如果当前列数据类型是可为空的值类型，则返回 null，否则返回当前列数据类型的默认值
-                    ret = null;
-                }
-                else
-                {
-                    ret = columnType.IsValueType ? Activator.CreateInstance(columnType) : null;
-                }
-            }
-        }
-        return ret;
-    }
+    public override object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>
     /// <inheritdoc/>
@@ -70,23 +40,5 @@ public class DataTableDynamicObject : DynamicObject
         {
             Row[propertyName] = value;
         }
-    }
-
-    /// <summary>
-    /// <para lang="zh">撤销数据更改</para>
-    /// <para lang="en">Cancels data changes</para>
-    /// </summary>
-    public override void Cancel()
-    {
-        Row.Table.RejectChanges();
-    }
-
-    /// <summary>
-    /// <para lang="zh">接受数据更改</para>
-    /// <para lang="en">Accepts data changes</para>
-    /// </summary>
-    public override void Accept()
-    {
-        Row.Table.AcceptChanges();
     }
 }

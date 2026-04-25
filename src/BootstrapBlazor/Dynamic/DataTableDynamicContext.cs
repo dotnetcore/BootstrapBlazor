@@ -125,6 +125,7 @@ public class DataTableDynamicContext : DynamicObjectContext
 
     private List<IDynamicObject> BuildItems()
     {
+        // 同步 DataRow 值到 DataTableDynamicObject 实例中并建立缓存
         _dataCache.Clear();
         var ret = new List<IDynamicObject>();
         foreach (DataRow row in DataTable.Rows)
@@ -139,6 +140,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                     {
                         if (!row.IsNull(col))
                         {
+                            // 值不为 DBNull 时才设置属性值
                             Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
                         }
                     }

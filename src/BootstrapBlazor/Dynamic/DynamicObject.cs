@@ -26,14 +26,4 @@ public class DynamicObject : IDynamicObject
     /// <inheritdoc/>
     /// </summary>
     public virtual void SetValue(string propertyName, object? value) { }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public virtual void Cancel() { }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public virtual void Accept() { }
 }

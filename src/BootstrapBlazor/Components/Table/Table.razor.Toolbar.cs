@@ -988,11 +988,6 @@ public partial class Table<TItem>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);
 
-                if (saved && context.Model is IDynamicObject d)
-                {
-                    d.Accept();
-                }
-
                 // 已保存数据
                 triggerFromSave = saved;
                 return saved;
@@ -1054,12 +1049,6 @@ public partial class Table<TItem>
 
         if (!saved)
         {
-            if (EditModel is IDynamicObject d)
-            {
-                d.Cancel();
-                return;
-            }
-
             var dataService = DataService ?? InjectDataService;
             if (dataService is IEntityFrameworkCoreDataService ef)
             {
