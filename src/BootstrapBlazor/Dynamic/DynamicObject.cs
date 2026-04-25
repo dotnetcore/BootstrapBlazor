@@ -18,17 +18,12 @@ public class DynamicObject : IDynamicObject
     public Guid DynamicObjectPrimaryKey { get; set; } = Guid.NewGuid();
 
     /// <summary>
-    /// <para lang="zh">获得指定属性值方法</para>
-    /// <para lang="en">Gets the value of a specified property</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
     public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>
-    /// <para lang="zh">给指定属性设置值方法</para>
-    /// <para lang="en">Sets the value of a specified property</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
-    /// <param name="value"></param>
     public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value);
 }
