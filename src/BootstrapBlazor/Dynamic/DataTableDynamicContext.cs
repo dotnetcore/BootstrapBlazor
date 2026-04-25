@@ -129,9 +129,21 @@ public class DataTableDynamicContext : DynamicObjectContext
         {
             if (!row.IsDeletedOrDetached())
             {
-                var d = new DataTableDynamicObject(row);
-                _dataCache.TryAdd(d.DynamicObjectPrimaryKey, d);
-                ret.Add(d);
+                var dynamicObject = Activator.CreateInstance(_dynamicObjectType);
+                if (dynamicObject is DataTableDynamicObject d)
+                {
+                    d.Row = row;
+                    foreach (DataColumn col in DataTable.Columns)
+                    {
+                        if (!row.IsNull(col))
+                        {
+                            Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
+                        }
+                    }
+
+                    _dataCache.TryAdd(d.DynamicObjectPrimaryKey, d);
+                    ret.Add(d);
+                }
             }
         }
         return ret;
@@ -188,7 +200,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             DataTable.AcceptChanges();
 
             // 新建动态类型属性赋值
-            var dynamicObject = new DataTableDynamicObject(row);
+            var dynamicObject = new DataTableDynamicObject() { Row = row };
 
             // 触发 Changed 回调
             if (OnChanged != null)

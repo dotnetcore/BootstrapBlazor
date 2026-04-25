@@ -11,13 +11,14 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">DataTable 动态类实例</para>
 /// <para lang="en">DataTable dynamic class instance</para>
 /// </summary>
-public class DataTableDynamicObject(DataRow row) : DynamicObject
+public class DataTableDynamicObject : DynamicObject
 {
     /// <summary>
     /// <para lang="zh">获得 其关联 DataRow 实例</para>
     /// <para lang="en">Gets the associated DataRow instance</para>
     /// </summary>
-    public DataRow Row => row;
+    [NotNull]
+    internal DataRow? Row { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,16 +26,16 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
     /// <param name="propertyName"></param>
     public override object? GetValue(string propertyName)
     {
-        if (row.IsDeletedOrDetached())
+        if (Row.IsDeletedOrDetached())
         {
             return null;
         }
 
         object? ret = null;
-        var column = row.Table.Columns[propertyName];
+        var column = Row.Table.Columns[propertyName];
         if (column != null)
         {
-            ret = row[propertyName];
+            ret = Row[propertyName];
 
             // 判断 DBNull 情况
             if (ret is DBNull)
@@ -60,14 +61,14 @@ public class DataTableDynamicObject(DataRow row) : DynamicObject
     /// </summary>
     public override void SetValue(string propertyName, object? value)
     {
-        if (row.IsDeletedOrDetached())
+        if (Row.IsDeletedOrDetached())
         {
             return;
         }
 
-        if (row.Table.Columns.Contains(propertyName))
+        if (Row.Table.Columns.Contains(propertyName))
         {
-            row[propertyName] = value;
+            Row[propertyName] = value;
         }
     }
 
