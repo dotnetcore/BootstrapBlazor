@@ -14,7 +14,8 @@ public class DynamicObject : IDynamicObject
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Guid DynamicObjectPrimaryKey { get; set; }
+    [AutoGenerateColumn(Ignore = true)]
+    public Guid DynamicObjectPrimaryKey { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// <inheritdoc/>

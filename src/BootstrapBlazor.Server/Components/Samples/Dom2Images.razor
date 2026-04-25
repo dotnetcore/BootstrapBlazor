@@ -1,10 +1,17 @@
-﻿@page "/dom2image"
+@page "/dom2image"
 
 <h3>@Localizer["Dom2ImageTitle"]</h3>
 
 <h4>@Localizer["Dom2ImageIntro"]</h4>
 
 <PackageTips Name="BootstrapBlazor.Dom2Image" />
+
+<Tips>
+    <p>@((MarkupString)Localizer["Dom2ImageServiceInjectTip"].Value)</p>
+    <Pre class="no-highlight">builder.Services.AddBootstrapBlazorDom2ImageService();</Pre>
+    <p>@((MarkupString)Localizer["Dom2ImageSignalRConfigTip"].Value)</p>
+    <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+</Tips>
 
 <DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
     <section ignore>
@@ -29,4 +36,3 @@
         }
     </section>
 </DemoBlock>
-
