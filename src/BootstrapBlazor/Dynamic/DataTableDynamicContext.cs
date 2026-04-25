@@ -239,7 +239,6 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(items);
-            _items = null;
         }
         else
         {
@@ -252,15 +251,6 @@ public class DataTableDynamicContext : DynamicObjectContext
 
                     // 删除数据源
                     DataTable.Rows.Remove(row.Row);
-                }
-
-                if (_items != null)
-                {
-                    var v = _items.Find(i => i.DynamicObjectPrimaryKey == item.DynamicObjectPrimaryKey);
-                    if (v != null)
-                    {
-                        _items.Remove(v);
-                    }
                 }
             }
 
@@ -275,6 +265,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             }
             ret = true;
         }
+        _items = null;
         return ret;
     }
 
