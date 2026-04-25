@@ -28,10 +28,7 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="columnsData"></param>
-    public DynamicColumnsObject(Dictionary<string, object?> columnsData)
-    {
-        Columns = columnsData;
-    }
+    public DynamicColumnsObject(Dictionary<string, object?> columnsData) => Columns = columnsData;
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
@@ -43,26 +40,10 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
-    public virtual object? GetValue(string propertyName)
-    {
-        return Columns.TryGetValue(propertyName, out object? v) ? v : null;
-    }
+    public virtual object? GetValue(string propertyName) => Columns.TryGetValue(propertyName, out object? v) ? v : null;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual void SetValue(string propertyName, object? value)
-    {
-        Columns[propertyName] = value;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public virtual void Cancel() { }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public virtual void Accept() { }
+    public virtual void SetValue(string propertyName, object? value) => Columns[propertyName] = value;
 }
