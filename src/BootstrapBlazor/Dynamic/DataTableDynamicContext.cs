@@ -206,9 +206,16 @@ public class DataTableDynamicContext : DynamicObjectContext
             dynamicObject.Row = row;
             foreach (DataColumn col in DataTable.Columns)
             {
-                if (col.DefaultValue != DBNull.Value)
+                // 自增长主键跳过
+                if (col.AutoIncrement)
                 {
-                    Utility.SetPropertyValue<object, object?>(dynamicObject, col.ColumnName, col.DefaultValue);
+                    continue;
+                }
+
+                var v = Utility.GetPropertyValue<object, object?>(dynamicObject, col.ColumnName);
+                if (v != null)
+                {
+                    row[col] = v;
                 }
             }
 
@@ -232,6 +239,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(items);
+            _items = null;
         }
         else
         {

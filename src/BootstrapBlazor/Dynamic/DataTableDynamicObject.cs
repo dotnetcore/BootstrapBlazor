@@ -23,18 +23,9 @@ public class DataTableDynamicObject : DynamicObject
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
-    public override object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     public override void SetValue(string propertyName, object? value)
     {
-        if (Row.IsDeletedOrDetached())
-        {
-            return;
-        }
+        base.SetValue(propertyName, value);
 
         if (Row.Table.Columns.Contains(propertyName))
         {
