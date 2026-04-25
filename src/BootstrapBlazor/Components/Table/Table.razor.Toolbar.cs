@@ -666,8 +666,6 @@ public partial class Table<TItem>
                 }
                 EditModalTitleString = EditModalTitle;
 
-                // <para lang="zh">显示编辑框</para>
-                // <para lang="en">Show Edit Dialog</para>
                 if (EditMode == EditMode.Popup)
                 {
                     await ShowEditDialog(ItemChangedType.Update);
@@ -693,8 +691,6 @@ public partial class Table<TItem>
         }
         else
         {
-            // <para lang="zh">不选或者多选弹窗提示</para>
-            // <para lang="en">Toast if not selected or multiple selected</para>
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
             await ShowToastAsync(EditButtonToastTitle, content);
         }
