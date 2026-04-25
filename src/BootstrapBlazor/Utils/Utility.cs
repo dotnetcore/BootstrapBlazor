@@ -730,33 +730,18 @@ public static class Utility
         var displayName = item.GetDisplayName();
 
         var fieldValue = GenerateValue(model, fieldName);
+        var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
+        var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
         var componentType = item.ComponentType ?? GenerateComponentType(item);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
         {
             builder.AddAttribute(10, nameof(ValidateBase<>.DisplayText), displayName);
             builder.AddAttribute(20, nameof(ValidateBase<>.Value), fieldValue);
-
-            if (model is IDynamicObject d)
-            {
-                var fieldOnValueChanged = GenerateOnValueChanged(model, fieldName, fieldType);
-                builder.AddAttribute(21, nameof(ValidateBase<>.OnValueChanged), fieldOnValueChanged);
-            }
-            else
-            {
-                var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
-                var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-
-                builder.AddAttribute(30, nameof(ValidateBase<>.ValueChanged), fieldValueChanged);
-                builder.AddAttribute(40, nameof(ValidateBase<>.ValueExpression), valueExpression);
-                builder.AddAttribute(41, nameof(ValidateBase<>.ShowRequired), GetRequired(item, changedType));
-                builder.AddAttribute(42, nameof(ValidateBase<>.RequiredErrorMessage), item.RequiredErrorMessage);
-
-                if (skipValidate is true)
-                {
-                    builder.AddAttribute(43, nameof(ValidateBase<>.SkipValidate), true);
-                }
-            }
+            builder.AddAttribute(30, nameof(ValidateBase<>.ValueChanged), fieldValueChanged);
+            builder.AddAttribute(40, nameof(ValidateBase<>.ValueExpression), valueExpression);
+            builder.AddAttribute(41, nameof(ValidateBase<>.ShowRequired), GetRequired(item, changedType));
+            builder.AddAttribute(42, nameof(ValidateBase<>.RequiredErrorMessage), item.RequiredErrorMessage);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
@@ -772,6 +757,11 @@ public static class Utility
             {
                 builder.AddAttribute(70, nameof(ValidateBase<>.ShowLabelTooltip), item.ShowLabelTooltip);
             }
+        }
+
+        if (skipValidate is true)
+        {
+            builder.AddAttribute(71, nameof(ValidateBase<>.SkipValidate), true);
         }
 
         if (componentType == typeof(NullSwitch) && TryGetProperty(model.GetType(), fieldName, out var propertyInfo))
