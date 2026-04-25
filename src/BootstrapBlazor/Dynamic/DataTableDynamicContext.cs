@@ -198,12 +198,6 @@ public class DataTableDynamicContext : DynamicObjectContext
 
             // 原始表格增加新数据
             var row = DataTable.NewRow();
-
-            // DataTable 数据源增加数据
-            DataTable.Rows.InsertAt(row, indexOfRow);
-
-            // 新建动态类型属性赋值
-            dynamicObject.Row = row;
             foreach (DataColumn col in DataTable.Columns)
             {
                 // 自增长主键跳过
@@ -219,14 +213,26 @@ public class DataTableDynamicContext : DynamicObjectContext
                 }
             }
 
+            // DataTable 数据源增加数据
+            DataTable.Rows.InsertAt(row, indexOfRow);
+
+            // 新建动态类型属性赋值
+            dynamicObject.Row = row;
+
             // 触发 Changed 回调
             if (OnChanged != null)
             {
                 await OnChanged(new DynamicObjectContextArgs([dynamicObject]));
             }
 
-            // 重置 _items 重构缓存
-            _items = null;
+            // 缓存更新数据
+            _dataCache.TryAdd(dynamicObject.DynamicObjectPrimaryKey, dynamicObject);
+
+            // 更新 UI 数据
+            if (_items != null)
+            {
+                _items.Insert(indexOfRow, dynamicObject);
+            }
         }
     }
 
@@ -250,7 +256,10 @@ public class DataTableDynamicContext : DynamicObjectContext
                     changed = true;
 
                     // 删除数据源
-                    DataTable.Rows.Remove(row.Row);
+                    if (row.Row != null)
+                    {
+                        DataTable.Rows.Remove(row.Row);
+                    }
                 }
             }
 
@@ -282,7 +291,10 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
         {
             // 更新原始 DataTable
-            cacheItem.Row[column.GetFieldName()] = val;
+            if (cacheItem.Row != null)
+            {
+                cacheItem.Row[column.GetFieldName()] = val;
+            }
         }
         return Task.CompletedTask;
     }
