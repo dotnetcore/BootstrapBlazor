@@ -129,10 +129,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         {
             if (!row.IsDeletedOrDetached())
             {
-                var d = new DataTableDynamicObject(row)
-                {
-                    DynamicObjectPrimaryKey = Guid.NewGuid()
-                };
+                var d = new DataTableDynamicObject(row);
                 _dataCache.TryAdd(d.DynamicObjectPrimaryKey, d);
                 ret.Add(d);
             }
@@ -176,25 +173,22 @@ public class DataTableDynamicContext : DynamicObjectContext
         }
         else
         {
-            // 原始表格增加新数据
-            var row = DataTable.NewRow();
             var indexOfRow = 0;
             var item = selectedItems.FirstOrDefault();
-
             if (item != null && _dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var c))
             {
                 indexOfRow = DataTable.Rows.IndexOf(c.Row);
             }
+
+            // 原始表格增加新数据
+            var row = DataTable.NewRow();
 
             // DataTable 数据源增加数据
             DataTable.Rows.InsertAt(row, indexOfRow);
             DataTable.AcceptChanges();
 
             // 新建动态类型属性赋值
-            var dynamicObject = new DataTableDynamicObject(row)
-            {
-                DynamicObjectPrimaryKey = Guid.NewGuid()
-            };
+            var dynamicObject = new DataTableDynamicObject(row);
 
             // 触发 Changed 回调
             if (OnChanged != null)
@@ -202,10 +196,9 @@ public class DataTableDynamicContext : DynamicObjectContext
                 await OnChanged(new DynamicObjectContextArgs([dynamicObject]));
             }
 
-            // 缓存更新数据
-            _dataCache.TryAdd(dynamicObject.DynamicObjectPrimaryKey, dynamicObject);
+            // 重置 _items 重构缓存
+            _items = null;
         }
-        _items = null;
     }
 
     /// <summary>
@@ -217,7 +210,6 @@ public class DataTableDynamicContext : DynamicObjectContext
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(items);
-            _items = null;
         }
         else
         {
