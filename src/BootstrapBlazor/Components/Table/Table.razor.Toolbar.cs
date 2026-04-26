@@ -653,9 +653,7 @@ public partial class Table<TItem>
                 await ToggleLoading(true);
 
                 // 复制对象给编辑模型
-                EditModel = (IsTracking || DynamicContext is not DataTableDynamicContext)
-                    ? SelectedRows[0]
-                    : Utility.Clone(SelectedRows[0]);
+                EditModel = GetEditModel(SelectedRows[0]);
                 if (OnEditAsync != null)
                 {
                     await OnEditAsync(EditModel);
@@ -698,6 +696,16 @@ public partial class Table<TItem>
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
             await ShowToastAsync(EditButtonToastTitle, content);
         }
+    }
+
+    private TItem GetEditModel(TItem item)
+    {
+        if (IsTracking)
+        {
+            return item;
+        }
+
+        return DynamicContext is DataTableDynamicContext ? Utility.Clone(item) : item;
     }
 
     private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
