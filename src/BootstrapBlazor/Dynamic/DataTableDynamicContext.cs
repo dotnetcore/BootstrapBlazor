@@ -290,6 +290,9 @@ public class DataTableDynamicContext : DynamicObjectContext
         // 更新内部 DataRow
         if (_dataCache.TryGetValue(item.DynamicObjectPrimaryKey, out var cacheItem))
         {
+            // 更新动态类型数据
+            Utility.SetPropertyValue<object, object?>(cacheItem, column.GetFieldName(), val);
+
             // 更新原始 DataTable
             if (cacheItem.Row != null)
             {
