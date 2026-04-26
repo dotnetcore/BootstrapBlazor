@@ -6687,6 +6687,37 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicContext_InCell_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        // 选中行
+        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+
+        // 点击编辑按钮
+        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
+        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
+
+        // 点击取消按钮
+        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
+        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+    }
+
+    [Fact]
     public void DynamicContext_Pagination()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
