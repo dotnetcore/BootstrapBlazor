@@ -651,7 +651,11 @@ public partial class Table<TItem>
             else
             {
                 await ToggleLoading(true);
-                EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+
+                // 复制对象给编辑模型
+                EditModel = (IsTracking || DynamicContext is not DataTableDynamicContext)
+                    ? SelectedRows[0]
+                    : Utility.Clone(SelectedRows[0]);
                 if (OnEditAsync != null)
                 {
                     await OnEditAsync(EditModel);
