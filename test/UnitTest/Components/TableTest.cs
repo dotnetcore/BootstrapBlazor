@@ -6562,7 +6562,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DynamicContext_InCell_Ok()
+    public async Task DynamicContext_InCell_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -6593,7 +6593,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DynamicContext_EditForm_Ok()
+    public async Task DynamicContext_EditForm_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -6624,7 +6624,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DynamicContext_ChangeDetection_Ok()
+    public async Task DynamicContext_IsMultipleSelect_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -6654,8 +6654,8 @@ public class TableTest : BootstrapBlazorTestBase
         }
 
         // TODO: 目前无法完全保证动态类型不被缓存，后续需要优化
-        //Assert.NotNull(items);
-        //Assert.Empty(items);
+        Assert.NotNull(items);
+        Assert.Empty(items);
     }
 
     [Fact]
