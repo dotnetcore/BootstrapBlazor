@@ -6,6 +6,7 @@
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using System.Threading;
 
 namespace BootstrapBlazor.Components;
 
@@ -18,7 +19,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     private readonly ILoggerFactory _loggerFactory;
     private readonly JsonLocalizationOptions _jsonLocalizationOptions;
     private readonly ILocalizationMissingItemHandler _localizationMissingItemHandler;
-    private string? _typeName;
+    private readonly AsyncLocal<string?> _typeName = new();
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
@@ -81,7 +82,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             var index = typeName.IndexOf('`');
             typeName = typeName[..index];
         }
-        _typeName = typeName;
+        _typeName.Value = typeName;
 
         return base.GetResourcePrefix(typeInfo);
     }
@@ -96,7 +97,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
         var resourcePrefix = base.GetResourcePrefix(baseResourceName, baseNamespace);
-        _typeName = $"{baseNamespace}.{baseResourceName}";
+        _typeName.Value = $"{baseNamespace}.{baseResourceName}";
 
         return resourcePrefix;
     }
@@ -108,5 +109,10 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     /// <param name="assembly"><para lang="zh">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para><para lang="en">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para></param>
     /// <param name="baseName"><para lang="zh">The base name of the resource to search for</para><para lang="en">The base name of the resource to search for</para></param>
-    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, _typeName!, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
+    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName)
+    {
+        var typeName = _typeName.Value ?? baseName;
+        _typeName.Value = null;
+        return new JsonStringLocalizer(assembly, typeName, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
+    }
 }
