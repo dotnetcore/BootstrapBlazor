@@ -31,9 +31,14 @@
     --bb-table-pagination-active-border-color: rgba(var(--bs-body-color-rgb), .15);
     position: relative;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 
     .nav-pages {
         margin-block-start: .5rem;
+        flex-shrink: 0;
+        box-sizing: border-box;
 
         .pagination {
             --bs-pagination-color: var(--bb-table-pagination-color);
@@ -301,6 +306,11 @@
     padding-right: 0;
 }
 
+.table-toolbar {
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+   
 .table-toolbar:after {
     content: "";
     display: block;
@@ -420,7 +430,9 @@
     table-layout: fixed;
 }
 
-.table-fixed {
+.table-fixed {    
+    flex-shrink: 1;
+    box-sizing: border-box;
     height: 100%;
     overflow: hidden;
 
@@ -759,6 +771,8 @@ form .table .table-cell > textarea {
 
 .table-search {
     margin-block-end: .5rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
 
     .card-header {
         --bs-card-cap-padding-y: 0;
