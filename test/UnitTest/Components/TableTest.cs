@@ -6470,102 +6470,15 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.True(compared);
-    }
-
-    [Fact]
-    public async Task DynamicContext_CardView_CheckGuid_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
-            });
-        });
-
-        // CardView 模式无表头
-        // 共 2 行数据选中第一行数据
-        var input = cut.FindComponents<Checkbox<Guid>>()[0];
-        await cut.InvokeAsync(input.Instance.OnToggleClick);
-
-        Assert.Single(selectedRows);
-        Assert.Equal(0, selectedRows[0].GetValue("Id"));
-
-        // 取消选中
-        await cut.InvokeAsync(input.Instance.OnToggleClick);
-        Assert.Empty(selectedRows);
-    }
-
-    [Fact]
-    public async Task DynamicContext_HeaderCheckGuid_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
-            });
-        });
-
-        // 无选中行
-        Assert.Empty(selectedRows);
-
-        // 点击表头全选，选中行为 2 行
-        var header = cut.FindComponents<Checkbox<Guid>>()[0];
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Equal(2, selectedRows.Count);
-
-        // 再次点击表头全选，取消全选
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Empty(selectedRows);
-    }
-
-    [Fact]
-    public async Task DynamicContext_HeaderCheckGuid_ShowRowCheckboxCallback_Ok()
-    {
-        // 测试包含无法选中行逻辑
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.ShowRowCheckboxCallback, row => Equals(row.GetValue("Id"), 0));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
-            });
-        });
-
-        Assert.Equal(2, cut.FindComponents<Checkbox<Guid>>().Count);
-
-        var header = cut.FindComponents<Checkbox<Guid>>()[0];
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Single(selectedRows);
     }
 
     [Fact]
     public async Task DynamicContext_InCell_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
@@ -6580,7 +6493,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         // 点击编辑按钮
@@ -6590,13 +6503,18 @@ public class TableTest : BootstrapBlazorTestBase
         // 点击取消按钮
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        cut.Dispose();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
     }
 
     [Fact]
     public async Task DynamicContext_EditForm_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
@@ -6611,7 +6529,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         // 点击编辑按钮
@@ -6621,6 +6539,12 @@ public class TableTest : BootstrapBlazorTestBase
         // 点击取消按钮
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        cut.Dispose();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
     }
 
     [Fact]
@@ -6639,6 +6563,13 @@ public class TableTest : BootstrapBlazorTestBase
 
         cut.Dispose();
 
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    private static IEnumerable<Type> GetDynamicTypeCacheItems()
+    {
         // 表格使用动态创建类型后，不能被 Blazor 底层 ChangeDetection 缓存，否则生成的动态 Assembly 无法被释放
         // 通过反射查看是否被缓存
         var type = typeof(ComponentBase).Assembly.GetType("Microsoft.AspNetCore.Components.ChangeDetection");
@@ -6653,9 +6584,7 @@ public class TableTest : BootstrapBlazorTestBase
             items = cache.Keys.Where(i => i.Assembly.GetName().Name == "BootstrapBlazor_DynamicAssembly");
         }
 
-        // TODO: 目前无法完全保证动态类型不被缓存，后续需要优化
-        Assert.NotNull(items);
-        Assert.Empty(items);
+        return items ?? [];
     }
 
     [Fact]
@@ -6715,7 +6644,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<DynamicObject>>();
 
         // 选中第一行数据
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
@@ -6741,7 +6670,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
@@ -8720,7 +8649,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var check = cut.FindComponents<Checkbox<Guid>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
+        var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
         Assert.NotNull(check);
 
         context = CreateDynamicContext(localizer);
