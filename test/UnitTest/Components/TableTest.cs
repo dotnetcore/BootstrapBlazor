@@ -6504,9 +6504,8 @@ public class TableTest : BootstrapBlazorTestBase
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
 
-        cut.Dispose();
-
-        ClearTypeCache();
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        await table.Instance.DisposeAsync();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
@@ -6542,9 +6541,8 @@ public class TableTest : BootstrapBlazorTestBase
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
 
-        cut.Dispose();
-
-        ClearTypeCache();
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        await table.Instance.DisposeAsync();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
@@ -6565,26 +6563,12 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.Dispose();
-
-        ClearTypeCache();
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        await table.Instance.DisposeAsync();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
         Assert.Empty(items);
-    }
-
-    private static void ClearTypeCache()
-    {
-        // 表格使用动态创建类型后，不能被 Blazor 底层 ChangeDetection 缓存，否则生成的动态 Assembly 无法被释放
-        // 通过反射查看是否被缓存
-        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
-        Assert.NotNull(type);
-
-        var methodInfo = type.GetMethod("DoTask", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-        Assert.NotNull(methodInfo);
-
-        methodInfo.Invoke(null, null);
     }
 
     private static IEnumerable<Type> GetDynamicTypeCacheItems()

@@ -1139,7 +1139,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 如果 TItem 是动态数据类型添加到自动清理任务中
         if (IsDataTableDynamicContext)
         {
-            ChangeDetectionCleanTask.Add(this);
+            ChangeDetectionCleanTask.Add();
         }
 
         if (!_firstRender)
@@ -2056,7 +2056,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             if (IsDataTableDynamicContext)
             {
-                ChangeDetectionCleanTask.Remove(this);
+                ChangeDetectionCleanTask.Remove();
             }
 
             AutoRefreshCancelTokenSource?.Cancel();

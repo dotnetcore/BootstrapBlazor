@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace UnitTest.Utils;
 
-public class ChangeDetectionTaskTest
+public class ChangeDetectionCleanTaskTest
 {
     [Fact]
     public void Stop_Ok()

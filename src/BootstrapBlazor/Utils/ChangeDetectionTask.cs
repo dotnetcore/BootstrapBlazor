@@ -14,8 +14,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 static class ChangeDetectionCleanTask
 {
-    private static readonly ConcurrentDictionary<ITable, byte> _tables = new();
-
 #if NET9_0_OR_GREATER
     private static Lock _locker = new();
 #else
@@ -25,6 +23,7 @@ static class ChangeDetectionCleanTask
     private static ConcurrentDictionary<Type, bool> _cache = new();
     private static CancellationTokenSource? _cancellationTokenSource;
     private static Task? _cleanTask;
+    private static long _tableCount;
 
     static ChangeDetectionCleanTask()
     {
@@ -44,27 +43,24 @@ static class ChangeDetectionCleanTask
     }
 
     /// <summary>
-    /// <para lang="zh">添加表格实例</para>
-    /// <para lang="en">Add table instance</para>
+    /// <para lang="zh">添加表格引用计数</para>
+    /// <para lang="en">Increment table reference count</para>
     /// </summary>
-    /// <param name="table">表格实例</param>
-    public static void Add(ITable table)
+    public static void Add()
     {
-        _tables.TryAdd(table, 0);
-
-        Run();
+        if (Interlocked.Increment(ref _tableCount) == 1)
+        {
+            Run();
+        }
     }
 
     /// <summary>
-    /// <para lang="zh">移除表格实例</para>
-    /// <para lang="en">Remove table instance</para>
+    /// <para lang="zh">减少表格引用计数</para>
+    /// <para lang="en">Decrement table reference count</para>
     /// </summary>
-    /// <param name="table">表格实例</param>
-    public static void Remove(ITable table)
+    public static void Remove()
     {
-        _tables.TryRemove(table, out _);
-
-        if (_tables.IsEmpty)
+        if (Interlocked.Decrement(ref _tableCount) <= 0)
         {
             Stop();
         }
@@ -100,12 +96,13 @@ static class ChangeDetectionCleanTask
     private static async Task Clean()
     {
         _cancellationTokenSource ??= new();
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
         while (_cancellationTokenSource is { IsCancellationRequested: false })
         {
             try
             {
                 // 每隔 5 秒钟执行一次清理方法
-                await Task.Delay(5000, _cancellationTokenSource.Token);
+                await timer.WaitForNextTickAsync(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
             {
