@@ -20,15 +20,4 @@ public class ChangeDetectionTaskTest
 
         methodInfo.Invoke(null, null);
     }
-
-    private sealed class MockTable : ITable
-    {
-        public List<ITableColumn> Columns { get; } = [];
-
-        public Dictionary<string, IFilterAction> Filters { get; } = [];
-
-        public Func<Task>? OnFilterAsync { get; }
-
-        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
-    }
 }
