@@ -23,7 +23,7 @@ static class ChangeDetectionCleanTask
     private static ConcurrentDictionary<Type, bool> _cache = new();
     private static CancellationTokenSource? _cancellationTokenSource;
     private static Task? _cleanTask;
-    private static long _tableCount;
+    private static ConcurrentDictionary<ITable, byte> _tableCache = new();
 
     static ChangeDetectionCleanTask()
     {
@@ -46,9 +46,9 @@ static class ChangeDetectionCleanTask
     /// <para lang="zh">添加表格引用计数</para>
     /// <para lang="en">Increment table reference count</para>
     /// </summary>
-    public static void Rent()
+    public static void Rent(ITable table)
     {
-        if (Interlocked.Increment(ref _tableCount) == 1)
+        if (_tableCache.TryAdd(table, 0))
         {
             Run();
         }
@@ -58,12 +58,14 @@ static class ChangeDetectionCleanTask
     /// <para lang="zh">减少表格引用计数</para>
     /// <para lang="en">Decrement table reference count</para>
     /// </summary>
-    public static void Release()
+    public static void Release(ITable table)
     {
-        if (Interlocked.Decrement(ref _tableCount) <= 0)
+        if (_tableCache.TryRemove(table, out _))
         {
-            _tableCount = 0;
-            Stop();
+            if (_tableCache.IsEmpty)
+            {
+                Stop();
+            }
         }
     }
 
