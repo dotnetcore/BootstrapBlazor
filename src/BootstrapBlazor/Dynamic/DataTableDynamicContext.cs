@@ -82,6 +82,9 @@ public class DataTableDynamicContext : DynamicObjectContext
 
         // 获得显示列
         _columns = Utility.GetTableColumns(_dynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns)).ToList();
+
+        // 运行组件变更检测清理方法
+        ChangeDetectionCleanTask.Run();
     }
 
     private static bool GetShownColumns(ITableColumn col, IEnumerable<string>? invisibleColumns, IEnumerable<string>? shownColumns, IEnumerable<string>? hiddenColumns)
