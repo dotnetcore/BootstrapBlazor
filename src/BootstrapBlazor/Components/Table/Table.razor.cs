@@ -1136,6 +1136,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsTree = false;
         }
 
+        // 如果 TItem 是动态数据类型添加到自动清理任务中
+        if (IsDataTableDynamicContext)
+        {
+            ChangeDetectionCleanTask.Add(this);
+        }
+
         if (!_firstRender)
         {
             // 动态列模式
@@ -1247,6 +1253,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _loop = false;
         }
     }
+
+    private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
 
     private async Task OnTableColumnReset()
     {
@@ -2046,6 +2054,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (disposing)
         {
+            if (IsDataTableDynamicContext)
+            {
+                ChangeDetectionCleanTask.Remove(this);
+            }
+
             AutoRefreshCancelTokenSource?.Cancel();
             AutoRefreshCancelTokenSource?.Dispose();
             AutoRefreshCancelTokenSource = null;
