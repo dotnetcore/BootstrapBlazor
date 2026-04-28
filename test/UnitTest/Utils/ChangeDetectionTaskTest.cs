@@ -15,7 +15,7 @@ public class ChangeDetectionTaskTest
         var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
         Assert.NotNull(type);
 
-        var methodInfo = type.GetMethod("Stop", BindingFlags.Public | BindingFlags.Static);
+        var methodInfo = type.GetMethod("Stop", BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(methodInfo);
 
         methodInfo.Invoke(null, null);
