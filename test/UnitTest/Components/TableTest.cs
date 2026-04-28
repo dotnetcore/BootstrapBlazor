@@ -6581,7 +6581,7 @@ public class TableTest : BootstrapBlazorTestBase
         var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
         Assert.NotNull(type);
 
-        var methodInfo = type.GetMethod("RemoveCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        var methodInfo = type.GetMethod("DoTask", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
         Assert.NotNull(methodInfo);
 
         methodInfo.Invoke(null, null);
