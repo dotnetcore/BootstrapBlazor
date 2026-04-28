@@ -15,37 +15,41 @@ public class ChangeDetectionCleanTaskTest
         var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
         Assert.NotNull(type);
 
+        var fieldInfo = type.GetField("_tableCount", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(fieldInfo);
+        var v = Assert.IsType<long>(fieldInfo.GetValue(null));
+
         var methodInfo = type.GetMethod("Rent", BindingFlags.Public | BindingFlags.Static);
         Assert.NotNull(methodInfo);
         methodInfo.Invoke(null, null);
 
-        var fieldInfo = type.GetField("_tableCount", BindingFlags.NonPublic | BindingFlags.Static);
-        Assert.NotNull(fieldInfo);
-        var v = fieldInfo.GetValue(null);
+        var v1 = Assert.IsType<long>(fieldInfo.GetValue(null));
 
-        Assert.Equal(1L, v);
+        Assert.Equal(v + 1, v1);
 
         // 多次调用 Rent，确保计数正确增加
         methodInfo.Invoke(null, null);
-        v = fieldInfo.GetValue(null);
-        Assert.Equal(2L, v);
+        v1 = Assert.IsType<long>(fieldInfo.GetValue(null));
+        Assert.Equal(v + 2, v1);
 
         methodInfo = type.GetMethod("Release", BindingFlags.Public | BindingFlags.Static);
         Assert.NotNull(methodInfo);
 
         methodInfo.Invoke(null, null);
-        v = fieldInfo.GetValue(null);
-        Assert.Equal(1L, v);
+        v1 = Assert.IsType<long>(fieldInfo.GetValue(null));
+        Assert.Equal(v + 1, v1);
 
         // 继续调用 Release，确保不会出现负数
         methodInfo.Invoke(null, null);
-        v = fieldInfo.GetValue(null);
-        Assert.Equal(0L, v);
+        v1 = Assert.IsType<long>(fieldInfo.GetValue(null));
+        Assert.Equal(v, v1);
+
+        fieldInfo.SetValue(null, 0L);
 
         // 继续调用 Release，确保不会出现负数
         methodInfo.Invoke(null, null);
-        v = fieldInfo.GetValue(null);
-        Assert.Equal(0L, v);
+        v1 = Assert.IsType<long>(fieldInfo.GetValue(null));
+        Assert.Equal(0L, v1);
     }
 
     [Fact]
@@ -79,6 +83,14 @@ public class ChangeDetectionCleanTaskTest
         var cancellationTokenSource = fieldInfo.GetValue(null) as CancellationTokenSource;
         Assert.NotNull(cancellationTokenSource);
 
-        cancellationTokenSource.Cancel();
+        // 反射获得 Stop 方法
+        methodInfo = type.GetMethod("Stop", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(null, null);
+
+        // _cancellationTokenSource 应该被取消
+        cancellationTokenSource = fieldInfo.GetValue(null) as CancellationTokenSource;
+        Assert.Null(cancellationTokenSource);
     }
 }
