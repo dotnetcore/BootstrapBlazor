@@ -31,7 +31,7 @@
         </TableColumns>
         <TableToolbarBeforeTemplate>
             <Button Text="@Localizer["CacheListDeleteAll"]" Icon="fa-solid fa-xmark" OnClick="OnDeleteAll"></Button>
-            @if (WebHost.IsProduction())
+            @if (WebHost.IsDevelopment())
             {
                 <Button Text="GC" Color="Color.Danger" OnClick="OnClickGC" class="ms-1"></Button>
             }
