@@ -91,10 +91,9 @@ static class ChangeDetectionCleanTask
     {
         lock (_locker)
         {
-            if (_tables.IsEmpty)
-            {
-                _cancellationTokenSource?.Cancel();
-            }
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
         }
     }
 
@@ -108,7 +107,7 @@ static class ChangeDetectionCleanTask
                 // 每隔 5 秒钟执行一次清理方法
                 await Task.Delay(5000, _cancellationTokenSource.Token);
             }
-            catch (OperationCanceledException) when (_cancellationTokenSource.IsCancellationRequested)
+            catch (OperationCanceledException)
             {
 
             }
