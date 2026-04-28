@@ -31,9 +31,13 @@ public static class EmitHelper
     ///  <para lang="zh">回调委托</para>
     ///  <para lang="en">Callback delegate</para>
     /// </param>
-    public static Type CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
+    /// <param name="assemblyName">
+    ///  <para lang="zh">动态程序集名称</para>
+    ///  <para lang="en">Dynamic assembly name</para>
+    /// </param>
+    public static Type CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null, string assemblyName = DataTableDynamicContext.DynamicAssemblyName)
     {
-        var typeBuilder = CreateTypeBuilderByName(typeName, parent);
+        var typeBuilder = CreateTypeBuilderByName(assemblyName, typeName, parent);
         foreach (var col in cols)
         {
             var attributeBuilds = creatingCallback?.Invoke(col);
@@ -43,11 +47,11 @@ public static class EmitHelper
         return typeBuilder.CreateType()!;
     }
 
-    private static TypeBuilder CreateTypeBuilderByName(string typeName, Type? parent = null)
+    private static TypeBuilder CreateTypeBuilderByName(string assemblyName, string typeName, Type? parent = null)
     {
-        var assemblyName = new AssemblyName("BootstrapBlazor_DynamicAssembly");
-        var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
-        var moduleBuilder = assemblyBuilder.DefineDynamicModule("BootstrapBlazor_DynamicAssembly_Module");
+        var name = new AssemblyName(assemblyName);
+        var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(name, AssemblyBuilderAccess.RunAndCollect);
+        var moduleBuilder = assemblyBuilder.DefineDynamicModule($"{assemblyName}_Module");
         var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Public, parent);
         return typeBuilder;
     }

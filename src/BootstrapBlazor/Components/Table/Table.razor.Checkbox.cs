@@ -115,14 +115,6 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">点击表头选择复选框时触发此方法</para>
-    /// <para lang="en">Header Checkbox Click Method</para>
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="val"></param>
-    protected virtual Task OnHeaderCheckGuid(CheckboxState state, Guid val) => OnHeaderCheck(state, default!);
-
-    /// <summary>
     /// <para lang="zh">点击选择复选框时触发此方法</para>
     /// <para lang="en">Checkbox Click Method</para>
     /// </summary>
@@ -149,20 +141,6 @@ public partial class Table<TItem>
         ShowEditForm = false;
 
         await OnSelectedRowsChanged();
-    }
-
-    /// <summary>
-    /// <para lang="zh">点击选择复选框时触发此方法</para>
-    /// <para lang="en">Checkbox Click Method</para>
-    /// </summary>
-    protected async Task OnCheckGuid(CheckboxState state, Guid val)
-    {
-        // 通过 Guid 找到选中行数据
-        var item = Rows.OfType<IDynamicObject>().FirstOrDefault(i => i.DynamicObjectPrimaryKey == val);
-        if (item != null)
-        {
-            await OnCheck(state, (TItem)(object)item);
-        }
     }
 
     private bool _resetColumns;

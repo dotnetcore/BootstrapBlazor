@@ -280,20 +280,9 @@
                                         <label>@CheckboxDisplayText</label>
                                         @if (GetShowRowCheckbox(item))
                                         {
-                                            if (item is IDynamicObject d)
-                                            {
-                                                <Checkbox Value="@d.DynamicObjectPrimaryKey"
-                                                          State="@RowCheckState(item)" ShowLabel="false"
-                                                          OnStateChanged="OnCheckGuid" StopPropagation="true">
-                                                </Checkbox>
-                                            }
-                                            else
-                                            {
-                                                <Checkbox Value="@item"
-                                                          State="@RowCheckState(item)" ShowLabel="false"
-                                                          OnStateChanged="OnCheck" StopPropagation="true">
-                                                </Checkbox>
-                                            }
+                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)"
+                                                      OnStateChanged="OnCheck" StopPropagation="true">
+                                            </Checkbox>
                                         }
                                     </div>
                                 }
@@ -581,20 +570,10 @@
                 {
                     <th class="@MultiColumnClassString" style="@MultiColumnStyleString">
                         <div class="table-cell">
-                            @if (typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
-                            {
-                                <Checkbox TValue="Guid" DisplayText="@CheckboxDisplayTextString" ShowLabel="false"
-                                          ShowAfterLabel="@ShowCheckboxText"
-                                          State="@HeaderCheckState()" OnStateChanged="OnHeaderCheckGuid">
-                                </Checkbox>
-                            }
-                            else
-                            {
-                                <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowLabel="false"
-                                          ShowAfterLabel="@ShowCheckboxText"
-                                          State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck">
-                                </Checkbox>
-                            }
+                            <Checkbox TValue="TItem" DisplayText="@CheckboxDisplayTextString" ShowLabel="false"
+                                      ShowAfterLabel="@ShowCheckboxText"
+                                      State="@HeaderCheckState()" OnStateChanged="OnHeaderCheck">
+                            </Checkbox>
                         </div>
                     </th>
                 }
@@ -778,18 +757,9 @@
                     <div class="table-cell">
                         @if (GetShowRowCheckbox(item))
                         {
-                            if (item is IDynamicObject d)
-                            {
-                                <Checkbox Value="@d.DynamicObjectPrimaryKey" State="@RowCheckState(item)" ShowLabel="false"
-                                          OnStateChanged="OnCheckGuid" StopPropagation="true">
-                                </Checkbox>
-                            }
-                            else
-                            {
-                                <Checkbox Value="@item" State="@RowCheckState(item)" ShowLabel="false"
-                                          OnStateChanged="OnCheck" StopPropagation="true">
-                                </Checkbox>
-                            }
+                            <Checkbox TValue="TItem" Value="@item" ShowLabel="false" State="RowCheckState(item)"
+                                      OnStateChanged="OnCheck" @onclick:stopPropagation>
+                            </Checkbox>
                         }
                     </div>
                 </td>
@@ -860,7 +830,7 @@
             {
                 <td>
                     <div class="table-cell">
-                        <Checkbox TValue="bool" ShowLabel="false" State="CheckboxState.UnChecked"></Checkbox>
+                        <Checkbox TValue="TItem" ShowLabel="false" State="CheckboxState.UnChecked"></Checkbox>
                     </div>
                 </td>
             }
