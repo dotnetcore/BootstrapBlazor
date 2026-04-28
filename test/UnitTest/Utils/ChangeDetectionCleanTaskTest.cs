@@ -20,4 +20,28 @@ public class ChangeDetectionCleanTaskTest
 
         methodInfo.Invoke(null, null);
     }
+
+    [Fact]
+    public async Task Clean_Ok()
+    {
+        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
+        Assert.NotNull(type);
+
+        var methodInfo = type.GetMethod("Clean", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        // 开启 Clean 任务
+        methodInfo.Invoke(null, null);
+
+        // 反射获得 _cancellationTokenSource 值
+        var fieldInfo = type.GetField("_cancellationTokenSource", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(fieldInfo);
+
+        var cancellationTokenSource = fieldInfo.GetValue(null) as CancellationTokenSource;
+        Assert.NotNull(cancellationTokenSource);
+
+        cancellationTokenSource.Cancel();
+        // 等待 Clean 任务完成
+        await Task.Delay(100);
+    }
 }
