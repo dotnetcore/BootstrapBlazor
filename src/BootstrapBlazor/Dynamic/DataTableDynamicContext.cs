@@ -50,6 +50,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     private List<IDynamicObject>? _items;
     private Type _dynamicObjectType;
 
+    internal const string DynamicAssemblyName = "BootstrapBlazor_DynamicAssembly";
+
     /// <summary>
     /// <para lang="zh">构造函数</para>
     /// <para lang="en">Constructor</para>
@@ -78,7 +80,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         var cols = InternalGetColumns();
 
         // 生成动态类型 DataTableDynamicObjectType 继承 DataTableDynamicObject 并添加属性
-        _dynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating);
+        _dynamicObjectType = EmitHelper.CreateTypeByName($"BootstrapBlazor_{nameof(DataTableDynamicContext)}_{GetHashCode()}", cols, typeof(DataTableDynamicObject), OnColumnCreating, DynamicAssemblyName);
 
         // 获得显示列
         _columns = Utility.GetTableColumns(_dynamicObjectType, cols).Where(col => GetShownColumns(col, invisibleColumns, shownColumns, hiddenColumns)).ToList();
