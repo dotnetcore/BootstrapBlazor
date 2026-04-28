@@ -6504,8 +6504,7 @@ public class TableTest : BootstrapBlazorTestBase
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
 
-        var table = cut.FindComponent<Table<DynamicObject>>();
-        await table.Instance.DisposeAsync();
+        InvokeCleanCache();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
@@ -6541,8 +6540,7 @@ public class TableTest : BootstrapBlazorTestBase
         var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
         await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
 
-        var table = cut.FindComponent<Table<DynamicObject>>();
-        await table.Instance.DisposeAsync();
+        InvokeCleanCache();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
@@ -6563,8 +6561,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var table = cut.FindComponent<Table<DynamicObject>>();
-        await table.Instance.DisposeAsync();
+        InvokeCleanCache();
 
         var items = GetDynamicTypeCacheItems();
         Assert.NotNull(items);
@@ -6588,6 +6585,17 @@ public class TableTest : BootstrapBlazorTestBase
         }
 
         return items ?? [];
+    }
+
+    private static void InvokeCleanCache()
+    {
+        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
+        Assert.NotNull(type);
+
+        var methodInfo = type.GetMethod("DoTask", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(null, null);
     }
 
     [Fact]

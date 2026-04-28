@@ -46,7 +46,7 @@ static class ChangeDetectionCleanTask
     /// <para lang="zh">添加表格引用计数</para>
     /// <para lang="en">Increment table reference count</para>
     /// </summary>
-    public static void Add()
+    public static void Rent()
     {
         if (Interlocked.Increment(ref _tableCount) == 1)
         {
@@ -58,10 +58,11 @@ static class ChangeDetectionCleanTask
     /// <para lang="zh">减少表格引用计数</para>
     /// <para lang="en">Decrement table reference count</para>
     /// </summary>
-    public static void Remove()
+    public static void Release()
     {
         if (Interlocked.Decrement(ref _tableCount) <= 0)
         {
+            _tableCount = 0;
             Stop();
         }
     }

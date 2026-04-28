@@ -10,6 +10,45 @@ namespace UnitTest.Utils;
 public class ChangeDetectionCleanTaskTest
 {
     [Fact]
+    public void Release_Ok()
+    {
+        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
+        Assert.NotNull(type);
+
+        var methodInfo = type.GetMethod("Rent", BindingFlags.Public | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+        methodInfo.Invoke(null, null);
+
+        var fieldInfo = type.GetField("_tableCount", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(fieldInfo);
+        var v = fieldInfo.GetValue(null);
+
+        Assert.Equal(1L, v);
+
+        // 多次调用 Rent，确保计数正确增加
+        methodInfo.Invoke(null, null);
+        v = fieldInfo.GetValue(null);
+        Assert.Equal(2L, v);
+
+        methodInfo = type.GetMethod("Release", BindingFlags.Public | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(null, null);
+        v = fieldInfo.GetValue(null);
+        Assert.Equal(1L, v);
+
+        // 继续调用 Release，确保不会出现负数
+        methodInfo.Invoke(null, null);
+        v = fieldInfo.GetValue(null);
+        Assert.Equal(0L, v);
+
+        // 继续调用 Release，确保不会出现负数
+        methodInfo.Invoke(null, null);
+        v = fieldInfo.GetValue(null);
+        Assert.Equal(0L, v);
+    }
+
+    [Fact]
     public void Stop_Ok()
     {
         var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
@@ -41,7 +80,5 @@ public class ChangeDetectionCleanTaskTest
         Assert.NotNull(cancellationTokenSource);
 
         cancellationTokenSource.Cancel();
-        // 等待 Clean 任务完成
-        await Task.Delay(100);
     }
 }
