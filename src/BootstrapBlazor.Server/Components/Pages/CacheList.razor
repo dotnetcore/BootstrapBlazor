@@ -1,4 +1,4 @@
-﻿@page "/cache-list"
+@page "/cache-list"
 
 <h3>@Localizer["CacheListTitle"]</h3>
 
@@ -31,6 +31,10 @@
         </TableColumns>
         <TableToolbarBeforeTemplate>
             <Button Text="@Localizer["CacheListDeleteAll"]" Icon="fa-solid fa-xmark" OnClick="OnDeleteAll"></Button>
+            @if (WebHost.IsProduction())
+            {
+                <Button Text="GC" Color="Color.Danger" OnClick="OnClickGC" class="ms-1"></Button>
+            }
         </TableToolbarBeforeTemplate>
         <TableExtensionToolbarTemplate>
             <Button Text="@Localizer["CacheListRefresh"]" Icon="fa-solid fa-refresh" OnClick="OnRefresh"></Button>
