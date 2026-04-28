@@ -111,10 +111,6 @@ static class ChangeDetectionCleanTask
             {
 
             }
-            catch
-            {
-
-            }
             finally
             {
                 DoTask();
