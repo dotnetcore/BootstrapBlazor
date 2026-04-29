@@ -698,15 +698,7 @@ public partial class Table<TItem>
         }
     }
 
-    private TItem GetEditModel(TItem item)
-    {
-        if (IsTracking)
-        {
-            return item;
-        }
-
-        return DynamicContext is DataTableDynamicContext ? Utility.Clone(item) : item;
-    }
+    private TItem GetEditModel(TItem item) => IsTracking ? item : Utility.Clone(item);
 
     private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
