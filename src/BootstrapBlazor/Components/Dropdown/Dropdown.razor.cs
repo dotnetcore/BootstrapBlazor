@@ -29,7 +29,8 @@ public partial class Dropdown<TValue>
     /// </summary>
     private string? ButtonClassName => CssBuilder.Default("btn")
         .AddClass("dropdown-toggle", !ShowSplit)
-        .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
@@ -39,8 +40,9 @@ public partial class Dropdown<TValue>
     /// </summary>
     private string? ClassName => CssBuilder.Default("btn dropdown-toggle")
         .AddClass("dropdown-toggle-split")
-        .AddClass($"btn-primary", Color == Color.None)
-        .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
+        .AddClass($"btn-primary", !IsOutline && Color == Color.None)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
@@ -74,6 +76,13 @@ public partial class Dropdown<TValue>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Outline 样式 默认 false</para>
+    /// <para lang="en">Gets or sets the Outline style. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool IsOutline { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
