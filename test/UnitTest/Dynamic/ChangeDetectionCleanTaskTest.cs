@@ -21,7 +21,7 @@ public class ChangeDetectionCleanTaskTest
         Assert.NotNull(fieldInfo);
         var v = Assert.IsType<ConcurrentDictionary<ITable, byte>>(fieldInfo.GetValue(null));
 
-        var methodInfo = type.GetMethod("Rent", BindingFlags.Public | BindingFlags.Static);
+        var methodInfo = type.GetMethod("Register", BindingFlags.Public | BindingFlags.Static);
         Assert.NotNull(methodInfo);
         methodInfo.Invoke(null, new object[] { table });
 
@@ -31,7 +31,7 @@ public class ChangeDetectionCleanTaskTest
         // 同一个 Table 多次调用 Rent，只有一个键值
         Assert.Single(v.Keys);
 
-        methodInfo = type.GetMethod("Release", BindingFlags.Public | BindingFlags.Static);
+        methodInfo = type.GetMethod("UnRegister", BindingFlags.Public | BindingFlags.Static);
         Assert.NotNull(methodInfo);
 
         methodInfo.Invoke(null, new object[] { table });
