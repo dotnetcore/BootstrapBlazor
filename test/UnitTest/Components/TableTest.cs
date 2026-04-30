@@ -8422,6 +8422,8 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void PlaceHolder_Ok()
     {
+        // 占位符仅在 OnQueryAsync 不为空时生效
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
@@ -8438,6 +8440,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
             });
         });
 
