@@ -31,6 +31,23 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IsOutlineTitle"]" Introduction='@Localizer["IsOutlineIntro"]' Name="IsOutline">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3">
+            <Dropdown TValue="string" Items="Items" IsOutline="true" Color="Color.Primary"></Dropdown>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Dropdown TValue="string" Items="Items" IsOutline="true" Color="Color.Info"></Dropdown>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Dropdown TValue="string" Items="Items" IsOutline="true" Color="Color.Warning"></Dropdown>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Dropdown TValue="string" Items="Items" IsOutline="true" ShowSplit="true" Color="Color.Danger"></Dropdown>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["DropdownItemTemplateTitle"]" Introduction="@Localizer["DropdownItemTemplateIntro"]"
            Name="ItemTemplate">
     <Dropdown TValue="string" Items="ItemTemplateList">
