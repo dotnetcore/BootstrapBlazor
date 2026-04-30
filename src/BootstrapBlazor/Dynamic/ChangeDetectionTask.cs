@@ -43,10 +43,10 @@ static class ChangeDetectionCleanTask
     }
 
     /// <summary>
-    /// <para lang="zh">添加表格引用计数</para>
-    /// <para lang="en">Increment table reference count</para>
+    /// <para lang="zh">注册表格引用</para>
+    /// <para lang="en">Register table reference</para>
     /// </summary>
-    public static void Rent(ITable table)
+    public static void Register(ITable table)
     {
         if (_tableCache.TryAdd(table, 0))
         {
@@ -55,10 +55,10 @@ static class ChangeDetectionCleanTask
     }
 
     /// <summary>
-    /// <para lang="zh">减少表格引用计数</para>
-    /// <para lang="en">Decrement table reference count</para>
+    /// <para lang="zh">注销表格引用</para>
+    /// <para lang="en">Unregister table reference</para>
     /// </summary>
-    public static void Release(ITable table)
+    public static void UnRegister(ITable table)
     {
         if (_tableCache.TryRemove(table, out _))
         {
