@@ -397,17 +397,17 @@
             <tbody>
             @if (ScrollMode == ScrollMode.Virtual)
             {
-                @if (Items != null)
+                @if (OnQueryAsync != null)
                 {
-                    <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Items.ToList()"
-                                ChildContent="RenderRow">
+                    <Virtualize @ref="_virtualizeElement"
+                                ItemSize="RowHeight" OverscanCount="@OverscanCount" ItemsProvider="LoadItems"
+                                ItemContent="RenderRow" Placeholder="RenderPlaceholderRow">
                     </Virtualize>
                 }
                 else
                 {
-                    <Virtualize @ref="_virtualizeElement"
-                                ItemSize="RowHeight" OverscanCount="@OverscanCount" Placeholder="RenderPlaceholderRow"
-                                ItemsProvider="LoadItems" ItemContent="RenderRow">
+                    <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Rows"
+                                ChildContent="RenderRow">
                     </Virtualize>
                 }
             }
