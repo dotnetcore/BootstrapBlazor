@@ -4686,6 +4686,7 @@
     "DetailRowTemplate3Title": "明细行中使用 Tab 组件",
     "DetailRowTemplateIntro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplateIsAccordion": "手风琴效果",
+    "DetailRowTemplateIsDetail": "是否开启明细行",
     "DetailRowTemplateP": "明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现。支持双击展开明细行的功能，双击回调仅 <b>PC</b> 端支持，请在<b>PC</b> 端测试。",
     "DetailRowTemplateTitle": "简单应用",
     "DynamicIntro": "数据源为 <code>DataTable</code>",
