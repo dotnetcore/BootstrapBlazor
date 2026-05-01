@@ -101,7 +101,11 @@ static class ChangeDetectionCleanTask
         _cancellationTokenSource ??= new();
 
         // 组件变更检测清理方法执行间隔，默认 5000 毫秒，最小 500 毫秒
-        var interval = Math.Max(500, CacheManager.Options?.ChangeDetectionTaskInterval ?? 5000);
+        var interval = 5000;
+        if (CacheManager.Options != null)
+        {
+            interval = Math.Max(500, CacheManager.Options.ChangeDetectionTaskInterval);
+        }
         using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(interval));
         while (_cancellationTokenSource is { IsCancellationRequested: false })
         {
