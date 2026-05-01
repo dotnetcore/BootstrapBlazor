@@ -445,6 +445,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public ScrollToViewAlign AutoScrollVerticalAlign { get; set; } = ScrollToViewAlign.Center;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 滚动行为，默认值为 <see cref="ScrollIntoViewBehavior.Smooth"/></para>
+    /// <para lang="en">Gets or sets the scroll behavior. The default is <see cref="ScrollIntoViewBehavior.Smooth"/></para>
+    /// <para>v<version>10.5.1</version></para>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 双击单元格回调委托</para>
     /// <para lang="en">Gets or sets Double Click Cell Callback</para>
     /// </summary>
