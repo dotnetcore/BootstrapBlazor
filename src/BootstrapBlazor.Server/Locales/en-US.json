@@ -4686,6 +4686,7 @@
     "DetailRowTemplate3Title": "Use Tab component in detail row",
     "DetailRowTemplateIntro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplateIsAccordion": "IsAccordion",
+    "DetailRowTemplateIsDetail": "IsDetail",
     "DetailRowTemplateP": "In the detail row, another field <code>education</code> of the binding row is displayed in the form of ordinary text",
     "DetailRowTemplateTitle": "Simple Application",
     "DynamicIntro": "Data source is <code>DataTable</code>",
