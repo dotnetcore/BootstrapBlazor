@@ -60,7 +60,7 @@ public static class DirectoryInfoExtensions
             foreach (var subDir in dirs)
             {
                 string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                Copy(subDir, newDestinationDir, true);
+                Copy(subDir, newDestinationDir, recursive, overwrite);
             }
         }
     }
