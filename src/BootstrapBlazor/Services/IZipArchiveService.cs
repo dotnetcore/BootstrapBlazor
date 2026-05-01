@@ -58,7 +58,7 @@ public interface IZipArchiveService
     /// <param name="directoryName"><para lang="zh">要归档文件夹</para><para lang="en">Directory to archive</para></param>
     /// <param name="compressionLevel"><para lang="zh">压缩率</para><para lang="en">Compression Level</para></param>
     /// <param name="includeBaseDirectory"><para lang="zh">是否包含本目录 默认 false</para><para lang="en">Include base directory, default false</para></param>
-    /// <param name="encoding"><para lang="zh">编码方式 默认 null 内部使用 UTF-8</para><para lang="en">Encoding, default null, internal use UTF-8</para></param>
+    /// <param name="encoding"><para lang="zh">编码方式 默认 null 内部使用当前系统 ANSI 编码</para><para lang="en">Encoding, default null, internal use current system ANSI encoding</para></param>
     /// <param name="token"></param>
     Task ArchiveDirectoryAsync(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default);
 
@@ -69,7 +69,7 @@ public interface IZipArchiveService
     /// <param name="archiveFile"><para lang="zh">归档文件</para><para lang="en">归档文件</para></param>
     /// <param name="destinationDirectoryName"><para lang="zh">解压缩文件夹</para><para lang="en">Destination Directory</para></param>
     /// <param name="overwriteFiles"><para lang="zh">是否覆盖文件 默认 false 不覆盖</para><para lang="en">Overwrite files, default false</para></param>
-    /// <param name="encoding"><para lang="zh">编码方式 默认 null 内部使用 UTF-8</para><para lang="en">Encoding, default null, internal use UTF-8</para></param>
+    /// <param name="encoding"><para lang="zh">编码方式 默认 null 内部使用当前系统 ANSI 编码</para><para lang="en">Encoding, default null, internal use current system ANSI encoding</para></param>
     /// <param name="token"></param>
     Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default);
 
