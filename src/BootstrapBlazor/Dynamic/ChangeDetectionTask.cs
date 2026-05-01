@@ -99,12 +99,15 @@ static class ChangeDetectionCleanTask
     private static async Task Clean()
     {
         _cancellationTokenSource ??= new();
-        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+
+        // 组件变更检测清理方法执行间隔，默认 5000 毫秒，最小 500 毫秒
+        var interval = Math.Max(500, CacheManager.Options.ChangeDetectionTaskInterval);
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(interval));
         while (_cancellationTokenSource is { IsCancellationRequested: false })
         {
             try
             {
-                // 每隔 5 秒钟执行一次清理方法
+                // 每隔 interval 毫秒执行一次清理方法
                 await timer.WaitForNextTickAsync(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
