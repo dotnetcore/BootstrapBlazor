@@ -1339,7 +1339,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (_visibleColumns.TryGetValue(fieldName, out var v))
             {
                 item.Visible = v.Visible;
-                item.Width = v.Width;
             }
             items.Add(fieldName, item);
         }
@@ -1459,7 +1458,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (_visibleColumns.TryGetValue(col.Name, out var item))
             {
                 item.Visible = col.Visible;
-                item.Width = col.Width;
             }
         }
 

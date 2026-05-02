@@ -33,10 +33,4 @@ public class ColumnVisibleItem(string name, bool visible)
     /// <para lang="en">Gets column visibility</para>
     /// </summary>
     public bool Visible { get; set; } = visible;
-
-    /// <summary>
-    /// <para lang="zh">获得 列宽值</para>
-    /// <para lang="en">Gets column width</para>
-    /// </summary>
-    public int Width { get; set; }
 }

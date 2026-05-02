@@ -152,6 +152,8 @@ public partial class Table<TItem>
 
     private async Task OnToggleColumnVisible(ColumnVisibleItem item, bool visible)
     {
+        item.Visible = visible;
+
         var columnName = item.Name;
         if (OnColumnVisibleChanged != null)
         {
@@ -160,7 +162,6 @@ public partial class Table<TItem>
 
         _resetColumns = true;
         _invoke = true;
-        item.Visible = visible;
 
         StateHasChanged();
     }
