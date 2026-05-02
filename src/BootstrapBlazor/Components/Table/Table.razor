@@ -108,37 +108,19 @@
                 @RenderHeader(false)
             }
             <tbody>
-            @if (ScrollMode == ScrollMode.Virtual)
-            {
-                @if (OnQueryAsync != null)
+                @if (ScrollMode == ScrollMode.Virtual)
                 {
-                    <Virtualize @ref="_virtualizeElement"
-                                ItemSize="RowHeight" OverscanCount="@OverscanCount" ItemsProvider="LoadItems"
-                                ItemContent="RenderRow" Placeholder="RenderPlaceholderRow">
-                    </Virtualize>
-                }
-                else
-                {
-                    <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Rows"
-                                ChildContent="RenderRow">
-                    </Virtualize>
-                }
-            }
-            else
-            {
-                if (InsertRowMode == InsertRowMode.First)
-                {
-                    if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                    @if (OnQueryAsync != null)
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Items.ToList()"
-                                    ChildContent="RenderRow">
+                        <Virtualize @ref="_virtualizeElement"
+                                    ItemSize="RowHeight" OverscanCount="@OverscanCount" ItemsProvider="LoadItems"
+                                    ItemContent="RenderRow" Placeholder="RenderPlaceholderRow">
                         </Virtualize>
                     }
                     else
                     {
-                        <Virtualize @ref="_virtualizeElement"
-                                    ItemSize="RowHeight" OverscanCount="@OverscanCount" Placeholder="RenderPlaceholderRow"
-                                    ItemsProvider="LoadItems" ItemContent="RenderRow">
+                        <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Rows"
+                                    ChildContent="RenderRow">
                         </Virtualize>
                     }
                 }
@@ -163,7 +145,7 @@
                         if (RowTemplate != null)
                         {
                             var columns = GetVisibleColumns();
-                            @RowTemplate(new(item, columns, ActiveRenderMode))
+                            @RowTemplate(new (item, columns, ActiveRenderMode))
                         }
                         else
                         {
