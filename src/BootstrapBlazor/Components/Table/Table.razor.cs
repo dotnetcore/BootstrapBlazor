@@ -969,6 +969,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _firstRender = true;
 
+    private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1087,6 +1089,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsStriped = false;
             IsMultipleSelect = true;
             IsTree = false;
+        }
+
+        // 如果 TItem 是动态数据类型添加到自动清理任务中
+        if (IsDataTableDynamicContext)
+        {
+            ChangeDetectionCleanTask.Register(this);
         }
 
         if (!_firstRender)
