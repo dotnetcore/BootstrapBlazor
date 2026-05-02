@@ -220,10 +220,7 @@ public static class ObjectExtensions
     {
         if (item != null)
         {
-            var type = typeof(TModel);
-
-            // <para lang="zh">20200608 tian_teng@outlook.com 支持字段和只读属性</para>
-            // <para lang="en">20200608 tian_teng@outlook.com Support fields and read-only properties</para>
+            var type = item.GetType();
             foreach (var f in type.GetFields())
             {
                 var v = f.GetValue(item);

@@ -224,6 +224,35 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         cut.Contains("tree-search-reset");
     }
 
+    [Fact]
+    public async Task OnSearchAsync_Ok()
+    {
+        var key = "";
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<SelectTree<TreeFoo>>(builder =>
+        {
+            builder.Add(a => a.ShowSearch, true);
+            builder.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(v =>
+            {
+                key = v;
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>([new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
+            }));
+            builder.Add(a => a.Items, items);
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!("enter"));
+        Assert.Equal("enter", key);
+
+        var nodes = cut.FindAll(".tree-content");
+        Assert.Single(nodes);
+
+        // trigger esc key
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(""));
+        nodes = cut.FindAll(".tree-content");
+        Assert.Equal(9, nodes.Count);
+    }
+
     private List<TreeViewItem<string>> BindItems { get; } =
     [
         new TreeViewItem<string>("Test1")

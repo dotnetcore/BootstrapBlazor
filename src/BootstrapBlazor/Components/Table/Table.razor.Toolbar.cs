@@ -588,7 +588,9 @@ public partial class Table<TItem>
             // <para lang="zh">数据源为 DataTable 新建后重建行与列</para>
             // <para lang="en">Data source is DataTable, rebuild rows and columns after adding</para>
             await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
+
+            // 重新查询数据
+            await QueryAsync(false);
 
             if (!IsKeepSelectedRowAfterAdd)
             {
@@ -647,7 +649,9 @@ public partial class Table<TItem>
             else
             {
                 await ToggleLoading(true);
-                EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+
+                // 复制对象给编辑模型
+                EditModel = GetEditModel(SelectedRows[0]);
                 if (OnEditAsync != null)
                 {
                     await OnEditAsync(EditModel);
@@ -662,8 +666,6 @@ public partial class Table<TItem>
                 }
                 EditModalTitleString = EditModalTitle;
 
-                // <para lang="zh">显示编辑框</para>
-                // <para lang="en">Show Edit Dialog</para>
                 if (EditMode == EditMode.Popup)
                 {
                     await ShowEditDialog(ItemChangedType.Update);
@@ -689,12 +691,12 @@ public partial class Table<TItem>
         }
         else
         {
-            // <para lang="zh">不选或者多选弹窗提示</para>
-            // <para lang="en">Toast if not selected or multiple selected</para>
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
             await ShowToastAsync(EditButtonToastTitle, content);
         }
     }
+
+    private TItem GetEditModel(TItem item) => IsTracking ? item : Utility.Clone(item);
 
     private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
@@ -956,6 +958,8 @@ public partial class Table<TItem>
     protected async Task ShowEditDialog(ItemChangedType changedType)
     {
         var saved = false;
+
+        // 用于判断是否未保存数据直接点击关闭取消数据保存操作
         var triggerFromSave = false;
         var option = new EditDialogOption<TItem>()
         {
@@ -981,7 +985,9 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);
-                triggerFromSave = true;
+
+                // 已保存数据
+                triggerFromSave = saved;
                 return saved;
             }
         };
@@ -1041,8 +1047,8 @@ public partial class Table<TItem>
 
         if (!saved)
         {
-            var d = DataService ?? InjectDataService;
-            if (d is IEntityFrameworkCoreDataService ef)
+            var dataService = DataService ?? InjectDataService;
+            if (dataService is IEntityFrameworkCoreDataService ef)
             {
                 // EFCore
                 await ToggleLoading(true);
@@ -1131,10 +1137,12 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
 
             // 触发删除回调方法
             await TriggerDeleteCallback();
+
+            // 重新查询数据
+            await QueryAsync(SelectedRowsChanged.HasDelegate);
 
             SelectedRows.Clear();
             await OnSelectedRowsChanged();

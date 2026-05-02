@@ -27,7 +27,11 @@ public static class DirectoryInfoExtensions
     ///   <para lang="zh">是否递归复制子目录及其内容</para>
     ///   <para lang="en"><see langword="true"/> to copy all subdirectories and their contents recursively; otherwise, <see langword="false"/>.</para>
     /// </param>
-    public static void Copy(this DirectoryInfo dir, string destinationDir, bool recursive = true)
+    /// <param name="overwrite">
+    ///   <para lang="zh">是否覆盖目标文件</para>
+    ///   <para lang="en"><see langword="true"/> to overwrite existing files in the destination directory; otherwise, <see langword="false"/>.</para>
+    /// </param>
+    public static void Copy(this DirectoryInfo dir, string destinationDir, bool recursive = true, bool overwrite = true)
     {
         // Check if the source directory exists
         if (!dir.Exists)
@@ -42,19 +46,21 @@ public static class DirectoryInfoExtensions
         foreach (FileInfo file in dir.GetFiles())
         {
             string targetFilePath = Path.Combine(destinationDir, file.Name);
-            file.CopyTo(targetFilePath);
+
+            // 是否覆盖已存在的文件
+            file.CopyTo(targetFilePath, overwrite);
         }
 
         // If recursive and copying subdirectories, recursively call this method
         if (recursive)
         {
             // Cache directories before we start copying
-            DirectoryInfo[] dirs = dir.GetDirectories();
+            var dirs = dir.GetDirectories();
 
-            foreach (DirectoryInfo subDir in dirs)
+            foreach (var subDir in dirs)
             {
                 string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                Copy(subDir, newDestinationDir, true);
+                Copy(subDir, newDestinationDir, recursive, overwrite);
             }
         }
     }

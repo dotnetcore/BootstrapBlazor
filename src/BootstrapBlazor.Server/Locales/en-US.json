@@ -2018,6 +2018,8 @@
     "Dom2ImageIntro": "Export HTML snippets as images",
     "Dom2ImageNormalIntro": "Convert the node to an image by specifying a <code>Selector</code>",
     "Dom2ImageNormalTitle": "Basic usage",
+    "Dom2ImageServiceInjectTip": "Before using <code>IDom2HtmlService</code>, manually register this service",
+    "Dom2ImageSignalRConfigTip": "Also configure the SignalR maximum receive message size (example: <code>10 MB</code>)",
     "Dom2ImageTitle": "Dom2Image"
   },
   "BootstrapBlazor.Server.Components.Samples.Downloads": {
@@ -2132,6 +2134,8 @@
     "IsAsyncTitle": "Asynchronous request button",
     "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</b> make the ButtonText to const",
     "IsFixedButtonTextTitle": "Fixed button text",
+    "IsOutlineIntro": "Set <code>IsOutline</code> to render the dropdown button with an outline style. Split dropdowns support this parameter as well.",
+    "IsOutlineTitle": "Outline style",
     "Item1": "Melbourne",
     "Item2": "Sydney",
     "Item3": "Queensland",
@@ -4682,6 +4686,7 @@
     "DetailRowTemplate3Title": "Use Tab component in detail row",
     "DetailRowTemplateIntro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplateIsAccordion": "IsAccordion",
+    "DetailRowTemplateIsDetail": "IsDetail",
     "DetailRowTemplateP": "In the detail row, another field <code>education</code> of the binding row is displayed in the form of ordinary text",
     "DetailRowTemplateTitle": "Simple Application",
     "DynamicIntro": "Data source is <code>DataTable</code>",

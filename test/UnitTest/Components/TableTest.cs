@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
@@ -6475,6 +6476,129 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicContext_InCell_ChangeDetection_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        // 选中行
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+
+        // 点击编辑按钮
+        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
+        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
+
+        // 点击取消按钮
+        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
+        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        InvokeCleanCache();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    [Fact]
+    public async Task DynamicContext_EditForm_ChangeDetection_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        // 选中行
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+
+        // 点击编辑按钮
+        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
+        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
+
+        // 点击取消按钮
+        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
+        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        InvokeCleanCache();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    [Fact]
+    public async Task DynamicContext_IsMultipleSelect_ChangeDetection_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        InvokeCleanCache();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    private static IEnumerable<Type> GetDynamicTypeCacheItems()
+    {
+        // 表格使用动态创建类型后，不能被 Blazor 底层 ChangeDetection 缓存，否则生成的动态 Assembly 无法被释放
+        // 通过反射查看是否被缓存
+        var type = typeof(ComponentBase).Assembly.GetType("Microsoft.AspNetCore.Components.ChangeDetection");
+        Assert.NotNull(type);
+
+        var fieldInfo = type.GetField("_immutableObjectTypesCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        Assert.NotNull(fieldInfo);
+
+        IEnumerable<Type>? items = null;
+        if (fieldInfo.GetValue(null) is ConcurrentDictionary<Type, bool> cache)
+        {
+            items = cache.Keys.Where(i => i.Assembly.GetName().Name == "BootstrapBlazor_DynamicAssembly");
+        }
+
+        return items ?? [];
+    }
+
+    private static void InvokeCleanCache()
+    {
+        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
+        Assert.NotNull(type);
+
+        var methodInfo = type.GetMethod("DoTask", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(null, null);
+    }
+
+    [Fact]
     public async Task DynamicContext_Add()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8298,6 +8422,8 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void PlaceHolder_Ok()
     {
+        // 占位符仅在 OnQueryAsync 不为空时生效
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
@@ -8314,6 +8440,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
             });
         });
 

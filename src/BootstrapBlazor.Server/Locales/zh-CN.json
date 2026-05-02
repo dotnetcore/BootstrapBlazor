@@ -2018,6 +2018,8 @@
     "Dom2ImageIntro": "将 Html 片段导出为图片",
     "Dom2ImageNormalIntro": "通过指定 <code>Selector</code> 将此节点转成图片",
     "Dom2ImageNormalTitle": "基本用法",
+    "Dom2ImageServiceInjectTip": "使用 <code>IDom2HtmlService</code> 前请先手动注入服务",
+    "Dom2ImageSignalRConfigTip": "同时请配置 SignalR 的最大接收消息大小（示例为 <code>10 MB</code>）",
     "Dom2ImageTitle": "Dom2Image 元素转图片"
   },
   "BootstrapBlazor.Server.Components.Samples.Downloads": {
@@ -2132,6 +2134,8 @@
     "IsAsyncTitle": "异步按钮",
     "IsFixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
     "IsFixedButtonTextTitle": "固定按钮文本",
+    "IsOutlineIntro": "通过设置 <code>IsOutline</code> 属性使下拉按钮显示为轮廓样式，分裂式下拉菜单同样支持此参数。",
+    "IsOutlineTitle": "轮廓样式",
     "Item1": "北京",
     "Item2": "上海",
     "Item3": "广州",
@@ -4682,6 +4686,7 @@
     "DetailRowTemplate3Title": "明细行中使用 Tab 组件",
     "DetailRowTemplateIntro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplateIsAccordion": "手风琴效果",
+    "DetailRowTemplateIsDetail": "是否开启明细行",
     "DetailRowTemplateP": "明细行内显示绑定行的另外一个字段 <code>学历</code> 以普通文字形式呈现。支持双击展开明细行的功能，双击回调仅 <b>PC</b> 端支持，请在<b>PC</b> 端测试。",
     "DetailRowTemplateTitle": "简单应用",
     "DynamicIntro": "数据源为 <code>DataTable</code>",

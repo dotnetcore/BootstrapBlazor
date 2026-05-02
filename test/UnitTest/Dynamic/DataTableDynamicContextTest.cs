@@ -139,6 +139,28 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AddAsync_AutoIncrementColumn_Ok()
+    {
+        var table = new DataTable();
+        table.Columns.Add(new DataColumn("Id", typeof(int))
+        {
+            AutoIncrement = true,
+            AutoIncrementSeed = 1,
+            AutoIncrementStep = 1
+        });
+        table.Columns.Add("Name", typeof(string));
+        table.Rows.Add(null, "test-1");
+
+        var context = new DataTableDynamicContext(table);
+
+        await context.AddAsync([]);
+
+        Assert.Equal(2, table.Rows.Count);
+        Assert.Equal(2, table.Rows[0].Field<int>("Id"));
+        Assert.Equal(1, table.Rows[1].Field<int>("Id"));
+    }
+
+    [Fact]
     public async Task DeleteAsync_Ok()
     {
         var deleted = false;
@@ -195,7 +217,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
 
         // 反射设置 内部 Items 为 null
         items = context.GetItems().Take(1).ToList();
-        context.GetType().GetProperty("Items", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(context, null);
+        context.GetType().GetField("_items", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(context, null);
         await context.DeleteAsync(items);
 
         context.OnDeleteAsync = context => Task.FromResult(true);

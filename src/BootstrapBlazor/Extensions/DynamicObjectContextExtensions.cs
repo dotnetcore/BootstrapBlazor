@@ -38,8 +38,8 @@ public static class DynamicObjectContextExtensions
     {
         var parameters = new KeyValuePair<string, object?>[]
         {
-                new(nameof(RequiredAttribute.ErrorMessage), errorMessage),
-                new(nameof(RequiredAttribute.AllowEmptyStrings), allowEmptyStrings)
+            new(nameof(RequiredAttribute.ErrorMessage), errorMessage),
+            new(nameof(RequiredAttribute.AllowEmptyStrings), allowEmptyStrings)
         };
         context.AddMultipleParameterAttribute<RequiredAttribute>(columnName, parameters);
     }

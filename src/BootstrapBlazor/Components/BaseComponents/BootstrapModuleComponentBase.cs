@@ -8,8 +8,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Bootstrap Blazor JavaScript 隔离基类</para>
-/// <para lang="en">Bootstrap blazor JavaScript isolation base class</para>
+/// <para lang="zh">BootstrapBlazor JavaScript 隔离基类</para>
+/// <para lang="en">BootstrapBlazor JavaScript isolation base class</para>
 /// </summary>
 public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisposable
 {
@@ -198,7 +198,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously</para>
+    /// <para lang="zh">异步释放资源</para>
     /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously</para>
     /// </summary>
     /// <param name="disposing"></param>
