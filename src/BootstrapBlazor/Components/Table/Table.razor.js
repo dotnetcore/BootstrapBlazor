@@ -17,7 +17,6 @@ export async function init(id, invoke, options) {
         handlers: {}
     }
     Data.set(id, table)
-    console.log(id);
     await reset(id)
 }
 
@@ -52,8 +51,6 @@ export async function reset(id) {
                 const left = table.body.scrollLeft
                 table.thead.scrollTo(left, 0)
             });
-
-            setTableDefaultWidth(table);
         }
         else {
             table.isExcel = shim.firstElementChild.classList.contains('table-excel')
@@ -116,10 +113,7 @@ const observeHeight = table => {
 
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
-            if (entry.target === table.shim) {
-                setTableDefaultWidth(table);
-            }
-            else if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
+            if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
                 setBodyHeight(table)
             }
         });
@@ -881,31 +875,6 @@ const setToolbarDropdown = (table, toolbar) => {
             }))
         }
     })
-}
-
-const setTableDefaultWidth = table => {
-    if (table.tables.length > 0 && isVisible(table.tables[0])) {
-        const { scrollWidth, columnMinWidth } = table.options;
-        const tableWidth = [...table.tables[0].querySelectorAll('col')]
-            .map(i => {
-                const colWidth = parseFloat(i.style.width);
-                return isNaN(colWidth) ? columnMinWidth : colWidth;
-            })
-            .reduce((accumulator, val) => accumulator + val, 0);
-
-        if (tableWidth > table.el.offsetWidth) {
-            table.tables[0].style.setProperty('width', `${tableWidth}px`);
-            if (table.thead) {
-                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
-            }
-        }
-        else {
-            table.tables[0].style.removeProperty('width');
-            if (table.thead) {
-                table.tables[1].style.setProperty('width', `${table.tables[0].offsetWidth - scrollWidth}px`);
-            }
-        }
-    }
 }
 
 export function getColumnStates(tableName) {

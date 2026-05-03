@@ -517,7 +517,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private TableColumnLocalstorageStatus _tableColumnStateCache = new();
     private BreakPoint _screenSize;
-    private int _localStorageTableWidth = 0;
     private string? _clientTableName;
     private bool _lastIsPopoverToolbarDropdownButtonValue;
     private bool _resetTable;
@@ -1350,10 +1349,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         foreach (var col in cols)
         {
             // 设置列宽度
-            var columnWidth = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
-            if (columnWidth.Width > 0)
+            var column = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
+            if (column != null)
             {
-                col.Width = columnWidth.Width;
+                col.Width = column.Width;
             }
 
             // 设置列可见性与顺序
@@ -1415,13 +1414,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? GetTableStyleString(bool hasHeader)
     {
-        string? ret = null;
-        if (_localStorageTableWidth != 0)
+        if (_tableColumnStateCache.ColumnWidthState.TableWidth <= 0)
         {
-            var width = hasHeader ? _localStorageTableWidth : _localStorageTableWidth - ActualScrollWidth;
-            ret = $"width: {width}px;";
+            return null;
         }
-        return null;
+
+        // 计算实际宽度
+        var width = _tableColumnStateCache.ColumnWidthState.TableWidth;
+        var tableWidth = hasHeader ? width : width - ActualScrollWidth;
+
+        return $"width: {tableWidth}px;";
     }
 
     private async Task ReloadColumnStatesFromBrowserAsync()
@@ -1878,7 +1880,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         // 更新缓存数据中列宽度
         var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
-        if (!string.IsNullOrEmpty(col.Name))
+        if (col != null)
         {
             col.Width = columnWidth;
 

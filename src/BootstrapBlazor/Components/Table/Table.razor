@@ -21,8 +21,6 @@
     }
     else
     {
-        BuildTableColumns();
-
         if (ShowSearch && SearchMode == SearchMode.Top)
         {
             @RenderSearch
@@ -42,6 +40,8 @@
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
+                    BuildTableColumns();
+
                     if (IsFixedHeader)
                     {
                         @RenderFixTableHeader
