@@ -49,15 +49,9 @@ public partial class Table<TItem>
     /// </summary>
     protected TableRenderMode ActiveRenderMode => RenderMode switch
     {
-        TableRenderMode.Auto => ScreenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
+        TableRenderMode.Auto => _screenSize < RenderModeResponsiveWidth ? TableRenderMode.CardView : TableRenderMode.Table,
         _ => RenderMode
     };
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 客户端屏幕宽度</para>
-    /// <para lang="en">Gets or sets Client Screen Width</para>
-    /// </summary>
-    protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm</para>
@@ -284,10 +278,10 @@ public partial class Table<TItem>
     [NotNull]
     private IDataService<TItem>? InjectDataService { get; set; }
 
-    private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
+    private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options, bool query = true)
     {
         QueryData<TItem>? ret = null;
-        if (_autoQuery)
+        if (query)
         {
             if (OnQueryAsync != null)
             {
@@ -299,6 +293,7 @@ public partial class Table<TItem>
                 ret = await d.QueryAsync(options);
             }
         }
+
         return ret ?? new QueryData<TItem>()
         {
             Items = [],
@@ -476,7 +471,7 @@ public partial class Table<TItem>
     /// <para lang="zh">点击 CardView 按钮回调方法</para>
     /// <para lang="en">Click CardView Button Callback</para>
     /// </summary>
-    protected void OnClickCardView()
+    protected async Task OnClickCardView()
     {
         var model = RenderMode;
         if (model == TableRenderMode.Auto)
@@ -488,11 +483,21 @@ public partial class Table<TItem>
             TableRenderMode.Table => TableRenderMode.CardView,
             _ => TableRenderMode.Table
         };
-        _viewChanged = true;
-        StateHasChanged();
+
+        if (RenderMode == TableRenderMode.CardView)
+        {
+            // 移除 Table 脚本
+            await InvokeVoidAsync("switchCardView", Id);
+        }
+        else
+        {
+            // 重新绑定 Table 脚本
+            _resetTable = true;
+            _invoke = true;
+        }
     }
 
-    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false, bool firstQuery = false, bool isAutoQuery = true)
     {
         if (ScrollMode == ScrollMode.Virtual && _virtualizeElement != null)
         {
@@ -505,7 +510,7 @@ public partial class Table<TItem>
                 PageIndex = pageIndex.Value;
             }
             await ToggleLoading(true);
-            await QueryData(triggerByPagination);
+            await QueryData(triggerByPagination, firstQuery, isAutoQuery);
             await ToggleLoading(false);
         }
 
@@ -546,19 +551,16 @@ public partial class Table<TItem>
     /// <para lang="zh">调用 OnQuery 回调方法获得数据源</para>
     /// <para lang="en">Call OnQuery callback to get data source</para>
     /// </summary>
-    protected async Task QueryData(bool triggerByPagination = false)
+    protected async Task QueryData(bool triggerByPagination = false, bool firstQuery = false, bool isAutoQuery = true)
     {
-        // Design: Items parameter is used without calling OnQueryAsync method
         if (Items == null)
         {
-            var queryOption = BuildQueryPageOptions();
-            // Set whether it is the first query
-            queryOption.IsFirstQuery = _firstQuery;
+            var queryOption = BuildQueryPageOptions(firstQuery);
             queryOption.IsTriggerByPagination = triggerByPagination;
 
-            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (DynamicContext != null)
             {
-                QueryDynamicItems(queryOption, DynamicContext);
+                QueryDynamicItems(queryOption, DynamicContext, isAutoQuery);
             }
             else
             {
@@ -574,7 +576,7 @@ public partial class Table<TItem>
 
         async Task OnQuery(QueryPageOptions queryOption)
         {
-            var queryData = await InternalOnQueryAsync(queryOption);
+            var queryData = await InternalOnQueryAsync(queryOption, isAutoQuery);
             PageIndex = queryOption.PageIndex;
             _pageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
@@ -679,7 +681,7 @@ public partial class Table<TItem>
         }
     }
 
-    private QueryPageOptions BuildQueryPageOptions()
+    private QueryPageOptions BuildQueryPageOptions(bool firstQuery = false)
     {
         var queryOption = new QueryPageOptions()
         {
@@ -699,6 +701,7 @@ public partial class Table<TItem>
         queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
         queryOption.CustomerSearches.AddRange(GetCustomerSearches());
         queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
+        queryOption.IsFirstQuery = firstQuery;
 
         if (!string.IsNullOrEmpty(SortString))
         {

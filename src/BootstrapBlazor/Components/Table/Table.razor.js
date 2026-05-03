@@ -17,41 +17,7 @@ export async function init(id, invoke, options) {
         handlers: {}
     }
     Data.set(id, table)
-
     await reset(id)
-}
-
-export function saveColumnList(tableName, columns) {
-    const key = `bb-table-column-visiable-${tableName}`
-    localStorage.setItem(key, JSON.stringify(columns));
-}
-
-export function reloadColumnList(tableName) {
-    const key = `bb-table-column-visiable-${tableName}`
-    const json = localStorage.getItem(key);
-    let columns = [];
-    if (json) {
-        try {
-            columns = JSON.parse(json);
-        }
-        catch { }
-    }
-    return columns;
-}
-
-export function reloadColumnWidth(tableName) {
-    const key = `bb-table-column-width-${tableName}`
-    return localStorage.getItem(key);
-}
-
-export function reloadColumnOrder(tableName) {
-    const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) ?? [];
-}
-
-export function saveColumnOrder(options) {
-    const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify(options.columns));
 }
 
 export async function reset(id) {
@@ -73,11 +39,11 @@ export async function reset(id) {
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
-            table.isExcel = table.thead.firstChild.classList.contains('table-excel')
+            table.isExcel = table.thead.firstElementChild.classList.contains('table-excel')
             table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
-            table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
-            table.tables.push(table.thead.firstChild)
-            table.tables.push(table.body.firstChild)
+            table.isDraggable = table.thead.firstElementChild.classList.contains('table-draggable')
+            table.tables.push(table.thead.firstElementChild)
+            table.tables.push(table.body.firstElementChild)
             table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
             await fixHeader(table);
 
@@ -85,13 +51,11 @@ export async function reset(id) {
                 const left = table.body.scrollLeft
                 table.thead.scrollTo(left, 0)
             });
-
-            setTableDefaultWidth(table);
         }
         else {
-            table.isExcel = shim.firstChild.classList.contains('table-excel')
-            table.isDraggable = shim.firstChild.classList.contains('table-draggable')
-            table.tables.push(shim.firstChild)
+            table.isExcel = shim.firstElementChild.classList.contains('table-excel')
+            table.isDraggable = shim.firstElementChild.classList.contains('table-draggable')
+            table.tables.push(shim.firstElementChild)
         }
 
         if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
@@ -141,6 +105,7 @@ export function fitAllColumnWidth(id) {
     columns.forEach(async col => {
         await autoFitColumnWidth(table, col);
     });
+    saveColumnWidth();
 }
 
 const observeHeight = table => {
@@ -148,10 +113,7 @@ const observeHeight = table => {
 
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
-            if (entry.target === table.shim) {
-                setTableDefaultWidth(table);
-            }
-            else if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
+            if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
                 setBodyHeight(table)
             }
         });
@@ -171,94 +133,12 @@ const observeHeight = table => {
     table.observer = observer;
 }
 
-export function resetColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        setResizeListener(table)
-        resetTableWidth(table)
-    }
-}
-
-export function resetColDragListener(id) {
-    const table = Data.get(id)
-    if (table) {
-        setDraggable(table)
-    }
-}
-
-export function bindResizeColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        if (table.isResizeColumn) {
-            setResizeListener(table)
-        }
-    }
-}
-
-export function sort(id) {
-    const table = Data.get(id)
-    const el = table.el
-
-    const span = el.querySelector('.sortable .table-text[aria-describedby]')
-    if (span) {
-        const tooltip = getDescribedElement(span)
-        if (tooltip) {
-            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
-        }
-    }
-}
-
-export function toggleLoadMask(id, method) {
-    const table = Data.get(id)
-    if (table) {
-        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
-        if (method === 'show') {
-            loader.classList.add('show')
-        }
-        else {
-            loader.classList.remove('show')
-        }
-    }
-}
-
-export function scroll(id, align, options = { behavior: 'smooth' }) {
-    const element = document.getElementById(id);
-    if (element) {
-        const selectedRow = getSelectedRow(element);
-        if (selectedRow) {
-            const row = selectedRow.closest('tr');
-            if (row) {
-                options.block = align;
-                row.scrollIntoView(options);
-            }
-        }
-    }
-}
-
-const getSelectedRow = element => {
-    const rows = [...element.querySelectorAll('tr.active')];
-    return rows.pop();
-}
-
-export function scrollTo(id) {
-    const element = document.getElementById(id);
-    if (element) {
-        const scroll = element.querySelector('.scroll');
-        if (scroll) {
-            scroll.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-            });
-        }
-    }
-}
-
-export function toggleView(id) {
+export async function switchCardView(id) {
     const table = Data.get(id);
-    destroyTable(table);
 
-    reset(id);
+    if (table) {
+        destroyTable(table);
+    }
 }
 
 export function dispose(id) {
@@ -432,7 +312,7 @@ const setExcelKeyboardListener = table => {
     }
 
     const setFocus = target => {
-        const handler = setTimeout(function() {
+        const handler = setTimeout(function () {
             clearTimeout(handler);
             if (target.focus) {
                 target.focus();
@@ -630,6 +510,7 @@ const setResizeListener = table => {
             e.preventDefault();
             e.stopPropagation();
             await autoFitColumnWidth(table, col);
+            saveColumnWidth(table);
         });
 
         setColumnResizingListen(table, col);
@@ -643,9 +524,9 @@ const setResizeListener = table => {
                     colWidth = parseInt(width)
                 }
                 else {
-                    colWidth = getWidth(col.closest('th'))
+                    colWidth = getWidth(col.closest('th')) | 0;
                 }
-                tableWidth = getWidth(col.closest('table'))
+                tableWidth = getWidth(col.closest('table')) | 0;
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
@@ -686,14 +567,13 @@ const setResizeListener = table => {
             },
             () => {
                 eff(col, false)
-                if (table.options.resizeColumnCallback) {
-                    const th = col.closest('th')
-                    const width = getWidth(th);
-                    const currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th > .col-resizer')].indexOf(col)
-                    table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, currentIndex, width)
-                }
 
-                saveColumnWidth(table)
+                saveColumnWidth(table);
+                const field = col.getAttribute('data-bb-field');
+                const th = col.closest('th')
+                const width = getWidth(th) | 0;
+                const tableWidth =  table.tables[0].offsetWidth | 0;
+                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, tableWidth);
             }
         )
     })
@@ -785,13 +665,6 @@ const autoFitColumnWidth = async (table, col) => {
         maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
     }
 
-    if (table.options.autoFitColumnWidthCallback !== null) {
-        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
-        if (widthValue > 0) {
-            maxWidth = widthValue;
-        }
-    }
-
     if (maxWidth > 0) {
         table.tables.forEach(table => {
             const colEl = table.querySelectorAll('colgroup col')[index];
@@ -807,10 +680,8 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         setTableDefaultWidth(table);
-
-        if (table.options.resizeColumnCallback) {
-            await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth)
-        }
+        const widthState = getColumnWidthStateObject(table);
+        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth | 0, widthState)
 
         resetColumnWidthTips(table, col);
     }
@@ -936,7 +807,6 @@ const setDraggable = table => {
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     disposeDragColumns(table.dragColumns);
     table.dragColumns.forEach(col => {
-
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
@@ -1007,67 +877,186 @@ const setToolbarDropdown = (table, toolbar) => {
     })
 }
 
-export function resetColumnList(id) {
-    const table = Data.get(id);
+export function getColumnStates(tableName) {
+    const columnVisibleStates = getColumnVisibleState(tableName);
+    const columnWidthState = getColumnWidthState(tableName);
+
+    return {
+        columnVisibleStates,
+        columnWidthState
+    };
+}
+
+const getColumnVisibleState = tableName => {
+    const columnVisibleKey = `bb-table-column-visible-${tableName}`
+    return getLocalStorageValue(columnVisibleKey);
+}
+
+const getColumnWidthState = tableName => {
+    const columnWidthKey = `bb-table-column-width-${tableName}`
+    return getLocalStorageValue(columnWidthKey);
+}
+
+const getLocalStorageValue = key => {
+    let result = null;
+    const json = localStorage.getItem(key);
+    if (json) {
+        try {
+            result = JSON.parse(json);
+        }
+        catch { }
+    }
+
+    return result;
+}
+
+const saveColumnList = (tableName, columns) => {
+    if (tableName) {
+        const key = `bb-table-column-visible-${tableName}`
+        localStorage.setItem(key, JSON.stringify(columns));
+    }
+}
+
+const saveColumnWidth = table => {
+    const { options: { tableName } } = table;
+    if (tableName) {
+        const key = `bb-table-column-width-${tableName}`
+        localStorage.setItem(key, JSON.stringify(getColumnWidthStateObject(table)));
+    }
+}
+
+const getColumnWidthStateObject = table => {
+    const cols = table.columns
+    const tableWidth = table.tables[0].offsetWidth | 0;
+    return {
+        "cols": cols.map(col => {
+            return { "width": col.closest('th').offsetWidth | 0, "name": col.getAttribute('data-bb-field') }
+        }),
+        "table": tableWidth
+    }
+}
+
+export function toggleLoadMask(id, method) {
+    const table = Data.get(id)
     if (table) {
-        const { toolbar } = table;
-        if (toolbar) {
-            const dropdown = toolbar.querySelector('.dropdown-column');
-            if (dropdown) {
-                const button = dropdown.querySelector('.dropdown-toggle');
-                const dropdownToggle = bootstrap.Dropdown.getInstance(button);
-                if (dropdownToggle) {
-                    dropdownToggle.dispose();
-                }
-                const p = table.popovers.find(i => i.el === dropdown);
-                if (p) {
-                    table.popovers = table.popovers.filter(i => i !== p);
-                    Popover.dispose(p);
-                }
-                if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
-                    table.popovers.push(Popover.init(dropdown, {
-                        isDisabled: () => false
-                    }));
-                }
+        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
+        if (method === 'show') {
+            loader.classList.add('show')
+        }
+        else {
+            loader.classList.remove('show')
+        }
+    }
+}
+
+export async function updateTableState(id, options) {
+    const table = Data.get(id)
+    if (table) {
+        table.options.tableName = options.tableName;
+
+        if (options.resetTable) {
+            await reset(id);
+            return;
+        }
+
+        if (options.resetColumns) {
+            resetColumns(table, options);
+        }
+
+        if (options.resetColumnListPopover) {
+            resetColumnListPopover(table);
+        }
+
+        if (options.updateSortTooltip) {
+            updateSortTooltip(table);
+        }
+
+        if (options.autoScrollLastSelectedRowToView) {
+            scrollToRow(table, options.autoScrollVerticalAlign, options.scrollIntoViewBehavior);
+        }
+        else if (options.scrollToTop) {
+            scrollToTop(table, options.scrollIntoViewBehavior);
+        }
+    }
+}
+
+const resetColumnListPopover = table => {
+    const { toolbar } = table;
+    if (toolbar) {
+        const dropdown = toolbar.querySelector('.dropdown-column');
+        if (dropdown) {
+            const button = dropdown.querySelector('.dropdown-toggle');
+            const dropdownToggle = bootstrap.Dropdown.getInstance(button);
+            if (dropdownToggle) {
+                dropdownToggle.dispose();
+            }
+            const p = table.popovers.find(i => i.el === dropdown);
+            if (p) {
+                table.popovers = table.popovers.filter(i => i !== p);
+                Popover.dispose(p);
+            }
+            if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
+                table.popovers.push(Popover.init(dropdown, {
+                    isDisabled: () => false
+                }));
             }
         }
     }
 }
 
-const saveColumnWidth = table => {
-    const cols = table.columns
-    const tableWidth = table.tables[0].offsetWidth
-    const tableName = table.tables[0].getAttribute('data-bb-name')
-    const key = `bb-table-column-width-${tableName}`
-    localStorage.setItem(key, JSON.stringify({
-        "cols": cols.map(col => {
-            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
-        }),
-        "table": tableWidth
-    }));
+const resetColumns = (table, options) => {
+    setResizeListener(table);
+    resetTableWidth(table);
+
+    const { visibleColumns, allowDragColumn } = options;
+    const { options: { tableName } } = table;
+    if (tableName && visibleColumns) {
+        saveColumnList(tableName, visibleColumns);
+    }
+
+    if (allowDragColumn) {
+        setDraggable(table);
+    }
 }
 
-const setTableDefaultWidth = table => {
-    if (table.tables.length > 0 && isVisible(table.tables[0])) {
-        const { scrollWidth, columnMinWidth } = table.options;
-        const tableWidth = [...table.tables[0].querySelectorAll('col')]
-            .map(i => {
-                const colWidth = parseFloat(i.style.width);
-                return isNaN(colWidth) ? columnMinWidth : colWidth;
-            })
-            .reduce((accumulator, val) => accumulator + val, 0);
+const updateSortTooltip = table => {
+    const el = table.el
+    const span = el.querySelector('.sortable .table-text[aria-describedby]')
+    if (span) {
+        const tooltip = getDescribedElement(span)
+        if (tooltip) {
+            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
+        }
+    }
+}
 
-        if (tableWidth > table.el.offsetWidth) {
-            table.tables[0].style.setProperty('width', `${tableWidth}px`);
-            if (table.thead) {
-                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+const scrollToRow = (table, align, options = { behavior: 'smooth' }) => {
+    const el = table.el;
+    if (el) {
+        const selectedRow = getSelectedRow(el);
+        if (selectedRow) {
+            const row = selectedRow.closest('tr');
+            if (row) {
+                options.block = align;
+                row.scrollIntoView(options);
             }
         }
-        else {
-            table.tables[0].style.removeProperty('width');
-            if (table.thead) {
-                table.tables[1].style.setProperty('width', `${table.tables[0].offsetWidth - scrollWidth}px`);
-            }
-        }
+    }
+}
+
+const getSelectedRow = element => {
+    const rows = [...element.querySelectorAll('tr.active')];
+    return rows.pop();
+}
+
+const scrollToTop = (table, behavior) => {
+    const el = table.el;
+    const scroll = el.querySelector('.scroll');
+    if (scroll) {
+        scroll.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: behavior
+        });
     }
 }

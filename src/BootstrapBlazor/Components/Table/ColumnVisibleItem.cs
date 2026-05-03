@@ -13,7 +13,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="name"></param>
 /// <param name="visible"></param>
-[JsonConverter(typeof(ColumnVisibleItemConverter))]
 public class ColumnVisibleItem(string name, bool visible)
 {
     /// <summary>

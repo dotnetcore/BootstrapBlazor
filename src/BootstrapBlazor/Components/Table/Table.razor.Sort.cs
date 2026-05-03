@@ -79,7 +79,8 @@ public partial class Table<TItem>
     /// </summary>
     protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
     {
-        UpdateSortTooltip = true;
+        _updateSortTooltip = true;
+        _invoke = true;
 
         if (SortOrder == SortOrder.Unset)
         {

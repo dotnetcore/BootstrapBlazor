@@ -169,7 +169,6 @@ public partial class Table<TItem>
         }
     };
 
-    private bool _shouldScrollTop = false;
     /// <summary>
     /// <para lang="zh">点击页码调用此方法</para>
     /// <para lang="en">Page Link Click Callback</para>
@@ -186,13 +185,14 @@ public partial class Table<TItem>
                 SelectedRows.Clear();
             }
 
-            await QueryAsync(false, triggerByPagination: true);
-            await OnSelectedRowsChanged();
-
             if (IsAutoScrollTopWhenClickPage)
             {
                 _shouldScrollTop = true;
+                _invoke = true;
             }
+
+            await QueryAsync(false, triggerByPagination: true);
+            await OnSelectedRowsChanged();
         }
     }
 

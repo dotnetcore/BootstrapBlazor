@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
-using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -516,19 +515,25 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private ILookupService? InjectLookupService { get; set; }
 
-    private bool _breakPointChanged;
-
-    private bool _viewChanged;
-
-    private List<ColumnWidth> _clientColumnWidths = [];
+    private TableColumnLocalstorageStatus _tableColumnStateCache = new();
+    private BreakPoint _screenSize;
+    private string? _clientTableName;
+    private bool _lastIsPopoverToolbarDropdownButtonValue;
+    private bool _resetTable;
+    private bool _resetColumnListPopover;
+    private bool _resetColumns;
+    private bool _updateSortTooltip;
+    private bool _shouldScrollTop;
+    private bool _invoke;
 
     private async Task OnBreakPointChanged(BreakPoint size)
     {
-        if (size != ScreenSize)
+        if (size != _screenSize)
         {
-            ScreenSize = size;
-            _breakPointChanged = true;
-            await InvokeAsync(StateHasChanged);
+            _screenSize = size;
+            _resetTable = true;
+            _invoke = true;
+            StateHasChanged();
         }
     }
 
@@ -949,16 +954,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private bool UpdateSortTooltip { get; set; }
-
-    private bool _isFilterTrigger;
+    /// <summary>
+    /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
+    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
+    /// </summary>
+    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
     private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
         .AddClass("dropdown-menu-controls", ShowColumnListControls)
         .AddClass("dropdown-menu-popover", IsPopoverToolbarDropdownButton)
         .Build();
 
-    private bool _lastIsPopoverToolbarDropdownButtonValue = false;
+    private bool _firstRender = true;
+
+    private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
 
     /// <summary>
     /// <inheritdoc/>
@@ -969,7 +978,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 初始化节点缓存
         TreeNodeCache ??= new(this);
-        OnInitLocalization();
+
+        // 初始化本地化资源
+        OnInitializeLocalization();
 
         // 设置 OnSort 回调方法
         InternalOnSortAsync = (sortName, sortOrder) =>
@@ -991,7 +1002,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             TotalCount = 0;
             if (ScrollMode == ScrollMode.Virtual)
             {
-                _isFilterTrigger = true;
+                _shouldScrollTop = true;
+                _invoke = true;
             }
             return QueryAsync();
         };
@@ -1008,7 +1020,181 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void OnInitParameters()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (ScrollMode == ScrollMode.Virtual && IsTree)
+        {
+            throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
+        }
+
+        if (Items != null && OnQueryAsync != null)
+        {
+            throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
+        }
+
+        // 加载配置文件中的参数值
+        LoadParameterFromOptions();
+
+        // 加载主题图标
+        LoadIconFromTheme();
+
+        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
+
+        if (_originPageItems != PageItems)
+        {
+            _originPageItems = PageItems;
+            _pageItems = 0;
+        }
+
+        if (_pageItems == 0)
+        {
+            // 如果未设置 PageItems 取默认值第一个
+            _pageItems = _originPageItems ?? PageItemsSource.First();
+        }
+
+        if (ExtendButtonColumnAlignment == Alignment.None)
+        {
+            ExtendButtonColumnAlignment = Alignment.Center;
+        }
+
+        if (LineNoColumnAlignment == Alignment.None)
+        {
+            LineNoColumnAlignment = Alignment.Center;
+        }
+
+        SearchModel ??= CreateSearchModel();
+
+        if (ScrollMode == ScrollMode.Virtual)
+        {
+            IsFixedHeader = true;
+            RenderMode = TableRenderMode.Table;
+            IsPagination = false;
+        }
+
+        // 重置渲染行缓存
+        _rowsCache = null;
+
+        // 重置搜索表单条件
+        _searchItems = null;
+
+        if (IsExcel)
+        {
+            IsStriped = false;
+            IsMultipleSelect = true;
+            IsTree = false;
+        }
+
+        // 如果 TItem 是动态数据类型添加到自动清理任务中
+        if (IsDataTableDynamicContext)
+        {
+            ChangeDetectionCleanTask.Register(this);
+        }
+
+        if (!_firstRender)
+        {
+            // 动态列模式
+            ResetDynamicContext();
+        }
+
+        // 检查状态变化
+        OnParameterCheckChanged();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // 首次渲染结束
+            _firstRender = false;
+
+            // 读取浏览器持久化列状态配置
+            await ReloadColumnStatesFromBrowserAsync();
+
+            // 构建列信息
+            BuildTableColumns();
+
+            // 列排序回调方法
+            if (ColumnOrderCallback != null)
+            {
+                Columns.Clear();
+                Columns.AddRange(ColumnOrderCallback(Columns));
+            }
+
+            // 调用列创建回调方法
+            if (OnColumnCreating != null)
+            {
+                await OnColumnCreating(Columns);
+            }
+
+            // 构建可见列
+            BuildVisibleColumns();
+
+            // 调用查询方法渲染 UI
+            await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
+            return;
+        }
+
+        if (_invoke)
+        {
+            var resetColumnListPopover = _resetColumnListPopover;
+            var resetTable = _resetTable;
+            var resetColumns = _resetColumns;
+            var updateSortTooltip = _updateSortTooltip;
+            var scrollToTop = _shouldScrollTop;
+
+            _invoke = false;
+            _resetColumnListPopover = false;
+            _resetTable = false;
+            _resetColumns = false;
+            _updateSortTooltip = false;
+            _shouldScrollTop = false;
+
+            await InvokeVoidAsync("updateTableState", Id, new
+            {
+                TableName = ClientTableName,
+                ResetColumnListPopover = resetColumnListPopover,
+                ResetTable = resetTable,
+                ResetColumns = resetColumns,
+                VisibleColumns = resetColumns ? _visibleColumns.Values : null,
+                AllowDragColumn,
+                UpdateSortTooltip = updateSortTooltip,
+                AutoScrollLastSelectedRowToView,
+                AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
+                ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
+                ScrollToTop = scrollToTop
+            });
+        }
+
+        // 增加去重保护 _loop 为 false 时执行
+        if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
+        {
+            _loop = true;
+            await LoopQueryAsync();
+            _loop = false;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task InvokeInitAsync()
+    {
+        // 首次加载检测屏幕宽度
+        _screenSize = await InvokeAsync<BreakPoint>("getResponsive");
+    }
+
+    private void LoadParameterFromOptions()
     {
         var op = Options.CurrentValue;
         if (ShowCheckboxTextColumnWidth == 0)
@@ -1040,31 +1226,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
+    }
 
-        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
-
-        if (_originPageItems != PageItems)
-        {
-            _originPageItems = PageItems;
-            _pageItems = 0;
-        }
-
-        if (_pageItems == 0)
-        {
-            // 如果未设置 PageItems 取默认值第一个
-            _pageItems = _originPageItems ?? PageItemsSource.First();
-        }
-
-        if (ExtendButtonColumnAlignment == Alignment.None)
-        {
-            ExtendButtonColumnAlignment = Alignment.Center;
-        }
-
-        if (LineNoColumnAlignment == Alignment.None)
-        {
-            LineNoColumnAlignment = Alignment.Center;
-        }
-
+    private void LoadIconFromTheme()
+    {
         SortIconAsc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIconAsc);
         SortIconDesc ??= IconTheme.GetIconByKey(ComponentIcons.TableSortDesc);
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
@@ -1095,176 +1260,37 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
         TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
         AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
-
-        SearchModel ??= CreateSearchModel();
     }
 
-    private bool _firstRender = true;
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
-    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
-    /// </summary>
-    protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
-
-    private bool _bindResizeColumn;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
+    private void OnParameterCheckChanged()
     {
-        base.OnParametersSet();
-
-        if (ScrollMode == ScrollMode.Virtual && IsTree)
+        // 首次加载保存状态值副本
+        if (_firstRender)
         {
-            throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
-        }
-
-        OnInitParameters();
-
-        if (Items != null && OnQueryAsync != null)
-        {
-            throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
-        }
-
-        if (ScrollMode == ScrollMode.Virtual)
-        {
-            IsFixedHeader = true;
-            RenderMode = TableRenderMode.Table;
-            IsPagination = false;
-        }
-
-        _rowsCache = null;
-
-        if (IsExcel)
-        {
-            IsStriped = false;
-            IsMultipleSelect = true;
-            IsTree = false;
-        }
-
-        // 如果 TItem 是动态数据类型添加到自动清理任务中
-        if (IsDataTableDynamicContext)
-        {
-            ChangeDetectionCleanTask.Register(this);
-        }
-
-        if (!_firstRender)
-        {
-            // 动态列模式
-            ResetDynamicContext();
-
-            // resize column width;
-            ResetColumnWidth(Columns);
-        }
-
-        // 重置搜索表单条件
-        _searchItems = null;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        if (!_firstRender)
-        {
-            // 重新读取浏览器设置
-            await OnTableColumnReset();
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
+            _clientTableName = ClientTableName;
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
-            await ProcessFirstRender();
+            return;
         }
 
-        if (_viewChanged)
+        if (_clientTableName != ClientTableName)
         {
-            _viewChanged = false;
-            await InvokeVoidAsync("toggleView", Id);
+            _clientTableName = ClientTableName;
+            _resetTable = true;
+            _invoke = true;
+            return;
         }
 
-        if (_breakPointChanged)
-        {
-            _breakPointChanged = false;
-            await InvokeVoidAsync("reset", Id);
-        }
-
-        if (_resetColumns)
-        {
-            _resetColumns = false;
-            await InvokeVoidAsync("resetColumn", Id);
-        }
-
-        if (_resetColDragListener)
-        {
-            _resetColDragListener = false;
-            await InvokeVoidAsync("resetColDragListener", Id);
-        }
-
-        if (_bindResizeColumn)
-        {
-            _bindResizeColumn = false;
-            await InvokeVoidAsync("bindResizeColumn", Id);
-        }
-
-        if (UpdateSortTooltip)
-        {
-            UpdateSortTooltip = false;
-            await InvokeVoidAsync("sort", Id);
-        }
-
-        if (AutoScrollLastSelectedRowToView)
-        {
-            await InvokeVoidAsync("scroll", Id, AutoScrollVerticalAlign.ToDescriptionString());
-        }
-
-        if (_isFilterTrigger)
-        {
-            _isFilterTrigger = false;
-            _shouldScrollTop = false;
-            await InvokeVoidAsync("scrollTo", Id);
-        }
-
-        if (_shouldScrollTop)
-        {
-            _shouldScrollTop = false;
-            await InvokeVoidAsync("scrollTo", Id);
-        }
-
-        // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
+        // 检查 ColumnList 显示状态是否改变如果改变重置 ColumnList 渲染模式
         if (_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
         {
+            // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
-            await InvokeVoidAsync("resetColumnList", Id);
-        }
-
-        // 增加去重保护 _loop 为 false 时执行
-        if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
-        {
-            _loop = true;
-            await LoopQueryAsync();
-            _loop = false;
+            _resetColumnListPopover = true;
+            _invoke = true;
         }
     }
 
-    private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
-
-    private async Task OnTableColumnReset()
+    private void BuildTableColumns()
     {
         // 动态列模式
         var cols = new List<ITableColumn>();
@@ -1281,34 +1307,60 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             cols.AddRange(Columns);
         }
 
-        if (ColumnOrderCallback != null)
-        {
-            cols = [.. ColumnOrderCallback(cols)];
-        }
-
-        await ReloadColumnOrdersFromBrowserAsync(cols);
-
-        // 查看是否开启列宽序列化
-        await ReloadColumnWidthFromBrowserAsync(cols);
-
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(cols);
-        }
-
-        InternalResetVisibleColumns(cols);
-
-        await ReloadColumnVisibleFromBrowserAsync();
+        // 加载客户端持久化列状态
+        LoadTableColumnFromCache(cols);
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
         // set default sortName
-        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (col != null)
+        var column = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+        if (column != null)
         {
-            SortName = col.GetFieldName();
-            SortOrder = col.DefaultSortOrder;
+            SortName = column.GetFieldName();
+            SortOrder = column.DefaultSortOrder;
+        }
+    }
+
+    private void BuildVisibleColumns()
+    {
+        var items = new Dictionary<string, ColumnVisibleItem>();
+        foreach (var col in Columns)
+        {
+            var fieldName = col.GetFieldName();
+            var item = new ColumnVisibleItem(fieldName, col.GetVisible())
+            {
+                DisplayName = col.GetDisplayName()
+            };
+
+            // 回复可见性与列宽数据
+            if (_visibleColumns.TryGetValue(fieldName, out var v))
+            {
+                item.Visible = v.Visible;
+            }
+            items.Add(fieldName, item);
+        }
+
+        _visibleColumns = items;
+    }
+
+    private void LoadTableColumnFromCache(List<ITableColumn> cols)
+    {
+        foreach (var col in cols)
+        {
+            // 设置列宽度
+            var column = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
+            if (column != null)
+            {
+                col.Width = column.Width;
+            }
+
+            // 设置列可见性与顺序
+            var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
+            if (columnVisible != null)
+            {
+                col.Visible = columnVisible.Visible;
+            }
         }
     }
 
@@ -1318,10 +1370,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await InvokeVoidAsync("init", Id, Interop, new
             {
+                TableName = ClientTableName,
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
                 FitColumnWidthIncludeHeader,
-                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
+                ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnWidthTooltip,
@@ -1360,152 +1412,36 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private int? _localStorageTableWidth;
-
     private string? GetTableStyleString(bool hasHeader)
     {
-        string? ret = null;
-        if (_localStorageTableWidth.HasValue)
+        if (_tableColumnStateCache.ColumnWidthState.TableWidth <= 0)
         {
-            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - ActualScrollWidth;
-            ret = $"width: {width}px;";
+            return null;
         }
-        return ret;
+
+        // 计算实际宽度
+        var width = _tableColumnStateCache.ColumnWidthState.TableWidth;
+        var tableWidth = hasHeader ? width : width - ActualScrollWidth;
+
+        return $"width: {tableWidth}px;";
     }
 
-    private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
-
-    private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
-
-    private async Task ReloadColumnVisibleFromBrowserAsync()
+    private async Task ReloadColumnStatesFromBrowserAsync()
     {
-        if (!string.IsNullOrEmpty(ClientTableName))
+        // 未开启客户端持久化功能直接返回
+        if (string.IsNullOrEmpty(ClientTableName))
         {
-            // 读取浏览器配置
-            var clientColumns = await InvokeAsync<List<ColumnVisibleItem?>>("reloadColumnList", ClientTableName);
-            clientColumns ??= [];
-            foreach (var column in _visibleColumns)
-            {
-                var item = clientColumns.FirstOrDefault(i => i?.Name == column.Name);
-                if (item != null)
-                {
-                    column.Visible = item.Visible;
-                }
-            }
+            return;
         }
-    }
 
-    private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
-    {
-        List<ColumnWidth>? ret = null;
-        if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
+        var state = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
+        if (state != null)
         {
-            var jsonData = await InvokeAsync<string>("reloadColumnWidth", ClientTableName);
-            if (!string.IsNullOrEmpty(jsonData))
-            {
-                try
-                {
-                    var doc = JsonDocument.Parse(jsonData);
-                    if (doc.RootElement.TryGetProperty("cols", out var element))
-                    {
-                        ret = element.Deserialize<List<ColumnWidth>>(_serializerOption);
-                    }
-                    if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
-                    {
-                        _localStorageTableWidth = tableWidth;
-                    }
-                }
-                catch { }
-            }
+            state.ColumnWidthState ??= new();
+            state.ColumnVisibleStates ??= new();
+
+            _tableColumnStateCache = state;
         }
-        _clientColumnWidths = ret ?? [];
-
-        ResetColumnWidth(columns);
-    }
-
-    private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
-    {
-        if (!string.IsNullOrEmpty(ClientTableName))
-        {
-            var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
-            if (orders != null)
-            {
-                for (int i = 0; i < orders.Count; i++)
-                {
-                    var col = columns.Find(c => c.GetFieldName() == orders[i]);
-                    if (col != null)
-                    {
-                        col.Order = i + 1;
-                    }
-                }
-            }
-        }
-    }
-
-    private async Task ProcessFirstRender()
-    {
-
-        // 设置渲染完毕
-        _firstRender = false;
-
-        await OnTableColumnReset();
-
-        // 获取是否自动查询参数值
-        _autoQuery = IsAutoQueryFirstRender;
-
-        _firstQuery = true;
-        await QueryAsync();
-        _firstQuery = false;
-
-        // 恢复自动查询功能
-        _autoQuery = true;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task InvokeInitAsync()
-    {
-        ScreenSize = BreakPoint.None;
-        var breakPoint = await InvokeAsync<BreakPoint>("getResponsive");
-        if (breakPoint != BreakPoint.None)
-        {
-            ScreenSize = breakPoint;
-        }
-    }
-
-    private void ResetColumnWidth(List<ITableColumn> columns)
-    {
-        foreach (var cw in _clientColumnWidths.Where(c => c.Width > 0))
-        {
-            var c = columns.Find(c => c.GetFieldName() == cw.Name);
-            if (c != null)
-            {
-                c.Width = cw.Width;
-            }
-        }
-    }
-
-    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
-    {
-        var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
-        if (items != null)
-        {
-            foreach (var column in cols)
-            {
-                var item = items.FirstOrDefault(i => i.Name == column.Name);
-                if (item != null)
-                {
-                    column.Visible = item.Visible;
-                    if (!string.IsNullOrEmpty(item.DisplayName))
-                    {
-                        column.DisplayName = item.DisplayName;
-                    }
-                }
-            }
-        }
-        _visibleColumns.Clear();
-        _visibleColumns.AddRange(cols);
     }
 
     /// <summary>
@@ -1516,12 +1452,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
-        if (AllowResizing)
+        foreach (var col in columns)
         {
-            _resetColumns = true;
+            if (_visibleColumns.TryGetValue(col.Name, out var item))
+            {
+                item.Visible = col.Visible;
+            }
         }
 
-        InternalResetVisibleColumns(Columns, columns);
+        _resetColumns = true;
+        _invoke = true;
         StateHasChanged();
     }
 
@@ -1542,8 +1482,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     private bool _loop;
-    private bool _firstQuery;
-    private bool _autoQuery;
 
     private IEnumerable<TItem> QueryItems { get; set; } = [];
 
@@ -1746,7 +1684,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
-        StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
+        StartIndex = _shouldScrollTop ? 0 : request.StartIndex;
         _pageItems = request.Count;
 
         await ToggleLoading(true);
@@ -1885,16 +1823,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 OnAutoFitColumnWidthCallback 替代; Deprecated, please use OnAutoFitColumnWidthCallback instead")]
-    [ExcludeFromCodeCoverage]
-    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
-    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
-    /// </summary>
-    [Parameter]
-    public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
+    public Func<string, int, Task<int>>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
@@ -1933,11 +1862,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
-            if (!string.IsNullOrEmpty(ClientTableName))
-            {
-                var cols = Columns.Select(i => i.GetFieldName()).ToList();
-                await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = cols });
-            }
+
+            BuildVisibleColumns();
+
+            _resetColumns = true;
+            _invoke = true;
             StateHasChanged();
         }
     }
@@ -1946,33 +1875,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="zh">设置列宽方法 由 JavaScript 脚本调用</para>
     /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
-    /// <param name="index"></param>
-    /// <param name="width"></param>
     [JSInvokable]
-    public async Task ResizeColumnCallback(int index, float width)
+    public async Task ResizeColumnCallback(string name, int columnWidth, int tableWidth)
     {
-        var column = GetVisibleColumns().ElementAtOrDefault(index);
-        if (column != null && OnResizeColumnAsync != null)
+        // 更新缓存数据中列宽度
+        var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
+        if (col != null)
         {
-            await OnResizeColumnAsync(column.GetFieldName(), width);
-        }
-    }
+            col.Width = columnWidth;
 
-    /// <summary>
-    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
-    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
-    /// </summary>
-    /// <param name="fieldName"><para lang="zh">当前列名称</para><para lang="en">当前列name</para></param>
-    /// <param name="calcWidth"><para lang="zh">当前列宽</para><para lang="en">当前列宽</para></param>
-    [JSInvokable]
-    public async Task<float> AutoFitColumnWidthCallback(string fieldName, float calcWidth)
-    {
-        float ret = 0;
-        if (OnAutoFitColumnWidthCallback != null)
-        {
-            ret = await OnAutoFitColumnWidthCallback(fieldName, calcWidth);
+            _tableColumnStateCache.ColumnWidthState.TableWidth = tableWidth;
         }
-        return ret;
+
+        // 触发回调
+        if (OnResizeColumnAsync != null)
+        {
+            await OnResizeColumnAsync(name, columnWidth);
+        }
     }
 
     /// <summary>
