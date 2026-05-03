@@ -38,19 +38,19 @@
     </section>
     <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
 
-    <Table TItem="Foo" @ref="TableColumnVisible" ShowCardView="true"
+    <Table TItem="Foo" @ref="TableColumnVisible"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowColumnList="true" ShowColumnListControls="_showColumnListControls"
            IsPopoverToolbarDropdownButton="_isPopoverToolbarDropdownButton"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AllowResizing="true" AllowDragColumn="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
            ShowExtendButtons="false" ClientTableName="test-table"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" Width="290" />
-            <TableColumn @bind-Field="@context.Education" Sortable="true" />
+            <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
             <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>

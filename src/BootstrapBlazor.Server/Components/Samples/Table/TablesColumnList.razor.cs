@@ -73,6 +73,7 @@ public partial class TablesColumnList
 
         // 设置记录总数
         var total = items.Count();
+
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return new QueryData<Foo>()
