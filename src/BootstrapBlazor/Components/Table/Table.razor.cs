@@ -1163,7 +1163,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
-                VisibleColumns = resetColumns ? _visibleColumns : null,
+                VisibleColumns = resetColumns ? _columnVisibleItems : null,
                 AllowDragColumn,
                 UpdateSortTooltip = updateSortTooltip,
                 AutoScrollLastSelectedRowToView,
@@ -1341,19 +1341,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 // 更新 _visibleColumns 中的列信息
                 var fieldName = col.GetFieldName();
-                var c = _visibleColumns.Find(i => i.Name == fieldName);
+                var c = _columnVisibleItems.Find(i => i.Name == fieldName);
                 if (col.Ignore is true)
                 {
                     if (c != null)
                     {
-                        _visibleColumns.Remove(c);
+                        _columnVisibleItems.Remove(c);
                     }
                     continue;
                 }
 
                 if (c == null)
                 {
-                    _visibleColumns.Add(new ColumnVisibleItem()
+                    _columnVisibleItems.Add(new ColumnVisibleItem()
                     {
                         Name = fieldName,
                         Visible = col.Visible ?? true,
@@ -1459,9 +1459,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         foreach (var col in columns)
         {
             // 使用 for + break 性能更好
-            for (var index = 0; index < _visibleColumns.Count; index++)
+            for (var index = 0; index < _columnVisibleItems.Count; index++)
             {
-                var item = _visibleColumns[index];
+                var item = _columnVisibleItems[index];
                 if (item.Name == col.Name)
                 {
                     item.Visible = col.Visible;
@@ -1861,17 +1861,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
         // 更新缓存数据中列顺序
-        var firstColumn = GetVisibleColumns().ElementAtOrDefault(originIndex);
-        var targetColumn = GetVisibleColumns().ElementAtOrDefault(currentIndex);
-        if (firstColumn != null && targetColumn != null)
+        if (_columnVisibleItems.Count > originIndex)
         {
-            var index = Columns.IndexOf(targetColumn);
-            Columns.Remove(firstColumn);
-            Columns.Insert(index, firstColumn);
-
-            if (OnDragColumnEndAsync != null)
+            var firstColumn = _columnVisibleItems[originIndex];
+            if (firstColumn != null && _columnVisibleItems.Count > currentIndex)
             {
-                await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
+                var targetColumn = _columnVisibleItems[currentIndex];
+                _columnVisibleItems.Remove(firstColumn);
+                _columnVisibleItems.Insert(currentIndex, firstColumn);
+
+                if (OnDragColumnEndAsync != null)
+                {
+                    await OnDragColumnEndAsync(firstColumn.Name, Columns);
+                }
+
+                StateHasChanged();
             }
         }
     }

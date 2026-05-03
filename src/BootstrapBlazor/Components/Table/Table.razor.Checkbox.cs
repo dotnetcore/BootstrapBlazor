@@ -183,7 +183,7 @@ public partial class Table<TItem>
 
     private void TriggerSelectAllColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _columnVisibleItems)
         {
             column.Visible = true;
         }
@@ -191,14 +191,14 @@ public partial class Table<TItem>
 
     private void TriggerSelectInvertColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _columnVisibleItems)
         {
             column.Visible = !column.Visible;
         }
 
-        if (_visibleColumns.All(i => i.Visible == false))
+        if (_columnVisibleItems.All(i => i.Visible == false))
         {
-            _visibleColumns.First().Visible = true;
+            _columnVisibleItems.First().Visible = true;
         }
     }
 }
