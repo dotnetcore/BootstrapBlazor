@@ -11,7 +11,7 @@
 <DemoBlock Title="@Localizer["VisibleTitle"]"
            Introduction="@Localizer["VisibleIntro"]"
            Name="Visible">
-@*     <section ignore>
+    <section ignore>
         <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
         <p>@((MarkupString)Localizer["ShowColumnListControlsDesc"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
@@ -36,7 +36,7 @@
             </div>
         </div>
     </section>
- *@    <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
+    <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
 
     <Table TItem="Foo" @ref="TableColumnVisible" ShowCardView="true"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -57,7 +57,7 @@
     </Table>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
+<DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
            Introduction="@Localizer["ShownWithBreakPointIntro"]"
            Name="ShownWithBreakPoint">
     <section ignore>
@@ -86,4 +86,3 @@
         </TableColumns>
     </Table>
 </DemoBlock>
- *@
