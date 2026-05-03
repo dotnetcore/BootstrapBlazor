@@ -578,8 +578,8 @@ const setResizeListener = table => {
                 const field = col.getAttribute('data-bb-field');
                 const th = col.closest('th')
                 const width = getWidth(th) | 0;
-                const widthState = getColumnWidthStateObject(table);
-                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, widthState);
+                const tableWidth =  table.tables[0].offsetWidth | 0;
+                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, tableWidth);
             }
         )
     })

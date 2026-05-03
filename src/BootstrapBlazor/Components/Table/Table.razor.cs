@@ -515,6 +515,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private ILookupService? InjectLookupService { get; set; }
 
+    private TableColumnLocalstorageStatus _tableColumnStateCache = new();
     private BreakPoint _screenSize;
     private int _localStorageTableWidth = 0;
     private string? _clientTableName;
@@ -525,8 +526,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _updateSortTooltip;
     private bool _shouldScrollTop;
     private bool _invoke;
-
-    private List<ColumnWidth> _clientColumnWidths = [];
 
     private async Task OnBreakPointChanged(BreakPoint size)
     {
@@ -1425,8 +1424,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return null;
     }
 
-    private TableColumnLocalstorageStatus _tableColumnStateCache = new();
-
     private async Task ReloadColumnStatesFromBrowserAsync()
     {
         // 未开启客户端持久化功能直接返回
@@ -1877,17 +1874,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
     [JSInvokable]
-    public async Task ResizeColumnCallback(string name, int width)
+    public async Task ResizeColumnCallback(string name, int columnWidth, int tableWidth)
     {
-        if (_visibleColumns.TryGetValue(name, out var item))
+        // 更新缓存数据中列宽度
+        var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
+        if (!string.IsNullOrEmpty(col.Name))
         {
-            item.Width = width;
+            col.Width = columnWidth;
+
+            _tableColumnStateCache.ColumnWidthState.TableWidth = tableWidth;
         }
 
         // 触发回调
         if (OnResizeColumnAsync != null)
         {
-            await OnResizeColumnAsync(name, width);
+            await OnResizeColumnAsync(name, columnWidth);
         }
     }
 
