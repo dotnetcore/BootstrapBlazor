@@ -544,21 +544,38 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 各列是否显示状态集合</para>
     /// <para lang="en">Gets or sets Columns Visibility Status Collection</para>
     /// </summary>
-    private Dictionary<string, ColumnVisibleItem> _visibleColumns = new(50);
+    private List<ColumnVisibleItem> _columnVisibleItems = [];
+
+    private List<ITableColumn> _visibleColumnsCache = [];
 
     /// <summary>
     /// <para lang="zh">获得当前可见列集合</para>
     /// <para lang="en">Get Visible Columns Collection</para>
     /// </summary>
-    public IEnumerable<ITableColumn> GetVisibleColumns()
+    public IEnumerable<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
+
+    private void RebuildVisibleColumnsCache()
     {
-        var items = _visibleColumns.Where(i => i.Value.Visible).Select(a => a.Key).ToHashSet();
-        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && _screenSize >= i.ShownWithBreakPoint);
+        _visibleColumnsCache.Clear();
+
+        var columns = _columnVisibleItems.OrderBy(i => i.Order).ToList();
+        for (var index = 0; index < columns.Count; index++)
+        {
+            var item = columns[index];
+            if (item.Visible)
+            {
+                var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
+                if (col != null)
+                {
+                    _visibleColumnsCache.Add(col);
+                }
+            }
+        }
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item)
     {
-        var items = _visibleColumns.Where(i => i.Value.Visible).Select(a => a.Key).ToHashSet();
+        var items = _columnVisibleItems.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
         return items.Contains(item.Name) && items.Count == 1;
     }
 

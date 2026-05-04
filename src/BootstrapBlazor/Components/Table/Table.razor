@@ -38,10 +38,12 @@
 
         <RenderTemplate OnRenderAsync="OnTableRenderAsync">
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
+                @{
+                    BuildTableColumns();
+                    RebuildVisibleColumnsCache();
+                }
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
-                    BuildTableColumns();
-
                     if (IsFixedHeader)
                     {
                         @RenderFixTableHeader
@@ -961,7 +963,7 @@
                                 </div>
                                 <Divider />
                                 <div class="column-list-items">
-                                    @foreach (var item in _visibleColumns.Values)
+                                    @foreach (var item in _columnVisibleItems)
                                     {
                                         @RenderColumnListItem(item)
                                     }
@@ -969,7 +971,7 @@
                             }
                             else
                             {
-                                @foreach (var item in _visibleColumns.Values)
+                                @foreach (var item in _columnVisibleItems)
                                 {
                                     @RenderColumnListItem(item)
                                 }

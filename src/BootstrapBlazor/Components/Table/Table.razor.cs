@@ -1137,9 +1137,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnColumnCreating(Columns);
             }
 
-            // 构建可见列
-            BuildVisibleColumns();
-
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
             return;
@@ -1166,7 +1163,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
-                VisibleColumns = resetColumns ? _visibleColumns.Values : null,
+                VisibleColumns = resetColumns ? _columnVisibleItems : null,
                 AllowDragColumn,
                 UpdateSortTooltip = updateSortTooltip,
                 AutoScrollLastSelectedRowToView,
@@ -1308,7 +1305,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 加载客户端持久化列状态
-        LoadTableColumnFromCache(cols);
+        RebuildTableColumnFromCache(cols);
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1322,29 +1319,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void BuildVisibleColumns()
-    {
-        var items = new Dictionary<string, ColumnVisibleItem>();
-        foreach (var col in Columns)
-        {
-            var fieldName = col.GetFieldName();
-            var item = new ColumnVisibleItem(fieldName, col.GetVisible())
-            {
-                DisplayName = col.GetDisplayName()
-            };
-
-            // 回复可见性与列宽数据
-            if (_visibleColumns.TryGetValue(fieldName, out var v))
-            {
-                item.Visible = v.Visible;
-            }
-            items.Add(fieldName, item);
-        }
-
-        _visibleColumns = items;
-    }
-
-    private void LoadTableColumnFromCache(List<ITableColumn> cols)
+    private void RebuildTableColumnFromCache(List<ITableColumn> cols)
     {
         foreach (var col in cols)
         {
@@ -1355,11 +1330,41 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 col.Width = column.Width;
             }
 
-            // 设置列可见性与顺序
+            // 设置列可见性
             var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
+            var order = 0;
             if (columnVisible != null)
             {
                 col.Visible = columnVisible.Visible;
+                order = _tableColumnStateCache.ColumnVisibleStates.IndexOf(columnVisible);
+            }
+
+            // 更新 _visibleColumns 中的列信息
+            var fieldName = col.GetFieldName();
+            var c = _columnVisibleItems.Find(i => i.Name == fieldName);
+            if (col.Ignore is true)
+            {
+                if (c != null)
+                {
+                    _columnVisibleItems.Remove(c);
+                }
+                continue;
+            }
+
+            if (c == null)
+            {
+                _columnVisibleItems.Add(new ColumnVisibleItem()
+                {
+                    Name = fieldName,
+                    Visible = col.Visible ?? true,
+                    DisplayName = col.GetDisplayName(),
+                    Order = order
+                });
+            }
+            else
+            {
+                c.Visible = col.Visible ?? true;
+                c.Order = order;
             }
         }
     }
@@ -1454,9 +1459,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
         foreach (var col in columns)
         {
-            if (_visibleColumns.TryGetValue(col.Name, out var item))
+            // 使用 for + break 性能更好
+            for (var index = 0; index < _columnVisibleItems.Count; index++)
             {
-                item.Visible = col.Visible;
+                var item = _columnVisibleItems[index];
+                if (item.Name == col.Name)
+                {
+                    item.Visible = col.Visible;
+                    break;
+                }
             }
         }
 
@@ -1850,24 +1861,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
-        var firstColumn = GetVisibleColumns().ElementAtOrDefault(originIndex);
-        var targetColumn = GetVisibleColumns().ElementAtOrDefault(currentIndex);
-        if (firstColumn != null && targetColumn != null)
+        // 更新缓存数据中列顺序
+        if (_columnVisibleItems.Count > originIndex)
         {
-            var index = Columns.IndexOf(targetColumn);
-            Columns.Remove(firstColumn);
-            Columns.Insert(index, firstColumn);
-
-            if (OnDragColumnEndAsync != null)
+            var firstColumn = _columnVisibleItems[originIndex];
+            if (firstColumn != null && _columnVisibleItems.Count > currentIndex)
             {
-                await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
+                var targetColumn = _columnVisibleItems[currentIndex];
+                _columnVisibleItems.Remove(firstColumn);
+                _columnVisibleItems.Insert(currentIndex, firstColumn);
+
+                if (OnDragColumnEndAsync != null)
+                {
+                    await OnDragColumnEndAsync(firstColumn.Name, Columns);
+                }
+
+                StateHasChanged();
             }
-
-            BuildVisibleColumns();
-
-            _resetColumns = true;
-            _invoke = true;
-            StateHasChanged();
         }
     }
 

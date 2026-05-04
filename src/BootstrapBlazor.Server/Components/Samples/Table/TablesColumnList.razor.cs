@@ -42,9 +42,10 @@ public partial class TablesColumnList
     private Task ResetVisibleColumns()
     {
         // 支持设置部分列不可见
-        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[] {
-            new(nameof(Foo.Name), false),
-            new(nameof(Foo.Complete), true)
+        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[]
+        {
+            new() { Name = nameof(Foo.Name), Visible = false },
+            new() { Name = nameof(Foo.Complete), Visible = true }
         });
         return Task.CompletedTask;
     }

@@ -11,15 +11,14 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Table 组件列可见性类</para>
 /// <para lang="en">Table component column visibility class</para>
 /// </summary>
-/// <param name="name"></param>
-/// <param name="visible"></param>
-public class ColumnVisibleItem(string name, bool visible)
+public class ColumnVisibleItem
 {
     /// <summary>
     /// <para lang="zh">获得 列名称</para>
     /// <para lang="en">Gets column name</para>
     /// </summary>
-    public string Name { get; } = name;
+    [NotNull]
+    public string? Name { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得 列显示名称</para>
@@ -32,5 +31,12 @@ public class ColumnVisibleItem(string name, bool visible)
     /// <para lang="zh">获得 列可见性</para>
     /// <para lang="en">Gets column visibility</para>
     /// </summary>
-    public bool Visible { get; set; } = visible;
+    public bool Visible { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得 列可见性顺序</para>
+    /// <para lang="en">Gets column visibility order</para>
+    /// </summary>
+    [JsonIgnore]
+    public int Order { get; set; }
 }

@@ -152,12 +152,27 @@ public partial class Table<TItem>
 
     private async Task OnToggleColumnVisible(ColumnVisibleItem item, bool visible)
     {
+        // 设置可见性
         item.Visible = visible;
 
-        var columnName = item.Name;
+        // 设置列状态缓存中可见状态
+        if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            for (var index = 0; index < _tableColumnStateCache.ColumnVisibleStates.Count; index++)
+            {
+                var column = _tableColumnStateCache.ColumnVisibleStates[index];
+                if (column.Name == item.Name)
+                {
+                    column.Visible = visible;
+                    break;
+                }
+            }
+        }
+
+        // 触发 OnColumnVisibleChanged 回调
         if (OnColumnVisibleChanged != null)
         {
-            await OnColumnVisibleChanged(columnName, visible);
+            await OnColumnVisibleChanged(item.Name, visible);
         }
 
         _resetColumns = true;
@@ -168,7 +183,7 @@ public partial class Table<TItem>
 
     private void TriggerSelectAllColumnList()
     {
-        foreach (var column in _visibleColumns.Values)
+        foreach (var column in _columnVisibleItems)
         {
             column.Visible = true;
         }
@@ -176,14 +191,14 @@ public partial class Table<TItem>
 
     private void TriggerSelectInvertColumnList()
     {
-        foreach (var column in _visibleColumns.Values)
+        foreach (var column in _columnVisibleItems)
         {
             column.Visible = !column.Visible;
         }
 
-        if (_visibleColumns.Values.All(i => i.Visible == false))
+        if (_columnVisibleItems.All(i => i.Visible == false))
         {
-            _visibleColumns.Values.First().Visible = true;
+            _columnVisibleItems.First().Visible = true;
         }
     }
 }
