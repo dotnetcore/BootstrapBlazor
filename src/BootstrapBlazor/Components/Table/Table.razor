@@ -38,10 +38,12 @@
 
         <RenderTemplate OnRenderAsync="OnTableRenderAsync">
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
+                @{
+                    BuildTableColumns();
+                    RebuildVisibleColumnsCache();
+                }
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
-                    BuildTableColumns();
-
                     if (IsFixedHeader)
                     {
                         @RenderFixTableHeader

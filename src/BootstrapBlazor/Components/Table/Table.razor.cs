@@ -1305,7 +1305,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 加载客户端持久化列状态
-        RebuildTableColumnWidthAndVisibleFromCache(cols);
+        RebuildTableColumnFromCache(cols);
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1319,7 +1319,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void RebuildTableColumnWidthAndVisibleFromCache(List<ITableColumn> cols)
+    private void RebuildTableColumnFromCache(List<ITableColumn> cols)
     {
         foreach (var col in cols)
         {
@@ -1330,40 +1330,41 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 col.Width = column.Width;
             }
 
-            // 设置列可见性与顺序
+            // 设置列可见性
             var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
+            var order = 0;
             if (columnVisible != null)
             {
                 col.Visible = columnVisible.Visible;
+                order = _tableColumnStateCache.ColumnVisibleStates.IndexOf(columnVisible);
             }
 
-            if (ShowColumnList)
+            // 更新 _visibleColumns 中的列信息
+            var fieldName = col.GetFieldName();
+            var c = _columnVisibleItems.Find(i => i.Name == fieldName);
+            if (col.Ignore is true)
             {
-                // 更新 _visibleColumns 中的列信息
-                var fieldName = col.GetFieldName();
-                var c = _columnVisibleItems.Find(i => i.Name == fieldName);
-                if (col.Ignore is true)
+                if (c != null)
                 {
-                    if (c != null)
-                    {
-                        _columnVisibleItems.Remove(c);
-                    }
-                    continue;
+                    _columnVisibleItems.Remove(c);
                 }
+                continue;
+            }
 
-                if (c == null)
+            if (c == null)
+            {
+                _columnVisibleItems.Add(new ColumnVisibleItem()
                 {
-                    _columnVisibleItems.Add(new ColumnVisibleItem()
-                    {
-                        Name = fieldName,
-                        Visible = col.Visible ?? true,
-                        DisplayName = col.GetDisplayName()
-                    });
-                }
-                else
-                {
-                    c.Visible = col.Visible ?? true;
-                }
+                    Name = fieldName,
+                    Visible = col.Visible ?? true,
+                    DisplayName = col.GetDisplayName(),
+                    Order = order
+                });
+            }
+            else
+            {
+                c.Visible = col.Visible ?? true;
+                c.Order = order;
             }
         }
     }

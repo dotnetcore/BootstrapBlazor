@@ -546,23 +546,29 @@ public partial class Table<TItem>
     /// </summary>
     private List<ColumnVisibleItem> _columnVisibleItems = [];
 
+    private List<ITableColumn> _visibleColumnsCache = [];
+
     /// <summary>
     /// <para lang="zh">获得当前可见列集合</para>
     /// <para lang="en">Get Visible Columns Collection</para>
     /// </summary>
-    public IEnumerable<ITableColumn> GetVisibleColumns()
-    {
-        foreach (var item in _columnVisibleItems)
-        {
-            if (!item.Visible)
-            {
-                continue;
-            }
+    public IEnumerable<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
 
-            var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
-            if (col != null)
+    private void RebuildVisibleColumnsCache()
+    {
+        _visibleColumnsCache.Clear();
+
+        var columns = _columnVisibleItems.OrderBy(i => i.Order).ToList();
+        for (var index = 0; index < columns.Count; index++)
+        {
+            var item = columns[index];
+            if (item.Visible)
             {
-                yield return col;
+                var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
+                if (col != null)
+                {
+                    _visibleColumnsCache.Add(col);
+                }
             }
         }
     }

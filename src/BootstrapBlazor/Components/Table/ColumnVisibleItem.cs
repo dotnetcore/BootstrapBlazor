@@ -32,4 +32,11 @@ public class ColumnVisibleItem
     /// <para lang="en">Gets column visibility</para>
     /// </summary>
     public bool Visible { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得 列可见性顺序</para>
+    /// <para lang="en">Gets column visibility order</para>
+    /// </summary>
+    [JsonIgnore]
+    public int Order { get; set; }
 }
