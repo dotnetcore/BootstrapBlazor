@@ -631,7 +631,7 @@ const setColumnResizingListen = (table, col) => {
 }
 
 const getColumnTooltipTitle = (options, th) => {
-    return `${options.columnWidthTooltipPrefix}${getWidth(th)}px`;
+    return `${options.columnWidthTooltipPrefix}${getWidth(th) | 0}px`;
 }
 
 const indexOfCol = col => {
@@ -932,9 +932,9 @@ const getColumnWidthStateObject = table => {
     const tableWidth = getWidth(table.tables[0]);
     return {
         "cols": cols.map(col => {
-            return { "width": getWidth(col.closest('th')), "name": col.getAttribute('data-bb-field') }
+            return { "width": getWidth(col.closest('th')) | 0, "name": col.getAttribute('data-bb-field') }
         }),
-        "table": tableWidth
+        "table": tableWidth | 0
     }
 }
 
