@@ -1,5 +1,4 @@
 @namespace BootstrapBlazor.Components
-@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
@@ -21,6 +20,8 @@
     }
     else
     {
+        BuildTableColumns();
+        RebuildVisibleColumnsCache();
         if (ShowSearch && SearchMode == SearchMode.Top)
         {
             @RenderSearch
@@ -38,10 +39,6 @@
 
         <RenderTemplate OnRenderAsync="OnTableRenderAsync">
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
-                @{
-                    BuildTableColumns();
-                    RebuildVisibleColumnsCache();
-                }
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
                     if (IsFixedHeader)
@@ -963,18 +960,12 @@
                                 </div>
                                 <Divider />
                                 <div class="column-list-items">
-                                    @foreach (var item in _columnVisibleItems)
-                                    {
-                                        @RenderColumnListItem(item)
-                                    }
+                                    @RenderColumnList()
                                 </div>
                             }
                             else
                             {
-                                @foreach (var item in _columnVisibleItems)
-                                {
-                                    @RenderColumnListItem(item)
-                                }
+                                @RenderColumnList()
                             }
                         </div>
                     </div>

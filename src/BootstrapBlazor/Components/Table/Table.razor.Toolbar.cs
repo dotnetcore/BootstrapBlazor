@@ -558,10 +558,9 @@ public partial class Table<TItem>
     {
         _visibleColumnsCache.Clear();
 
-        var columns = _columnVisibleItems.OrderBy(i => i.Order).ToList();
-        for (var index = 0; index < columns.Count; index++)
+        for (var index = 0; index < _columnVisibleItems.Count; index++)
         {
-            var item = columns[index];
+            var item = _columnVisibleItems[index];
             if (item.Visible)
             {
                 var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
