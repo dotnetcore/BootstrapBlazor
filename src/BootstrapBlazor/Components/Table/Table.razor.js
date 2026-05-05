@@ -422,8 +422,9 @@ const resetTableWidth = table => {
             let width = 0;
             [...group.children].forEach(col => {
                 let colWidth = parseInt(col.style.width);
+                const index = [...group.children].indexOf(col);
                 if (isNaN(colWidth)) {
-                    colWidth = 100;
+                    colWidth = col.offsetWidth;
                 }
                 width += colWidth;
             })
@@ -572,7 +573,7 @@ const setResizeListener = table => {
                 const field = col.getAttribute('data-bb-field');
                 const th = col.closest('th')
                 const width = getWidth(th) | 0;
-                const tableWidth =  table.tables[0].offsetWidth | 0;
+                const tableWidth = table.tables[0].offsetWidth | 0;
                 table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, tableWidth);
             }
         )
@@ -641,7 +642,6 @@ const indexOfCol = col => {
 
 const autoFitColumnWidth = async (table, col) => {
     const field = col.getAttribute('data-bb-field');
-
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
@@ -823,11 +823,13 @@ const setDraggable = table => {
             })
             dragItem = null
         })
-        EventHandler.on(col, 'drop', e => {
+        EventHandler.on(col, 'drop', async e => {
             e.stopPropagation()
             e.preventDefault()
             if (table.options.dragColumnCallback) {
-                table.invoke.invokeMethodAsync(table.options.dragColumnCallback, index, table.dragColumns.indexOf(col))
+                const orginIndex = index;
+                const currentIndex = table.dragColumns.indexOf(col);
+                table.invoke.invokeMethodAsync(table.options.dragColumnCallback, orginIndex, currentIndex);
             }
             return false
         })
@@ -910,7 +912,7 @@ const getLocalStorageValue = key => {
     return result;
 }
 
-const saveColumnList = (tableName, columns) => {
+const saveColumnVisibleList = (tableName, columns) => {
     if (tableName) {
         const key = `bb-table-column-visible-${tableName}`
         localStorage.setItem(key, JSON.stringify(columns));
@@ -1011,7 +1013,7 @@ const resetColumns = (table, options) => {
     const { visibleColumns, allowDragColumn } = options;
     const { options: { tableName } } = table;
     if (tableName && visibleColumns) {
-        saveColumnList(tableName, visibleColumns);
+        saveColumnVisibleList(tableName, visibleColumns);
     }
 
     if (allowDragColumn) {

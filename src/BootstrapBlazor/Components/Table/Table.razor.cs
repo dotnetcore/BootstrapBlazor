@@ -1121,9 +1121,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 读取浏览器持久化列状态配置
             await ReloadColumnStatesFromBrowserAsync();
 
-            // 构建列信息
-            BuildTableColumns();
-
             // 列排序回调方法
             if (ColumnOrderCallback != null)
             {
@@ -1287,6 +1284,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private async Task ReloadColumnStatesFromBrowserAsync()
+    {
+        // 未开启客户端持久化功能直接返回
+        if (string.IsNullOrEmpty(ClientTableName))
+        {
+            return;
+        }
+
+        var state = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
+        if (state != null)
+        {
+            state.ColumnWidthState ??= new();
+            state.ColumnVisibleStates ??= new();
+
+            _tableColumnStateCache = state;
+        }
+    }
+
     private void BuildTableColumns()
     {
         // 动态列模式
@@ -1321,52 +1336,46 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void RebuildTableColumnFromCache(List<ITableColumn> cols)
     {
-        foreach (var col in cols)
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
-            // 设置列宽度
-            var column = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == col.GetFieldName());
-            if (column != null)
+            // 提高性能避免循环
+            foreach (var col in cols)
             {
-                col.Width = column.Width;
-            }
+                var fieldName = col.GetFieldName();
 
-            // 设置列可见性
-            var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == col.GetFieldName());
-            var order = 0;
-            if (columnVisible != null)
-            {
-                col.Visible = columnVisible.Visible;
-                order = _tableColumnStateCache.ColumnVisibleStates.IndexOf(columnVisible);
-            }
-
-            // 更新 _visibleColumns 中的列信息
-            var fieldName = col.GetFieldName();
-            var c = _columnVisibleItems.Find(i => i.Name == fieldName);
-            if (col.Ignore is true)
-            {
-                if (c != null)
+                // 设置列宽度
+                var column = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == fieldName);
+                if (column != null)
                 {
-                    _columnVisibleItems.Remove(c);
+                    col.Width = column.Width;
                 }
-                continue;
-            }
 
-            if (c == null)
-            {
-                _columnVisibleItems.Add(new ColumnVisibleItem()
+                // 设置列可见性
+                var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == fieldName);
+                if (columnVisible != null)
                 {
-                    Name = fieldName,
-                    Visible = col.Visible ?? true,
-                    DisplayName = col.GetDisplayName(),
-                    Order = order
-                });
-            }
-            else
-            {
-                c.Visible = col.Visible ?? true;
-                c.Order = order;
+                    col.Visible = columnVisible.Visible;
+                    columnVisible.DisplayName = col.GetDisplayName();
+                }
             }
         }
+
+        // 设置可见列顺序
+        _columnVisibleItems.Clear();
+        _columnVisibleItems.AddRange(GetColumnVisibleItems(cols));
+    }
+
+    private List<ColumnVisibleItem> GetColumnVisibleItems(List<ITableColumn> cols)
+    {
+        // 开启客户端持久化后未设置列状态的列默认使用组件参数值
+        return _tableColumnStateCache.ColumnVisibleStates.Count != 0
+            ? _tableColumnStateCache.ColumnVisibleStates
+            : [.. cols.Where(i => !i.GetIgnore()).Select(i => new ColumnVisibleItem()
+            {
+                Name = i.GetFieldName(),
+                Visible = i.GetVisible(),
+                DisplayName = i.GetDisplayName()
+            })];
     }
 
     private async Task OnTableRenderAsync(bool firstRender)
@@ -1429,24 +1438,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         var tableWidth = hasHeader ? width : width - ActualScrollWidth;
 
         return $"width: {tableWidth}px;";
-    }
-
-    private async Task ReloadColumnStatesFromBrowserAsync()
-    {
-        // 未开启客户端持久化功能直接返回
-        if (string.IsNullOrEmpty(ClientTableName))
-        {
-            return;
-        }
-
-        var state = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
-        if (state != null)
-        {
-            state.ColumnWidthState ??= new();
-            state.ColumnVisibleStates ??= new();
-
-            _tableColumnStateCache = state;
-        }
     }
 
     /// <summary>
@@ -1871,13 +1862,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 _columnVisibleItems.Remove(firstColumn);
                 _columnVisibleItems.Insert(currentIndex, firstColumn);
 
+                if (!string.IsNullOrEmpty(ClientTableName))
+                {
+                    // 更新缓存数据中列顺序
+                    var columnVisibleState = _tableColumnStateCache.ColumnVisibleStates;
+                    columnVisibleState.Clear();
+                    columnVisibleState.AddRange(_columnVisibleItems);
+                }
+
                 if (OnDragColumnEndAsync != null)
                 {
                     await OnDragColumnEndAsync(firstColumn.Name, Columns);
                 }
-
-                StateHasChanged();
             }
+            _resetColumns = true;
+            _invoke = true;
+
+            StateHasChanged();
         }
     }
 
@@ -1888,13 +1889,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     public async Task ResizeColumnCallback(string name, int columnWidth, int tableWidth)
     {
-        // 更新缓存数据中列宽度
-        var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
-        if (col != null)
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
-            col.Width = columnWidth;
+            // 更新缓存数据中列宽度
+            var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
+            if (col != null)
+            {
+                col.Width = columnWidth;
 
-            _tableColumnStateCache.ColumnWidthState.TableWidth = tableWidth;
+                _tableColumnStateCache.ColumnWidthState.TableWidth = tableWidth;
+            }
         }
 
         // 触发回调
@@ -1980,6 +1984,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
         {
             builder.AddContent(2, RenderRowExtendButtons(item));
+        }
+    };
+
+    private RenderFragment RenderColumnList() => builder =>
+    {
+        for (int index = 0; index < _columnVisibleItems.Count; index++)
+        {
+            var column = _columnVisibleItems[index];
+            builder.AddContent(index, RenderColumnListItem(column));
         }
     };
 

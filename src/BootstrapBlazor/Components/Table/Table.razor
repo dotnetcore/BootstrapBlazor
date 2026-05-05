@@ -963,18 +963,12 @@
                                 </div>
                                 <Divider />
                                 <div class="column-list-items">
-                                    @foreach (var item in _columnVisibleItems)
-                                    {
-                                        @RenderColumnListItem(item)
-                                    }
+                                    @RenderColumnList()
                                 </div>
                             }
                             else
                             {
-                                @foreach (var item in _columnVisibleItems)
-                                {
-                                    @RenderColumnListItem(item)
-                                }
+                                @RenderColumnList()
                             }
                         </div>
                     </div>

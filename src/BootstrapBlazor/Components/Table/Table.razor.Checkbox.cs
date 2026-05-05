@@ -196,6 +196,7 @@ public partial class Table<TItem>
             column.Visible = !column.Visible;
         }
 
+        // 如果全部列都不可见了，则至少显示第一列
         if (_columnVisibleItems.All(i => i.Visible == false))
         {
             _columnVisibleItems.First().Visible = true;
