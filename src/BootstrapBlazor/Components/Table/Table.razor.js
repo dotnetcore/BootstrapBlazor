@@ -525,9 +525,9 @@ const setResizeListener = table => {
                     colWidth = parseInt(width)
                 }
                 else {
-                    colWidth = getWidth(col.closest('th')) | 0;
+                    colWidth = getWidth(col.closest('th'));
                 }
-                tableWidth = getWidth(col.closest('table')) | 0;
+                tableWidth = getWidth(col.closest('table'));
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
@@ -572,8 +572,8 @@ const setResizeListener = table => {
                 saveColumnWidth(table);
                 const field = col.getAttribute('data-bb-field');
                 const th = col.closest('th')
-                const width = getWidth(th) | 0;
-                const tableWidth = table.tables[0].offsetWidth | 0;
+                const width = getWidth(th);
+                const tableWidth = getWidth(table.tables[0]);
                 table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, tableWidth);
             }
         )
@@ -586,7 +586,7 @@ const resizeNextFixedColumnWidth = (col, width) => {
         if (nextColumn.classList.contains('fixed')) {
             const right = parseFloat(col.style.getPropertyValue('right'));
             nextColumn.style.setProperty('right', `${right + width}px`);
-            resizeNextFixedColumnWidth(nextColumn, nextColumn.offsetWidth);
+            resizeNextFixedColumnWidth(nextColumn, getWidth(nextColumn));
         }
     }
     else if (col.classList.contains('fixed')) {
@@ -594,7 +594,7 @@ const resizeNextFixedColumnWidth = (col, width) => {
         if (nextColumn.classList.contains('fixed')) {
             const left = parseFloat(col.style.getPropertyValue('left'));
             nextColumn.style.setProperty('left', `${left + width}px`);
-            resizeNextFixedColumnWidth(nextColumn, nextColumn.offsetWidth);
+            resizeNextFixedColumnWidth(nextColumn, getWidth(nextColumn));
         }
     }
 }
@@ -631,7 +631,7 @@ const setColumnResizingListen = (table, col) => {
 }
 
 const getColumnTooltipTitle = (options, th) => {
-    return `${options.columnWidthTooltipPrefix}${th.offsetWidth}px`;
+    return `${options.columnWidthTooltipPrefix}${getWidth(th)}px`;
 }
 
 const indexOfCol = col => {
@@ -681,7 +681,7 @@ const autoFitColumnWidth = async (table, col) => {
 
         setTableDefaultWidth(table);
         const widthState = getColumnWidthStateObject(table);
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth | 0, widthState)
+        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth, widthState)
 
         resetColumnWidthTips(table, col);
     }
@@ -700,7 +700,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    return div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
+    return getWidth(div) + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
 }
 
 const closeAllTips = (columns, self) => {
@@ -929,10 +929,10 @@ const saveColumnWidth = table => {
 
 const getColumnWidthStateObject = table => {
     const cols = table.columns
-    const tableWidth = table.tables[0].offsetWidth | 0;
+    const tableWidth = getWidth(table.tables[0]);
     return {
         "cols": cols.map(col => {
-            return { "width": col.closest('th').offsetWidth | 0, "name": col.getAttribute('data-bb-field') }
+            return { "width": getWidth(col.closest('th')), "name": col.getAttribute('data-bb-field') }
         }),
         "table": tableWidth
     }
