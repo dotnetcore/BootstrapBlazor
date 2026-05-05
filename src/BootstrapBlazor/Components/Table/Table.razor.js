@@ -424,7 +424,7 @@ const resetTableWidth = table => {
                 let colWidth = parseInt(col.style.width);
                 const index = [...group.children].indexOf(col);
                 if (isNaN(colWidth)) {
-                    colWidth = col.offsetWidth;
+                    colWidth = getWidth(col);
                 }
                 width += colWidth;
             })
