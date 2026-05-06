@@ -642,6 +642,12 @@ const autoFitColumnWidth = async (table, col) => {
                 const span = th.querySelector('.table-text');
                 span.style.removeProperty('width');
             }
+
+            table.style.removeProperty('width');
+            const tableWidth = getTableWidth(table);
+            if (tableWidth) {
+                table.style.setProperty('width', `${tableWidth}px`);
+            }
         });
 
         resetColumnWidthTips(table, col);
@@ -920,7 +926,6 @@ const saveColumnStateToLocalstorage = (table, state) => {
 }
 
 const getColumnStateObject = table => {
-    console.log('getColumnStateObject', table);
     const cols = table.options.visibleColumns;
     return {
         cols: cols.map(col => {
@@ -1047,7 +1052,7 @@ const resetColumns = (table, options) => {
     const { options: { tableName } } = table;
     if (tableName) {
         table.options.visibleColumns = visibleColumns;
-        saveColumnStateToLocalstorage(table, visibleColumns);
+        saveColumnStateToLocalstorage(table);
     }
 
     if (allowDragColumn) {
