@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Table 组件列可见性类</para>
 /// <para lang="en">Table component column visibility class</para>
 /// </summary>
-public class ColumnVisibleItem
+public class TableColumnState
 {
     /// <summary>
     /// <para lang="zh">获得 列名称</para>
@@ -32,4 +32,10 @@ public class ColumnVisibleItem
     /// <para lang="en">Gets column visibility</para>
     /// </summary>
     public bool Visible { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 列宽</para>
+    /// <para lang="en">Gets or sets column width</para>
+    /// </summary>
+    public int? Width { get; set; }
 }
