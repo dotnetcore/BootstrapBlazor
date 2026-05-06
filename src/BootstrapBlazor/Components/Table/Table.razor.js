@@ -95,19 +95,6 @@ export async function reset(id) {
     observeHeight(table)
 }
 
-export function fitAllColumnWidth(id) {
-    const table = Data.get(id)
-    if (table === null) {
-        return;
-    }
-
-    const columns = [...table.tables[0].querySelectorAll('.col-resizer')];
-    columns.forEach(async col => {
-        await autoFitColumnWidth(table, col);
-    });
-    saveColumnWidth();
-}
-
 const observeHeight = table => {
     setBodyHeight(table);
 
@@ -415,26 +402,6 @@ const setExcelKeyboardListener = table => {
     })
 }
 
-const resetTableWidth = table => {
-    table.tables.forEach(t => {
-        const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
-        if (group) {
-            let width = 0;
-            [...group.children].forEach(col => {
-                let colWidth = parseInt(col.style.width);
-                const index = [...group.children].indexOf(col);
-                if (isNaN(colWidth)) {
-                    colWidth = getWidth(col);
-                }
-                width += colWidth;
-            })
-            t.style.width = `${width}px`;
-
-            saveColumnWidth(table);
-        }
-    })
-}
-
 const setResizeListener = table => {
     if (table.options.showColumnWidthTooltip) {
         table.handlers.setResizeHandler = e => {
@@ -511,7 +478,6 @@ const setResizeListener = table => {
             e.preventDefault();
             e.stopPropagation();
             await autoFitColumnWidth(table, col);
-            saveColumnWidth(table);
         });
 
         setColumnResizingListen(table, col);
@@ -569,12 +535,11 @@ const setResizeListener = table => {
             () => {
                 eff(col, false)
 
-                saveColumnWidth(table);
+                const state = getColumnStateObject(table);
+                saveColumnStateToLocalstorage(table, state);
+
                 const field = col.getAttribute('data-bb-field');
-                const th = col.closest('th')
-                const width = getWidth(th);
-                const tableWidth = getWidth(table.tables[0]);
-                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, width, tableWidth);
+                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
             }
         )
     })
@@ -631,7 +596,7 @@ const setColumnResizingListen = (table, col) => {
 }
 
 const getColumnTooltipTitle = (options, th) => {
-    return `${options.columnWidthTooltipPrefix}${getWidth(th)}px`;
+    return `${options.columnWidthTooltipPrefix}${getWidth(th) | 0}px`;
 }
 
 const indexOfCol = col => {
@@ -677,13 +642,18 @@ const autoFitColumnWidth = async (table, col) => {
                 const span = th.querySelector('.table-text');
                 span.style.removeProperty('width');
             }
+
+            table.style.removeProperty('width');
+            const tableWidth = getTableWidth(table);
+            if (tableWidth) {
+                table.style.setProperty('width', `${tableWidth}px`);
+            }
         });
 
-        setTableDefaultWidth(table);
-        const widthState = getColumnWidthStateObject(table);
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth, widthState)
-
         resetColumnWidthTips(table, col);
+        const state = getColumnStateObject(table);
+        saveColumnStateToLocalstorage(table, state);
+        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state)
     }
 }
 
@@ -880,13 +850,37 @@ const setToolbarDropdown = (table, toolbar) => {
 }
 
 export function getColumnStates(tableName) {
-    const columnVisibleStates = getColumnVisibleState(tableName);
-    const columnWidthState = getColumnWidthState(tableName);
+    const state = getColumnStateFromLocalstorage(tableName);
+    if (state) {
+        return state;
+    }
 
-    return {
-        columnVisibleStates,
-        columnWidthState
-    };
+    const columnWidthState = getColumnWidthState(tableName);
+    if (columnWidthState) {
+        const columnVisibleStates = getColumnVisibleState(tableName);
+        if (columnVisibleStates) {
+            //removeColumnVisibleState(tableName);
+
+            //removeColumnWidthState(tableName);
+            for (const item of columnWidthState.cols) {
+                const { name } = item;
+                const column = columnVisibleStates.find(i => i.name === name);
+                if (column) {
+                    item.visible = column.visible;
+                }
+                else {
+                    item.visible = true;
+                }
+            }
+        }
+
+        return columnWidthState;
+    }
+}
+
+const getColumnStateFromLocalstorage = tableName => {
+    const columnStateKey = `bb-table-column-${tableName}`;
+    return getLocalStorageValue(columnStateKey);
 }
 
 const getColumnVisibleState = tableName => {
@@ -894,9 +888,19 @@ const getColumnVisibleState = tableName => {
     return getLocalStorageValue(columnVisibleKey);
 }
 
+const removeColumnVisibleState = tableName => {
+    const columnVisibleKey = `bb-table-column-visible-${tableName}`
+    localStorage.removeItem(columnVisibleKey);
+}
+
 const getColumnWidthState = tableName => {
     const columnWidthKey = `bb-table-column-width-${tableName}`
     return getLocalStorageValue(columnWidthKey);
+}
+
+const removeColumnWidthState = tableName => {
+    const columnWidthKey = `bb-table-column-width-${tableName}`
+    localStorage.removeItem(columnWidthKey);
 }
 
 const getLocalStorageValue = key => {
@@ -912,29 +916,67 @@ const getLocalStorageValue = key => {
     return result;
 }
 
-const saveColumnVisibleList = (tableName, columns) => {
+const saveColumnStateToLocalstorage = (table, state) => {
+    const { options: { tableName } } = table;
     if (tableName) {
-        const key = `bb-table-column-visible-${tableName}`
-        localStorage.setItem(key, JSON.stringify(columns));
+        const columnStateKey = `bb-table-column-${tableName}`;
+        const columnState = state ?? getColumnStateObject(table);
+        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
     }
 }
 
-const saveColumnWidth = table => {
-    const { options: { tableName } } = table;
-    if (tableName) {
-        const key = `bb-table-column-width-${tableName}`
-        localStorage.setItem(key, JSON.stringify(getColumnWidthStateObject(table)));
+const getColumnStateObject = table => {
+    const cols = table.options.visibleColumns;
+    return {
+        cols: cols.map(col => {
+            return {
+                name: col.name,
+                width: getColumnWidth(col, table.columns),
+                visible: col.visible
+            }
+        }),
+        table: getTableWidth(table.tables[0])
+    };
+}
+
+const getColumnWidth = (col, columns) => {
+    const column = columns.find(i => i.getAttribute('data-bb-field') === col.name);
+    if (column) {
+        const width = getWidth(column.closest('th')) | 0;
+        return width > 0 ? width : null;
     }
+    else if (col.width) {
+        return col.width;
+    }
+    else {
+        return null;
+    }
+}
+
+const getTableWidth = table => {
+    let tableWidth = 0;
+    const colgroup = [...table.children].find(i => i.nodeName === 'COLGROUP');
+    for (const col of colgroup.children) {
+        const width = parseInt(col.style.width);
+        if (isNaN(width) === false) {
+            tableWidth += width;
+        }
+        else {
+            tableWidth = null;
+            break;
+        }
+    }
+    return (tableWidth ?? getWidth(table)) | 0;
 }
 
 const getColumnWidthStateObject = table => {
     const cols = table.columns
     const tableWidth = getWidth(table.tables[0]);
     return {
-        "cols": cols.map(col => {
-            return { "width": getWidth(col.closest('th')), "name": col.getAttribute('data-bb-field') }
+        cols: cols.map(col => {
+            return { "width": getWidth(col.closest('th')) | 0, "name": col.getAttribute('data-bb-field') }
         }),
-        "table": tableWidth
+        table: tableWidth | 0
     }
 }
 
@@ -1008,12 +1050,12 @@ const resetColumnListPopover = table => {
 
 const resetColumns = (table, options) => {
     setResizeListener(table);
-    resetTableWidth(table);
 
     const { visibleColumns, allowDragColumn } = options;
     const { options: { tableName } } = table;
-    if (tableName && visibleColumns) {
-        saveColumnVisibleList(tableName, visibleColumns);
+    if (tableName) {
+        table.options.visibleColumns = visibleColumns;
+        saveColumnStateToLocalstorage(table);
     }
 
     if (allowDragColumn) {

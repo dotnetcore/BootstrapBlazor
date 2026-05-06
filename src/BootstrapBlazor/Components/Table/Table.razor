@@ -844,7 +844,7 @@
                      GotoNavigatorLabelText="@GotoNavigatorLabelText"
                      ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"></Pagination>;
 
-    RenderFragment<ColumnVisibleItem> RenderColumnListItem => item =>
+    RenderFragment<TableColumnState> RenderColumnListItem => item =>
         @<div class="dropdown-item">
             <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
                       IsDisabled="@GetColumnsListState(item)"

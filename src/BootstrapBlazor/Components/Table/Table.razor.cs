@@ -6,6 +6,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
+using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -204,7 +205,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * _pageItems + Rows.Count, TotalCount];
 
-    private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
+    private static string? GetColWidthString(int? width) => (width.HasValue && width.Value > 0) ? $"width: {width.Value}px;" : null;
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
@@ -1160,7 +1161,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
-                VisibleColumns = resetColumns ? _columnVisibleItems : null,
+                VisibleColumns = string.IsNullOrEmpty(ClientTableName) ? null : _columnVisibleItems,
                 AllowDragColumn,
                 UpdateSortTooltip = updateSortTooltip,
                 AutoScrollLastSelectedRowToView,
@@ -1293,13 +1294,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         var state = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
-        if (state != null)
+        if (state == null)
         {
-            state.ColumnWidthState ??= new();
-            state.ColumnVisibleStates ??= new();
+            state = new();
 
-            _tableColumnStateCache = state;
+            // 开启客户端持久化后未设置列状态的列默认使用组件参数值
+            state.Columns.AddRange(Columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
+            {
+                Name = i.GetFieldName(),
+                Visible = i.GetVisible(),
+                DisplayName = i.GetDisplayName(),
+                Width = i.Width
+            }));
         }
+
+        _tableColumnStateCache = state;
     }
 
     private void BuildTableColumns()
@@ -1343,19 +1352,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 var fieldName = col.GetFieldName();
 
-                // 设置列宽度
-                var column = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == fieldName);
+                // 设置列宽度与可见性
+                var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
                 if (column != null)
                 {
                     col.Width = column.Width;
-                }
+                    col.Visible = column.Visible;
 
-                // 设置列可见性
-                var columnVisible = _tableColumnStateCache.ColumnVisibleStates.Find(i => i.Name == fieldName);
-                if (columnVisible != null)
-                {
-                    col.Visible = columnVisible.Visible;
-                    columnVisible.DisplayName = col.GetDisplayName();
+                    column.DisplayName = col.GetDisplayName();
                 }
             }
         }
@@ -1365,12 +1369,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         _columnVisibleItems.AddRange(GetColumnVisibleItems(cols));
     }
 
-    private List<ColumnVisibleItem> GetColumnVisibleItems(List<ITableColumn> cols)
+    private List<TableColumnState> GetColumnVisibleItems(List<ITableColumn> cols)
     {
         // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-        return _tableColumnStateCache.ColumnVisibleStates.Count != 0
-            ? _tableColumnStateCache.ColumnVisibleStates
-            : [.. cols.Where(i => !i.GetIgnore()).Select(i => new ColumnVisibleItem()
+        return _tableColumnStateCache.Columns.Count != 0
+            ? _tableColumnStateCache.Columns
+            : [.. cols.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
             {
                 Name = i.GetFieldName(),
                 Visible = i.GetVisible(),
@@ -1389,6 +1393,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
+                VisibleColumns = string.IsNullOrEmpty(ClientTableName) ? null : _columnVisibleItems,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnWidthTooltip,
                 ColumnWidthTooltipPrefix,
@@ -1428,13 +1433,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? GetTableStyleString(bool hasHeader)
     {
-        if (_tableColumnStateCache.ColumnWidthState.TableWidth <= 0)
+        if (_tableColumnStateCache.TableWidth <= 0)
         {
             return null;
         }
 
         // 计算实际宽度
-        var width = _tableColumnStateCache.ColumnWidthState.TableWidth;
+        var width = _tableColumnStateCache.TableWidth;
         var tableWidth = hasHeader ? width : width - ActualScrollWidth;
 
         return $"width: {tableWidth}px;";
@@ -1445,7 +1450,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Set Column Visible Method</para>
     /// </summary>
     /// <param name="columns"></param>
-    public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    public void ResetVisibleColumns(IEnumerable<TableColumnState> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
         foreach (var col in columns)
@@ -1818,7 +1823,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Resize Column Callback</para>
     /// </summary>
     [Parameter]
-    public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
+    public Func<string, int?, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
@@ -1865,7 +1870,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (!string.IsNullOrEmpty(ClientTableName))
                 {
                     // 更新缓存数据中列顺序
-                    var columnVisibleState = _tableColumnStateCache.ColumnVisibleStates;
+                    var columnVisibleState = _tableColumnStateCache.Columns;
                     columnVisibleState.Clear();
                     columnVisibleState.AddRange(_columnVisibleItems);
                 }
@@ -1887,24 +1892,37 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
     [JSInvokable]
-    public async Task ResizeColumnCallback(string name, int columnWidth, int tableWidth)
+    public async Task ResizeColumnCallback(string name, JsonElement state)
     {
+        // 调整列宽时返回所有列状态，更新缓存数据中列宽度与可见性
+        var columnState = state.Parse<TableColumnLocalstorageStatus>();
+        if (columnState == null)
+        {
+            return;
+        }
+
         if (!string.IsNullOrEmpty(ClientTableName))
         {
             // 更新缓存数据中列宽度
-            var col = _tableColumnStateCache.ColumnWidthState.ColumnWidths.Find(i => i.Name == name);
-            if (col != null)
+            foreach (var item in _tableColumnStateCache.Columns)
             {
-                col.Width = columnWidth;
-
-                _tableColumnStateCache.ColumnWidthState.TableWidth = tableWidth;
+                var colState = columnState.Columns.Find(i => i.Name == item.Name);
+                if (colState != null)
+                {
+                    item.Width = colState.Width;
+                }
             }
+            _tableColumnStateCache.TableWidth = columnState.TableWidth;
         }
 
         // 触发回调
         if (OnResizeColumnAsync != null)
         {
-            await OnResizeColumnAsync(name, columnWidth);
+            var column = columnState.Columns.Find(i => i.Name == name);
+            if (column != null)
+            {
+                await OnResizeColumnAsync(name, column.Width);
+            }
         }
     }
 

@@ -150,7 +150,7 @@ public partial class Table<TItem>
     [Parameter]
     public Func<string, bool, Task>? OnColumnVisibleChanged { get; set; }
 
-    private async Task OnToggleColumnVisible(ColumnVisibleItem item, bool visible)
+    private async Task OnToggleColumnVisible(TableColumnState item, bool visible)
     {
         // 设置可见性
         item.Visible = visible;
@@ -158,15 +158,31 @@ public partial class Table<TItem>
         // 设置列状态缓存中可见状态
         if (!string.IsNullOrEmpty(ClientTableName))
         {
-            for (var index = 0; index < _tableColumnStateCache.ColumnVisibleStates.Count; index++)
+            var tableWidth = 0;
+            var useTableWidth = true;
+            for (var index = 0; index < _tableColumnStateCache.Columns.Count; index++)
             {
-                var column = _tableColumnStateCache.ColumnVisibleStates[index];
+                var column = _tableColumnStateCache.Columns[index];
                 if (column.Name == item.Name)
                 {
                     column.Visible = visible;
-                    break;
+                }
+
+                if (column.Visible)
+                {
+                    // 重新计算表格宽度
+                    if (column.Width.HasValue)
+                    {
+                        tableWidth += column.Visible ? column.Width.Value : 0;
+                    }
+                    else
+                    {
+                        useTableWidth = false;
+                    }
                 }
             }
+
+            _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
         }
 
         // 触发 OnColumnVisibleChanged 回调
