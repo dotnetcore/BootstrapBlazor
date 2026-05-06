@@ -945,6 +945,9 @@ const getColumnWidth = (col, columns) => {
         const width = getWidth(column.closest('th')) | 0;
         return width > 0 ? width : null;
     }
+    else if (col.width) {
+        return col.width;
+    }
     else {
         return null;
     }
