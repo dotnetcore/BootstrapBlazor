@@ -478,7 +478,6 @@ const setResizeListener = table => {
             e.preventDefault();
             e.stopPropagation();
             await autoFitColumnWidth(table, col);
-            saveColumnStateToLocalstorage(table, null);
         });
 
         setColumnResizingListen(table, col);
@@ -536,9 +535,10 @@ const setResizeListener = table => {
             () => {
                 eff(col, false)
 
-                saveColumnStateToLocalstorage(table, null);
-                const field = col.getAttribute('data-bb-field');
                 const state = getColumnStateObject(table, null);
+                saveColumnStateToLocalstorage(table, null, state);
+
+                const field = col.getAttribute('data-bb-field');
                 table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
             }
         )
@@ -644,12 +644,12 @@ const autoFitColumnWidth = async (table, col) => {
             }
         });
 
-        setTableDefaultWidth(table);
-        const widthState = getColumnWidthStateObject(table);
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth, widthState)
-
         resetColumnWidthTips(table, col);
+        const state = getColumnStateObject(table, null);
+        saveColumnStateToLocalstorage(table, null, state);
+        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state)
     }
+
 }
 
 const calcCellWidth = cell => {
@@ -911,22 +911,24 @@ const getLocalStorageValue = key => {
     return result;
 }
 
-const saveColumnStateToLocalstorage = (table, columns) => {
+const saveColumnStateToLocalstorage = (table, columns, state) => {
     const { options: { tableName } } = table;
     if (tableName) {
         const columnStateKey = `bb-table-column-${tableName}`;
-        localStorage.setItem(columnStateKey, JSON.stringify(getColumnStateObject(table, columns)));
+        const columnState = state ?? getColumnStateObject(table, columns);
+        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
     }
 }
 
 const getColumnStateObject = (table, columns) => {
+    console.log('getColumnStateObject', table, columns);
     const cols = columns ?? table.columns;
     return {
         cols: cols.map(col => {
             return {
                 name: getColumnName(col),
                 width: getColumnWidth(col, table.columns),
-                visible: col.visible
+                visible: col.visible ?? true
             }
         }),
         table: getTableWidth(table.tables[0])
