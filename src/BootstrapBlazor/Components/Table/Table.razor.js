@@ -535,8 +535,8 @@ const setResizeListener = table => {
             () => {
                 eff(col, false)
 
-                const state = getColumnStateObject(table, null);
-                saveColumnStateToLocalstorage(table, null, state);
+                const state = getColumnStateObject(table);
+                saveColumnStateToLocalstorage(table, state);
 
                 const field = col.getAttribute('data-bb-field');
                 table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
@@ -645,11 +645,10 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         resetColumnWidthTips(table, col);
-        const state = getColumnStateObject(table, null);
-        saveColumnStateToLocalstorage(table, null, state);
+        const state = getColumnStateObject(table);
+        saveColumnStateToLocalstorage(table, state);
         await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state)
     }
-
 }
 
 const calcCellWidth = cell => {
@@ -911,50 +910,38 @@ const getLocalStorageValue = key => {
     return result;
 }
 
-const saveColumnStateToLocalstorage = (table, columns, state) => {
+const saveColumnStateToLocalstorage = (table, state) => {
     const { options: { tableName } } = table;
     if (tableName) {
         const columnStateKey = `bb-table-column-${tableName}`;
-        const columnState = state ?? getColumnStateObject(table, columns);
+        const columnState = state ?? getColumnStateObject(table);
         localStorage.setItem(columnStateKey, JSON.stringify(columnState));
     }
 }
 
-const getColumnStateObject = (table, columns) => {
-    console.log('getColumnStateObject', table, columns);
-    const cols = columns ?? table.columns;
+const getColumnStateObject = table => {
+    console.log('getColumnStateObject', table);
+    const cols = table.options.visibleColumns;
     return {
         cols: cols.map(col => {
             return {
-                name: getColumnName(col),
+                name: col.name,
                 width: getColumnWidth(col, table.columns),
-                visible: col.visible ?? true
+                visible: col.visible
             }
         }),
         table: getTableWidth(table.tables[0])
     };
 }
 
-const getColumnName = col => {
-    return col.name ?? col.getAttribute('data-bb-field');
-}
-
 const getColumnWidth = (col, columns) => {
-    if (col.width) {
-        return col.width;
-    }
-    else if (col.name) {
-        const column = columns.find(i => i.getAttribute('data-bb-field') === col.name);
-        if (column) {
-            const width = getWidth(column.closest('th')) | 0;
-            return width > 0 ? width : null;
-        }
-        else {
-            return null;
-        }
+    const column = columns.find(i => i.getAttribute('data-bb-field') === col.name);
+    if (column) {
+        const width = getWidth(column.closest('th')) | 0;
+        return width > 0 ? width : null;
     }
     else {
-        return getWidth(col.closest('th')) | 0;
+        return null;
     }
 }
 
@@ -1059,6 +1046,7 @@ const resetColumns = (table, options) => {
     const { visibleColumns, allowDragColumn } = options;
     const { options: { tableName } } = table;
     if (tableName) {
+        table.options.visibleColumns = visibleColumns;
         saveColumnStateToLocalstorage(table, visibleColumns);
     }
 
