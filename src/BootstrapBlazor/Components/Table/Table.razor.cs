@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
-using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -516,7 +515,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private ILookupService? InjectLookupService { get; set; }
 
-    private TableColumnLocalstorageStatus _tableColumnStateCache = new();
+    private TableColumnClientStatus _tableColumnStateCache = new();
     private BreakPoint _screenSize;
     private string? _clientTableName;
     private bool _lastIsPopoverToolbarDropdownButtonValue;
@@ -1293,7 +1292,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return;
         }
 
-        var state = await InvokeAsync<TableColumnLocalstorageStatus>("getColumnStates", ClientTableName);
+        var state = await InvokeAsync<TableColumnClientStatus>("getColumnStates", ClientTableName);
         if (state == null)
         {
             state = new();
@@ -1391,6 +1390,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 TableName = ClientTableName,
                 DragColumnCallback = nameof(DragColumnCallback),
                 FitColumnWidthIncludeHeader,
+                AutoFitColumnWidthCallback = nameof(AutoFitColumnWidthCallback),
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 VisibleColumns = string.IsNullOrEmpty(ClientTableName) ? null : _columnVisibleItems,
@@ -1823,14 +1823,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Resize Column Callback</para>
     /// </summary>
     [Parameter]
-    public Func<string, int?, Task>? OnResizeColumnAsync { get; set; }
+    public Func<string, TableColumnClientStatus, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
     /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
+    /// 
     /// </summary>
     [Parameter]
-    public Func<string, int, Task<int>>? OnAutoFitColumnWidthCallback { get; set; }
+    public Func<string, TableColumnClientStatus, Task>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
@@ -1892,15 +1893,34 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
     [JSInvokable]
-    public async Task ResizeColumnCallback(string name, JsonElement state)
+    public async Task ResizeColumnCallback(string name, TableColumnClientStatus columnState)
     {
-        // 调整列宽时返回所有列状态，更新缓存数据中列宽度与可见性
-        var columnState = state.Parse<TableColumnLocalstorageStatus>();
-        if (columnState == null)
-        {
-            return;
-        }
+        UpdateTableColumnState(columnState);
 
+        // 触发回调
+        if (OnResizeColumnAsync != null)
+        {
+            await OnResizeColumnAsync(name, columnState);
+        }
+    }
+
+    /// <summary>
+    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
+    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
+    /// </summary>
+    [JSInvokable]
+    public async Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState)
+    {
+        UpdateTableColumnState(columnState);
+
+        if (OnAutoFitColumnWidthCallback != null)
+        {
+            await OnAutoFitColumnWidthCallback(fieldName, columnState);
+        }
+    }
+
+    private void UpdateTableColumnState(TableColumnClientStatus columnState)
+    {
         if (!string.IsNullOrEmpty(ClientTableName))
         {
             // 更新缓存数据中列宽度
@@ -1913,16 +1933,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
             _tableColumnStateCache.TableWidth = columnState.TableWidth;
-        }
-
-        // 触发回调
-        if (OnResizeColumnAsync != null)
-        {
-            var column = columnState.Columns.Find(i => i.Name == name);
-            if (column != null)
-            {
-                await OnResizeColumnAsync(name, column.Width);
-            }
         }
     }
 

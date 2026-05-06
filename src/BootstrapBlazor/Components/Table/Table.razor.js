@@ -651,9 +651,11 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         resetColumnWidthTips(table, col);
+
         const state = getColumnStateObject(table);
         saveColumnStateToLocalstorage(table, state);
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state)
+
+        await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, state);
     }
 }
 
