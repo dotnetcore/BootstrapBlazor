@@ -42,7 +42,7 @@ public partial class TablesColumnList
     private Task ResetVisibleColumns()
     {
         // 支持设置部分列不可见
-        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[]
+        TableColumnVisible.ResetVisibleColumns(new TableColumnState[]
         {
             new() { Name = nameof(Foo.Name), Visible = false },
             new() { Name = nameof(Foo.Complete), Visible = true }
