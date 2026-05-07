@@ -8706,6 +8706,13 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnResizeColumnCallback_Ok()
     {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 500;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
+
         var name = "";
         TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8713,6 +8720,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ClientTableName, "test");
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.OnResizeColumnAsync, (field, state) =>
@@ -8738,8 +8746,11 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        var state = new TableColumnClientStatus();
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Address), state));
+        var newState = new TableColumnClientStatus();
+        newState.TableWidth = 100;
+        newState.Columns.Add(new TableColumnState() { Name = "Name", Width = 50 });
+        newState.Columns.Add(new TableColumnState() { Name = "Address", Width = 50 });
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Address), newState));
         Assert.Equal("Address", name);
         Assert.NotNull(clientState);
     }
