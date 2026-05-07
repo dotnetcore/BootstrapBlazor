@@ -5113,7 +5113,7 @@
     "TablesSelectionNormalTips": "保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法",
     "TablesSelectionNormalTitle": "设置选中行功能",
     "TablesSelectionScrollButtonText": "选中最后一行",
-    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启，通过 <code>AutoScrollVerticalAlign</code> 参数设置对齐方式",
+    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启，通过 <code>AutoScrollVerticalAlign</code> 参数设置对齐方式，通过 <code>ScrollIntoViewBehavior</code> 参数设置滚动行为默认为 <code>Smooth</code>",
     "TablesSelectionScrollIntro": "通过设置 <code>OnAfterRenderCallback</code> 回调方法，执行一些特殊操作",
     "TablesSelectionScrollTitle": "渲染结束后回调方法",
     "TablesSelectionTitle": "Table 表格"
