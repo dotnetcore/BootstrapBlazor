@@ -272,8 +272,8 @@ public class TableTest : BootstrapBlazorTestBase
                     {
                         table.ResetVisibleColumns(
                         [
-                            new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
-                            new(nameof(Foo.Address), false),
+                            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, DisplayName = "Name-Display" },
+                            new TableColumnState() { Name = nameof(Foo.Address), Visible = false }
                         ]);
                     }
                     return Task.CompletedTask;
@@ -897,12 +897,12 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowColumnList_Ok()
     {
         // 设置客户端存储
-        Context.JSInterop.Setup<List<ColumnVisibleItem?>>("reloadColumnList", "test").SetResult(
-        [
-            null,
-            new("Name", false),
-            new("Address", true)
-        ]);
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 500;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
         var show = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -945,6 +945,7 @@ public class TableTest : BootstrapBlazorTestBase
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
+        cut.Contains("<table class=\"table\">");
 
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
@@ -955,6 +956,27 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsPopoverToolbarDropdownButton, true);
         });
         table.Contains("dropdown-menu-popover");
+
+        state.Columns[0].Width = 100;
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.True(show);
+
+        cut.Contains("style=\"width: 220px;\"");
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.IsMultipleSelect, true);
+            pb.Add(a => a.ShowLineNo, true);
+            pb.Add(a => a.IsDetails, true);
+            pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, "test_DetailRowTemplate"));
+        });
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.False(show);
+        cut.Contains("style=\"width: 240px;\"");
+
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.True(show);
+        cut.Contains("style=\"width: 340px;\"");
     }
 
     [Fact]
@@ -6372,7 +6394,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, cols.Count);
 
         var resp = cut.FindComponent<Responsive>().Instance;
-        await resp.OnResize(BreakPoint.Small);
+        await cut.InvokeAsync(() => resp.OnResize(BreakPoint.Small));
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -8739,6 +8761,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnAutoFitColumnWidthCallback_Ok()
     {
         var name = "";
+        TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -8749,11 +8772,11 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.FitColumnWidthIncludeHeader, true);
-                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, calcWidth) =>
+                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, state) =>
                 {
                     name = fieldName;
-                    var resWidth = Math.Max(100.65f, calcWidth);
-                    return Task.FromResult(resWidth);
+                    clientState = state;
+                    return Task.CompletedTask;
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -8771,17 +8794,14 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        int? v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitColumnWidthCallback("DateTime", 90));
-        Assert.Equal(100.65f, v);
+        var state = new TableColumnClientStatus() { Columns = [] };
+        await cut.InvokeAsync(() => table.Instance.AutoFitColumnWidthCallback(nameof(Foo.DateTime), state));
+        Assert.NotNull(clientState);
     }
 
     [Fact]
     public async Task AllowDragColumn_Ok()
     {
-        Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);
-        Context.JSInterop.SetupVoid("saveColumnOrder").SetVoidResult();
-
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -8820,10 +8840,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(async () =>
-        {
-            await table.Instance.DragColumnCallback(1, 0);
-        });
+        await cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
         Assert.Equal("Address", name);
 
         var columns = cut.FindAll("th");
@@ -8851,7 +8868,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnResizeColumnCallback_Ok()
     {
         var name = "";
-        int? width = null;
+        TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -8859,10 +8876,10 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.OnResizeColumnAsync, (field, colWidth) =>
+                pb.Add(a => a.OnResizeColumnAsync, (field, state) =>
                 {
                     name = field;
-                    width = colWidth;
+                    clientState = state;
                     return Task.CompletedTask;
                 });
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
@@ -8882,11 +8899,10 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
+        var state = new TableColumnClientStatus();
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Address), state));
         Assert.Equal("Address", name);
-        Assert.Equal(100, width);
-
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
+        Assert.NotNull(clientState);
     }
 
     [Theory]
@@ -9230,6 +9246,47 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => buttons[0].Click());
     }
 
+    [Fact]
+    private async Task UpdateTableState_Ok()
+    {
+        var argumentsCount = 0;
+        object? obj = null;
+        Context.JSInterop.SetupVoid("updateTableState", invocationMatcher =>
+        {
+            argumentsCount = invocationMatcher.Arguments.Count;
+            obj = invocationMatcher.Arguments[1];
+            return true;
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<Table<Foo>>(pb =>
+        {
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Address");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+        });
+
+        // 更新客户端持久化键值
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ClientTableName, "table-unit-test");
+        });
+
+        Assert.Equal(2, argumentsCount);
+        Assert.NotNull(obj);
+    }
     class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
@@ -9527,7 +9584,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         public TableRenderMode ShouldBeTable()
         {
-            ScreenSize = BreakPoint.Large;
+            InvokeScreen(BreakPoint.Large);
             RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
@@ -9535,7 +9592,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         public TableRenderMode ShouldBeCardView()
         {
-            ScreenSize = BreakPoint.ExtraSmall;
+            InvokeScreen(BreakPoint.ExtraSmall);
             RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
@@ -9575,6 +9632,14 @@ public class TableTest : BootstrapBlazorTestBase
         public string? TestGetCellClassString(ITableColumn col) => base.GetCellClassString(col, false, false);
 
         public string? TestGetHeaderWrapperClassString(ITableColumn col) => base.GetHeaderWrapperClassString(col);
+
+        private void InvokeScreen(object val)
+        {
+            var fieldInfo = GetType().BaseType!.GetField("_screenSize", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(fieldInfo);
+
+            fieldInfo.SetValue(this, val);
+        }
     }
 
     private class MockRenderCellTable : Table<ReadonlyFoo>
