@@ -20,24 +20,26 @@
     }
     else
     {
-        BuildTableColumns();
-        RebuildVisibleColumnsCache();
-        if (ShowSearch && SearchMode == SearchMode.Top)
-        {
-            @RenderSearch
-        }
-
-        if (ShowToolbar)
-        {
-            @RenderToolbar
-        }
-
-        if (ShowTopPagination && IsPagination)
-        {
-            @RenderPagination
-        }
-
         <RenderTemplate OnRenderAsync="OnTableRenderAsync">
+            @{
+                RebuildTableColumns();
+            }
+
+            @if (ShowSearch && SearchMode == SearchMode.Top)
+            {
+                @RenderSearch
+            }
+
+            @if (ShowToolbar)
+            {
+                @RenderToolbar
+            }
+
+            @if (ShowTopPagination && IsPagination)
+            {
+                @RenderPagination
+            }
+
             <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {

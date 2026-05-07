@@ -1121,18 +1121,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 读取浏览器持久化列状态配置
             await ReloadColumnStatesFromBrowserAsync();
 
-            // 列排序回调方法
-            if (ColumnOrderCallback != null)
-            {
-                Columns.Clear();
-                Columns.AddRange(ColumnOrderCallback(Columns));
-            }
-
-            // 调用列创建回调方法
-            if (OnColumnCreating != null)
-            {
-                await OnColumnCreating(Columns);
-            }
+            // 构建列信息
+            await BuildTableColumns();
 
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
@@ -1284,6 +1274,82 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private List<ITableColumn> GetTableColumns()
+    {
+        // 动态列模式
+        var cols = new List<ITableColumn>();
+        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        {
+            cols.AddRange(DynamicContext.GetColumns());
+        }
+        else if (AutoGenerateColumns)
+        {
+            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
+        }
+        else
+        {
+            cols.AddRange(Columns);
+        }
+
+        if (ColumnOrderCallback != null)
+        {
+            cols = [.. ColumnOrderCallback(cols)];
+        }
+
+        return cols;
+    }
+
+    private async Task TriggerColumnCreating(List<ITableColumn> cols)
+    {
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(cols);
+        }
+    }
+
+    private async Task BuildTableColumns()
+    {
+        // 构建列信息
+        var cols = GetTableColumns();
+
+        // 触发列创建事件
+        await TriggerColumnCreating(cols);
+
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
+
+        // set default sortName
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+        if (col != null)
+        {
+            SortName = col.GetFieldName();
+            SortOrder = col.DefaultSortOrder;
+        }
+
+        // 加载客户端持久化列状态
+        RebuildTableColumnFromCache();
+    }
+
+    private void RebuildTableColumns()
+    {
+        // 构建列信息
+        var cols = GetTableColumns();
+
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
+
+        // set default sortName
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+        if (col != null)
+        {
+            SortName = col.GetFieldName();
+            SortOrder = col.DefaultSortOrder;
+        }
+
+        // 加载客户端持久化列状态
+        RebuildTableColumnFromCache();
+    }
+
     private async Task ReloadColumnStatesFromBrowserAsync()
     {
         // 未开启客户端持久化功能直接返回
@@ -1310,44 +1376,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         _tableColumnStateCache = state;
     }
 
-    private void BuildTableColumns()
+    private void RebuildTableColumnFromCache()
     {
-        // 动态列模式
-        var cols = new List<ITableColumn>();
-        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        if (_tableColumnStateCache.Columns.Count != 0)
         {
-            cols.AddRange(DynamicContext.GetColumns());
-        }
-        else if (AutoGenerateColumns)
-        {
-            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
-        }
-        else
-        {
-            cols.AddRange(Columns);
-        }
-
-        // 加载客户端持久化列状态
-        RebuildTableColumnFromCache(cols);
-
-        Columns.Clear();
-        Columns.AddRange(cols.OrderFunc());
-
-        // set default sortName
-        var column = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (column != null)
-        {
-            SortName = column.GetFieldName();
-            SortOrder = column.DefaultSortOrder;
-        }
-    }
-
-    private void RebuildTableColumnFromCache(List<ITableColumn> cols)
-    {
-        if (!string.IsNullOrEmpty(ClientTableName))
-        {
-            // 提高性能避免循环
-            foreach (var col in cols)
+            foreach (var col in Columns)
             {
                 var fieldName = col.GetFieldName();
 
@@ -1357,7 +1390,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 {
                     col.Width = column.Width;
                     col.Visible = column.Visible;
-
                     column.DisplayName = col.GetDisplayName();
                 }
             }
@@ -1365,7 +1397,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 设置可见列顺序
         _columnVisibleItems.Clear();
-        _columnVisibleItems.AddRange(GetColumnVisibleItems(cols));
+        _columnVisibleItems.AddRange(GetColumnVisibleItems(Columns));
+
+        RebuildVisibleColumnsCache();
     }
 
     private List<TableColumnState> GetColumnVisibleItems(List<ITableColumn> cols)
@@ -1373,7 +1407,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 开启客户端持久化后未设置列状态的列默认使用组件参数值
         return _tableColumnStateCache.Columns.Count != 0
             ? _tableColumnStateCache.Columns
-            : [.. cols.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
+            : [.. cols.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize).Select(i => new TableColumnState()
             {
                 Name = i.GetFieldName(),
                 Visible = i.GetVisible(),
@@ -1452,20 +1486,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<TableColumnState> columns)
     {
-        // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
         foreach (var col in columns)
         {
-            // 使用 for + break 性能更好
-            for (var index = 0; index < _columnVisibleItems.Count; index++)
+            var column = Columns.Find(i => i.GetFieldName() == col.Name);
+            if (column != null)
             {
-                var item = _columnVisibleItems[index];
-                if (item.Name == col.Name)
-                {
-                    item.Visible = col.Visible;
-                    break;
-                }
+                column.Visible = col.Visible;
+                column.Width = col.Width;
             }
         }
+
+        // 重置可见缓存
+        RebuildTableColumnFromCache();
 
         _resetColumns = true;
         _invoke = true;
@@ -1862,7 +1894,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_columnVisibleItems.Count > originIndex)
         {
             var firstColumn = _columnVisibleItems[originIndex];
-            if (firstColumn != null && _columnVisibleItems.Count > currentIndex)
+            if (_columnVisibleItems.Count > currentIndex)
             {
                 var targetColumn = _columnVisibleItems[currentIndex];
                 _columnVisibleItems.Remove(firstColumn);
@@ -1921,18 +1953,38 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void UpdateTableColumnState(TableColumnClientStatus columnState)
     {
-        if (!string.IsNullOrEmpty(ClientTableName))
+        // 更新缓存数据中列宽度
+        foreach (var item in _tableColumnStateCache.Columns)
         {
-            // 更新缓存数据中列宽度
-            foreach (var item in _tableColumnStateCache.Columns)
+            var colState = columnState.Columns.Find(i => i.Name == item.Name);
+            if (colState != null)
             {
-                var colState = columnState.Columns.Find(i => i.Name == item.Name);
-                if (colState != null)
-                {
-                    item.Width = colState.Width;
-                }
+                item.Width = colState.Width;
             }
-            _tableColumnStateCache.TableWidth = columnState.TableWidth;
+        }
+        _tableColumnStateCache.TableWidth = columnState.TableWidth;
+
+        UpdateTableWidth();
+    }
+
+    private void UpdateTableWidth()
+    {
+        if (_tableColumnStateCache.TableWidth > 0)
+        {
+            if (IsMultipleSelect)
+            {
+                _tableColumnStateCache.TableWidth += MultiColumnWidth;
+            }
+
+            if (ShowLineNo)
+            {
+                _tableColumnStateCache.TableWidth += LineNoColumnWidth;
+            }
+
+            if (ShowDetails())
+            {
+                _tableColumnStateCache.TableWidth += DetailColumnWidth;
+            }
         }
     }
 
