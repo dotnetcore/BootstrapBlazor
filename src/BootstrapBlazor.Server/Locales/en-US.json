@@ -5113,7 +5113,7 @@
     "TablesSelectionNormalTips": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
     "TablesSelectionNormalTitle": "Set row selection function",
     "TablesSelectionScrollButtonText": "Select Last Row",
-    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>, Set the alignment via the <code>AutoScrollVerticalAlign</code> parameter",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>, Set the alignment via the <code>AutoScrollVerticalAlign</code> parameter, Set the scroll behavior via the <code>ScrollIntoViewBehavior</code> parameter, default is <code>Smooth</code>",
     "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
     "TablesSelectionScrollTitle": "Callback method after rendering",
     "TablesSelectionTitle": "Table Selection"
