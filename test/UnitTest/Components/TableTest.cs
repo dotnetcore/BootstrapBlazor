@@ -8756,6 +8756,52 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReloadColumnWidth_Ok(bool fixedHeader)
+    {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 220;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_client_name").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+
+        Assert.Contains("style=\"width: 220px;\"", table.Markup);
+        if (fixedHeader)
+        {
+            Assert.Contains("style=\"width: 215px;\"", table.Markup);
+        }
+    }
+
+    [Theory]
     [InlineData(null, true)]
     [InlineData(180, true)]
     [InlineData(null, false)]
@@ -9137,6 +9183,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, argumentsCount);
         Assert.NotNull(obj);
     }
+
     class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
