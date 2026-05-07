@@ -859,11 +859,12 @@ export function getColumnStates(tableName) {
 
     const columnWidthState = getColumnWidthState(tableName);
     if (columnWidthState) {
+        removeColumnVisibleState(tableName);
+
         const columnVisibleStates = getColumnVisibleState(tableName);
         if (columnVisibleStates) {
-            //removeColumnVisibleState(tableName);
+            removeColumnWidthState(tableName);
 
-            //removeColumnWidthState(tableName);
             for (const item of columnWidthState.cols) {
                 const { name } = item;
                 const column = columnVisibleStates.find(i => i.name === name);
@@ -881,7 +882,7 @@ export function getColumnStates(tableName) {
 }
 
 const getColumnStateFromLocalstorage = tableName => {
-    const columnStateKey = `bb-table-column-${tableName}`;
+    const columnStateKey = `bb-table-${tableName}`;
     return getLocalStorageValue(columnStateKey);
 }
 
@@ -921,7 +922,7 @@ const getLocalStorageValue = key => {
 const saveColumnStateToLocalstorage = (table, state) => {
     const { options: { tableName } } = table;
     if (tableName) {
-        const columnStateKey = `bb-table-column-${tableName}`;
+        const columnStateKey = `bb-table-${tableName}`;
         const columnState = state ?? getColumnStateObject(table);
         localStorage.setItem(columnStateKey, JSON.stringify(columnState));
     }
