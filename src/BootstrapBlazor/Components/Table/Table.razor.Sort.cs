@@ -351,7 +351,7 @@ public partial class Table<TItem>
 
     private string? GetLeftStyle(ITableColumn col)
     {
-        var columns = GetVisibleColumns().ToList();
+        var columns = GetVisibleColumns();
         var defaultWidth = 200;
         var width = 0;
         var start = 0;
@@ -378,7 +378,7 @@ public partial class Table<TItem>
 
     private string? GetRightStyle(ITableColumn col, int margin)
     {
-        var columns = GetVisibleColumns().ToList();
+        var columns = GetVisibleColumns();
         var defaultWidth = 200;
         var width = 0;
         var index = columns.IndexOf(col);
