@@ -305,7 +305,7 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <DynamicElement TagName="th" @key="col" class="@GetHeaderClassString(col)"
+                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)"
                                         style="@GetFixedCellStyleString(col, ActualScrollWidth)"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
                                         draggable="@DraggableString">
