@@ -92,6 +92,6 @@ public class ChangeDetectionCleanTaskTest
 
         public List<ITableColumn> Columns { get; } = [];
 
-        public IEnumerable<ITableColumn> GetVisibleColumns() => [];
+        public List<ITableColumn> GetVisibleColumns() => [];
     }
 }
