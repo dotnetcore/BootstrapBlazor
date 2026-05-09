@@ -9,7 +9,7 @@
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
-@* <DemoBlock Title="@Localizer["WidthTitle"]"
+<DemoBlock Title="@Localizer["WidthTitle"]"
            Introduction="@Localizer["WidthIntro"]"
            Name="Width">
     <section ignore>
@@ -49,7 +49,7 @@
         </RowButtonTemplate>
     </Table>
 </DemoBlock>
- *@
+
 <DemoBlock Title="@Localizer["AllowResizingTitle"]"
            Introduction="@Localizer["AllowResizingIntro"]"
            Name="AllowResizing">
@@ -58,8 +58,6 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowResizing="true" ClientTableName="table-test"
            IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
-           ShowToolbar="true" IsMultipleSelect="true" ShowColumnList="true"
-           AllowDragColumn="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
