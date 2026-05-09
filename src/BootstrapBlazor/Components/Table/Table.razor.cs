@@ -1963,8 +1963,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
         }
         _tableColumnStateCache.TableWidth = columnState.TableWidth;
-
-        UpdateTableWidth();
     }
 
     private void UpdateTableWidth()
