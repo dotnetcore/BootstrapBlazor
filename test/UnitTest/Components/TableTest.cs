@@ -1797,27 +1797,27 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(3, "Width", 100);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.OpenComponent<TableColumn<Foo, bool>>(10);
+                    builder.AddAttribute(11, "Field", foo.Complete);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableColumn<Foo, string>>(10);
                     builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Fixed), true);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(10);
+                    builder.AddAttribute(11, "Field", foo.Education);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Fixed), true);
                     builder.AddAttribute(3, "Width", 100);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(10);
+                    builder.AddAttribute(11, "Field", foo.Hobby);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Hobby), typeof(IEnumerable<string>)));
                     builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
                     builder.CloseComponent();
                 });
@@ -1826,33 +1826,100 @@ public class TableTest : BootstrapBlazorTestBase
 
         cut.Contains("left: 0px;");
         cut.Contains("left: 200px;");
-        cut.Contains("left: 500px;");
         if (showExtendButton)
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 238px;");
+                cut.Contains("right: 438px;");
+                cut.Contains("right: 338px;");
                 cut.Contains("right: 138px;");
                 cut.Contains("right: 8px;");
             }
             else
             {
-                cut.Contains("right: 230px;");
+                cut.Contains("right: 430px;");
+                cut.Contains("right: 330px;");
                 cut.Contains("right: 130px;");
                 cut.Contains("right: 0px;");
             }
         }
         if (!showExtendButton)
         {
-            cut.Contains("right: 100px;");
+            cut.Contains("right: 300px;");
+            cut.Contains("right: 200px;");
             cut.Contains("right: 0px;");
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 108px;");
+                cut.Contains("right: 308px;");
+                cut.Contains("right: 208px;");
                 cut.Contains("right: 8px;");
             }
         }
+    }
+
+    [Fact]
+    public void ColumnFixed_TailColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(4, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(5);
+                    builder.AddAttribute(6, "Field", foo.Count);
+                    builder.AddAttribute(7, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(8, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(9, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(14);
+                    builder.AddAttribute(15, "Field", foo.DateTime);
+                    builder.AddAttribute(16, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.AddAttribute(17, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(18, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(19);
+                    builder.AddAttribute(20, "Field", foo.Education);
+                    builder.AddAttribute(21, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(22, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(23, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(24);
+                    builder.AddAttribute(25, "Field", foo.Complete);
+                    builder.AddAttribute(26, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(27, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(28, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("style=\"right: 200px;\"");
+        cut.Contains("style=\"right: 100px;\"");
+        cut.Contains("style=\"right: 0px;\"");
+        cut.DoesNotContain("style=\"left: 300px;\"");
     }
 
     [Fact]
