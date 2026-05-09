@@ -643,10 +643,12 @@ const autoFitColumnWidth = async (table, col) => {
                 span.style.removeProperty('width');
             }
 
-            table.style.removeProperty('width');
             const tableWidth = getTableWidth(table);
             if (tableWidth) {
                 table.style.setProperty('width', `${tableWidth}px`);
+            }
+            else {
+                table.style.removeProperty('width');
             }
         });
 
