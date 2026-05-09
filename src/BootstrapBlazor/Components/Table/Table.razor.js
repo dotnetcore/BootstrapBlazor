@@ -963,12 +963,12 @@ const getTableWidth = table => {
     const colgroup = [...table.children].find(i => i.nodeName === 'COLGROUP');
     for (const col of colgroup.children) {
         const width = parseInt(col.style.width);
-        if (isNaN(width) === false) {
-            tableWidth += width;
-        }
-        else {
+        if (isNaN(width)) {
             tableWidth = null;
             break;
+        }
+        else {
+            tableWidth += width;
         }
     }
     return (tableWidth ?? getWidth(table)) | 0;
