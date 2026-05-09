@@ -1866,11 +1866,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, TableColumnClientStatus, Task>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to include header when auto fit column width. Default false</para>
+    /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 true</para>
+    /// <para lang="en">Gets or sets Whether to include header when auto fit column width. Default true</para>
     /// </summary>
     [Parameter]
-    public bool FitColumnWidthIncludeHeader { get; set; }
+    public bool FitColumnWidthIncludeHeader { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">列宽自适应方法</para>
