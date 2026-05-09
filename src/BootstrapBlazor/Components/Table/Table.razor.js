@@ -644,12 +644,7 @@ const autoFitColumnWidth = async (table, col) => {
             }
 
             const tableWidth = getTableWidth(table);
-            if (tableWidth) {
-                table.style.setProperty('width', `${tableWidth}px`);
-            }
-            else {
-                table.style.removeProperty('width');
-            }
+            table.style.setProperty('width', `${tableWidth}px`);
         });
 
         resetColumnWidthTips(table, col);
