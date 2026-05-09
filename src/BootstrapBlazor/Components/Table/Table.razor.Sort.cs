@@ -194,7 +194,7 @@ public partial class Table<TItem>
     /// <param name="cellClass"></param>
     protected string? GetFixedCellClassString(ITableColumn col, string? cellClass = null) => CssBuilder.Default(cellClass)
         .AddClass("fixed", col.Fixed)
-        .AddClass("fixed-right", col.Fixed && IsTail(col))
+        .AddClass("fixed-right", col.Fixed && IsFixRight(col))
         .AddClass("fr", IsLastColumn(col))
         .AddClass("fl", IsFirstColumn(col))
         .Build();
@@ -243,10 +243,11 @@ public partial class Table<TItem>
     private bool IsLastColumn(ITableColumn col) => LastFixedColumnCache.GetOrAdd(col, col =>
     {
         var ret = false;
-        if (col.Fixed && !IsTail(col))
+        if (col.Fixed && !IsFixRight(col))
         {
-            var index = Columns.IndexOf(col) + 1;
-            ret = index < Columns.Count && Columns[index].Fixed == false;
+            var columns = GetVisibleColumns();
+            var index = columns.IndexOf(col) + 1;
+            ret = index < columns.Count && columns[index].Fixed == false;
         }
         return ret;
     });
@@ -258,12 +259,13 @@ public partial class Table<TItem>
     private bool IsFirstColumn(ITableColumn col) => FirstFixedColumnCache.GetOrAdd(col, col =>
     {
         var ret = false;
-        if (col.Fixed && IsTail(col))
+        if (col.Fixed && IsFixRight(col))
         {
-            var index = Columns.IndexOf(col) - 1;
-            if (index > 0)
+            var columns = GetVisibleColumns();
+            var index = columns.IndexOf(col) - 1;
+            if (index >= 0)
             {
-                ret = !Columns[index].Fixed;
+                ret = !columns[index].Fixed;
             }
         }
         return ret;
@@ -310,11 +312,15 @@ public partial class Table<TItem>
         return margin;
     }
 
-    private bool IsTail(ITableColumn col)
+    private bool IsFixRight(ITableColumn col)
     {
-        var middle = Math.Floor(GetVisibleColumns().Count() * 1.0 / 2);
-        var index = Columns.IndexOf(col);
-        return middle < index;
+        // 获得所有可见列
+        var columns = GetVisibleColumns();
+
+        // 获得当前列索引
+        var index = columns.IndexOf(col);
+
+        return !columns.Take(index).All(i => i.Fixed);
     }
 
     /// <summary>
@@ -344,7 +350,7 @@ public partial class Table<TItem>
         string? ret = null;
         if (col.Fixed)
         {
-            ret = IsTail(col) ? GetRightStyle(col, margin) : GetLeftStyle(col);
+            ret = IsFixRight(col) ? GetRightStyle(col, margin) : GetLeftStyle(col);
         }
         return ret;
     }
@@ -379,24 +385,21 @@ public partial class Table<TItem>
     private string? GetRightStyle(ITableColumn col, int margin)
     {
         var columns = GetVisibleColumns();
-        var defaultWidth = 200;
+        var defaultWidth = DefaultFixedColumnWidth;
         var width = 0;
         var index = columns.IndexOf(col);
 
         // after
-        while (index + 1 < columns.Count)
+        for (var i = index + 1; i < columns.Count; i++)
         {
-            var column = columns[index++];
+            var column = columns[i];
             width += column.Width ?? defaultWidth;
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
             width += ExtendButtonColumnWidth;
         }
-
-        // <para lang="zh">如果是固定表头时增加滚动条位置</para>
-        // <para lang="en">Add scroll bar position if it is fixed header</para>
-        if (IsFixedHeader && (index + 1) == columns.Count)
+        if (IsFixedHeader)
         {
             width += margin;
         }
