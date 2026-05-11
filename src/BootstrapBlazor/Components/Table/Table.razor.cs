@@ -1341,7 +1341,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             state = new();
 
             // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-            state.Columns.AddRange(Columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
+            state.Columns.AddRange(_columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
             {
                 Name = i.GetFieldName(),
                 Visible = i.GetVisible(),
