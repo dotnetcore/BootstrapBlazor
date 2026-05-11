@@ -687,6 +687,39 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Columns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        Assert.Equal(2, table.Instance.Columns.Count);
+        Assert.Collection(table.Instance.Columns,
+            col => Assert.Equal(nameof(Foo.Name), col.GetFieldName()),
+            col => Assert.Equal(nameof(Foo.Address), col.GetFieldName()));
+    }
+
+    [Fact]
     public void ToolbarTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
