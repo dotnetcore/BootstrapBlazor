@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SelectTable<TItem> where TItem : class, new()
+public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否为多选模式，默认值为 false</para>
@@ -168,6 +168,12 @@ public partial class SelectTable<TItem> where TItem : class, new()
     [Inject]
     [NotNull]
     protected IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得表格列集合</para>
+    /// <para lang="en">Get Table Column Collection</para>
+    /// </summary>
+    public List<ITableColumn> Columns => _table.Columns;
 
     private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)
