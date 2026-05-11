@@ -9241,7 +9241,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    private async Task UpdateTableState_Ok()
+    public async Task UpdateTableState_Ok()
     {
         var argumentsCount = 0;
         object? obj = null;
