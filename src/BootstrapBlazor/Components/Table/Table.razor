@@ -4,7 +4,7 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
-    <CascadingValue Value="@_columns" IsFixed="true">
+    <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(CreateTItem())
     </CascadingValue>
     @if (_firstRender)
