@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">model generic type</para></typeparam>
 /// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">binding field value type</para></typeparam>
-public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
+public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, IAsyncDisposable
 {
     /// <summary>
     /// <inheritdoc/>
@@ -505,14 +505,14 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [CascadingParameter]
-    protected IColumnCollection? Columns { get; set; }
+    protected List<ITableColumn>? Columns { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        Columns?.Columns.Add(this);
+        Columns?.Add(this);
 
         if (FieldExpression != null)
         {
@@ -565,5 +565,15 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
             }
         }
         return FieldName ?? "";
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public virtual ValueTask DisposeAsync()
+    {
+        Columns?.Remove(this);
+        return ValueTask.CompletedTask;
     }
 }
