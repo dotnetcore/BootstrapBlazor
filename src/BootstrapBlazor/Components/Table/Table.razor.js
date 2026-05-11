@@ -878,11 +878,6 @@ export function getColumnStates(tableName) {
     }
 }
 
-const getColumnStateFromLocalstorage = tableName => {
-    const columnStateKey = `bb-table-${tableName}`;
-    return getLocalStorageValue(columnStateKey);
-}
-
 const getColumnVisibleState = tableName => {
     const columnVisibleKey = `bb-table-column-visible-${tableName}`
     return getLocalStorageValue(columnVisibleKey);
@@ -903,6 +898,20 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
+const getColumnStateFromLocalstorage = tableName => {
+    const columnStateKey = `bb-table-${tableName}`;
+    return getLocalStorageValue(columnStateKey);
+}
+
+const saveColumnStateToLocalstorage = (table, state) => {
+    const { options: { tableName } } = table;
+    if (tableName) {
+        const columnStateKey = `bb-table-${tableName}`;
+        const columnState = state ?? getColumnStateObject(table);
+        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
+    }
+}
+
 const getLocalStorageValue = key => {
     let result = null;
     const json = localStorage.getItem(key);
@@ -914,15 +923,6 @@ const getLocalStorageValue = key => {
     }
 
     return result;
-}
-
-const saveColumnStateToLocalstorage = (table, state) => {
-    const { options: { tableName } } = table;
-    if (tableName) {
-        const columnStateKey = `bb-table-${tableName}`;
-        const columnState = state ?? getColumnStateObject(table);
-        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
-    }
 }
 
 const getColumnStateObject = table => {
