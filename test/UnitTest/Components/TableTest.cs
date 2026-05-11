@@ -7888,8 +7888,9 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnColumnCreating_Ok()
+    public async Task OnColumnCreating_Ok()
     {
+        var visible = false;
         var creating = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -7899,10 +7900,16 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.OnColumnCreating, cols =>
+                pb.Add(a => a.OnColumnCreating, async cols =>
                 {
-                    creating = true;
-                    return Task.CompletedTask;
+                    await Task.Yield();
+
+                    var column = cols.Find(i => i.GetFieldName() == nameof(Foo.Address));
+                    if (column != null)
+                    {
+                        column.Visible = visible;
+                        creating = true;
+                    }
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -7910,10 +7917,34 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(3, "Visible", true);
+                    builder.CloseComponent();
                 });
             });
         });
-        Assert.True(creating);
+
+        await cut.WaitForAssertionAsync(() =>
+        {
+            Assert.True(creating);
+            var table = cut.FindComponent<Table<Foo>>();
+            Assert.Single(table.Instance.GetVisibleColumns());
+        });
+
+        // 二次渲染触发 OnColumnCreating
+        visible = true;
+        creating = false;
+        cut.Render();
+
+        await cut.WaitForAssertionAsync(() =>
+        {
+            Assert.True(creating);
+            var table = cut.FindComponent<Table<Foo>>();
+            Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
+        });
     }
 
     [Fact]
