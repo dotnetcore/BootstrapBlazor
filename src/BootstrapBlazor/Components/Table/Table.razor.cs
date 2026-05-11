@@ -1118,14 +1118,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 首次渲染结束
             _firstRender = false;
 
-            // 构建列信息
-            await BuildTableColumnsAsync();
-
             // 读取浏览器持久化列状态配置
             await ReloadColumnStatesFromBrowserAsync();
 
-            // 加载客户端持久化列状态
-            RebuildTableColumnFromCache();
+            // 构建列信息
+            await BuildTableColumnsAsync();
 
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
