@@ -547,7 +547,7 @@ public static class Utility
             if (col != null)
             {
                 tc.CopyValue(col);
-                columns.Remove(col);
+                //columns.Remove(col);
             }
 
             if (!tc.GetIgnore())
@@ -556,10 +556,20 @@ public static class Utility
             }
         }
 
-        if (columns.Count > 0)
+        if (columns.Count > 1)
         {
-            cols.AddRange(columns);
+            /*
+             * 1、动态生成列时，如果有手写 Ignore 属性的列，并没有添加到 cols 中，这样在编辑或其他操作时，在页面上手动 Ignore 属性的列会被删除
+             * 2、等用户操作编辑等动作时，再次渲染传进来的 source 列集合中，并没有手写的含 Ignore 属性的列，这直接导致了二次渲染时，将不应该显示的列给显示了
+             * 3、这里直接将即将返回的列集合，与二次渲染的列集合进行比较，将不存在于二次渲染列集合中的列给排除掉，以保证渲染表格时列集合正确
+             */
+            cols.RemoveAll(x => !columns.Contains(x));
         }
+
+        //if (columns.Count > 0)
+        //{
+        //    cols.AddRange(columns);
+        //}
         return defaultOrderCallback?.Invoke(cols) ?? cols;
     }
 
