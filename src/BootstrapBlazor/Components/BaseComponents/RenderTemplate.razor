@@ -1,3 +1,10 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 
-@ChildContent
+@{
+	_renderedChildContent = _renderChildContent;
+}
+
+@if (_renderChildContent)
+{
+	@ChildContent
+}

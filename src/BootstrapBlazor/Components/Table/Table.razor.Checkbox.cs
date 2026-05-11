@@ -168,21 +168,26 @@ public partial class Table<TItem>
                     column.Visible = visible;
                 }
 
-                if (column.Visible)
+                if (!column.Visible)
                 {
-                    // 重新计算表格宽度
-                    if (column.Width.HasValue)
-                    {
-                        tableWidth += column.Visible ? column.Width.Value : 0;
-                    }
-                    else
-                    {
-                        useTableWidth = false;
-                    }
+                    continue;
+                }
+
+                // 重新计算表格宽度
+                if (column.Width.HasValue)
+                {
+                    tableWidth += column.Width.Value;
+                }
+                else
+                {
+                    // 未设置列宽表格自适应
+                    useTableWidth = false;
                 }
             }
 
             _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
+
+            UpdateTableWidth();
         }
 
         // 触发 OnColumnVisibleChanged 回调

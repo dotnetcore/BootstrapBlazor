@@ -552,7 +552,7 @@ public partial class Table<TItem>
     /// <para lang="zh">获得当前可见列集合</para>
     /// <para lang="en">Get Visible Columns Collection</para>
     /// </summary>
-    public IEnumerable<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
+    public List<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
 
     private void RebuildVisibleColumnsCache()
     {

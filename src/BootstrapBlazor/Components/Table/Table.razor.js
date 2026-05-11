@@ -643,17 +643,16 @@ const autoFitColumnWidth = async (table, col) => {
                 span.style.removeProperty('width');
             }
 
-            table.style.removeProperty('width');
             const tableWidth = getTableWidth(table);
-            if (tableWidth) {
-                table.style.setProperty('width', `${tableWidth}px`);
-            }
+            table.style.setProperty('width', `${tableWidth}px`);
         });
 
         resetColumnWidthTips(table, col);
+
         const state = getColumnStateObject(table);
         saveColumnStateToLocalstorage(table, state);
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state)
+
+        await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, state);
     }
 }
 
@@ -670,7 +669,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    return getWidth(div) + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
+    return getWidth(div) + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1 | 0;
 }
 
 const closeAllTips = (columns, self) => {
@@ -857,11 +856,12 @@ export function getColumnStates(tableName) {
 
     const columnWidthState = getColumnWidthState(tableName);
     if (columnWidthState) {
+        removeColumnVisibleState(tableName);
+
         const columnVisibleStates = getColumnVisibleState(tableName);
         if (columnVisibleStates) {
-            //removeColumnVisibleState(tableName);
+            removeColumnWidthState(tableName);
 
-            //removeColumnWidthState(tableName);
             for (const item of columnWidthState.cols) {
                 const { name } = item;
                 const column = columnVisibleStates.find(i => i.name === name);
@@ -876,11 +876,6 @@ export function getColumnStates(tableName) {
 
         return columnWidthState;
     }
-}
-
-const getColumnStateFromLocalstorage = tableName => {
-    const columnStateKey = `bb-table-column-${tableName}`;
-    return getLocalStorageValue(columnStateKey);
 }
 
 const getColumnVisibleState = tableName => {
@@ -903,6 +898,20 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
+const getColumnStateFromLocalstorage = tableName => {
+    const columnStateKey = `bb-table-${tableName}`;
+    return getLocalStorageValue(columnStateKey);
+}
+
+const saveColumnStateToLocalstorage = (table, state) => {
+    const { options: { tableName } } = table;
+    if (tableName) {
+        const columnStateKey = `bb-table-${tableName}`;
+        const columnState = state ?? getColumnStateObject(table);
+        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
+    }
+}
+
 const getLocalStorageValue = key => {
     let result = null;
     const json = localStorage.getItem(key);
@@ -914,15 +923,6 @@ const getLocalStorageValue = key => {
     }
 
     return result;
-}
-
-const saveColumnStateToLocalstorage = (table, state) => {
-    const { options: { tableName } } = table;
-    if (tableName) {
-        const columnStateKey = `bb-table-column-${tableName}`;
-        const columnState = state ?? getColumnStateObject(table);
-        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
-    }
 }
 
 const getColumnStateObject = table => {
@@ -958,12 +958,12 @@ const getTableWidth = table => {
     const colgroup = [...table.children].find(i => i.nodeName === 'COLGROUP');
     for (const col of colgroup.children) {
         const width = parseInt(col.style.width);
-        if (isNaN(width) === false) {
-            tableWidth += width;
-        }
-        else {
+        if (isNaN(width)) {
             tableWidth = null;
             break;
+        }
+        else {
+            tableWidth += width;
         }
     }
     return (tableWidth ?? getWidth(table)) | 0;

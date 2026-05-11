@@ -198,6 +198,6 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
 
         public List<ITableColumn> Columns => [];
 
-        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+        public List<ITableColumn> GetVisibleColumns() => Columns;
     }
 }

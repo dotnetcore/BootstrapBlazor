@@ -232,7 +232,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
 
         public List<ITableColumn> Columns => [];
 
-        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+        public List<ITableColumn> GetVisibleColumns() => Columns;
     }
 
     private class MockColumn<TType> : TableColumn<Foo, TType>
