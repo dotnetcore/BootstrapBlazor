@@ -7,11 +7,23 @@ using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
-class TableColumnLocalstorageStatus
+/// <summary>
+/// <para lang="zh">表格列状态类</para>
+/// <para lang="en">Table Column Status Class</para>
+/// </summary>
+public class TableColumnClientStatus
 {
+    /// <summary>
+    /// <para lang="zh">列状态集合</para>
+    /// <para lang="en">Column State Collection</para>
+    /// </summary>
     [JsonPropertyName("cols")]
     public List<TableColumnState> Columns { get; set; } = [];
 
+    /// <summary>
+    /// <para lang="zh">表格宽度</para>
+    /// <para lang="en">Table Width</para>
+    /// </summary>
     [JsonPropertyName("table")]
     public int TableWidth { get; set; }
 }
