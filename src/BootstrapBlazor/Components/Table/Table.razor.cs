@@ -1728,7 +1728,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count();
+        var colSpan = GetVisibleColumns().Count;
         if (IsMultipleSelect)
         {
             colSpan++;
