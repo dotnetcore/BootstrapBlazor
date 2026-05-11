@@ -568,12 +568,24 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, I
     }
 
     /// <summary>
+    /// <para lang="zh">DisposeAsync 方法</para>
+    /// <para lang="en">DisposeAsync method</para>
+    /// </summary>
+    protected virtual ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Columns?.Remove(this);
+        }
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public virtual ValueTask DisposeAsync()
+    public virtual async ValueTask DisposeAsync()
     {
-        Columns?.Remove(this);
-        return ValueTask.CompletedTask;
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
