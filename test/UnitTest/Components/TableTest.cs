@@ -5228,7 +5228,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(2, table.Instance.Columns.Count);
-        Assert.Equal(2, table.Instance.GetVisibleColumns().Count());
+        Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
 
         table.Render(pb =>
         {
@@ -7351,7 +7351,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 可见列为 2 列
         var columns = table.Instance.GetVisibleColumns();
-        Assert.Equal(2, columns.Count());
+        Assert.Equal(2, columns.Count);
 
         // 由于设置了 IgnoreWhenExport 为 true 所以导出时不包含 Address 列
         ITableExportDataContext<Foo>? exportContext = null;

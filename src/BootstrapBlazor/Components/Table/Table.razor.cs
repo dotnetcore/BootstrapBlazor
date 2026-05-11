@@ -969,6 +969,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
 
+    private List<ITableColumn> _columns = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1118,14 +1120,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 首次渲染结束
             _firstRender = false;
 
-            // 构建列信息
-            await BuildTableColumnsAsync();
-
             // 读取浏览器持久化列状态配置
             await ReloadColumnStatesFromBrowserAsync();
 
-            // 加载客户端持久化列状态
-            RebuildTableColumnFromCache();
+            // 构建列信息
+            await BuildTableColumnsAsync();
 
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
@@ -1287,11 +1286,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else if (AutoGenerateColumns)
         {
-            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
+            cols.AddRange(Utility.GetTableColumns<TItem>(_columns));
         }
         else
         {
-            cols.AddRange(Columns);
+            cols.AddRange(_columns);
         }
 
         if (ColumnOrderCallback != null)
@@ -1342,7 +1341,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             state = new();
 
             // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-            state.Columns.AddRange(Columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
+            state.Columns.AddRange(_columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
             {
                 Name = i.GetFieldName(),
                 Visible = i.GetVisible(),
@@ -1728,7 +1727,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count();
+        var colSpan = GetVisibleColumns().Count;
         if (IsMultipleSelect)
         {
             colSpan++;
