@@ -577,6 +577,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, I
         {
             Columns?.Remove(this);
         }
+
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>
