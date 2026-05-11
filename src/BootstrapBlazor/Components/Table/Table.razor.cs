@@ -1122,7 +1122,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await ReloadColumnStatesFromBrowserAsync();
 
             // 构建列信息
-            await BuildTableColumns();
+            BuildTableColumns();
 
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
@@ -1299,41 +1299,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return cols;
     }
 
-    private async Task TriggerColumnCreating(List<ITableColumn> cols)
-    {
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(cols);
-        }
-    }
-
-    private async Task BuildTableColumns()
+    private void BuildTableColumns()
     {
         // 构建列信息
         var cols = GetTableColumns();
 
         // 触发列创建事件
-        await TriggerColumnCreating(cols);
-
-        Columns.Clear();
-        Columns.AddRange(cols.OrderFunc());
-
-        // set default sortName
-        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (col != null)
-        {
-            SortName = col.GetFieldName();
-            SortOrder = col.DefaultSortOrder;
-        }
-
-        // 加载客户端持久化列状态
-        RebuildTableColumnFromCache();
-    }
-
-    private void RebuildTableColumns()
-    {
-        // 构建列信息
-        var cols = GetTableColumns();
+        //if (OnColumnCreating != null)
+        //{
+        //    await OnColumnCreating(cols);
+        //}
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1413,6 +1388,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 Visible = i.GetVisible(),
                 DisplayName = i.GetDisplayName()
             })];
+    }
+
+    private async Task OnTest()
+    {
+        var t = Columns;
+        await Task.CompletedTask;
     }
 
     private async Task OnTableRenderAsync(bool firstRender)
