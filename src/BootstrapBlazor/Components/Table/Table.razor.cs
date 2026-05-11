@@ -969,6 +969,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool IsDataTableDynamicContext => DynamicContext is DataTableDynamicContext;
 
+    private List<ITableColumn> _columns = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1284,11 +1286,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else if (AutoGenerateColumns)
         {
-            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
+            cols.AddRange(Utility.GetTableColumns<TItem>(_columns));
         }
         else
         {
-            cols.AddRange(Columns);
+            cols.AddRange(_columns);
         }
 
         if (ColumnOrderCallback != null)
