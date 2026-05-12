@@ -556,19 +556,6 @@ public partial class Table<TItem>
 
     private void RebuildVisibleColumnsCache()
     {
-        var cols = _tableColumnStateCache.Columns.Count != 0
-            ? _tableColumnStateCache.Columns
-            : [.. Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
-                .Select(i => new TableColumnState()
-                {
-                    Name = i.GetFieldName(),
-                    Visible = i.GetVisible(),
-                    DisplayName = i.GetDisplayName()
-                })
-            ];
-        _tableColumnStates.Clear();
-        _tableColumnStates.AddRange(cols);
-
         _visibleColumnsCache.Clear();
         for (var index = 0; index < _tableColumnStates.Count; index++)
         {

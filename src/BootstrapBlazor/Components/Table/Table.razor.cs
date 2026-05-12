@@ -1303,6 +1303,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
+        if (_resetColumns)
+        {
+            return;
+        }
+
         // 构建列信息
         var cols = GetTableColumns();
 
@@ -1371,6 +1376,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
+
+        var cols = _tableColumnStateCache.Columns.Count != 0
+            ? _tableColumnStateCache.Columns
+            : [.. Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
+                        .Select(i => new TableColumnState()
+                        {
+                            Name = i.GetFieldName(),
+                            Visible = i.GetVisible(),
+                            DisplayName = i.GetDisplayName(),
+                            Width = i.Width
+                        })
+            ];
+        _tableColumnStates.Clear();
+        _tableColumnStates.AddRange(cols);
 
         RebuildVisibleColumnsCache();
     }
@@ -1875,6 +1894,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
             _resetColumns = true;
             _invoke = true;
+
+            RebuildVisibleColumnsCache();
 
             StateHasChanged();
         }
