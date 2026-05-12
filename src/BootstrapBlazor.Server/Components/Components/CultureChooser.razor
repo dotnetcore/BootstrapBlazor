@@ -2,7 +2,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <span>@Label</span>
-    <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture">
+    <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture" DisableItemChangedWhenFirstRender="true">
         <Options>
             @foreach (var kv in BootstrapOptions.Value.GetSupportedCultures())
             {
