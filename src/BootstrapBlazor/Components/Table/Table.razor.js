@@ -926,7 +926,7 @@ const getLocalStorageValue = key => {
 }
 
 const getColumnStateObject = table => {
-    const cols = table.options.visibleColumns || [];
+    const cols = table.options.visibleColumns;
     return {
         cols: cols.map(col => {
             return {
