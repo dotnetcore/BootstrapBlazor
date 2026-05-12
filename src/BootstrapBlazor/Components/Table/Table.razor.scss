@@ -1,5 +1,5 @@
 .dropdown-menu-popover {
-  --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
+    --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
 }
 
 .table-container {
@@ -33,7 +33,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
 
     .nav-pages {
         margin-block-start: .5rem;
@@ -51,6 +50,20 @@
     .table-card {
         &.table-fixed {
             overflow: auto;
+        }
+    }
+
+    .table-shim {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        height: 1%;
+
+        .table-fixed-body {
+            flex: 1;
+            min-height: 0;
+            height: 1%;
         }
     }
 }
@@ -310,7 +323,7 @@
     flex-shrink: 0;
     box-sizing: border-box;
 }
-   
+
 .table-toolbar:after {
     content: "";
     display: block;
@@ -430,7 +443,7 @@
     table-layout: fixed;
 }
 
-.table-fixed {    
+.table-fixed {
     flex-shrink: 1;
     box-sizing: border-box;
     height: 100%;
