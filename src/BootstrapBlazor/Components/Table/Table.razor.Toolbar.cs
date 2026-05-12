@@ -557,6 +557,7 @@ public partial class Table<TItem>
     private void RebuildVisibleColumnsCache()
     {
         _visibleColumnsCache.Clear();
+
         for (var index = 0; index < _tableColumnStates.Count; index++)
         {
             var item = _tableColumnStates[index];
