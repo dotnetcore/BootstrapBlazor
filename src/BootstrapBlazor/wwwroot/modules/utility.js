@@ -324,7 +324,37 @@ const insertAfter = (element, newEl) => {
 }
 
 const drag = (element, start, move, end) => {
+    let dragging = false
+
+    const addDocumentListeners = () => {
+        EventHandler.on(document, 'mousemove', handleDragMove)
+        EventHandler.on(document, 'touchmove', handleDragMove)
+        EventHandler.on(document, 'mouseup', handleDragEnd)
+        EventHandler.on(document, 'touchend', handleDragEnd)
+        EventHandler.on(document, 'touchcancel', handleDragEnd)
+        EventHandler.on(window, 'mouseup', handleDragEnd)
+        EventHandler.on(window, 'touchend', handleDragEnd)
+        EventHandler.on(window, 'touchcancel', handleDragEnd)
+        EventHandler.on(window, 'blur', handleDragEnd)
+    }
+
+    const removeDocumentListeners = () => {
+        EventHandler.off(document, 'mousemove', handleDragMove)
+        EventHandler.off(document, 'touchmove', handleDragMove)
+        EventHandler.off(document, 'mouseup', handleDragEnd)
+        EventHandler.off(document, 'touchend', handleDragEnd)
+        EventHandler.off(document, 'touchcancel', handleDragEnd)
+        EventHandler.off(window, 'mouseup', handleDragEnd)
+        EventHandler.off(window, 'touchend', handleDragEnd)
+        EventHandler.off(window, 'touchcancel', handleDragEnd)
+        EventHandler.off(window, 'blur', handleDragEnd)
+    }
+
     const handleDragStart = e => {
+        if (dragging) {
+            handleDragEnd(e)
+        }
+
         let notDrag = false
         if (isFunction(start)) {
             notDrag = start(e) || false
@@ -336,16 +366,22 @@ const drag = (element, start, move, end) => {
             }
             e.stopPropagation()
 
-            document.addEventListener('mousemove', handleDragMove)
-            document.addEventListener('touchmove', handleDragMove)
-            document.addEventListener('mouseup', handleDragEnd)
-            document.addEventListener('touchend', handleDragEnd)
+            dragging = true
+            addDocumentListeners()
         }
     }
 
     const handleDragMove = e => {
+        if (!dragging) {
+            return
+        }
+
         if (e.touches && e.touches.length > 1) {
             return;
+        }
+
+        if (e.cancelable) {
+            e.preventDefault();
         }
 
         if (isFunction(move)) {
@@ -354,21 +390,20 @@ const drag = (element, start, move, end) => {
     }
 
     const handleDragEnd = e => {
+        if (!dragging) {
+            return
+        }
+
+        dragging = false
+        removeDocumentListeners()
+
         if (isFunction(end)) {
             end(e)
         }
-
-        const handler = window.setTimeout(() => {
-            window.clearTimeout(handler)
-            document.removeEventListener('mousemove', handleDragMove)
-            document.removeEventListener('touchmove', handleDragMove)
-            document.removeEventListener('mouseup', handleDragEnd)
-            document.removeEventListener('touchend', handleDragEnd)
-        }, 10)
     }
 
-    element.addEventListener('mousedown', handleDragStart)
-    element.addEventListener('touchstart', handleDragStart)
+    EventHandler.on(element, 'mousedown', handleDragStart)
+    EventHandler.on(element, 'touchstart', handleDragStart)
 }
 
 const getDescribedElement = (element, selector = 'aria-describedby', all = false) => {
