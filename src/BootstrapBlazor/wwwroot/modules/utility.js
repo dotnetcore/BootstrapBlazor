@@ -327,27 +327,27 @@ const drag = (element, start, move, end) => {
     let dragging = false
 
     const addDocumentListeners = () => {
-        document.addEventListener('mousemove', handleDragMove, true)
-        document.addEventListener('touchmove', handleDragMove, true)
-        document.addEventListener('mouseup', handleDragEnd, true)
-        document.addEventListener('touchend', handleDragEnd, true)
-        document.addEventListener('touchcancel', handleDragEnd, true)
-        window.addEventListener('mouseup', handleDragEnd, true)
-        window.addEventListener('touchend', handleDragEnd, true)
-        window.addEventListener('touchcancel', handleDragEnd, true)
-        window.addEventListener('blur', handleDragEnd, true)
+        EventHandler.on(document, 'mousemove', handleDragMove)
+        EventHandler.on(document, 'touchmove', handleDragMove)
+        EventHandler.on(document, 'mouseup', handleDragEnd)
+        EventHandler.on(document, 'touchend', handleDragEnd)
+        EventHandler.on(document, 'touchcancel', handleDragEnd)
+        EventHandler.on(window, 'mouseup', handleDragEnd)
+        EventHandler.on(window, 'touchend', handleDragEnd)
+        EventHandler.on(window, 'touchcancel', handleDragEnd)
+        EventHandler.on(window, 'blur', handleDragEnd)
     }
 
     const removeDocumentListeners = () => {
-        document.removeEventListener('mousemove', handleDragMove, true)
-        document.removeEventListener('touchmove', handleDragMove, true)
-        document.removeEventListener('mouseup', handleDragEnd, true)
-        document.removeEventListener('touchend', handleDragEnd, true)
-        document.removeEventListener('touchcancel', handleDragEnd, true)
-        window.removeEventListener('mouseup', handleDragEnd, true)
-        window.removeEventListener('touchend', handleDragEnd, true)
-        window.removeEventListener('touchcancel', handleDragEnd, true)
-        window.removeEventListener('blur', handleDragEnd, true)
+        EventHandler.off(document, 'mousemove', handleDragMove)
+        EventHandler.off(document, 'touchmove', handleDragMove)
+        EventHandler.off(document, 'mouseup', handleDragEnd)
+        EventHandler.off(document, 'touchend', handleDragEnd)
+        EventHandler.off(document, 'touchcancel', handleDragEnd)
+        EventHandler.off(window, 'mouseup', handleDragEnd)
+        EventHandler.off(window, 'touchend', handleDragEnd)
+        EventHandler.off(window, 'touchcancel', handleDragEnd)
+        EventHandler.off(window, 'blur', handleDragEnd)
     }
 
     const handleDragStart = e => {
