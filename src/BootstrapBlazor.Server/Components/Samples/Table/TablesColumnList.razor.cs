@@ -42,15 +42,18 @@ public partial class TablesColumnList
     private Task ResetVisibleColumns()
     {
         // 支持设置部分列不可见
-        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[] {
-            new(nameof(Foo.Name), false),
-            new(nameof(Foo.Complete), true)
+        TableColumnVisible.ResetVisibleColumns(new TableColumnState[]
+        {
+            new() { Name = nameof(Foo.Name), Visible = false },
+            new() { Name = nameof(Foo.Complete), Visible = true }
         });
         return Task.CompletedTask;
     }
 
-    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
+        await Task.Delay(10);
+
         IEnumerable<Foo> items = Items;
         // 过滤
         var isFiltered = false;
@@ -71,8 +74,16 @@ public partial class TablesColumnList
 
         // 设置记录总数
         var total = items.Count();
+
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = true });
+        return new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = isFiltered,
+            IsSearch = true
+        };
     }
 }

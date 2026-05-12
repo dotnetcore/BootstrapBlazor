@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -25,9 +25,6 @@ public partial class TablesDetailRow
     private List<Foo>? Items { get; set; }
 
     [NotNull]
-    private string? DetailText { get; set; }
-
-    [NotNull]
     private Table<Foo>? Table { get; set; }
 
     private bool _isAccordion;
@@ -40,8 +37,6 @@ public partial class TablesDetailRow
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
-
-        DetailText = Localizer[$"{nameof(DetailText)}{IsDetails}"];
 
         DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
@@ -72,7 +67,7 @@ public partial class TablesDetailRow
         });
     }
 
-    private bool IsDetails { get; set; } = true;
+    private bool _isDetails = true;
 
     private List<DetailRow> GetDetailDataSource(Foo foo)
     {
@@ -83,7 +78,7 @@ public partial class TablesDetailRow
     private Func<Foo, Task>? OnDoubleClickRowCallback()
     {
         Func<Foo, Task>? ret = null;
-        if (IsDetails)
+        if (_isDetails)
         {
             ret = async foo =>
             {
@@ -95,13 +90,7 @@ public partial class TablesDetailRow
 
     private static bool ShowDetailRow(Foo item) => item.Complete;
 
-    private void OnClickDetailRow()
-    {
-        DetailText = Localizer[$"{nameof(DetailText)}{IsDetails}"];
-        IsDetails = !IsDetails;
-    }
-
-    private DynamicObjectContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
+    private DataTableDynamicContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
 
     private class DetailRow
     {

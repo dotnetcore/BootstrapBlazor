@@ -232,6 +232,26 @@ public class DropdownTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsOutline_Ok()
+    {
+        var cut = Context.Render<Dropdown<string>>(pb =>
+        {
+            pb.Add(a => a.IsOutline, true);
+        });
+        Assert.Contains("btn-outline-primary", cut.Markup);
+        Assert.DoesNotContain("btn-primary", cut.Markup);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ShowSplit, true);
+            pb.Add(a => a.IsOutline, true);
+            pb.Add(a => a.Color, Color.Danger);
+        });
+        Assert.Equal(2, cut.FindAll(".btn-outline-danger").Count);
+        Assert.DoesNotContain("btn-danger", cut.Markup);
+    }
+
+    [Fact]
     public void ItemTemplate_Ok()
     {
         var cut = Context.Render<Dropdown<string>>(pb =>

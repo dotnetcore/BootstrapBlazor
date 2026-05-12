@@ -184,6 +184,12 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public bool IsPopover { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 组件变更检测清理后台服务的执行间隔时间，单位毫秒。默认为 5000 毫秒</para>
+    /// <para lang="en">Gets or sets the execution interval of the component change detection cleanup background service, in milliseconds. Default is 5000 milliseconds</para>
+    /// </summary>
+    public int ChangeDetectionTaskInterval { get; set; } = 5000;
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>

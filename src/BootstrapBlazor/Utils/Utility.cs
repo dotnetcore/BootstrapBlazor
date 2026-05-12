@@ -563,7 +563,7 @@ public static class Utility
         return defaultOrderCallback?.Invoke(cols) ?? cols;
     }
 
-    internal static IEnumerable<ITableColumn> OrderFunc(this List<ITableColumn> cols) => cols
+    internal static IEnumerable<ITableColumn> OrderFunc(this IEnumerable<ITableColumn> cols) => cols
         .Where(a => a.Order > 0).OrderBy(a => a.Order)
         .Concat(cols.Where(a => a.Order == 0))
         .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));

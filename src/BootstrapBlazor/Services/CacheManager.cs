@@ -32,7 +32,7 @@ internal class CacheManager : ICacheManager
     private static CacheManager? Instance { get; set; }
 
     [NotNull]
-    private static BootstrapBlazorOptions? Options { get; set; }
+    internal static BootstrapBlazorOptions? Options { get; private set; }
 
     private const string CacheKeyPrefix = "BootstrapBlazor";
 

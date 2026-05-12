@@ -272,8 +272,8 @@ public class TableTest : BootstrapBlazorTestBase
                     {
                         table.ResetVisibleColumns(
                         [
-                            new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
-                            new(nameof(Foo.Address), false),
+                            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, DisplayName = "Name-Display" },
+                            new TableColumnState() { Name = nameof(Foo.Address), Visible = false }
                         ]);
                     }
                     return Task.CompletedTask;
@@ -897,12 +897,12 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowColumnList_Ok()
     {
         // 设置客户端存储
-        Context.JSInterop.Setup<List<ColumnVisibleItem?>>("reloadColumnList", "test").SetResult(
-        [
-            null,
-            new("Name", false),
-            new("Address", true)
-        ]);
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 500;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
         var show = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -945,6 +945,7 @@ public class TableTest : BootstrapBlazorTestBase
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
+        cut.Contains("<table class=\"table\">");
 
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
@@ -955,6 +956,27 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsPopoverToolbarDropdownButton, true);
         });
         table.Contains("dropdown-menu-popover");
+
+        state.Columns[0].Width = 100;
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.True(show);
+
+        cut.Contains("style=\"width: 220px;\"");
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.IsMultipleSelect, true);
+            pb.Add(a => a.ShowLineNo, true);
+            pb.Add(a => a.IsDetails, true);
+            pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, "test_DetailRowTemplate"));
+        });
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.False(show);
+        cut.Contains("style=\"width: 240px;\"");
+
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
+        Assert.True(show);
+        cut.Contains("style=\"width: 340px;\"");
     }
 
     [Fact]
@@ -1775,27 +1797,27 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(3, "Width", 100);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.OpenComponent<TableColumn<Foo, bool>>(10);
+                    builder.AddAttribute(11, "Field", foo.Complete);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableColumn<Foo, string>>(10);
                     builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Fixed), true);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(10);
+                    builder.AddAttribute(11, "Field", foo.Education);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Fixed), true);
                     builder.AddAttribute(3, "Width", 100);
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(10);
-                    builder.AddAttribute(11, "Field", foo.Address);
-                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(10);
+                    builder.AddAttribute(11, "Field", foo.Hobby);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Hobby), typeof(IEnumerable<string>)));
                     builder.AddAttribute(13, nameof(TableColumn<Foo, string>.Fixed), true);
                     builder.CloseComponent();
                 });
@@ -1804,33 +1826,100 @@ public class TableTest : BootstrapBlazorTestBase
 
         cut.Contains("left: 0px;");
         cut.Contains("left: 200px;");
-        cut.Contains("left: 500px;");
         if (showExtendButton)
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 238px;");
+                cut.Contains("right: 438px;");
+                cut.Contains("right: 338px;");
                 cut.Contains("right: 138px;");
                 cut.Contains("right: 8px;");
             }
             else
             {
-                cut.Contains("right: 230px;");
+                cut.Contains("right: 430px;");
+                cut.Contains("right: 330px;");
                 cut.Contains("right: 130px;");
                 cut.Contains("right: 0px;");
             }
         }
         if (!showExtendButton)
         {
-            cut.Contains("right: 100px;");
+            cut.Contains("right: 300px;");
+            cut.Contains("right: 200px;");
             cut.Contains("right: 0px;");
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 108px;");
+                cut.Contains("right: 308px;");
+                cut.Contains("right: 208px;");
                 cut.Contains("right: 8px;");
             }
         }
+    }
+
+    [Fact]
+    public void ColumnFixed_TailColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(4, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(5);
+                    builder.AddAttribute(6, "Field", foo.Count);
+                    builder.AddAttribute(7, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(8, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(9, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(10);
+                    builder.AddAttribute(11, "Field", foo.Address);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.AddAttribute(13, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(14);
+                    builder.AddAttribute(15, "Field", foo.DateTime);
+                    builder.AddAttribute(16, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.AddAttribute(17, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(18, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(19);
+                    builder.AddAttribute(20, "Field", foo.Education);
+                    builder.AddAttribute(21, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(22, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(23, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(24);
+                    builder.AddAttribute(25, "Field", foo.Complete);
+                    builder.AddAttribute(26, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(27, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(28, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("style=\"right: 200px;\"");
+        cut.Contains("style=\"right: 100px;\"");
+        cut.Contains("style=\"right: 0px;\"");
+        cut.DoesNotContain("style=\"left: 300px;\"");
     }
 
     [Fact]
@@ -5139,7 +5228,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(2, table.Instance.Columns.Count);
-        Assert.Equal(2, table.Instance.GetVisibleColumns().Count());
+        Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
 
         table.Render(pb =>
         {
@@ -6107,167 +6196,6 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void ReloadColumnWidth_Ok(bool fixedHeader)
-    {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-        {
-            "cols": [
-                { "name": "Name", "width": 20 },
-                { "name": "Address", "width": 80 }
-            ],
-            "table": 100
-        }
-        """);
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.IsFixedHeader, fixedHeader);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("style=\"width: 100px;\"", table.Markup);
-    }
-
-    [Fact]
-    public void ReloadColumnWidth_TableWidth_Invalid()
-    {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-            {
-                "cols": [
-                    { "name": "Name", "width": 20 },
-                    { "name": "Address", "width": 80 }
-                ],
-                "table": 123.12
-            }
-            """);
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
-    }
-
-    [Fact]
-    public void ReloadColumnWidth_NoTableElement()
-    {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-            {
-                "cols": [
-                    { "name": "Name", "width": 20 },
-                    { "name": "Address", "width": 80 }
-                ]
-            }
-            """);
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
-    }
-
-    [Fact]
-    public void ReloadColumnWidth_Columns_Invalid()
-    {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-            {
-                "cols": {
-                    "name": "Name",
-                    "name": "Address"
-                }
-            }
-            """);
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        var table = cut.FindComponent<Table<Foo>>();
-        Assert.DoesNotContain("<col style=\"width: 20px;\" />", table.Markup);
-    }
-
     [Fact]
     public async Task FitAllColumnWidth_Ok()
     {
@@ -6372,7 +6300,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, cols.Count);
 
         var resp = cut.FindComponent<Responsive>().Instance;
-        await resp.OnResize(BreakPoint.Small);
+        await cut.InvokeAsync(() => resp.OnResize(BreakPoint.Small));
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -6470,100 +6398,85 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.True(compared);
     }
 
     [Fact]
-    public async Task DynamicContext_CardView_CheckGuid_Ok()
+    public async Task DynamicContext_InCell_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.EditMode, EditMode.InCell);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
             });
         });
 
-        // CardView 模式无表头
-        // 共 2 行数据选中第一行数据
-        var input = cut.FindComponents<Checkbox<Guid>>()[0];
+        // 选中行
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        Assert.Single(selectedRows);
-        Assert.Equal(0, selectedRows[0].GetValue("Id"));
+        // 点击编辑按钮
+        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
+        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
 
-        // 取消选中
+        // 点击取消按钮
+        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
+        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        InvokeCleanCache();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    [Fact]
+    public async Task DynamicContext_EditForm_ChangeDetection_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        // 选中行
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
-        Assert.Empty(selectedRows);
+
+        // 点击编辑按钮
+        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
+        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
+
+        // 点击取消按钮
+        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
+        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
+
+        InvokeCleanCache();
+
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
     }
 
     [Fact]
-    public async Task DynamicContext_HeaderCheckGuid_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
-            });
-        });
-
-        // 无选中行
-        Assert.Empty(selectedRows);
-
-        // 点击表头全选，选中行为 2 行
-        var header = cut.FindComponents<Checkbox<Guid>>()[0];
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Equal(2, selectedRows.Count);
-
-        // 再次点击表头全选，取消全选
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Empty(selectedRows);
-    }
-
-    [Fact]
-    public async Task DynamicContext_HeaderCheckGuid_ShowRowCheckboxCallback_Ok()
-    {
-        // 测试包含无法选中行逻辑
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var selectedRows = new List<DynamicObject>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-                pb.Add(a => a.ShowRowCheckboxCallback, row => Equals(row.GetValue("Id"), 0));
-                pb.Add(a => a.SelectedRows, selectedRows);
-                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<DynamicObject>>(this, rows => selectedRows = rows));
-            });
-        });
-
-        Assert.Equal(2, cut.FindComponents<Checkbox<Guid>>().Count);
-
-        var header = cut.FindComponents<Checkbox<Guid>>()[0];
-        await cut.InvokeAsync(header.Instance.OnToggleClick);
-        Assert.Single(selectedRows);
-    }
-
-
-    [Fact]
-    public async Task DynamicContext_ChangeDetection_Ok()
+    public async Task DynamicContext_IsMultipleSelect_ChangeDetection_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -6576,8 +6489,15 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.Dispose();
+        InvokeCleanCache();
 
+        var items = GetDynamicTypeCacheItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
+
+    private static IEnumerable<Type> GetDynamicTypeCacheItems()
+    {
         // 表格使用动态创建类型后，不能被 Blazor 底层 ChangeDetection 缓存，否则生成的动态 Assembly 无法被释放
         // 通过反射查看是否被缓存
         var type = typeof(ComponentBase).Assembly.GetType("Microsoft.AspNetCore.Components.ChangeDetection");
@@ -6591,8 +6511,19 @@ public class TableTest : BootstrapBlazorTestBase
         {
             items = cache.Keys.Where(i => i.Assembly.GetName().Name == "BootstrapBlazor_DynamicAssembly");
         }
-        Assert.NotNull(items);
-        Assert.Empty(items);
+
+        return items ?? [];
+    }
+
+    private static void InvokeCleanCache()
+    {
+        var type = typeof(Table<>).Assembly.GetType("BootstrapBlazor.Components.ChangeDetectionCleanTask");
+        Assert.NotNull(type);
+
+        var methodInfo = type.GetMethod("DoTask", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(null, null);
     }
 
     [Fact]
@@ -6652,7 +6583,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<DynamicObject>>();
 
         // 选中第一行数据
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
@@ -6678,43 +6609,12 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
         Assert.True(saved);
-    }
-
-    [Fact]
-    public async Task DynamicContext_InCell_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<DynamicObject>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.EditMode, EditMode.InCell);
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
-            });
-        });
-
-        // 选中行
-        var input = cut.FindComponents<Checkbox<Guid>>()[1];
-        await cut.InvokeAsync(input.Instance.OnToggleClick);
-
-        // 点击编辑按钮
-        var editButton = cut.FindComponents<TableToolbarButton<DynamicObject>>()[1];
-        await cut.InvokeAsync(() => editButton.Instance.OnClick.InvokeAsync());
-
-        // 点击取消按钮
-        var cancelButton = cut.FindComponents<Button>().First(i => i.Instance.Text == "取消");
-        await cut.InvokeAsync(() => cancelButton.Instance.OnClick.InvokeAsync());
     }
 
     [Fact]
@@ -7451,7 +7351,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 可见列为 2 列
         var columns = table.Instance.GetVisibleColumns();
-        Assert.Equal(2, columns.Count());
+        Assert.Equal(2, columns.Count);
 
         // 由于设置了 IgnoreWhenExport 为 true 所以导出时不包含 Address 列
         ITableExportDataContext<Foo>? exportContext = null;
@@ -7988,8 +7888,9 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnColumnCreating_Ok()
+    public async Task OnColumnCreating_Ok()
     {
+        var visible = false;
         var creating = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -7999,10 +7900,16 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.OnColumnCreating, cols =>
+                pb.Add(a => a.OnColumnCreating, async cols =>
                 {
-                    creating = true;
-                    return Task.CompletedTask;
+                    await Task.Yield();
+
+                    var column = cols.Find(i => i.GetFieldName() == nameof(Foo.Address));
+                    if (column != null)
+                    {
+                        column.Visible = visible;
+                        creating = true;
+                    }
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -8010,10 +7917,34 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(3, "Visible", true);
+                    builder.CloseComponent();
                 });
             });
         });
-        Assert.True(creating);
+
+        await cut.WaitForAssertionAsync(() =>
+        {
+            Assert.True(creating);
+            var table = cut.FindComponent<Table<Foo>>();
+            Assert.Single(table.Instance.GetVisibleColumns());
+        });
+
+        // 二次渲染触发 OnColumnCreating
+        visible = true;
+        creating = false;
+        cut.Render();
+
+        await cut.WaitForAssertionAsync(() =>
+        {
+            Assert.True(creating);
+            var table = cut.FindComponent<Table<Foo>>();
+            Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
+        });
     }
 
     [Fact]
@@ -8450,6 +8381,8 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void PlaceHolder_Ok()
     {
+        // 占位符仅在 OnQueryAsync 不为空时生效
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
@@ -8466,6 +8399,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
             });
         });
 
@@ -8688,7 +8622,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var check = cut.FindComponents<Checkbox<Guid>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
+        var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
         Assert.NotNull(check);
 
         context = CreateDynamicContext(localizer);
@@ -8764,6 +8698,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnAutoFitColumnWidthCallback_Ok()
     {
         var name = "";
+        TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -8774,11 +8709,11 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.FitColumnWidthIncludeHeader, true);
-                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, calcWidth) =>
+                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, state) =>
                 {
                     name = fieldName;
-                    var resWidth = Math.Max(100.65f, calcWidth);
-                    return Task.FromResult(resWidth);
+                    clientState = state;
+                    return Task.CompletedTask;
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -8796,17 +8731,14 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        float v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitColumnWidthCallback("DateTime", 90));
-        Assert.Equal(100.65f, v);
+        var state = new TableColumnClientStatus() { Columns = [] };
+        await cut.InvokeAsync(() => table.Instance.AutoFitColumnWidthCallback(nameof(Foo.DateTime), state));
+        Assert.NotNull(clientState);
     }
 
     [Fact]
     public async Task AllowDragColumn_Ok()
     {
-        Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);
-        Context.JSInterop.SetupVoid("saveColumnOrder").SetVoidResult();
-
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -8845,10 +8777,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(async () =>
-        {
-            await table.Instance.DragColumnCallback(1, 0);
-        });
+        await cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
         Assert.Equal("Address", name);
 
         var columns = cut.FindAll("th");
@@ -8875,19 +8804,27 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnResizeColumnCallback_Ok()
     {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 500;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
+
         var name = "";
-        var width = 0f;
+        TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ClientTableName, "test");
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.OnResizeColumnAsync, (field, colWidth) =>
+                pb.Add(a => a.OnResizeColumnAsync, (field, state) =>
                 {
                     name = field;
-                    width = colWidth;
+                    clientState = state;
                     return Task.CompletedTask;
                 });
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
@@ -8907,11 +8844,59 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
+        var newState = new TableColumnClientStatus();
+        newState.TableWidth = 100;
+        newState.Columns.Add(new TableColumnState() { Name = "Name", Width = 50 });
+        newState.Columns.Add(new TableColumnState() { Name = "Address", Width = 50 });
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Address), newState));
         Assert.Equal("Address", name);
-        Assert.Equal(100, width);
+        Assert.NotNull(clientState);
+    }
 
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReloadColumnWidth_Ok(bool fixedHeader)
+    {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 220;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_client_name").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+
+        Assert.Contains("style=\"width: 220px;\"", table.Markup);
+        if (fixedHeader)
+        {
+            Assert.Contains("style=\"width: 215px;\"", table.Markup);
+        }
     }
 
     [Theory]
@@ -9255,6 +9240,48 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => buttons[0].Click());
     }
 
+    [Fact]
+    public async Task UpdateTableState_Ok()
+    {
+        var argumentsCount = 0;
+        object? obj = null;
+        Context.JSInterop.SetupVoid("updateTableState", invocationMatcher =>
+        {
+            argumentsCount = invocationMatcher.Arguments.Count;
+            obj = invocationMatcher.Arguments[1];
+            return true;
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<Table<Foo>>(pb =>
+        {
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Address");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+        });
+
+        // 更新客户端持久化键值
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ClientTableName, "table-unit-test");
+        });
+
+        Assert.Equal(2, argumentsCount);
+        Assert.NotNull(obj);
+    }
+
     class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
@@ -9552,7 +9579,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         public TableRenderMode ShouldBeTable()
         {
-            ScreenSize = BreakPoint.Large;
+            InvokeScreen(BreakPoint.Large);
             RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
@@ -9560,7 +9587,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         public TableRenderMode ShouldBeCardView()
         {
-            ScreenSize = BreakPoint.ExtraSmall;
+            InvokeScreen(BreakPoint.ExtraSmall);
             RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
@@ -9600,6 +9627,14 @@ public class TableTest : BootstrapBlazorTestBase
         public string? TestGetCellClassString(ITableColumn col) => base.GetCellClassString(col, false, false);
 
         public string? TestGetHeaderWrapperClassString(ITableColumn col) => base.GetHeaderWrapperClassString(col);
+
+        private void InvokeScreen(object val)
+        {
+            var fieldInfo = GetType().BaseType!.GetField("_screenSize", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(fieldInfo);
+
+            fieldInfo.SetValue(this, val);
+        }
     }
 
     private class MockRenderCellTable : Table<ReadonlyFoo>

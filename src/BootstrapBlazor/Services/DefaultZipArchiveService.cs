@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 
@@ -10,6 +11,13 @@ namespace BootstrapBlazor.Components;
 
 class DefaultZipArchiveService : IZipArchiveService
 {
+    static DefaultZipArchiveService()
+    {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+    }
+
+    private static Encoding GetEntryEncoding(Encoding? encoding) => encoding ?? Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
+
     /// <summary>
     /// <inheritdoc cref="IZipArchiveService.ArchiveAsync(IEnumerable{string}, ArchiveOptions?)"/>
     /// </summary>
@@ -98,6 +106,8 @@ class DefaultZipArchiveService : IZipArchiveService
             {
                 Directory.CreateDirectory(folder);
             }
+
+            encoding = GetEntryEncoding(encoding);
 #if NET10_0_OR_GREATER
             await ZipFile.CreateFromDirectoryAsync(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding, token);
 #else
@@ -120,6 +130,7 @@ class DefaultZipArchiveService : IZipArchiveService
             Directory.CreateDirectory(destinationDirectoryName);
         }
 
+        encoding = GetEntryEncoding(encoding);
 #if NET10_0_OR_GREATER
         await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles, token);
 #else
@@ -137,7 +148,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// </summary>
     public ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Read, encoding);
+        using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Read, GetEntryEncoding(encoding));
         return archive.GetEntry(Path.GetFileName(entryFile));
     }
 }

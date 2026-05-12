@@ -330,6 +330,20 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("test", result.Value);
     }
 
+    [Fact]
+    public void CreateResourceManagerStringLocalizer_UseBaseNameWhenTypeNameIsNull()
+    {
+        var factory = Context.Services.GetRequiredService<IStringLocalizerFactory>();
+        var mi = factory.GetType().GetMethod("CreateResourceManagerStringLocalizer", BindingFlags.NonPublic | BindingFlags.Instance)!;
+
+        var baseName = typeof(Foo).FullName!;
+        var localizer = Assert.IsType<IStringLocalizer>(mi.Invoke(factory, [typeof(Foo).Assembly, baseName]), exactMatch: false);
+        var result = localizer["not-found-key"];
+
+        Assert.True(result.ResourceNotFound);
+        Assert.Equal(baseName, result.SearchedLocation);
+    }
+
     private static readonly string[] localizationConfigure = ["zh-CN.json"];
 
     [Fact]

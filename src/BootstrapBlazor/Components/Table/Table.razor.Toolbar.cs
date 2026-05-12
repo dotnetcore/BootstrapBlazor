@@ -17,8 +17,8 @@ public partial class Table<TItem>
     public bool ShowSkeleton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值覆盖此参数</para>
-    /// <para lang="en">Gets or sets Whether to show loading animation when first loading. Default true. Setting <see cref="ShowSkeleton"/> value covers this parameter</para>
+    /// <para lang="zh">获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值优先级高于此参数，优先显示骨架屏</para>
+    /// <para lang="en">Gets or sets Whether to show loading animation when first loading. Default true. The value of <see cref="ShowSkeleton"/> takes precedence over this parameter, showing the skeleton screen first</para>
     /// </summary>
     [Parameter]
     public bool ShowLoadingInFirstRender { get; set; } = true;
@@ -544,23 +544,37 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 各列是否显示状态集合</para>
     /// <para lang="en">Gets or sets Columns Visibility Status Collection</para>
     /// </summary>
-    private readonly List<ColumnVisibleItem> _visibleColumns = [];
+    private List<TableColumnState> _tableColumnStates = [];
+
+    private List<ITableColumn> _visibleColumnsCache = [];
 
     /// <summary>
     /// <para lang="zh">获得当前可见列集合</para>
     /// <para lang="en">Get Visible Columns Collection</para>
     /// </summary>
-    public IEnumerable<ITableColumn> GetVisibleColumns()
+    public List<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
+
+    private void RebuildVisibleColumnsCache()
     {
-        // <para lang="zh">不可见列</para>
-        // <para lang="en">Invisible columns</para>
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
-        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
+        _visibleColumnsCache.Clear();
+
+        for (var index = 0; index < _tableColumnStates.Count; index++)
+        {
+            var item = _tableColumnStates[index];
+            if (item.Visible)
+            {
+                var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
+                if (col != null)
+                {
+                    _visibleColumnsCache.Add(col);
+                }
+            }
+        }
     }
 
-    private bool GetColumnsListState(ColumnVisibleItem item)
+    private bool GetColumnsListState(TableColumnState item)
     {
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToHashSet();
+        var items = _tableColumnStates.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
         return items.Contains(item.Name) && items.Count == 1;
     }
 
@@ -698,15 +712,7 @@ public partial class Table<TItem>
         }
     }
 
-    private TItem GetEditModel(TItem item)
-    {
-        if (IsTracking)
-        {
-            return item;
-        }
-
-        return DynamicContext is DataTableDynamicContext ? Utility.Clone(item) : item;
-    }
+    private TItem GetEditModel(TItem item) => IsTracking ? item : Utility.Clone(item);
 
     private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
@@ -1239,26 +1245,21 @@ public partial class Table<TItem>
 
             var cols = DynamicContext.GetColumns();
             Columns.Clear();
-            Columns.AddRange(cols);
+            Columns.AddRange(cols.OrderFunc());
 
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns(Columns);
-
             var queryOption = BuildQueryPageOptions();
-            queryOption.IsFirstQuery = _firstQuery;
-
             QueryDynamicItems(queryOption, DynamicContext);
-            _bindResizeColumn = true;
         }
     }
 
-    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
+    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext context, bool isAutoQuery = true)
     {
-        _rowsCache = null;
-        if (context != null)
+        if (isAutoQuery)
         {
+            _rowsCache = null;
             var items = context.GetItems();
             if (context.OnFilterCallback != null)
             {

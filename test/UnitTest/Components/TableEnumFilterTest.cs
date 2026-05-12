@@ -98,7 +98,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
         public List<ITableColumn> Columns => [];
 
-        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+        public List<ITableColumn> GetVisibleColumns() => Columns;
     }
 
     class MockColumn : TableColumn<Foo, EnumEducation>

@@ -115,14 +115,6 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">点击表头选择复选框时触发此方法</para>
-    /// <para lang="en">Header Checkbox Click Method</para>
-    /// </summary>
-    /// <param name="state"></param>
-    /// <param name="val"></param>
-    protected virtual Task OnHeaderCheckGuid(CheckboxState state, Guid val) => OnHeaderCheck(state, default!);
-
-    /// <summary>
     /// <para lang="zh">点击选择复选框时触发此方法</para>
     /// <para lang="en">Checkbox Click Method</para>
     /// </summary>
@@ -152,52 +144,67 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">点击选择复选框时触发此方法</para>
-    /// <para lang="en">Checkbox Click Method</para>
-    /// </summary>
-    protected async Task OnCheckGuid(CheckboxState state, Guid val)
-    {
-        // 通过 Guid 找到选中行数据
-        var item = Rows.OfType<IDynamicObject>().FirstOrDefault(i => i.DynamicObjectPrimaryKey == val);
-        if (item != null)
-        {
-            await OnCheck(state, (TItem)(object)item);
-        }
-    }
-
-    private bool _resetColumns;
-    private bool _resetColDragListener;
-
-    /// <summary>
     /// <para lang="zh">获得/设置 列改变显示状态回调方法</para>
     /// <para lang="en">Gets or sets Column Visible Changed Callback</para>
     /// </summary>
     [Parameter]
     public Func<string, bool, Task>? OnColumnVisibleChanged { get; set; }
 
-    private async Task OnToggleColumnVisible(string columnName, bool visible)
+    private async Task OnToggleColumnVisible(TableColumnState item, bool visible)
     {
-        if (AllowResizing)
-        {
-            _resetColumns = true;
-        }
-        if (AllowDragColumn && visible)
-        {
-            _resetColDragListener = true;
-        }
+        // 设置可见性
+        item.Visible = visible;
+
+        // 设置列状态缓存中可见状态
         if (!string.IsNullOrEmpty(ClientTableName))
         {
-            await InvokeVoidAsync("saveColumnList", ClientTableName, _visibleColumns);
+            var tableWidth = 0;
+            var useTableWidth = true;
+            for (var index = 0; index < _tableColumnStateCache.Columns.Count; index++)
+            {
+                var column = _tableColumnStateCache.Columns[index];
+                if (column.Name == item.Name)
+                {
+                    column.Visible = visible;
+                }
+
+                if (!column.Visible)
+                {
+                    continue;
+                }
+
+                // 重新计算表格宽度
+                if (column.Width.HasValue)
+                {
+                    tableWidth += column.Width.Value;
+                }
+                else
+                {
+                    // 未设置列宽表格自适应
+                    useTableWidth = false;
+                }
+            }
+
+            _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
+
+            UpdateTableWidth();
         }
+
+        // 触发 OnColumnVisibleChanged 回调
         if (OnColumnVisibleChanged != null)
         {
-            await OnColumnVisibleChanged(columnName, visible);
+            await OnColumnVisibleChanged(item.Name, visible);
         }
+
+        _resetColumns = true;
+        _invoke = true;
+
+        StateHasChanged();
     }
 
     private void TriggerSelectAllColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _tableColumnStates)
         {
             column.Visible = true;
         }
@@ -205,14 +212,15 @@ public partial class Table<TItem>
 
     private void TriggerSelectInvertColumnList()
     {
-        foreach (var column in _visibleColumns)
+        foreach (var column in _tableColumnStates)
         {
             column.Visible = !column.Visible;
         }
 
-        if (_visibleColumns.All(i => i.Visible == false))
+        // 如果全部列都不可见了，则至少显示第一列
+        if (_tableColumnStates.All(i => i.Visible == false))
         {
-            _visibleColumns.First().Visible = true;
+            _tableColumnStates.First().Visible = true;
         }
     }
 }

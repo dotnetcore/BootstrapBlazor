@@ -420,7 +420,7 @@ public partial class Table<TItem>
     [NotNull]
     private IStringLocalizer<SearchFormLocalizerOptions>? SearchFormLocalizer { get; set; }
 
-    private void OnInitLocalization()
+    private void OnInitializeLocalization()
     {
         AddButtonText ??= Localizer[nameof(AddButtonText)];
         EditButtonText ??= Localizer[nameof(EditButtonText)];

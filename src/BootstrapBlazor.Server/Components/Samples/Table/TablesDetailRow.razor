@@ -1,4 +1,4 @@
-﻿@page "/table/detail"
+@page "/table/detail"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesDetailRow> Localizer
@@ -21,11 +21,17 @@
                     <Switch @bind-Value="_isAccordion"></Switch>
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["DetailRowTemplateIsDetail"]"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_isDetails"></Switch>
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
     <Table TItem="Foo" @ref="@Table"
            IsPagination="true" PageItemsSource="@PageItemsSource" IsAccordion="@_isAccordion"
-           IsStriped="true" IsBordered="true" IsDetails="IsDetails"
+           IsStriped="true" IsBordered="true" IsDetails="_isDetails"
            ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback()!"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
@@ -38,8 +44,6 @@
             <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
         </DetailRowTemplate>
     </Table>
-
-    <Button Text="@DetailText" OnClick="OnClickDetailRow" class="mt-3"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DetailRowTemplate2Title"]"

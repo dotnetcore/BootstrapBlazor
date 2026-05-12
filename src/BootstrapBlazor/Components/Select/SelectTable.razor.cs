@@ -173,7 +173,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="zh">获得表格列集合</para>
     /// <para lang="en">Get Table Column Collection</para>
     /// </summary>
-    public List<ITableColumn> Columns { get; } = [];
+    public List<ITableColumn> Columns => _table.Columns;
 
     private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)

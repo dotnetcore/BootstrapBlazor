@@ -15,7 +15,7 @@ public interface ITable : IColumnCollection
     /// <para lang="zh">获得 ITable 实例配置的可见列集合</para>
     /// <para lang="en">Gets visible columns collection configured in ITable instance</para>
     /// </summary>
-    IEnumerable<ITableColumn> GetVisibleColumns();
+    List<ITableColumn> GetVisibleColumns();
 
     /// <summary>
     /// <para lang="zh">获得 过滤条件集合</para>

@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">model generic type</para></typeparam>
 /// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">binding field value type</para></typeparam>
-public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
+public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, IAsyncDisposable
 {
     /// <summary>
     /// <inheritdoc/>
@@ -410,7 +410,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>    /// </summary>
+    /// <inheritdoc/>
+    /// </summary>
     [Parameter]
     public int Order { get; set; }
 
@@ -504,14 +505,14 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [CascadingParameter]
-    protected IColumnCollection? Columns { get; set; }
+    protected List<ITableColumn>? Columns { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        Columns?.Columns.Add(this);
+        Columns?.Add(this);
 
         if (FieldExpression != null)
         {
@@ -564,5 +565,29 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
             }
         }
         return FieldName ?? "";
+    }
+
+    /// <summary>
+    /// <para lang="zh">DisposeAsync 方法</para>
+    /// <para lang="en">DisposeAsync method</para>
+    /// </summary>
+    protected virtual ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Columns?.Remove(this);
+        }
+
+        return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public virtual async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
