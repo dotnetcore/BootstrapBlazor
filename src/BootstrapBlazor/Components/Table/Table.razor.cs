@@ -1890,8 +1890,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumns = true;
             _invoke = true;
 
-            RebuildVisibleColumnsCache();
-
             StateHasChanged();
         }
     }
