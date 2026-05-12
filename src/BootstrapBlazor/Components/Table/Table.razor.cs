@@ -1374,12 +1374,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 设置可见列顺序
         _tableColumnStates.Clear();
-        _tableColumnStates.AddRange(GetColumnVisibleItems(Columns));
+        _tableColumnStates.AddRange(GetColumnStates(Columns));
 
         RebuildVisibleColumnsCache();
     }
 
-    private List<TableColumnState> GetColumnVisibleItems(List<ITableColumn> cols)
+    private List<TableColumnState> GetColumnStates(List<ITableColumn> cols)
     {
         // 开启客户端持久化后未设置列状态的列默认使用组件参数值
         return _tableColumnStateCache.Columns.Count != 0
