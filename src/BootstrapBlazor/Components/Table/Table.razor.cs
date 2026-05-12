@@ -1355,20 +1355,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void RebuildTableColumnFromCache()
     {
-        if (_tableColumnStateCache.Columns.Count != 0)
+        foreach (var col in Columns)
         {
-            foreach (var col in Columns)
-            {
-                var fieldName = col.GetFieldName();
+            var fieldName = col.GetFieldName();
 
-                // 设置列宽度与可见性
-                var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
-                if (column != null)
+            // 设置列宽度与可见性
+            var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
+            if (column == null)
+            {
+                column = new TableColumnState()
                 {
-                    col.Width = column.Width;
-                    col.Visible = column.Visible;
-                    column.DisplayName = col.GetDisplayName();
-                }
+                    Name = fieldName,
+                    Width = col.Width,
+                    Visible = col.GetVisible(),
+                    DisplayName = col.GetDisplayName()
+                };
+                _tableColumnStateCache.Columns.Add(column);
+            }
+            else
+            {
+                col.Width = column.Width;
+                col.Visible = column.Visible;
+                column.DisplayName = col.GetDisplayName();
             }
         }
 
@@ -1877,13 +1885,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 _tableColumnStates.Remove(firstColumn);
                 _tableColumnStates.Insert(currentIndex, firstColumn);
 
-                if (!string.IsNullOrEmpty(ClientTableName))
-                {
-                    // 更新缓存数据中列顺序
-                    var columnVisibleState = _tableColumnStateCache.Columns;
-                    columnVisibleState.Clear();
-                    columnVisibleState.AddRange(_tableColumnStates);
-                }
+                // 更新缓存数据中列顺序
+                var columnVisibleState = _tableColumnStateCache.Columns;
+                columnVisibleState.Clear();
+                columnVisibleState.AddRange(_tableColumnStates);
 
                 if (OnDragColumnEndAsync != null)
                 {
