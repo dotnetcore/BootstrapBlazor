@@ -204,7 +204,7 @@ public partial class Table<TItem>
 
     private void TriggerSelectAllColumnList()
     {
-        foreach (var column in _columnVisibleItems)
+        foreach (var column in _tableColumnStates)
         {
             column.Visible = true;
         }
@@ -212,15 +212,15 @@ public partial class Table<TItem>
 
     private void TriggerSelectInvertColumnList()
     {
-        foreach (var column in _columnVisibleItems)
+        foreach (var column in _tableColumnStates)
         {
             column.Visible = !column.Visible;
         }
 
         // 如果全部列都不可见了，则至少显示第一列
-        if (_columnVisibleItems.All(i => i.Visible == false))
+        if (_tableColumnStates.All(i => i.Visible == false))
         {
-            _columnVisibleItems.First().Visible = true;
+            _tableColumnStates.First().Visible = true;
         }
     }
 }

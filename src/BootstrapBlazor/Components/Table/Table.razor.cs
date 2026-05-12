@@ -1373,8 +1373,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 设置可见列顺序
-        _columnVisibleItems.Clear();
-        _columnVisibleItems.AddRange(GetColumnVisibleItems(Columns));
+        _tableColumnStates.Clear();
+        _tableColumnStates.AddRange(GetColumnVisibleItems(Columns));
 
         RebuildVisibleColumnsCache();
     }
@@ -1868,21 +1868,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
         // 更新缓存数据中列顺序
-        if (_columnVisibleItems.Count > originIndex)
+        if (_tableColumnStates.Count > originIndex)
         {
-            var firstColumn = _columnVisibleItems[originIndex];
-            if (_columnVisibleItems.Count > currentIndex)
+            var firstColumn = _tableColumnStates[originIndex];
+            if (_tableColumnStates.Count > currentIndex)
             {
-                var targetColumn = _columnVisibleItems[currentIndex];
-                _columnVisibleItems.Remove(firstColumn);
-                _columnVisibleItems.Insert(currentIndex, firstColumn);
+                var targetColumn = _tableColumnStates[currentIndex];
+                _tableColumnStates.Remove(firstColumn);
+                _tableColumnStates.Insert(currentIndex, firstColumn);
 
                 if (!string.IsNullOrEmpty(ClientTableName))
                 {
                     // 更新缓存数据中列顺序
                     var columnVisibleState = _tableColumnStateCache.Columns;
                     columnVisibleState.Clear();
-                    columnVisibleState.AddRange(_columnVisibleItems);
+                    columnVisibleState.AddRange(_tableColumnStates);
                 }
 
                 if (OnDragColumnEndAsync != null)
@@ -2044,9 +2044,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private RenderFragment RenderColumnList() => builder =>
     {
-        for (int index = 0; index < _columnVisibleItems.Count; index++)
+        for (int index = 0; index < _tableColumnStates.Count; index++)
         {
-            var column = _columnVisibleItems[index];
+            var column = _tableColumnStates[index];
             builder.AddContent(index, RenderColumnListItem(column));
         }
     };
