@@ -30,7 +30,7 @@ public partial class CultureChooser
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string SelectedCulture { get; set; } = CultureInfo.CurrentCulture.Name;
+    private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
 
     [NotNull]
     private string? Label { get; set; }
@@ -43,37 +43,41 @@ public partial class CultureChooser
         base.OnInitialized();
 
         Label ??= Localizer[nameof(Label)];
+        SelectedCulture = GetSelectedCultureName();
     }
 
     private async Task SetCulture(SelectedItem item)
     {
+        var culture = item.Value;
+        if (string.IsNullOrEmpty(culture) || string.Equals(SelectedCulture, culture, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        SelectedCulture = culture;
         if (RendererInfo.Name == "Server")
         {
-            // 使用 api 方式 适用于 Server-Side 模式
-            if (SelectedCulture != item.Value)
-            {
-                var culture = item.Value;
-                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
-                var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+            var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
+            var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
 
-                try
-                {
-                    // use a path that matches your culture redirect controller from the previous steps
-                    NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-                }
-                catch { }
-            }
-            else
-            {
-                if (SelectedCulture != item.Value)
-                {
-                    var culture = item.Value;
-                    await JSRuntime.InvokeVoidAsync("bbCulture.set", culture);
-
-                    NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-                }
-            }
+            NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
         }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("bbCulture.set", culture);
+
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        }
+    }
+
+    private string GetSelectedCultureName()
+    {
+        var culture = CultureInfo.CurrentUICulture;
+        var supportedCultures = BootstrapOptions.Value.GetSupportedCultures();
+        return supportedCultures.FirstOrDefault(i => string.Equals(i.Name, culture.Name, StringComparison.OrdinalIgnoreCase))?.Name
+            ?? supportedCultures.FirstOrDefault(i => string.Equals(i.TwoLetterISOLanguageName, culture.TwoLetterISOLanguageName, StringComparison.OrdinalIgnoreCase))?.Name
+            ?? supportedCultures.FirstOrDefault()?.Name
+            ?? culture.Name;
     }
 
     private string GetDisplayName(CultureInfo culture)
