@@ -2683,6 +2683,9 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     builder.OpenComponent<TableToolbarPopConfirmButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarPopConfirmButton<Foo>.Text), "test");
+                    builder.AddAttribute(5, nameof(TableToolbarPopConfirmButton<Foo>.TooltipText), "test-tooltip");
+                    builder.AddAttribute(6, nameof(TableToolbarPopConfirmButton<Foo>.TooltipPlacement), Placement.Bottom);
+                    builder.AddAttribute(7, nameof(TableToolbarPopConfirmButton<Foo>.TooltipTrigger), "hover");
                     builder.AddAttribute(3, nameof(TableToolbarPopConfirmButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                     {
                         clicked = true;
@@ -2703,6 +2706,9 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var button = cut.FindComponent<PopConfirmButton>();
+        Assert.Equal("test-tooltip", button.Instance.TooltipText);
+        Assert.Equal(Placement.Bottom, button.Instance.TooltipPlacement);
+        Assert.Equal("hover", button.Instance.TooltipTrigger);
         await cut.InvokeAsync(() => button.Instance.OnConfirm!.Invoke());
         Assert.True(clickCallback);
         Assert.True(clicked);
