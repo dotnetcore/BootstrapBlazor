@@ -1355,49 +1355,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void RebuildTableColumnFromCache()
     {
-        foreach (var col in Columns)
+        if (_tableColumnStateCache.Columns.Count != 0)
         {
-            var fieldName = col.GetFieldName();
+            foreach (var col in Columns)
+            {
+                var fieldName = col.GetFieldName();
 
-            // 设置列宽度与可见性
-            var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
-            if (column == null)
-            {
-                column = new TableColumnState()
+                // 设置列宽度与可见性
+                var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
+                if (column != null)
                 {
-                    Name = fieldName,
-                    Width = col.Width,
-                    Visible = col.GetVisible(),
-                    DisplayName = col.GetDisplayName()
-                };
-                _tableColumnStateCache.Columns.Add(column);
-            }
-            else
-            {
-                col.Width = column.Width;
-                col.Visible = column.Visible;
-                column.DisplayName = col.GetDisplayName();
+                    col.Width = column.Width;
+                    col.Visible = column.Visible;
+                    column.DisplayName = col.GetDisplayName();
+                }
             }
         }
 
-        // 设置可见列顺序
-        _tableColumnStates.Clear();
-        _tableColumnStates.AddRange(GetColumnStates(Columns));
-
         RebuildVisibleColumnsCache();
-    }
-
-    private List<TableColumnState> GetColumnStates(List<ITableColumn> cols)
-    {
-        // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-        return _tableColumnStateCache.Columns.Count != 0
-            ? _tableColumnStateCache.Columns
-            : [.. cols.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize).Select(i => new TableColumnState()
-            {
-                Name = i.GetFieldName(),
-                Visible = i.GetVisible(),
-                DisplayName = i.GetDisplayName()
-            })];
     }
 
     private async Task OnTableRenderAsync(bool firstRender)
