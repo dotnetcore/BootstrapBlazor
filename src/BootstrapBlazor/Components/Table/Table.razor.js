@@ -92,7 +92,7 @@ export async function reset(id) {
         return;
     }
 
-    observeHeight(table)
+    //observeHeight(table)
 }
 
 const observeHeight = table => {
