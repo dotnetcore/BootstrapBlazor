@@ -91,33 +91,6 @@ export async function reset(id) {
         table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
         return;
     }
-
-    //observeHeight(table)
-}
-
-const observeHeight = table => {
-    setBodyHeight(table);
-
-    const observer = new ResizeObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
-                setBodyHeight(table)
-            }
-        });
-    });
-    if (table.thead) {
-        observer.observe(table.shim);
-    }
-    if (table.search) {
-        observer.observe(table.search);
-    }
-    if (table.toolbar) {
-        observer.observe(table.toolbar);
-    }
-    if (table.pages) {
-        observer.observe(table.pages);
-    }
-    table.observer = observer;
 }
 
 export async function switchCardView(id) {
@@ -161,11 +134,6 @@ const destroyTable = table => {
         if (table.handlers.setColumnToolboxHandler) {
             EventHandler.off(document, 'click', table.handlers.setColumnToolboxHandler);
         }
-        if (table.observer) {
-            table.observer.disconnect();
-            table.observer = null;
-        }
-
         if (table.popovers) {
             table.popovers.forEach(p => {
                 Popover.dispose(p)
