@@ -1303,11 +1303,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
-        if (_resetColumns)
-        {
-            return;
-        }
-
         // 构建列信息
         var cols = GetTableColumns();
 
