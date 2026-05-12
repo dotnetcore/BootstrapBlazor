@@ -1860,10 +1860,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 _tableColumnStates.Remove(firstColumn);
                 _tableColumnStates.Insert(currentIndex, firstColumn);
 
-                // 更新缓存数据中列顺序
-                var columnVisibleState = _tableColumnStateCache.Columns;
-                columnVisibleState.Clear();
-                columnVisibleState.AddRange(_tableColumnStates);
+                if (!string.IsNullOrEmpty(ClientTableName))
+                {
+                    // 更新缓存数据中列顺序
+                    var columnVisibleState = _tableColumnStateCache.Columns;
+                    columnVisibleState.Clear();
+                    columnVisibleState.AddRange(_tableColumnStates);
+                }
 
                 if (OnDragColumnEndAsync != null)
                 {
