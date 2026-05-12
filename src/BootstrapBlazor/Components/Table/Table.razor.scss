@@ -1,5 +1,5 @@
 .dropdown-menu-popover {
-  --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
+    --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
 }
 
 .table-container {
@@ -31,6 +31,8 @@
     --bb-table-pagination-active-border-color: rgba(var(--bs-body-color-rgb), .15);
     position: relative;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .nav-pages {
         margin-block-start: .5rem;
@@ -46,6 +48,20 @@
     .table-card {
         &.table-fixed {
             overflow: auto;
+        }
+    }
+
+    .table-shim {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        height: 1%;
+
+        > .table-fixed-body {
+            flex: 1;
+            min-height: 0;
+            height: 1%;
         }
     }
 }
