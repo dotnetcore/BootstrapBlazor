@@ -544,7 +544,7 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 各列是否显示状态集合</para>
     /// <para lang="en">Gets or sets Columns Visibility Status Collection</para>
     /// </summary>
-    private List<TableColumnState> _columnVisibleItems = [];
+    private List<TableColumnState> _tableColumnStates = [];
 
     private List<ITableColumn> _visibleColumnsCache = [];
 
@@ -558,9 +558,9 @@ public partial class Table<TItem>
     {
         _visibleColumnsCache.Clear();
 
-        for (var index = 0; index < _columnVisibleItems.Count; index++)
+        for (var index = 0; index < _tableColumnStates.Count; index++)
         {
-            var item = _columnVisibleItems[index];
+            var item = _tableColumnStates[index];
             if (item.Visible)
             {
                 var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
@@ -574,7 +574,7 @@ public partial class Table<TItem>
 
     private bool GetColumnsListState(TableColumnState item)
     {
-        var items = _columnVisibleItems.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
+        var items = _tableColumnStates.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
         return items.Contains(item.Name) && items.Count == 1;
     }
 
