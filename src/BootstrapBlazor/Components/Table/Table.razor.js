@@ -926,7 +926,7 @@ const getLocalStorageValue = key => {
 }
 
 const getColumnStateObject = table => {
-    const cols = table.options.visibleColumns;
+    const cols = table.options.columnStates;
     return {
         cols: cols.map(col => {
             return {
@@ -1051,10 +1051,10 @@ const resetColumnListPopover = table => {
 const resetColumns = (table, options) => {
     setResizeListener(table);
 
-    const { visibleColumns, allowDragColumn } = options;
+    const { columnStates, allowDragColumn } = options;
     const { options: { tableName } } = table;
     if (tableName) {
-        table.options.visibleColumns = visibleColumns;
+        table.options.columnStates = columnStates;
         saveColumnStateToLocalstorage(table);
     }
 
