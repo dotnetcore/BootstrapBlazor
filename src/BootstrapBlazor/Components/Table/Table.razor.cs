@@ -1372,7 +1372,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         Name = col.GetFieldName(),
                         Width = col.Width,
-                        Visible = col.GetVisible() && col.ShownWithBreakPoint <= _screenSize,
+                        Visible = GetColumnVisible(col),
                         DisplayName = col.GetDisplayName()
                     });
                     continue;
@@ -1380,7 +1380,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 if (!ShowColumnList)
                 {
-                    item.Visible = col.GetVisible() && col.ShownWithBreakPoint <= _screenSize;
+                    item.Visible = GetColumnVisible(col);
                 }
 
                 if (!AllowResizing)
@@ -1392,6 +1392,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         ResetVisibleColumnsCache();
     }
+
+    private bool GetColumnVisible(ITableColumn col) => col.GetVisible() && col.ShownWithBreakPoint <= _screenSize;
 
     private async Task OnTableRenderAsync(bool firstRender)
     {
