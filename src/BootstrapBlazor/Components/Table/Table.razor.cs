@@ -1429,16 +1429,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         foreach (var col in columns)
         {
-            var column = Columns.Find(i => i.GetFieldName() == col.Name);
+            var column = _tableColumnStates.Find(i => i.Name == col.Name);
             if (column != null)
             {
                 column.Visible = col.Visible;
                 column.Width = col.Width;
             }
         }
-
-        // 重置可见缓存
-        RebuildTableColumnFromCache();
 
         _resetColumns = true;
         _invoke = true;
