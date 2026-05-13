@@ -469,7 +469,10 @@ const setResizeListener = table => {
                 const marginX = eventX - originalX
                 table.tables.forEach(t => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
-                    const calcColWidth = colWidth + marginX;
+                    let calcColWidth = colWidth + marginX;
+                    if (calcColWidth < 5) {
+                        calcColWidth = 5;
+                    }
                     if (group) {
                         const curCol = group.children.item(colIndex)
                         curCol.style.setProperty('width', `${calcColWidth}px`);
