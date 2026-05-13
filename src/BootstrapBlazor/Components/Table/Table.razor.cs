@@ -1380,7 +1380,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 if (!ShowColumnList)
                 {
-                    item.Visible = col.GetVisible();
+                    item.Visible = col.GetVisible() && col.ShownWithBreakPoint <= _screenSize;
                 }
 
                 if (!AllowResizing)
