@@ -945,7 +945,6 @@ public class TableTest : BootstrapBlazorTestBase
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
-        cut.Contains("<table class=\"table\">");
 
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
