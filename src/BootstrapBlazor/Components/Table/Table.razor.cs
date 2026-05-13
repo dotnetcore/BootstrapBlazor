@@ -1351,6 +1351,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             foreach (var col in Columns)
             {
                 var item = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
+
                 if (col.GetIgnore())
                 {
                     if (item != null)
@@ -1365,6 +1366,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     _tableColumnStates.Add(CreateTableColumnState(col));
                     continue;
                 }
+
+                item.DisplayName = col.GetDisplayName();
 
                 if (!ShowColumnList)
                 {
