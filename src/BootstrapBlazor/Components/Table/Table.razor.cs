@@ -1349,25 +1349,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 {
                     Name = i.GetFieldName(),
                     Visible = i.GetVisible(),
-                    Width = i.Width,
-                    DisplayName = i.GetDisplayName()
+                    Width = i.Width
                 }));
         }
 
         ResetVisibleColumnsCache();
-    }
-
-    private List<TableColumnState> GetColumnStates(List<ITableColumn> cols)
-    {
-        // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-        return _tableColumnStateCache.Columns.Count != 0
-            ? _tableColumnStateCache.Columns
-            : [.. cols.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize).Select(i => new TableColumnState()
-            {
-                Name = i.GetFieldName(),
-                Visible = i.GetVisible(),
-                DisplayName = i.GetDisplayName()
-            })];
     }
 
     private async Task OnTableRenderAsync(bool firstRender)

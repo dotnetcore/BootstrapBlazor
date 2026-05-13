@@ -565,11 +565,16 @@ public partial class Table<TItem>
             var item = _tableColumnStates[index];
             if (item.Visible)
             {
-                var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
+                var col = Columns.Find(c => c.GetFieldName() == item.Name);
                 if (col != null)
                 {
+                    // 更新显示名称
+                    item.DisplayName = col.GetDisplayName();
+
+                    // 恢复宽度
                     col.Width = item.Width;
 
+                    // 增加到可见列缓存集合
                     _visibleColumnsCache.Add(col);
                 }
             }
