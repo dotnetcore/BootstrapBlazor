@@ -239,7 +239,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ResetVisibleColumns_Ok()
+    public async Task ResetVisibleColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -266,24 +266,24 @@ public class TableTest : BootstrapBlazorTestBase
                 });
                 pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
                 pb.Add(a => a.AutoScrollVerticalAlign, ScrollToViewAlign.Center);
-                pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
-                {
-                    if (firstRender)
-                    {
-                        table.ResetVisibleColumns(
-                        [
-                            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, DisplayName = "Name-Display" },
-                            new TableColumnState() { Name = nameof(Foo.Address), Visible = false }
-                        ]);
-                    }
-                    return Task.CompletedTask;
-                });
             });
         });
 
         // Address 不可见
         var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.ResetVisibleColumns(
+        [
+            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, DisplayName = "Name-Display" },
+            new TableColumnState() { Name = nameof(Foo.Address), Visible = false }
+        ]));
+
         Assert.Single(table.Instance.GetVisibleColumns());
+
+        // 检查 ShowColumnList 中的 DisplayName 是否正确
+        var labels = table.FindAll(".form-check-label");
+        Assert.Equal(2, labels.Count);
+        Assert.Equal("姓名", labels[0].TextContent);
+        Assert.Equal("地址", labels[1].TextContent);
     }
 
     [Fact]
@@ -899,8 +899,8 @@ public class TableTest : BootstrapBlazorTestBase
         // 设置客户端存储
         var state = new TableColumnClientStatus();
         state.TableWidth = 500;
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false, DisplayName = "Name-Display" });
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, DisplayName = "Address-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
         var show = false;
@@ -976,6 +976,12 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
         cut.Contains("style=\"width: 340px;\"");
+
+        // 检查 ShowColumnList 中的 DisplayName 是否正确
+        var labels = table.FindAll(".form-check-label");
+        Assert.Equal(2, labels.Count);
+        Assert.Equal("姓名", labels[0].TextContent);
+        Assert.Equal("地址", labels[1].TextContent);
     }
 
     [Fact]
