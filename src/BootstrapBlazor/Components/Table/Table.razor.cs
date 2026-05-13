@@ -1344,13 +1344,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_tableColumnStates.Count == 0)
         {
             // 重建缓存
-            _tableColumnStates.AddRange(Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
-                .Select(i => new TableColumnState()
-                {
-                    Name = i.GetFieldName(),
-                    Visible = i.GetVisible(),
-                    Width = i.Width
-                }));
+            _tableColumnStates.AddRange(Columns.Where(i => !i.GetIgnore()).Select(CreateTableColumnState));
         }
         else
         {
@@ -1368,19 +1362,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 if (item == null)
                 {
-                    _tableColumnStates.Add(new TableColumnState()
-                    {
-                        Name = col.GetFieldName(),
-                        Width = col.Width,
-                        Visible = GetColumnVisible(col),
-                        DisplayName = col.GetDisplayName()
-                    });
+                    _tableColumnStates.Add(CreateTableColumnState(col));
                     continue;
                 }
 
                 if (!ShowColumnList)
                 {
-                    item.Visible = GetColumnVisible(col);
+                    item.Visible = col.GetVisible(_screenSize);
                 }
 
                 if (!AllowResizing)
@@ -1393,7 +1381,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         ResetVisibleColumnsCache();
     }
 
-    private bool GetColumnVisible(ITableColumn col) => col.GetVisible() && col.ShownWithBreakPoint <= _screenSize;
+    private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
+    {
+        DisplayName = col.GetDisplayName(),
+        Name = col.GetFieldName(),
+        Width = col.Width,
+        Visible = col.GetVisible(_screenSize)
+    };
 
     private async Task OnTableRenderAsync(bool firstRender)
     {

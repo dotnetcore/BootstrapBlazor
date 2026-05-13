@@ -436,7 +436,7 @@ public static class IEditItemExtensions
 
     internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
 
-    internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
+    internal static bool GetVisible(this ITableColumn col, BreakPoint point = BreakPoint.None) => col.Visible ?? true && col.ShownWithBreakPoint <= point;
 
     internal static bool GetShowCopyColumn(this ITableColumn col) => col.ShowCopyColumn ?? false;
 
