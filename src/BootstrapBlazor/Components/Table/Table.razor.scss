@@ -149,6 +149,7 @@
 .table thead th {
     white-space: nowrap;
     vertical-align: top;
+    overflow: hidden;
 }
 
 .table thead th.sortable .table-text {
