@@ -544,7 +544,7 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 各列是否显示状态集合</para>
     /// <para lang="en">Gets or sets Columns Visibility Status Collection</para>
     /// </summary>
-    private List<TableColumnState> _tableColumnStates = [];
+    private List<TableColumnState> _tableColumnStates => _tableColumnStateCache.Columns;
 
     private List<ITableColumn> _visibleColumnsCache = [];
 
@@ -554,7 +554,9 @@ public partial class Table<TItem>
     /// </summary>
     public List<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
 
-    private void RebuildVisibleColumnsCache()
+    private string GetColumnKey(ITableColumn col) => $"{col.GetFieldName}-{_visibleColumnsCache.IndexOf(col)}";
+
+    private void ResetVisibleColumnsCache()
     {
         _visibleColumnsCache.Clear();
 
@@ -566,6 +568,8 @@ public partial class Table<TItem>
                 var col = Columns.FirstOrDefault(c => c.GetFieldName() == item.Name);
                 if (col != null)
                 {
+                    col.Width = item.Width;
+
                     _visibleColumnsCache.Add(col);
                 }
             }

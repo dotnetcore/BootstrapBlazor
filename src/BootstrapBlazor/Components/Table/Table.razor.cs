@@ -90,7 +90,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
-        .AddClass("table-layout-fixed", IsFixedHeader)
+        .AddClass("table-layout-fixed")
         .AddClass("table-draggable", AllowDragColumn)
         .Build();
 
@@ -1121,7 +1121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _firstRender = false;
 
             // 读取浏览器持久化列状态配置
-            await ReloadColumnStatesFromBrowserAsync();
+            await GetTableColumnStatesFromBrowserAsync();
 
             // 构建列信息
             await BuildTableColumnsAsync();
@@ -1327,56 +1327,34 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         RebuildTableColumnFromCache();
     }
 
-    private async Task ReloadColumnStatesFromBrowserAsync()
+    private async Task GetTableColumnStatesFromBrowserAsync()
     {
-        // 未开启客户端持久化功能直接返回
-        if (string.IsNullOrEmpty(ClientTableName))
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
-            return;
-        }
-
-        var state = await InvokeAsync<TableColumnClientStatus>("getColumnStates", ClientTableName);
-        if (state == null)
-        {
-            state = new();
-
-            // 开启客户端持久化后未设置列状态的列默认使用组件参数值
-            state.Columns.AddRange(_columns.Where(i => !i.GetIgnore()).Select(i => new TableColumnState()
+            var state = await InvokeAsync<TableColumnClientStatus>("getColumnStates", ClientTableName);
+            if (state != null)
             {
-                Name = i.GetFieldName(),
-                Visible = i.GetVisible(),
-                DisplayName = i.GetDisplayName(),
-                Width = i.Width
-            }));
+                _tableColumnStateCache = state;
+            }
         }
-
-        _tableColumnStateCache = state;
     }
 
     private void RebuildTableColumnFromCache()
     {
-        if (_tableColumnStateCache.Columns.Count != 0)
+        if (_tableColumnStateCache.Columns.Count == 0)
         {
-            foreach (var col in Columns)
-            {
-                var fieldName = col.GetFieldName();
-
-                // 设置列宽度与可见性
-                var column = _tableColumnStateCache.Columns.Find(i => i.Name == fieldName);
-                if (column != null)
+            // 重建缓存
+            _tableColumnStateCache.Columns.AddRange(Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
+                .Select(i => new TableColumnState()
                 {
-                    col.Width = column.Width;
-                    col.Visible = column.Visible;
-                    column.DisplayName = col.GetDisplayName();
-                }
-            }
+                    Name = i.GetFieldName(),
+                    Visible = i.GetVisible(),
+                    Width = i.Width,
+                    DisplayName = i.GetDisplayName()
+                }));
         }
 
-        // 设置可见列顺序
-        _tableColumnStates.Clear();
-        _tableColumnStates.AddRange(GetColumnStates(Columns));
-
-        RebuildVisibleColumnsCache();
+        ResetVisibleColumnsCache();
     }
 
     private List<TableColumnState> GetColumnStates(List<ITableColumn> cols)
@@ -1825,7 +1803,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Drag Column End Callback. Default null</para>
     /// </summary>
     [Parameter]
-    public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
+    public Func<string, TableColumnClientStatus, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置列宽回调方法</para>
@@ -1877,17 +1855,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 _tableColumnStates.Remove(firstColumn);
                 _tableColumnStates.Insert(currentIndex, firstColumn);
 
-                if (!string.IsNullOrEmpty(ClientTableName))
-                {
-                    // 更新缓存数据中列顺序
-                    var columnVisibleState = _tableColumnStateCache.Columns;
-                    columnVisibleState.Clear();
-                    columnVisibleState.AddRange(_tableColumnStates);
-                }
-
                 if (OnDragColumnEndAsync != null)
                 {
-                    await OnDragColumnEndAsync(firstColumn.Name, Columns);
+                    await OnDragColumnEndAsync(firstColumn.Name, _tableColumnStateCache);
                 }
             }
             _resetColumns = true;

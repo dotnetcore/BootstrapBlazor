@@ -225,6 +225,7 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// <para lang="zh">获得/设置 当前编辑项是否可见，默认为 null，使用 true 值</para>
     /// <para lang="en">Gets or sets whether the current edit item is visible. Default is null, using true value</para>
+    /// <remark>可见性最终结果比较复杂，比如开启 ShowColumnList 实际由这里控制是否显示</remark>
     /// </summary>
     bool? Visible { get; set; }
 

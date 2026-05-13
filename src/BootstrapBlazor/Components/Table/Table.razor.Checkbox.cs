@@ -156,39 +156,36 @@ public partial class Table<TItem>
         item.Visible = visible;
 
         // 设置列状态缓存中可见状态
-        if (!string.IsNullOrEmpty(ClientTableName))
+        var tableWidth = 0;
+        var useTableWidth = true;
+        for (var index = 0; index < _tableColumnStateCache.Columns.Count; index++)
         {
-            var tableWidth = 0;
-            var useTableWidth = true;
-            for (var index = 0; index < _tableColumnStateCache.Columns.Count; index++)
+            var column = _tableColumnStateCache.Columns[index];
+            if (column.Name == item.Name)
             {
-                var column = _tableColumnStateCache.Columns[index];
-                if (column.Name == item.Name)
-                {
-                    column.Visible = visible;
-                }
-
-                if (!column.Visible)
-                {
-                    continue;
-                }
-
-                // 重新计算表格宽度
-                if (column.Width.HasValue)
-                {
-                    tableWidth += column.Width.Value;
-                }
-                else
-                {
-                    // 未设置列宽表格自适应
-                    useTableWidth = false;
-                }
+                column.Visible = visible;
             }
 
-            _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
+            if (!column.Visible)
+            {
+                continue;
+            }
 
-            UpdateTableWidth();
+            // 重新计算表格宽度
+            if (column.Width.HasValue)
+            {
+                tableWidth += column.Width.Value;
+            }
+            else
+            {
+                // 未设置列宽表格自适应
+                useTableWidth = false;
+            }
         }
+
+        _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
+
+        UpdateTableWidth();
 
         // 触发 OnColumnVisibleChanged 回调
         if (OnColumnVisibleChanged != null)
