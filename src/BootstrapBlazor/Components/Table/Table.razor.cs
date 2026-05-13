@@ -1372,7 +1372,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         Name = col.GetFieldName(),
                         Width = col.Width,
-                        Visible = col.GetVisible(),
+                        Visible = col.GetVisible() && col.ShownWithBreakPoint <= _screenSize,
                         DisplayName = col.GetDisplayName()
                     });
                     continue;
