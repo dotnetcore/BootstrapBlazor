@@ -13,8 +13,9 @@
     <Table TItem="Foo" ClientTableName="table-test"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowDragColumn="true" AllowResizing="true"
+           ShowToolbar="true" ShowColumnList="true"
            IsStriped="true" IsBordered="true" OnDragColumnEndAsync="OnDragColumnEndAsync"
-           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
