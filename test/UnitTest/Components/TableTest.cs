@@ -5235,6 +5235,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, table.Instance.Columns.Count);
         Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
 
+        // 更新 Ignore 值
         table.Render(pb =>
         {
             pb.Add(a => a.TableColumns, foo => builder =>
@@ -5251,6 +5252,7 @@ public class TableTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
+
         table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(2, table.Instance.Columns.Count);
         Assert.Single(table.Instance.GetVisibleColumns());

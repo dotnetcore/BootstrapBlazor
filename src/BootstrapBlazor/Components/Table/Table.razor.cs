@@ -1324,7 +1324,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 加载客户端持久化列状态
-        RebuildTableColumnFromCache();
+        ResetTableColumns();
     }
 
     private async Task GetTableColumnStatesFromBrowserAsync()
@@ -1339,18 +1339,55 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void RebuildTableColumnFromCache()
+    private void ResetTableColumns()
     {
-        if (_tableColumnStateCache.Columns.Count == 0)
+        if (_tableColumnStates.Count == 0)
         {
             // 重建缓存
-            _tableColumnStateCache.Columns.AddRange(Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
+            _tableColumnStates.AddRange(Columns.Where(i => !i.GetIgnore() && i.ShownWithBreakPoint <= _screenSize)
                 .Select(i => new TableColumnState()
                 {
                     Name = i.GetFieldName(),
                     Visible = i.GetVisible(),
                     Width = i.Width
                 }));
+        }
+        else
+        {
+            foreach (var col in Columns)
+            {
+                var item = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
+                if (col.GetIgnore())
+                {
+                    if (item != null)
+                    {
+                        _tableColumnStates.Remove(item);
+                    }
+                    continue;
+                }
+
+                if (item == null)
+                {
+                    _tableColumnStates.Add(new TableColumnState()
+                    {
+                        Name = col.GetFieldName(),
+                        Width = col.Width,
+                        Visible = col.GetVisible(),
+                        DisplayName = col.GetDisplayName()
+                    });
+                    continue;
+                }
+
+                if (!ShowColumnList)
+                {
+                    item.Visible = col.GetVisible();
+                }
+
+                if (!AllowResizing)
+                {
+                    item.Width = col.Width;
+                }
+            }
         }
 
         ResetVisibleColumnsCache();
