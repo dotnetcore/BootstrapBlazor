@@ -568,6 +568,9 @@ public partial class Table<TItem>
                 var col = Columns.Find(c => c.GetFieldName() == item.Name);
                 if (col != null)
                 {
+                    // 更新显示名称
+                    item.DisplayName = col.GetDisplayName();
+
                     // 恢复宽度
                     col.Width = item.Width;
 
