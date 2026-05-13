@@ -251,7 +251,7 @@
             }
             @foreach (var col in GetVisibleColumns())
             {
-                <col style="@GetColWidthString(col.GetColumnFixedWidth(DefaultFixedColumnWidth))" />
+                <col @key="GetColumnKey(col)" style="@GetColWidthString(col.GetColumnFixedWidth(DefaultFixedColumnWidth))" />
             }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
@@ -844,33 +844,33 @@
                          GotoNavigatorLabelText="@GotoNavigatorLabelText"
                          ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"></Pagination>;
 
-            RenderFragment<TableColumnState> RenderColumnListItem => item =>
-                @<div class="dropdown-item">
-                    <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
-                              IsDisabled="@GetColumnsListState(item)"
-                              Value="@item.Visible"
-                              OnValueChanged="visible => OnToggleColumnVisible(item, visible)">
-                    </Checkbox>
-                </div>;
+    RenderFragment<TableColumnState> RenderColumnListItem => item =>
+        @<div class="dropdown-item">
+            <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
+                        IsDisabled="@GetColumnsListState(item)"
+                        Value="@item.Visible"
+                        OnValueChanged="visible => OnToggleColumnVisible(item, visible)">
+            </Checkbox>
+        </div>;
 
-            RenderFragment<TItem> RenderRowContentWithValidateForm => item =>
-                @<ValidateForm @ref="_inCellValidateForm" Model="EditModel" IsFormless="true" ShowLabel="false">
-                    @RenderRowContent(item)
-                </ValidateForm>;
+    RenderFragment<TItem> RenderRowContentWithValidateForm => item =>
+        @<ValidateForm @ref="_inCellValidateForm" Model="EditModel" IsFormless="true" ShowLabel="false">
+            @RenderRowContent(item)
+        </ValidateForm>;
 
-            RenderFragment<string> RenderLoader => cssString =>
-                @<div class="@cssString">
-                    @if (LoadingTemplate != null)
-                    {
-                        @LoadingTemplate
-                    }
-                    else
-                    {
-                        <Spinner Color="Color.Primary"></Spinner>
-                    }
-                </div>;
+    RenderFragment<string> RenderLoader => cssString =>
+        @<div class="@cssString">
+            @if (LoadingTemplate != null)
+            {
+                @LoadingTemplate
+            }
+            else
+            {
+                <Spinner Color="Color.Primary"></Spinner>
+            }
+        </div>;
 
-            RenderFragment RenderToolbar =>
+    RenderFragment RenderToolbar =>
         @<div class="table-toolbar">
             <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows"
                           IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton"
@@ -1061,95 +1061,95 @@
             }
         </div>;
 
-            RenderFragment<TItem> RenderCardViewRow => item =>
-                @<DynamicElement @key="GetKeyByITem(item)"
-                                 class="@GetRowClassString(item, "table-row")" style="@GetRowStyleString(item)"
-                                 TriggerContextMenu="ContextMenuZone != null"
-                                 OnContextMenu="e => OnContextMenu(e, item)"
-                                 TriggerTouchStart="true" OnTouchStart="e => OnTouchStart(e, item)"
-                                 TriggerTouchEnd="true" OnTouchEnd="OnTouchEnd"
-                                 TriggerClick="@(ClickToSelect || OnClickRowCallback != null)"
-                                 OnClick="() => ClickRow(item)">
-                    @if (IsMultipleSelect)
+    RenderFragment<TItem> RenderCardViewRow => item =>
+        @<DynamicElement @key="GetKeyByITem(item)"
+                         class="@GetRowClassString(item, "table-row")" style="@GetRowStyleString(item)"
+                         TriggerContextMenu="ContextMenuZone != null"
+                         OnContextMenu="e => OnContextMenu(e, item)"
+                         TriggerTouchStart="true" OnTouchStart="e => OnTouchStart(e, item)"
+                         TriggerTouchEnd="true" OnTouchEnd="OnTouchEnd"
+                         TriggerClick="@(ClickToSelect || OnClickRowCallback != null)"
+                         OnClick="() => ClickRow(item)">
+            @if (IsMultipleSelect)
+            {
+                <div class="table-cell">
+                    <label>@CheckboxDisplayText</label>
+                    @if (GetShowRowCheckbox(item))
                     {
-                        <div class="table-cell">
-                            <label>@CheckboxDisplayText</label>
-                            @if (GetShowRowCheckbox(item))
-                            {
-                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)"
-                                          OnStateChanged="OnCheck" StopPropagation="true">
-                                </Checkbox>
-                            }
-                        </div>
+                        <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)"
+                                    OnStateChanged="OnCheck" StopPropagation="true">
+                        </Checkbox>
                     }
-                    @if (ShowLineNo)
+                </div>
+            }
+            @if (ShowLineNo)
+            {
+                <div class="table-cell">
+                    <label>@LineNoText</label>
+                    <span>@(Rows.IndexOf(item) + 1 + (PageIndex - 1) * _pageItems)</span>
+                </div>
+            }
+            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+            {
+                @RenderExtendButtons(item)
+            }
+            @if (RowContentTemplate != null)
+            {
+                var columns = GetVisibleColumns();
+                @RowContentTemplate(new(item, columns, ActiveRenderMode))
+            }
+            else
+            {
+                @foreach (var col in GetVisibleColumns())
+                {
+                    var cellClass = "";
+                    string? value = null;
+                    RenderFragment? valueTemplate = null;
+                    var colClass = "table-cell";
+                    if (!string.IsNullOrEmpty(col.CssClass))
                     {
-                        <div class="table-cell">
-                            <label>@LineNoText</label>
-                            <span>@(Rows.IndexOf(item) + 1 + (PageIndex - 1) * _pageItems)</span>
-                        </div>
+                        colClass = $"table-cell {col.CssClass}";
                     }
-                    @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
-                    {
-                        @RenderExtendButtons(item)
-                    }
-                    @if (RowContentTemplate != null)
-                    {
-                        var columns = GetVisibleColumns();
-                        @RowContentTemplate(new(item, columns, ActiveRenderMode))
-                    }
-                    else
-                    {
-                        @foreach (var col in GetVisibleColumns())
+                    <div class="@colClass">
+                        <label>
+                            @col.GetDisplayName()
+                        </label>
+                        @if (col.OnCellRender != null)
                         {
-                            var cellClass = "";
-                            string? value = null;
-                            RenderFragment? valueTemplate = null;
-                            var colClass = "table-cell";
-                            if (!string.IsNullOrEmpty(col.CssClass))
+                            var cell = new TableCellArgs
                             {
-                                colClass = $"table-cell {col.CssClass}";
-                            }
-                            <div class="@colClass">
-                                <label>
-                                    @col.GetDisplayName()
-                                </label>
-                                @if (col.OnCellRender != null)
-                                {
-                                    var cell = new TableCellArgs
-                                    {
-                                        Row = item,
-                                        ColumnName = col.GetFieldName()
-                                    };
-                                    col.OnCellRender(cell);
-                                    cellClass = cell.Class;
-                                    value = cell.Value;
-                                    valueTemplate = cell.ValueTemplate;
-                                }
-                                <span class="@cellClass">
-                                    @if (valueTemplate != null)
-                                    {
-                                        @valueTemplate
-                                    }
-                                    else if (value != null)
-                                    {
-                                        @value
-                                    }
-                                    else
-                                    {
-                                        @GetValue(col, item)
-                                    }
-                                </span>
-                            </div>
+                                Row = item,
+                                ColumnName = col.GetFieldName()
+                            };
+                            col.OnCellRender(cell);
+                            cellClass = cell.Class;
+                            value = cell.Value;
+                            valueTemplate = cell.ValueTemplate;
                         }
-                    }
-                    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
-                    {
-                        @RenderExtendButtons(item)
-                    }
-                </DynamicElement>;
+                        <span class="@cellClass">
+                            @if (valueTemplate != null)
+                            {
+                                @valueTemplate
+                            }
+                            else if (value != null)
+                            {
+                                @value
+                            }
+                            else
+                            {
+                                @GetValue(col, item)
+                            }
+                        </span>
+                    </div>
+                }
+            }
+            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+            {
+                @RenderExtendButtons(item)
+            }
+        </DynamicElement>;
 
-            RenderFragment RenderCardViewFooter =>
+    RenderFragment RenderCardViewFooter =>
         @<div class="table-row table-footer">
             <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
                 <CascadingValue Value="@Rows" Name="TableFooterContext">
@@ -1164,4 +1164,4 @@
                 </CascadingValue>
             </CascadingValue>
         </div>;
-        }
+}

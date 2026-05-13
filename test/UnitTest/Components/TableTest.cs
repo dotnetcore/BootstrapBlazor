@@ -945,7 +945,6 @@ public class TableTest : BootstrapBlazorTestBase
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
-        cut.Contains("<table class=\"table\">");
 
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
@@ -5236,6 +5235,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, table.Instance.Columns.Count);
         Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
 
+        // 更新 Ignore 值
         table.Render(pb =>
         {
             pb.Add(a => a.TableColumns, foo => builder =>
@@ -5252,9 +5252,37 @@ public class TableTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
+
         table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(2, table.Instance.Columns.Count);
         Assert.Single(table.Instance.GetVisibleColumns());
+
+        // 更新 Ignore 值
+        table.Render(pb =>
+        {
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Address");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                builder.AddAttribute(3, "Ignore", false);
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, int>>(0);
+                builder.AddAttribute(1, "Field", 1);
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                builder.CloseComponent();
+            });
+        });
+
+        table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(3, table.Instance.Columns.Count);
+        Assert.Equal(3, table.Instance.GetVisibleColumns().Count);
     }
 
     [Theory]
