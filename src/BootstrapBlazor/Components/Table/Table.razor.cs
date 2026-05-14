@@ -1865,14 +1865,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
         // 更新缓存数据中列顺序
-        if (_tableColumnStates.Count > originIndex)
+        var visibleColumns = _tableColumnStates.Where(i => i.Visible);
+        var firstColumn = visibleColumns.ElementAtOrDefault(originIndex);
+        if (firstColumn != null)
         {
-            var firstColumn = _tableColumnStates[originIndex];
-            if (_tableColumnStates.Count > currentIndex)
+            var targetColumn = visibleColumns.ElementAtOrDefault(currentIndex);
+            if (targetColumn != null)
             {
-                var targetColumn = _tableColumnStates[currentIndex];
                 _tableColumnStates.Remove(firstColumn);
-                _tableColumnStates.Insert(currentIndex, firstColumn);
+                var pos = _tableColumnStates.IndexOf(targetColumn);
+                _tableColumnStates.Insert(pos, firstColumn);
 
                 if (OnDragColumnEndAsync != null)
                 {
