@@ -84,6 +84,11 @@ export function init(id, invoke, value, changedEventCallback) {
             ac.show();
         }
 
+        const skipMatch = input.getAttribute('data-bb-skip-match') === 'true';
+        if (skipMatch) {
+            return;
+        }
+
         el.classList.add('is-loading');
         filterCallback(v);
     });
