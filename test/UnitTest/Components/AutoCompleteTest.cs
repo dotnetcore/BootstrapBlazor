@@ -8,6 +8,22 @@ namespace UnitTest.Components;
 public class AutoCompleteTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void SkipMatch_Ok()
+    {
+        var cut = Context.Render<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.SkipMatch, true);
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+            pb.Add(a => a.Value, "test12");
+        });
+
+        // 开启 SkipMatch 候选项不过滤
+        cut.Contains("data-bb-skip-match=\"true\"");
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Equal(4, items.Count);
+    }
+
+    [Fact]
     public void Items_Ok()
     {
         var cut = Context.Render<AutoComplete>(pb =>
