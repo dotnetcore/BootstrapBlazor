@@ -81,6 +81,7 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 是否不进行匹配操作 默认为 false</para>
     /// <para lang="en">Gets or sets whether to skip matching operations, default is false</para>
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public bool SkipMatch { get; set; }
