@@ -9,8 +9,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
-/// <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
+/// <para lang="zh">An input component for editing numeric values.</para>
+/// <para lang="en">An input component for editing numeric values.</para>
 /// </summary>
 public partial class BootstrapInputNumber<TValue>
 {
@@ -188,16 +188,45 @@ public partial class BootstrapInputNumber<TValue>
     protected virtual string? InternalFormat(TValue? value) => value switch
     {
         null => null,
-        int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-        long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-        short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-        float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-        double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-        decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-        _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
+        IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture),
+        _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}")
     };
 
     private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
+
+    private static decimal ParseDecimal(string value) => decimal.Parse(value, CultureInfo.InvariantCulture);
+
+    private static TValue ParseValue(string value)
+    {
+        return value.TryConvertTo<TValue>(out var ret)
+            ? ret
+            : throw new InvalidOperationException($"Unsupported type {typeof(TValue)}");
+    }
+
+    private static TValue? Calculate(TValue? value, string step, bool increment)
+    {
+        TValue? ret = default;
+        if (value != null)
+        {
+            var factor = increment ? 1 : -1;
+            ret = value switch
+            {
+                sbyte @sbyte => (TValue)(object)(sbyte)Math.Clamp(@sbyte + factor * ParseDecimal(step), sbyte.MinValue, sbyte.MaxValue),
+                byte @byte => (TValue)(object)(byte)Math.Clamp(@byte + factor * ParseDecimal(step), byte.MinValue, byte.MaxValue),
+                short @short => (TValue)(object)(short)Math.Clamp(@short + factor * ParseDecimal(step), short.MinValue, short.MaxValue),
+                ushort @ushort => (TValue)(object)(ushort)Math.Clamp(@ushort + factor * ParseDecimal(step), ushort.MinValue, ushort.MaxValue),
+                int @int => (TValue)(object)(int)Math.Clamp(@int + factor * ParseDecimal(step), int.MinValue, int.MaxValue),
+                uint @uint => (TValue)(object)(uint)Math.Clamp(@uint + factor * ParseDecimal(step), uint.MinValue, uint.MaxValue),
+                long @long => (TValue)(object)(long)Math.Clamp(@long + factor * ParseDecimal(step), long.MinValue, long.MaxValue),
+                ulong @ulong => (TValue)(object)(ulong)Math.Clamp(@ulong + factor * ParseDecimal(step), ulong.MinValue, ulong.MaxValue),
+                float @float => (TValue)(object)(@float + factor * float.Parse(step, CultureInfo.InvariantCulture)),
+                double @double => (TValue)(object)(@double + factor * double.Parse(step, CultureInfo.InvariantCulture)),
+                decimal @decimal => (TValue)(object)(@decimal + factor * ParseDecimal(step)),
+                _ => value
+            };
+        }
+        return ret;
+    }
 
     /// <summary>
     /// <para lang="zh">点击减少按钮式时回调此方法</para>
@@ -207,27 +236,7 @@ public partial class BootstrapInputNumber<TValue>
     {
         var val = CurrentValue;
         var step = GetStepString();
-        switch (val)
-        {
-            case int @int:
-                val = (TValue)(object)(@int - int.Parse(step));
-                break;
-            case long @long:
-                val = (TValue)(object)(@long - long.Parse(step));
-                break;
-            case short @short:
-                val = (TValue)(object)(short)(@short - short.Parse(step));
-                break;
-            case float @float:
-                val = (TValue)(object)(@float - float.Parse(step));
-                break;
-            case double @double:
-                val = (TValue)(object)(@double - double.Parse(step));
-                break;
-            case decimal @decimal:
-                val = (TValue)(object)(@decimal - decimal.Parse(step));
-                break;
-        }
+        val = Calculate(val, step, false);
         CurrentValue = SetMax(SetMin(val));
         if (OnDecrement != null)
         {
@@ -243,27 +252,7 @@ public partial class BootstrapInputNumber<TValue>
     {
         var val = CurrentValue;
         var step = GetStepString();
-        switch (val)
-        {
-            case int @int:
-                val = (TValue)(object)(@int + int.Parse(step));
-                break;
-            case long @long:
-                val = (TValue)(object)(@long + long.Parse(step));
-                break;
-            case short @short:
-                val = (TValue)(object)(short)(@short + short.Parse(step));
-                break;
-            case float @float:
-                val = (TValue)(object)(@float + float.Parse(step));
-                break;
-            case double @double:
-                val = (TValue)(object)(@double + double.Parse(step));
-                break;
-            case decimal @decimal:
-                val = (TValue)(object)(@decimal + decimal.Parse(step));
-                break;
-        }
+        val = Calculate(val, step, true);
         CurrentValue = SetMax(SetMin(val));
         if (OnIncrement != null)
         {
@@ -299,28 +288,12 @@ public partial class BootstrapInputNumber<TValue>
 
     private TValue? SetMin(TValue? val)
     {
-        if (!string.IsNullOrEmpty(Min))
+        if (!string.IsNullOrEmpty(Min) && val != null)
         {
-            switch (val)
+            var min = ParseValue(Min);
+            if (Comparer<TValue>.Default.Compare(val, min) < 0)
             {
-                case int @int:
-                    val = (TValue)(object)Math.Max(@int, int.Parse(Min));
-                    break;
-                case long @long:
-                    val = (TValue)(object)Math.Max(@long, long.Parse(Min));
-                    break;
-                case short @short:
-                    val = (TValue)(object)Math.Max(@short, short.Parse(Min));
-                    break;
-                case float @float:
-                    val = (TValue)(object)Math.Max(@float, float.Parse(Min));
-                    break;
-                case double @double:
-                    val = (TValue)(object)Math.Max(@double, double.Parse(Min));
-                    break;
-                case decimal @decimal:
-                    val = (TValue)(object)Math.Max(@decimal, decimal.Parse(Min));
-                    break;
+                val = min;
             }
         }
         return val;
@@ -328,28 +301,12 @@ public partial class BootstrapInputNumber<TValue>
 
     private TValue? SetMax(TValue? val)
     {
-        if (!string.IsNullOrEmpty(Max))
+        if (!string.IsNullOrEmpty(Max) && val != null)
         {
-            switch (val)
+            var max = ParseValue(Max);
+            if (Comparer<TValue>.Default.Compare(val, max) > 0)
             {
-                case int @int:
-                    val = (TValue)(object)Math.Min(@int, int.Parse(Max));
-                    break;
-                case long @long:
-                    val = (TValue)(object)Math.Min(@long, long.Parse(Max));
-                    break;
-                case short @short:
-                    val = (TValue)(object)Math.Min(@short, short.Parse(Max));
-                    break;
-                case float @float:
-                    val = (TValue)(object)Math.Min(@float, float.Parse(Max));
-                    break;
-                case double @double:
-                    val = (TValue)(object)Math.Min(@double, double.Parse(Max));
-                    break;
-                case decimal @decimal:
-                    val = (TValue)(object)Math.Min(@decimal, decimal.Parse(Max));
-                    break;
+                val = max;
             }
         }
         return val;
