@@ -18,6 +18,7 @@ public class DrawerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Width, "");
         });
         Assert.DoesNotContain("--bb-drawer-width", cut.Markup);
+        Assert.DoesNotContain("tabindex", cut.Markup);
     }
 
     [Fact]
