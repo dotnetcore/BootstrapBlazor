@@ -1121,7 +1121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _firstRender = false;
 
             // 读取浏览器持久化列状态配置
-            await GetTableColumnStatesFromBrowserAsync();
+            await LoadTableColumnStates();
 
             // 构建列信息
             await BuildTableColumnsAsync();
@@ -1327,7 +1327,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         ResetTableColumns();
     }
 
-    private async Task GetTableColumnStatesFromBrowserAsync()
+    private async Task LoadTableColumnStates()
     {
         if (!string.IsNullOrEmpty(ClientTableName))
         {
@@ -1336,6 +1336,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 _tableColumnStateCache = state;
             }
+        }
+        else if (OnLoadTableColumnClientStatus != null)
+        {
+            // 恢复持久化列状态配置
+            _tableColumnStateCache = await OnLoadTableColumnClientStatus();
         }
     }
 
@@ -1851,6 +1856,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public Func<string, TableColumnClientStatus, Task>? OnTableColumnClientStatusChanged { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 加载表格客户端状态回调方法，组件会在首次渲染时调用该方法获取列状态用于初始化表格显示状态</para>
+    /// <para lang="en">Gets or sets Load Table Column Client Status Callback. The component will call this method on the first render to get the column status for initializing the table display state.</para>
+    /// </summary>
+    [Parameter]
+    public Func<Task<TableColumnClientStatus>>? OnLoadTableColumnClientStatus { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 true</para>
