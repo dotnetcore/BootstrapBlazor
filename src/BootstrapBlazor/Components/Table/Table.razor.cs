@@ -1820,6 +1820,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序</para>
     /// <para lang="en">Gets or sets Drag Column End Callback. Default null</para>
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, TableColumnClientStatus, Task>? OnDragColumnEndAsync { get; set; }
@@ -1827,6 +1828,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 设置列宽回调方法</para>
     /// <para lang="en">Gets or sets Resize Column Callback</para>
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, TableColumnClientStatus, Task>? OnResizeColumnAsync { get; set; }
@@ -1834,7 +1836,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
     /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
-    /// 
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, TableColumnClientStatus, Task>? OnAutoFitColumnWidthCallback { get; set; }
