@@ -554,8 +554,6 @@ public partial class Table<TItem>
     /// </summary>
     public List<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
 
-    private string GetColumnKey(ITableColumn col) => $"{col.GetFieldName}-{_visibleColumnsCache.IndexOf(col)}";
-
     private void ResetVisibleColumnsCache()
     {
         _visibleColumnsCache.Clear();

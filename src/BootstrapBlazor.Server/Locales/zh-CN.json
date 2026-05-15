@@ -4606,7 +4606,7 @@
     "TablesColumnTitle": "Table 表格"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
-    "AllowDragOrderDesc": "<p>在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整</p><p>本示例通过设置 <code>ClientTableName</code> 参数开启了本地化存储，拖动调整顺序后，可刷新页面，列顺序是保持上次状态的</p><p>通过设置 <code>ColumnOrderCallback</code> 回调方法可以实现服务器端列顺序持久化</p>",
+    "AllowDragOrderDesc": "<p>在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整</p><p>本示例通过设置 <code>ClientTableName</code> 参数开启了本地化存储，拖动调整顺序后，可刷新页面，列顺序是保持上次状态的</p><p><code>10.6.1</code> 版本后使用 <code>OnTableColumnClientStatusChanged</code> 统一处理列拖拽、列宽调整与自适应列宽回调，移除原 <code>OnDragColumnEndAsync</code> <code>OnResizeColumnAsync</code> 和 <code>OnAutoFitContentAsync</code> 回调。</p><p><b>注意事项：</b></p><p>表格状态持久化功能分两种情况，设置 <code>ClientTableName</code> 属性即使用浏览器本地存储持久化信息，如果未设置则通过回调使用服务器端存储持久化信息。持久化信息结构体为 <code>TableColumnClientStatus</code> 由列状态集合以及表格宽度参数组成。</p><p>表格宽度参数默认为 0 当所有列宽度均有值时，表格宽度参数值为表格在客户端渲染的实际宽度；为 0 表示表格宽度自适应</p><p>使用浏览器本地存储持久化信息时，无需任何设置，表格会自动加载客户端状态</p><p>使用服务器端存储持久化信息时，需在回调中处理表格状态加载与保存逻辑，实际使用中可根据需要使用数据库或其他方式进行存储;通过 <code>OnTableColumnClientStatusChanged</code> 回调处理服务器端状态，通过 <code>OnLoadTableColumnClientStatus</code> 回调方法对表格进行持久化状态恢复操作</p>",
     "AllowDragOrderIntro": "通过指定 <code>AllowDragColumn</code> 设置表格列允许拖动列标题调整表格列顺序",
     "AllowDragOrderTitle": "允许拖动列标题调整表格列顺序",
     "TablesColumnDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",

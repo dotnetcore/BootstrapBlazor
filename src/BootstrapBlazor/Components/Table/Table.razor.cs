@@ -1121,7 +1121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _firstRender = false;
 
             // 读取浏览器持久化列状态配置
-            await GetTableColumnStatesFromBrowserAsync();
+            await LoadTableColumnStates();
 
             // 构建列信息
             await BuildTableColumnsAsync();
@@ -1327,7 +1327,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         ResetTableColumns();
     }
 
-    private async Task GetTableColumnStatesFromBrowserAsync()
+    private async Task LoadTableColumnStates()
     {
         if (!string.IsNullOrEmpty(ClientTableName))
         {
@@ -1336,6 +1336,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 _tableColumnStateCache = state;
             }
+        }
+        else if (OnLoadTableColumnClientStatus != null)
+        {
+            // 恢复持久化列状态配置
+            _tableColumnStateCache = await OnLoadTableColumnClientStatus();
         }
     }
 
@@ -1822,22 +1827,42 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Drag Column End Callback. Default null</para>
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnDragColumnEndAsync { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
+    public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置列宽回调方法</para>
     /// <para lang="en">Gets or sets Resize Column Callback</para>
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnResizeColumnAsync { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
+    public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
     /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
-    /// 
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnAutoFitColumnWidthCallback { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
+    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格客户端状态调整回调方法</para>
+    /// <para lang="en">Gets or sets Table Column Client Status Changed Callback</para>
+    /// <para>v<version>10.6.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Func<string, TableColumnClientStatus, Task>? OnTableColumnClientStatusChanged { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 加载表格客户端状态回调方法，组件会在首次渲染时调用该方法获取列状态用于初始化表格显示状态</para>
+    /// <para lang="en">Gets or sets Load Table Column Client Status Callback. The component will call this method on the first render to get the column status for initializing the table display state.</para>
+    /// </summary>
+    [Parameter]
+    public Func<Task<TableColumnClientStatus>>? OnLoadTableColumnClientStatus { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 true</para>
@@ -1876,9 +1901,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var pos = _tableColumnStates.IndexOf(targetColumn);
                 _tableColumnStates.Insert(pos, firstColumn);
 
-                if (OnDragColumnEndAsync != null)
+                if (OnTableColumnClientStatusChanged != null)
                 {
-                    await OnDragColumnEndAsync(firstColumn.Name, _tableColumnStateCache);
+                    await OnTableColumnClientStatusChanged(firstColumn.Name, _tableColumnStateCache);
                 }
             }
             _resetColumns = true;
@@ -1898,9 +1923,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         UpdateTableColumnState(columnState);
 
         // 触发回调
-        if (OnResizeColumnAsync != null)
+        if (OnTableColumnClientStatusChanged != null)
         {
-            await OnResizeColumnAsync(name, columnState);
+            await OnTableColumnClientStatusChanged(name, _tableColumnStateCache);
         }
     }
 
@@ -1913,9 +1938,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         UpdateTableColumnState(columnState);
 
-        if (OnAutoFitColumnWidthCallback != null)
+        if (OnTableColumnClientStatusChanged != null)
         {
-            await OnAutoFitColumnWidthCallback(fieldName, columnState);
+            await OnTableColumnClientStatusChanged(fieldName, _tableColumnStateCache);
         }
     }
 
