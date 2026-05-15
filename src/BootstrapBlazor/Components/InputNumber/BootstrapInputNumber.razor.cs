@@ -9,8 +9,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">An input component for editing numeric values.</para>
-/// <para lang="en">An input component for editing numeric values.</para>
+/// <para lang="zh">BootstrapInputNumber 组件</para>
+/// <para lang="en">BootstrapInputNumber component</para>
 /// </summary>
 public partial class BootstrapInputNumber<TValue>
 {
@@ -166,11 +166,8 @@ public partial class BootstrapInputNumber<TValue>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
-    /// <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/></para>
-    /// <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/></para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="value">The value to format.</param>
-    /// <returns>A string representation of the value.</returns>
     protected override string? FormatValueAsString(TValue? value) => UseInputEvent ? _lastInputValueString : GetFormatString(value);
 
     private string? GetFormatString(TValue? value) => Formatter != null
@@ -228,10 +225,6 @@ public partial class BootstrapInputNumber<TValue>
         return ret;
     }
 
-    /// <summary>
-    /// <para lang="zh">点击减少按钮式时回调此方法</para>
-    /// <para lang="en">Callback method when decrement button is clicked</para>
-    /// </summary>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
@@ -244,10 +237,6 @@ public partial class BootstrapInputNumber<TValue>
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">点击增加按钮式时回调此方法</para>
-    /// <para lang="en">Callback method when increment button is clicked</para>
-    /// </summary>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
