@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -195,25 +196,138 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Theory]
+    [InlineData(typeof(sbyte))]
+    [InlineData(typeof(byte))]
     [InlineData(typeof(short))]
+    [InlineData(typeof(ushort))]
     [InlineData(typeof(int))]
+    [InlineData(typeof(uint))]
     [InlineData(typeof(long))]
+    [InlineData(typeof(ulong))]
     [InlineData(typeof(float))]
     [InlineData(typeof(double))]
     [InlineData(typeof(decimal))]
-    public void Type_Ok(Type t)
+    public async Task Type_Ok(Type t)
     {
         var cut = Context.Render(builder =>
         {
             builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
             builder.AddAttribute(1, "ShowButton", true);
-            builder.AddAttribute(1, "Min", "-10");
             builder.AddAttribute(1, "Max", "10");
             builder.CloseComponent();
         });
         var buttons = cut.FindAll("button");
-        cut.InvokeAsync(() => buttons[0].Click());
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
+    }
+
+    [Fact]
+    public async Task ShowButton_NullableValue_Ok()
+    {
+        var increment = false;
+        var decrement = false;
+        var cut = Context.Render<BootstrapInputNumber<int?>>(pb =>
+        {
+            pb.Add(a => a.ShowButton, true);
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.OnIncrement, v =>
+            {
+                increment = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnDecrement, v =>
+            {
+                decrement = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var buttons = cut.FindAll("button");
+        await cut.InvokeAsync(() => buttons[0].Click());
+        Assert.True(decrement);
+        Assert.Null(cut.Instance.Value);
+
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.True(increment);
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ShowButton_EmptyStep_Ok()
+    {
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
+        {
+            pb.Add(a => a.ShowButton, true);
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, string.Empty);
+        });
+
+        var buttons = cut.FindAll("button");
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.Equal(2, cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task MinMax_Ok()
+    {
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
+        {
+            pb.Add(a => a.Value, 5);
+            pb.Add(a => a.Min, "10");
+        });
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(10, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Value, 15);
+            pb.Add(a => a.Min, null);
+            pb.Add(a => a.Max, "10");
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(10, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Value, 5);
+            pb.Add(a => a.Min, "0");
+            pb.Add(a => a.Max, "10");
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(5, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void PrivateFallback_Ok()
+    {
+        var calculateMethod = typeof(BootstrapInputNumber<string>).GetMethod("Calculate", BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(calculateMethod);
+
+        var value = calculateMethod.Invoke(null, ["test", "1", true]);
+        Assert.Equal("test", value);
+
+        value = calculateMethod.Invoke(null, [null, "1", true]);
+        Assert.Null(value);
+
+        var cut = new BootstrapInputNumber<int>() { Min = "test" };
+        var setMinMethod = typeof(BootstrapInputNumber<int>).GetMethod("SetMin", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(setMinMethod);
+
+        var ex = Assert.Throws<TargetInvocationException>(() => setMinMethod.Invoke(cut, [1]));
+        Assert.IsType<InvalidOperationException>(ex.InnerException);
+    }
+
+    [Fact]
+    public void UnsignedType_Bind_Ok()
+    {
+        AssertInputNumberValueChanged<byte>(1, "2", 2);
+        AssertInputNumberValueChanged<ushort>(1, "2", 2);
+        AssertInputNumberValueChanged<uint>(1, "2", 2);
+        AssertInputNumberValueChanged<ulong>(1, "2", 2);
     }
 
     [Fact]
@@ -302,6 +416,20 @@ public class InputNumberTest : BootstrapBlazorTestBase
     {
         [Range(1, 10)]
         public int Count { get; set; }
+    }
+
+    private void AssertInputNumberValueChanged<TValue>(TValue value, string inputValue, TValue expected)
+    {
+        var currentValue = value;
+        var cut = Context.Render<BootstrapInputNumber<TValue>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TValue>(this, v => currentValue = v));
+        });
+
+        var input = cut.Find(".form-control");
+        cut.InvokeAsync(() => input.Change(inputValue));
+        Assert.Equal(expected, currentValue);
     }
 
     private class MockInputNumber : BootstrapInputNumber<string>
