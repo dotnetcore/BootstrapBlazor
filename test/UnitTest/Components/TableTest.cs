@@ -8943,6 +8943,55 @@ public class TableTest : BootstrapBlazorTestBase
         }
     }
 
+    [Fact]
+    public async Task OnLoadTableColumnClientStatus_Ok()
+    {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 100;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, DisplayName = "Name-Display" });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = false, Width = 120, DisplayName = "Address-Display" });
+
+        var loaded = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowColumnList, true);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.OnLoadTableColumnClientStatus, () =>
+                {
+                    loaded = true;
+                    return Task.FromResult(state);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        await cut.WaitForAssertionAsync(() =>
+        {
+            Assert.True(loaded);
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Single(table.Instance.GetVisibleColumns());
+        Assert.Contains("style=\"width: 100px;\"", table.Markup);
+    }
+
     [Theory]
     [InlineData(null, true)]
     [InlineData(180, true)]
