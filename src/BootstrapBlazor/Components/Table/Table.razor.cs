@@ -1823,6 +1823,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
@@ -1831,6 +1832,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
@@ -1839,6 +1841,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    [ExcludeFromCodeCoverage]
     public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
 
     /// <summary>
