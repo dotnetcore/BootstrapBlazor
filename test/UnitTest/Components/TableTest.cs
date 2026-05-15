@@ -8735,7 +8735,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnAutoFitColumnWidthCallback_Ok()
+    public async Task OnTableColumnClientStatusChanged_AutoFitColumnWidth_Ok()
     {
         var name = "";
         TableColumnClientStatus? clientState = null;
@@ -8749,7 +8749,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.FitColumnWidthIncludeHeader, true);
-                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, state) =>
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (fieldName, state) =>
                 {
                     name = fieldName;
                     clientState = state;
@@ -8773,6 +8773,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         var state = new TableColumnClientStatus() { Columns = [] };
         await cut.InvokeAsync(() => table.Instance.AutoFitColumnWidthCallback(nameof(Foo.DateTime), state));
+        Assert.Equal(nameof(Foo.DateTime), name);
         Assert.NotNull(clientState);
     }
 
@@ -8780,6 +8781,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task AllowDragColumn_Ok()
     {
         var name = "";
+        TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -8791,9 +8793,10 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnDragColumnEndAsync, (fieldName, columns) =>
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (fieldName, state) =>
                 {
                     name = fieldName;
+                    clientState = state;
                     return Task.CompletedTask;
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -8819,6 +8822,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
         Assert.Equal("Address", name);
+        Assert.NotNull(clientState);
 
         var columns = cut.FindAll("th");
         Assert.Contains("地址", columns[0].InnerHtml);
@@ -8842,7 +8846,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnResizeColumnCallback_Ok()
+    public async Task OnTableColumnClientStatusChanged_ResizeColumn_Ok()
     {
         var state = new TableColumnClientStatus();
         state.TableWidth = 500;
@@ -8861,7 +8865,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ClientTableName, "test");
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowResizing, true);
-                pb.Add(a => a.OnResizeColumnAsync, (field, state) =>
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (field, state) =>
                 {
                     name = field;
                     clientState = state;
