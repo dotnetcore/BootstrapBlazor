@@ -1823,7 +1823,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnDragColumnEndAsync { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置列宽回调方法</para>
@@ -1831,7 +1832,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnResizeColumnAsync { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
@@ -1839,7 +1841,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
-    public Func<string, TableColumnClientStatus, Task>? OnAutoFitColumnWidthCallback { get; set; }
+    [Obsolete("已弃用，请使用 OnTableColumnClientStatusChanged；Deprecated, please use OnTableColumnClientStatusChanged")]
+    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格客户端状态调整回调方法</para>
+    /// <para lang="en">Gets or sets Table Column Client Status Changed Callback</para>
+    /// </summary>
+    [Parameter]
+    public Func<string, TableColumnClientStatus, Task>? OnTableColumnClientStatusChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 true</para>
@@ -1878,9 +1888,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var pos = _tableColumnStates.IndexOf(targetColumn);
                 _tableColumnStates.Insert(pos, firstColumn);
 
-                if (OnDragColumnEndAsync != null)
+                if (OnTableColumnClientStatusChanged != null)
                 {
-                    await OnDragColumnEndAsync(firstColumn.Name, _tableColumnStateCache);
+                    await OnTableColumnClientStatusChanged(firstColumn.Name, _tableColumnStateCache);
                 }
             }
             _resetColumns = true;
@@ -1900,9 +1910,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         UpdateTableColumnState(columnState);
 
         // 触发回调
-        if (OnResizeColumnAsync != null)
+        if (OnTableColumnClientStatusChanged != null)
         {
-            await OnResizeColumnAsync(name, columnState);
+            await OnTableColumnClientStatusChanged(name, _tableColumnStateCache);
         }
     }
 
@@ -1915,9 +1925,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         UpdateTableColumnState(columnState);
 
-        if (OnAutoFitColumnWidthCallback != null)
+        if (OnTableColumnClientStatusChanged != null)
         {
-            await OnAutoFitColumnWidthCallback(fieldName, columnState);
+            await OnTableColumnClientStatusChanged(fieldName, _tableColumnStateCache);
         }
     }
 
