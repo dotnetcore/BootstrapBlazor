@@ -1860,6 +1860,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 加载表格客户端状态回调方法，组件会在首次渲染时调用该方法获取列状态用于初始化表格显示状态</para>
     /// <para lang="en">Gets or sets Load Table Column Client Status Callback. The component will call this method on the first render to get the column status for initializing the table display state.</para>
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<TableColumnClientStatus>>? OnLoadTableColumnClientStatus { get; set; }
