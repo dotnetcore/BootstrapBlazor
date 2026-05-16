@@ -1882,6 +1882,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
+    /// <para lang="zh">清除表格列客户端状态实例方法</para>
+    /// <para lang="en">clear table column client status instance method</para>
+    /// <para>v<version>10.6.1</version></para>
+    /// </summary>
+    public async Task ClearTableColumnClientStatus()
+    {
+        if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            // 如果启用了 ClientTableName 则清除浏览器持久化列状态
+            await InvokeVoidAsync("clearColumnStates", ClientTableName);
+        }
+
+        // 清除缓存的列状态
+        _tableColumnStateCache.Clear();
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// <para lang="zh">重置列方法 由 JavaScript 脚本调用</para>
     /// <para lang="en">Reset Column Method called by JavaScript</para>
     /// </summary>
