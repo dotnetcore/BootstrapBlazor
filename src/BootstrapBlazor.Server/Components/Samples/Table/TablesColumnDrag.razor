@@ -8,14 +8,14 @@
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
-@* <Button Text="Reset" OnClickWithoutRender="Reset"></Button>
- *@
+<Button Text="Reset" OnClickWithoutRender="Reset"></Button>
+
 <DemoBlock Title="@Localizer["AllowDragOrderTitle"]" Introduction="@Localizer["AllowDragOrderIntro"]" Name="AllowDragColumn">
     <section ignore>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</section>
-    <Table TItem="Foo" ClientTableName="table-test"
+    <Table TItem="Foo" ClientTableName="table-column-drag"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowDragColumn="true" AllowResizing="true"
-           ShowToolbar="true" ShowColumnList="true"
+           ShowToolbar="true" ShowColumnList="true" @ref="Table"
            IsStriped="true" IsBordered="true" OnTableColumnClientStatusChanged="OnTableColumnClientStatusChanged"
            IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
@@ -30,10 +30,10 @@
 </DemoBlock>
 
 @code {
-    // private Table<Foo> Table { get; set; }
+    private Table<Foo> Table { get; set; }
 
-    // private async Task Reset()
-    // {
-    //     await Table.ClearTableColumnClientStatus();
-    // }
+    private async Task Reset()
+    {
+        await Table.ClearTableColumnClientStatus();
+    }
 }
