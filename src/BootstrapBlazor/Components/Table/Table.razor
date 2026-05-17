@@ -251,7 +251,7 @@
             }
             @foreach (var col in GetVisibleColumns())
             {
-                <col @key="col" style="@GetColWidthString(col.GetColumnFixedWidth(DefaultFixedColumnWidth))" />
+                <col style="@GetColWidthString(col.GetColumnFixedWidth(DefaultFixedColumnWidth))" />
             }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
