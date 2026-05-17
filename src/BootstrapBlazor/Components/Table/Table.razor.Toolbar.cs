@@ -568,9 +568,6 @@ public partial class Table<TItem>
                 {
                     item.DisplayName = col.GetDisplayName();
 
-                    // 恢复宽度
-                    col.Width = item.Width;
-
                     // 增加到可见列缓存集合
                     _visibleColumnsCache.Add(col);
                 }
