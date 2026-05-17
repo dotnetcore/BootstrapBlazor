@@ -8,10 +8,12 @@
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
-<Button Text="Reset" OnClickWithoutRender="Reset"></Button>
 
 <DemoBlock Title="@Localizer["AllowDragOrderTitle"]" Introduction="@Localizer["AllowDragOrderIntro"]" Name="AllowDragColumn">
-    <section ignore>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</section>
+    <section ignore>
+        <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
+        <p>@((MarkupString)Localizer["ClearTableColumnClientStatusDesc"].Value)</p>
+    </section>
     <Table TItem="Foo" ClientTableName="table-column-drag"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowDragColumn="true" AllowResizing="true"
@@ -25,6 +27,9 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
+        <TableToolbarTemplate>
+            <TableToolbarButton Text="@Localizer["ResetButtonText"]" OnClickWithoutRender="Reset"></TableToolbarButton>
+        </TableToolbarTemplate>
     </Table>
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
