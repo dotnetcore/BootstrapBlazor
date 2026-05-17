@@ -561,13 +561,13 @@ public partial class Table<TItem>
         for (var index = 0; index < _tableColumnStates.Count; index++)
         {
             var item = _tableColumnStates[index];
-            if (item.Visible)
+            var col = Columns.Find(c => c.GetFieldName() == item.Name);
+            if (col != null)
             {
-                var col = Columns.Find(c => c.GetFieldName() == item.Name);
-                if (col != null)
-                {
-                    item.DisplayName = col.GetDisplayName();
+                item.DisplayName = col.GetDisplayName();
 
+                if (item.Visible)
+                {
                     // 增加到可见列缓存集合
                     _visibleColumnsCache.Add(col);
                 }
