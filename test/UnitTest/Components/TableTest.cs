@@ -899,8 +899,11 @@ public class TableTest : BootstrapBlazorTestBase
         // 设置客户端存储
         var state = new TableColumnClientStatus();
         state.TableWidth = 500;
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false });
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+        state.Columns = new List<TableColumnState>()
+        {
+            new TableColumnState() { Name = nameof(Foo.Name), Visible = false },
+            new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 }
+        };
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
         var show = false;
@@ -8735,49 +8738,6 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnTableColumnClientStatusChanged_AutoFitColumnWidth_Ok()
-    {
-        var name = "";
-        TableColumnClientStatus? clientState = null;
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.AllowDragColumn, true);
-                pb.Add(a => a.ClientTableName, "table-unit-test");
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.FitColumnWidthIncludeHeader, true);
-                pb.Add(a => a.OnTableColumnClientStatusChanged, (fieldName, state) =>
-                {
-                    name = fieldName;
-                    clientState = state;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(3, "Field", "Address");
-                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<Table<Foo>>();
-        var state = new TableColumnClientStatus() { Columns = [] };
-        await cut.InvokeAsync(() => table.Instance.AutoFitColumnWidthCallback(nameof(Foo.DateTime), state));
-        Assert.Equal(nameof(Foo.DateTime), name);
-        Assert.NotNull(clientState);
-    }
-
-    [Fact]
     public async Task AllowDragColumn_Ok()
     {
         var name = "";
@@ -8865,6 +8825,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ClientTableName, "test");
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.FitColumnWidthIncludeHeader, true);
                 pb.Add(a => a.OnTableColumnClientStatusChanged, (field, state) =>
                 {
                     name = field;
@@ -8936,12 +8897,14 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 由于启用了客户端持久化 Name 列宽使用 100 而非 80
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(100, table.Instance.Columns[0].Width);
+        var colGroup = table.Find("colgroup");
+        Assert.Contains("style=\"width: 100px;\"", colGroup.ToMarkup());
+        Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
 
         // 清除客户端状态
         await cut.InvokeAsync(() => table.Instance.ClearTableColumnClientStatus());
         invoker.VerifyInvoke("clearColumnStates");
-        Assert.Equal(80, table.Instance.Columns[0].Width);
+        Assert.Contains("style=\"width: 80px;\"", colGroup.ToMarkup());
     }
 
     [Theory]

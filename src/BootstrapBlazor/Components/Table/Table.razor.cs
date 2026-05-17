@@ -1403,7 +1403,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 TableName = ClientTableName,
                 DragColumnCallback = nameof(DragColumnCallback),
                 FitColumnWidthIncludeHeader,
-                AutoFitColumnWidthCallback = nameof(AutoFitColumnWidthCallback),
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ColumnStates = _tableColumnStates,
@@ -1894,8 +1893,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 清除缓存的列状态
         _tableColumnStateCache.Clear();
 
-        _resetColumns = true;
-        _invoke = true;
         StateHasChanged();
     }
 
@@ -1946,21 +1943,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await OnTableColumnClientStatusChanged(name, _tableColumnStateCache);
         }
-    }
 
-    /// <summary>
-    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
-    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
-    /// </summary>
-    [JSInvokable]
-    public async Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState)
-    {
-        UpdateTableColumnState(columnState);
-
-        if (OnTableColumnClientStatusChanged != null)
-        {
-            await OnTableColumnClientStatusChanged(fieldName, _tableColumnStateCache);
-        }
+        StateHasChanged();
     }
 
     private void UpdateTableColumnState(TableColumnClientStatus columnState)

@@ -17,6 +17,7 @@ public partial class TablesColumnDrag
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new int[]
     {
         5,
@@ -26,6 +27,8 @@ public partial class TablesColumnDrag
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
+
+    private Table<Foo> _table = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -68,5 +71,10 @@ public partial class TablesColumnDrag
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = true });
+    }
+
+    private Task Reset()
+    {
+        return _table.ClearTableColumnClientStatus();
     }
 }
