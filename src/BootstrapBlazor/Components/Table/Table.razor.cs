@@ -90,7 +90,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
-        .AddClass("table-layout-fixed")
+        .AddClass("table-layout-fixed", IsFixedHeader || AllowResizing)
         .AddClass("table-draggable", AllowDragColumn)
         .Build();
 
