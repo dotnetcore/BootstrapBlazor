@@ -8897,6 +8897,53 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.NotNull(clientState);
     }
 
+    [Fact]
+    public async Task ClearTableColumnClientStatus_Ok()
+    {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 220;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_clear").SetResult(state);
+        var invoker = Context.JSInterop.SetupVoid("clearColumnStates", "test_clear");
+        invoker.SetVoidResult();
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_clear");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 80);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 由于启用了客户端持久化 Name 列宽使用 100 而非 80
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(100, table.Instance.Columns[0].Width);
+
+        // 清除客户端状态
+        await cut.InvokeAsync(() => table.Instance.ClearTableColumnClientStatus());
+        invoker.VerifyInvoke("clearColumnStates");
+        Assert.Equal(80, table.Instance.Columns[0].Width);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

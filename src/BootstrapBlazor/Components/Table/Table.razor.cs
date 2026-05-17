@@ -1372,8 +1372,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     continue;
                 }
 
-                item.DisplayName = col.GetDisplayName();
-
                 if (!ShowColumnList)
                 {
                     item.Visible = col.GetVisible(_screenSize);
@@ -1391,7 +1389,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
     {
-        DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
         Width = col.Width,
         Visible = col.GetVisible(_screenSize)
@@ -1860,6 +1857,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 加载表格客户端状态回调方法，组件会在首次渲染时调用该方法获取列状态用于初始化表格显示状态</para>
     /// <para lang="en">Gets or sets Load Table Column Client Status Callback. The component will call this method on the first render to get the column status for initializing the table display state.</para>
+    /// <para>v<version>10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<TableColumnClientStatus>>? OnLoadTableColumnClientStatus { get; set; }
@@ -1878,6 +1876,27 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task FitAllColumnWidth()
     {
         await InvokeVoidAsync("fitAllColumnWidth", Id);
+    }
+
+    /// <summary>
+    /// <para lang="zh">清除表格列客户端状态实例方法</para>
+    /// <para lang="en">clear table column client status instance method</para>
+    /// <para>v<version>10.6.1</version></para>
+    /// </summary>
+    public async Task ClearTableColumnClientStatus()
+    {
+        if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            // 如果启用了 ClientTableName 则清除浏览器持久化列状态
+            await InvokeVoidAsync("clearColumnStates", ClientTableName);
+        }
+
+        // 清除缓存的列状态
+        _tableColumnStateCache.Clear();
+
+        _resetColumns = true;
+        _invoke = true;
+        StateHasChanged();
     }
 
     /// <summary>
@@ -2026,7 +2045,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return Task.CompletedTask;
     }
 
-    private object? GetKeyByITem(TItem item) => SortableList != null ? item : null; //OnGetRowKey?.Invoke(item);
+    private object? GetKeyByITem(TItem item) => SortableList != null ? item : null;
 
     private RenderFragment RenderRowCell(TItem item) => builder =>
     {

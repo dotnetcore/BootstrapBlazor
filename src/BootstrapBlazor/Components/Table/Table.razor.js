@@ -869,6 +869,11 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
+export function clearColumnStates(tableName) {
+    const columnStateKey = `bb-table-${tableName}`;
+    localStorage.removeItem(columnStateKey);
+}
+
 const getColumnStateFromLocalstorage = tableName => {
     const columnStateKey = `bb-table-${tableName}`;
     return getLocalStorageValue(columnStateKey);
