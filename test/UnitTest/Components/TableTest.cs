@@ -899,8 +899,11 @@ public class TableTest : BootstrapBlazorTestBase
         // 设置客户端存储
         var state = new TableColumnClientStatus();
         state.TableWidth = 500;
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = false });
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+        state.Columns = new List<TableColumnState>()
+        {
+            new TableColumnState() { Name = nameof(Foo.Name), Visible = false },
+            new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 }
+        };
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
         var show = false;
