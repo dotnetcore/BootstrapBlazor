@@ -15,7 +15,7 @@
     <Table TItem="Foo" ClientTableName="table-column-drag"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowDragColumn="true" AllowResizing="true"
-           ShowToolbar="true" ShowColumnList="true" @ref="Table"
+           ShowToolbar="true" ShowColumnList="true" @ref="_table"
            IsStriped="true" IsBordered="true" OnTableColumnClientStatusChanged="OnTableColumnClientStatusChanged"
            IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
@@ -28,12 +28,3 @@
     </Table>
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
-
-@code {
-    private Table<Foo> Table { get; set; }
-
-    private async Task Reset()
-    {
-        await Table.ClearTableColumnClientStatus();
-    }
-}
