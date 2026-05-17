@@ -2042,7 +2042,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return Task.CompletedTask;
     }
 
-    private object? GetKeyByITem(TItem item) => SortableList != null ? item : null; //OnGetRowKey?.Invoke(item);
+    private object? GetKeyByITem(TItem item) => SortableList != null ? item : null;
 
     private RenderFragment RenderRowCell(TItem item) => builder =>
     {
