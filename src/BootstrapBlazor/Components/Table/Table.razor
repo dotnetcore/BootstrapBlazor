@@ -249,9 +249,12 @@
             {
                 <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
             }
-            @foreach (var col in GetVisibleColumns())
+            @foreach (var col in _tableColumnStates)
             {
-                <col style="@GetColWidthString(col.GetColumnFixedWidth(DefaultFixedColumnWidth))" />
+                if (col.Visible)
+                {
+                    <col style="@GetColWidthString(col.Width)" />
+                }
             }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
