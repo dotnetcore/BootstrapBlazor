@@ -1893,6 +1893,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 清除缓存的列状态
         _tableColumnStateCache.Clear();
+
+        _resetColumns = true;
+        _invoke = true;
         StateHasChanged();
     }
 
