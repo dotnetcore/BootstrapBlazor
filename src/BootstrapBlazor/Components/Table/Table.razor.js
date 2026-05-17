@@ -627,6 +627,53 @@ const autoFitColumnWidth = async (table, col) => {
     }
 }
 
+const formControlSelector = 'input.form-control:not([type="hidden"]), textarea.form-control';
+
+const getHorizontalWidth = style => {
+    return (parseFloat(style.getPropertyValue('padding-left')) || 0)
+        + (parseFloat(style.getPropertyValue('padding-right')) || 0)
+        + (parseFloat(style.getPropertyValue('border-left-width')) || 0)
+        + (parseFloat(style.getPropertyValue('border-right-width')) || 0);
+}
+
+const getFormControlTextWidth = control => {
+    const style = getComputedStyle(control);
+    const span = document.createElement('span');
+    span.textContent = control.value || control.getAttribute('placeholder') || ' ';
+    span.style.setProperty('visibility', 'hidden');
+    span.style.setProperty('white-space', 'pre');
+    span.style.setProperty('display', 'inline-block');
+    span.style.setProperty('position', 'absolute');
+    span.style.setProperty('top', '0');
+    span.style.setProperty('font-family', style.getPropertyValue('font-family'));
+    span.style.setProperty('font-size', style.getPropertyValue('font-size'));
+    span.style.setProperty('font-style', style.getPropertyValue('font-style'));
+    span.style.setProperty('font-weight', style.getPropertyValue('font-weight'));
+    span.style.setProperty('letter-spacing', style.getPropertyValue('letter-spacing'));
+    span.style.setProperty('text-transform', style.getPropertyValue('text-transform'));
+    document.body.appendChild(span);
+
+    const width = getWidth(span) + getHorizontalWidth(style);
+    span.remove();
+
+    return width;
+}
+
+const resetFormControlWidth = (sourceCell, cloneCell) => {
+    const controls = [...sourceCell.querySelectorAll(formControlSelector)];
+    const cloneControls = [...cloneCell.querySelectorAll(formControlSelector)];
+    controls.forEach((control, index) => {
+        const cloneControl = cloneControls[index];
+        if (cloneControl) {
+            const width = getFormControlTextWidth(control);
+            cloneControl.value = control.value;
+            cloneControl.style.setProperty('width', `${width}px`, 'important');
+            cloneControl.style.setProperty('min-width', '0', 'important');
+            cloneControl.style.setProperty('flex', '0 0 auto', 'important');
+        }
+    });
+}
+
 const calcCellWidth = cell => {
     const div = document.createElement('div');
     [...cell.children].forEach(c => {
@@ -638,9 +685,13 @@ const calcCellWidth = cell => {
     div.style.setProperty('position', 'absolute');
     div.style.setProperty('top', '0');
     document.body.appendChild(div);
+    resetFormControlWidth(cell, div);
 
     const cellStyle = getComputedStyle(cell);
-    return getWidth(div) + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1 | 0;
+    const width = getWidth(div) + getHorizontalWidth(cellStyle) + 1 | 0;
+    div.remove();
+
+    return width;
 }
 
 const closeAllTips = (columns, self) => {
