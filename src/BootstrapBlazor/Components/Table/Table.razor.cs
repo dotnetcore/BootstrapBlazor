@@ -1947,6 +1947,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
+    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
+    /// </summary>
+    [JSInvokable]
+    [Obsolete("已弃用，请使用 ResizeColumnCallback 代替；Deprecated. Please use ResizeColumnCallback instead.")]
+    [ExcludeFromCodeCoverage]
+    public async Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState) => ResizeColumnCallback(fieldName, columnState);
+
     private void UpdateTableColumnState(TableColumnClientStatus columnState)
     {
         // 更新缓存数据中列宽度
