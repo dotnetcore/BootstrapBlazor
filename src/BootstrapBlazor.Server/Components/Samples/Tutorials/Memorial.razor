@@ -1,13 +1,14 @@
-﻿@page "/tutorials/memorial"
+@page "/tutorials/memorial"
+@inject IStringLocalizer<Memorial> Localizer
 
-<Button Text="切换哀悼模式" OnClick="OnToggle" class="mb-3"></Button>
+<Button Text="@Localizer["ToggleButtonText"]" OnClick="OnToggle" class="mb-3"></Button>
 
-<p class="code-label">1. 加载 <code>Utlity</code> 工具</p>
+<p class="code-label">@((MarkupString)Localizer["Step1Title"].Value)</p>
 <Pre>var module = await JSRuntime.LoadUtility();</Pre>
 
-<p class="code-label">2. 设置哀悼模式</p>
+<p class="code-label">@Localizer["Step2Title"]</p>
 <Pre>await module.InvokeVoidAsync("SetMemorial", true);</Pre>
 
-<p class="code-label">3. 全站默认设置追悼模式方法</p>
-<p>更新 <code>App.razor</code> 文档内容如下</p>
+<p class="code-label">@Localizer["Step3Title"]</p>
+<p>@((MarkupString)Localizer["Step3Description"].Value)</p>
 <Pre>&lt;html lang="en" data-bs-theme='dark' data-bb-theme="memorial"&gt;</Pre>
