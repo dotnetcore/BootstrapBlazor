@@ -1954,7 +1954,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     [Obsolete("已弃用，请使用 ResizeColumnCallback 代替；Deprecated. Please use ResizeColumnCallback instead.")]
     [ExcludeFromCodeCoverage]
-    public async Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState) => ResizeColumnCallback(fieldName, columnState);
+    public Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState) => ResizeColumnCallback(fieldName, columnState);
 
     private void UpdateTableColumnState(TableColumnClientStatus columnState)
     {
