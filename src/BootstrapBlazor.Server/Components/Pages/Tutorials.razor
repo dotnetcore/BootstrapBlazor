@@ -1,6 +1,6 @@
-﻿@layout TutorialsLayout
+@layout TutorialsLayout
 @page "/tutorials"
-@inject IStringLocalizer<Tutorials> Localizer
+@inject IStringLocalizer<TutorialsNavMenu> Localizer
 
 <ComponentCategory Text="@Localizer["CategoryTitle"]">
     <ComponentCard Text="@Localizer["DashboardSummary"]" Image="tutorials/dashboard.png" Url="tutorials/dashboard"></ComponentCard>
@@ -10,4 +10,3 @@
     <ComponentCard Text="@Localizer["DrawingSummary"]" Image="tutorials/drawing.png" Url="tutorials/drawing"></ComponentCard>
     <ComponentCard Text="@Localizer["AdminSummary"]" Image="tutorials/pro.jpg" Url="tutorials/admin"></ComponentCard>
 </ComponentCategory>
-

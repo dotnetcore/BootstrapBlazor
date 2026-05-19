@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Server.Components.Pages;
 using Microsoft.AspNetCore.Components.Web;
 using System.Text;
 
@@ -20,11 +19,7 @@ public partial class TutorialsNavMenu
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Tutorials>? TutorialsLocalizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Tutorials>? Localizer { get; set; }
+    private IStringLocalizer<TutorialsNavMenu>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -52,12 +47,12 @@ public partial class TutorialsNavMenu
             new()
             {
                 Template = CreateDownloadButtonComponent("dashboard", _dashboardFileList),
-                Text = TutorialsLocalizer["DashboardSummary"],
+                Text = Localizer["DashboardSummary"],
                 Url = "tutorials/dashboard"
             },
             new()
             {
-                Text = TutorialsLocalizer["LoginSummary"],
+                Text = Localizer["LoginSummary"],
                 Url = "tutorials/login",
                 Items =
                 [
@@ -96,24 +91,24 @@ public partial class TutorialsNavMenu
             new()
             {
                 Template = CreateDownloadButtonComponent("waterfall", _waterfallFileList),
-                Text = TutorialsLocalizer["WaterfallSummary"],
+                Text = Localizer["WaterfallSummary"],
                 Url = "tutorials/waterfall"
             },
             new()
             {
                 Template = CreateDownloadButtonComponent("translate", _translateFileList),
-                Text = TutorialsLocalizer["TranslateSummary"],
+                Text = Localizer["TranslateSummary"],
                 Url = "tutorials/translate"
             },
             new()
             {
                 Template = CreateDownloadButtonComponent("drawing", _drawingAppFileList),
-                Text = TutorialsLocalizer["DrawingSummary"],
+                Text = Localizer["DrawingSummary"],
                 Url = "tutorials/drawing"
             },
             new()
             {
-                Text = TutorialsLocalizer["AdminSummary"],
+                Text = Localizer["AdminSummary"],
                 Url = "tutorials/admin",
             },
             new()

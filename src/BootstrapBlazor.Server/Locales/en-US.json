@@ -469,9 +469,16 @@
     "ZipArchive": "IZipArchiveService"
   },
   "BootstrapBlazor.Server.Components.Layout.TutorialsNavMenu": {
+    "AdminSummary": "Admin",
+    "CategoryTitle": "Bootstrap Blazor Practical Cases",
+    "DashboardSummary": "Dashboard",
+    "DrawingSummary": "Drawing",
+    "LoginSummary": "Login&Register",
     "MemorialMode": "Memorial",
     "MFA": "MFA",
-    "OnlineSheet": "UniverSheet"
+    "OnlineSheet": "UniverSheet",
+    "TranslateSummary": "Translate",
+    "WaterfallSummary": "Waterfall"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Amount": "pixel",
@@ -715,15 +722,6 @@
     "P7": "If switch to",
     "P8": "theme, please use the original",
     "P9": "The added style file is as follows"
-  },
-  "BootstrapBlazor.Server.Components.Pages.Tutorials": {
-    "AdminSummary": "Admin",
-    "CategoryTitle": "Bootstrap Blazor Practical Cases",
-    "DashboardSummary": "Dashboard",
-    "DrawingSummary": "Drawing",
-    "LoginSummary": "Login&Register",
-    "TranslateSummary": "Translate",
-    "WaterfallSummary": "Waterfall"
   },
   "BootstrapBlazor.Server.Components.Samples.Affixs": {
     "AffixIntro": "Fix the element to a specific visible area",
@@ -4607,10 +4605,10 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "AllowDragOrderDesc": "<p>Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the <code>Table</code> component, such as detail row, row number, selection, and operation columns, cannot be adjusted</p><p>This example enables local storage by setting the <code>ClientTableName</code> parameter. After dragging and adjusting the order, the page can be refreshed, and the column order remains in the previous state</p><p>After version <code>10.6.1</code>, use <code>OnTableColumnClientStatusChanged</code> to uniformly handle column dragging, column resizing, and auto-fit column width callbacks, replacing the original <code>OnDragColumnEndAsync</code>, <code>OnResizeColumnAsync</code>, and <code>OnAutoFitContentAsync</code> callbacks.</p><p><b>Notes:</b></p><p>Table state persistence has two modes. If the <code>ClientTableName</code> property is set, browser local storage is used to persist information. If it is not set, server-side storage persistence is implemented through callbacks. The persistence structure is <code>TableColumnClientStatus</code>, which consists of the column state collection and the table width parameter.</p><p>The table width parameter defaults to 0. When all columns have width values, the table width parameter is the actual width rendered on the client. A value of 0 means the table width is adaptive.</p><p>When using browser local storage for persistence, no additional settings are required. The table automatically loads the client state.</p><p>When using server-side storage for persistence, handle table state loading and saving logic in callbacks. In actual use, the state can be stored in a database or other storage as needed. Use the <code>OnTableColumnClientStatusChanged</code> callback to handle server-side state changes, and use the <code>OnLoadTableColumnClientStatus</code> callback to restore the table persistence state.</p>",
-    "ClearTableColumnClientStatusDesc": "By calling the <code>ClearTableColumnClientStatus</code> method of the table component instance, the current persistent settings are cleared, restoring the table to its default settings.",
-    "ResetButtonText": "Reset",
     "AllowDragOrderIntro": "By specifying <code>AllowDragColumn</code>, set the table columns to allow dragging column headings to adjust the table column order",
     "AllowDragOrderTitle": "Allow dragging column headings to adjust table column order",
+    "ClearTableColumnClientStatusDesc": "By calling the <code>ClearTableColumnClientStatus</code> method of the table component instance, the current persistent settings are cleared, restoring the table to its default settings.",
+    "ResetButtonText": "Reset",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "TablesColumnTitle": "Table Column"
   },
@@ -5705,6 +5703,13 @@
     "TextDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and search for the current text using the default search engine.",
     "UrlDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and open the current address",
     "WiFiDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below to automatically join the <code>WiFi</code> network."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.Memorial": {
+    "Step1Title": "1. Load the <code>Utility</code> module",
+    "Step2Title": "2. Enable memorial mode",
+    "Step3Description": "Update the <code>App.razor</code> document as follows",
+    "Step3Title": "3. Enable memorial mode site-wide by default",
+    "ToggleButtonText": "Toggle Memorial Mode"
   },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
