@@ -469,6 +469,13 @@
     "ZipArchive": "IZipArchiveService"
   },
   "BootstrapBlazor.Server.Components.Layout.TutorialsNavMenu": {
+    "AdminSummary": "Admin",
+    "CategoryTitle": "Bootstrap Blazor Practical Cases",
+    "DashboardSummary": "Dashboard",
+    "DrawingSummary": "Drawing",
+    "LoginSummary": "Login&Register",
+    "TranslateSummary": "Translate",
+    "WaterfallSummary": "Waterfall",
     "MemorialMode": "Memorial",
     "MFA": "MFA",
     "OnlineSheet": "UniverSheet"
@@ -715,15 +722,6 @@
     "P7": "If switch to",
     "P8": "theme, please use the original",
     "P9": "The added style file is as follows"
-  },
-  "BootstrapBlazor.Server.Components.Pages.Tutorials": {
-    "AdminSummary": "Admin",
-    "CategoryTitle": "Bootstrap Blazor Practical Cases",
-    "DashboardSummary": "Dashboard",
-    "DrawingSummary": "Drawing",
-    "LoginSummary": "Login&Register",
-    "TranslateSummary": "Translate",
-    "WaterfallSummary": "Waterfall"
   },
   "BootstrapBlazor.Server.Components.Samples.Affixs": {
     "AffixIntro": "Fix the element to a specific visible area",
@@ -5705,6 +5703,13 @@
     "TextDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and search for the current text using the default search engine.",
     "UrlDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and open the current address",
     "WiFiDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below to automatically join the <code>WiFi</code> network."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.Memorial": {
+    "ToggleButtonText": "Toggle Memorial Mode",
+    "Step1Title": "1. Load the <code>Utility</code> module",
+    "Step2Title": "2. Enable memorial mode",
+    "Step3Title": "3. Enable memorial mode site-wide by default",
+    "Step3Description": "Update the <code>App.razor</code> document as follows"
   },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
