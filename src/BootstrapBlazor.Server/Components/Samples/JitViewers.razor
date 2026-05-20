@@ -1,0 +1,21 @@
+@page "/jit-viewer"
+
+<h3>@Localizer["JitViewerTitle"]</h3>
+<h4>@Localizer["JitViewerSubTitle"]</h4>
+
+<PackageTips Name="BootstrapBlazor.JitViewer" />
+
+<DemoBlock Title="@Localizer["JitViewerNormalTitle"]" Introduction="@Localizer["JitViewerDescription"]"
+           Name="Normal">
+    <section ignore>
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="@_doc" Items="_docs"></Select>
+            </div>
+        </div>
+    </section>
+    <JitViewer File="@_doc"></JitViewer>
+</DemoBlock>
+
+<AttributeTable Type="typeof(JitViewer)"></AttributeTable>
+

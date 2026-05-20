@@ -726,6 +726,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["JitViewer"],
+                    Url = "jit-viewer"
+                },
+                new()
+                {
                     Text = Localizer["HikVision"],
                     Url = "hik-vision"
                 },
