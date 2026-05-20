@@ -175,7 +175,6 @@ const check = table => {
             cancelAnimationFrame(table.loopCheckHeightHandler);
             delete table.loopCheckHeightHandler;
         }
-        observeHeight(table);
     }
 };
 
@@ -954,12 +953,25 @@ const getLocalStorageValue = key => {
 
 const getColumnStateObject = table => {
     const cols = table.options.columnStates;
+    if (cols !== void 0) {
+        return {
+            cols: cols.map(col => {
+                return {
+                    name: col.name,
+                    width: getColumnWidth(col, table.columns),
+                    visible: col.visible
+                }
+            }),
+            table: getTableWidth(table.tables[0])
+        };
+    }
+
     return {
-        cols: cols.map(col => {
+        cols: table.columns.map(col => {
             return {
-                name: col.name,
-                width: getColumnWidth(col, table.columns),
-                visible: col.visible
+                name: col.getAttribute('data-bb-field'),
+                width: getWidth(col.closest('th')) | 0,
+                visible: true
             }
         }),
         table: getTableWidth(table.tables[0])

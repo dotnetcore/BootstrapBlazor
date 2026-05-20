@@ -1405,7 +1405,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
-                ColumnStates = _tableColumnStates,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnWidthTooltip,
                 ColumnWidthTooltipPrefix,
