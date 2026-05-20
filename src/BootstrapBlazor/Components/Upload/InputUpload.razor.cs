@@ -47,7 +47,7 @@ public partial class InputUpload<TValue>
     /// <para lang="en">Gets or sets the delete button icon</para>
     /// </summary>
     [Parameter]
-    public string? DeleteButtonIcon { get; set; }
+    public string? DeleteButtonIcon { get; set; }    
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮显示文字</para>
@@ -63,6 +63,48 @@ public partial class InputUpload<TValue>
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除前是否显示确认对话框，依赖 ShowDeleteButton 属性为 true 时有效</para>
+    /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteConfirmButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮图标，默认 null</para>
+    /// <para lang="en">Gets or sets the confirmation button icon in the delete confirmation dialog. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmButtonIcon { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮颜色，默认 Color.Danger</para>
+    /// <para lang="en">Gets or sets the color of the confirmation button in the delete confirmation dialog. Default is Color.Danger</para>
+    /// </summary>
+    [Parameter]
+    public Color DeleteConfirmButtonColor { get; set; } = Color.Danger;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮显示文字，默认 null</para>
+    /// <para lang="en">Gets or sets the confirmation button display text in the delete confirmation dialog. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除确认弹窗中取消按钮显示文字，默认 null</para>
+    /// <para lang="en">Gets or sets the cancel button display text in the delete confirmation dialog. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public string? DeleteCloseButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认文本内容，默认 null 使用资源文件中内置文字</para>
+    /// <para lang="en">Gets or sets the confirmation text content in the delete confirmation dialog. Default is null (uses built-in text from resource file)</para>
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 PlaceHolder 占位符文本</para>

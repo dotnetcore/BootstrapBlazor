@@ -81,6 +81,31 @@ public class UploadInputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ShowConfirmButton_Ok()
+    {
+        var cut = Context.Render<InputUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "test.png" }
+            ]);
+            pb.Add(a => a.ShowDeleteButton, true);
+            pb.Add(a => a.ShowDeleteConfirmButton, true);
+            pb.Add(a => a.DeleteConfirmButtonColor, Color.Danger);
+            pb.Add(a => a.DeleteConfirmButtonIcon, "icon-delete");
+            pb.Add(a => a.DeleteConfirmContent, "content-delete");
+            pb.Add(a => a.DeleteConfirmButtonText, "confirm");
+            pb.Add(a => a.DeleteCloseButtonText, "cancel");
+        });
+
+        var button = cut.FindComponent<PopConfirmButton>();
+        Assert.NotNull(button);
+        Assert.NotNull(button.Instance.OnConfirm);
+
+        await cut.InvokeAsync(button.Instance.OnConfirm);
+    }
+
+    [Fact]
     public async Task InputUpload_ValidateForm_Ok()
     {
         var invalid = false;
@@ -208,6 +233,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.DoesNotContain("test5.png;test6.png", cut.Markup);
     }
+
 
     [Fact]
     public void InputUpload_IsMultiple()
