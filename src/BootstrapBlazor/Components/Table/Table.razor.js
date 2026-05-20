@@ -175,7 +175,6 @@ const check = table => {
             cancelAnimationFrame(table.loopCheckHeightHandler);
             delete table.loopCheckHeightHandler;
         }
-        observeHeight(table);
     }
 };
 
