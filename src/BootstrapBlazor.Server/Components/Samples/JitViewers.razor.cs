@@ -29,9 +29,7 @@ public partial class JitViewers : ComponentBase
         new SelectedItem("./samples/sample.png", "sample.png"),
         new SelectedItem("https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4", "sample.mp4"),
         new SelectedItem("./samples/sample.dxf", "sample.dxf"),
-        new SelectedItem("./samples/sample.ofd", "sample.ofd"),
-        new SelectedItem("./samples/sample2.ofd", "sample2.ofd"),
-        new SelectedItem("./samples/sample3.ofd", "sample3.ofd")
+        new SelectedItem("./samples/sample.ofd", "sample.ofd")
     ];
 
     private string _doc = "./samples/sample.docx";
