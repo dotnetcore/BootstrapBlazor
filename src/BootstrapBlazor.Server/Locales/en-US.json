@@ -292,8 +292,8 @@
     "IntersectionObserver": "IntersectionObserver",
     "Introduction": "Introduction",
     "Ip": "IpAddress",
-    "JSExtension": "JSRuntime Extensions",
     "JitViewer": "JitViewer",
+    "JSExtension": "JSRuntime Extensions",
     "Labels": "Labels",
     "Layout": "Layout",
     "LayoutComponents": "Layouts",
@@ -2811,6 +2811,12 @@
     "IpTitle": "IpAddress",
     "IsDisabledIntro": "Make the component disabled by setting <code>IsDisabled</code>",
     "IsDisabledTitle": "IsDisabled"
+  },
+  "BootstrapBlazor.Server.Components.Samples.JitViewers": {
+    "JitViewerDescription": "Supports online preview of Office documents, PDF, OFD, images, text, code, videos, and other file formats.",
+    "JitViewerNormalTitle": "Basic usage",
+    "JitViewerSubTitle": "A universal file preview component for viewing multiple file types directly on the page.",
+    "JitViewerTitle": "JitViewer File Previewer"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
     "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",

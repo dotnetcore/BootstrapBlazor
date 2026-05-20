@@ -292,8 +292,8 @@
     "IntersectionObserver": "交叉观察者 IntersectionObserver",
     "Introduction": "简介",
     "Ip": "IP 地址 IpAddress",
-    "JSExtension": "JSRuntime 扩展",
     "JitViewer": "文件预览器 JitViewer",
+    "JSExtension": "JSRuntime 扩展",
     "Labels": "表单标签",
     "Layout": "布局组件 Layout",
     "LayoutComponents": "布局组件",
@@ -2811,6 +2811,12 @@
     "IpTitle": "IpAddress 地址组件",
     "IsDisabledIntro": "通过设置 <code>IsDisabled</code> 使组件处于不可用状态",
     "IsDisabledTitle": "禁用"
+  },
+  "BootstrapBlazor.Server.Components.Samples.JitViewers": {
+    "JitViewerDescription": "支持在线预览 Office 文档、PDF、OFD、图片、文本、代码、视频等多种文件格式。",
+    "JitViewerNormalTitle": "基础用法",
+    "JitViewerSubTitle": "通用文件预览组件，可用于在页面中直接浏览多种类型文件。",
+    "JitViewerTitle": "JitViewer 文件预览器"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
     "EvalIntro": "通过 <code>Eval</code> 函数，在当前作用域内动态运行 <code>JavaScript</code> 代码。",
