@@ -293,6 +293,7 @@
     "Introduction": "简介",
     "Ip": "IP 地址 IpAddress",
     "JSExtension": "JSRuntime 扩展",
+    "JitViewer": "文件预览器 JitViewer",
     "Labels": "表单标签",
     "Layout": "布局组件 Layout",
     "LayoutComponents": "布局组件",
