@@ -90,7 +90,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
                 new() { FileName = "test.png" }
             ]);
             pb.Add(a => a.ShowDeleteButton, true);
-            pb.Add(a => a.ShowDeleteConfirmButton, true);
+            pb.Add(a => a.IsConfirmDelete, true);
             pb.Add(a => a.DeleteConfirmButtonColor, Color.Danger);
             pb.Add(a => a.DeleteConfirmButtonIcon, "icon-delete");
             pb.Add(a => a.DeleteConfirmContent, "content-delete");
