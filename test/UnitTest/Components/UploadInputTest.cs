@@ -81,14 +81,11 @@ public class UploadInputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowConfirmButton_Ok()
+    public async Task IsConfirmDelete_Ok()
     {
-        var cut = Context.Render<InputUpload<string>>(pb =>
+        var file = new MockBrowserFile();
+        var cut = Context.Render<InputUpload<IBrowserFile>>(pb =>
         {
-            pb.Add(a => a.DefaultFileList,
-            [
-                new() { FileName = "test.png" }
-            ]);
             pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.IsConfirmDelete, true);
             pb.Add(a => a.DeleteConfirmButtonColor, Color.Danger);
@@ -98,11 +95,19 @@ public class UploadInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.DeleteCloseButtonText, "cancel");
         });
 
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new()
+        })));
+
         var button = cut.FindComponent<PopConfirmButton>();
         Assert.NotNull(button);
         Assert.NotNull(button.Instance.OnConfirm);
+        Assert.DoesNotContain("pop-confirm disabled", button.Markup);
 
         await cut.InvokeAsync(button.Instance.OnConfirm);
+        Assert.Contains("pop-confirm disabled", button.Markup);
     }
 
     [Fact]
