@@ -47,7 +47,7 @@ public partial class InputUpload<TValue>
     /// <para lang="en">Gets or sets the delete button icon</para>
     /// </summary>
     [Parameter]
-    public string? DeleteButtonIcon { get; set; }    
+    public string? DeleteButtonIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮显示文字</para>
@@ -65,11 +65,11 @@ public partial class InputUpload<TValue>
     public bool ShowDeleteButton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 删除前是否显示确认对话框，依赖 ShowDeleteButton 属性为 true 时有效</para>
+    /// <para lang="zh">获得/设置 删除按钮否显示确认对话框，依赖 ShowDeleteButton 属性为 true 时有效</para>
     /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true</para>
     /// </summary>
     [Parameter]
-    public bool ShowDeleteConfirmButton { get; set; }
+    public bool IsConfirmDelete { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮图标，默认 null</para>

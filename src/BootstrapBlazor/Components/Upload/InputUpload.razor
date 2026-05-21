@@ -12,7 +12,7 @@
                placeholder="@PlaceHolder" value="@CurrentValueAsString" />
         @if (ShowDeleteButton)
         {
-            @if (ShowDeleteConfirmButton)
+            @if (IsConfirmDelete)
             {
                 <PopConfirmButton Placement="Placement.Top" class="@RemoveButtonClassString"
                                   ConfirmIcon="@DeleteConfirmButtonIcon"
