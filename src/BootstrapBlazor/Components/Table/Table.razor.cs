@@ -1369,17 +1369,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (item == null)
                 {
                     _tableColumnStates.Add(CreateTableColumnState(col));
-                    continue;
-                }
-
-                if (!ShowColumnList)
-                {
-                    item.Visible = col.GetVisible(_screenSize);
-                }
-
-                if (!AllowResizing)
-                {
-                    item.Width = col.Width;
                 }
             }
         }
@@ -1461,7 +1450,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Set Column Visible Method</para>
     /// </summary>
     /// <param name="columns"></param>
-    public void ResetVisibleColumns(IEnumerable<TableColumnState> columns)
+    public void ResetVisibleColumns(IReadOnlyCollection<TableColumnState> columns)
     {
         foreach (var col in columns)
         {
@@ -1469,7 +1458,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (column != null)
             {
                 column.Visible = col.Visible;
-                column.Width = col.Width;
+
+                if (col.Width.HasValue)
+                {
+                    column.Width = col.Width;
+                }
             }
         }
 
