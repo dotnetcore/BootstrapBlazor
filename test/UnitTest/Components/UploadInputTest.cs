@@ -81,6 +81,36 @@ public class UploadInputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsConfirmDelete_Ok()
+    {
+        var file = new MockBrowserFile();
+        var cut = Context.Render<InputUpload<IBrowserFile>>(pb =>
+        {
+            pb.Add(a => a.ShowDeleteButton, true);
+            pb.Add(a => a.IsConfirmDelete, true);
+            pb.Add(a => a.DeleteConfirmButtonColor, Color.Danger);
+            pb.Add(a => a.DeleteConfirmButtonIcon, "icon-delete");
+            pb.Add(a => a.DeleteConfirmContent, "content-delete");
+            pb.Add(a => a.DeleteConfirmButtonText, "confirm");
+            pb.Add(a => a.DeleteCloseButtonText, "cancel");
+        });
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new()
+        })));
+
+        var button = cut.FindComponent<PopConfirmButton>();
+        Assert.NotNull(button);
+        Assert.NotNull(button.Instance.OnConfirm);
+        Assert.DoesNotContain("pop-confirm disabled", button.Markup);
+
+        await cut.InvokeAsync(button.Instance.OnConfirm);
+        Assert.Contains("pop-confirm disabled", button.Markup);
+    }
+
+    [Fact]
     public async Task InputUpload_ValidateForm_Ok()
     {
         var invalid = false;
@@ -208,6 +238,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.DoesNotContain("test5.png;test6.png", cut.Markup);
     }
+
 
     [Fact]
     public void InputUpload_IsMultiple()

@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits UploadBase<TValue>
 
@@ -12,9 +12,28 @@
                placeholder="@PlaceHolder" value="@CurrentValueAsString" />
         @if (ShowDeleteButton)
         {
-            <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled"
-                    Icon="@DeleteButtonIcon" Text="@DeleteButtonText" Color="Color.None"
-                    OnClick="@TriggerDeleteFile"></Button>
+            @if (IsConfirmDelete)
+            {
+                <PopConfirmButton Placement="Placement.Top" class="@RemoveButtonClassString"
+                                  ConfirmIcon="@DeleteConfirmButtonIcon"
+                                  ConfirmButtonColor="@DeleteConfirmButtonColor"
+                                  ConfirmButtonText="@DeleteConfirmButtonText"
+                                  CloseButtonText="@DeleteCloseButtonText"
+                                  Content="@DeleteConfirmContent"
+                                  Text="@DeleteButtonText"
+                                  Icon="@DeleteButtonIcon"
+                                  IsDisabled="@IsDeleteButtonDisabled"
+                                  IsKeepDisabled="true"
+                                  IsAsync="true"
+                                  OnConfirm="@TriggerDeleteFile" />
+            }
+            else
+            {
+                <Button class="@RemoveButtonClassString" IsDisabled="@IsDeleteButtonDisabled"
+                        Icon="@DeleteButtonIcon" Text="@DeleteButtonText" Color="Color.None"
+                        OnClick="@TriggerDeleteFile"></Button>
+            }
+            
         }
         <Button class="@BrowserButtonClassString" IsDisabled="@CheckStatus()" Icon="@BrowserButtonIcon"
                 Text="@BrowserButtonText" Color="Color.None"></Button>
