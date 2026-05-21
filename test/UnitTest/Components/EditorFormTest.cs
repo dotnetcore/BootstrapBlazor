@@ -587,7 +587,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Order), 1);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupName), "Test-Group-1");
-                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupOrder), 1);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupOrder), 2);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.EditTemplate), new RenderFragment<Foo>(foo => builder => builder.AddContent(0, "Test")));
                 builder.CloseComponent();
 
@@ -597,7 +597,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Address");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Order), 1);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupName), "Test-Group-2");
-                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupOrder), 2);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.GroupOrder), 1);
                 builder.CloseComponent();
 
                 builder.OpenComponent<EditorItem<Foo, bool>>(index++);
@@ -608,6 +608,11 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
+
+        var groups = cut.FindAll(".legend");
+        Assert.Equal(2, groups.Count);
+        Assert.Equal("Test-Group-2", groups[0].TextContent);
+        Assert.Equal("Test-Group-1", groups[1].TextContent);
     }
 
     private static RenderFragment<Foo> GenerateEditorItems(Foo foo) => f => builder =>
