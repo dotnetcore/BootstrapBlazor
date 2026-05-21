@@ -23,8 +23,9 @@
                                   Text="@DeleteButtonText"
                                   Icon="@DeleteButtonIcon"
                                   IsDisabled="@IsDeleteButtonDisabled"
+                                  IsKeepDisabled="true"
                                   IsAsync="true"
-                                  OnConfirm="@(async ()=> await TriggerDeleteFile())" />
+                                  OnConfirm="@TriggerDeleteFile" />
             }
             else
             {
