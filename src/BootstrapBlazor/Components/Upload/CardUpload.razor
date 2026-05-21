@@ -67,7 +67,7 @@
                     </div>
                     @if (ShowDeleteButton)
                     {
-                        @if (ShowDeleteConfirmButton)
+                        @if (IsConfirmDelete)
                         {
                             <PopConfirmButton Placement="Placement.Top" class="btn btn-sm btn-outline-danger"
                                               ConfirmIcon="@DeleteConfirmButtonIcon"
@@ -76,14 +76,15 @@
                                               CloseButtonText="@DeleteCloseButtonText"
                                               Content="@DeleteConfirmContent"
                                               Icon="@RemoveIcon"
+                                              IsKeepDisabled="true"
                                               IsAsync="true"
-                                              OnConfirm="@(async ()=> await OnCardFileDelete(item))" />
+                                              OnConfirm="@(()=> OnCardFileDelete(item))" />
                         }
                         else
                         {
                             <button type="button" class="btn btn-sm btn-outline-danger"
                                     disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
-                                    @onclick="() => OnCardFileDelete(item)">
+                                    @onclick="@(() => OnCardFileDelete(item))">
                                 <i class="@RemoveIcon"></i>
                             </button>
                         }

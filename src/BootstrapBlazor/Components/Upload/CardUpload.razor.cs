@@ -165,7 +165,16 @@ public partial class CardUpload<TValue>
     /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true</para>
     /// </summary>
     [Parameter]
-    public bool ShowDeleteConfirmButton { get; set; }
+    [Obsolete("已弃用，请使用 IsConfirmDelete 参数。Deprecated, please use the IsConfirmDelete parameter")]
+    [ExcludeFromCodeCoverage]
+    public bool ShowDeleteConfirmButton { get => IsConfirmDelete; set => IsConfirmDelete = value; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 删除按钮否显示确认对话框，依赖 ShowDeleteButton 属性为 true 时有效</para>
+    /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true</para>
+    /// </summary>
+    [Parameter]
+    public bool IsConfirmDelete { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮颜色，默认 Color.Danger</para>
