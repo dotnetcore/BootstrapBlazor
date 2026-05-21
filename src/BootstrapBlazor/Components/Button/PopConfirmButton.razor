@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits PopConfirmButtonBase
 
 @if (_renderTooltip)
@@ -35,7 +35,8 @@ else
         </CascadingValue>
         <PopConfirmButtonContent Title="@Title" Content="@Content" Icon="@ConfirmIcon"
                                  CloseButtonColor="@CloseButtonColor" CloseButtonText="@CloseButtonText" CloseButtonIcon="@CloseButtonIcon"
-                                 ConfirmButtonColor="@ConfirmButtonColor" ConfirmButtonText="@ConfirmButtonText" ConfirmButtonIcon="@ConfirmButtonIcon"
+                                 ConfirmButtonColor="@ConfirmButtonColor"
+                                 ConfirmButtonText="@ConfirmButtonText" ConfirmButtonIcon="@ConfirmButtonIcon"
                                  ShowCloseButton="@ShowCloseButton" OnClose="@OnClose"
                                  ShowConfirmButton="@ShowConfirmButton" OnConfirm="@OnClickConfirm" ChildContent="@BodyTemplate" />
     </DynamicElement>;
