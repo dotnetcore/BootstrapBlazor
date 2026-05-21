@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Reflection;
 
 namespace UnitTest.Components;
@@ -219,6 +220,59 @@ public class InputNumberTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll("button");
         await cut.InvokeAsync(() => buttons[0].Click());
         await cut.InvokeAsync(() => buttons[1].Click());
+    }
+
+    [Theory]
+    [InlineData(typeof(sbyte), (object)(sbyte)1, "2", (object)(sbyte)-1, (object)(sbyte)1)]
+    [InlineData(typeof(byte), (object)(byte)1, "2", (object)(byte)0, (object)(byte)2)]
+    [InlineData(typeof(short), (object)(short)1, "2", (object)(short)-1, (object)(short)1)]
+    [InlineData(typeof(ushort), (object)(ushort)1, "2", (object)(ushort)0, (object)(ushort)2)]
+    [InlineData(typeof(int), 1, "2", -1, 1)]
+    [InlineData(typeof(uint), (object)(uint)1, "2", (object)(uint)0, (object)(uint)2)]
+    [InlineData(typeof(long), (object)1L, "2", (object)(-1L), (object)1L)]
+    [InlineData(typeof(ulong), (object)1UL, "2", (object)0UL, (object)2UL)]
+    public async Task ShowButton_IntegralTypeStep_Ok(Type t, object value, string step, object decrementExpected, object incrementExpected)
+    {
+        var cut = Context.Render(builder =>
+        {
+            builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
+            builder.AddAttribute(1, "ShowButton", true);
+            builder.AddAttribute(2, "Value", value);
+            builder.AddAttribute(3, "Step", step);
+            builder.CloseComponent();
+        });
+
+        var buttons = cut.FindAll("button");
+        await cut.InvokeAsync(() => buttons[0].Click());
+        Assert.Equal(Convert.ToString(decrementExpected, CultureInfo.InvariantCulture), cut.Find("input").GetAttribute("value"));
+
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.Equal(Convert.ToString(incrementExpected, CultureInfo.InvariantCulture), cut.Find("input").GetAttribute("value"));
+    }
+
+    [Theory]
+    [InlineData(typeof(sbyte), (object)sbyte.MaxValue, "2", (object)sbyte.MaxValue)]
+    [InlineData(typeof(byte), (object)byte.MaxValue, "2", (object)byte.MaxValue)]
+    [InlineData(typeof(short), (object)short.MaxValue, "2", (object)short.MaxValue)]
+    [InlineData(typeof(ushort), (object)ushort.MaxValue, "2", (object)ushort.MaxValue)]
+    [InlineData(typeof(int), int.MaxValue, "2", int.MaxValue)]
+    [InlineData(typeof(uint), (object)uint.MaxValue, "2", (object)uint.MaxValue)]
+    [InlineData(typeof(long), (object)long.MaxValue, "2", (object)long.MaxValue)]
+    [InlineData(typeof(ulong), (object)ulong.MaxValue, "2", (object)ulong.MaxValue)]
+    public async Task ShowButton_IntegralTypeMaxClamp_Ok(Type t, object value, string step, object expected)
+    {
+        var cut = Context.Render(builder =>
+        {
+            builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
+            builder.AddAttribute(1, "ShowButton", true);
+            builder.AddAttribute(2, "Value", value);
+            builder.AddAttribute(3, "Step", step);
+            builder.CloseComponent();
+        });
+
+        var buttons = cut.FindAll("button");
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.Equal(Convert.ToString(expected, CultureInfo.InvariantCulture), cut.Find("input").GetAttribute("value"));
     }
 
     [Fact]
