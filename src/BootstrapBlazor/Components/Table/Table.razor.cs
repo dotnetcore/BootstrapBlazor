@@ -1369,17 +1369,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (item == null)
                 {
                     _tableColumnStates.Add(CreateTableColumnState(col));
-                    continue;
-                }
-
-                if (!ShowColumnList)
-                {
-                    item.Visible = col.GetVisible(_screenSize);
-                }
-
-                if (!AllowResizing)
-                {
-                    item.Width = col.Width;
                 }
             }
         }
