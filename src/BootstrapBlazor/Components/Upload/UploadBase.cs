@@ -224,7 +224,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         else if (ValueType == typeof(IBrowserFile))
         {
-            CurrentValue = (TValue)items[0].File!;
+            CurrentValue = items.Count != 0 ? (TValue?)items[0].File : default;
         }
         else if (ValueType == typeof(string))
         {
