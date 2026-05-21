@@ -842,17 +842,17 @@
 
     RenderFragment RenderPagination =>
         @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" MaxPageLinkCount="MaxPageLinkCount"
-                         OnPageLinkClick="@OnPageLinkClick"
-                         ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!"
-                         GotoNavigatorLabelText="@GotoNavigatorLabelText"
-                         ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"></Pagination>;
+                     OnPageLinkClick="@OnPageLinkClick"
+                     ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!"
+                     GotoNavigatorLabelText="@GotoNavigatorLabelText"
+                     ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"></Pagination>;
 
     RenderFragment<TableColumnState> RenderColumnListItem => item =>
         @<div class="dropdown-item">
             <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
-                        IsDisabled="@GetColumnsListState(item)"
-                        Value="@item.Visible"
-                        OnValueChanged="visible => OnToggleColumnVisible(item, visible)">
+                      IsDisabled="@GetColumnsListState(item)"
+                      Value="@item.Visible"
+                      OnValueChanged="visible => OnToggleColumnVisible(item, visible)">
             </Checkbox>
         </div>;
 
@@ -1080,7 +1080,7 @@
                     @if (GetShowRowCheckbox(item))
                     {
                         <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)"
-                                    OnStateChanged="OnCheck" StopPropagation="true">
+                                  OnStateChanged="OnCheck" StopPropagation="true">
                         </Checkbox>
                     }
                 </div>
