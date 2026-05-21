@@ -160,6 +160,5 @@ public partial class InputUpload<TValue>
             var item = Files[index - 1];
             await OnFileDelete(item);
         }
-        CurrentValue = default;
     }
 }
