@@ -7986,6 +7986,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 二次渲染触发 OnColumnCreating
+        // 虽然更改了 Visible 但是以持久化的为准，更改 visible 变量不影响渲染结果
         visible = true;
         creating = false;
         cut.Render();
@@ -7994,7 +7995,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             Assert.True(creating);
             var table = cut.FindComponent<Table<Foo>>();
-            Assert.Equal(2, table.Instance.GetVisibleColumns().Count);
+            Assert.Single(table.Instance.GetVisibleColumns());
         });
     }
 
