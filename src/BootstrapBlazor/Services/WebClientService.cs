@@ -38,6 +38,7 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
             _jsModule ??= await runtime.LoadModuleByName("client");
             if (_jsModule != null)
             {
+                // token 超时无异常，返回 null
                 var client = await _jsModule.InvokeAsync<ClientInfo>("ping", token, "ip.axd");
                 if (client != null)
                 {
