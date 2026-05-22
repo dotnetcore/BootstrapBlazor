@@ -29,7 +29,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="args"></param>
     public virtual ValueTask InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
-        using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
+        using var cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
         CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
         return InvokeVoidAsync(identifier, cancellationToken, args);
     }
