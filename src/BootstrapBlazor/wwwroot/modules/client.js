@@ -1,9 +1,9 @@
 import browser from "./browser.min.mjs"
 import { execute } from "./ajax.js"
 
-export async function ping(url, invoke, method) {
+export async function ping(url) {
     const data = await getClientInfo(url);
-    await invoke.invokeMethodAsync(method, data)
+    return data;
 }
 
 export async function getClientInfo(url) {

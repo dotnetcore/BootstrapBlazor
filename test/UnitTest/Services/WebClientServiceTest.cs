@@ -24,15 +24,10 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
             Engine = "engine",
             UserAgent = "test_agent"
         };
+        Context.JSInterop.Setup<ClientInfo>("ping", _ => true).SetResult(mockData);
         var service = Context.Services.GetRequiredService<WebClientService>();
-        service.SetData(mockData);
-        ClientInfo? client = null;
-        _ = Task.Run(async () => client = await service.GetClientInfo());
-        while (client == null)
-        {
-            await Task.Delay(100);
-            service.SetData(mockData);
-        }
+        var client = await service.GetClientInfo();
+
         client.City = "test_city";
         client.RequestUrl = "test_url";
         Assert.Equal("test_id", client.Id);
@@ -62,33 +57,23 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     public async Task GetClientInfo_Error()
     {
         var service = Context.Services.GetRequiredService<WebClientService>();
-        var client = await service.GetClientInfo();
-
-        // TimeoutException
-        Assert.Null(client.Ip);
 
         // Exception
-        Context.JSInterop.SetupVoid("ping", _ => true).SetException(new Exception("test-exception"));
-        client = await service.GetClientInfo();
+        Context.JSInterop.Setup<ClientInfo>("ping", _ => true).SetException(new Exception("test-exception"));
+        var client = await service.GetClientInfo();
     }
 
     [Fact]
-    public async Task SetData_Ok()
+    public async Task GetClientInfo_CancellationToken_Ok()
     {
         var service = Context.Services.GetRequiredService<WebClientService>();
+        using var cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Cancel();
 
-        // 内部 ReturnTask 为空
-        var fieldInfo = service.GetType().GetField("_taskCompletionSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        fieldInfo!.SetValue(service, null);
+        var client = await service.GetClientInfo(cancellationTokenSource.Token);
 
-        service.SetData(new ClientInfo() { Id = "test" });
-        _ = Task.Run(async () =>
-        {
-            await Task.Delay(150);
-            service.SetData(new ClientInfo() { Id = "test-id", Ip = "192.168.0.1" });
-        });
-        var client = await service.GetClientInfo();
-        Assert.Equal("192.168.0.1", client.Ip);
+        Assert.NotNull(client);
+        Assert.Null(client.Ip);
     }
 
     [Fact]
