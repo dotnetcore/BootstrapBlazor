@@ -17,6 +17,7 @@ public partial class Online : IDisposable
     private readonly List<ConnectionItem> _items = [];
     private static readonly Comparison<ConnectionItem> ConnectionComparer = static (x, y) => x.ConnectionTime.CompareTo(y.ConnectionTime);
     private CancellationTokenSource? _cancellationTokenSource;
+    private Task? _refreshTask;
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,21 +37,26 @@ public partial class Online : IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (firstRender && _refreshTask == null)
         {
             _cancellationTokenSource ??= new CancellationTokenSource();
-            using var _timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-
-            try
-            {
-                while (await _timer.WaitForNextTickAsync(_cancellationTokenSource.Token))
-                {
-                    BuildContext();
-                    await InvokeAsync(StateHasChanged);
-                }
-            }
-            catch (OperationCanceledException) { }
+            _refreshTask = RefreshAsync(_cancellationTokenSource.Token);
         }
+    }
+
+    private async Task RefreshAsync(CancellationToken cancellationToken)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+
+        try
+        {
+            while (await timer.WaitForNextTickAsync(cancellationToken))
+            {
+                BuildContext();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (OperationCanceledException) { }
     }
 
     private void BuildContext()
@@ -76,6 +82,7 @@ public partial class Online : IDisposable
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
             }
+            _refreshTask = null;
         }
     }
 
