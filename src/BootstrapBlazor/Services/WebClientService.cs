@@ -26,7 +26,13 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     /// <para lang="zh">获得 ClientInfo 实例方法</para>
     /// <para lang="en">Get ClientInfo Instance Method</para>
     /// </summary>
-    public async Task<ClientInfo> GetClientInfo(CancellationToken token = default)
+    public Task<ClientInfo> GetClientInfo() => GetClientInfo(CancellationToken.None);
+
+    /// <summary>
+    /// <para lang="zh">获得 ClientInfo 实例方法</para>
+    /// <para lang="en">Get ClientInfo Instance Method</para>
+    /// </summary>
+    public async Task<ClientInfo> GetClientInfo(CancellationToken token)
     {
         _client = new ClientInfo()
         {
