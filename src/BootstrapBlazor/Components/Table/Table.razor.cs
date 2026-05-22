@@ -1378,6 +1378,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
     {
+        DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
         Width = col.Width,
         Visible = col.GetVisible(_screenSize)
