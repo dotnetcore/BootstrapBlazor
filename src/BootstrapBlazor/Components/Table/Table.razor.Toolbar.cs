@@ -554,27 +554,6 @@ public partial class Table<TItem>
     /// </summary>
     public List<ITableColumn> GetVisibleColumns() => _visibleColumnsCache;
 
-    private void ResetVisibleColumnsCache()
-    {
-        _visibleColumnsCache.Clear();
-
-        for (var index = 0; index < _tableColumnStates.Count; index++)
-        {
-            var item = _tableColumnStates[index];
-            var col = Columns.Find(c => c.GetFieldName() == item.Name);
-            if (col != null)
-            {
-                item.DisplayName = col.GetDisplayName();
-
-                if (item.Visible)
-                {
-                    // 增加到可见列缓存集合
-                    _visibleColumnsCache.Add(col);
-                }
-            }
-        }
-    }
-
     private bool GetColumnsListState(TableColumnState item)
     {
         var items = _tableColumnStates.Where(i => i.Visible).Select(a => a.Name).ToHashSet();

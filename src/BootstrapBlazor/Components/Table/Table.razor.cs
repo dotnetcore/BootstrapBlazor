@@ -1346,38 +1346,100 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void ResetTableColumns()
     {
+        _visibleColumnsCache.Clear();
+
         if (_tableColumnStates.Count == 0)
         {
             // 重建缓存
-            _tableColumnStates.AddRange(Columns.Where(i => !i.GetIgnore()).Select(CreateTableColumnState));
-        }
-        else
-        {
-            foreach (var col in Columns)
+            for (var index = 0; index < Columns.Count; index++)
             {
-                var item = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
-
+                var col = Columns[index];
                 if (col.GetIgnore())
                 {
-                    if (item != null)
-                    {
-                        _tableColumnStates.Remove(item);
-                    }
                     continue;
                 }
 
-                if (item == null)
+                var state = CreateTableColumnState(col);
+                _tableColumnStates.Add(state);
+
+                if (col.GetVisible(_screenSize))
                 {
-                    _tableColumnStates.Add(CreateTableColumnState(col));
+                    _visibleColumnsCache.Add(col);
                 }
             }
         }
+        else
+        {
+            // 过滤掉 Columns 中不存在或被忽略的列
+            // 注意由于多语言导致的相同列显示名称不同的情况
+            // 通过字典缓存避免 Columns.Exists / _tableColumnStates.Find 的二次嵌套循环 O(N*M)
+            var columnMap = new Dictionary<string, ITableColumn>(Columns.Count, StringComparer.Ordinal);
+            foreach (var col in Columns)
+            {
+                if (!col.GetIgnore())
+                {
+                    columnMap[col.GetFieldName()] = col;
+                }
+            }
 
-        ResetVisibleColumnsCache();
+            var stateMap = new Dictionary<string, TableColumnState>(_tableColumnStates.Count, StringComparer.Ordinal);
+            for (var i = _tableColumnStates.Count - 1; i >= 0; i--)
+            {
+                var item = _tableColumnStates[i];
+
+                // 移除不合格的列状态项
+                if (string.IsNullOrEmpty(item.Name))
+                {
+                    _tableColumnStates.RemoveAt(i);
+                    continue;
+                }
+
+                if (columnMap.ContainsKey(item.Name))
+                {
+                    stateMap[item.Name] = item;
+                }
+                else
+                {
+                    _tableColumnStates.RemoveAt(i);
+                }
+            }
+
+            foreach (var col in Columns)
+            {
+                if (col.GetIgnore())
+                {
+                    continue;
+                }
+
+                var name = col.GetFieldName();
+                if (stateMap.TryGetValue(name, out var item))
+                {
+                    item.DisplayName = col.GetDisplayName();
+                }
+                else
+                {
+                    item = CreateTableColumnState(col);
+                    _tableColumnStates.Add(item);
+                }
+            }
+
+            // 根据 _tableColumnStates 顺序重建可见列顺序
+            for (var index = 0; index < _tableColumnStates.Count; index++)
+            {
+                var item = _tableColumnStates[index];
+                var col = columnMap[item.Name];
+                if (item.Visible)
+                {
+                    // 增加到可见列缓存集合
+                    _visibleColumnsCache.Add(col);
+                }
+            }
+        }
     }
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
     {
+        DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
         Width = col.Width,
         Visible = col.GetVisible(_screenSize)
