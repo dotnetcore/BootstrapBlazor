@@ -1404,13 +1404,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
 
                 var name = col.GetFieldName();
-                if (!stateMap.TryGetValue(name, out var item))
+                if (stateMap.TryGetValue(name, out var item))
+                {
+                    item.DisplayName = col.GetDisplayName();
+                }
+                else
                 {
                     item = CreateTableColumnState(col);
                     _tableColumnStates.Add(item);
                 }
-
-                item.DisplayName = col.GetDisplayName();
             }
 
             // 根据 _tableColumnStates 顺序重建可见列顺序
