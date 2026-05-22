@@ -1346,13 +1346,41 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void ResetTableColumns()
     {
+        _visibleColumnsCache.Clear();
+
         if (_tableColumnStates.Count == 0)
         {
             // 重建缓存
-            _tableColumnStates.AddRange(Columns.Where(i => !i.GetIgnore()).Select(CreateTableColumnState));
+            for (var index = 0; index < Columns.Count; index++)
+            {
+                var col = Columns[index];
+                if (col.GetIgnore())
+                {
+                    continue;
+                }
+
+                var state = CreateTableColumnState(col);
+                _tableColumnStates.Add(state);
+
+                if (col.GetVisible(_screenSize))
+                {
+                    _visibleColumnsCache.Add(col);
+                }
+            }
         }
         else
         {
+            // 过滤掉 Columns 中不存在的列
+            // 注意由于多语言导致的相同列显示名称不同的情况
+            for (var i = _tableColumnStates.Count - 1; i >= 0; i--)
+            {
+                var item = _tableColumnStates[i];
+                if (!Columns.Exists(col => col.GetFieldName() == item.Name))
+                {
+                    _tableColumnStates.RemoveAt(i);
+                }
+            }
+
             foreach (var col in Columns)
             {
                 var item = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
@@ -1368,12 +1396,17 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 if (item == null)
                 {
-                    _tableColumnStates.Add(CreateTableColumnState(col));
+                    item = CreateTableColumnState(col);
+                    _tableColumnStates.Add(item);
+                }
+
+                item.DisplayName = col.GetDisplayName();
+                if (col.GetVisible(_screenSize))
+                {
+                    _visibleColumnsCache.Add(col);
                 }
             }
         }
-
-        ResetVisibleColumnsCache();
     }
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
