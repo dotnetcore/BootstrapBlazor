@@ -1,9 +1,91 @@
-﻿@page "/online"
+@page "/online"
 @layout MainLayout
 @inject IStringLocalizer<Online> Localizer
 
 <h4>@Localizer["SubTitle"]：@ConnectionService.Connections.Count</h4>
 
 <section class="mt-3">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" IsBordered="true" IsStriped="true" SetRowClassFormatter="SetRowClassFormatter"></Table>
+    <Table Items="@_items" IsBordered="true" IsStriped="true">
+        <TableColumns>
+            <TableTemplateColumn FieldName="ConnectionTime" Text="@Localizer["ConnectionTime"]" Width="118">
+                <Template Context="v">
+                    <span>@v.Row.ConnectionTime.ToString("yyyy/MM/dd HH:mm:ss")</span>
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="LastBeatTime" Text="@Localizer["LastBeatTime"]" Width="118">
+                <Template Context="v">
+                    <span>@v.Row.LastBeatTime.ToString("yyyy/MM/dd HH:mm:ss")</span>
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Dur" Text="@Localizer["Dur"]" Width="54">
+                <Template Context="v">
+                    <span>@GetDurString(v.Row)</span>
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Ip" Text="@Localizer["Ip"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.Ip))
+                    {
+                        @v.Row.ClientInfo.Ip.MaskIpString()
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="City" Text="@Localizer["City"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.City))
+                    {
+                        @v.Row.ClientInfo.City
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="OS" Text="@Localizer["OS"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.OS))
+                    {
+                        @v.Row.ClientInfo.OS
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Device" Text="@Localizer["Device"]">
+                <Template Context="v">
+                    @if (v.Row.ClientInfo != null)
+                    {
+                        @v.Row.ClientInfo.Device.ToString()
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Browser" Text="@Localizer["Browser"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.Browser))
+                    {
+                        @v.Row.ClientInfo.Browser
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Language" Text="@Localizer["Language"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.Language))
+                    {
+                        @v.Row.ClientInfo.Language
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Engine" Text="@Localizer["Engine"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.Engine))
+                    {
+                        @v.Row.ClientInfo.Engine
+                    }
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="RequestUrl" Text="@Localizer["RequestUrl"]">
+                <Template Context="v">
+                    @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.RequestUrl))
+                    {
+                        <a href="@v.Row.ClientInfo.RequestUrl" target="_blank">@v.Row.ClientInfo.RequestUrl</a>
+                    }
+                </Template>
+            </TableTemplateColumn>
+        </TableColumns>
+    </Table>
 </section>
