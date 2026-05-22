@@ -902,7 +902,9 @@ public class TableTest : BootstrapBlazorTestBase
         state.Columns = new List<TableColumnState>()
         {
             new TableColumnState() { Name = nameof(Foo.Name), Visible = false },
-            new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 }
+            new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 },
+            // 增加一列 Columns 中不存在的列
+            new TableColumnState() { Name = nameof(Foo.Count), Visible = true, Width = 120 }
         };
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
@@ -945,6 +947,12 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("Test_Column_List");
         cut.DoesNotContain("dropdown-menu-popover");
 
+        // 过滤掉 Count 列只显示 Name 和 Address 列
+        var labels = cut.FindAll(".form-check-label");
+        Assert.Equal(2, labels.Count);
+        Assert.Equal("姓名", labels[0].TextContent);
+        Assert.Equal("地址", labels[1].TextContent);
+
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
@@ -981,7 +989,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("style=\"width: 340px;\"");
 
         // 检查 ShowColumnList 中的 DisplayName 是否正确
-        var labels = table.FindAll(".form-check-label");
+        labels = table.FindAll(".form-check-label");
         Assert.Equal(2, labels.Count);
         Assert.Equal("姓名", labels[0].TextContent);
         Assert.Equal("地址", labels[1].TextContent);
