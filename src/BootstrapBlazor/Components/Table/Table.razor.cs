@@ -1428,8 +1428,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
-                item.DisplayName = col.GetDisplayName();
-
                 if (item.Visible)
                 {
                     // 增加到可见列缓存集合
