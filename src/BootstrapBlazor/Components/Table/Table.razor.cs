@@ -1386,13 +1386,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             for (var i = _tableColumnStates.Count - 1; i >= 0; i--)
             {
                 var item = _tableColumnStates[i];
-                if (!columnMap.ContainsKey(item.Name))
+
+                // 移除不合格的列状态项
+                if (string.IsNullOrEmpty(item.Name))
                 {
                     _tableColumnStates.RemoveAt(i);
+                    continue;
+                }
+
+                if (columnMap.ContainsKey(item.Name))
+                {
+                    stateMap[item.Name] = item;
                 }
                 else
                 {
-                    stateMap[item.Name] = item;
+                    _tableColumnStates.RemoveAt(i);
                 }
             }
 
