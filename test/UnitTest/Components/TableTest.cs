@@ -8973,6 +8973,9 @@ public class TableTest : BootstrapBlazorTestBase
         state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, DisplayName = "Name-Display" });
         state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = false, Width = 120, DisplayName = "Address-Display" });
 
+        // 增加干扰列
+        state.Columns.Add(new TableColumnState() { Name = "", Visible = true });
+
         var loaded = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
