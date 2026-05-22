@@ -273,8 +273,8 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(() => table.Instance.ResetVisibleColumns(
         [
-            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, DisplayName = "Name-Display" },
-            new TableColumnState() { Name = nameof(Foo.Address), Visible = false }
+            new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 120 },
+            new TableColumnState() { Name = nameof(Foo.Address), Visible = false, Width = 100 }
         ]));
 
         Assert.Single(table.Instance.GetVisibleColumns());
@@ -284,6 +284,9 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, labels.Count);
         Assert.Equal("姓名", labels[0].TextContent);
         Assert.Equal("地址", labels[1].TextContent);
+
+        // 检查宽度设置
+        Assert.Contains("<col style=\"width: 120px;\" />", table.Markup);
     }
 
     [Fact]
