@@ -529,6 +529,15 @@
     "SubTitle": "组件库提供一种对当前应用程序中所有组件进行配置的方法，通过 <code>BootstrapBlazorOptions</code> 全局配置类实现此功能",
     "Title": "全局配置"
   },
+  "BootstrapBlazor.Server.Components.Pages.HostModel": {
+    "CreateProject": "使用最新版 <code>Visual Studio</code> 新建 <code>Blazor</code> 项目时选择 <code>Blazor Web App</code>",
+    "HostModelsIntro": "目前 ASP.NET Core Blazor 的托管模型一共有三种，分别是",
+    "InteractivityLocationIntro": "<code>Interactivity Location</code> 又分为以下两种方式",
+    "Recommended": "(新手强烈推荐)",
+    "RecommendServer": "目前我们推荐使用 <code>Blazor Server</code> 托管模型",
+    "RenderModeIntro": "<code>Interactive render mode</code> 又分为以下几种方式",
+    "Title": "ASP.NET Core Blazor 托管模型"
+  },
   "BootstrapBlazor.Server.Components.Pages.Index": {
     "Docs": "阅读文档",
     "DonateH1": "捐助",

@@ -529,6 +529,15 @@
     "SubTitle": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution",
     "Title": "Global exception"
   },
+  "BootstrapBlazor.Server.Components.Pages.HostModel": {
+    "CreateProject": "When creating a new <code>Blazor</code> project with the latest <code>Visual Studio</code>, select <code>Blazor Web App</code>.",
+    "HostModelsIntro": "ASP.NET Core Blazor currently has three hosting models:",
+    "InteractivityLocationIntro": "<code>Interactivity Location</code> has the following options:",
+    "Recommended": "(strongly recommended for beginners)",
+    "RecommendServer": "We currently recommend using the <code>Blazor Server</code> hosting model.",
+    "RenderModeIntro": "<code>Interactive render mode</code> has the following options:",
+    "Title": "ASP.NET Core Blazor hosting models"
+  },
   "BootstrapBlazor.Server.Components.Pages.Index": {
     "Docs": "Read the docs",
     "DonateH1": "Donate",
