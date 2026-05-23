@@ -471,7 +471,6 @@
   },
   "BootstrapBlazor.Server.Components.Layout.TutorialsNavMenu": {
     "AdminSummary": "中台 Admin",
-    "CategoryTitle": "BootstrapBlazor 实战案例",
     "DashboardSummary": "仪表盘 Dashboard",
     "DrawingSummary": "画图 Drawing",
     "LoginSummary": "登陆注册 Login&Register",
