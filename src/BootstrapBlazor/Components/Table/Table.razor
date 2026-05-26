@@ -308,6 +308,7 @@
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)"
                                         style="@GetFixedCellStyleString(col, ActualScrollWidth)"
+                                        data-bb-field="@fieldName"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
                                         draggable="@DraggableString">
                             <div class="@GetHeaderWrapperClassString(col)">
@@ -364,7 +365,7 @@
                                              FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox"
                                              class="toolbox-icon" @onclick:stopPropagation>
                                         <ChildContent>
-                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()"></i>
+                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@fieldName"></i>
                                         </ChildContent>
                                         <Template>
                                             @col.ToolboxTemplate(col)
@@ -374,7 +375,7 @@
                             </div>
                             @if (AllowResizing)
                             {
-                                <span class="col-resizer" data-bb-field="@col.GetFieldName()"></span>
+                                <span class="col-resizer"></span>
                             }
                         </DynamicElement>
                     }

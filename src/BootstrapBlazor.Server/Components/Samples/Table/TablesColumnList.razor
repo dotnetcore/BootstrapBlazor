@@ -41,14 +41,14 @@
     <Table TItem="Foo" @ref="TableColumnVisible"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowColumnList="true" ShowColumnListControls="_showColumnListControls"
-           IsPopoverToolbarDropdownButton="_isPopoverToolbarDropdownButton"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsPopoverToolbarDropdownButton="_isPopoverToolbarDropdownButton" IsFixedHeader="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AllowResizing="true" AllowDragColumn="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
-           ShowExtendButtons="false" ClientTableName="test_table"
+           ShowExtendButtons="false" ClientTableName="table-column-list"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Name" Visible="false" />
             <TableColumn @bind-Field="@context.Address" Width="290" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" Visible="false" />
