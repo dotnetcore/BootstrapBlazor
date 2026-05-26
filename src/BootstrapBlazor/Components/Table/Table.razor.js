@@ -1106,8 +1106,6 @@ const resetColumnListPopover = table => {
 
 const resetColumns = (table, options) => {
     setResizeListener(table);
-
-    console.log(table, options);
     setColSize(table, options);
 
     const { columnStates, allowDragColumn } = options;
