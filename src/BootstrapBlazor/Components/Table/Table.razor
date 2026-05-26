@@ -308,6 +308,7 @@
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)"
                                         style="@GetFixedCellStyleString(col, ActualScrollWidth)"
+                                        data-bb-field="@fieldName"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
                                         draggable="@DraggableString">
                             <div class="@GetHeaderWrapperClassString(col)">

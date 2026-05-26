@@ -579,25 +579,11 @@ const autoFitColumnWidth = async (table, col) => {
     const field = col.getAttribute('data-bb-field');
     const index = indexOfCol(col);
     let rows = null;
-    if (table.thead) {
-        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
-    else {
-        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
-
-    let maxWidth = 0;
-    rows.forEach(row => {
-        const cell = row.cells[index];
-        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
-    });
-
+    let maxWidth = getColumnMaxCellWidth(table, index);
+    
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = col.closest('th');
-        const span = th.querySelector('.table-cell');
-        const thStyle = getComputedStyle(th);
-        const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
-        maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
+        maxWidth = Math.max(maxWidth, getCellWidth(th));
     }
 
     if (maxWidth > 0) {
@@ -624,6 +610,31 @@ const autoFitColumnWidth = async (table, col) => {
 
         await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
     }
+}
+
+const getColumnMaxCellWidth = (table, index) => {
+    let rows = null;
+    let maxWidth = 0;
+    if (table.thead) {
+        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
+    }
+    else {
+        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
+    }
+
+    rows.forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    return maxWidth;
+}
+
+const getCellWidth = cell => {
+    const span = cell.querySelector('.table-cell');
+    const cellStyle = getComputedStyle(cell);
+    const margin = parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'))
+    return calcCellWidth(span) + margin;
 }
 
 const formControlSelector = 'input.form-control:not([type="hidden"]), textarea.form-control';
@@ -1090,6 +1101,9 @@ const resetColumnListPopover = table => {
 const resetColumns = (table, options) => {
     setResizeListener(table);
 
+    console.log(table, options);
+    setColSize(table, options);
+
     const { columnStates, allowDragColumn } = options;
     const { options: { tableName } } = table;
     if (tableName) {
@@ -1100,6 +1114,22 @@ const resetColumns = (table, options) => {
     if (allowDragColumn) {
         setDraggable(table);
     }
+}
+
+const setColSize = (table, options) => {
+    var zeroWidthColumns = options.columnStates.filter(i => i.width === null && i.visible === true);
+    zeroWidthColumns.forEach(col => {
+        const headerCollection = [...table.tables[0].querySelectorAll('thead > tr > th')];
+        const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
+        if (th.offsetWidth === 0) {
+            const width = getCellWidth(th);
+            const colIndex = headerCollection.indexOf(th);
+            col.width = Math.max(width, getColumnMaxCellWidth(table, colIndex));
+            table.tables.forEach(table => {
+                table.querySelectorAll('colgroup col')[colIndex].style.width = `${col.width}px`;
+            });
+        }
+    });
 }
 
 const updateSortTooltip = table => {
