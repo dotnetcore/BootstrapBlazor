@@ -514,9 +514,9 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, I
     {
         /*
          * 表格中只允相同属性列间相互交换顺序，即fixed列之间可以交换顺序，fixed列与非fixed列不允许交换顺序
-         * 当前固定列没有给定宽度时，默认宽度为100px，非固定列不设置默认宽度，原因为没给定宽度时，固定列交换列顺序后，会出现问题，导致left值计算错误，出现错位问题；
+         * 当前固定列没有给定宽度时，默认宽度为200px，非固定列不设置默认宽度，原因为没给定宽度时，固定列交换列顺序后，会出现问题，导致left值计算错误，出现错位问题；
          */
-        Width = Fixed ? Width ?? 100 : Width;
+        Width = Fixed ? Width ?? 200 : Width;
 
         Columns?.Add(this);
 
