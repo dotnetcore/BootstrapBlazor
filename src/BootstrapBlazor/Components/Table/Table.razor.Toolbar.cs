@@ -317,8 +317,8 @@ public partial class Table<TItem>
     public bool FixedDetailRowHeaderColumn { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否固定 LineNo 列 默认为 false 不固定，当表格中存在固定列时，该属性值自动设为 true</para>
-    /// <para lang="en">Gets or sets Whether to fix LineNo Column. Default false.When there are fixed columns in the table, the value of this property is automatically set to true</para>
+    /// <para lang="zh">获得/设置 是否固定 LineNo 列 默认为 false 不固定</para>
+    /// <para lang="en">Gets or sets Whether to fix LineNo Column. Default false</para>
     /// </summary>
     [Parameter]
     public bool FixedLineNoColumn { get; set; }

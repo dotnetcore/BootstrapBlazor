@@ -1610,7 +1610,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 // 合并单元格情况
                 colIndex--;
                 continue;
-            }            
+            }
 
             // 获得单元格参数
             var cellArgs = GetCellArgs(item, col, ref colIndex);
@@ -1635,15 +1635,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             };
 
             builder.AddContent(0, RenderContentCell(context));
-
-            if (ShowLineNo && col.Fixed&& !FixedLineNoColumn)
-            {
-                // 当有显示行号列时，且当表格中列固定时，行号列也自动固定
-                // 避免未设置行号列固定时，表格中其他列固定导致行号列未固定的情况，表格横向滑动时行号会隐藏
-                FixedLineNoColumn = col.Fixed;
-                // 这里必须处理一次，以解决持久化加载时，表头先渲染导致固定列不正常
-                StateHasChanged();
-            }
         }
     };
 
