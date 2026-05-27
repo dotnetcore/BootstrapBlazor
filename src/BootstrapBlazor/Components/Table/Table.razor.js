@@ -391,7 +391,7 @@ const setResizeListener = table => {
     }
 
     const eff = (col, toggle) => {
-        const th = col.closest('th')
+        const th = getColumnHeader(col)
         if (th.parentNode === null) {
             EventHandler.off(col, 'click')
             EventHandler.off(col, 'mousedown')
@@ -458,7 +458,7 @@ const setResizeListener = table => {
                     colWidth = parseInt(width)
                 }
                 else {
-                    colWidth = getWidth(col.closest('th'));
+                    colWidth = getResizableColumnWidth(col);
                 }
                 tableWidth = getWidth(col.closest('table'));
                 originalX = e.clientX ?? e.touches[0].clientX
@@ -484,7 +484,7 @@ const setResizeListener = table => {
 
                         resetColumnWidthTips(table, col);
 
-                        const header = col.parentElement;
+                        const header = getColumnHeader(col);
                         if (header.classList.contains('fixed')) {
                             resizeNextFixedColumnWidth(header, calcColWidth);
                         }
@@ -508,7 +508,7 @@ const setResizeListener = table => {
                 const state = getColumnStateObject(table);
                 saveColumnStateToLocalstorage(table, state);
 
-                const field = col.getAttribute('data-bb-field');
+                const field = getColumnName(col);
                 table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
             }
         )
@@ -539,7 +539,7 @@ const resetColumnWidthTips = (table, col) => {
         const tip = bootstrap.Tooltip.getInstance(col);
         if (tip && tip._isShown()) {
             const inner = tip.tip.querySelector('.tooltip-inner');
-            const tipText = getColumnTooltipTitle(table.options, col.closest('th'));
+            const tipText = getColumnTooltipTitle(table.options, getColumnHeader(col));
             inner.innerHTML = tipText;
             tip._config.title = tipText;
             tip.update();
@@ -551,7 +551,7 @@ const setColumnResizingListen = (table, col) => {
     if (table.options.showColumnWidthTooltip) {
         EventHandler.on(col, 'mouseenter', e => {
             closeAllTips(table.columns, e.target);
-            const th = col.closest('th');
+            const th = getColumnHeader(col);
             const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
                 title: getColumnTooltipTitle(table.options, th),
                 trigger: 'manual',
@@ -569,35 +569,27 @@ const getColumnTooltipTitle = (options, th) => {
     return `${options.columnWidthTooltipPrefix}${getWidth(th) | 0}px`;
 }
 
+const getColumnHeader = col => col.closest('th');
+
+const getColumnName = col => getColumnHeader(col).getAttribute('data-bb-field');
+
+const getResizableColumnWidth = col => getWidth(getColumnHeader(col)) | 0;
+
 const indexOfCol = col => {
-    const th = col.closest('th');
+    const th = getColumnHeader(col);
     const row = th.parentElement;
     return [...row.children].indexOf(th);
 }
 
 const autoFitColumnWidth = async (table, col) => {
-    const field = col.getAttribute('data-bb-field');
+    const field = getColumnName(col);
     const index = indexOfCol(col);
     let rows = null;
-    if (table.thead) {
-        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
-    else {
-        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
-
-    let maxWidth = 0;
-    rows.forEach(row => {
-        const cell = row.cells[index];
-        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
-    });
-
+    let maxWidth = getColumnMaxCellWidth(table, index);
+    
     if (table.options.fitColumnWidthIncludeHeader) {
-        const th = col.closest('th');
-        const span = th.querySelector('.table-cell');
-        const thStyle = getComputedStyle(th);
-        const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
-        maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
+        const th = getColumnHeader(col);
+        maxWidth = Math.max(maxWidth, getCellWidth(th));
     }
 
     if (maxWidth > 0) {
@@ -624,6 +616,31 @@ const autoFitColumnWidth = async (table, col) => {
 
         await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
     }
+}
+
+const getColumnMaxCellWidth = (table, index) => {
+    let rows = null;
+    let maxWidth = 0;
+    if (table.thead) {
+        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
+    }
+    else {
+        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
+    }
+
+    rows.forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    return maxWidth;
+}
+
+const getCellWidth = cell => {
+    const span = cell.querySelector('.table-cell');
+    const cellStyle = getComputedStyle(cell);
+    const margin = parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'))
+    return calcCellWidth(span) + margin;
 }
 
 const formControlSelector = 'input.form-control:not([type="hidden"]), textarea.form-control';
@@ -969,8 +986,8 @@ const getColumnStateObject = table => {
     return {
         cols: table.columns.map(col => {
             return {
-                name: col.getAttribute('data-bb-field'),
-                width: getWidth(col.closest('th')) | 0,
+                name: getColumnName(col),
+                width: getResizableColumnWidth(col),
                 visible: true
             }
         }),
@@ -979,9 +996,9 @@ const getColumnStateObject = table => {
 }
 
 const getColumnWidth = (col, columns) => {
-    const column = columns.find(i => i.getAttribute('data-bb-field') === col.name);
+    const column = columns.find(i => getColumnName(i) === col.name);
     if (column) {
-        const width = getWidth(column.closest('th')) | 0;
+        const width = getResizableColumnWidth(column);
         return width > 0 ? width : null;
     }
     else if (col.width) {
@@ -1013,7 +1030,7 @@ const getColumnWidthStateObject = table => {
     const tableWidth = getWidth(table.tables[0]);
     return {
         cols: cols.map(col => {
-            return { "width": getWidth(col.closest('th')) | 0, "name": col.getAttribute('data-bb-field') }
+            return { "width": getResizableColumnWidth(col), "name": getColumnName(col) }
         }),
         table: tableWidth | 0
     }
@@ -1089,6 +1106,7 @@ const resetColumnListPopover = table => {
 
 const resetColumns = (table, options) => {
     setResizeListener(table);
+    setColSize(table, options);
 
     const { columnStates, allowDragColumn } = options;
     const { options: { tableName } } = table;
@@ -1100,6 +1118,22 @@ const resetColumns = (table, options) => {
     if (allowDragColumn) {
         setDraggable(table);
     }
+}
+
+const setColSize = (table, options) => {
+    var zeroWidthColumns = options.columnStates.filter(i => i.width === null && i.visible === true);
+    zeroWidthColumns.forEach(col => {
+        const headerCollection = [...table.tables[0].querySelectorAll('thead > tr > th')];
+        const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
+        if (th.offsetWidth === 0) {
+            const width = getCellWidth(th);
+            const colIndex = headerCollection.indexOf(th);
+            col.width = Math.max(width, getColumnMaxCellWidth(table, colIndex));
+            table.tables.forEach(table => {
+                table.querySelectorAll('colgroup col')[colIndex].style.width = `${col.width}px`;
+            });
+        }
+    });
 }
 
 const updateSortTooltip = table => {
