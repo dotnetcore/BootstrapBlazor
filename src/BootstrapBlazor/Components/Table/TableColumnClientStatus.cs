@@ -21,8 +21,8 @@ public class TableColumnClientStatus
     public List<TableColumnState> Columns { get; set; } = [];
 
     /// <summary>
-    /// <para lang="zh">表格宽度</para>
-    /// <para lang="en">Table Width</para>
+    /// <para lang="zh">表格宽度，当值为 0 时表示表格宽度自适应</para>
+    /// <para lang="en">Table Width, when the value is 0, it means the table width is auto</para>
     /// </summary>
     [JsonPropertyName("table")]
     public int TableWidth { get; set; }
