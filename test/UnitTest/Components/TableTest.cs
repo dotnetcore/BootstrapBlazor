@@ -3487,6 +3487,59 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DefaultSortOrder_FirstRenderQuery_Ok()
+    {
+        var sortName = string.Empty;
+        var sortOrder = SortOrder.Unset;
+        var isFirstQuery = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    sortName = option.SortName;
+                    sortOrder = option.SortOrder;
+                    isFirstQuery = option.IsFirstQuery;
+                    var items = Foo.GenerateFoo(localizer, 5);
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = items.Count,
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
+                    builder.AddAttribute(4, "DefaultSort", true);
+                    builder.AddAttribute(5, "DefaultSortOrder", SortOrder.Desc);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        Assert.True(isFirstQuery);
+        Assert.Equal(nameof(Foo.Name), sortName);
+        Assert.Equal(SortOrder.Desc, sortOrder);
+
+        // 模拟点击表头排序
+        var th = cut.Find("th");
+        await cut.InvokeAsync(() => th.Click());
+        Assert.False(isFirstQuery);
+        Assert.Equal(nameof(Foo.Name), sortName);
+        Assert.Equal(SortOrder.Unset, sortOrder);
+    }
+
+    [Fact]
     public async Task OnSort_Ok()
     {
         // 外部未排序，组件内部自动排序
