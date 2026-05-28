@@ -1126,6 +1126,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 构建列信息
             await BuildTableColumnsAsync();
 
+            // set default sortName
+            var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
+            if (col != null)
+            {
+                SortName = col.GetFieldName();
+                SortOrder = col.DefaultSortOrder;
+            }
+
             // 调用查询方法渲染 UI
             await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
             return;
@@ -1314,14 +1322,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
-
-        // set default sortName
-        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
-        if (col != null)
-        {
-            SortName = col.GetFieldName();
-            SortOrder = col.DefaultSortOrder;
-        }
 
         // 加载客户端持久化列状态
         ResetTableColumns();
