@@ -702,10 +702,7 @@ export function getTheme(useLocalstorage = true) {
         theme = document.documentElement.getAttribute('data-bs-theme');
     }
 
-    if (theme === null || theme === 'auto') {
-        theme = getAutoThemeValue();
-    }
-    return theme;
+    return theme == null ? 'auto' : theme;
 }
 
 export function saveTheme(theme) {
