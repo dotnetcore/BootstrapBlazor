@@ -1870,7 +1870,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public bool AllowDragColumn { get; set; }
 
-    private string? DraggableString => AllowDragColumn ? "true" : null;
+    private string? GetDraggableString(ITableColumn col) => AllowDragColumn && !col.Fixed ? "true" : null;
 
     /// <summary>
     /// <para lang="zh">获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序</para>

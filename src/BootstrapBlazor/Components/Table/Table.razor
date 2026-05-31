@@ -310,7 +310,7 @@
                                         style="@GetFixedCellStyleString(col, ActualScrollWidth)"
                                         data-bb-field="@fieldName"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
-                                        draggable="@DraggableString">
+                                        draggable="@GetDraggableString(col)">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if (col.GetShowCopyColumn())
                                 {
