@@ -810,7 +810,6 @@ const disposeColumnDrag = columns => {
 
 const setDraggable = table => {
     let dragItem = null;
-    let dragItemIsFixed = false; // 为后面列拖动交换顺序时，判断是否为同一类型的列做准备
     let index = 0
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     disposeDragColumns(table.dragColumns);
@@ -821,7 +820,6 @@ const setDraggable = table => {
             table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
             index = table.dragColumns.indexOf(col)
             dragItem = col
-            dragItemIsFixed = col.classList.contains('fixed') ? true : false;
             e.dataTransfer.effectAllowed = 'move'
         })
         EventHandler.on(col, 'dragend', () => {
@@ -850,13 +848,6 @@ const setDraggable = table => {
         })
         EventHandler.on(col, 'dragover', e => {
             e.preventDefault()
-            const isOverFixed = col.classList.contains('fixed') ? true : false;
-            if (dragItemIsFixed != isOverFixed) {
-                // 表格中只允相同属性列间相互交换顺序，即fixed列之间可以交换顺序，fixed列与非fixed列不允许交换顺序
-                e.dataTransfer.dropEffect = 'none'
-                return false;
-            }
-
             if (dragItem !== col) {
                 e.dataTransfer.dropEffect = 'move'
             }
