@@ -1870,7 +1870,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public bool AllowDragColumn { get; set; }
 
-    private string? DraggableString => AllowDragColumn ? "true" : null;
+    private string? GetDraggableString(ITableColumn col) => AllowDragColumn && !col.Fixed ? "true" : null;
 
     /// <summary>
     /// <para lang="zh">获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序</para>
@@ -1959,27 +1959,40 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
+        if (!AllowDragColumn || originIndex == currentIndex)
+        {
+            return;
+        }
+
+        var draggableColumnNames = GetVisibleColumns().Where(i => !i.Fixed).Select(i => i.GetFieldName()).ToList();
+        var sourceName = draggableColumnNames.ElementAtOrDefault(originIndex);
+        var targetName = draggableColumnNames.ElementAtOrDefault(currentIndex);
+        if (string.IsNullOrEmpty(sourceName) || string.IsNullOrEmpty(targetName))
+        {
+            return;
+        }
+
         // 更新缓存数据中列顺序
-        var visibleColumns = _tableColumnStates.Where(i => i.Visible);
-        var firstColumn = visibleColumns.ElementAtOrDefault(originIndex);
+        var firstColumn = _tableColumnStates.Find(i => i.Name == sourceName);
         if (firstColumn != null)
         {
-            var targetColumn = visibleColumns.ElementAtOrDefault(currentIndex);
-            if (targetColumn != null)
+            var targetState = _tableColumnStates.Find(i => i.Name == targetName);
+            if (targetState != null)
             {
                 _tableColumnStates.Remove(firstColumn);
-                var pos = _tableColumnStates.IndexOf(targetColumn);
+                var pos = _tableColumnStates.IndexOf(targetState);
                 _tableColumnStates.Insert(pos, firstColumn);
 
                 if (OnTableColumnClientStatusChanged != null)
                 {
                     await OnTableColumnClientStatusChanged(firstColumn.Name, _tableColumnStateCache);
                 }
-            }
-            _resetColumns = true;
-            _invoke = true;
 
-            StateHasChanged();
+                _resetColumns = true;
+                _invoke = true;
+
+                StateHasChanged();
+            }
         }
     }
 
