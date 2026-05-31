@@ -3470,10 +3470,29 @@
     "OnScreenKeyboardsTypeNumpadTitle": "数字键盘"
   },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
+    "BrowseButtonText": "浏览",
+    "CancelButtonText": "取消",
+    "ConnectButtonText": "连接",
+    "DisconnectButtonText": "断开",
+    "FlowLabel": "流速",
+    "InjectServiceText": "获得 BootstrapBlazor.OpcDa 服务",
     "OpcDaDescription": "连接 OpcDa Server 获得 PLC 实时数据",
     "OpcDaNormalIntro": "通过注入服务 <code>IOpcDaServer</code> 获得实例，调用 <code>Read</code> 方法获得 PLC 位号值",
     "OpcDaNormalTitle": "基本用法",
-    "OpcDaTitle": "OpcDa Server 服务"
+    "OpcDaTitle": "OpcDa Server 服务",
+    "ReadButtonText": "读取",
+    "RegisterServiceText": "注册 BootstrapBlazor.OpcDa 服务（该服务仅支持 windows 平台，跨平台需求请转 OpcUa 服务）",
+    "ServerLabel": "OpcDa Server",
+    "SpeedLabel": "转速",
+    "Step1Text": "1. 点击 <b>连接</b> 按钮与 <code>OpcDa</code> 服务器建立通讯连接",
+    "Step2Text": "2. 点击 <b>读取</b> 按钮读取 <code>OpcDa</code> 服务器上的位号值",
+    "Step3Text": "通过订阅可以监控一组 <b>位号</b> 数据改变情况，当数据改变时通过 <code>DataChanged</code> 回调方法通知订阅者",
+    "Step3Title": "3. 订阅功能",
+    "Step4Text": "通过调用 <code>OpcDaServer</code> 的 <code>Browse</code> 方法可以构建一个节点树状结构",
+    "Step4Title": "4. 浏览",
+    "SubscribeButtonText": "订阅",
+    "SubscriptionNameLabel": "订阅名称",
+    "UpdateRateLabel": "更新频率"
   },
   "BootstrapBlazor.Server.Components.Samples.OtpInputs": {
     "OtpInputsDescription": "基于 OTP(One-Time Password‌) 仅限单次使用且具备时效性的安全验证密码框",
