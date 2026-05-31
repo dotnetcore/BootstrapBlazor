@@ -7,7 +7,20 @@
 
 <PackageTips Name="BootstrapBlazor.OpcDa"/>
 
+<p class="code-label">@Localizer["RegisterServiceText"]</p>
+
+<Pre>// 增加 BootstrapBlazor.OpcDa 服务
+if (OperatingSystem.IsWindows())
+{
+    services.AddOpcDaServer();
+}</Pre>
+
 <DemoBlock Title="@Localizer["OpcDaNormalTitle"]" Introduction="@Localizer["OpcDaNormalIntro"]" ShowCode="false" Name="Normal">
+    <p class="code-label">@Localizer["InjectServiceText"]</p>
+    <Pre>[Inject]
+[NotNull]
+private IOpcDaServer? OpcDaServer { get; set; }</Pre>
+
     <p class="code-label">@((MarkupString)Localizer["Step1Text"].Value)</p>
     <p>
         <BootstrapInputGroup>
