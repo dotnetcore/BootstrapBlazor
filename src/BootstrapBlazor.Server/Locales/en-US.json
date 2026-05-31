@@ -3470,10 +3470,29 @@
     "OnScreenKeyboardsTypeNumpadTitle": "Numpad"
   },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
+    "BrowseButtonText": "Browse",
+    "CancelButtonText": "Cancel",
+    "ConnectButtonText": "Connect",
+    "DisconnectButtonText": "Disconnect",
+    "FlowLabel": "Flow",
+    "InjectServiceText": "Get the BootstrapBlazor.OpcDa service",
     "OpcDaDescription": "Connect to OpcDa Server to obtain PLC real-time data",
     "OpcDaNormalIntro": "Get an instance by injecting the service <code>IOpcDaServer</code> and call the <code>Read</code> method to get the PLC Tag value.",
     "OpcDaNormalTitle": "Basic usage",
-    "OpcDaTitle": "OpcDa Server"
+    "OpcDaTitle": "OpcDa Server",
+    "ReadButtonText": "Read",
+    "RegisterServiceText": "Register the BootstrapBlazor.OpcDa service (this service only supports Windows; for cross-platform scenarios, use the OpcUa service instead)",
+    "ServerLabel": "OpcDa Server",
+    "SpeedLabel": "Speed",
+    "Step1Text": "1. Click the <b>Connect</b> button to establish communication with the <code>OpcDa</code> server",
+    "Step2Text": "2. Click the <b>Read</b> button to read tag values from the <code>OpcDa</code> server",
+    "Step3Text": "Through subscription, you can monitor changes in a group of <b>tag</b> data and notify subscribers through the <code>DataChanged</code> callback when data changes",
+    "Step3Title": "3. Subscription",
+    "Step4Text": "Call the <code>Browse</code> method of <code>OpcDaServer</code> to build a tree structure of nodes",
+    "Step4Title": "4. Browse",
+    "SubscribeButtonText": "Subscribe",
+    "SubscriptionNameLabel": "Subscription Name",
+    "UpdateRateLabel": "Update Rate"
   },
   "BootstrapBlazor.Server.Components.Samples.OtpInputs": {
     "OtpInputsDescription": "A secure verification password box based on OTP (One-Time Password) that is limited to one-time use and has a time limit",

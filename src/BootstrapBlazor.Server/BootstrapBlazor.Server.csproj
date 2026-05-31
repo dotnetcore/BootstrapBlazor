@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.6" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.7" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.2" />
@@ -61,10 +61,10 @@
     <PackageReference Include="BootstrapBlazor.Middleware" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.OctIcon" Version="10.0.2" />
+    <PackageReference Include="BootstrapBlazor.OctIcon" Version="10.0.3" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.OpcDa" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.OpcDa" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="10.0.26" />
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Player" Version="10.0.1" />

@@ -1,9 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.OpcDa;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -29,6 +30,8 @@ public partial class OpcDa : ComponentBase
     private IOpcSubscription? _subscription;
 
     private bool _subscribed;
+    private CultureInfo? _culture;
+    private CultureInfo? _uiCulture;
 
     private void OnConnect()
     {
@@ -62,6 +65,8 @@ public partial class OpcDa : ComponentBase
     private void OnCreateSubscription()
     {
         _subscribed = true;
+        _culture = CultureInfo.CurrentCulture;
+        _uiCulture = CultureInfo.CurrentUICulture;
         _subscription = OpcDaServer.CreateSubscription("Subscription1", 1000, true);
         _subscription.DataChanged += UpdateValues;
         _subscription.AddItems([Tag1, Tag2]);
@@ -79,18 +84,30 @@ public partial class OpcDa : ComponentBase
 
     private void UpdateValues(List<OpcReadItem> items)
     {
-        var value1 = items.Find(i => i.Name == Tag1).Value;
-        if (value1 != null)
+        _ = InvokeAsync(() =>
         {
-            _tagValue3 = value1.ToString();
-        }
-        var value2 = items.Find(i => i.Name == Tag2).Value;
-        if (value2 != null)
-        {
-            _tagValue4 = value2.ToString();
-        }
+            if (_culture != null)
+            {
+                CultureInfo.CurrentCulture = _culture;
+            }
+            if (_uiCulture != null)
+            {
+                CultureInfo.CurrentUICulture = _uiCulture;
+            }
 
-        InvokeAsync(StateHasChanged);
+            var value1 = items.Find(i => i.Name == Tag1).Value;
+            if (value1 != null)
+            {
+                _tagValue3 = value1.ToString();
+            }
+            var value2 = items.Find(i => i.Name == Tag2).Value;
+            if (value2 != null)
+            {
+                _tagValue4 = value2.ToString();
+            }
+
+            StateHasChanged();
+        });
     }
 
     private List<TreeViewItem<OpcBrowseElement>> _roots = [];

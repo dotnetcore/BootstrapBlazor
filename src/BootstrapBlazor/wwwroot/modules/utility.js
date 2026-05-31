@@ -702,10 +702,7 @@ export function getTheme(useLocalstorage = true) {
         theme = document.documentElement.getAttribute('data-bs-theme');
     }
 
-    if (theme === null || theme === 'auto') {
-        theme = getAutoThemeValue();
-    }
-    return theme;
+    return theme == null ? 'auto' : theme;
 }
 
 export function saveTheme(theme) {
@@ -719,8 +716,8 @@ export function getAutoThemeValue() {
 }
 
 export function setTheme(theme, sync) {
-    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-bs-theme', 'dark')
+    if (theme === 'auto') {
+        document.documentElement.setAttribute('data-bs-theme', getAutoThemeValue())
     }
     else {
         document.documentElement.setAttribute('data-bs-theme', theme);
