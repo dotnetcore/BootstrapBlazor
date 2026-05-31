@@ -1134,8 +1134,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 SortOrder = col.DefaultSortOrder;
             }
 
-            // 调用查询方法渲染 UI
-            await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
+            if (ScrollMode == ScrollMode.None)
+            {
+                // 调用查询方法渲染 UI
+                await QueryAsync(true, 1, false, true, IsAutoQueryFirstRender);
+            }
+            else
+            {
+                StateHasChanged();
+            }
             return;
         }
 
@@ -1750,13 +1757,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Dictionary<string, IFilterAction> Filters { get; } = [];
     #endregion
 
+    private bool isFirstQuery = true;
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = _shouldScrollTop ? 0 : request.StartIndex;
         _pageItems = request.Count;
 
         await ToggleLoading(true);
-        await QueryData();
+        await QueryData(triggerByPagination: false, firstQuery: isFirstQuery);
+        isFirstQuery = false;
         await ToggleLoading(false);
 
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
