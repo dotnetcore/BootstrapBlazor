@@ -22,10 +22,12 @@
            IsMultipleSelect="true" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Fixed="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Fixed="true" />
         </TableColumns>
         <TableToolbarTemplate>
             <TableToolbarButton Text="@Localizer["ResetButtonText"]" OnClickWithoutRender="Reset"></TableToolbarButton>
