@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -52,11 +52,11 @@ public partial class BaiduOcr : IDisposable
                     Invoice = result.Entity;
                     if (result.Entity != null)
                     {
-                        await ToastService.Success("Vat Invoice", "VAT Invoice success!");
+                        await ToastService.Success(Localizer["VatInvoiceToastTitle"], Localizer["VatInvoiceToastSuccess"]);
                     }
                     else
                     {
-                        await ToastService.Information("Vat Invoice", $"{result.ErrorCode}: {result.ErrorMessage}");
+                        await ToastService.Information(Localizer["VatInvoiceToastTitle"], $"{result.ErrorCode}: {result.ErrorMessage}");
                     }
                 }
                 catch (TaskCanceledException)
@@ -77,37 +77,58 @@ public partial class BaiduOcr : IDisposable
         var result = await OcrService.VerifyInvoiceAsync(Model.InvoiceCode, Model.InvoiceNum, Model.InvoiceDate, Model.InvoiceType, Model.CheckCode, Model.TotalAmount);
         if (result.ErrorCode != 0)
         {
-            await ToastService.Information("Verify Vat", $"{result.ErrorCode}: {result.ErrorMessage}");
+            await ToastService.Information(Localizer["VerifyVatToastTitle"], $"{result.ErrorCode}: {result.ErrorMessage}");
         }
         else if (result.Entity != null)
         {
-            await ToastService.Success("Verify Vat", result.Entity?.VerifyMessage ?? "Unknow Error");
+            await ToastService.Success(Localizer["VerifyVatToastTitle"], result.Entity?.VerifyMessage ?? Localizer["UnknownErrorText"]);
         }
     }
 
-    private class InvoiceForm
+    private class InvoiceForm : IValidatableObject
     {
-        [Required(ErrorMessage = "发票代码不能为空")]
         [NotNull]
         public string? InvoiceCode { get; set; }
 
-        [Required(ErrorMessage = "发票号码不能为空")]
         [NotNull]
         public string? InvoiceNum { get; set; }
 
-        [Required(ErrorMessage = "开票日期不能为空")]
         [NotNull]
         public string? InvoiceDate { get; set; }
 
         [NotNull]
         public string? InvoiceType { get; set; }
 
-        [Required(ErrorMessage = "校验码不能为空")]
         [NotNull]
         public string? CheckCode { get; set; }
 
         [NotNull]
         public string? TotalAmount { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var localizer = validationContext.GetRequiredService<IStringLocalizer<BaiduOcr>>();
+
+            if (string.IsNullOrWhiteSpace(InvoiceCode))
+            {
+                yield return new ValidationResult(localizer["InvoiceCodeRequiredError"], [nameof(InvoiceCode)]);
+            }
+
+            if (string.IsNullOrWhiteSpace(InvoiceNum))
+            {
+                yield return new ValidationResult(localizer["InvoiceNumRequiredError"], [nameof(InvoiceNum)]);
+            }
+
+            if (string.IsNullOrWhiteSpace(InvoiceDate))
+            {
+                yield return new ValidationResult(localizer["InvoiceDateRequiredError"], [nameof(InvoiceDate)]);
+            }
+
+            if (string.IsNullOrWhiteSpace(CheckCode))
+            {
+                yield return new ValidationResult(localizer["CheckCodeRequiredError"], [nameof(CheckCode)]);
+            }
+        }
     }
 
     /// <summary>
