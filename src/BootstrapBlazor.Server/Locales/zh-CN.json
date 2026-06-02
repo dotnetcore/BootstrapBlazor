@@ -2579,6 +2579,7 @@
     "Html2PdfIntro3": "3. 通过 <code>IHtml2Pdf</code> 服务实例方法 <code>PdfStreamFromHtmlAsync</code> 将网页 转化为 <code>Pdf</code>",
     "Html2PdfIntro4": "4. <code>IHtml2Pdf</code> 实现服务使用 <code>PuppeteerSharp</code> 将网页 转化为 <code>Pdf</code>，首次使用时会下载 <code>Chromium</code> 运行时，网络不好的情况下可能会很慢",
     "Html2PdfNote": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
+    "Html2PdfStep1": "注入服务",
     "Html2PdfTitle": "Html 导出为 Pdf",
     "PackageIntro": "组件默认未实现 <code>IHtml2Pdf</code>，请通过引用包 <code>BootstrapBlazor.Html2Pdf</code> 实现",
     "Tips1": "实现原理",
