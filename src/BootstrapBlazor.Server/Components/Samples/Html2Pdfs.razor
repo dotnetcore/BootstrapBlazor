@@ -1,4 +1,4 @@
-﻿@page "/html2pdf"
+@page "/html2pdf"
 
 <h3>@Localizer["Html2PdfTitle"]</h3>
 
@@ -25,6 +25,9 @@
 <p>@((MarkupString)Localizer["PackageIntro"].Value)</p>
 
 <PackageTips Name="BootstrapBlazor.Html2Pdf" />
+
+<p class="code-label">@((MarkupString)Localizer["Html2PdfStep1"].Value)</p>
+<Pre>services.AddBootstrapBlazorHtml2PdfService();</Pre>
 
 <p class="code-label">常见问题</p>
 

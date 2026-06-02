@@ -2579,6 +2579,7 @@
     "Html2PdfIntro3": "3. Convert web pages to Pdf using the <code>IHtml2Pdf</code> service instance method <code>PdfStreamFromHtmlAsync</code>",
     "Html2PdfIntro4": "4. <code>IHtml2Pdf</code> Implement service usage <code>PuppeterSharp</code> convert web pages to <code>Pdf</code>, download <code>Chromium</code> runtime when running for the first time, which may be slow under poor network conditions",
     "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "Html2PdfStep1": "Inject Service",
     "Html2PdfTitle": "Html export to Pdf",
     "PackageIntro": "Component default not implemented <code>IHtml2Pdf</code>, please refer to the package <code>BootstrapBlazor.Html2Pdf</code> package",
     "Tips1": "Introduce",
