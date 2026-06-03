@@ -1,4 +1,4 @@
-﻿@page "/ocr"
+@page "/ocr"
 
 <h3>@Localizer["Title"]</h3>
 
@@ -6,8 +6,12 @@
 
 <Tips>@Localizer["BaiduOcrDesc"]</Tips>
 <PackageTips Name="BootstrapBlazor.BaiduOcr" />
+
 <p><b>@Localizer["BaiduOcrIntro"]</b></p>
-<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep1"].Value)</p>
+<p class="code-label">@Localizer["BaiduOcrStep1"]</p>
+<Pre>services.AddBootstrapBlazorBaiduOcr();</Pre>
+
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep2"].Value)</p>
 <p>@((MarkupString)Localizer["BaiduOcrStep1Desc"].Value)</p>
 <Pre>{
     "BaiduOcrOption": {
@@ -16,92 +20,93 @@
       "Secret": ""
     }
 }</Pre>
-<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep2"].Value)</p>
+
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep3"].Value)</p>
 <Pre>[Inject, NotNull]
 private IBaiduOcr? OcrService { get; set; }</Pre>
 
-<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep3"].Value)</p>
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep4"].Value)</p>
 
 <DemoBlock Title="@Localizer["VatInvoiceTitle"]" Introduction="@Localizer["VatInvoiceIntro"]" Name="VatInvoice">
-    <ButtonUpload TValue="string" OnChange="@OnClickToUploadBlock" BrowserButtonText="VATInvoice" ShowUploadFileList="false" IsDisabled="_isLoading" BrowserButtonIcon="@Icon"></ButtonUpload>
+    <ButtonUpload TValue="string" OnChange="@OnClickToUploadBlock" BrowserButtonText="@Localizer["VatInvoiceButtonText"]" ShowUploadFileList="false" IsDisabled="_isLoading" BrowserButtonIcon="@Icon"></ButtonUpload>
     @if (Invoice != null)
     {
         <div class="row form-inline g-3 mt-0">
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票代码" @bind-Value="Invoice.InvoiceCode"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceCodeLabel"]" @bind-Value="Invoice.InvoiceCode"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票号码" Value="Invoice.InvoiceNum"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceNumLabel"]" Value="Invoice.InvoiceNum"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票类型" @bind-Value="Invoice.ServiceType"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceServiceTypeLabel"]" @bind-Value="Invoice.ServiceType"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="联次信息" Value="Invoice.SheetNum"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["SheetNumLabel"]" Value="Invoice.SheetNum"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票种类" @bind-Value="Invoice.InvoiceType"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceTypeLabel"]" @bind-Value="Invoice.InvoiceType"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票名称" Value="Invoice.InvoiceTypeOrg"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceTypeOrgLabel"]" Value="Invoice.InvoiceTypeOrg"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="发票标志" @bind-Value="Invoice.InvoiceTag"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceTagLabel"]" @bind-Value="Invoice.InvoiceTag"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="开票日期" Value="Invoice.InvoiceDate"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["InvoiceDateLabel"]" Value="Invoice.InvoiceDate"></Display>
             </div>
             <div class="col-12">
-                <Display ShowLabel="true" DisplayText="校验码" Value="Invoice.CheckCode"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["CheckCodeLabel"]" Value="Invoice.CheckCode"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="购方名称" @bind-Value="Invoice.PurchaserName"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["PurchaserNameLabel"]" @bind-Value="Invoice.PurchaserName"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.PurchaserRegisterNum"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["PurchaserRegisterNumLabel"]" Value="Invoice.PurchaserRegisterNum"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="开户行及账号" @bind-Value="Invoice.PurchaserBank"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["PurchaserBankLabel"]" @bind-Value="Invoice.PurchaserBank"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="购方地址" Value="Invoice.PurchaserAddress"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["PurchaserAddressLabel"]" Value="Invoice.PurchaserAddress"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="销售方名称" @bind-Value="Invoice.SellerName"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["SellerNameLabel"]" @bind-Value="Invoice.SellerName"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.SellerRegisterNum"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["SellerRegisterNumLabel"]" Value="Invoice.SellerRegisterNum"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="销售方及账号" @bind-Value="Invoice.SellerBank"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["SellerBankLabel"]" @bind-Value="Invoice.SellerBank"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="销售方地址" Value="Invoice.SellerAddress"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["SellerAddressLabel"]" Value="Invoice.SellerAddress"></Display>
             </div>
             <div class="col-12">
-                <Display ShowLabel="true" DisplayText="备注" @bind-Value="Invoice.Remarks"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["RemarksLabel"]" @bind-Value="Invoice.Remarks"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="价税合计" Value="Invoice.AmountInFiguers"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["AmountInFiguresLabel"]" Value="Invoice.AmountInFiguers"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="合计金额" Value="Invoice.TotalAmount"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["TotalAmountLabel"]" Value="Invoice.TotalAmount"></Display>
             </div>
             <div class="col-12 col-sm-6">
-                <Display ShowLabel="true" DisplayText="合计税额" @bind-Value="Invoice.TotalTax"></Display>
+                <Display ShowLabel="true" DisplayText="@Localizer["TotalTaxLabel"]" @bind-Value="Invoice.TotalTax"></Display>
             </div>
             <div class="col-12 col-sm-6">
             </div>
             @if (Invoice.CommodityName?.Any() ?? false)
             {
                 <div class="col-12 col-sm-6">
-                    <Display ShowLabel="true" DisplayText="项目名称" Value="Invoice.CommodityName.First().CommodityName"></Display>
+                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityNameLabel"]" Value="Invoice.CommodityName.First().CommodityName"></Display>
                 </div>
             }
             @if (Invoice.CommodityTaxRate?.Any() ?? false)
             {
                 <div class="col-12 col-sm-6">
-                    <Display ShowLabel="true" DisplayText="税率" Value="Invoice.CommodityTaxRate.First().CommodityTaxRate"></Display>
+                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityTaxRateLabel"]" Value="Invoice.CommodityTaxRate.First().CommodityTaxRate"></Display>
                 </div>
             }
         </div>
@@ -109,33 +114,33 @@ private IBaiduOcr? OcrService { get; set; }</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["VerifyVatInvoiceTitle"]" Introduction="@Localizer["VerifyVatInvoiceIntro"]" Name="Verify">
-    <p class="code-label">发票种类</p>
+    <p class="code-label">@Localizer["InvoiceTypeLabel"]</p>
     <ul class="ul-demo">
-        <li>增值税专用发票：special_vat_invoice</li>
-        <li>增值税电子专用发票：elec_special_vat_invoice</li>
-        <li>增值税普通发票：normal_invoice</li>
-        <li>增值税普通发票（电子）：elec_normal_invoice</li>
-        <li>增值税普通发票（卷式）：roll_normal_invoice</li>
-        <li>通行费增值税电子普通发票：toll_elec_normal_invoice</li>
-        <li>区块链电子发票（目前仅支持深圳地区）：blockchain_invoice</li>
-        <li>全电发票（专用发票）：elec_invoice_special</li>
-        <li>全电发票（普通发票）：elec_invoice_normal</li>
-        <li>货运运输业增值税专用发票：special_freight_transport_invoice</li>
-        <li>机动车销售发票：motor_vehicle_invoice</li>
-        <li>二手车销售发票：used_vehicle_invoice</li>
+        <li>@Localizer["InvoiceTypeOption1"]</li>
+        <li>@Localizer["InvoiceTypeOption2"]</li>
+        <li>@Localizer["InvoiceTypeOption3"]</li>
+        <li>@Localizer["InvoiceTypeOption4"]</li>
+        <li>@Localizer["InvoiceTypeOption5"]</li>
+        <li>@Localizer["InvoiceTypeOption6"]</li>
+        <li>@Localizer["InvoiceTypeOption7"]</li>
+        <li>@Localizer["InvoiceTypeOption8"]</li>
+        <li>@Localizer["InvoiceTypeOption9"]</li>
+        <li>@Localizer["InvoiceTypeOption10"]</li>
+        <li>@Localizer["InvoiceTypeOption11"]</li>
+        <li>@Localizer["InvoiceTypeOption12"]</li>
     </ul>
     <ValidateForm Model="Model" OnValidSubmit="@Verify">
         <EditorForm TModel="InvoiceForm" RowType="RowType.Inline" AutoGenerateAllItem="false">
             <FieldItems>
-                <EditorItem @bind-Field="@context.InvoiceType" Text="发票种类" />
-                <EditorItem @bind-Field="@context.InvoiceCode" Text="发票代码" />
-                <EditorItem @bind-Field="@context.InvoiceNum" Text="发票号码" />
-                <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" PlaceHolder="YYYYMMDD" />
-                <EditorItem @bind-Field="@context.CheckCode" Text="校验码" PlaceHolder="后六位" />
-                <EditorItem @bind-Field="@context.TotalAmount" Text="金额" PlaceHolder="可为空" />
+                <EditorItem @bind-Field="@context.InvoiceType" Text="@Localizer["InvoiceTypeLabel"]" />
+                <EditorItem @bind-Field="@context.InvoiceCode" Text="@Localizer["InvoiceCodeLabel"]" />
+                <EditorItem @bind-Field="@context.InvoiceNum" Text="@Localizer["InvoiceNumLabel"]" />
+                <EditorItem @bind-Field="@context.InvoiceDate" Text="@Localizer["InvoiceDateLabel"]" PlaceHolder="@Localizer["InvoiceDatePlaceHolder"]" />
+                <EditorItem @bind-Field="@context.CheckCode" Text="@Localizer["CheckCodeLabel"]" PlaceHolder="@Localizer["CheckCodePlaceHolder"]" />
+                <EditorItem @bind-Field="@context.TotalAmount" Text="@Localizer["AmountLabel"]" PlaceHolder="@Localizer["AmountPlaceHolder"]" />
             </FieldItems>
             <Buttons>
-                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify"></Button>
+                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="@Localizer["VerifyButtonText"]"></Button>
             </Buttons>
         </EditorForm>
     </ValidateForm>
