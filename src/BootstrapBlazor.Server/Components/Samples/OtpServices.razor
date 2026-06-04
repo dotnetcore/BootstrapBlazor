@@ -29,6 +29,9 @@
 
 <PackageTips Name="BootstrapBlazor.Authenticator"></PackageTips>
 
+<p class="code-label">注入服务</p>
+<Pre>services.AddBootstrapBlazorTotpService();</Pre>
+
 <DemoBlock Title="@Localizer["BaseUsageTitle"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
     <QRCode Content="@_content" Width="190" class="mb-3"></QRCode>
     <OtpInput Value="@_code" IsReadonly="true" class="text-center mb-3"></OtpInput>
