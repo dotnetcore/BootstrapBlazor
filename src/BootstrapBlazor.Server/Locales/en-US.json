@@ -3571,7 +3571,15 @@
   "BootstrapBlazor.Server.Components.Samples.OtpServices": {
     "BaseUsageIntro": "By calling the <code>Compute</code> method of the <code>ITotpService</code> service instance, you can get the password in the current time window. By calling the <code>Instance.GetRemainingSeconds</code> method, you can display the remaining validity time of the current password. In this example, the progress bar is used for dynamic display.",
     "BaseUsageTitle": "Basic usage",
+    "InjectServiceLabel": "Register service",
+    "Step1Title": "1. Inject the service",
+    "Step2Description": "Call the <code>GenerateOtpUri</code> instance method on <code>TotpService</code> to get the QR code payload, then render it with the <code>QRCode</code> component",
+    "Step2Title": "2. Generate the QR code",
+    "Step3Title": "3. Use software that supports the <b>TOTP</b> protocol, such as <code>Microsoft Authenticator</code> or <code>Google Authenticator</code>, to scan the QR code",
+    "Step4Description": "Use <code>OtpInput</code> on the page so the user can enter the code from the mobile <code>App</code>. On the server side, call the <code>Compute</code> instance method on <code>TotpService</code> to get the code for the current time window and compare it with the client input. If they match, the code is valid",
+    "Step4Title": "4. Verification logic",
     "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service.",
+    "Summary": "This service makes it straightforward to build <code>2FA</code> applications",
     "Title": "ITotpService"
   },
   "BootstrapBlazor.Server.Components.Samples.Paginations": {
