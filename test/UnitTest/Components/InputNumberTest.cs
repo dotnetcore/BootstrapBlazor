@@ -322,6 +322,37 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Step_Ok()
+    {
+        var cut = Context.Render<BootstrapInputNumber<decimal>>(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "0.001");
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, null);
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Value, 98.12356m);
+            pb.Add(a => a.Step, "0.001");
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(98.124m, cut.Instance.Value);
+    }
+
+    [Fact]
     public async Task MinMax_Ok()
     {
         var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
