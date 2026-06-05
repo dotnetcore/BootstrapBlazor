@@ -344,6 +344,15 @@ public class InputNumberTest : BootstrapBlazorTestBase
 
         cut.Render(pb =>
         {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "any");
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
             pb.Add(a => a.Value, 0);
             pb.Add(a => a.Step, "0.001");
         });
