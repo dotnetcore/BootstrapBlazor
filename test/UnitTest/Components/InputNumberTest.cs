@@ -378,10 +378,46 @@ public class InputNumberTest : BootstrapBlazorTestBase
         await cutd.InvokeAsync(() => input.Blur());
         Assert.Equal(1, cutd.Instance.Value);
 
+        cutd.Render(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "any");
+        });
+        input = cutd.Find("input");
+        await cutd.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutd.Instance.Value);
+
+        cutd.Render(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, null);
+        });
+        input = cutd.Find("input");
+        await cutd.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutd.Instance.Value);
+
         var cutf = Context.Render<BootstrapInputNumber<float>>(pb =>
         {
             pb.Add(a => a.Value, 1);
             pb.Add(a => a.Step, "0.001");
+        });
+        input = cutf.Find("input");
+        await cutf.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutf.Instance.Value);
+
+        cutf.Render(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "any");
+        });
+        input = cutf.Find("input");
+        await cutf.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutf.Instance.Value);
+
+        cutf.Render(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, null);
         });
         input = cutf.Find("input");
         await cutf.InvokeAsync(() => input.Blur());
