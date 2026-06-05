@@ -344,12 +344,39 @@ public class InputNumberTest : BootstrapBlazorTestBase
 
         cut.Render(pb =>
         {
+            pb.Add(a => a.Value, 0);
+            pb.Add(a => a.Step, "0.001");
+        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal(0, cut.Instance.Value);
+
+        cut.Render(pb =>
+        {
             pb.Add(a => a.Value, 98.12356m);
             pb.Add(a => a.Step, "0.001");
         });
         input = cut.Find("input");
         await cut.InvokeAsync(() => input.Blur());
         Assert.Equal(98.124m, cut.Instance.Value);
+
+        var cutd = Context.Render<BootstrapInputNumber<double>>(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "0.001");
+        });
+        input = cutd.Find("input");
+        await cutd.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutd.Instance.Value);
+
+        var cutf = Context.Render<BootstrapInputNumber<float>>(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.Step, "0.001");
+        });
+        input = cutf.Find("input");
+        await cutf.InvokeAsync(() => input.Blur());
+        Assert.Equal(1, cutf.Instance.Value);
     }
 
     [Fact]
