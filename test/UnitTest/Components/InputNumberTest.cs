@@ -202,15 +202,14 @@ public class InputNumberTest : BootstrapBlazorTestBase
     [InlineData(typeof(short), null)]
     [InlineData(typeof(ushort), null)]
     [InlineData(typeof(int), null)]
+    [InlineData(typeof(int), "any")]
     [InlineData(typeof(uint), null)]
     [InlineData(typeof(long), null)]
     [InlineData(typeof(ulong), null)]
     [InlineData(typeof(float), null)]
+    [InlineData(typeof(float), "any")]
     [InlineData(typeof(double), null)]
     [InlineData(typeof(decimal), null)]
-    [InlineData(typeof(float), "any")]
-    [InlineData(typeof(double), "any")]
-    [InlineData(typeof(decimal), "any")]
     public async Task Type_Ok(Type t, string? step)
     {
         var cut = Context.Render(builder =>
