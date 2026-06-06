@@ -262,28 +262,6 @@ public partial class BootstrapInputNumber<TValue>
         if (!PreviousParsingAttemptFailed)
         {
             CurrentValue = SetMax(SetMin(Value));
-            string stepValue = GetStepString();
-            if (IsDecimalType() && stepValue != "any")
-            {
-                stepValue = Convert.ToDecimal(stepValue).ToString(CultureInfo.InvariantCulture);
-                int precision = stepValue.Contains('.') ? stepValue.Split('.')[1].Length : 0;
-
-                object val = CurrentValue!;
-                if (CurrentValue is float v1)
-                {
-                    val = (float)Math.Round(v1, precision);
-                }
-                else if (CurrentValue is double v2)
-                {
-                    val = Math.Round(v2, precision);
-                }
-                else
-                {
-                    val = Math.Round((decimal)val, precision);
-                }
-
-                CurrentValue = (TValue)val;
-            }
         }
         else
         {
