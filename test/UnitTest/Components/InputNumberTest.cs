@@ -581,7 +581,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         var cut = Context.Render<BootstrapInputNumber<TValue>>(pb =>
         {
             pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TValue>(this, v => currentValue = v));
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TValue?>(this, v => currentValue = v));
         });
 
         var input = cut.Find(".form-control");
