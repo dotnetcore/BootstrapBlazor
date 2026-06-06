@@ -73,8 +73,8 @@
            Introduction="@Localizer["InputNumbersStepIntro"]"
            Name="Step">
     <section ignore>
-        <p><code>html</code> 相关 <code>step</code> 文档请查阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Elements/input/number?wt.mc_id=DT-MVP-5004174#step" target="_blank">传送门</a></p>
-        <p><code>10.7.1</code> 版本前项目模板文件通过 <code>appsettings.json</code> 配置文件设置了数据默认 <code>step</code> 配置如下：</p>
+        <p>@((MarkupString)Localizer["InputNumbersStepDocLink"].Value)</p>
+        <p>@((MarkupString)Localizer["InputNumbersStepLegacyConfigDescription"].Value)</p>
         <Pre>{
   "BootstrapBlazorOptions": {
     "StepSettings": {
@@ -82,8 +82,8 @@
       "Double": "0.01",
       "Decimal": "0.01"
     }
-  }</Pre>
-        <p><code>10.7.1</code> 版本后默认配置做了调整 <code>float</code> <code>double</code> <code>decimal</code> 默认值由 <code>0.01</code> 改为 <code>any</code>，其他数据类型由 <code>1</code> 更改为 <code>null</code> 未设置</p>
+}</Pre>
+        <p>@((MarkupString)Localizer["InputNumbersStepCurrentConfigDescription"].Value)</p>
         <Pre>{
   "BootstrapBlazorOptions": {
     "StepSettings": {
@@ -91,13 +91,13 @@
       "Double": "any",
       "Decimal": "any"
     }
-  }</Pre>
-        <p>也可以通过注入服务 <code>BootstrapBlazorOptions</code> 对象的 <code>StepSettings</code> 来配置默认的 <code>step</code> 值。</p>
+}</Pre>
+        <p>@((MarkupString)Localizer["InputNumbersStepOptionsDescription"].Value)</p>
         <Pre>[Inject]
 [NotNull]
 private IOptions&lt;BootstrapBlazorOptions&gt;? BootstrapBlazorOptions { get; set; }</Pre>
-        <p class="code-label">特别说明</p>
-        <p>设置 <code>Step</code> <code>Min</code> <code>Max</code> 值时，当组件值不符合 <code>step</code> 策略时会触发，html 的验证规则，需要自行处理</p>
+        <p class="code-label">@Localizer["InputNumbersStepNotesTitle"]</p>
+        <p>@((MarkupString)Localizer["InputNumbersStepNotesDescription"].Value)</p>
     </section>
     <div class="demo-input-number">
         <p>@Localizer["InputNumbersStep1"]</p>
