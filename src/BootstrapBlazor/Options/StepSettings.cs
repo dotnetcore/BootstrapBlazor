@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -11,6 +13,24 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class StepSettings
 {
+    /// <summary>
+    /// <para lang="zh">获得/设置 sbyte 数据类型步长 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets sbyte type step default null</para>
+    /// </summary>
+    public sbyte? SByte { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 byte 数据类型步长 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets byte type step default null</para>
+    /// </summary>
+    public byte? Byte { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 uint 数据类型步长 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets uint type step default null</para>
+    /// </summary>
+    public uint? UInt { get; set; }
+
     /// <summary>
     /// <para lang="zh">获得/设置 int 数据类型步长 默认 null 未设置</para>
     /// <para lang="en">Gets or sets int type step default null</para>
@@ -24,10 +44,22 @@ public class StepSettings
     public int? Long { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 ulong 数据类型步长 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets ulong type step default null</para>
+    /// </summary>
+    public ulong? ULong { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 short 数据类型步长 默认 null 未设置</para>
     /// <para lang="en">Gets or sets short type step default null</para>
     /// </summary>
     public int? Short { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 ushort 数据类型步长 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets ushort type step default null</para>
+    /// </summary>
+    public ushort? UShort { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 float 数据类型步长 默认 null 未设置</para>
@@ -55,29 +87,49 @@ public class StepSettings
     public string? GetStep(Type type)
     {
         string? ret = null;
-        if (type == typeof(int))
+        if (type == typeof(sbyte))
         {
-            ret = Int?.ToString();
+            ret = SByte?.ToString(CultureInfo.InvariantCulture);
         }
-        if (type == typeof(long))
+        else if (type == typeof(byte))
         {
-            ret = Long?.ToString();
+            ret = Byte?.ToString(CultureInfo.InvariantCulture);
         }
-        if (type == typeof(short))
+        else if (type == typeof(uint))
         {
-            ret = Short?.ToString();
+            ret = UInt?.ToString(CultureInfo.InvariantCulture);
         }
-        if (type == typeof(float))
+        else if (type == typeof(int))
         {
-            ret = Float?.ToString();
+            ret = Int?.ToString(CultureInfo.InvariantCulture);
         }
-        if (type == typeof(double))
+        else if (type == typeof(long))
         {
-            ret = Double?.ToString();
+            ret = Long?.ToString(CultureInfo.InvariantCulture);
         }
-        if (type == typeof(decimal))
+        else if (type == typeof(short))
         {
-            ret = Decimal?.ToString();
+            ret = Short?.ToString(CultureInfo.InvariantCulture);
+        }
+        else if (type == typeof(ushort))
+        {
+            ret = UShort?.ToString(CultureInfo.InvariantCulture);
+        }
+        else if (type == typeof(ulong))
+        {
+            ret = ULong?.ToString(CultureInfo.InvariantCulture);
+        }
+        else if (type == typeof(float))
+        {
+            ret = Float?.ToString(CultureInfo.InvariantCulture);
+        }
+        else if (type == typeof(double))
+        {
+            ret = Double?.ToString(CultureInfo.InvariantCulture);
+        }
+        else if (type == typeof(decimal))
+        {
+            ret = Decimal?.ToString(CultureInfo.InvariantCulture);
         }
         return ret;
     }
