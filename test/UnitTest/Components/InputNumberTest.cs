@@ -197,24 +197,28 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Theory]
-    [InlineData(typeof(sbyte))]
-    [InlineData(typeof(byte))]
-    [InlineData(typeof(short))]
-    [InlineData(typeof(ushort))]
-    [InlineData(typeof(int))]
-    [InlineData(typeof(uint))]
-    [InlineData(typeof(long))]
-    [InlineData(typeof(ulong))]
-    [InlineData(typeof(float))]
-    [InlineData(typeof(double))]
-    [InlineData(typeof(decimal))]
-    public async Task Type_Ok(Type t)
+    [InlineData(typeof(sbyte), null)]
+    [InlineData(typeof(byte), null)]
+    [InlineData(typeof(short), null)]
+    [InlineData(typeof(ushort), null)]
+    [InlineData(typeof(int), null)]
+    [InlineData(typeof(uint), null)]
+    [InlineData(typeof(long), null)]
+    [InlineData(typeof(ulong), null)]
+    [InlineData(typeof(float), null)]
+    [InlineData(typeof(double), null)]
+    [InlineData(typeof(decimal), null)]
+    [InlineData(typeof(float), "any")]
+    [InlineData(typeof(double), "any")]
+    [InlineData(typeof(decimal), "any")]
+    public async Task Type_Ok(Type t, string? step)
     {
         var cut = Context.Render(builder =>
         {
             builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
             builder.AddAttribute(1, "ShowButton", true);
             builder.AddAttribute(2, "Max", "10");
+            builder.AddAttribute(3, "Step", step);
             builder.CloseComponent();
         });
         var buttons = cut.FindAll("button");
