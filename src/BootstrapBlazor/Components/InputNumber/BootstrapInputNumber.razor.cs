@@ -206,17 +206,17 @@ public partial class BootstrapInputNumber<TValue>
             var factor = increment ? 1 : -1;
             ret = value switch
             {
-                sbyte @sbyte => (TValue)(object)Math.Clamp(@sbyte + (sbyte)factor * Convert.ToSByte(step), sbyte.MinValue, sbyte.MaxValue),
-                byte @byte => (TValue)(object)Math.Clamp(@byte + (byte)factor * Convert.ToByte(step), byte.MinValue, byte.MaxValue),
-                short @short => (TValue)(object)Math.Clamp(@short + (short)factor * Convert.ToInt16(step), short.MinValue, short.MaxValue),
-                ushort @ushort => (TValue)(object)Math.Clamp(@ushort + (ushort)factor * Convert.ToUInt16(step), ushort.MinValue, ushort.MaxValue),
-                int @int => (TValue)(object)Math.Clamp(@int + factor * Convert.ToInt32(step), int.MinValue, int.MaxValue),
-                uint @uint => (TValue)(object)Math.Clamp(@uint + (uint)factor * Convert.ToUInt32(step), uint.MinValue, uint.MaxValue),
-                long @long => (TValue)(object)Math.Clamp(@long + factor * Convert.ToInt64(step), long.MinValue, long.MaxValue),
-                ulong @ulong => (TValue)(object)Math.Clamp(@ulong + (ulong)factor * Convert.ToUInt64(step), ulong.MinValue, ulong.MaxValue),
-                float @float => (TValue)(object)Math.Clamp(@float + factor * Convert.ToSingle(step), float.MinValue, float.MaxValue),
-                double @double => (TValue)(object)Math.Clamp(@double + factor * Convert.ToDouble(step), double.MinValue, double.MaxValue),
-                decimal @decimal => (TValue)(object)(@decimal + factor * Convert.ToDecimal(step)),
+                sbyte @sbyte => (TValue)(object)(sbyte)Math.Clamp(@sbyte + factor * Convert.ToDecimal(step), sbyte.MinValue, sbyte.MaxValue),
+                byte @byte => (TValue)(object)(byte)Math.Clamp(@byte + factor * Convert.ToDecimal(step), byte.MinValue, byte.MaxValue),
+                short @short => (TValue)(object)(short)Math.Clamp(@short + factor * Convert.ToDecimal(step), short.MinValue, short.MaxValue),
+                ushort @ushort => (TValue)(object)(ushort)Math.Clamp(@ushort + factor * Convert.ToDecimal(step), ushort.MinValue, ushort.MaxValue),
+                int @int => (TValue)(object)(int)Math.Clamp(@int + factor * Convert.ToDecimal(step), int.MinValue, int.MaxValue),
+                uint @uint => (TValue)(object)(uint)Math.Clamp(@uint + factor * Convert.ToDecimal(step), uint.MinValue, uint.MaxValue),
+                long @long => (TValue)(object)(long)Math.Clamp(@long + factor * Convert.ToDecimal(step), long.MinValue, long.MaxValue),
+                ulong @ulong => (TValue)(object)(ulong)Math.Clamp(@ulong + factor * Convert.ToDecimal(step), ulong.MinValue, ulong.MaxValue),
+                float @float => (TValue)(object)(float)Math.Clamp(@float + factor * Convert.ToSingle(step), float.MinValue, float.MaxValue),
+                double @double => (TValue)(object)(double)Math.Clamp(@double + factor * Convert.ToDouble(step), double.MinValue, double.MaxValue),
+                decimal @decimal => (TValue)(object)(decimal)Math.Clamp(@decimal + factor * Convert.ToDecimal(step), decimal.MinValue, decimal.MaxValue),
                 _ => value
             };
         }
