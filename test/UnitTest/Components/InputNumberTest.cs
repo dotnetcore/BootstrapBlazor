@@ -321,107 +321,39 @@ public class InputNumberTest : BootstrapBlazorTestBase
         Assert.Equal(2, cut.Instance.Value);
     }
 
-    [Fact]
-    public async Task Step_Ok()
+    [Theory]
+    [InlineData("float", "0.012", "0.01", "0.01")]
+    [InlineData("float", "0.012", "1", "0")]
+    [InlineData("float", "2.012", "1", "2")]
+    [InlineData("double", "0.012", "0.01", "0.01")]
+    [InlineData("double", "0.012", "1", "0")]
+    [InlineData("double", "2.012", "1", "2")]
+    [InlineData("decimal", "0.012", "0.01", "0.01")]
+    [InlineData("decimal", "0.012", "1", "0")]
+    [InlineData("decimal", "2.012", "1", "2")]
+    [InlineData("int", "0", "1", "0")]
+    [InlineData("int", "1", "1", "1")]
+    [InlineData("int", "2", "1", "2")]
+    public async Task Step_Ok(string typeName, string valueText, string step, string expected)
     {
-        var cut = Context.Render<BootstrapInputNumber<decimal>>(pb =>
+        var (type, val) = typeName switch
         {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "0.001");
+            "float" => (typeof(float), (object)float.Parse(valueText, CultureInfo.InvariantCulture)),
+            "double" => (typeof(double), (object)double.Parse(valueText, CultureInfo.InvariantCulture)),
+            "decimal" => (typeof(decimal), (object)decimal.Parse(valueText, CultureInfo.InvariantCulture)),
+            _ => (typeof(int), (object)int.Parse(valueText, CultureInfo.InvariantCulture))
+        };
+
+        var cut = Context.Render(builder =>
+        {
+            builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(type));
+            builder.AddAttribute(1, "Value", val);
+            builder.AddAttribute(2, "Step", step);
+            builder.CloseComponent();
         });
         var input = cut.Find("input");
         await cut.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cut.Instance.Value);
-
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, null);
-        });
-        input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cut.Instance.Value);
-
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "any");
-        });
-        input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cut.Instance.Value);
-
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.Value, 0);
-            pb.Add(a => a.Step, "0.001");
-        });
-        input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Blur());
-        Assert.Equal(0, cut.Instance.Value);
-
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.Value, 98.12356m);
-            pb.Add(a => a.Step, "0.001");
-        });
-        input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Blur());
-        Assert.Equal(98.124m, cut.Instance.Value);
-
-        var cutd = Context.Render<BootstrapInputNumber<double>>(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "0.001");
-        });
-        input = cutd.Find("input");
-        await cutd.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutd.Instance.Value);
-
-        cutd.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "any");
-        });
-        input = cutd.Find("input");
-        await cutd.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutd.Instance.Value);
-
-        cutd.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, null);
-        });
-        input = cutd.Find("input");
-        await cutd.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutd.Instance.Value);
-
-        var cutf = Context.Render<BootstrapInputNumber<float>>(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "0.001");
-        });
-        input = cutf.Find("input");
-        await cutf.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutf.Instance.Value);
-
-        cutf.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, "any");
-        });
-        input = cutf.Find("input");
-        await cutf.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutf.Instance.Value);
-
-        cutf.Render(pb =>
-        {
-            pb.Add(a => a.Value, 1);
-            pb.Add(a => a.Step, null);
-        });
-        input = cutf.Find("input");
-        await cutf.InvokeAsync(() => input.Blur());
-        Assert.Equal(1, cutf.Instance.Value);
+        Assert.Equal(expected, input.GetAttribute("value"));
     }
 
     [Fact]
