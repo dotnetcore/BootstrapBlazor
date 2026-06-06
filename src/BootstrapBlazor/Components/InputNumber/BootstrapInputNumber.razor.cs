@@ -52,22 +52,22 @@ public partial class BootstrapInputNumber<TValue>
     public Func<TValue?, Task>? OnDecrement { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最小值，建议采用自定义属性验证方式，当Step、Min、Max 属性同时设置时，由于HTML标准会导致可能意想不到的结果</para>
-    /// <para lang="en">Gets or sets Minimum Value, It is recommended to adopt a custom attribute validation approach. When the Step, Min, and Max attributes are set simultaneously, unexpected results may occur due to HTML standards</para>
+    /// <para lang="zh">获得/设置 最小值</para>
+    /// <para lang="en">Gets or sets Minimum Value</para>
     /// </summary>
     [Parameter]
     public string? Min { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大值，建议采用自定义属性验证方式，当Step、Min、Max 属性同时设置时，由于HTML标准会导致可能意想不到的结果</para>
-    /// <para lang="en">Gets or sets Maximum Value, It is recommended to adopt a custom attribute validation approach. When the Step, Min, and Max attributes are set simultaneously, unexpected results may occur due to HTML standards</para>
+    /// <para lang="zh">获得/设置 最大值</para>
+    /// <para lang="en">Gets or sets Maximum Value</para>
     /// </summary>
     [Parameter]
     public string? Max { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 步长 默认为 null，建议采用自定义属性验证方式，当Step、Min、Max 属性同时设置时，由于HTML标准会导致可能意想不到的结果</para>
-    /// <para lang="en">Gets or sets Step. Default null, It is recommended to adopt a custom attribute validation approach. When the Step, Min, and Max attributes are set simultaneously, unexpected results may occur due to HTML standards</para>
+    /// <para lang="zh">获得/设置 步长 默认为 null</para>
+    /// <para lang="en">Gets or sets Step. Default null</para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }

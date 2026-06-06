@@ -2769,7 +2769,7 @@
     "InputNumbersColorTitle": "Color",
     "InputNumbersDateTypeIntro": "This component uses generic support the underlying data type <code>int short long float double decimal</code>",
     "InputNumbersDateTypeTitle": "Data type",
-    "InputNumbersDescription": "Only standard numeric values are allowed, and custom ranges and other advanced features are supported, It is recommended to adopt a custom attribute validation approach. When the Step, Min, and Max attributes are set simultaneously, unexpected results may occur due to HTML standards",
+    "InputNumbersDescription": "Only standard numeric values are allowed, and custom ranges and other advanced features are supported",
     "InputNumbersDisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
     "InputNumbersDisabledTitle": "Disable",
     "InputNumbersNormalIntro": "The <code>Numer</code> numeric type displays a text box, and the mobile side automatically pops up the numeric keypad",
