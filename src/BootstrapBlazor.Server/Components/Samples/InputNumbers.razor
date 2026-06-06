@@ -72,19 +72,44 @@
 <DemoBlock Title="@Localizer["InputNumbersStepTitle"]"
            Introduction="@Localizer["InputNumbersStepIntro"]"
            Name="Step">
-    <div>
-        <div class="demo-input-number">
-            <p>@Localizer["InputNumbersStep1"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
-        </div>
-        <div class="demo-input-number mt-3">
-            <p>@Localizer["InputNumbersStep10"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
-        </div>
-        <div class="demo-input-number mt-3">
-            <p>@Localizer["InputNumbersStep0.1"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
-        </div>
+    <section ignore>
+        <p>@((MarkupString)Localizer["InputNumbersStepDocLink"].Value)</p>
+        <p>@((MarkupString)Localizer["InputNumbersStepLegacyConfigDescription"].Value)</p>
+        <Pre>{
+  "BootstrapBlazorOptions": {
+    "StepSettings": {
+      "Float": "0.01",
+      "Double": "0.01",
+      "Decimal": "0.01"
+    }
+}</Pre>
+        <p>@((MarkupString)Localizer["InputNumbersStepCurrentConfigDescription"].Value)</p>
+        <Pre>{
+  "BootstrapBlazorOptions": {
+    "StepSettings": {
+      "Float": "any",
+      "Double": "any",
+      "Decimal": "any"
+    }
+}</Pre>
+        <p>@((MarkupString)Localizer["InputNumbersStepOptionsDescription"].Value)</p>
+        <Pre>[Inject]
+[NotNull]
+private IOptions&lt;BootstrapBlazorOptions&gt;? BootstrapBlazorOptions { get; set; }</Pre>
+        <p class="code-label">@Localizer["InputNumbersStepNotesTitle"]</p>
+        <p>@((MarkupString)Localizer["InputNumbersStepNotesDescription"].Value)</p>
+    </section>
+    <div class="demo-input-number">
+        <p>@Localizer["InputNumbersStep1"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
+    </div>
+    <div class="demo-input-number mt-3">
+        <p>@Localizer["InputNumbersStep10"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
+    </div>
+    <div class="demo-input-number mt-3">
+        <p>@Localizer["InputNumbersStep0.1"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
     </div>
 </DemoBlock>
 
