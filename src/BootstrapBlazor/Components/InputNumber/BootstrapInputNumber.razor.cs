@@ -191,8 +191,6 @@ public partial class BootstrapInputNumber<TValue>
 
     private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
-    private static decimal ParseDecimal(string value) => decimal.Parse(value, CultureInfo.InvariantCulture);
-
     private static TValue ParseValue(string value)
     {
         return value.TryConvertTo<TValue>(out var ret)
@@ -208,17 +206,17 @@ public partial class BootstrapInputNumber<TValue>
             var factor = increment ? 1 : -1;
             ret = value switch
             {
-                sbyte @sbyte => (TValue)(object)(sbyte)Math.Clamp(@sbyte + factor * ParseDecimal(step), sbyte.MinValue, sbyte.MaxValue),
-                byte @byte => (TValue)(object)(byte)Math.Clamp(@byte + factor * ParseDecimal(step), byte.MinValue, byte.MaxValue),
-                short @short => (TValue)(object)(short)Math.Clamp(@short + factor * ParseDecimal(step), short.MinValue, short.MaxValue),
-                ushort @ushort => (TValue)(object)(ushort)Math.Clamp(@ushort + factor * ParseDecimal(step), ushort.MinValue, ushort.MaxValue),
-                int @int => (TValue)(object)(int)Math.Clamp(@int + factor * ParseDecimal(step), int.MinValue, int.MaxValue),
-                uint @uint => (TValue)(object)(uint)Math.Clamp(@uint + factor * ParseDecimal(step), uint.MinValue, uint.MaxValue),
-                long @long => (TValue)(object)(long)Math.Clamp(@long + factor * ParseDecimal(step), long.MinValue, long.MaxValue),
-                ulong @ulong => (TValue)(object)(ulong)Math.Clamp(@ulong + factor * ParseDecimal(step), ulong.MinValue, ulong.MaxValue),
-                float @float => (TValue)(object)(@float + factor * float.Parse(step, CultureInfo.InvariantCulture)),
-                double @double => (TValue)(object)(@double + factor * double.Parse(step, CultureInfo.InvariantCulture)),
-                decimal @decimal => (TValue)(object)(@decimal + factor * ParseDecimal(step)),
+                sbyte @sbyte => (TValue)(object)Math.Clamp(@sbyte + (sbyte)factor * Convert.ToSByte(step), sbyte.MinValue, sbyte.MaxValue),
+                byte @byte => (TValue)(object)Math.Clamp(@byte + (byte)factor * Convert.ToByte(step), byte.MinValue, byte.MaxValue),
+                short @short => (TValue)(object)Math.Clamp(@short + (short)factor * Convert.ToInt16(step), short.MinValue, short.MaxValue),
+                ushort @ushort => (TValue)(object)Math.Clamp(@ushort + (ushort)factor * Convert.ToUInt16(step), ushort.MinValue, ushort.MaxValue),
+                int @int => (TValue)(object)Math.Clamp(@int + factor * Convert.ToInt32(step), int.MinValue, int.MaxValue),
+                uint @uint => (TValue)(object)Math.Clamp(@uint + (uint)factor * Convert.ToUInt32(step), uint.MinValue, uint.MaxValue),
+                long @long => (TValue)(object)Math.Clamp(@long + factor * Convert.ToInt64(step), long.MinValue, long.MaxValue),
+                ulong @ulong => (TValue)(object)Math.Clamp(@ulong + (ulong)factor * Convert.ToUInt64(step), ulong.MinValue, ulong.MaxValue),
+                float @float => (TValue)(object)Math.Clamp(@float + factor * Convert.ToSingle(step), float.MinValue, float.MaxValue),
+                double @double => (TValue)(object)Math.Clamp(@double + factor * Convert.ToDouble(step), double.MinValue, double.MaxValue),
+                decimal @decimal => (TValue)(object)(@decimal + factor * Convert.ToDecimal(step)),
                 _ => value
             };
         }
@@ -249,6 +247,13 @@ public partial class BootstrapInputNumber<TValue>
         }
     }
 
+    // 检查数据是否可能包含小数点
+    private static bool IsDecimalType()
+    {
+        var type = NullableUnderlyingType ?? typeof(TValue);
+        return type == typeof(float) || type == typeof(double) || type == typeof(decimal);
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -258,7 +263,7 @@ public partial class BootstrapInputNumber<TValue>
         {
             CurrentValue = SetMax(SetMin(Value));
             string stepValue = GetStepString();
-            if (stepValue != "any" && (CurrentValue is float || CurrentValue is double || CurrentValue is decimal))
+            if (IsDecimalType() && stepValue != "any")
             {
                 // 先强转用，固定不变的文化信息，已解决全球化数字信息问题
                 stepValue = Convert.ToDecimal(stepValue).ToString(CultureInfo.InvariantCulture);
