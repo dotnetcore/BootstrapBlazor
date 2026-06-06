@@ -265,11 +265,24 @@ public partial class BootstrapInputNumber<TValue>
             string stepValue = GetStepString();
             if (IsDecimalType() && stepValue != "any")
             {
-                // 先强转用，固定不变的文化信息，已解决全球化数字信息问题
                 stepValue = Convert.ToDecimal(stepValue).ToString(CultureInfo.InvariantCulture);
                 int precision = stepValue.Contains('.') ? stepValue.Split('.')[1].Length : 0;
-                dynamic val = CurrentValue!;
-                CurrentValue = val == 0 ? CurrentValue : (TValue)Math.Round(val, precision);
+
+                object val = CurrentValue!;
+                if (CurrentValue is float v1)
+                {
+                    val = (float)Math.Round(v1, precision);
+                }
+                else if (CurrentValue is double v2)
+                {
+                    val = Math.Round(v2, precision);
+                }
+                else
+                {
+                    val = Math.Round((decimal)val, precision);
+                }
+
+                CurrentValue = (TValue)val;
             }
         }
         else
