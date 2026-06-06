@@ -72,19 +72,44 @@
 <DemoBlock Title="@Localizer["InputNumbersStepTitle"]"
            Introduction="@Localizer["InputNumbersStepIntro"]"
            Name="Step">
-    <div>
-        <div class="demo-input-number">
-            <p>@Localizer["InputNumbersStep1"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
-        </div>
-        <div class="demo-input-number mt-3">
-            <p>@Localizer["InputNumbersStep10"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
-        </div>
-        <div class="demo-input-number mt-3">
-            <p>@Localizer["InputNumbersStep0.1"]</p>
-            <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
-        </div>
+    <section ignore>
+        <p><code>html</code> 相关 <code>step</code> 文档请查阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Reference/Elements/input/number?wt.mc_id=DT-MVP-5004174#step" target="_blank">传送门</a></p>
+        <p><code>10.7.1</code> 版本前项目模板文件通过 <code>appsettings.json</code> 配置文件设置了数据默认 <code>step</code> 配置如下：</p>
+        <Pre>{
+  "BootstrapBlazorOptions": {
+    "StepSettings": {
+      "Float": "0.01",
+      "Double": "0.01",
+      "Decimal": "0.01"
+    }
+  }</Pre>
+        <p><code>10.7.1</code> 版本后默认配置做了调整 <code>float</code> <code>double</code> <code>decimal</code> 默认值由 <code>0.01</code> 改为 <code>any</code>，其他数据类型由 <code>1</code> 更改为 <code>null</code> 未设置</p>
+        <Pre>{
+  "BootstrapBlazorOptions": {
+    "StepSettings": {
+      "Float": "any",
+      "Double": "any",
+      "Decimal": "any"
+    }
+  }</Pre>
+        <p>也可以通过注入服务 <code>BootstrapBlazorOptions</code> 对象的 <code>StepSettings</code> 来配置默认的 <code>step</code> 值。</p>
+        <Pre>[Inject]
+[NotNull]
+private IOptions&lt;BootstrapBlazorOptions&gt;? BootstrapBlazorOptions { get; set; }</Pre>
+        <p class="code-label">特别说明</p>
+        <p>设置 <code>Step</code> <code>Min</code> <code>Max</code> 值时，当组件值不符合 <code>step</code> 策略时会触发，html 的验证规则，需要自行处理</p>
+    </section>
+    <div class="demo-input-number">
+        <p>@Localizer["InputNumbersStep1"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
+    </div>
+    <div class="demo-input-number mt-3">
+        <p>@Localizer["InputNumbersStep10"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
+    </div>
+    <div class="demo-input-number mt-3">
+        <p>@Localizer["InputNumbersStep0.1"]</p>
+        <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
     </div>
 </DemoBlock>
 
