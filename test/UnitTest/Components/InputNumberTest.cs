@@ -470,11 +470,11 @@ public class InputNumberTest : BootstrapBlazorTestBase
         value = calculateMethod.Invoke(null, [null, "1", true]);
         Assert.Null(value);
 
-        var cut = new BootstrapInputNumber<int>() { Min = "test" };
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb => { pb.Add(a => a.Min, "test"); });
         var setMinMethod = typeof(BootstrapInputNumber<int>).GetMethod("SetMin", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(setMinMethod);
 
-        var ex = Assert.Throws<TargetInvocationException>(() => setMinMethod.Invoke(cut, [1]));
+        var ex = Assert.Throws<TargetInvocationException>(() => setMinMethod.Invoke(cut.Instance, [1]));
         Assert.IsType<InvalidOperationException>(ex.InnerException);
     }
 
