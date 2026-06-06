@@ -191,13 +191,11 @@ public partial class BootstrapInputNumber<TValue>
 
     private string GetStepString()
     {
-        if (StepString.Equals("null", StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrEmpty(StepString)
+            || StepString.Equals("null", StringComparison.OrdinalIgnoreCase)
+            || StepString.Equals("any", StringComparison.OrdinalIgnoreCase))
         {
             return "1";
-        }
-        else if (StepString.Equals("any", StringComparison.OrdinalIgnoreCase))
-        {
-            return IsDecimalType() ? "1" : StepString;
         }
 
         return StepString;
