@@ -189,7 +189,19 @@ public partial class BootstrapInputNumber<TValue>
         _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}")
     };
 
-    private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
+    private string GetStepString()
+    {
+        if (StepString.Equals("null", StringComparison.OrdinalIgnoreCase))
+        {
+            return "1";
+        }
+        else if (StepString.Equals("any", StringComparison.OrdinalIgnoreCase))
+        {
+            return IsDecimalType() ? "1" : StepString;
+        }
+
+        return StepString;
+    }
 
     private static TValue ParseValue(string value)
     {
