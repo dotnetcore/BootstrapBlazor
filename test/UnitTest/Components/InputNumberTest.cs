@@ -214,7 +214,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         {
             builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
             builder.AddAttribute(1, "ShowButton", true);
-            builder.AddAttribute(1, "Max", "10");
+            builder.AddAttribute(2, "Max", "10");
             builder.CloseComponent();
         });
         var buttons = cut.FindAll("button");
