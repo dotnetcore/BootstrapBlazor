@@ -72,17 +72,17 @@ public class BootstrapBlazorOptionsTest
         Assert.Null(options.GetStep<double?>());
         Assert.Null(options.GetStep<decimal?>());
 
-        options.StepSettings.SByte = 1;
-        options.StepSettings.Byte = 2;
-        options.StepSettings.Short = 1;
-        options.StepSettings.UShort = 2;
-        options.StepSettings.Int = 2;
-        options.StepSettings.UInt = 3;
-        options.StepSettings.Long = 3;
-        options.StepSettings.ULong = 4;
-        options.StepSettings.Float = 0.1f;
-        options.StepSettings.Double = 0.01d;
-        options.StepSettings.Decimal = 0.001M;
+        options.StepSettings.SByte = "1";
+        options.StepSettings.Byte = "2";
+        options.StepSettings.Short = "1";
+        options.StepSettings.UShort = "2";
+        options.StepSettings.Int = "2";
+        options.StepSettings.UInt = "3";
+        options.StepSettings.Long = "3";
+        options.StepSettings.ULong = "4";
+        options.StepSettings.Float = "0.1";
+        options.StepSettings.Double = "0.01";
+        options.StepSettings.Decimal = "0.001";
 
         Assert.Equal("1", options.GetStep<sbyte?>());
         Assert.Equal("2", options.GetStep<byte?>());
@@ -96,6 +96,14 @@ public class BootstrapBlazorOptionsTest
         Assert.Equal("0.1", options.GetStep<float?>());
         Assert.Equal("0.01", options.GetStep<double?>());
         Assert.Equal("0.001", options.GetStep<decimal?>());
+
+        options.StepSettings.Float = "any";
+        options.StepSettings.Double = "any";
+        options.StepSettings.Decimal = "any";
+
+        Assert.Equal("any", options.GetStep<float?>());
+        Assert.Equal("any", options.GetStep<double?>());
+        Assert.Equal("any", options.GetStep<decimal?>());
     }
 
     [Fact]
