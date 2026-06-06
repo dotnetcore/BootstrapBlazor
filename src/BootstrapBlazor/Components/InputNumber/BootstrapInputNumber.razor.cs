@@ -133,7 +133,7 @@ public partial class BootstrapInputNumber<TValue>
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
-        StepString = Step ?? StepOption.CurrentValue.GetStep<TValue>() ?? "any";
+        StepString = Step ?? StepOption.CurrentValue.GetStep<TValue>() ?? GetStepStringByType();
 
         if (Value is null)
         {
@@ -196,6 +196,15 @@ public partial class BootstrapInputNumber<TValue>
         return value.TryConvertTo<TValue>(out var ret)
             ? ret
             : throw new InvalidOperationException($"Unsupported type {typeof(TValue)}");
+    }
+
+    private string GetStepStringByType() => IsDecimalType() ? "any" : "null";
+
+    private bool IsDecimalType()
+    {
+        // 检查是否允许带小数点数据类型
+        var type = NullableUnderlyingType ?? typeof(TValue);
+        return type == typeof(float) || type == typeof(double) || type == typeof(decimal);
     }
 
     private static TValue? Calculate(TValue? value, string step, bool increment)
