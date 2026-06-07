@@ -37,6 +37,16 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected static readonly Type? NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
 
     /// <summary>
+    /// <para lang="zh">判断泛型参数 <typeparamref name="TValue"/> 是否为 <see cref="Nullable{T}"/> 可空值类型</para>
+    /// <para lang="en">Determines whether the generic parameter <typeparamref name="TValue"/> is a <see cref="Nullable{T}"/> value type.</para>
+    /// </summary>
+    /// <returns>
+    /// <para lang="zh"><see langword="true"/> 表示 <typeparamref name="TValue"/> 为 <see cref="Nullable{T}"/> 否则返回 <see langword="false"/></para>
+    /// <para lang="en"><see langword="true"/> when <typeparamref name="TValue"/> is <see cref="Nullable{T}"/>; otherwise <see langword="false"/>.</para>
+    /// </returns>
+    protected bool IsNullable() => NullableUnderlyingType != null;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 泛型参数 TValue 可为空类型 Type 实例</para>
     /// <para lang="en">Gets or sets Generic Parameter TValue Nullable Type Instance</para>
     /// </summary>

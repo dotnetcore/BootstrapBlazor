@@ -112,7 +112,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         {
             _parsingValidationMessages?.Clear();
 
-            if (NullableUnderlyingType != null && string.IsNullOrEmpty(value))
+            if (IsNullable() && string.IsNullOrEmpty(value))
             {
                 // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
                 // Then all subclasses get nullable support almost automatically (they just have to
@@ -498,7 +498,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         // 增加数据基础类型验证 如泛型约定为 int 文本框值为 Empty
         // 可为空泛型约束时不检查
-        if (NullableUnderlyingType == null && PreviousParsingAttemptFailed)
+        if (!IsNullable() && PreviousParsingAttemptFailed)
         {
             var memberNames = new string[] { context.MemberName! };
             results.Add(new ValidationResult(PreviousErrorMessage, memberNames));

@@ -220,13 +220,11 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task Hide() => InvokeVoidAsync("hide", Id);
 
-    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
-
     /// <summary>
     /// <para lang="zh">获得 是否显示清除按钮</para>
     /// <para lang="en">Gets whether show the clear button</para>
     /// </summary>
-    protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+    protected bool GetClearable() => IsClearable && !IsDisabled && (!ValueType.IsValueType || IsNullable());
 
     /// <summary>
     /// <para lang="zh">清除搜索文本</para>
