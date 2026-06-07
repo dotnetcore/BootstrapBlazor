@@ -338,7 +338,7 @@ public partial class DateTimePicker<TValue>
         base.OnInitialized();
 
         // 泛型设置为可为空
-        AllowNull = NullableUnderlyingType != null;
+        AllowNull = IsNullable();
     }
 
     /// <summary>

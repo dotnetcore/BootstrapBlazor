@@ -279,7 +279,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
         if (!Items.Any() && ValueType.IsEnum())
         {
-            var item = NullableUnderlyingType == null ? "" : PlaceHolder;
+            var item = IsNullable() ? PlaceHolder : "";
             Items = ValueType.ToSelectList<TValue>(string.IsNullOrEmpty(item) ? null : new SelectedItem<TValue>(default!, item));
         }
 

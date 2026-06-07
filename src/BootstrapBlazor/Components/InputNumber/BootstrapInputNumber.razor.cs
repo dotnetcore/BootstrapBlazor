@@ -280,7 +280,7 @@ public partial class BootstrapInputNumber<TValue>
             CurrentValue = default!;
         }
 
-        if (NullableUnderlyingType != null && string.IsNullOrEmpty(CurrentValueAsString))
+        if (IsNullable() && string.IsNullOrEmpty(CurrentValueAsString))
         {
             // set component value empty
             await InvokeVoidAsync("clear", Id);

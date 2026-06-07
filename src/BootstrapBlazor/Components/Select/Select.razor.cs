@@ -247,7 +247,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
         if (!Items.Any() && ValueType.IsEnum())
         {
-            var item = NullableUnderlyingType == null ? "" : PlaceHolder;
+            var item = IsNullable() ? PlaceHolder : "";
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
 

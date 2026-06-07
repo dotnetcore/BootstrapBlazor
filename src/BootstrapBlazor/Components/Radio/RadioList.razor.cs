@@ -63,7 +63,7 @@ public partial class RadioList<TValue>
         var t = ValueType;
         if (t.IsEnum && Items == null)
         {
-            Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
+            Items = t.ToSelectList((IsNullable() && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
         }
 
         base.OnParametersSet();
