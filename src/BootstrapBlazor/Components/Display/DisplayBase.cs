@@ -27,10 +27,14 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected FieldIdentifier? FieldIdentifier { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 泛型参数 TValue 可为空类型 Type 实例，为空时表示类型不可为空</para>
-    /// <para lang="en">Gets or sets Generic Parameter TValue Nullable Type Instance. Null means type is not nullable</para>
+    /// <para lang="zh">获得 泛型参数 TValue 可为空类型 Type 实例，为空时表示类型不可为空</para>
+    /// <para lang="en">Gets the underlying type of <typeparamref name="TValue"/> when it is <see cref="Nullable{T}"/>; otherwise <see langword="null"/>.</para>
     /// </summary>
-    protected Type? NullableUnderlyingType { get; set; }
+    /// <remarks>
+    /// <para lang="zh">每个封闭泛型类型只计算一次缓存为静态字段，避免热路径重复反射</para>
+    /// <para lang="en">Cached once per closed generic type to avoid repeated reflection on hot paths.</para>
+    /// </remarks>
+    protected static readonly Type? NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
 
     /// <summary>
     /// <para lang="zh">获得/设置 泛型参数 TValue 可为空类型 Type 实例</para>
@@ -121,7 +125,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     {
         parameters.SetParameterProperties(this);
 
-        NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
         ValueType ??= NullableUnderlyingType ?? typeof(TValue);
 
         if (ValueExpression != null)

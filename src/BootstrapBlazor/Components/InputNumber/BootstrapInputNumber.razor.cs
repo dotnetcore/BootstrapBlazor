@@ -213,7 +213,7 @@ public partial class BootstrapInputNumber<TValue>
     private bool IsDecimalType()
     {
         // 检查是否允许带小数点数据类型
-        var type = NullableUnderlyingType ?? typeof(TValue);
+        var type = ValueType;
         return type == typeof(float) || type == typeof(double) || type == typeof(decimal);
     }
 
