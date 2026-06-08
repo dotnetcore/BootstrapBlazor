@@ -197,24 +197,27 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Theory]
-    [InlineData(typeof(sbyte))]
-    [InlineData(typeof(byte))]
-    [InlineData(typeof(short))]
-    [InlineData(typeof(ushort))]
-    [InlineData(typeof(int))]
-    [InlineData(typeof(uint))]
-    [InlineData(typeof(long))]
-    [InlineData(typeof(ulong))]
-    [InlineData(typeof(float))]
-    [InlineData(typeof(double))]
-    [InlineData(typeof(decimal))]
-    public async Task Type_Ok(Type t)
+    [InlineData(typeof(sbyte), null)]
+    [InlineData(typeof(byte), null)]
+    [InlineData(typeof(short), null)]
+    [InlineData(typeof(ushort), null)]
+    [InlineData(typeof(int), null)]
+    [InlineData(typeof(uint), null)]
+    [InlineData(typeof(long), null)]
+    [InlineData(typeof(ulong), null)]
+    [InlineData(typeof(float), null)]
+    [InlineData(typeof(double), null)]
+    [InlineData(typeof(decimal), null)]
+    [InlineData(typeof(int), "any")]
+    [InlineData(typeof(float), "any")]
+    public async Task Type_Ok(Type t, string? step)
     {
         var cut = Context.Render(builder =>
         {
             builder.OpenComponent(0, typeof(BootstrapInputNumber<>).MakeGenericType(t));
             builder.AddAttribute(1, "ShowButton", true);
-            builder.AddAttribute(1, "Max", "10");
+            builder.AddAttribute(2, "Max", "10");
+            builder.AddAttribute(3, "Step", step);
             builder.CloseComponent();
         });
         var buttons = cut.FindAll("button");
@@ -367,11 +370,11 @@ public class InputNumberTest : BootstrapBlazorTestBase
         value = calculateMethod.Invoke(null, [null, "1", true]);
         Assert.Null(value);
 
-        var cut = new BootstrapInputNumber<int>() { Min = "test" };
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb => { pb.Add(a => a.Min, "test"); });
         var setMinMethod = typeof(BootstrapInputNumber<int>).GetMethod("SetMin", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(setMinMethod);
 
-        var ex = Assert.Throws<TargetInvocationException>(() => setMinMethod.Invoke(cut, [1]));
+        var ex = Assert.Throws<TargetInvocationException>(() => setMinMethod.Invoke(cut.Instance, [1]));
         Assert.IsType<InvalidOperationException>(ex.InnerException);
     }
 
@@ -478,7 +481,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         var cut = Context.Render<BootstrapInputNumber<TValue>>(pb =>
         {
             pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TValue>(this, v => currentValue = v));
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TValue?>(this, v => currentValue = v));
         });
 
         var input = cut.Find(".form-control");

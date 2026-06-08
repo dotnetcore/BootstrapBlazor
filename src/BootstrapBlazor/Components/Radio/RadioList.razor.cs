@@ -60,10 +60,10 @@ public partial class RadioList<TValue>
     /// </summary>
     protected override void OnParametersSet()
     {
-        var t = NullableUnderlyingType ?? typeof(TValue);
+        var t = ValueType;
         if (t.IsEnum && Items == null)
         {
-            Items = t.ToSelectList((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
+            Items = t.ToSelectList((IsNullable() && IsAutoAddNullItem) ? new SelectedItem("", NullItemText) : null);
         }
 
         base.OnParametersSet();
@@ -91,7 +91,7 @@ public partial class RadioList<TValue>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         var ret = false;
-        var t = NullableUnderlyingType ?? typeof(TValue);
+        var t = ValueType;
         result = default;
         if (t == typeof(SelectedItem))
         {

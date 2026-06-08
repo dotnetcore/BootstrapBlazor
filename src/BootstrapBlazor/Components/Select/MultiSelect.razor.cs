@@ -578,7 +578,7 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                innerType = NullableUnderlyingType ?? type;
+                innerType = ValueType;
             }
             if (innerType.IsEnum)
             {

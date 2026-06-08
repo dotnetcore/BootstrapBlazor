@@ -241,9 +241,7 @@ public partial class AutoFill<TValue>
         _clientValue = v;
     }
 
-    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
-
-    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+    private bool GetClearable() => IsClearable && !IsDisabled && (!ValueType.IsValueType || IsNullable());
 
     private async Task OnClickItem(TValue val)
     {

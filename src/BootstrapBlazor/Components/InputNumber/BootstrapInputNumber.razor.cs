@@ -133,7 +133,7 @@ public partial class BootstrapInputNumber<TValue>
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
-        StepString = Step ?? StepOption.CurrentValue.GetStep<TValue>() ?? "any";
+        StepString = Step ?? StepOption.CurrentValue.GetStep<TValue>() ?? GetStepStringByType();
 
         if (Value is null)
         {
@@ -189,15 +189,32 @@ public partial class BootstrapInputNumber<TValue>
         _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}")
     };
 
-    private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
+    private string GetStepString()
+    {
+        if (string.IsNullOrEmpty(StepString)
+            || StepString.Equals("null", StringComparison.OrdinalIgnoreCase)
+            || StepString.Equals("any", StringComparison.OrdinalIgnoreCase))
+        {
+            return "1";
+        }
 
-    private static decimal ParseDecimal(string value) => decimal.Parse(value, CultureInfo.InvariantCulture);
+        return StepString;
+    }
 
     private static TValue ParseValue(string value)
     {
         return value.TryConvertTo<TValue>(out var ret)
             ? ret
             : throw new InvalidOperationException($"Unsupported type {typeof(TValue)}");
+    }
+
+    private string GetStepStringByType() => IsDecimalType() ? "any" : "null";
+
+    private bool IsDecimalType()
+    {
+        // 检查是否允许带小数点数据类型
+        var type = ValueType;
+        return type == typeof(float) || type == typeof(double) || type == typeof(decimal);
     }
 
     private static TValue? Calculate(TValue? value, string step, bool increment)
@@ -208,17 +225,17 @@ public partial class BootstrapInputNumber<TValue>
             var factor = increment ? 1 : -1;
             ret = value switch
             {
-                sbyte @sbyte => (TValue)(object)(sbyte)Math.Clamp(@sbyte + factor * ParseDecimal(step), sbyte.MinValue, sbyte.MaxValue),
-                byte @byte => (TValue)(object)(byte)Math.Clamp(@byte + factor * ParseDecimal(step), byte.MinValue, byte.MaxValue),
-                short @short => (TValue)(object)(short)Math.Clamp(@short + factor * ParseDecimal(step), short.MinValue, short.MaxValue),
-                ushort @ushort => (TValue)(object)(ushort)Math.Clamp(@ushort + factor * ParseDecimal(step), ushort.MinValue, ushort.MaxValue),
-                int @int => (TValue)(object)(int)Math.Clamp(@int + factor * ParseDecimal(step), int.MinValue, int.MaxValue),
-                uint @uint => (TValue)(object)(uint)Math.Clamp(@uint + factor * ParseDecimal(step), uint.MinValue, uint.MaxValue),
-                long @long => (TValue)(object)(long)Math.Clamp(@long + factor * ParseDecimal(step), long.MinValue, long.MaxValue),
-                ulong @ulong => (TValue)(object)(ulong)Math.Clamp(@ulong + factor * ParseDecimal(step), ulong.MinValue, ulong.MaxValue),
-                float @float => (TValue)(object)(@float + factor * float.Parse(step, CultureInfo.InvariantCulture)),
-                double @double => (TValue)(object)(@double + factor * double.Parse(step, CultureInfo.InvariantCulture)),
-                decimal @decimal => (TValue)(object)(@decimal + factor * ParseDecimal(step)),
+                sbyte @sbyte => (TValue)(object)(sbyte)Math.Clamp(@sbyte + factor * Convert.ToDecimal(step), sbyte.MinValue, sbyte.MaxValue),
+                byte @byte => (TValue)(object)(byte)Math.Clamp(@byte + factor * Convert.ToDecimal(step), byte.MinValue, byte.MaxValue),
+                short @short => (TValue)(object)(short)Math.Clamp(@short + factor * Convert.ToDecimal(step), short.MinValue, short.MaxValue),
+                ushort @ushort => (TValue)(object)(ushort)Math.Clamp(@ushort + factor * Convert.ToDecimal(step), ushort.MinValue, ushort.MaxValue),
+                int @int => (TValue)(object)(int)Math.Clamp(@int + factor * Convert.ToDecimal(step), int.MinValue, int.MaxValue),
+                uint @uint => (TValue)(object)(uint)Math.Clamp(@uint + factor * Convert.ToDecimal(step), uint.MinValue, uint.MaxValue),
+                long @long => (TValue)(object)(long)Math.Clamp(@long + factor * Convert.ToDecimal(step), long.MinValue, long.MaxValue),
+                ulong @ulong => (TValue)(object)(ulong)Math.Clamp(@ulong + factor * Convert.ToDecimal(step), ulong.MinValue, ulong.MaxValue),
+                float @float => (TValue)(object)(float)Math.Clamp(@float + factor * Convert.ToSingle(step), float.MinValue, float.MaxValue),
+                double @double => (TValue)(object)(double)Math.Clamp(@double + factor * Convert.ToDouble(step), double.MinValue, double.MaxValue),
+                decimal @decimal => (TValue)(object)(decimal)Math.Clamp(@decimal + factor * Convert.ToDecimal(step), decimal.MinValue, decimal.MaxValue),
                 _ => value
             };
         }
@@ -263,7 +280,7 @@ public partial class BootstrapInputNumber<TValue>
             CurrentValue = default!;
         }
 
-        if (NullableUnderlyingType != null && string.IsNullOrEmpty(CurrentValueAsString))
+        if (IsNullable() && string.IsNullOrEmpty(CurrentValueAsString))
         {
             // set component value empty
             await InvokeVoidAsync("clear", Id);

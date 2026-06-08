@@ -27,17 +27,34 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected FieldIdentifier? FieldIdentifier { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 泛型参数 TValue 可为空类型 Type 实例，为空时表示类型不可为空</para>
-    /// <para lang="en">Gets or sets Generic Parameter TValue Nullable Type Instance. Null means type is not nullable</para>
+    /// <para lang="zh">获得 泛型参数 TValue 可为空类型 Type 实例，为空时表示类型不可为空</para>
+    /// <para lang="en">Gets the underlying type of <typeparamref name="TValue"/> when it is <see cref="Nullable{T}"/>; otherwise <see langword="null"/>.</para>
     /// </summary>
-    protected Type? NullableUnderlyingType { get; set; }
+    /// <remarks>
+    /// <para lang="zh">每个封闭泛型类型只计算一次缓存为静态字段，避免热路径重复反射</para>
+    /// <para lang="en">Cached once per closed generic type to avoid repeated reflection on hot paths.</para>
+    /// </remarks>
+    protected static readonly Type? NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
 
     /// <summary>
-    /// <para lang="zh">获得/设置 泛型参数 TValue 可为空类型 Type 实例</para>
-    /// <para lang="en">Gets or sets Generic Parameter TValue Nullable Type Instance</para>
+    /// <para lang="zh">判断泛型参数 <typeparamref name="TValue"/> 是否为 <see cref="Nullable{T}"/> 可空值类型</para>
+    /// <para lang="en">Determines whether the generic parameter <typeparamref name="TValue"/> is a <see cref="Nullable{T}"/> value type.</para>
     /// </summary>
-    [NotNull]
-    protected Type? ValueType { get; set; }
+    /// <returns>
+    /// <para lang="zh"><see langword="true"/> 表示 <typeparamref name="TValue"/> 为 <see cref="Nullable{T}"/> 否则返回 <see langword="false"/></para>
+    /// <para lang="en"><see langword="true"/> when <typeparamref name="TValue"/> is <see cref="Nullable{T}"/>; otherwise <see langword="false"/>.</para>
+    /// </returns>
+    protected bool IsNullable() => NullableUnderlyingType != null;
+
+    /// <summary>
+    /// <para lang="zh">获得 泛型参数 <typeparamref name="TValue"/> 解包后的实际 <see cref="Type"/> 实例。当 <typeparamref name="TValue"/> 为 <see cref="Nullable{T}"/> 时返回其底层类型，否则返回 <typeparamref name="TValue"/> 自身</para>
+    /// <para lang="en">Gets the unwrapped <see cref="Type"/> of <typeparamref name="TValue"/>: the underlying type when <typeparamref name="TValue"/> is <see cref="Nullable{T}"/>, otherwise <typeparamref name="TValue"/> itself.</para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">每个封闭泛型类型只计算一次缓存为静态字段，避免热路径重复反射</para>
+    /// <para lang="en">Cached once per closed generic type to avoid repeated reflection on hot paths.</para>
+    /// </remarks>
+    protected static readonly Type ValueType = NullableUnderlyingType ?? typeof(TValue);
 
     /// <summary>
     /// <para lang="zh">获得/设置 输入组件的值，支持双向绑定</para>
@@ -120,9 +137,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
-
-        NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
-        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
 
         if (ValueExpression != null)
         {
