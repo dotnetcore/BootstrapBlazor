@@ -1448,7 +1448,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
-        Width = col.Width,
+        Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
         Visible = col.GetVisible(_screenSize)
     };
 

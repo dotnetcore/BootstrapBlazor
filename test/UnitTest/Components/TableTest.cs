@@ -1845,6 +1845,14 @@ public class TableTest : BootstrapBlazorTestBase
 
         cut.Contains("left: 0px;");
         cut.Contains("left: 200px;");
+        var columns = cut.FindAll("th");
+        var col = cut.FindAll("col");
+        if (columns[0].ClassName == "fixed")
+        {
+            var fixedWidth = cut.FindAll("col")[0].OuterHtml.Contains("width: 200px");
+            Assert.Equal("fixedWidth:True", $"fixedWidth:{fixedWidth}");
+        }
+
         if (showExtendButton)
         {
             if (isFixedHeader)
