@@ -2893,6 +2893,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.JitViewers": {
     "JitViewerDescription": "支持在线预览 Office 文档、PDF、OFD、图片、文本、代码、视频等多种文件格式。",
+    "JitViewerKnownIssue": "已知问题：<code>xlsx</code> 文件中有图片无法预览，部分 <code>ofd</code> 文件无法预览，等待底层依赖组件作者修复",
     "JitViewerNormalTitle": "基础用法",
     "JitViewerSubTitle": "通用文件预览组件，可用于在页面中直接浏览多种类型文件。",
     "JitViewerTitle": "JitViewer 文件预览器"
