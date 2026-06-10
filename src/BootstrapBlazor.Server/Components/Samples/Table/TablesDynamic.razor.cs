@@ -66,7 +66,7 @@ public partial class TablesDynamic
         _dataTableDynamicContext3 = CreateContext(table);
 
         CreatePageDataTable();
-        RebuildPaginationDataTable();
+        CreatePageDataContext();
     }
 
     private static bool ModelEqualityComparer(IDynamicObject x, IDynamicObject y) =>
@@ -209,20 +209,10 @@ public partial class TablesDynamic
             _pageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         }
         _pageDataTable.AcceptChanges();
-
-        RebuildPaginationDataTable();
     }
 
-    private void RebuildPaginationDataTable()
+    private void CreatePageDataContext()
     {
-        _pageDataTable.Rows.Clear();
-        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
-        foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
-        {
-            _pageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
-        }
-
-        _pageDataTable.AcceptChanges();
         _dataTableDynamicContext4 = new DataTableDynamicContext(_pageDataTable, (context, col) =>
         {
             var propertyName = col.GetFieldName();
@@ -251,7 +241,24 @@ public partial class TablesDynamic
             {
                 col.Ignore = true;
             }
-        });
+        })
+        {
+            UseCache = false
+        };
+    }
+
+    private void UpdatePageDataTableContext()
+    {
+        var table = _dataTableDynamicContext4!.DataTable;
+        table.Rows.Clear();
+
+        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
+        foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+        {
+            table.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
+        }
+
+        table.AcceptChanges();
     }
 
     /// <summary>
@@ -262,7 +269,7 @@ public partial class TablesDynamic
     private Task OnPageLinkClick(int pageIndex)
     {
         PageIndex = pageIndex;
-        RebuildPaginationDataTable();
+        UpdatePageDataTableContext();
 
         StateHasChanged();
         return Task.CompletedTask;
