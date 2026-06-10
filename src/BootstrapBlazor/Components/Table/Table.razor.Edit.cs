@@ -724,10 +724,11 @@ public partial class Table<TItem>
 
             // 数据源可能重建行实例（如动态类型数据未启用缓存）导致引用比较失真
             // 使用 Equals 比较逻辑判断选中行集合是否真实发生变化，仅真实变化时触发回调防止与重新渲染形成死循环
-            var changed = selectedRows.Count != SelectedRows.Count
-                || selectedRows.Where((row, index) => !Equals(row, SelectedRows[index])).Any();
+            var changed = SelectedRowsChanged.HasDelegate
+                && (selectedRows.Count != SelectedRows.Count
+                    || selectedRows.Where((row, index) => !Equals(row, SelectedRows[index])).Any());
             SelectedRows = selectedRows;
-            if (changed && SelectedRowsChanged.HasDelegate)
+            if (changed)
             {
                 _ = SelectedRowsChanged.InvokeAsync(selectedRows);
             }
