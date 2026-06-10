@@ -247,7 +247,7 @@ public partial class TablesDynamic
         };
     }
 
-    private void UpdatePageDataTableContext()
+    private void UpdatePageDataContext()
     {
         var table = _dataTableDynamicContext4!.DataTable;
         table.Rows.Clear();
@@ -269,7 +269,7 @@ public partial class TablesDynamic
     private Task OnPageLinkClick(int pageIndex)
     {
         PageIndex = pageIndex;
-        UpdatePageDataTableContext();
+        UpdatePageDataContext();
 
         StateHasChanged();
         return Task.CompletedTask;

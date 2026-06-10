@@ -10,6 +10,30 @@
 <p class="code-label">@Localizer["TablesDynamicNoteTitle"]</p>
 <p>@((MarkupString)Localizer["TablesDynamicNoteP1"].Value)</p>
 <p>@((MarkupString)Localizer["TablesDynamicNoteP2"].Value)</p>
+<p>可以查看分页表格示例代码，通过 <code>CreatePageDataContext</code> 创建 <code>DataTableDynamicContext</code> 实例，点击分页的时候仅更新数据，不需要重新创建 <code>DataTableDynamicContext</code> 实例</p>
+<Pre>private void CreatePageDataContext()
+{
+    _dataTableDynamicContext4 = new DataTableDynamicContext(_pageDataTable, (context, col) =>
+    {
+        var propertyName = col.GetFieldName();
+    })
+    {
+        UseCache = false
+    };
+}
+
+private void UpdatePageDataContext()
+{
+    var table = _dataTableDynamicContext4!.DataTable;
+    table.Rows.Clear();
+
+    foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+    {
+        table.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
+    }
+
+    table.AcceptChanges();
+}</Pre>
 
 <DemoBlock Title="@Localizer["TablesDynamicDataTableTitle"]"
            Introduction="@Localizer["TablesDynamicDataTableIntro"]"
