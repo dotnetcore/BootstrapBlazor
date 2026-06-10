@@ -2893,6 +2893,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.JitViewers": {
     "JitViewerDescription": "Supports online preview of Office documents, PDF, OFD, images, text, code, videos, and other file formats.",
+    "JitViewerKnownIssue": "Known issue: Images in <code>xlsx</code> files cannot be previewed, and some <code>ofd</code> files cannot be previewed. Waiting for the author of the underlying dependency component to fix this.",
     "JitViewerNormalTitle": "Basic usage",
     "JitViewerSubTitle": "A universal file preview component for viewing multiple file types directly on the page.",
     "JitViewerTitle": "JitViewer File Viewer"
