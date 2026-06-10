@@ -7,19 +7,25 @@
 
 <h4>@Localizer["TablesDynamicDescription"]</h4>
 
+<p class="code-label">注意事项：</p>
+<p><code>DataTableDynamicContext</code> 对象底层是通过 <code>Emit</code> 技术将 <code>DataTable</code> 行转成动态类型的，所以每创建一次 <code>DataTableDynamicContext</code> 底层就会创建一个动态程序集，所以实际项目中应该尽量避免重复创建动态程序集</p>
+<p>可以通过设置 <code>DataTableDynamicContext</code> 属性 <code>UseCache="false"</code> 关闭内部的数据缓存，在自己的代码逻辑中更新 <code>DataTableDynamicContext</code> 的 <code>DataTable</code> 属性，大大提高系统性能</p>
+
+<Pre></Pre>
+
 <DemoBlock Title="@Localizer["TablesDynamicDataTableTitle"]"
            Introduction="@Localizer["TablesDynamicDataTableIntro"]"
            Name="DataTable">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" IsFixedHeader="true" Height="300" />
+    <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext1" IsFixedHeader="true" Height="300"></Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesDynamicEditTitle"]"
            Introduction="@Localizer["TablesDynamicEditIntro"]"
            Name="Edit">
     <section ignore>@((MarkupString)Localizer["TablesDynamicEditDescription"].Value)</section>
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
+    <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext2" ModelEqualityComparer="ModelEqualityComparer"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems" IsKeepSelectedRowAfterAdd="true"
-           ShowToolbar="true" ShowExtendButtons="true" />
+           ShowToolbar="true" ShowExtendButtons="true"></Table>
     <div class="mt-3">
         @foreach (var item in SelectedItems)
         {
@@ -31,12 +37,16 @@
 <DemoBlock Title="@Localizer["TablesDynamicDynamicColTitle"]"
            Introduction="@Localizer["TablesDynamicDynamicColIntro"]"
            Name="DynamicCol">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
+    <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext3" ModelEqualityComparer="ModelEqualityComparer"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true"
            ShowToolbar="true" ShowExtendButtons="true">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText" OnClick="OnAddColumn" />
-            <TableToolbarButton Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText" OnClick="OnRemoveColumn" />
+            <TableToolbarButton Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText"
+                                OnClick="@OnAddColumn">
+            </TableToolbarButton>
+            <TableToolbarButton Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText"
+                                OnClick="@OnRemoveColumn">
+            </TableToolbarButton>
         </TableToolbarTemplate>
     </Table>
 </DemoBlock>
@@ -44,6 +54,6 @@
 <DemoBlock Title="@Localizer["TablesDynamicPageTitle"]"
            Introduction="@Localizer["TablesDynamicPageIntro"]"
            Name="Pagination">
-    <Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
-    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3" />
+    <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext4"></Table>
+    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3"></Pagination>
 </DemoBlock>
