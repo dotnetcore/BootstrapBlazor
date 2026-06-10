@@ -5726,11 +5726,12 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SelectedRows_Bind()
+    public async Task SelectedRows_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = FooNoKeyTree.Generate(localizer);
         var selectedRows = new List<FooNoKeyTree>();
+        var changed = false;
         selectedRows.AddRange(items.Take(2));
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -5747,6 +5748,11 @@ public class TableTest : BootstrapBlazorTestBase
                     return Task.FromResult(data);
                 });
                 pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<FooNoKeyTree>>(this, rows =>
+                {
+                    selectedRows = rows;
+                    changed = true;
+                }));
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -5757,6 +5763,18 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
+
+        // 初次查询选中行集合未发生变化 不触发 SelectedRowsChanged 回调
+        Assert.False(changed);
+        Assert.Equal(2, selectedRows.Count);
+
+        // 数据源移除一个选中行后重新查询 选中行集合发生变化触发 SelectedRowsChanged 回调
+        var table = cut.FindComponent<Table<FooNoKeyTree>>();
+        items = items.Skip(1).ToList();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        Assert.True(changed);
+        Assert.Single(selectedRows);
     }
 
     [Fact]
