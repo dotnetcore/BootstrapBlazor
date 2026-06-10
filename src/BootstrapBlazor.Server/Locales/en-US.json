@@ -4835,6 +4835,10 @@
     "TablesDynamicEditDescription": "By setting the <code>OnChanged</code> callback method of the <code>DataTableDynamicContext</code> instance, the value is automatically set when a new row is created",
     "TablesDynamicEditIntro": "Add editing and maintenance functions",
     "TablesDynamicEditTitle": "Edit function",
+    "TablesDynamicNewValueText": "New Value",
+    "TablesDynamicNoteP1": "The <code>DataTableDynamicContext</code> object internally uses <code>Emit</code> to convert <code>DataTable</code> rows into dynamic types, so every time a <code>DataTableDynamicContext</code> is created a dynamic assembly is generated under the hood. In real projects you should avoid creating dynamic assemblies repeatedly",
+    "TablesDynamicNoteP2": "You can set the <code>UseCache=\"false\"</code> property of <code>DataTableDynamicContext</code> to disable the internal data cache, and update the <code>DataTable</code> property of <code>DataTableDynamicContext</code> in your own code logic to greatly improve system performance",
+    "TablesDynamicNoteTitle": "Notes:",
     "TablesDynamicPageIntro": "Use <code>Pagination</code> component",
     "TablesDynamicPageTitle": "Pagination",
     "TablesDynamicTitle": "Table Dynamic"

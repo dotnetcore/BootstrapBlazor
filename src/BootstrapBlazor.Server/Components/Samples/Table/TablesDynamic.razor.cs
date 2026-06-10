@@ -137,7 +137,7 @@ public partial class TablesDynamic
             {
                 var item = args.Items.First();
                 item.SetValue(nameof(Foo.DateTime), DateTime.Today);
-                item.SetValue(nameof(Foo.Name), "新建值");
+                item.SetValue(nameof(Foo.Name), Localizer["TablesDynamicNewValueText"].Value);
             }
 
             return Task.CompletedTask;
@@ -232,20 +232,20 @@ public partial class TablesDynamic
                 // 使用 AutoGenerateColumnAttribute 设置显示名称示例
                 context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), [
                     new KeyValuePair<string, object?>(nameof(AutoGenerateColumnAttribute.Text),
-                        Localizer[nameof(Foo.DateTime)].Value)
+                        FooLocalizer[nameof(Foo.DateTime)].Value)
                 ]);
             }
             else if (propertyName == nameof(Foo.Name))
             {
-                context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"]);
+                context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
                 // 使用 Text 设置显示名称示例
-                col.Text = Localizer[nameof(Foo.Name)];
+                col.Text = FooLocalizer[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
                 context.AddRequiredAttribute(nameof(Foo.Count));
                 // 使用 DisplayNameAttribute 设置显示名称示例
-                context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
+                context.AddDisplayNameAttribute(nameof(Foo.Count), FooLocalizer[nameof(Foo.Count)].Value);
             }
             else if (propertyName == nameof(Foo.Id))
             {

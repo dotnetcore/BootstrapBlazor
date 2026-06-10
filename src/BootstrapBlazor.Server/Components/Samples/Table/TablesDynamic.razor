@@ -7,11 +7,9 @@
 
 <h4>@Localizer["TablesDynamicDescription"]</h4>
 
-<p class="code-label">注意事项：</p>
-<p><code>DataTableDynamicContext</code> 对象底层是通过 <code>Emit</code> 技术将 <code>DataTable</code> 行转成动态类型的，所以每创建一次 <code>DataTableDynamicContext</code> 底层就会创建一个动态程序集，所以实际项目中应该尽量避免重复创建动态程序集</p>
-<p>可以通过设置 <code>DataTableDynamicContext</code> 属性 <code>UseCache="false"</code> 关闭内部的数据缓存，在自己的代码逻辑中更新 <code>DataTableDynamicContext</code> 的 <code>DataTable</code> 属性，大大提高系统性能</p>
-
-<Pre></Pre>
+<p class="code-label">@Localizer["TablesDynamicNoteTitle"]</p>
+<p>@((MarkupString)Localizer["TablesDynamicNoteP1"].Value)</p>
+<p>@((MarkupString)Localizer["TablesDynamicNoteP2"].Value)</p>
 
 <DemoBlock Title="@Localizer["TablesDynamicDataTableTitle"]"
            Introduction="@Localizer["TablesDynamicDataTableIntro"]"
