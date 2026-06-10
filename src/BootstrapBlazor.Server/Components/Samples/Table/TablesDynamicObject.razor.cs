@@ -76,12 +76,12 @@ public partial class TablesDynamicObject
         return Task.FromResult(new QueryData<CustomDynamicData>() { Items = items, TotalCount = 10, IsSorted = true, IsFiltered = true });
     }
 
-    private Dictionary<string, object?> GenerateDynamicRowData(int index)
+    private Dictionary<string, object?> GenerateDynamicRowData(int _)
     {
         var ret = new Dictionary<string, object?>();
         foreach (var columnName in _dynamicColumnList)
         {
-            object? value = Random.Next(1000, 9999);
+            var value = Random.Next(1000, 9999);
             ret.Add(columnName, value);
         }
         return ret;
