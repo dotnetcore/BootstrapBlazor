@@ -15,7 +15,7 @@ jobs:
   auto_approve:
     name: auto approve
     runs-on: ubuntu-latest
-    # 仅对信任的作者自动审批，按需在列表中追加账号
+    # Only auto-approve PRs from trusted authors; add accounts to the list as needed
     if: |
       github.event.pull_request.draft == false &&
       contains(fromJSON('["ArgoZhang"]'), github.event.pull_request.user.login)
