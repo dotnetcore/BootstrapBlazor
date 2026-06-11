@@ -27,7 +27,7 @@ private void UpdatePageDataContext()
     var table = _dataTableDynamicContext4!.DataTable;
     table.Rows.Clear();
 
-    foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+    foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
     {
         table.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
     }
@@ -46,10 +46,10 @@ private void UpdatePageDataContext()
            Name="Edit">
     <section ignore>@((MarkupString)Localizer["TablesDynamicEditDescription"].Value)</section>
     <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext2" ModelEqualityComparer="ModelEqualityComparer"
-           IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems" IsKeepSelectedRowAfterAdd="true"
+           IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="_selectedItems" IsKeepSelectedRowAfterAdd="true"
            ShowToolbar="true" ShowExtendButtons="true"></Table>
     <div class="mt-3">
-        @foreach (var item in SelectedItems)
+        @foreach (var item in _selectedItems)
         {
             <div>@item.GetValue(nameof(Foo.Name))</div>
         }
@@ -63,10 +63,10 @@ private void UpdatePageDataContext()
            IsMultipleSelect="true" IsBordered="true" IsStriped="true"
            ShowToolbar="true" ShowExtendButtons="true">
         <TableToolbarTemplate>
-            <TableToolbarButton Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@ButtonAddColumnText"
+            <TableToolbarButton Color="Color.Info" Icon="fa-fw fa-solid fa-circle-plus" Text="@_buttonAddColumnText"
                                 OnClick="@OnAddColumn">
             </TableToolbarButton>
-            <TableToolbarButton Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@ButtonRemoveColumnText"
+            <TableToolbarButton Color="Color.Secondary" Icon="fa-fw fa-solid fa-circle-minus" Text="@_buttonRemoveColumnText"
                                 OnClick="@OnRemoveColumn">
             </TableToolbarButton>
         </TableToolbarTemplate>
@@ -77,5 +77,5 @@ private void UpdatePageDataContext()
            Introduction="@Localizer["TablesDynamicPageIntro"]"
            Name="Pagination">
     <Table TItem="DynamicObject" DynamicContext="_dataTableDynamicContext4"></Table>
-    <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3"></Pagination>
+    <Pagination PageCount="@_pageCount" PageIndex="@_pageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3"></Pagination>
 </DemoBlock>

@@ -16,12 +16,9 @@ public partial class TablesDynamic
     private DataTableDynamicContext? _dataTableDynamicContext2;
     private DataTableDynamicContext? _dataTableDynamicContext3;
     private DataTableDynamicContext? _dataTableDynamicContext4;
-
-    private List<DynamicObject> SelectedItems { get; set; } = [];
-
-    private string? ButtonAddColumnText { get; set; }
-
-    private string? ButtonRemoveColumnText { get; set; }
+    private List<DynamicObject> _selectedItems = [];
+    private string? _buttonAddColumnText;
+    private string? _buttonRemoveColumnText;
 
     /// <summary>
     /// OnInitialized 方法
@@ -30,8 +27,8 @@ public partial class TablesDynamic
     {
         base.OnInitialized();
 
-        ButtonAddColumnText ??= Localizer["TablesDynamicDynamicColButtonAddColumnText"];
-        ButtonRemoveColumnText ??= Localizer["TablesDynamicDynamicColButtonRemoveColumnText"];
+        _buttonAddColumnText ??= Localizer["TablesDynamicDynamicColButtonAddColumnText"];
+        _buttonRemoveColumnText ??= Localizer["TablesDynamicDynamicColButtonRemoveColumnText"];
 
         InitDataTableContext();
     }
@@ -179,16 +176,11 @@ public partial class TablesDynamic
         return Task.CompletedTask;
     }
 
-    private int PageItems { get; set; }
-
-    private int TotalCount { get; set; }
-
-    private int PageIndex { get; set; } = 1;
-
-    private int PageCount { get; set; }
-
+    private int _pageItems;
+    private int _totalCount;
+    private int _pageIndex = 1;
+    private int _pageCount;
     private readonly List<Foo> _pageData = [];
-
     private readonly DataTable _pageDataTable = new();
 
     private void CreatePageDataTable()
@@ -198,13 +190,13 @@ public partial class TablesDynamic
         _pageDataTable.Columns.Add(nameof(Foo.Name), typeof(string));
         _pageDataTable.Columns.Add(nameof(Foo.Count), typeof(int));
         _pageData.AddRange(Foo.GenerateFoo(FooLocalizer, 80));
-        TotalCount = _pageData.Count;
-        PageIndex = 1;
-        PageItems = 2;
-        PageCount = (int)Math.Ceiling(TotalCount / 2.0);
+        _totalCount = _pageData.Count;
+        _pageIndex = 1;
+        _pageItems = 2;
+        _pageCount = (int)Math.Ceiling(_totalCount / 2.0);
 
         // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
-        foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+        foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
         {
             _pageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         }
@@ -253,7 +245,7 @@ public partial class TablesDynamic
         table.Rows.Clear();
 
         // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
-        foreach (var f in _pageData.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+        foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
         {
             table.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         }
@@ -268,7 +260,7 @@ public partial class TablesDynamic
     /// <returns></returns>
     private Task OnPageLinkClick(int pageIndex)
     {
-        PageIndex = pageIndex;
+        _pageIndex = pageIndex;
         UpdatePageDataContext();
 
         StateHasChanged();
