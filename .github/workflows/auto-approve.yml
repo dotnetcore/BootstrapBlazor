@@ -1,0 +1,38 @@
+name: Auto Approve PR(bot)
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  auto_approve:
+    name: auto approve
+    runs-on: ubuntu-latest
+    # Only auto-approve PRs from trusted authors; add accounts to the list as needed
+    if: |
+      github.event.pull_request.draft == false &&
+      contains(fromJSON('["ArgoZhang"]'), github.event.pull_request.user.login)
+
+    steps:
+      - name: Generate bb-auto token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.BB_AUTO_APP_ID }}
+          private-key: ${{ secrets.BB_AUTO_PRIVATE_KEY }}
+
+      - name: Approve pull request
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr review ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --approve \
+            --body "Auto approved by bb-auto"
