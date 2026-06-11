@@ -12,16 +12,13 @@ namespace BootstrapBlazor.Server.Components.Samples.Table;
 /// </summary>
 public partial class TablesDynamic
 {
-    [NotNull]
-    private DataTableDynamicContext? DataTableDynamicContext { get; set; }
-
-    private DataTable UserData { get; } = new DataTable();
-
-    private List<DynamicObject> SelectedItems { get; set; } = [];
-
-    private string? ButtonAddColumnText { get; set; }
-
-    private string? ButtonRemoveColumnText { get; set; }
+    private DataTableDynamicContext? _dataTableDynamicContext1;
+    private DataTableDynamicContext? _dataTableDynamicContext2;
+    private DataTableDynamicContext? _dataTableDynamicContext3;
+    private DataTableDynamicContext? _dataTableDynamicContext4;
+    private List<DynamicObject> _selectedItems = [];
+    private string? _buttonAddColumnText;
+    private string? _buttonRemoveColumnText;
 
     /// <summary>
     /// OnInitialized 方法
@@ -30,22 +27,50 @@ public partial class TablesDynamic
     {
         base.OnInitialized();
 
-        ButtonAddColumnText ??= Localizer["TablesDynamicDynamicColButtonAddColumnText"];
-        ButtonRemoveColumnText ??= Localizer["TablesDynamicDynamicColButtonRemoveColumnText"];
+        _buttonAddColumnText ??= Localizer["TablesDynamicDynamicColButtonAddColumnText"];
+        _buttonRemoveColumnText ??= Localizer["TablesDynamicDynamicColButtonRemoveColumnText"];
 
-        // 初始化 DataTable
-        InitDataTable();
-
-        // 初始化分页表格
-        InitPageDataTable();
+        InitDataTableContext();
     }
 
-    private static bool ModelEqualityComparer(IDynamicObject x, IDynamicObject y) => x.GetValue("Id")?.ToString() == y.GetValue("Id")?.ToString();
-
-    private void CreateContext()
+    private DataTable CreateDataTable()
     {
-        // 初始化动态类型上下文实例
-        DataTableDynamicContext = new DataTableDynamicContext(UserData, (context, col) =>
+        var dataTable = new DataTable();
+        dataTable.Columns.Add(nameof(Foo.Id), typeof(int));
+        dataTable.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
+        dataTable.Columns.Add(nameof(Foo.Name), typeof(string));
+        dataTable.Columns.Add(nameof(Foo.Count), typeof(int));
+        dataTable.PrimaryKey =
+        [
+            dataTable.Columns[0]
+        ];
+        dataTable.Columns[0].AutoIncrement = true;
+        Foo.GenerateFoo(FooLocalizer, 10).ForEach(f => { dataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count); });
+        dataTable.AcceptChanges();
+
+        return dataTable;
+    }
+
+    private void InitDataTableContext()
+    {
+        var table = CreateDataTable();
+        _dataTableDynamicContext1 = CreateContext(table);
+
+        table = CreateDataTable();
+        _dataTableDynamicContext2 = CreateContext(table);
+
+        table = CreateDataTable();
+        _dataTableDynamicContext3 = CreateContext(table);
+
+        CreatePageDataTable();
+        _dataTableDynamicContext4 = CreatePageDataContext();
+    }
+
+    private static bool ModelEqualityComparer(IDynamicObject x, IDynamicObject y) =>
+        x.GetValue("Id")?.ToString() == y.GetValue("Id")?.ToString();
+
+    private DataTableDynamicContext CreateContext(DataTable table) => new DataTableDynamicContext(table,
+        (context, col) =>
         {
             var propertyName = col.GetFieldName();
             // 使用 Text 设置显示名称示例
@@ -54,7 +79,10 @@ public partial class TablesDynamic
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
                 // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), FooLocalizer[nameof(Foo.DateTime)].Value) });
+                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), [
+                    new KeyValuePair<string, object?>(nameof(AutoGenerateColumnAttribute.Text),
+                        FooLocalizer[nameof(Foo.DateTime)].Value)
+                ]);
             }
             else if (propertyName == nameof(Foo.Name))
             {
@@ -70,175 +98,157 @@ public partial class TablesDynamic
             {
                 col.Filterable = true;
                 // 使用 DisplayAttribute 设置显示名称示例
-                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] { new(nameof(DisplayAttribute.Name), FooLocalizer[nameof(Foo.Complete)].Value) });
+                context.AddDisplayAttribute(nameof(Foo.Complete), [
+                    new KeyValuePair<string, object?>(nameof(DisplayAttribute.Name),
+                        FooLocalizer[nameof(Foo.Complete)].Value)
+                ]);
             }
             else if (propertyName == nameof(Foo.Id))
             {
                 col.Ignore = true;
             }
         })
+    {
+        OnDeleteAsync = items =>
         {
-            OnDeleteAsync = items =>
+            // 数据源中移除
+            foreach (var item in items)
             {
-                // 数据源中移除
-                foreach (var item in items)
+                var id = item.GetValue(nameof(Foo.Id));
+                if (id != null)
                 {
-                    var id = item.GetValue(nameof(Foo.Id));
-                    if (id != null)
+                    var row = table.Rows.Find(id);
+                    if (row != null)
                     {
-                        var row = UserData.Rows.Find(id);
-                        if (row != null)
-                        {
-                            UserData.Rows.Remove(row);
-                        }
+                        table.Rows.Remove(row);
                     }
                 }
-
-                UserData.AcceptChanges();
-                return Task.FromResult(true);
-            },
-            OnChanged = args =>
-            {
-                if (args.ChangedType == DynamicItemChangedType.Add)
-                {
-                    var item = args.Items.First();
-                    item.SetValue(nameof(Foo.DateTime), DateTime.Today);
-                    item.SetValue(nameof(Foo.Name), "新建值");
-                }
-
-                return Task.CompletedTask;
             }
-        };
-    }
 
-    private void InitDataTable()
-    {
-        UserData.Columns.Add(nameof(Foo.Id), typeof(int));
-        UserData.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
-        UserData.Columns.Add(nameof(Foo.Name), typeof(string));
-        UserData.Columns.Add(nameof(Foo.Count), typeof(int));
-        UserData.PrimaryKey =
-        [
-            UserData.Columns[0]
-        ];
-        UserData.Columns[0].AutoIncrement = true;
-        Foo.GenerateFoo(FooLocalizer, 10).ForEach(f =>
+            table.AcceptChanges();
+            return Task.FromResult(true);
+        },
+        OnChanged = args =>
         {
-            UserData.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
-        });
-        CreateContext();
-    }
+            if (args.ChangedType == DynamicItemChangedType.Add)
+            {
+                var item = args.Items.First();
+                item.SetValue(nameof(Foo.DateTime), DateTime.Today);
+                item.SetValue(nameof(Foo.Name), Localizer["TablesDynamicNewValueText"].Value);
+            }
+
+            return Task.CompletedTask;
+        }
+    };
 
     private Task OnAddColumn()
     {
-        if (!UserData.Columns.Contains(nameof(Foo.Complete)))
+        var table = _dataTableDynamicContext3!.DataTable;
+        if (!table.Columns.Contains(nameof(Foo.Complete)))
         {
-            UserData.Columns.Add(nameof(Foo.Complete), typeof(bool));
+            table.Columns.Add(nameof(Foo.Complete), typeof(bool));
 
             // 更新数据
             var fs = Foo.GenerateFoo(FooLocalizer, 10);
             for (var i = 0; i < fs.Count; i++)
             {
-                UserData.Rows[i][nameof(Foo.Complete)] = fs[i].Complete;
+                table.Rows[i][nameof(Foo.Complete)] = fs[i].Complete;
             }
-            CreateContext();
+            table.AcceptChanges();
+            _dataTableDynamicContext3 = CreateContext(table);
             StateHasChanged();
         }
+
         return Task.CompletedTask;
     }
 
     private Task OnRemoveColumn()
     {
-        if (UserData.Columns.Contains(nameof(Foo.Complete)))
+        var table = _dataTableDynamicContext3!.DataTable;
+        if (table.Columns.Contains(nameof(Foo.Complete)))
         {
-            UserData.Columns.Remove(nameof(Foo.Complete));
-            CreateContext();
+            table.Columns.Remove(nameof(Foo.Complete));
+            table.AcceptChanges();
+            _dataTableDynamicContext3 = CreateContext(table);
             StateHasChanged();
         }
+
         return Task.CompletedTask;
     }
 
-    private DataTable PageDataTable { get; set; } = new();
+    private int _pageItems;
+    private int _totalCount;
+    private int _pageIndex = 1;
+    private int _pageCount;
+    private readonly List<Foo> _pageData = [];
+    private readonly DataTable _pageDataTable = new();
 
-    private int PageItems { get; set; }
-
-    private int TotalCount { get; set; }
-
-    private int PageIndex { get; set; } = 1;
-
-    private int PageCount { get; set; }
-
-    [NotNull]
-    private List<Foo>? PageFoos { get; set; }
-
-    private void InitPageDataTable()
+    private void CreatePageDataTable()
     {
-        PageDataTable.Columns.Add(nameof(Foo.Id), typeof(int));
-        PageDataTable.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
-        PageDataTable.Columns.Add(nameof(Foo.Name), typeof(string));
-        PageDataTable.Columns.Add(nameof(Foo.Count), typeof(int));
-        PageFoos = Foo.GenerateFoo(FooLocalizer, 80);
-        TotalCount = PageFoos.Count;
-        PageIndex = 1;
-        PageItems = 2;
-        PageCount = (int)Math.Ceiling(TotalCount / 2.0);
-        RebuildPageDataTable();
-        RebuildPaginationDataTable();
+        _pageDataTable.Columns.Add(nameof(Foo.Id), typeof(int));
+        _pageDataTable.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
+        _pageDataTable.Columns.Add(nameof(Foo.Name), typeof(string));
+        _pageDataTable.Columns.Add(nameof(Foo.Count), typeof(int));
+        _pageData.AddRange(Foo.GenerateFoo(FooLocalizer, 80));
+        _totalCount = _pageData.Count;
+        _pageIndex = 1;
+        _pageItems = 2;
+        _pageCount = (int)Math.Ceiling(_totalCount / (double)_pageItems);
+
+        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
+        foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
+        {
+            _pageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
+        }
+        _pageDataTable.AcceptChanges();
     }
 
-    private void RebuildPageDataTable()
+    private DataTableDynamicContext CreatePageDataContext() => new DataTableDynamicContext(_pageDataTable, (context, col) =>
     {
-        PageDataTable.Rows.Clear();
-        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
-        foreach (var f in PageFoos.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
+        var propertyName = col.GetFieldName();
+        if (propertyName == nameof(Foo.DateTime))
         {
-            PageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
+            context.AddRequiredAttribute(nameof(Foo.DateTime));
+            // 使用 AutoGenerateColumnAttribute 设置显示名称示例
+            context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), [
+                new KeyValuePair<string, object?>(nameof(AutoGenerateColumnAttribute.Text),
+                        FooLocalizer[nameof(Foo.DateTime)].Value)
+            ]);
+        }
+        else if (propertyName == nameof(Foo.Name))
+        {
+            context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
+            // 使用 Text 设置显示名称示例
+            col.Text = FooLocalizer[nameof(Foo.Name)];
+        }
+        else if (propertyName == nameof(Foo.Count))
+        {
+            context.AddRequiredAttribute(nameof(Foo.Count));
+            // 使用 DisplayNameAttribute 设置显示名称示例
+            context.AddDisplayNameAttribute(nameof(Foo.Count), FooLocalizer[nameof(Foo.Count)].Value);
+        }
+        else if (propertyName == nameof(Foo.Id))
+        {
+            col.Ignore = true;
+        }
+    })
+    {
+        UseCache = false
+    };
+
+    private void UpdatePageDataContext()
+    {
+        var table = _dataTableDynamicContext4!.DataTable;
+        table.Rows.Clear();
+
+        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
+        foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
+        {
+            table.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         }
 
-        PageDataTable.AcceptChanges();
+        table.AcceptChanges();
     }
-
-
-    private void RebuildPaginationDataTable()
-    {
-        PageDataTable.Rows.Clear();
-        // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
-        foreach (var f in PageFoos.Skip((PageIndex - 1) * PageItems).Take(PageItems).ToList())
-        {
-            PageDataTable.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
-        }
-
-        PageDataTable.AcceptChanges();
-        DataTablePageDynamicContext = new DataTableDynamicContext(PageDataTable, (context, col) =>
-        {
-            var propertyName = col.GetFieldName();
-            if (propertyName == nameof(Foo.DateTime))
-            {
-                context.AddRequiredAttribute(nameof(Foo.DateTime));
-                // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value) });
-            }
-            else if (propertyName == nameof(Foo.Name))
-            {
-                context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"]);
-                // 使用 Text 设置显示名称示例
-                col.Text = Localizer[nameof(Foo.Name)];
-            }
-            else if (propertyName == nameof(Foo.Count))
-            {
-                context.AddRequiredAttribute(nameof(Foo.Count));
-                // 使用 DisplayNameAttribute 设置显示名称示例
-                context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
-            }
-            else if (propertyName == nameof(Foo.Id))
-            {
-                col.Ignore = true;
-            }
-        });
-    }
-
-    [NotNull]
-    private DataTableDynamicContext? DataTablePageDynamicContext { get; set; }
 
     /// <summary>
     /// 点击页码处理函数
@@ -247,8 +257,9 @@ public partial class TablesDynamic
     /// <returns></returns>
     private Task OnPageLinkClick(int pageIndex)
     {
-        PageIndex = pageIndex;
-        RebuildPaginationDataTable();
+        _pageIndex = pageIndex;
+        UpdatePageDataContext();
+
         StateHasChanged();
         return Task.CompletedTask;
     }

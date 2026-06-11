@@ -66,7 +66,7 @@ public partial class TablesDynamicObject
         return ret;
     }
 
-    private readonly static Random random = new();
+    private static readonly Random Random = new();
 
     private Task<QueryData<CustomDynamicData>> OnQueryAsync(QueryPageOptions options)
     {
@@ -76,13 +76,12 @@ public partial class TablesDynamicObject
         return Task.FromResult(new QueryData<CustomDynamicData>() { Items = items, TotalCount = 10, IsSorted = true, IsFiltered = true });
     }
 
-    private Dictionary<string, object?> GenerateDynamicRowData(int index)
+    private Dictionary<string, object?> GenerateDynamicRowData(int _)
     {
         var ret = new Dictionary<string, object?>();
-        for (int i = 0; i < _dynamicColumnList.Count; i++)
+        foreach (var columnName in _dynamicColumnList)
         {
-            var columnName = _dynamicColumnList[i];
-            object? value = random.Next(1000, 9999);
+            var value = Random.Next(1000, 9999);
             ret.Add(columnName, value);
         }
         return ret;
