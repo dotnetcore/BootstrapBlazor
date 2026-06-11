@@ -4838,6 +4838,7 @@
     "TablesDynamicNewValueText": "New Value",
     "TablesDynamicNoteP1": "The <code>DataTableDynamicContext</code> object internally uses <code>Emit</code> to convert <code>DataTable</code> rows into dynamic types, so every time a <code>DataTableDynamicContext</code> is created a dynamic assembly is generated under the hood. In real projects you should avoid creating dynamic assemblies repeatedly",
     "TablesDynamicNoteP2": "You can set the <code>UseCache=\"false\"</code> property of <code>DataTableDynamicContext</code> to disable the internal data cache, and update the <code>DataTable</code> property of <code>DataTableDynamicContext</code> in your own code logic to greatly improve system performance",
+    "TablesDynamicNoteP3": "You can refer to the pagination table sample code. Use <code>CreatePageDataContext</code> to create the <code>DataTableDynamicContext</code> instance. When clicking the pager, only the data is updated, and there is no need to recreate the <code>DataTableDynamicContext</code> instance",
     "TablesDynamicNoteTitle": "Notes:",
     "TablesDynamicPageIntro": "Use <code>Pagination</code> component",
     "TablesDynamicPageTitle": "Pagination",

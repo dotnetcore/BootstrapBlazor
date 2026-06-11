@@ -4838,6 +4838,7 @@
     "TablesDynamicNewValueText": "新建值",
     "TablesDynamicNoteP1": "<code>DataTableDynamicContext</code> 对象底层是通过 <code>Emit</code> 技术将 <code>DataTable</code> 行转成动态类型的，所以每创建一次 <code>DataTableDynamicContext</code> 底层就会创建一个动态程序集，所以实际项目中应该尽量避免重复创建动态程序集",
     "TablesDynamicNoteP2": "可以通过设置 <code>DataTableDynamicContext</code> 属性 <code>UseCache=\"false\"</code> 关闭内部的数据缓存，在自己的代码逻辑中更新 <code>DataTableDynamicContext</code> 的 <code>DataTable</code> 属性，大大提高系统性能",
+    "TablesDynamicNoteP3": "可以查看分页表格示例代码，通过 <code>CreatePageDataContext</code> 创建 <code>DataTableDynamicContext</code> 实例，点击分页的时候仅更新数据，不需要重新创建 <code>DataTableDynamicContext</code> 实例",
     "TablesDynamicNoteTitle": "注意事项：",
     "TablesDynamicPageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能",
     "TablesDynamicPageTitle": "分页",
