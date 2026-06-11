@@ -743,7 +743,7 @@ tr.active:not(.is-edit):hover {
     margin: -.25rem;
 }
 
-.table-sm .table-cell.is-incell .form-control {
+.table-sm .table-cell.is-incell .form-control:not([rows]) {
     height: calc(1.5em + .75rem - 3px);
 }
 
