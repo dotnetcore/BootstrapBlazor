@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} é obrigatório."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "Rede",
+    "Title": "Rede",
     "NetworkType": "Tipo de rede",
     "Downlink": "Downlink",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "Tem certeza de que deseja excluir os dados atuais?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "Todos",
+    "BooleanAllText": "Todos",
+    "BooleanTrueText": "Sim",
+    "BooleanFalseText": "Não",
+    "NumberStartValueLabelText": "Início",
+    "NumberEndValueLabelText": "Fim"
   }
 }
