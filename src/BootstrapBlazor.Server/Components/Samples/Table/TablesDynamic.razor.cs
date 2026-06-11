@@ -63,7 +63,7 @@ public partial class TablesDynamic
         _dataTableDynamicContext3 = CreateContext(table);
 
         CreatePageDataTable();
-        CreatePageDataContext();
+        _dataTableDynamicContext4 = CreatePageDataContext();
     }
 
     private static bool ModelEqualityComparer(IDynamicObject x, IDynamicObject y) =>
@@ -193,7 +193,7 @@ public partial class TablesDynamic
         _totalCount = _pageData.Count;
         _pageIndex = 1;
         _pageItems = 2;
-        _pageCount = (int)Math.Ceiling(_totalCount / 2.0);
+        _pageCount = (int)Math.Ceiling(_totalCount / (double)_pageItems);
 
         // 此处代码可以通过数据库获得分页后的数据转化成 DataTable 再给 DynamicContext 即可实现数据库分页
         foreach (var f in _pageData.Skip((_pageIndex - 1) * _pageItems).Take(_pageItems).ToList())
@@ -203,41 +203,38 @@ public partial class TablesDynamic
         _pageDataTable.AcceptChanges();
     }
 
-    private void CreatePageDataContext()
+    private DataTableDynamicContext CreatePageDataContext() => new DataTableDynamicContext(_pageDataTable, (context, col) =>
     {
-        _dataTableDynamicContext4 = new DataTableDynamicContext(_pageDataTable, (context, col) =>
+        var propertyName = col.GetFieldName();
+        if (propertyName == nameof(Foo.DateTime))
         {
-            var propertyName = col.GetFieldName();
-            if (propertyName == nameof(Foo.DateTime))
-            {
-                context.AddRequiredAttribute(nameof(Foo.DateTime));
-                // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), [
-                    new KeyValuePair<string, object?>(nameof(AutoGenerateColumnAttribute.Text),
+            context.AddRequiredAttribute(nameof(Foo.DateTime));
+            // 使用 AutoGenerateColumnAttribute 设置显示名称示例
+            context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), [
+                new KeyValuePair<string, object?>(nameof(AutoGenerateColumnAttribute.Text),
                         FooLocalizer[nameof(Foo.DateTime)].Value)
-                ]);
-            }
-            else if (propertyName == nameof(Foo.Name))
-            {
-                context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
-                // 使用 Text 设置显示名称示例
-                col.Text = FooLocalizer[nameof(Foo.Name)];
-            }
-            else if (propertyName == nameof(Foo.Count))
-            {
-                context.AddRequiredAttribute(nameof(Foo.Count));
-                // 使用 DisplayNameAttribute 设置显示名称示例
-                context.AddDisplayNameAttribute(nameof(Foo.Count), FooLocalizer[nameof(Foo.Count)].Value);
-            }
-            else if (propertyName == nameof(Foo.Id))
-            {
-                col.Ignore = true;
-            }
-        })
+            ]);
+        }
+        else if (propertyName == nameof(Foo.Name))
         {
-            UseCache = false
-        };
-    }
+            context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
+            // 使用 Text 设置显示名称示例
+            col.Text = FooLocalizer[nameof(Foo.Name)];
+        }
+        else if (propertyName == nameof(Foo.Count))
+        {
+            context.AddRequiredAttribute(nameof(Foo.Count));
+            // 使用 DisplayNameAttribute 设置显示名称示例
+            context.AddDisplayNameAttribute(nameof(Foo.Count), FooLocalizer[nameof(Foo.Count)].Value);
+        }
+        else if (propertyName == nameof(Foo.Id))
+        {
+            col.Ignore = true;
+        }
+    })
+    {
+        UseCache = false
+    };
 
     private void UpdatePageDataContext()
     {
