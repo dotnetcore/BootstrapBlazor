@@ -9055,7 +9055,6 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        // 由于启用了客户端持久化 Name 列宽使用 100 而非 80
         var table = cut.FindComponent<Table<Foo>>();
         var colGroup = table.Find("colgroup");
         Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
@@ -9073,8 +9072,6 @@ public class TableTest : BootstrapBlazorTestBase
             var fixedWidth = cut.FindAll("col")[0].OuterHtml.Contains("width: 200px");
             Assert.Equal("fixedWidth:True", $"fixedWidth:{fixedWidth}");
         }
-
-        
     }
 
     [Fact]
