@@ -946,7 +946,6 @@ export function updateColumnStates(id) {
     Data.set(id, table)
     const state = getColumnStateObject(table);
     saveColumnStateToLocalstorage(table, state);
-  
 }
 export function clearColumnStates(tableName) {
     const columnStateKey = `bb-table-${tableName}`;

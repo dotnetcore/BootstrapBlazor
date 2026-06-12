@@ -1954,7 +1954,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 用户在外面变更了列状态后，为避免用户变更状态丢失，须将变更后的状态同步到缓存中
             foreach (var item in Columns)
             {
-                _tableColumnStates.Find(x => x.Name == item.GetFieldName())!.Fixed = item.Fixed;
+                var columnState = _tableColumnStates.Find(x => x.Name == item.GetFieldName());
+                if (columnState != null)
+                {
+                    columnState.Fixed = item.Fixed;
+                }
             }
             StateHasChanged();
         }
