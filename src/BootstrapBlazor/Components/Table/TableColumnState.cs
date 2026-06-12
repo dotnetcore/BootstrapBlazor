@@ -38,4 +38,10 @@ public class TableColumnState
     /// <para lang="en">Gets or sets column width</para>
     /// </summary>
     public int? Width { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 列固定</para>
+    /// <para lang="en">Gets or sets column fixed</para>
+    /// </summary>
+    public bool Fixed { get; set; }
 }

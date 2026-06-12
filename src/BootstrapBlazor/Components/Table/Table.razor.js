@@ -586,7 +586,7 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     let maxWidth = getColumnMaxCellWidth(table, index);
-    
+
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = getColumnHeader(col);
         maxWidth = Math.max(maxWidth, getCellWidth(th));
@@ -936,6 +936,18 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
+export function updateColumnStates(id) {    
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }    
+    let table = Data.get(id)
+    table.el = el;
+    Data.set(id, table)
+    const state = getColumnStateObject(table);
+    saveColumnStateToLocalstorage(table, state);
+  
+}
 export function clearColumnStates(tableName) {
     const columnStateKey = `bb-table-${tableName}`;
     localStorage.removeItem(columnStateKey);
@@ -976,7 +988,8 @@ const getColumnStateObject = table => {
                 return {
                     name: col.name,
                     width: getColumnWidth(col, table.columns),
-                    visible: col.visible
+                    visible: col.visible,
+                    fixed: col.fixed
                 }
             }),
             table: getTableWidth(table.tables[0])
@@ -988,7 +1001,8 @@ const getColumnStateObject = table => {
             return {
                 name: getColumnName(col),
                 width: getResizableColumnWidth(col),
-                visible: true
+                visible: true,
+                fixed: getColumnHeader(col).classList.contains('fixed')
             }
         }),
         table: getTableWidth(table.tables[0])
