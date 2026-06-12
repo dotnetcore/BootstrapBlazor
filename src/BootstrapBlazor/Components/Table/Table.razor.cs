@@ -1958,7 +1958,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (columnState != null)
                 {
                     columnState.Fixed = item.Fixed;
-                    columnState.Width = item.Width.HasValue ? item.Width : (item.Fixed ? DefaultFixedColumnWidth : null);
+                    columnState.Width = item.Fixed && !item.Width.HasValue ? DefaultFixedColumnWidth : item.Width;
                 }
             }
             StateHasChanged();

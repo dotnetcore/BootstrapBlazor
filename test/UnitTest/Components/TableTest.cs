@@ -9023,11 +9023,11 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var state = new TableColumnClientStatus();
         state.TableWidth = 220;
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, Fixed = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Fixed = true });
         state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, Fixed = false });
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_update").SetResult(state);
-        var invoker = Context.JSInterop.SetupVoid("clearColumnStates", "test_update");
+        var invoker = Context.JSInterop.SetupVoid("updateColumnStates", "test_update");
         invoker.SetVoidResult();
 
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -9044,7 +9044,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Width", 80);
+                    builder.AddAttribute(3, "Fixed", true);
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -9058,13 +9058,23 @@ public class TableTest : BootstrapBlazorTestBase
         // 由于启用了客户端持久化 Name 列宽使用 100 而非 80
         var table = cut.FindComponent<Table<Foo>>();
         var colGroup = table.Find("colgroup");
-        Assert.Contains("style=\"width: 100px;\"", colGroup.ToMarkup());
         Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
-        
 
         var status = await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
         Assert.Equal(true, status.Columns[0].Fixed);
         Assert.Equal(state.Columns.Count, status.Columns.Count);
+
+        table = cut.FindComponent<Table<Foo>>();
+        var columns = cut.FindAll("th");
+        colGroup = table.Find("colgroup");
+        Assert.Contains("style=\"width: 200px;\"", colGroup.ToMarkup());
+        if (columns[0].ClassName.Contains("fixed"))
+        {
+            var fixedWidth = cut.FindAll("col")[0].OuterHtml.Contains("width: 200px");
+            Assert.Equal("fixedWidth:True", $"fixedWidth:{fixedWidth}");
+        }
+
+        
     }
 
     [Fact]
