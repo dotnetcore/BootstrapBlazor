@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} ist erforderlich."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "Netzwerk",
+    "Title": "Netzwerk",
     "NetworkType": "Netzwerktyp",
     "Downlink": "Download",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "Sind Sie sicher, dass Sie die aktuellen Daten löschen möchten?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "Alle",
+    "BooleanAllText": "Alle",
+    "BooleanTrueText": "Ja",
+    "BooleanFalseText": "Nein",
+    "NumberStartValueLabelText": "Startwert",
+    "NumberEndValueLabelText": "Endwert"
   }
 }

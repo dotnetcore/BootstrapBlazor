@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} จำเป็นต้องกรอก"
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "เครือข่าย",
+    "Title": "เครือข่าย",
     "NetworkType": "ประเภทเครือข่าย",
     "Downlink": "ดาวน์โหลด",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลปัจจุบัน?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "ทั้งหมด",
+    "BooleanAllText": "ทั้งหมด",
+    "BooleanTrueText": "ใช่",
+    "BooleanFalseText": "ไม่ใช่",
+    "NumberStartValueLabelText": "เริ่มต้น",
+    "NumberEndValueLabelText": "สิ้นสุด"
   }
 }
