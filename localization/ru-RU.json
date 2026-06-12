@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} обязательно для заполнения."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "Сеть",
+    "Title": "Сеть",
     "NetworkType": "Тип сети",
     "Downlink": "Скорость загрузки",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "Вы уверены, что хотите удалить текущие данные?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "Все",
+    "BooleanAllText": "Все",
+    "BooleanTrueText": "Да",
+    "BooleanFalseText": "Нет",
+    "NumberStartValueLabelText": "Начало",
+    "NumberEndValueLabelText": "Конец"
   }
 }
