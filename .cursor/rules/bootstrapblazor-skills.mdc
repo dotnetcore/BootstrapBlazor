@@ -1,0 +1,16 @@
+---
+description: BootstrapBlazor AI Skill discovery rules
+alwaysApply: true
+---
+
+Before generating BootstrapBlazor component code, read `skill-index.json`.
+
+Read order:
+
+1. Current component source in `src/BootstrapBlazor/Components/<ComponentName>`.
+2. Official Sample from the index when it exists.
+3. Component Skill from the index when it exists.
+
+If a Sample exists, prefer the Sample over Skill examples. If no Sample exists, use the Skill examples after validating the current source.
+
+Do not guess parameters, events, obsolete APIs, or historical BootstrapBlazor behavior.

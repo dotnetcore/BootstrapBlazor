@@ -1,0 +1,29 @@
+name: AI Skill index
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  skill-index:
+    name: Check Skill index
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Skill index
+        shell: pwsh
+        run: ./scripts/generate-skill-index.ps1
+
+      - name: Check Skill sync
+        shell: pwsh
+        run: ./scripts/check-skill-sync.ps1

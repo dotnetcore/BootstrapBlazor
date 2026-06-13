@@ -1,0 +1,675 @@
+{
+    "Affix":  {
+                  "component":  "src/BootstrapBlazor/Components/Affix",
+                  "skill":  "src/BootstrapBlazor/Components/Affix/Affix.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Affixs.razor"
+              },
+    "Ajax":  {
+                 "component":  "src/BootstrapBlazor/Components/Ajax",
+                 "skill":  "src/BootstrapBlazor/Components/Ajax/Ajax.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Ajaxs.razor"
+             },
+    "Alert":  {
+                  "component":  "src/BootstrapBlazor/Components/Alert",
+                  "skill":  "src/BootstrapBlazor/Components/Alert/Alert.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Alerts.razor"
+              },
+    "Anchor":  {
+                   "component":  "src/BootstrapBlazor/Components/Anchor",
+                   "skill":  "src/BootstrapBlazor/Components/Anchor/Anchor.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Anchors.razor"
+               },
+    "AnchorLink":  {
+                       "component":  "src/BootstrapBlazor/Components/AnchorLink",
+                       "skill":  "src/BootstrapBlazor/Components/AnchorLink/AnchorLink.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/AnchorLinks.razor"
+                   },
+    "AutoComplete":  {
+                         "component":  "src/BootstrapBlazor/Components/AutoComplete",
+                         "skill":  "src/BootstrapBlazor/Components/AutoComplete/AutoComplete.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/AutoCompletes.razor"
+                     },
+    "AutoFill":  {
+                     "component":  "src/BootstrapBlazor/Components/AutoFill",
+                     "skill":  "src/BootstrapBlazor/Components/AutoFill/AutoFill.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/AutoFills.razor"
+                 },
+    "AutoRedirect":  {
+                         "component":  "src/BootstrapBlazor/Components/AutoRedirect",
+                         "skill":  "src/BootstrapBlazor/Components/AutoRedirect/AutoRedirect.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/AutoRedirects.razor"
+                     },
+    "Avatar":  {
+                   "component":  "src/BootstrapBlazor/Components/Avatar",
+                   "skill":  "src/BootstrapBlazor/Components/Avatar/Avatar.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Avatars.razor"
+               },
+    "Badge":  {
+                  "component":  "src/BootstrapBlazor/Components/Badge",
+                  "skill":  "src/BootstrapBlazor/Components/Badge/Badge.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Badges.razor"
+              },
+    "BaseComponents":  {
+                           "component":  "src/BootstrapBlazor/Components/BaseComponents",
+                           "skill":  "src/BootstrapBlazor/Components/BaseComponents/BaseComponents.md"
+                       },
+    "Block":  {
+                  "component":  "src/BootstrapBlazor/Components/Block",
+                  "skill":  "src/BootstrapBlazor/Components/Block/Block.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Blocks.razor"
+              },
+    "BootstrapBlazorRootOutlet":  {
+                                      "component":  "src/BootstrapBlazor/Components/BootstrapBlazorRootOutlet",
+                                      "skill":  "src/BootstrapBlazor/Components/BootstrapBlazorRootOutlet/BootstrapBlazorRootOutlet.md"
+                                  },
+    "Breadcrumb":  {
+                       "component":  "src/BootstrapBlazor/Components/Breadcrumb",
+                       "skill":  "src/BootstrapBlazor/Components/Breadcrumb/Breadcrumb.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/Breadcrumbs.razor"
+                   },
+    "Button":  {
+                   "component":  "src/BootstrapBlazor/Components/Button",
+                   "skill":  "src/BootstrapBlazor/Components/Button/Button.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Buttons.razor"
+               },
+    "Calendar":  {
+                     "component":  "src/BootstrapBlazor/Components/Calendar",
+                     "skill":  "src/BootstrapBlazor/Components/Calendar/Calendar.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Calendars.razor"
+                 },
+    "Camera":  {
+                   "component":  "src/BootstrapBlazor/Components/Camera",
+                   "skill":  "src/BootstrapBlazor/Components/Camera/Camera.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Cameras.razor"
+               },
+    "Captcha":  {
+                    "component":  "src/BootstrapBlazor/Components/Captcha",
+                    "skill":  "src/BootstrapBlazor/Components/Captcha/Captcha.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Captchas.razor"
+                },
+    "Card":  {
+                 "component":  "src/BootstrapBlazor/Components/Card",
+                 "skill":  "src/BootstrapBlazor/Components/Card/Card.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Cards.razor"
+             },
+    "Carousel":  {
+                     "component":  "src/BootstrapBlazor/Components/Carousel",
+                     "skill":  "src/BootstrapBlazor/Components/Carousel/Carousel.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Carousels.razor"
+                 },
+    "Cascader":  {
+                     "component":  "src/BootstrapBlazor/Components/Cascader",
+                     "skill":  "src/BootstrapBlazor/Components/Cascader/Cascader.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Cascaders.razor"
+                 },
+    "Charts":  {
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Charts"
+               },
+    "Checkbox":  {
+                     "component":  "src/BootstrapBlazor/Components/Checkbox",
+                     "skill":  "src/BootstrapBlazor/Components/Checkbox/Checkbox.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Checkboxs.razor"
+                 },
+    "Circle":  {
+                   "component":  "src/BootstrapBlazor/Components/Circle",
+                   "skill":  "src/BootstrapBlazor/Components/Circle/Circle.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Circles.razor"
+               },
+    "Clipboard":  {
+                      "component":  "src/BootstrapBlazor/Components/Clipboard",
+                      "skill":  "src/BootstrapBlazor/Components/Clipboard/Clipboard.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/Clipboards.razor"
+                  },
+    "ClockPicker":  {
+                        "component":  "src/BootstrapBlazor/Components/ClockPicker",
+                        "skill":  "src/BootstrapBlazor/Components/ClockPicker/ClockPicker.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/ClockPickers.razor"
+                    },
+    "Collapse":  {
+                     "component":  "src/BootstrapBlazor/Components/Collapse",
+                     "skill":  "src/BootstrapBlazor/Components/Collapse/Collapse.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Collapses.razor"
+                 },
+    "ColorPicker":  {
+                        "component":  "src/BootstrapBlazor/Components/ColorPicker",
+                        "skill":  "src/BootstrapBlazor/Components/ColorPicker/ColorPicker.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/ColorPickers.razor"
+                    },
+    "ConnectionHub":  {
+                          "component":  "src/BootstrapBlazor/Components/ConnectionHub",
+                          "skill":  "src/BootstrapBlazor/Components/ConnectionHub/ConnectionHub.md"
+                      },
+    "Console":  {
+                    "component":  "src/BootstrapBlazor/Components/Console",
+                    "skill":  "src/BootstrapBlazor/Components/Console/Console.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Consoles.razor"
+                },
+    "ContextMenu":  {
+                        "component":  "src/BootstrapBlazor/Components/ContextMenu",
+                        "skill":  "src/BootstrapBlazor/Components/ContextMenu/ContextMenu.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/ContextMenus.razor"
+                    },
+    "CountUp":  {
+                    "component":  "src/BootstrapBlazor/Components/CountUp",
+                    "skill":  "src/BootstrapBlazor/Components/CountUp/CountUp.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/CountUps.razor"
+                },
+    "DateTimePicker":  {
+                           "component":  "src/BootstrapBlazor/Components/DateTimePicker",
+                           "skill":  "src/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.md",
+                           "sample":  "src/BootstrapBlazor.Server/Components/Samples/DateTimePickers.razor"
+                       },
+    "DateTimeRange":  {
+                          "component":  "src/BootstrapBlazor/Components/DateTimeRange",
+                          "skill":  "src/BootstrapBlazor/Components/DateTimeRange/DateTimeRange.md",
+                          "sample":  "src/BootstrapBlazor.Server/Components/Samples/DateTimeRanges.razor"
+                      },
+    "Dialog":  {
+                   "component":  "src/BootstrapBlazor/Components/Dialog",
+                   "skill":  "src/BootstrapBlazor/Components/Dialog/Dialog.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Dialogs.razor"
+               },
+    "Display":  {
+                    "component":  "src/BootstrapBlazor/Components/Display",
+                    "skill":  "src/BootstrapBlazor/Components/Display/Display.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Displays.razor"
+                },
+    "Divider":  {
+                    "component":  "src/BootstrapBlazor/Components/Divider",
+                    "skill":  "src/BootstrapBlazor/Components/Divider/Divider.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Dividers.razor"
+                },
+    "DockViews":  {
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/DockViews"
+                  },
+    "DockViews2":  {
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/DockViews2"
+                   },
+    "Download":  {
+                     "component":  "src/BootstrapBlazor/Components/Download",
+                     "skill":  "src/BootstrapBlazor/Components/Download/Download.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Downloads.razor"
+                 },
+    "DragDrap":  {
+                     "component":  "src/BootstrapBlazor/Components/DragDrap",
+                     "skill":  "src/BootstrapBlazor/Components/DragDrap/DragDrap.md"
+                 },
+    "Drawer":  {
+                   "component":  "src/BootstrapBlazor/Components/Drawer",
+                   "skill":  "src/BootstrapBlazor/Components/Drawer/Drawer.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Drawers.razor"
+               },
+    "Dropdown":  {
+                     "component":  "src/BootstrapBlazor/Components/Dropdown",
+                     "skill":  "src/BootstrapBlazor/Components/Dropdown/Dropdown.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Dropdowns.razor"
+                 },
+    "DropdownWidget":  {
+                           "component":  "src/BootstrapBlazor/Components/DropdownWidget",
+                           "skill":  "src/BootstrapBlazor/Components/DropdownWidget/DropdownWidget.md",
+                           "sample":  "src/BootstrapBlazor.Server/Components/Samples/DropdownWidgets.razor"
+                       },
+    "EditorForm":  {
+                       "component":  "src/BootstrapBlazor/Components/EditorForm",
+                       "skill":  "src/BootstrapBlazor/Components/EditorForm/EditorForm.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/EditorForms.razor"
+                   },
+    "Empty":  {
+                  "component":  "src/BootstrapBlazor/Components/Empty",
+                  "skill":  "src/BootstrapBlazor/Components/Empty/Empty.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Empties.razor"
+              },
+    "ErrorLogger":  {
+                        "component":  "src/BootstrapBlazor/Components/ErrorLogger",
+                        "skill":  "src/BootstrapBlazor/Components/ErrorLogger/ErrorLogger.md"
+                    },
+    "FileIcon":  {
+                     "component":  "src/BootstrapBlazor/Components/FileIcon",
+                     "skill":  "src/BootstrapBlazor/Components/FileIcon/FileIcon.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/FileIcons.razor"
+                 },
+    "Filters":  {
+                    "component":  "src/BootstrapBlazor/Components/Filters",
+                    "skill":  "src/BootstrapBlazor/Components/Filters/Filters.md"
+                },
+    "FlipClock":  {
+                      "component":  "src/BootstrapBlazor/Components/FlipClock",
+                      "skill":  "src/BootstrapBlazor/Components/FlipClock/FlipClock.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/FlipClocks.razor"
+                  },
+    "Footer":  {
+                   "component":  "src/BootstrapBlazor/Components/Footer",
+                   "skill":  "src/BootstrapBlazor/Components/Footer/Footer.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Footers.razor"
+               },
+    "FullScreen":  {
+                       "component":  "src/BootstrapBlazor/Components/FullScreen",
+                       "skill":  "src/BootstrapBlazor/Components/FullScreen/FullScreen.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/FullScreens.razor"
+                   },
+    "Geolocation":  {
+                        "component":  "src/BootstrapBlazor/Components/Geolocation",
+                        "skill":  "src/BootstrapBlazor/Components/Geolocation/Geolocation.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/Geolocations.razor"
+                    },
+    "GoTop":  {
+                  "component":  "src/BootstrapBlazor/Components/GoTop",
+                  "skill":  "src/BootstrapBlazor/Components/GoTop/GoTop.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/GoTops.razor"
+              },
+    "GroupBox":  {
+                     "component":  "src/BootstrapBlazor/Components/GroupBox",
+                     "skill":  "src/BootstrapBlazor/Components/GroupBox/GroupBox.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/GroupBoxes.razor"
+                 },
+    "Handwritten":  {
+                        "component":  "src/BootstrapBlazor/Components/Handwritten",
+                        "skill":  "src/BootstrapBlazor/Components/Handwritten/Handwritten.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/Handwrittens.razor"
+                    },
+    "HtmlTag":  {
+                    "component":  "src/BootstrapBlazor/Components/HtmlTag",
+                    "skill":  "src/BootstrapBlazor/Components/HtmlTag/HtmlTag.md"
+                },
+    "Icon":  {
+                 "component":  "src/BootstrapBlazor/Components/Icon",
+                 "skill":  "src/BootstrapBlazor/Components/Icon/Icon.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Icons"
+             },
+    "Icons":  {
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Icons"
+              },
+    "IFrame":  {
+                   "component":  "src/BootstrapBlazor/Components/IFrame",
+                   "skill":  "src/BootstrapBlazor/Components/IFrame/IFrame.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/IFrames.razor"
+               },
+    "ImagePreviewer":  {
+                           "component":  "src/BootstrapBlazor/Components/ImagePreviewer",
+                           "skill":  "src/BootstrapBlazor/Components/ImagePreviewer/ImagePreviewer.md"
+                       },
+    "ImageViewer":  {
+                        "component":  "src/BootstrapBlazor/Components/ImageViewer",
+                        "skill":  "src/BootstrapBlazor/Components/ImageViewer/ImageViewer.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/ImageViewers.razor"
+                    },
+    "Input":  {
+                  "component":  "src/BootstrapBlazor/Components/Input",
+                  "skill":  "src/BootstrapBlazor/Components/Input/Input.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Inputs.razor"
+              },
+    "InputNumber":  {
+                        "component":  "src/BootstrapBlazor/Components/InputNumber",
+                        "skill":  "src/BootstrapBlazor/Components/InputNumber/InputNumber.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/InputNumbers.razor"
+                    },
+    "IntersectionObserver":  {
+                                 "component":  "src/BootstrapBlazor/Components/IntersectionObserver",
+                                 "skill":  "src/BootstrapBlazor/Components/IntersectionObserver/IntersectionObserver.md",
+                                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/IntersectionObservers.razor"
+                             },
+    "IpAddress":  {
+                      "component":  "src/BootstrapBlazor/Components/IpAddress",
+                      "skill":  "src/BootstrapBlazor/Components/IpAddress/IpAddress.md"
+                  },
+    "IPLocator":  {
+                      "component":  "src/BootstrapBlazor/Components/IPLocator",
+                      "skill":  "src/BootstrapBlazor/Components/IPLocator/IPLocator.md"
+                  },
+    "Label":  {
+                  "component":  "src/BootstrapBlazor/Components/Label",
+                  "skill":  "src/BootstrapBlazor/Components/Label/Label.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Labels.razor"
+              },
+    "Layout":  {
+                   "component":  "src/BootstrapBlazor/Components/Layout",
+                   "skill":  "src/BootstrapBlazor/Components/Layout/Layout.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Layouts.razor"
+               },
+    "LazyLoad":  {
+                     "component":  "src/BootstrapBlazor/Components/LazyLoad",
+                     "skill":  "src/BootstrapBlazor/Components/LazyLoad/LazyLoad.md"
+                 },
+    "Light":  {
+                  "component":  "src/BootstrapBlazor/Components/Light",
+                  "skill":  "src/BootstrapBlazor/Components/Light/Light.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Lights.razor"
+              },
+    "ListGroup":  {
+                      "component":  "src/BootstrapBlazor/Components/ListGroup",
+                      "skill":  "src/BootstrapBlazor/Components/ListGroup/ListGroup.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/ListGroups.razor"
+                  },
+    "ListView":  {
+                     "component":  "src/BootstrapBlazor/Components/ListView",
+                     "skill":  "src/BootstrapBlazor/Components/ListView/ListView.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/ListViews.razor"
+                 },
+    "Logout":  {
+                   "component":  "src/BootstrapBlazor/Components/Logout",
+                   "skill":  "src/BootstrapBlazor/Components/Logout/Logout.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Logouts.razor"
+               },
+    "Marquee":  {
+                    "component":  "src/BootstrapBlazor/Components/Marquee",
+                    "skill":  "src/BootstrapBlazor/Components/Marquee/Marquee.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Marquees.razor"
+                },
+    "Mask":  {
+                 "component":  "src/BootstrapBlazor/Components/Mask",
+                 "skill":  "src/BootstrapBlazor/Components/Mask/Mask.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Masks.razor"
+             },
+    "Menu":  {
+                 "component":  "src/BootstrapBlazor/Components/Menu",
+                 "skill":  "src/BootstrapBlazor/Components/Menu/Menu.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Menus.razor"
+             },
+    "Message":  {
+                    "component":  "src/BootstrapBlazor/Components/Message",
+                    "skill":  "src/BootstrapBlazor/Components/Message/Message.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Messages.razor"
+                },
+    "Modal":  {
+                  "component":  "src/BootstrapBlazor/Components/Modal",
+                  "skill":  "src/BootstrapBlazor/Components/Modal/Modal.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Modals.razor"
+              },
+    "Modbus":  {
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Modbus"
+               },
+    "Nav":  {
+                "component":  "src/BootstrapBlazor/Components/Nav",
+                "skill":  "src/BootstrapBlazor/Components/Nav/Nav.md"
+            },
+    "Navbar":  {
+                   "component":  "src/BootstrapBlazor/Components/Navbar",
+                   "skill":  "src/BootstrapBlazor/Components/Navbar/Navbar.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Navbars.razor"
+               },
+    "NetworkMonitor":  {
+                           "component":  "src/BootstrapBlazor/Components/NetworkMonitor",
+                           "skill":  "src/BootstrapBlazor/Components/NetworkMonitor/NetworkMonitor.md",
+                           "sample":  "src/BootstrapBlazor.Server/Components/Samples/NetworkMonitors.razor"
+                       },
+    "Notification":  {
+                         "component":  "src/BootstrapBlazor/Components/Notification",
+                         "skill":  "src/BootstrapBlazor/Components/Notification/Notification.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/Notifications.razor"
+                     },
+    "Pagination":  {
+                       "component":  "src/BootstrapBlazor/Components/Pagination",
+                       "skill":  "src/BootstrapBlazor/Components/Pagination/Pagination.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/Paginations.razor"
+                   },
+    "Popover":  {
+                    "component":  "src/BootstrapBlazor/Components/Popover",
+                    "skill":  "src/BootstrapBlazor/Components/Popover/Popover.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Popovers.razor"
+                },
+    "Print":  {
+                  "component":  "src/BootstrapBlazor/Components/Print",
+                  "skill":  "src/BootstrapBlazor/Components/Print/Print.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Print.razor"
+              },
+    "Progress":  {
+                     "component":  "src/BootstrapBlazor/Components/Progress",
+                     "skill":  "src/BootstrapBlazor/Components/Progress/Progress.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Progress.razor"
+                 },
+    "QueryBuilder":  {
+                         "component":  "src/BootstrapBlazor/Components/QueryBuilder",
+                         "skill":  "src/BootstrapBlazor/Components/QueryBuilder/QueryBuilder.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/QueryBuilders.razor"
+                     },
+    "Radio":  {
+                  "component":  "src/BootstrapBlazor/Components/Radio",
+                  "skill":  "src/BootstrapBlazor/Components/Radio/Radio.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Radios.razor"
+              },
+    "Rate":  {
+                 "component":  "src/BootstrapBlazor/Components/Rate",
+                 "skill":  "src/BootstrapBlazor/Components/Rate/Rate.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Rates.razor"
+             },
+    "Reconnector":  {
+                        "component":  "src/BootstrapBlazor/Components/Reconnector",
+                        "skill":  "src/BootstrapBlazor/Components/Reconnector/Reconnector.md",
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/Reconnectors.razor"
+                    },
+    "Redirect":  {
+                     "component":  "src/BootstrapBlazor/Components/Redirect",
+                     "skill":  "src/BootstrapBlazor/Components/Redirect/Redirect.md"
+                 },
+    "Repeater":  {
+                     "component":  "src/BootstrapBlazor/Components/Repeater",
+                     "skill":  "src/BootstrapBlazor/Components/Repeater/Repeater.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Repeaters.razor"
+                 },
+    "Responsive":  {
+                       "component":  "src/BootstrapBlazor/Components/Responsive",
+                       "skill":  "src/BootstrapBlazor/Components/Responsive/Responsive.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/Responsives.razor"
+                   },
+    "RibbonTab":  {
+                      "component":  "src/BootstrapBlazor/Components/RibbonTab",
+                      "skill":  "src/BootstrapBlazor/Components/RibbonTab/RibbonTab.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/RibbonTabs.razor"
+                  },
+    "Row":  {
+                "component":  "src/BootstrapBlazor/Components/Row",
+                "skill":  "src/BootstrapBlazor/Components/Row/Row.md",
+                "sample":  "src/BootstrapBlazor.Server/Components/Samples/Rows.razor"
+            },
+    "Scroll":  {
+                   "component":  "src/BootstrapBlazor/Components/Scroll",
+                   "skill":  "src/BootstrapBlazor/Components/Scroll/Scroll.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Scrolls.razor"
+               },
+    "Search":  {
+                   "component":  "src/BootstrapBlazor/Components/Search",
+                   "skill":  "src/BootstrapBlazor/Components/Search/Search.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Searches.razor"
+               },
+    "Searches":  {
+                     "component":  "src/BootstrapBlazor/Components/Searches",
+                     "skill":  "src/BootstrapBlazor/Components/Searches/Searches.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Searches.razor"
+                 },
+    "SearchForm":  {
+                       "component":  "src/BootstrapBlazor/Components/SearchForm",
+                       "skill":  "src/BootstrapBlazor/Components/SearchForm/SearchForm.md"
+                   },
+    "Segmented":  {
+                      "component":  "src/BootstrapBlazor/Components/Segmented",
+                      "skill":  "src/BootstrapBlazor/Components/Segmented/Segmented.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/Segmenteds.razor"
+                  },
+    "Select":  {
+                   "component":  "src/BootstrapBlazor/Components/Select",
+                   "skill":  "src/BootstrapBlazor/Components/Select/Select.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Selects.razor"
+               },
+    "SelectGeneric":  {
+                          "component":  "src/BootstrapBlazor/Components/SelectGeneric",
+                          "skill":  "src/BootstrapBlazor/Components/SelectGeneric/SelectGeneric.md",
+                          "sample":  "src/BootstrapBlazor.Server/Components/Samples/SelectGenerics.razor"
+                      },
+    "SerialPorts":  {
+                        "sample":  "src/BootstrapBlazor.Server/Components/Samples/SerialPorts"
+                    },
+    "Skeleton":  {
+                     "component":  "src/BootstrapBlazor/Components/Skeleton",
+                     "skill":  "src/BootstrapBlazor/Components/Skeleton/Skeleton.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Skeletons.razor"
+                 },
+    "Slider":  {
+                   "component":  "src/BootstrapBlazor/Components/Slider",
+                   "skill":  "src/BootstrapBlazor/Components/Slider/Slider.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Sliders.razor"
+               },
+    "Sockets":  {
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Sockets"
+                },
+    "SortableList":  {
+                         "component":  "src/BootstrapBlazor/Components/SortableList",
+                         "skill":  "src/BootstrapBlazor/Components/SortableList/SortableList.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/SortableLists.razor"
+                     },
+    "Speech":  {
+                   "component":  "src/BootstrapBlazor/Components/Speech",
+                   "skill":  "src/BootstrapBlazor/Components/Speech/Speech.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Speeches"
+               },
+    "Speeches":  {
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Speeches"
+                 },
+    "Spinner":  {
+                    "component":  "src/BootstrapBlazor/Components/Spinner",
+                    "skill":  "src/BootstrapBlazor/Components/Spinner/Spinner.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Spinners.razor"
+                },
+    "Split":  {
+                  "component":  "src/BootstrapBlazor/Components/Split",
+                  "skill":  "src/BootstrapBlazor/Components/Split/Split.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Splits.razor"
+              },
+    "Stack":  {
+                  "component":  "src/BootstrapBlazor/Components/Stack",
+                  "skill":  "src/BootstrapBlazor/Components/Stack/Stack.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Stacks.razor"
+              },
+    "Step":  {
+                 "component":  "src/BootstrapBlazor/Components/Step",
+                 "skill":  "src/BootstrapBlazor/Components/Step/Step.md",
+                 "sample":  "src/BootstrapBlazor.Server/Components/Samples/Steps.razor"
+             },
+    "SweetAlert":  {
+                       "component":  "src/BootstrapBlazor/Components/SweetAlert",
+                       "skill":  "src/BootstrapBlazor/Components/SweetAlert/SweetAlert.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/SweetAlerts.razor"
+                   },
+    "Switch":  {
+                   "component":  "src/BootstrapBlazor/Components/Switch",
+                   "skill":  "src/BootstrapBlazor/Components/Switch/Switch.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Switches.razor"
+               },
+    "Tab":  {
+                "component":  "src/BootstrapBlazor/Components/Tab",
+                "skill":  "src/BootstrapBlazor/Components/Tab/Tab.md",
+                "sample":  "src/BootstrapBlazor.Server/Components/Samples/Tabs.razor"
+            },
+    "Table":  {
+                  "component":  "src/BootstrapBlazor/Components/Table",
+                  "skill":  "src/BootstrapBlazor/Components/Table/Table.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Table"
+              },
+    "Tag":  {
+                "component":  "src/BootstrapBlazor/Components/Tag",
+                "skill":  "src/BootstrapBlazor/Components/Tag/Tag.md",
+                "sample":  "src/BootstrapBlazor.Server/Components/Samples/Tags.razor"
+            },
+    "Textarea":  {
+                     "component":  "src/BootstrapBlazor/Components/Textarea",
+                     "skill":  "src/BootstrapBlazor/Components/Textarea/Textarea.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/TextAreas.razor"
+                 },
+    "ThemeProvider":  {
+                          "component":  "src/BootstrapBlazor/Components/ThemeProvider",
+                          "skill":  "src/BootstrapBlazor/Components/ThemeProvider/ThemeProvider.md",
+                          "sample":  "src/BootstrapBlazor.Server/Components/Samples/ThemeProviders.razor"
+                      },
+    "Timeline":  {
+                     "component":  "src/BootstrapBlazor/Components/Timeline",
+                     "skill":  "src/BootstrapBlazor/Components/Timeline/Timeline.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Timelines.razor"
+                 },
+    "TimePicker":  {
+                       "component":  "src/BootstrapBlazor/Components/TimePicker",
+                       "skill":  "src/BootstrapBlazor/Components/TimePicker/TimePicker.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/TimePickers.razor"
+                   },
+    "Timer":  {
+                  "component":  "src/BootstrapBlazor/Components/Timer",
+                  "skill":  "src/BootstrapBlazor/Components/Timer/Timer.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Timers.razor"
+              },
+    "Title":  {
+                  "component":  "src/BootstrapBlazor/Components/Title",
+                  "skill":  "src/BootstrapBlazor/Components/Title/Title.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Titles.razor"
+              },
+    "Toast":  {
+                  "component":  "src/BootstrapBlazor/Components/Toast",
+                  "skill":  "src/BootstrapBlazor/Components/Toast/Toast.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Toasts.razor"
+              },
+    "Toggle":  {
+                   "component":  "src/BootstrapBlazor/Components/Toggle",
+                   "skill":  "src/BootstrapBlazor/Components/Toggle/Toggle.md",
+                   "sample":  "src/BootstrapBlazor.Server/Components/Samples/Toggles.razor"
+               },
+    "Toolbar":  {
+                    "component":  "src/BootstrapBlazor/Components/Toolbar",
+                    "skill":  "src/BootstrapBlazor/Components/Toolbar/Toolbar.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Toolbars.razor"
+                },
+    "Tooltip":  {
+                    "component":  "src/BootstrapBlazor/Components/Tooltip",
+                    "skill":  "src/BootstrapBlazor/Components/Tooltip/Tooltip.md",
+                    "sample":  "src/BootstrapBlazor.Server/Components/Samples/Tooltips.razor"
+                },
+    "Transfer":  {
+                     "component":  "src/BootstrapBlazor/Components/Transfer",
+                     "skill":  "src/BootstrapBlazor/Components/Transfer/Transfer.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/Transfers.razor"
+                 },
+    "Transition":  {
+                       "component":  "src/BootstrapBlazor/Components/Transition",
+                       "skill":  "src/BootstrapBlazor/Components/Transition/Transition.md",
+                       "sample":  "src/BootstrapBlazor.Server/Components/Samples/Transitions.razor"
+                   },
+    "Tree":  {
+                 "component":  "src/BootstrapBlazor/Components/Tree",
+                 "skill":  "src/BootstrapBlazor/Components/Tree/Tree.md"
+             },
+    "TreeView":  {
+                     "component":  "src/BootstrapBlazor/Components/TreeView",
+                     "skill":  "src/BootstrapBlazor/Components/TreeView/TreeView.md",
+                     "sample":  "src/BootstrapBlazor.Server/Components/Samples/TreeViews.razor"
+                 },
+    "Tutorials":  {
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/Tutorials"
+                  },
+    "Typed":  {
+                  "component":  "src/BootstrapBlazor/Components/Typed",
+                  "skill":  "src/BootstrapBlazor/Components/Typed/Typed.md",
+                  "sample":  "src/BootstrapBlazor.Server/Components/Samples/Typeds.razor"
+              },
+    "Upload":  {
+                   "component":  "src/BootstrapBlazor/Components/Upload",
+                   "skill":  "src/BootstrapBlazor/Components/Upload/Upload.md"
+               },
+    "Validate":  {
+                     "component":  "src/BootstrapBlazor/Components/Validate",
+                     "skill":  "src/BootstrapBlazor/Components/Validate/Validate.md"
+                 },
+    "ValidateForm":  {
+                         "component":  "src/BootstrapBlazor/Components/ValidateForm",
+                         "skill":  "src/BootstrapBlazor/Components/ValidateForm/ValidateForm.md",
+                         "sample":  "src/BootstrapBlazor.Server/Components/Samples/ValidateForms.razor"
+                     },
+    "Waterfall":  {
+                      "component":  "src/BootstrapBlazor/Components/Waterfall",
+                      "skill":  "src/BootstrapBlazor/Components/Waterfall/Waterfall.md"
+                  },
+    "Watermark":  {
+                      "component":  "src/BootstrapBlazor/Components/Watermark",
+                      "skill":  "src/BootstrapBlazor/Components/Watermark/Watermark.md",
+                      "sample":  "src/BootstrapBlazor.Server/Components/Samples/Watermarks.razor"
+                  },
+    "WebSpeech":  {
+                      "component":  "src/BootstrapBlazor/Components/WebSpeech",
+                      "skill":  "src/BootstrapBlazor/Components/WebSpeech/WebSpeech.md"
+                  }
+}
