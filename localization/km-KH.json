@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "សូម​បញ្ចូល​តម្លៃ​ដូច​គ្នា​ម្តង​ទៀត"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "កំហុស​កម្មវិធី"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} គឺ​ចាំបាច់។"
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "បណ្តាញ",
+    "Title": "បណ្តាញ",
     "NetworkType": "ប្រភេទ​បណ្តាញ",
     "Downlink": "Downlink",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "តើ​អ្នក​ប្រាកដ​ទេ​ថា​ចង់​លុប​ទិន្នន័យ​បច្ចុប្បន្ន?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "ទាំងអស់",
+    "BooleanAllText": "ទាំងអស់",
+    "BooleanTrueText": "ពិត",
+    "BooleanFalseText": "មិនពិត",
+    "NumberStartValueLabelText": "ចាប់ផ្តើម",
+    "NumberEndValueLabelText": "បញ្ចប់"
   }
 }

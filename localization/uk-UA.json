@@ -397,7 +397,7 @@
     "DefaultRequiredErrorMessage": "{0} є обов'язковим."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "Мережа",
+    "Title": "Мережа",
     "NetworkType": "Тип мережі",
     "Downlink": "Швидкість завантаження",
     "RTT": "RTT"
@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "Ви впевнені, що хочете видалити поточні дані?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "Усі",
+    "BooleanAllText": "Усі",
+    "BooleanTrueText": "Так",
+    "BooleanFalseText": "Ні",
+    "NumberStartValueLabelText": "Початок",
+    "NumberEndValueLabelText": "Кінець"
   }
 }

@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "您確定要刪除當前資料嗎？"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "全部",
+    "BooleanAllText": "全部",
+    "BooleanTrueText": "是",
+    "BooleanFalseText": "否",
+    "NumberStartValueLabelText": "開始數量",
+    "NumberEndValueLabelText": "截止數量"
   }
 }
