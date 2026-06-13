@@ -1609,6 +1609,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         cut.Contains("table-fixed-header");
         cut.Contains("height: 200px;");
+        cut.Contains("table-layout-fixed");
     }
 
     [Theory]
@@ -1745,6 +1746,9 @@ public class TableTest : BootstrapBlazorTestBase
         {
             cut.DoesNotContain("is-resizable");
         }
+
+        // 开启列宽调整时仍使用 auto 布局保持初始列宽与未开启时一致
+        cut.DoesNotContain("table-layout-fixed");
     }
 
     [Theory]
