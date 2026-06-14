@@ -187,14 +187,22 @@ const addScript = content => {
         script.setAttribute('src', content)
         document.body.appendChild(script)
         script.onload = () => {
-            script.setAttribute('loaded', true)
+            script.setAttribute('loaded', 'true')
+        }
+        script.onerror = () => {
+            script.setAttribute('loaded', 'error')
         }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         const handler = setInterval(() => {
-            const done = link[0].getAttribute('loaded') === 'true'
-            if (done) {
+            const state = link[0].getAttribute('loaded')
+            if (state === 'true') {
                 clearInterval(handler)
+                resolve()
+            }
+            else if (state === 'error') {
+                clearInterval(handler)
+                console.error(`Failed to load script: ${content}`)
                 resolve()
             }
         }, 20)
