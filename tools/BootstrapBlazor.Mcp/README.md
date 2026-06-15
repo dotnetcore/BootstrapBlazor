@@ -8,12 +8,6 @@ It exposes component source, official Samples, and AI Skill files from `skill-in
 2. Official Sample
 3. Component Skill
 
-Run against a restored consumer project:
-
-```powershell
-bootstrapblazor-mcp --project-dir D:\Path\To\BlazorProject --urls http://127.0.0.1:5178
-```
-
 Run against the BootstrapBlazor source repository:
 
 ```powershell

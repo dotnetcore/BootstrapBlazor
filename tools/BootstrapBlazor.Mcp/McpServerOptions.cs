@@ -4,10 +4,6 @@ public sealed class McpServerOptions
 {
     public string? RepoRoot { get; init; }
 
-    public string? PackageRoot { get; init; }
-
-    public string? ProjectDir { get; init; }
-
     public bool LogMessages { get; init; }
 
     public int LogPreviewChars { get; init; } = 1200;
@@ -48,8 +44,6 @@ public sealed class McpServerOptions
         return new McpServerOptions
         {
             RepoRoot = GetOption(options, "repo-root"),
-            PackageRoot = GetOption(options, "package-root"),
-            ProjectDir = GetOption(options, "project-dir"),
             LogMessages = GetBoolOption(options, "log-messages") || GetBoolOption(options, "log-mcp"),
             LogPreviewChars = GetIntOption(options, "log-preview-chars", 1200)
         };

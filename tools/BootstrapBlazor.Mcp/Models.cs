@@ -4,16 +4,13 @@ namespace BootstrapBlazor.Mcp;
 
 public enum BootstrapBlazorRootMode
 {
-    Repository,
-    Package,
-    ProjectPackage
+    Repository
 }
 
 public sealed record BootstrapBlazorRoot(
     BootstrapBlazorRootMode Mode,
     string RootPath,
-    string SkillIndexPath,
-    string? ProjectDir = null);
+    string SkillIndexPath);
 
 public sealed record SkillIndexEntry(
     string Name,
