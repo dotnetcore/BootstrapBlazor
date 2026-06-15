@@ -66,6 +66,7 @@
     <File Path="src/SourceLink.targets" />
   </Folder>
   <Folder Name="/test/">
+    <Project Path="test/BootstrapBlazor.Mcp.Tests/BootstrapBlazor.Mcp.Tests.csproj" />
     <Project Path="test/UniTest.Sass/UniTest.Sass.csproj" />
     <Project Path="test/UnitTest.Localization/UnitTest.Localization.csproj" />
     <Project Path="test/UnitTest/UnitTest.csproj" />
@@ -75,6 +76,7 @@
     <File Path="test/Directory.Build.props" />
   </Folder>
   <Folder Name="/tools/">
+    <Project Path="tools/BootstrapBlazor.Mcp/BootstrapBlazor.Mcp.csproj" />
     <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
   </Folder>
 </Solution>

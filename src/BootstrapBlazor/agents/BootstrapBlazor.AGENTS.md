@@ -2,6 +2,10 @@
 
 Before generating BootstrapBlazor component code in this project:
 
+Preferred path: if the BootstrapBlazor MCP server is configured, call `get_component_context` for the target component and use its returned source, Sample, and Skill sections in the priority order below.
+
+Fallback path:
+
 1. Read `obj/project.assets.json`.
 2. Locate the installed `BootstrapBlazor` package folder.
 3. Read `skill-index.json` from that package folder.
