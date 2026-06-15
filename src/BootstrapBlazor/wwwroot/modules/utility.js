@@ -181,7 +181,9 @@ const addScript = content => {
     let link = scripts.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
+    let created = false
     if (link.length === 0) {
+        created = true
         const script = document.createElement('script')
         link.push(script)
         script.setAttribute('src', content)
@@ -194,6 +196,7 @@ const addScript = content => {
         }
     }
     return new Promise(resolve => {
+        let count = 0
         const handler = setInterval(() => {
             const state = link[0].getAttribute('loaded')
             if (state === 'true') {
@@ -203,6 +206,11 @@ const addScript = content => {
             else if (state === 'error') {
                 clearInterval(handler)
                 console.error(`Failed to load script: ${content}`)
+                resolve()
+            }
+            else if (!created && ++count > 250) {
+                clearInterval(handler)
+                console.warn(`Timeout while loading script: ${content}`)
                 resolve()
             }
         }, 20)
@@ -246,7 +254,9 @@ const addLink = (href, rel = "stylesheet") => {
     let link = links.filter(function(link) {
         return link.href.indexOf(url) > -1
     })
+    let created = false
     if (link.length === 0) {
+        created = true
         const css = document.createElement('link')
         link.push(css)
         css.setAttribute("rel", rel)
@@ -260,15 +270,22 @@ const addLink = (href, rel = "stylesheet") => {
         }
     }
     return new Promise(resolve => {
+        let count = 0
         const handler = setInterval(() => {
-            const state = link[0].getAttribute('loaded')
-            if (state === 'true') {
+            const el = link[0]
+            const state = el.getAttribute('loaded')
+            if (state === 'true' || el.sheet) {
                 clearInterval(handler)
                 resolve()
             }
             else if (state === 'error') {
                 clearInterval(handler)
                 console.error(`Failed to load stylesheet: ${href}`)
+                resolve()
+            }
+            else if (!created && ++count > 250) {
+                clearInterval(handler)
+                console.warn(`Timeout while loading stylesheet: ${href}`)
                 resolve()
             }
         }, 20)
