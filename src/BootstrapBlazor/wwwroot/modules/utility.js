@@ -253,14 +253,22 @@ const addLink = (href, rel = "stylesheet") => {
         css.setAttribute('href', href)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
-            css.setAttribute('loaded', true)
+            css.setAttribute('loaded', 'true')
+        }
+        css.onerror = () => {
+            css.setAttribute('loaded', 'error')
         }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         const handler = setInterval(() => {
-            const done = link[0].getAttribute('loaded') === 'true'
-            if (done) {
+            const state = link[0].getAttribute('loaded')
+            if (state === 'true') {
                 clearInterval(handler)
+                resolve()
+            }
+            else if (state === 'error') {
+                clearInterval(handler)
+                console.error(`Failed to load stylesheet: ${href}`)
                 resolve()
             }
         }, 20)
