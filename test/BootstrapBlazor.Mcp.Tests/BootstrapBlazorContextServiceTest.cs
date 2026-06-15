@@ -65,6 +65,50 @@ public class BootstrapBlazorContextServiceTest : IDisposable
         Assert.Equal("http", response?["result"]?["serverInfo"]?["transport"]?.GetValue<string>());
     }
 
+    [Fact]
+    public void Options_Parse_LogMessages_Flag()
+    {
+        var options = McpServerOptions.Parse([
+            "--repo-root",
+            _root,
+            "--urls",
+            "http://127.0.0.1:5178",
+            "--log-messages",
+            "--log-preview-chars",
+            "2000"
+        ]);
+
+        Assert.Equal(_root, options.RepoRoot);
+        Assert.True(options.LogMessages);
+        Assert.Equal(2000, options.LogPreviewChars);
+        Assert.True(options.ShouldLogMessages("Development"));
+        Assert.True(options.ShouldLogMessages("Production", debuggerAttached: true));
+        Assert.False(options.ShouldLogMessages("Production"));
+    }
+
+    [Fact]
+    public void DebugLogFormatter_Summarizes_ComponentContext_Response()
+    {
+        CreateRepository();
+        var context = CreateService().GetComponentContext("Button");
+        var toolResult = new ToolCallResult([
+            new ToolContent("text", JsonSerializer.Serialize(context, new JsonSerializerOptions(JsonSerializerDefaults.Web)))
+        ]);
+        var response = new JsonObject
+        {
+            ["jsonrpc"] = "2.0",
+            ["id"] = 1,
+            ["result"] = JsonSerializer.SerializeToNode(toolResult)
+        };
+
+        var log = McpDebugLogFormatter.FormatResponse(response, 2000);
+
+        Assert.Contains("component=Button", log);
+        Assert.Contains("sourceFiles=", log);
+        Assert.Contains("sampleFiles=", log);
+        Assert.Contains("skillFile=", log);
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(_root))
