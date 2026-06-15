@@ -30,4 +30,13 @@
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\skill-index.json" Pack="true" PackagePath="skill-index.json" />
+    <None Include="agents\BootstrapBlazor.AGENTS.md" Pack="true" PackagePath="agents\BootstrapBlazor.AGENTS.md" />
+    <None Include="buildTransitive\BootstrapBlazor.targets" Pack="true" PackagePath="buildTransitive\BootstrapBlazor.targets" />
+    <None Include="tools\install-bootstrapblazor-agents.ps1" Pack="true" PackagePath="tools\install-bootstrapblazor-agents.ps1" />
+    <None Include="Components\**\*.cs;Components\**\*.razor;Components\**\*.scss;Components\**\*.js;Components\**\*.md" Pack="true" PackagePath="src\BootstrapBlazor\Components\%(RecursiveDir)" />
+    <None Include="..\BootstrapBlazor.Server\Components\Samples\**\*.*" Pack="true" PackagePath="src\BootstrapBlazor.Server\Components\Samples\%(RecursiveDir)" />
+  </ItemGroup>
+
 </Project>
