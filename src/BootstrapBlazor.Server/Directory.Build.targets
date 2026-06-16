@@ -1,9 +1,12 @@
 <Project>
 
+  <PropertyGroup>
+    <BootstrapBlazorLLMsDocsGeneratorProject>$(MSBuildThisFileDirectory)..\..\tools\BootstrapBlazor.LLMsDocsGenerator\BootstrapBlazor.LLMsDocsGenerator.csproj</BootstrapBlazorLLMsDocsGeneratorProject>
+  </PropertyGroup>
+
   <Target Name="LLMs" AfterTargets="Publish">
     <Message Text="LLMs documentation generating ..." Importance="high"></Message>
-    <Exec Command="dotnet tool restore"></Exec>
-    <Exec Command="dotnet llms-docs --root=$(MSBuildThisFileDirectory) --output=$(PublishDir)"></Exec>
+    <Exec Command="dotnet run --project &quot;$(BootstrapBlazorLLMsDocsGeneratorProject)&quot; -- --root &quot;$(MSBuildThisFileDirectory).&quot; --output &quot;$(PublishDir).&quot;"></Exec>
   </Target>
 
   <Target Name="CopyXmlDocs" AfterTargets="LLMs">

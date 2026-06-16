@@ -76,6 +76,7 @@
     <File Path="test/Directory.Build.props" />
   </Folder>
   <Folder Name="/tools/">
+    <Project Path="tools/BootstrapBlazor.LLMsDocsGenerator/BootstrapBlazor.LLMsDocsGenerator.csproj" />
     <Project Path="tools/BootstrapBlazor.Mcp/BootstrapBlazor.Mcp.csproj" />
     <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
   </Folder>
