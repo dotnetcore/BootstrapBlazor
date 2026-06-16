@@ -67,7 +67,10 @@ export async function reset(id) {
                     if (table.minWidthRaf) {
                         cancelAnimationFrame(table.minWidthRaf);
                     }
-                    table.minWidthRaf = requestAnimationFrame(() => applyColumnMinWidth(table));
+                    table.minWidthRaf = requestAnimationFrame(() => {
+                        table.minWidthRaf = null;
+                        applyColumnMinWidth(table);
+                    });
                 });
                 table.minWidthObserver.observe(table.body);
             }
