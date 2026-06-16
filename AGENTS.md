@@ -2,6 +2,8 @@
 
 Before generating BootstrapBlazor component code, read `skill-index.json`.
 
+Component Skill files are stored under `docs/skills/components` and are linked from `skill-index.json`.
+
 If the BootstrapBlazor MCP server is available, call `get_component_context` for the target component first. Use its returned source, Sample, and Skill sections in the same priority order below.
 
 Read order:

@@ -5,6 +5,7 @@
 [CmdletBinding()]
 param(
     [string]$ComponentRoot = "src/BootstrapBlazor/Components",
+    [string]$SkillRoot = "docs/skills/components",
     [string[]]$SampleRoots = @(
         "src/BootstrapBlazor.Server/Components/Samples",
         "src/BootstrapBlazor.Server/Samples"
@@ -106,13 +107,13 @@ foreach ($name in $names) {
 
     if ($components.ContainsKey($name)) {
         $componentDirectory = $components[$name]
-        $skillPath = Join-Path $componentDirectory.FullName "$name.md"
 
         $entry["component"] = ConvertTo-RepoPath $componentDirectory.FullName
+    }
 
-        if (Test-Path $skillPath) {
-            $entry["skill"] = ConvertTo-RepoPath $skillPath
-        }
+    $skillPath = Join-Path (Join-Path $RepoRoot $SkillRoot) "$name.md"
+    if (Test-Path $skillPath) {
+        $entry["skill"] = ConvertTo-RepoPath $skillPath
     }
 
     $sample = $null

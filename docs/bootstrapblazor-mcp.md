@@ -2,6 +2,8 @@
 
 BootstrapBlazor MCP Server exposes the repository's component source, official Samples, and AI Skill files through HTTP MCP tools.
 
+Component Skill files are stored under `docs/skills/components` and linked from `skill-index.json`.
+
 It enforces the same priority used by `AGENTS.md`:
 
 1. Current component source

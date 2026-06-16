@@ -2,7 +2,7 @@
 
 BootstrapBlazor MCP is an HTTP MCP server for BootstrapBlazor component development.
 
-It exposes component source, official Samples, and AI Skill files from `skill-index.json`, preserving this priority:
+It exposes component source, official Samples, and AI Skill files from `skill-index.json`. Component Skill files are stored under `docs/skills/components`, preserving this priority:
 
 1. Current component source
 2. Official Sample

@@ -5,6 +5,7 @@
 [CmdletBinding()]
 param(
     [string]$ComponentRoot = "src/BootstrapBlazor/Components",
+    [string]$SkillRoot = "docs/skills/components",
     [string[]]$SampleRoots = @(
         "src/BootstrapBlazor.Server/Components/Samples",
         "src/BootstrapBlazor.Server/Samples"
@@ -551,6 +552,8 @@ if (-not (Test-Path $componentRootPath)) {
 }
 
 $samples = Get-SampleMap
+$skillRootPath = Join-Path $RepoRoot $SkillRoot
+New-Item -ItemType Directory -Force -Path $skillRootPath | Out-Null
 $generated = 0
 $skipped = 0
 $skipLookup = @{}
@@ -567,7 +570,7 @@ Get-ChildItem -LiteralPath $componentRootPath -Directory |
     Sort-Object Name |
     ForEach-Object {
         $component = $_
-        $skillPath = Join-Path $component.FullName "$($component.Name).md"
+        $skillPath = Join-Path $skillRootPath "$($component.Name).md"
 
         if ($skipLookup.ContainsKey($component.Name)) {
             $script:skipped++

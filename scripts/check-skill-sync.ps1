@@ -6,6 +6,7 @@
 param(
     [string]$BaseRef = "",
     [string]$ComponentRoot = "src/BootstrapBlazor/Components",
+    [string]$SkillRoot = "docs/skills/components",
     [string[]]$SampleRoots = @(
         "src/BootstrapBlazor.Server/Components/Samples",
         "src/BootstrapBlazor.Server/Samples"
@@ -121,6 +122,32 @@ function Get-ComponentNameFromPath {
     return ($relativePath -split "/")[0]
 }
 
+function Get-SkillNameFromPath {
+    param([string]$Path)
+
+    $prefix = (ConvertTo-SlashPath $SkillRoot).TrimEnd("/") + "/"
+    if (-not $Path.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $null
+    }
+
+    $relativePath = $Path.Substring($prefix.Length)
+    if ([string]::IsNullOrWhiteSpace($relativePath) -or $relativePath.Contains("/")) {
+        return $null
+    }
+
+    if (-not $relativePath.EndsWith(".md", [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $null
+    }
+
+    return [System.IO.Path]::GetFileNameWithoutExtension($relativePath)
+}
+
+function Get-SkillPath {
+    param([Parameter(Mandatory = $true)][string]$ComponentName)
+
+    return (ConvertTo-SlashPath (Join-Path $SkillRoot "$ComponentName.md"))
+}
+
 function Test-SkillMetadata {
     param(
         [Parameter(Mandatory = $true)][string]$ComponentName,
@@ -165,29 +192,32 @@ $skillChanges = @{}
 
 foreach ($change in $changedFiles) {
     $componentName = Get-ComponentNameFromPath -Path $change.Path
-    if ($null -eq $componentName) {
-        continue
+    if ($null -ne $componentName) {
+        $componentSkillPath = Get-SkillPath -ComponentName $componentName
+
+        if ($change.Path.Equals($componentSkillPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $skillChanges[$componentName] = $true
+        }
+        else {
+            $componentChanges[$componentName] = $true
+        }
     }
 
-    $skillPath = (ConvertTo-SlashPath (Join-Path $ComponentRoot "$componentName/$componentName.md"))
-
-    if ($change.Path.Equals($skillPath, [System.StringComparison]::OrdinalIgnoreCase)) {
-        $skillChanges[$componentName] = $true
-    }
-    else {
-        $componentChanges[$componentName] = $true
+    $skillName = Get-SkillNameFromPath -Path $change.Path
+    if ($null -ne $skillName) {
+        $skillChanges[$skillName] = $true
     }
 }
 
 foreach ($componentName in ($componentChanges.Keys | Sort-Object)) {
     $componentPath = (ConvertTo-SlashPath (Join-Path $ComponentRoot $componentName))
-    $skillPath = (ConvertTo-SlashPath (Join-Path $componentPath "$componentName.md"))
+    $skillPath = Get-SkillPath -ComponentName $componentName
     $skillFullPath = Join-Path $RepoRoot $skillPath
 
     $isNewComponent = -not (Test-PathInGitRef -CompareRef $BaseRef -Path $componentPath)
 
     if ($isNewComponent -and -not (Test-Path $skillFullPath)) {
-        Write-SkillWarning "New component '$componentName' does not have $componentName.md." $componentPath
+        Write-SkillWarning "New component '$componentName' does not have $skillPath." $componentPath
         continue
     }
 
@@ -196,27 +226,28 @@ foreach ($componentName in ($componentChanges.Keys | Sort-Object)) {
     }
 
     if (-not $skillChanges.ContainsKey($componentName)) {
-        Write-SkillWarning "Component '$componentName' changed without updating $componentName.md. Verify whether the Skill needs an update." $componentPath
+        Write-SkillWarning "Component '$componentName' changed without updating $skillPath. Verify whether the Skill needs an update." $componentPath
     }
 }
 
 foreach ($componentName in ($skillChanges.Keys | Sort-Object)) {
-    $skillPath = (ConvertTo-SlashPath (Join-Path $ComponentRoot "$componentName/$componentName.md"))
+    $skillPath = Get-SkillPath -ComponentName $componentName
     Test-SkillMetadata -ComponentName $componentName -SkillPath $skillPath
 }
 
 if ($WarnAllMissingSkills) {
     $componentRootPath = Join-Path $RepoRoot $ComponentRoot
+    $skillRootPath = Join-Path $RepoRoot $SkillRoot
     if (Test-Path $componentRootPath) {
         Get-ChildItem -LiteralPath $componentRootPath -Directory |
             Sort-Object Name |
             ForEach-Object {
-                $skillPath = Join-Path $_.FullName "$($_.Name).md"
+                $skillPath = Join-Path $skillRootPath "$($_.Name).md"
                 if (-not (Test-Path $skillPath)) {
-                    Write-SkillWarning "Component '$($_.Name)' does not have $($_.Name).md." (ConvertTo-SlashPath (Join-Path $ComponentRoot $_.Name))
+                    Write-SkillWarning "Component '$($_.Name)' does not have $(Get-SkillPath -ComponentName $_.Name)." (ConvertTo-SlashPath (Join-Path $ComponentRoot $_.Name))
                 }
                 else {
-                    Test-SkillMetadata -ComponentName $_.Name -SkillPath (ConvertTo-SlashPath (Join-Path $ComponentRoot "$($_.Name)/$($_.Name).md"))
+                    Test-SkillMetadata -ComponentName $_.Name -SkillPath (Get-SkillPath -ComponentName $_.Name)
                 }
             }
     }

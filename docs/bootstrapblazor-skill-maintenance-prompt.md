@@ -1,9 +1,9 @@
-你正在维护 BootstrapBlazor 源码仓库内嵌的 AI Skill 文件。
+你正在维护 BootstrapBlazor 源码仓库中的 AI Skill 文件。
 
 目标：
 根据当前仓库源码和官方 Sample，为本次变更涉及的组件生成或更新同名 Skill 文件：
 
-`src/BootstrapBlazor/Components/<ComponentName>/<ComponentName>.md`
+`docs/skills/components/<ComponentName>.md`
 
 本次对比基准为 `<BASE_REF>`。如果没有明确指定，优先使用 `HEAD~1`。
 
@@ -29,8 +29,8 @@
 
    - 查找 `src/BootstrapBlazor/Components/**` 下被新增或修改的文件
    - 将路径归并到组件目录
-   - 如果有新增组件目录，必须创建同名 `<ComponentName>.md`
-   - 如果组件源码修改，必须同步检查并更新同名 Skill
+   - 如果有新增组件目录，必须创建 `docs/skills/components/<ComponentName>.md`
+   - 如果组件源码修改，必须同步检查并更新 `docs/skills/components/<ComponentName>.md`
 
 2. 对每个组件读取必要文件
 
@@ -39,7 +39,7 @@
    - `src/BootstrapBlazor/Components/<ComponentName>/<ComponentName>.razor`
    - `src/BootstrapBlazor/Components/<ComponentName>/<ComponentName>.razor.cs`
    - 组件目录下相关 `.cs`、`.scss`、`.js` 文件
-   - 当前已有的 `<ComponentName>.md`，如果存在
+   - 当前已有的 `docs/skills/components/<ComponentName>.md`，如果存在
    - `skill-index.json`
 
    如果 `skill-index.json` 中该组件存在 `sample`：
@@ -88,7 +88,7 @@
 
 4. 更新索引
 
-   如果新增组件、删除组件、移动 Sample 或新增 Sample，执行：
+   如果新增组件、删除组件、移动 Sample、新增 Sample、新增 Skill、移动 Skill 或删除 Skill，执行：
 
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\generate-skill-index.ps1
