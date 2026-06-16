@@ -30,6 +30,11 @@ export async function reset(id) {
         table.minWidthObserver.disconnect();
         table.minWidthObserver = null;
     }
+    if (table.minWidthRaf) {
+        cancelAnimationFrame(table.minWidthRaf);
+        table.minWidthRaf = null;
+    }
+    table.autoColumns = [];
 
     table.columns = [];
     table.tables = [];
