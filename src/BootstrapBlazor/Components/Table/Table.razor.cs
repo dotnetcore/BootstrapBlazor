@@ -522,6 +522,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _resetTable;
     private bool _resetColumnListPopover;
     private bool _resetColumns;
+    private bool _measureColumnMinWidth;
     private bool _updateSortTooltip;
     private bool _shouldScrollTop;
     private bool _invoke;
@@ -1151,6 +1152,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var resetColumnListPopover = _resetColumnListPopover;
             var resetTable = _resetTable;
             var resetColumns = _resetColumns;
+            var measureColumnMinWidth = _measureColumnMinWidth;
             var updateSortTooltip = _updateSortTooltip;
             var scrollToTop = _shouldScrollTop;
 
@@ -1158,6 +1160,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumnListPopover = false;
             _resetTable = false;
             _resetColumns = false;
+            _measureColumnMinWidth = false;
             _updateSortTooltip = false;
             _shouldScrollTop = false;
 
@@ -1167,6 +1170,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResetColumnListPopover = resetColumnListPopover,
                 ResetTable = resetTable,
                 ResetColumns = resetColumns,
+                MeasureColumnMinWidth = measureColumnMinWidth,
                 ColumnStates = _tableColumnStates,
                 AllowDragColumn,
                 UpdateSortTooltip = updateSortTooltip,
@@ -1468,6 +1472,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = nameof(ResizeColumnCallback),
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
+                ColumnStates = _tableColumnStates,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnWidthTooltip,
                 ColumnWidthTooltipPrefix,
