@@ -181,20 +181,36 @@ const addScript = content => {
     let link = scripts.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
+    let created = false
     if (link.length === 0) {
+        created = true
         const script = document.createElement('script')
         link.push(script)
         script.setAttribute('src', content)
         document.body.appendChild(script)
         script.onload = () => {
-            script.setAttribute('loaded', true)
+            script.setAttribute('loaded', 'true')
+        }
+        script.onerror = () => {
+            script.setAttribute('loaded', 'error')
         }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
+        let count = 0
         const handler = setInterval(() => {
-            const done = link[0].getAttribute('loaded') === 'true'
-            if (done) {
+            const state = link[0].getAttribute('loaded')
+            if (state === 'true') {
                 clearInterval(handler)
+                resolve()
+            }
+            else if (state === 'error') {
+                clearInterval(handler)
+                console.error(`Failed to load script: ${content}`)
+                resolve()
+            }
+            else if (!created && ++count > 250) {
+                clearInterval(handler)
+                console.warn(`Timeout while loading script: ${content}`)
                 resolve()
             }
         }, 20)
@@ -238,21 +254,38 @@ const addLink = (href, rel = "stylesheet") => {
     let link = links.filter(function(link) {
         return link.href.indexOf(url) > -1
     })
+    let created = false
     if (link.length === 0) {
+        created = true
         const css = document.createElement('link')
         link.push(css)
         css.setAttribute("rel", rel)
         css.setAttribute('href', href)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
-            css.setAttribute('loaded', true)
+            css.setAttribute('loaded', 'true')
+        }
+        css.onerror = () => {
+            css.setAttribute('loaded', 'error')
         }
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
+        let count = 0
         const handler = setInterval(() => {
-            const done = link[0].getAttribute('loaded') === 'true'
-            if (done) {
+            const el = link[0]
+            const state = el.getAttribute('loaded')
+            if (state === 'true' || el.sheet) {
                 clearInterval(handler)
+                resolve()
+            }
+            else if (state === 'error') {
+                clearInterval(handler)
+                console.error(`Failed to load stylesheet: ${href}`)
+                resolve()
+            }
+            else if (!created && ++count > 250) {
+                clearInterval(handler)
+                console.warn(`Timeout while loading stylesheet: ${href}`)
                 resolve()
             }
         }, 20)

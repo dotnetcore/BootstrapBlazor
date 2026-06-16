@@ -34,7 +34,7 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.14" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.16" />
     <PackageReference Include="BootstrapBlazor.Dom2Image" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="10.0.0" />
@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.8" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.9" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.2" />
