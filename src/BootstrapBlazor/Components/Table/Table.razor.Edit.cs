@@ -516,6 +516,12 @@ public partial class Table<TItem>
 
         if (shouldRender)
         {
+            // 数据渲染后触发脚本测量列内容最小宽度 用于固定表头(table-layout:fixed)窄容器下横向滚动兜底
+            if (IsFixedHeader)
+            {
+                _measureColumnMinWidth = true;
+                _invoke = true;
+            }
             StateHasChanged();
         }
     }

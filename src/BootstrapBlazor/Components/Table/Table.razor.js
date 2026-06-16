@@ -26,6 +26,11 @@ export async function reset(id) {
         return;
     }
 
+    if (table.minWidthObserver) {
+        table.minWidthObserver.disconnect();
+        table.minWidthObserver = null;
+    }
+
     table.columns = [];
     table.tables = [];
     table.dragColumns = [];
@@ -51,6 +56,16 @@ export async function reset(id) {
                 const left = table.body.scrollLeft
                 table.thead.scrollTo(left, 0)
             });
+
+            if (window.ResizeObserver) {
+                table.minWidthObserver = new ResizeObserver(() => {
+                    if (table.minWidthRaf) {
+                        cancelAnimationFrame(table.minWidthRaf);
+                    }
+                    table.minWidthRaf = requestAnimationFrame(() => applyColumnMinWidth(table));
+                });
+                table.minWidthObserver.observe(table.body);
+            }
         }
         else {
             table.isExcel = shim.firstElementChild.classList.contains('table-excel')
@@ -91,6 +106,10 @@ export async function reset(id) {
         table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
         return;
     }
+
+    if (table.thead) {
+        setColSize(table, table.options);
+    }
 }
 
 export async function switchCardView(id) {
@@ -112,6 +131,13 @@ const destroyTable = table => {
     if (table) {
         if (table.loopCheckHeightHandler) {
             cancelAnimationFrame(table.loopCheckHeightHandler);
+        }
+        if (table.minWidthObserver) {
+            table.minWidthObserver.disconnect();
+            table.minWidthObserver = null;
+        }
+        if (table.minWidthRaf) {
+            cancelAnimationFrame(table.minWidthRaf);
         }
         if (table.thead) {
             EventHandler.off(table.body, 'scroll')
@@ -1062,6 +1088,9 @@ export async function updateTableState(id, options) {
         if (options.resetColumns) {
             resetColumns(table, options);
         }
+        else if (options.measureColumnMinWidth) {
+            setColSize(table, options);
+        }
 
         if (options.resetColumnListPopover) {
             resetColumnListPopover(table);
@@ -1121,18 +1150,57 @@ const resetColumns = (table, options) => {
 }
 
 const setColSize = (table, options) => {
-    var zeroWidthColumns = options.columnStates.filter(i => i.width === null && i.visible === true);
-    zeroWidthColumns.forEach(col => {
-        const headerCollection = [...table.tables[0].querySelectorAll('thead > tr > th')];
-        const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
-        if (th.offsetWidth === 0) {
-            const width = getCellWidth(th);
-            const colIndex = headerCollection.indexOf(th);
-            col.width = Math.max(width, getColumnMaxCellWidth(table, colIndex));
-            table.tables.forEach(table => {
-                table.querySelectorAll('colgroup col')[colIndex].style.width = `${col.width}px`;
-            });
+    if (!table.tables || table.tables.length === 0) {
+        return;
+    }
+    const headerCollection = [...table.tables[0].querySelectorAll('thead > tr > th')];
+    const columnMinWidth = table.options.columnMinWidth || 0;
+    const autoColumns = [];
+    options.columnStates.forEach(col => {
+        if (col.width != null || col.visible === false) {
+            return;
         }
+        const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
+        if (th === void 0) {
+            return;
+        }
+        const colIndex = headerCollection.indexOf(th);
+        const minWidth = Math.max(getCellWidth(th) + getHeaderIconsWidth(th), getColumnMaxCellWidth(table, colIndex), columnMinWidth) | 0;
+        autoColumns.push({ colIndex, minWidth });
+    });
+    table.autoColumns = autoColumns;
+    applyColumnMinWidth(table);
+}
+
+const getHeaderIconsWidth = th => {
+    let width = 0;
+    th.querySelectorAll('.sort-icon, .filter-icon, .toolbox-icon, .col-copy').forEach(icon => {
+        width += getWidth(icon);
+    });
+    return width;
+}
+
+const applyColumnMinWidth = table => {
+    if (!table.thead || !table.body || !table.autoColumns || table.autoColumns.length === 0) {
+        return;
+    }
+    setAutoColWidths(table, true);
+    const compact = table.body.scrollWidth > table.body.clientWidth + 1;
+    if (!compact) {
+        setAutoColWidths(table, false);
+    }
+}
+
+const setAutoColWidths = (table, apply) => {
+    const colgroups = table.tables.map(t => t.querySelectorAll('colgroup col'));
+    table.autoColumns.forEach(({ colIndex, minWidth }) => {
+        const width = apply ? `${minWidth}px` : '';
+        colgroups.forEach(cols => {
+            const colEl = cols[colIndex];
+            if (colEl) {
+                colEl.style.width = width;
+            }
+        });
     });
 }
 
