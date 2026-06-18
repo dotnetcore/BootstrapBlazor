@@ -6,14 +6,14 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="CopyXmlDocs" AfterTargets="Publish" DependsOnTargets="CollectXmlDocs">
+  <Target Name="CopyXmlDocs2Output" BeforeTargets="Build" DependsOnTargets="CollectXmlDocs">
+    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
+    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
+  </Target>
+
+  <Target Name="CopyXmlDocs2Publish" AfterTargets="Publish" DependsOnTargets="CollectXmlDocs">
     <Message Text="Copying XML docs to output path: $(PublishDir)" Importance="High" />
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(PublishDir)" />
   </Target>
 
-  <Target Name="CopyXmlDocs2" BeforeTargets="Build" DependsOnTargets="CollectXmlDocs">
-    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
-    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
-  </Target>
-  
 </Project>
