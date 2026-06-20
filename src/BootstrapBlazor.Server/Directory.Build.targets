@@ -11,8 +11,14 @@
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
   </Target>
 
-  <Target Name="CopyXmlDocs2Publish" AfterTargets="Publish" DependsOnTargets="CollectXmlDocs">
-    <Message Text="Copying XML docs to output path: $(PublishDir)" Importance="High" />
+  <Target Name="LLMs" AfterTargets="Publish">
+    <Message Text="LLMs documentation generating ..." Importance="high"></Message>
+    <Exec Command="dotnet tool restore"></Exec>
+    <Exec Command="dotnet llms-docs --root=$(MSBuildThisFileDirectory) --output=$(PublishDir)"></Exec>
+  </Target>
+
+  <Target Name="CopyXmlDocs2Publish" AfterTargets="LLMs" DependsOnTargets="CollectXmlDocs">
+    <Message Text="Copying XML docs to publish path: $(PublishDir)" Importance="High" />
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(PublishDir)" />
   </Target>
 
