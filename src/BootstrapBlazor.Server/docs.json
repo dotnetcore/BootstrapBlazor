@@ -598,17 +598,25 @@
     "DrawerService",
     "EyeDropperService",
     "FullScreenService",
+    "IAudioDevice",
+    "IBluetooth",
     "IBrowserFingerService",
+    "ICalendarFestivals",
+    "ICalendarHolidays",
+    "IComponentHtmlRenderer",
     "IConnectionService",
     "IGeoLocationService",
     "IHtml2Image",
     "IHtml2Pdf",
+    "IIpLocatorProvider",
     "ILookupService",
     "INetworkMonitorService",
     "IPinyinService",
     "ISerialService",
+    "ITableExport",
     "ITotpService",
     "IVersionService",
+    "IVideoDevice",
     "IZipArchiveService",
     "MaskService",
     "MessageService",
@@ -697,6 +705,14 @@
       "components": ["HikVisionWebPlugin"],
       "services": []
     },
+    "BootstrapBlazor.Html2Image": {
+      "components": [],
+      "services": ["IHtml2Image"]
+    },
+    "BootstrapBlazor.Html2Pdf": {
+      "components": [],
+      "services": ["IHtml2Pdf"]
+    },
     "BootstrapBlazor.IconPark": {
       "components": ["ByteDanceIcon"],
       "services": []
@@ -771,7 +787,7 @@
     },
     "BootstrapBlazor.Region": {
       "components": ["SelectCity", "SelectProvince", "SelectRegion"],
-      "services": []
+      "services": ["IRegionService"]
     },
     "BootstrapBlazor.SignaturePad": {
       "components": ["SignaturePad"],
