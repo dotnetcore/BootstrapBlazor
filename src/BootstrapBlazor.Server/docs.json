@@ -344,7 +344,8 @@
     "工具类组件": [
       "ReconnectorContent",
       "RenderTemplate",
-      "Script"
+      "Script",
+      "ThemeProvider"
     ],
     "布局组件": [
       "BootstrapBlazorRoot",
@@ -544,6 +545,7 @@
       "IntersectionObserverItem",
       "Light",
       "Marquee",
+      "Mask",
       "Message",
       "Modal",
       "ModalDialog",
@@ -563,10 +565,6 @@
       "Toast",
       "ToastContainer",
       "Tooltip"
-    ],
-    "内置服务": [
-      "Mask",
-      "ThemeProvider"
     ],
     "过滤器组件": [
       "BoolFilter",
