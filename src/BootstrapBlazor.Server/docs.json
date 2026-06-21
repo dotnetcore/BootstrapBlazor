@@ -591,5 +591,35 @@
       "SkeletonTable",
       "SkeletonTree"
     ]
-  }
+  },
+  "services": [
+    "AjaxService",
+    "ClipboardService",
+    "DialogService",
+    "DownloadService",
+    "DrawerService",
+    "EyeDropperService",
+    "FullScreenService",
+    "IBrowserFingerService",
+    "IConnectionService",
+    "IGeoLocationService",
+    "IHtml2Image",
+    "IHtml2Pdf",
+    "ILookupService",
+    "INetworkMonitorService",
+    "IPinyinService",
+    "ISerialService",
+    "ITotpService",
+    "IVersionService",
+    "IZipArchiveService",
+    "MaskService",
+    "MessageService",
+    "NotificationService",
+    "PrintService",
+    "SwalService",
+    "TitleService",
+    "ToastService",
+    "WebClientService",
+    "WebSpeechService"
+  ]
 }
