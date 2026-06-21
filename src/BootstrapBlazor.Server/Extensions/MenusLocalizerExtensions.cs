@@ -751,7 +751,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Icon"],
+                    Text = Localizer["BootstrapBlazorIcon"],
                     Url = "icon"
                 },
                 new()

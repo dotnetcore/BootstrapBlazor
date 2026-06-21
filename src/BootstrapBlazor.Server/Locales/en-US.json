@@ -278,7 +278,7 @@
     "Html2Image": "IHtml2Image",
     "Html2Pdf": "IHtml2Pdf",
     "HtmlRenderer": "HtmlRenderer",
-    "Icon": "Icon",
+    "BootstrapBlazorIcon": "Icon",
     "IconPark": "ByteDance IconPark",
     "Icons": "Icons",
     "IFrame": "IFrame",

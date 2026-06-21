@@ -278,7 +278,7 @@
     "Html2Image": "Html 转 Image IHtml2Image",
     "Html2Pdf": "Html 转 Pdf IHtml2Pdf",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
-    "Icon": "图标 Icon",
+    "BootstrapBlazorIcon": "图标 Icon",
     "IconPark": "字节跳动图标 IconPark",
     "Icons": "内置图标",
     "IFrame": "内嵌框架 IFrame",
