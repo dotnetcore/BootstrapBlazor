@@ -619,5 +619,215 @@
     "ToastService",
     "WebClientService",
     "WebSpeechService"
-  ]
+  ],
+  "extensions": {
+    "BootstrapBlazor.AntDesignIcon": {
+      "components": ["AntDesignIcon"],
+      "services": []
+    },
+    "BootstrapBlazor.AzureOpenAI": {
+      "components": [],
+      "services": ["IAzureOpenAIService"]
+    },
+    "BootstrapBlazor.AzureTranslator": {
+      "components": [],
+      "services": ["IAzureTranslatorService"]
+    },
+    "BootstrapBlazor.BaiduOcr": {
+      "components": [],
+      "services": ["IBaiduOcr"]
+    },
+    "BootstrapBlazor.BarCode": {
+      "components": ["BarcodeReader", "QRCode"],
+      "services": []
+    },
+    "BootstrapBlazor.BarcodeGenerator": {
+      "components": ["BarcodeGenerator"],
+      "services": []
+    },
+    "BootstrapBlazor.Chart": {
+      "components": ["Chart"],
+      "services": []
+    },
+    "BootstrapBlazor.ChatBot": {
+      "components": ["MarkdownContent"],
+      "services": []
+    },
+    "BootstrapBlazor.CherryMarkdown": {
+      "components": ["CherryMarkdown"],
+      "services": []
+    },
+    "BootstrapBlazor.CodeEditor": {
+      "components": ["CodeEditor"],
+      "services": []
+    },
+    "BootstrapBlazor.Dock": {
+      "components": ["DockComponent", "DockView"],
+      "services": []
+    },
+    "BootstrapBlazor.DockView": {
+      "components": ["DockViewComponent", "DockViewDropdownIcon", "DockViewIcon", "DockViewTitleBar", "DockViewV2"],
+      "services": []
+    },
+    "BootstrapBlazor.Dom2Image": {
+      "components": [],
+      "services": ["IDom2ImageService"]
+    },
+    "BootstrapBlazor.DriverJs": {
+      "components": ["DriverJs"],
+      "services": []
+    },
+    "BootstrapBlazor.ElementIcon": {
+      "components": ["ElementIcon"],
+      "services": []
+    },
+    "BootstrapBlazor.EmbedPDF": {
+      "components": ["EmbedPDF"],
+      "services": []
+    },
+    "BootstrapBlazor.FileViewer": {
+      "components": ["FileViewer"],
+      "services": []
+    },
+    "BootstrapBlazor.Gantt": {
+      "components": ["Gantt"],
+      "services": []
+    },
+    "BootstrapBlazor.HikVision": {
+      "components": ["HikVisionWebPlugin"],
+      "services": []
+    },
+    "BootstrapBlazor.IconPark": {
+      "components": ["ByteDanceIcon"],
+      "services": []
+    },
+    "BootstrapBlazor.ImageCropper": {
+      "components": ["ImageCropper"],
+      "services": []
+    },
+    "BootstrapBlazor.JitsiMeet": {
+      "components": ["Meet"],
+      "services": []
+    },
+    "BootstrapBlazor.JitViewer": {
+      "components": ["JitViewer"],
+      "services": []
+    },
+    "BootstrapBlazor.Live2DDisplay": {
+      "components": ["Live2DDisplay"],
+      "services": []
+    },
+    "BootstrapBlazor.Markdown": {
+      "components": ["Markdown"],
+      "services": []
+    },
+    "BootstrapBlazor.MeiliSearch": {
+      "components": ["MeiliSearchBox"],
+      "services": []
+    },
+    "BootstrapBlazor.Mermaid": {
+      "components": ["Mermaid"],
+      "services": []
+    },
+    "BootstrapBlazor.MindMap": {
+      "components": ["MindMap"],
+      "services": []
+    },
+    "BootstrapBlazor.MouseFollower": {
+      "components": ["MouseFollower"],
+      "services": []
+    },
+    "BootstrapBlazor.OctIcon": {
+      "components": ["OctIcon"],
+      "services": []
+    },
+    "BootstrapBlazor.OfficeViewer": {
+      "components": ["OfficeViewer"],
+      "services": []
+    },
+    "BootstrapBlazor.OnScreenKeyboard": {
+      "components": ["OnScreenKeyboard"],
+      "services": []
+    },
+    "BootstrapBlazor.OpcDa": {
+      "components": [],
+      "services": ["IOpcDaServer", "IOpcItem", "IOpcSubscription"]
+    },
+    "BootstrapBlazor.PdfReader": {
+      "components": ["PdfReader"],
+      "services": []
+    },
+    "BootstrapBlazor.PdfViewer": {
+      "components": ["PdfViewer"],
+      "services": []
+    },
+    "BootstrapBlazor.Player": {
+      "components": ["Player"],
+      "services": []
+    },
+    "BootstrapBlazor.RDKit": {
+      "components": ["RDKit"],
+      "services": []
+    },
+    "BootstrapBlazor.Region": {
+      "components": ["SelectCity", "SelectProvince", "SelectRegion"],
+      "services": []
+    },
+    "BootstrapBlazor.SignaturePad": {
+      "components": ["SignaturePad"],
+      "services": []
+    },
+    "BootstrapBlazor.SmilesDrawer": {
+      "components": ["SmilesDrawer"],
+      "services": []
+    },
+    "BootstrapBlazor.Sortable": {
+      "components": ["SortableList"],
+      "services": []
+    },
+    "BootstrapBlazor.Splitting": {
+      "components": ["Splitting"],
+      "services": []
+    },
+    "BootstrapBlazor.SummerNote": {
+      "components": ["Editor"],
+      "services": []
+    },
+    "BootstrapBlazor.SvgEditor": {
+      "components": ["SvgEditor"],
+      "services": []
+    },
+    "BootstrapBlazor.Tasks.Dashboard": {
+      "components": ["TaskDashboard", "TaskInfo"],
+      "services": []
+    },
+    "BootstrapBlazor.Term": {
+      "components": ["Term"],
+      "services": []
+    },
+    "BootstrapBlazor.Topology": {
+      "components": ["Topology"],
+      "services": []
+    },
+    "BootstrapBlazor.UniverIcon": {
+      "components": ["UniverIcon"],
+      "services": []
+    },
+    "BootstrapBlazor.UniverSheet": {
+      "components": ["UniverSheet"],
+      "services": []
+    },
+    "BootstrapBlazor.Vditor": {
+      "components": ["Vditor"],
+      "services": []
+    },
+    "BootstrapBlazor.VideoPlayer": {
+      "components": ["VideoPlayer"],
+      "services": []
+    },
+    "BootstrapBlazor.WinBox": {
+      "components": ["WinBox"],
+      "services": ["WinBoxService"]
+    }
+  }
 }
