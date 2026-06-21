@@ -452,7 +452,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Ip"],
+                    Text = Localizer["IpAddress"],
                     Url = "ip"
                 },
                 new()
