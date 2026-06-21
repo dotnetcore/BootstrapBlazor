@@ -321,7 +321,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Labels"],
+                    Text = Localizer["BootstrapLabel"],
                     Url = "label"
                 },
                 new()
@@ -437,22 +437,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Match = NavLinkMatch.All,
-                    Text = Localizer["Input"],
+                    Text = Localizer["BootstrapInput"],
                     Url = "input"
                 },
                 new()
                 {
-                    Text = Localizer["InputNumber"],
+                    Text = Localizer["BootstrapInputNumber"],
                     Url = "input-number"
                 },
                 new()
                 {
-                    Text = Localizer["InputGroup"],
+                    Text = Localizer["BootstrapInputGroup"],
                     Url = "input-group"
                 },
                 new()
                 {
-                    Text = Localizer["Ip"],
+                    Text = Localizer["IpAddress"],
                     Url = "ip"
                 },
                 new()
@@ -751,7 +751,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Icon"],
+                    Text = Localizer["BootstrapBlazorIcon"],
                     Url = "icon"
                 },
                 new()
@@ -1265,7 +1265,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Console"],
+                    Text = Localizer["ConsoleLogger"],
                     Url = "console"
                 },
                 new()
