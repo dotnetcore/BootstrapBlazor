@@ -179,11 +179,19 @@ public partial class TransferPanel
         {
             if (state == CheckboxState.Checked)
             {
-                GetShownItems().ForEach(i => i.Active = true);
+                GetShownItems().ForEach(i =>
+                {
+                    if (!i.IsDisabled)
+                        i.Active = true;
+                });
             }
             else
             {
-                GetShownItems().ForEach(i => i.Active = false);
+                GetShownItems().ForEach(i =>
+                {
+                    if (!i.IsDisabled)
+                        i.Active = false;
+                });
             }
 
             if (OnSelectedItemsChanged != null)
