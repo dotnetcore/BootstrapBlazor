@@ -239,9 +239,6 @@ public partial class AutoComplete
     {
         if (SkipMatch)
         {
-            // 跳过匹配 候选项始终展示全部 Items 保持 _filterItems 为 null 以实时跟踪 Items 变化
-            _filterItems = null;
-            _dropdown.Render();
             return;
         }
 
