@@ -237,6 +237,11 @@ public partial class AutoComplete
     [JSInvokable]
     public async Task TriggerFilter(string val)
     {
+        if (SkipMatch)
+        {
+            return;
+        }
+
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
