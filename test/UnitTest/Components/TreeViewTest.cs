@@ -908,6 +908,54 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IconTemplate_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[0].IconTemplate = builder =>
+        {
+            builder.OpenElement(0, "span");
+            builder.AddAttribute(1, "class", "test-icon-template");
+            builder.CloseElement();
+        };
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+
+        // 自定义图标模板渲染成功
+        cut.Contains("test-icon-template");
+
+        // 自定义图标模板优先级最高，未渲染 SvgIcon 与默认 i 标签
+        var node = cut.FindAll(".tree-content .tree-node")[0];
+        Assert.Contains("test-icon-template", node.InnerHtml);
+        Assert.DoesNotContain("bb-svg-icon", node.InnerHtml);
+    }
+
+    [Fact]
+    public void UseSvg_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[0].UseSvg = true;
+        items[0].SvgHref = "./test-tree.svg";
+        items[0].Icon = "test-svg-icon";
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+
+        // 使用 SvgIcon 渲染节点图标
+        var icon = cut.FindComponent<SvgIcon>();
+        Assert.Equal("test-svg-icon", icon.Instance.Name);
+        Assert.Equal("./test-tree.svg", icon.Instance.Href);
+
+        cut.Contains("bb-svg-icon-test-svg-icon");
+        cut.Contains("./test-tree.svg#test-svg-icon");
+        cut.Contains("tree-icon");
+    }
+
+    [Fact]
     public void ModelEqualityComparer_Ok()
     {
         var cut = Context.Render<MockTree<TreeFoo>>(pb =>
