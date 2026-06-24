@@ -24,6 +24,24 @@ public abstract class TreeNodeBase<TItem> : NodeBase<TItem>
     public string? Icon { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否使用 Svg 图标 默认 false</para>
+    /// <para lang="en">Gets or sets whether to use Svg icon, default is false</para>
+    /// </summary>
+    public bool UseSvg { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Svg 图标地址</para>
+    /// <para lang="en">Gets or sets Svg icon URL</para>
+    /// </summary>
+    public string? SvgHref { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 自定义 Icon 模板 默认为 null</para>
+    /// <para lang="en">Gets or sets custom Icon template, default is null</para>
+    /// </summary>
+    public RenderFragment? IconTemplate { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 展开节点状态下的 Icon 图标</para>
     /// <para lang="en">Gets or sets Icon when node is expanded</para>
     /// </summary>
