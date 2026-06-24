@@ -186,8 +186,8 @@ public partial class Transfer<TValue>
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件是否被禁用回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the callback method for whether the component is disabled. Default is null</para>
+    /// <para lang="zh">获得/设置 候选项是否被禁用回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method for whether the transfer item is disabled. Default is null</para>
     /// <para>v<version>10.7.3</version></para>
     /// </summary>
     [Parameter]
