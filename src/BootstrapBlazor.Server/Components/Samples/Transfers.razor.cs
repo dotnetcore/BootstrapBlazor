@@ -106,4 +106,10 @@ public sealed partial class Transfers : ComponentBase
         "8" => "bg-warning text-white",
         _ => null
     };
+
+    // 回调参数 item 为 null 时代表头部全选项，返回 false 保证可点击全选
+    // 其余指定 Value 的选项返回 true 表示禁用，禁用项不可勾选且不参与全选操作
+    private static bool OnDisabledCallback(string source, SelectedItem? item) => source == "left"
+        ? item?.Value is "2" or "4" or "6"
+        : item?.Value is "5";
 }
