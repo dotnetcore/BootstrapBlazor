@@ -1,11 +1,12 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@PanelClassString">
     <div class="transfer-panel-header">
         @if(HeaderTemplate == null)
         {
-            <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@IsDisabled" ShowAfterLabel="true" ShowLabel="false"
+            <Checkbox TValue="SelectedItem" DisplayText="@Text" IsDisabled="@GetDisableState(null)"
+                      ShowAfterLabel="true" ShowLabel="false"
                       State="@HeaderCheckState()" OnStateChanged="@OnHeaderCheck" />
         }
         else
@@ -30,7 +31,7 @@
                 if(ItemTemplate == null)
                 {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
-                    <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="@GetItemClass(item)"
+                    <Checkbox TValue="SelectedItem" IsDisabled="@GetDisableState(item)" class="@GetItemClass(item)"
                               DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
                               State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
                 }

@@ -115,6 +115,14 @@ public partial class TransferPanel
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 组件是否被禁用回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method for whether the component is disabled. Default is null</para>
+    /// <para>v<version>10.7.3</version></para>
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem?, bool>? OnDisabledCallback { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
     /// <para lang="en">Gets or sets the header template</para>
     /// </summary>
@@ -248,4 +256,8 @@ public partial class TransferPanel
     private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
         ? Items
         : Items.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList());
+
+    private bool GetDisableState(SelectedItem? item) => OnDisabledCallback != null
+        ? OnDisabledCallback(item)
+        : IsDisabled;
 }
