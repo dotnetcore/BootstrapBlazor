@@ -5704,6 +5704,8 @@
     "TransferCustomerTitle": "可自定义",
     "TransferDisableIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
     "TransferDisableTitle": "禁用",
+    "TransferDisabledCallbackIntro": "通过设置 <code>OnDisabledCallback</code> 回调方法根据 <code>SelectedItem</code> 值控制指定选项是否禁用，回调参数为 <code>null</code> 时代表头部全选项。被禁用的选项不可勾选，且不参与全选/取消全选操作",
+    "TransferDisabledCallbackTitle": "禁用指定选项",
     "TransferItemClassIntro": "通过设置 <code>OnSetItemClass</code> 回调方法根据 <code>SelectedItem</code> 值设置选项样式",
     "TransferItemClassTitle": "设置 Item 样式",
     "TransferMinMaxIntro": "通过设置 <code>Min</code> <code>Max</code> 参数来限制选项个数",

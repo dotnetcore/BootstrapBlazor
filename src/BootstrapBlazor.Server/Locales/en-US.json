@@ -5704,6 +5704,8 @@
     "TransferCustomerTitle": "Customizable",
     "TransferDisableIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
     "TransferDisableTitle": "Disable",
+    "TransferDisabledCallbackIntro": "By setting the <code>OnDisabledCallback</code> callback method, you can control whether specific items are disabled based on the <code>SelectedItem</code> value. The <code>null</code> argument represents the header select-all option. Disabled items cannot be checked and are excluded from the select-all/deselect-all operations",
+    "TransferDisabledCallbackTitle": "Disable specific items",
     "TransferItemClassIntro": "By setting the <code>OnSetItemClass</code> callback method styles options based on the<code> values of </code>SelectedItem",
     "TransferItemClassTitle": "Set the Item style",
     "TransferMinMaxIntro": "By setting <code>Min</code> <code>Max</code> Parameter to limit the number of options",
