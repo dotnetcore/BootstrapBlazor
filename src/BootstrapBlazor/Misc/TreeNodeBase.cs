@@ -36,6 +36,12 @@ public abstract class TreeNodeBase<TItem> : NodeBase<TItem>
     public string? SvgHref { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 自定义 Icon 模板 默认为 null</para>
+    /// <para lang="en">Gets or sets custom Icon template, default is null</para>
+    /// </summary>
+    public RenderFragment? IconTemplate { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 展开节点状态下的 Icon 图标</para>
     /// <para lang="en">Gets or sets Icon when node is expanded</para>
     /// </summary>

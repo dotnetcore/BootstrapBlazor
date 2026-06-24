@@ -20,7 +20,11 @@
         <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow">
             @if (ShowIcon)
             {
-                @if (Item.UseSvg)
+                @if (Item.IconTemplate != null)
+                {
+                    @Item.IconTemplate
+                }
+                else if (Item.UseSvg)
                 {
                     <SvgIcon Href="@Item.SvgHref" Name="@Item.Icon"></SvgIcon>
                 }
