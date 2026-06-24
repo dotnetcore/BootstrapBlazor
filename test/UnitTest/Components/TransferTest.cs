@@ -274,6 +274,38 @@ public class TransferTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnDisabledCallback_Ok()
+    {
+        // 左侧面板仅禁用 Value 为 "1" 的项，右侧面板仅禁用 Value 为 "2" 的项
+        // 通过 target 参数区分左右面板，验证回调首参正确传入 "left"/"right"
+        var cut = Context.Render<Transfer<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.Items,
+            [
+                new("1", "Test1"),
+                new("2", "Test2")
+            ]);
+            pb.Add(a => a.OnDisabledCallback, (target, item) => target == "left"
+                ? item?.Value == "1"
+                : item?.Value == "2");
+        });
+
+        var panels = cut.FindComponents<TransferPanel>();
+
+        // 左侧面板：Header(null) 未禁用，候选项 Test1 被禁用
+        var leftCheckboxes = panels[0].FindComponents<Checkbox<SelectedItem>>();
+        Assert.False(leftCheckboxes[0].Instance.IsDisabled);
+        Assert.True(leftCheckboxes[1].Instance.IsDisabled);
+
+        // 右侧面板：Header(null) 未禁用，候选项 Test2 被禁用
+        // 若 target 未正确传入 "right"，则会走 "left" 分支按 Value == "1" 判断，Test2 将不会被禁用
+        var rightCheckboxes = panels[1].FindComponents<Checkbox<SelectedItem>>();
+        Assert.False(rightCheckboxes[0].Instance.IsDisabled);
+        Assert.True(rightCheckboxes[1].Instance.IsDisabled);
+    }
+
+    [Fact]
     public void IsWrapItem_Ok()
     {
         var cut = Context.Render<Transfer<string>>(pb =>

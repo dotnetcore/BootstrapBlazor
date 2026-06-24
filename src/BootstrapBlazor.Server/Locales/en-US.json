@@ -5704,6 +5704,8 @@
     "TransferCustomerTitle": "Customizable",
     "TransferDisableIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
     "TransferDisableTitle": "Disable",
+    "TransferDisabledCallbackIntro": "By setting the <code>OnDisabledCallback</code> callback method, you can control whether specific items are disabled. The first argument <code>target</code> identifies the current panel — <code>left</code> for the left panel and <code>right</code> for the right panel — so you can apply different disable rules to each side. The second argument is the <code>SelectedItem</code>, which is <code>null</code> for the header select-all option. In this example the left panel disables <code>2</code> <code>4</code> <code>6</code> and the right panel disables <code>5</code>. Disabled items cannot be checked and are excluded from the select-all/deselect-all operations",
+    "TransferDisabledCallbackTitle": "Disable specific items",
     "TransferItemClassIntro": "By setting the <code>OnSetItemClass</code> callback method styles options based on the<code> values of </code>SelectedItem",
     "TransferItemClassTitle": "Set the Item style",
     "TransferMinMaxIntro": "By setting <code>Min</code> <code>Max</code> Parameter to limit the number of options",
