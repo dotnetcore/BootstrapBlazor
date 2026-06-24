@@ -5704,7 +5704,7 @@
     "TransferCustomerTitle": "可自定义",
     "TransferDisableIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
     "TransferDisableTitle": "禁用",
-    "TransferDisabledCallbackIntro": "通过设置 <code>OnDisabledCallback</code> 回调方法根据 <code>SelectedItem</code> 值控制指定选项是否禁用，回调参数为 <code>null</code> 时代表头部全选项。被禁用的选项不可勾选，且不参与全选/取消全选操作",
+    "TransferDisabledCallbackIntro": "通过设置 <code>OnDisabledCallback</code> 回调方法控制指定选项是否禁用。回调首个参数 <code>target</code> 用于标识当前面板，左侧面板为 <code>left</code>、右侧面板为 <code>right</code>，可据此对左右两侧分别设置禁用规则；第二个参数为 <code>SelectedItem</code>，为 <code>null</code> 时代表头部全选项。本例左侧面板禁用 <code>2</code> <code>4</code> <code>6</code>，右侧面板禁用 <code>5</code>。被禁用的选项不可勾选，且不参与全选/取消全选操作",
     "TransferDisabledCallbackTitle": "禁用指定选项",
     "TransferItemClassIntro": "通过设置 <code>OnSetItemClass</code> 回调方法根据 <code>SelectedItem</code> 值设置选项样式",
     "TransferItemClassTitle": "设置 Item 样式",
