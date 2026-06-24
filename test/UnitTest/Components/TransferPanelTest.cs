@@ -81,6 +81,40 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnDisabledCallback_Ok()
+    {
+        // 回调根据 item 决定禁用状态：Header(null) 与 Value 为 "1" 的项被禁用
+        var cut = Context.Render<TransferPanel>(pb =>
+        {
+            pb.Add(a => a.Items,
+            [
+                new("1", "Test1"),
+                new("2", "Test2")
+            ]);
+            pb.Add(a => a.OnDisabledCallback, item => item == null || item.Value == "1");
+        });
+
+        // 索引 0 为 Header，回调返回 true 被禁用
+        var checkboxes = cut.FindComponents<Checkbox<SelectedItem>>();
+        Assert.True(checkboxes[0].Instance.IsDisabled);
+
+        // 索引 1 为 Test1，回调返回 true 被禁用
+        Assert.True(checkboxes[1].Instance.IsDisabled);
+
+        // 索引 2 为 Test2，回调返回 false 未禁用
+        Assert.False(checkboxes[2].Instance.IsDisabled);
+
+        // 设置了回调时优先使用回调结果：IsDisabled=true 但回调返回 false 时仍未禁用
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+            pb.Add(a => a.OnDisabledCallback, item => false);
+        });
+        checkboxes = cut.FindComponents<Checkbox<SelectedItem>>();
+        Assert.All(checkboxes, c => Assert.False(c.Instance.IsDisabled));
+    }
+
+    [Fact]
     public void HeaderTemplate_Ok()
     {
         var cut = Context.Render<TransferPanel>(pb =>
