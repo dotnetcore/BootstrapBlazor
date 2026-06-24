@@ -20,8 +20,8 @@ public partial class SvgIcon
     public string? Name { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 图标地址</para>
-    /// <para lang="en">Get Icon URL</para>
+    /// <para lang="zh">获得/设置 图标地址，默认 null 未设置，内部使用 BootstrapBlazor.IconPark 包中提供的图标</para>
+    /// <para lang="en">Gets or sets Icon URL, default is null, internal use BootstrapBlazor.IconPark package provided icons</para>
     /// </summary>
     [Parameter, NotNull]
     public string? Href { get; set; }
