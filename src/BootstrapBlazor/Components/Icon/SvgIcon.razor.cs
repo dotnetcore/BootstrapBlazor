@@ -32,6 +32,7 @@ public partial class SvgIcon
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-svg-icon")
         .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? _hrefString;
