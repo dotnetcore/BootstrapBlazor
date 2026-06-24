@@ -115,6 +115,14 @@ public partial class TransferPanel
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 组件是否被禁用回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method for whether the component is disabled. Default is null</para>
+    /// <para>v<version>10.7.3</version></para>
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem?, bool>? OnDisabledCallback { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
     /// <para lang="en">Gets or sets the header template</para>
     /// </summary>
@@ -157,11 +165,14 @@ public partial class TransferPanel
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.Indeterminate;
-        if (Items.Count > 0 && Items.All(i => i.Active))
+
+        // 全选状态仅根据未被 OnDisabledCallback 禁用的项进行计算
+        var items = Items.Where(i => !IsItemDisabled(i)).ToList();
+        if (items.Count > 0 && items.All(i => i.Active))
         {
             ret = CheckboxState.Checked;
         }
-        else if (!Items.Any(i => i.Active))
+        else if (!items.Any(i => i.Active))
         {
             ret = CheckboxState.UnChecked;
         }
@@ -177,22 +188,9 @@ public partial class TransferPanel
     {
         if (Items != null)
         {
-            if (state == CheckboxState.Checked)
-            {
-                GetShownItems().ForEach(i =>
-                {
-                    if (!i.IsDisabled)
-                        i.Active = true;
-                });
-            }
-            else
-            {
-                GetShownItems().ForEach(i =>
-                {
-                    if (!i.IsDisabled)
-                        i.Active = false;
-                });
-            }
+            // 全选时过滤掉被 OnDisabledCallback 禁用的项，保持其原有选中状态
+            var active = state == CheckboxState.Checked;
+            GetShownItems().Where(i => !IsItemDisabled(i)).ToList().ForEach(i => i.Active = active);
 
             if (OnSelectedItemsChanged != null)
             {
@@ -256,4 +254,13 @@ public partial class TransferPanel
     private List<SelectedItem> GetShownItems() => (string.IsNullOrEmpty(SearchText)
         ? Items
         : Items.Where(i => i.Text.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList());
+
+    private bool GetDisableState(SelectedItem? item) => OnDisabledCallback != null
+        ? OnDisabledCallback(item)
+        : IsDisabled;
+
+    /// <summary>
+    /// 判断指定数据项是否被 <see cref="OnDisabledCallback"/> 禁用，全选时禁用项将被过滤
+    /// </summary>
+    private bool IsItemDisabled(SelectedItem item) => OnDisabledCallback?.Invoke(item) == true;
 }

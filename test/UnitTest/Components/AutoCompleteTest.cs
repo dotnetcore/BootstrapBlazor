@@ -24,6 +24,23 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SkipMatch_AfterSelect_Ok()
+    {
+        var cut = Context.Render<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.SkipMatch, true);
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+        });
+
+        // 选中候选项 test123 后 TriggerFilter 不应过滤候选项
+        // 否则再次输入时 SkipMatch 失效 候选项被锁定为上次选中值的过滤子集
+        await cut.InvokeAsync(() => cut.FindAll(".dropdown-item")[2].Click());
+
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Equal(4, items.Count);
+    }
+
+    [Fact]
     public void Items_Ok()
     {
         var cut = Context.Render<AutoComplete>(pb =>
