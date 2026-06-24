@@ -25,4 +25,15 @@ public class SvgIconTest : BootstrapBlazorTestBase
         });
         cut.MarkupMatches("<div class=\"bb-svg-icon bb-svg-icon-test-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\"><use href=\"test-url#test-icon\"></use></svg></div>");
     }
+
+    [Fact]
+    public void CustomClass_Ok()
+    {
+        var cut = Context.Render<SvgIcon>(pb =>
+        {
+            pb.Add(a => a.Name, "test-icon");
+            pb.AddUnmatched("class", "custom-class");
+        });
+        cut.MarkupMatches("<div class=\"bb-svg-icon bb-svg-icon-test-icon custom-class\"><svg xmlns=\"http://www.w3.org/2000/svg\"><use href=\"./_content/BootstrapBlazor.IconPark/icon-park.svg#test-icon\"></use></svg></div>");
+    }
 }
