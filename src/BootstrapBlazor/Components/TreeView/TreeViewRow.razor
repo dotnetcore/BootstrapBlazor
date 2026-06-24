@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits ComponentBase
 
@@ -20,7 +20,18 @@
         <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow">
             @if (ShowIcon)
             {
-                <i class="@IconClassString"></i>
+                @if (Item.IconTemplate != null)
+                {
+                    @Item.IconTemplate
+                }
+                else if (Item.UseSvg)
+                {
+                    <SvgIcon Href="@Item.SvgHref" Name="@Item.Icon" class="tree-icon"></SvgIcon>
+                }
+                else
+                {
+                    <i class="@IconClassString"></i>
+                }
             }
             @if (Item.Template == null)
             {
