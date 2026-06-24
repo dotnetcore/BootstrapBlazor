@@ -49,10 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="BootstrapBlazor.Components"/>
-    <Using Include="Bunit"/>
-    <Using Include="Microsoft.AspNetCore.Components"/>
-    <Using Include="UnitTest.Core"/>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="Bunit" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="UnitTest.Core" />
   </ItemGroup>
   
 </Project>

@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="System.Diagnostics.CodeAnalysis"/>
-    <Using Include="Xunit"/>
-    <Using Include="Xunit.Abstractions"/>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="Xunit" />
+    <Using Include="Xunit.Abstractions" />
   </ItemGroup>
 
 </Project>
