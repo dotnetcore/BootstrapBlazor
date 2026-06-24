@@ -191,7 +191,7 @@ public partial class Transfer<TValue>
     /// <para>v<version>10.7.3</version></para>
     /// </summary>
     [Parameter]
-    public Func<SelectedItem?, bool>? OnDisabledCallback { get; set; }
+    public Func<string, SelectedItem?, bool>? OnDisabledCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 左侧 Panel Header 模板</para>
@@ -425,4 +425,10 @@ public partial class Transfer<TValue>
     }
 
     private static bool GetButtonState(IEnumerable<SelectedItem> source) => !(source.Any(i => i.Active));
+
+    private bool OnLeftDisabledCallback(SelectedItem? item) => TriggerDisabledCallback("left", item);
+
+    private bool OnRightDisabledCallback(SelectedItem? item) => TriggerDisabledCallback("right", item);
+
+    private bool TriggerDisabledCallback(string target, SelectedItem? item) => OnDisabledCallback?.Invoke(target, item) ?? false;
 }
