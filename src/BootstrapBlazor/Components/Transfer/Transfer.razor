@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits ValidateBase<TValue>
 
@@ -10,7 +10,8 @@
     <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
-                   HeaderTemplate="LeftHeaderTemplate!" ItemTemplate="LeftItemTemplate!">
+                   OnDisabledCallback="OnDisabledCallback"
+                   HeaderTemplate="LeftHeaderTemplate" ItemTemplate="LeftItemTemplate">
     </TransferPanel>
     <div class="transfer-buttons">
         <Button Color="@Color.Primary" IsDisabled="@GetButtonState(RightItems)"
@@ -27,6 +28,7 @@
     <TransferPanel Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled" class="@ValidateClass" Id="@Id"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
-                   HeaderTemplate="RightHeaderTemplate!" ItemTemplate="RightItemTemplate!">
+                   OnDisabledCallback="OnDisabledCallback"
+                   HeaderTemplate="RightHeaderTemplate" ItemTemplate="RightItemTemplate">
     </TransferPanel>
 </div>
