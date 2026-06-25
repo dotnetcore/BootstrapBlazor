@@ -500,6 +500,8 @@ public class LayoutTest : BootstrapBlazorTestBase
     [Fact]
     public void Main_Ok()
     {
+        var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
+        nav.NavigateTo("/not-exist");
         var cut = Context.Render<CascadingValue<Task<AuthenticationState>>>(pb =>
         {
             pb.Add(a => a.Value, Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
@@ -514,6 +516,8 @@ public class LayoutTest : BootstrapBlazorTestBase
     [Fact]
     public void NotAuthorized_Ok()
     {
+        var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
+        nav.NavigateTo("/not-exist");
         var cut = Context.Render<CascadingValue<Task<AuthenticationState>>>(pb =>
         {
             pb.Add(a => a.Value, Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
