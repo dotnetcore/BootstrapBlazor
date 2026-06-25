@@ -87,7 +87,17 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ZipArchive_Ok()
     {
-        var fileName = Path.Combine(AppContext.BaseDirectory, "test", "3.zip");
+        var folder = Path.Combine(AppContext.BaseDirectory, "test");
+        if (!Directory.Exists(folder))
+        {
+            Directory.CreateDirectory(folder);
+        }
+
+        // 准备待压缩文件，避免依赖其他单元测试产生的文件导致一起运行时失败
+        var item = Path.Combine(folder, "1.txt");
+        await File.WriteAllTextAsync(item, "A", CancellationToken.None);
+
+        var fileName = Path.Combine(folder, "3.zip");
         if (File.Exists(fileName))
         {
             File.Delete(fileName);
@@ -96,7 +106,6 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         await using var fs = File.OpenWrite(fileName);
         await using var zip = new ZipArchive(fs, ZipArchiveMode.Create);
 
-        var item = Path.Combine(AppContext.BaseDirectory, "test", "1.txt");
         zip.CreateEntry("text/");
         await zip.CreateEntryFromFileAsync(item, "text/1.txt", CancellationToken.None);
     }
