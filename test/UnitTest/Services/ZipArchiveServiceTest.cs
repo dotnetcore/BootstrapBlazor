@@ -55,7 +55,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             Directory.Delete(destFolder, true);
         }
-        await archService.ExtractToDirectoryAsync(archiveFile, destFolder);
+        await archService.ExtractToDirectoryAsync(archiveFile, destFolder, token: CancellationToken.None);
         Assert.True(Directory.Exists(destFolder));
 
         // 删除文件夹
@@ -63,7 +63,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         Assert.False(Directory.Exists(destFolder));
 
         // 异步解压缩单元测试
-        await archService.ExtractToDirectoryAsync(archiveFile, destFolder);
+        await archService.ExtractToDirectoryAsync(archiveFile, destFolder, token: CancellationToken.None);
         Assert.True(Directory.Exists(destFolder));
 
         // 打包文件夹单元测试
@@ -77,11 +77,11 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             File.Delete(destFile);
         }
-        await archService.ArchiveDirectoryAsync(destFile, destFolder, includeBaseDirectory: true);
+        await archService.ArchiveDirectoryAsync(destFile, destFolder, includeBaseDirectory: true, token: CancellationToken.None);
         Assert.True(File.Exists(destFile));
         File.Delete(destFile);
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectoryAsync(null!, destFolder, includeBaseDirectory: true));
+        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectoryAsync(null!, destFolder, includeBaseDirectory: true, token: CancellationToken.None));
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
 
         var item = Path.Combine(AppContext.BaseDirectory, "test", "1.txt");
         zip.CreateEntry("text/");
-        await zip.CreateEntryFromFileAsync(item, "text/1.txt");
+        await zip.CreateEntryFromFileAsync(item, "text/1.txt", CancellationToken.None);
     }
 
     [Fact]

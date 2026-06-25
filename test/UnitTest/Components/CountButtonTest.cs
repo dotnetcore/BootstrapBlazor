@@ -24,7 +24,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         });
         Assert.Contains("disabled=\"disabled\"", cut.Markup);
 
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Contains("(1) DisplayText", cut.Markup);
 
         cut.WaitForState(() => !cut.Markup.Contains("disabled=\"disabled\""), TimeSpan.FromSeconds(1));
@@ -39,9 +39,9 @@ public class CountButtonTest : BootstrapBlazorTestBase
             var button = cut.Find("button");
             button.Click();
         });
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Contains("(1) CountText", cut.Markup);
-        await Task.Delay(600);
+        await Task.Delay(600, CancellationToken.None);
 
         cut.Render(pb =>
         {
@@ -57,10 +57,10 @@ public class CountButtonTest : BootstrapBlazorTestBase
         });
         Assert.Contains("disabled=\"disabled\"", cut.Markup);
 
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Contains("2-test-callback", cut.Markup);
 
-        await Task.Delay(700);
+        await Task.Delay(700, CancellationToken.None);
         Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
         Assert.Contains("DisplayText", cut.Markup);
 
@@ -78,9 +78,9 @@ public class CountButtonTest : BootstrapBlazorTestBase
             var button = cut.Find("button");
             button.Click();
         });
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Equal(1, clickCount);
-        await Task.Delay(600);
+        await Task.Delay(600, CancellationToken.None);
 
         cut.Render(pb =>
         {
@@ -95,8 +95,8 @@ public class CountButtonTest : BootstrapBlazorTestBase
             var button = cut.Find("button");
             button.Click();
         });
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Equal(3, clickCount);
-        await Task.Delay(600);
+        await Task.Delay(600, CancellationToken.None);
     }
 }

@@ -25,7 +25,7 @@ public class SearchTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
-        await Task.Delay(20);
+        await Task.Delay(20, CancellationToken.None);
 
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.Click());
@@ -60,7 +60,7 @@ public class SearchTest : BootstrapBlazorTestBase
         });
 
         await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
-        await Task.Delay(20);
+        await Task.Delay(20, CancellationToken.None);
 
         Assert.Contains("Template-test1-Address 1", cut.Markup);
         Assert.Contains("Template-test2-Address 2", cut.Markup);
@@ -172,7 +172,7 @@ public class SearchTest : BootstrapBlazorTestBase
         });
 
         await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
-        await Task.Delay(20);
+        await Task.Delay(20, CancellationToken.None);
 
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.Click());

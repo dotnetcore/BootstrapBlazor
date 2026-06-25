@@ -1007,7 +1007,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         var modals = cut.FindComponents<Modal>();
         var modal = modals[modals.Count - 1];
-        _ = Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<SelectGeneric<string>>().Instance.ConfirmSelectedItem(0)));
+        _ = Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<SelectGeneric<string>>().Instance.ConfirmSelectedItem(0)), CancellationToken.None);
         var tick = DateTime.Now;
         while (!cut.Markup.Contains("test-swal-footer"))
         {

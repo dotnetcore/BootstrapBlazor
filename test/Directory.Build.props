@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.*" />
-    <PackageReference Include="xunit" Version="2.*" />
+    <PackageReference Include="xunit.v3" Version="3.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -22,9 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="System.Diagnostics.CodeAnalysis" />
-    <Using Include="Xunit" />
-    <Using Include="Xunit.Abstractions" />
+    <Using Include="System.Diagnostics.CodeAnalysis"/>
+    <Using Include="Xunit"/>
   </ItemGroup>
 
 </Project>
