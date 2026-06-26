@@ -75,7 +75,7 @@ public class RecognizerTest : SpeechTestBase
             }));
         });
 
-        await Task.Delay(1200);
+        await Task.Delay(1200, CancellationToken.None);
         Assert.True(timeout);
 
         cut.Render(pb =>
@@ -83,7 +83,7 @@ public class RecognizerTest : SpeechTestBase
             pb.Add(a => a.Show, true);
             pb.Add(a => a.ShowUsedTime, false);
         });
-        await Task.Delay(1200);
+        await Task.Delay(1200, CancellationToken.None);
 
         cut.Render(pb =>
         {

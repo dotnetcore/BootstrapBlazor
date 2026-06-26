@@ -11,8 +11,8 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
     public async Task Clipboard_Ok()
     {
         var service = Context.Services.GetRequiredService<ClipboardService>();
-        await service.Copy(null, () => Task.CompletedTask);
-        await service.Copy("Test", () => Task.CompletedTask);
+        await service.Copy(null, () => Task.CompletedTask, CancellationToken.None);
+        await service.Copy("Test", () => Task.CompletedTask, CancellationToken.None);
     }
 
     [Fact]
@@ -21,9 +21,9 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<string?>("getTextFromClipboard").SetResult("test123");
         var service = Context.Services.GetRequiredService<ClipboardService>();
 
-        var text = await service.GetText();
+        var text = await service.GetText(CancellationToken.None);
         Assert.Equal("test123", text);
-        await service.GetText();
+        await service.GetText(CancellationToken.None);
     }
 
     [Fact]
@@ -31,24 +31,24 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<List<ClipboardItem>?>("getAllClipboardContents").SetResult([new() { Data = [0x31, 0x32, 0x33], MimeType = "text/text" }]);
         var service = Context.Services.GetRequiredService<ClipboardService>();
-        var items = await service.Get();
+        var items = await service.Get(CancellationToken.None);
         var item = items[0];
 
         Assert.Equal("123", item.Text);
         Assert.Equal("text/text", item.MimeType);
 
         Context.JSInterop.Setup<List<ClipboardItem>?>("getAllClipboardContents").SetResult([new() { Data = [0x31, 0x32, 0x33] }]);
-        items = await service.Get();
+        items = await service.Get(CancellationToken.None);
         item = items[0];
         Assert.Empty(item.Text);
 
         Context.JSInterop.Setup<List<ClipboardItem>?>("getAllClipboardContents").SetResult([new()]);
-        items = await service.Get();
+        items = await service.Get(CancellationToken.None);
         item = items[0];
         Assert.Empty(item.Text);
 
         Context.JSInterop.Setup<List<ClipboardItem>?>("getAllClipboardContents").SetResult(null);
-        items = await service.Get();
+        items = await service.Get(CancellationToken.None);
         Assert.Empty(items);
     }
 }

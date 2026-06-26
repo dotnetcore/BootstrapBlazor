@@ -103,7 +103,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         // 测试 Touch 事件
         TriggerTouchStart(row);
 
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         row.TouchEnd();
         Assert.True(clicked);
 
@@ -250,7 +250,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         TriggerTouchStart(row);
 
         var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
+        await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay, CancellationToken.None);
         row.TouchEnd();
     }
 
@@ -314,7 +314,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         TriggerTouchStart(row);
         TriggerTouchStart(row);
 
-        await Task.Delay(100 + 2 * options.CurrentValue.ContextMenuOptions.OnTouchDelay);
+        await Task.Delay(100 + 2 * options.CurrentValue.ContextMenuOptions.OnTouchDelay, CancellationToken.None);
         row.TouchEnd();
     }
 
