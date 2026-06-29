@@ -740,8 +740,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     public void SetActiveItem(TItem item)
     {
-        var val = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
-        SetActiveItem(val);
+        if (Items != null)
+        {
+            var val = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+            SetActiveItem(val);
+        }
     }
 
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
@@ -837,17 +840,20 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     public void ClearCheckedItems()
     {
-        Items.ForEach(item =>
+        if (Items != null)
         {
-            item.CheckedState = CheckboxState.UnChecked;
-            _treeNodeStateCache.ToggleCheck(item);
-            item.GetAllTreeSubItems().ToList().ForEach(s =>
+            Items.ForEach(item =>
             {
-                s.CheckedState = CheckboxState.UnChecked;
-                _treeNodeStateCache.ToggleCheck(s);
+                item.CheckedState = CheckboxState.UnChecked;
+                _treeNodeStateCache.ToggleCheck(item);
+                item.GetAllTreeSubItems().ToList().ForEach(s =>
+                {
+                    s.CheckedState = CheckboxState.UnChecked;
+                    _treeNodeStateCache.ToggleCheck(s);
+                });
             });
-        });
-        StateHasChanged();
+            StateHasChanged();
+        }
     }
 
     /// <summary>
