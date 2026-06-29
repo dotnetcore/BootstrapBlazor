@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SimpleSelectBase<TValue>
@@ -113,18 +113,6 @@
                     @foreach (var item in itemGroup)
                     {
                         @RenderRow(item)
-                    }
-
-                    if (!string.IsNullOrEmpty(itemGroup.Key))
-                    {
-                        if (GroupItemTemplate != null)
-                        {
-                            @GroupItemTemplate(itemGroup.Key)
-                        }
-                        else
-                        {
-                            <Divider Text="@itemGroup.Key" />
-                        }
                     }
                 }
             </div>
