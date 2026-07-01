@@ -152,7 +152,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
             new SelectedItem("Equal", Localizer["Equal"].Value),
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value ),
             new SelectedItem("Contains", Localizer["Contains"].Value ),
-            new SelectedItem("NotContains", Localizer["NotContains"].Value )
+            new SelectedItem("NotContains", Localizer["NotContains"].Value ),
+            new SelectedItem("Regex", Localizer["Regex"].Value )
         ];
     }
 

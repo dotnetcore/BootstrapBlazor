@@ -7,6 +7,7 @@ using Microsoft.CSharp.RuntimeBinder;
 using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace System.Linq;
 
@@ -241,6 +242,7 @@ public static class LambdaExtensions
             FilterAction.LessThanOrEqual => Expression.LessThanOrEqual(left, right),
             FilterAction.Contains => left.Contains(right, comparison),
             FilterAction.NotContains => Expression.Not(left.Contains(right, comparison)),
+            FilterAction.Regex => left.RegexMatch(right),
             _ => filter.FieldValue switch
             {
                 LambdaExpression t => Expression.Invoke(t, left),
@@ -265,6 +267,12 @@ public static class LambdaExtensions
         var method = typeof(string).GetMethod("Contains", [typeof(string), typeof(StringComparison)])!;
         var comparisonConstant = Expression.Constant(comparison);
         return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right, comparisonConstant));
+    }
+
+    private static MethodCallExpression RegexMatch(this Expression left, Expression right)
+    {
+        var method = typeof(Regex).GetMethod("IsMatch", [typeof(string), typeof(string)])!;
+        return Expression.Call(method, left, right);
     }
 
     #region Count

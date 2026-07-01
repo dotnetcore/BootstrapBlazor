@@ -279,6 +279,7 @@
     "NotEqual": "NotEqual",
     "Contains": "Contains",
     "NotContains": "NotContains",
+    "Regex": "Regex",
     "EnumFilter.AllText": "All",
     "NotSupportedColumnFilterMessage": "<p>Unsupported filter type, Please customize the filter use <code>FilterTemplate</code></p><div>Please refer <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Please enter ...",
@@ -377,6 +378,7 @@
     "NotEqual": "NotEqual",
     "Contains": "Contains",
     "NotContains": "NotContains",
+    "Regex": "Regex",
     "GroupText": "Group",
     "ItemText": "Item"
   },
