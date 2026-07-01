@@ -4671,6 +4671,7 @@
     "BindComplexObjectIntro": "When binding a complex type, whether the bound object collection is empty or not, the <code>TItem</code> must provide a parameterless constructor. Otherwise, it is required to provide a construction callback through <code>CreateItemCallback</code>. When binding a complex expression, the bound expression must not throw a <code>NullReferenceException</code> exception. If the business logic cannot avoid this issue, it is recommended to handle it using a <code>Template</code>",
     "BindComplexObjectP1": "In this example, the complex type <code>ComplexFoo</code> does not have a parameterless constructor, so a construction callback for <code>ComplexFoo</code> should be provided through <code>CreateItemCallback</code>",
     "BindComplexObjectP2": "In this example, we want to bind a complex expression <code>context.Company.Name</code> to the column <code>CompanyName</code>, but the business logic cannot ensure that the value of the <code>Company</code> property is not <code>null</code> at the time of binding. Therefore, we can first bind a simple expression and then handle it using the column template <code>Template</code>",
+    "BindComplexObjectP3": "Starting from version <code>10.6.1</code>, <code>@bind-Field</code>no longer allows multiple columns to be bound to the same attribute. To achieve the corresponding operation, please use <code>TableTemplateColumn</code>, please refer to <a href=\"table/edit#TableTemplateColumn\" target=\"_blank\">[Portal]</a>",
     "BindComplexObjectTitle": "Bind Complex Types and Expressions",
     "ColumnIgnoreButtonText": "Ignoring/Not Ignoring",
     "ColumnIgnoreIntro": "By setting the <code>Ignore</code> parameter to control whether the column is rendered, this parameter is different from <code>Visible</code>. Setting<code>Visible=\"false\"</code> to not display the column can be checked and displayed in the list through <code>ShowColumnList=\"true\"</code>",
@@ -4942,7 +4943,8 @@
     "TablesTemplateColumnTitle": "TemplateColumn",
     "TablesVisibleIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
     "TablesVisibleTitle": "Editor Visible/Hidden",
-    "TableTemplateColumnText": "Template"
+    "TableTemplateColumnText": "Template",
+    "TableTemplateColumnText2": "Name & Count"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelCellRenderIntro": "Advanced usage",

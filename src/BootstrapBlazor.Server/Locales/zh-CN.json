@@ -4671,6 +4671,7 @@
     "BindComplexObjectIntro": "当绑定复杂类型时，无论绑定的对象集合是否为空，都要求 <code>TItem</code> 提供无参构造函数，否则要求通过 <code>CreateItemCallback</code> 提供构造回调；当绑定复杂表达式时，要求绑定时该表达式不得引发 <code>NullReferenceException</code> 异常，如果业务逻辑无法避免此问题，建议使用 <code>Template</code> 进行处理",
     "BindComplexObjectP1": "本例中，复杂类型 <code>ComplexFoo</code> 不具备无参构造函数，需通过 <code>CreateItemCallback</code> 提供 <code>ComplexFoo</code> 的构造回调",
     "BindComplexObjectP2": "本例中，我们希望将复杂表达式 <code>context.Company.Name</code> 绑定到列 <code>CompanyName</code> 上，但是业务逻辑无法确保绑定时属性 <code>Company</code> 的值不为 <code>null</code> 。因此可以先绑定简单表达式，再通过列模板 <code>Template</code> 进行处理",
+    "BindComplexObjectP3": "从<code>10.6.1</code>版本开始<code>@bind-Field</code>不再允许多个列绑定相同属性，如要实现相应操作请使用<code>TableTemplateColumn</code>。请参阅 <a href=\"table/edit#TableTemplateColumn\" target=\"_blank\">[传送门]</a>",
     "BindComplexObjectTitle": "绑定复杂类型和表达式",
     "ColumnIgnoreButtonText": "忽略/不忽略",
     "ColumnIgnoreIntro": "通过设置 <code>Ignore</code> 参数控制列是否渲染，此参数与 <code>Visible</code> 不同，设置 <code>Visible=\"false\"</code> 后不显示列可通过 <code>ShowColumnList=\"true\"</code> 在列表中勾选并显示",
@@ -4942,7 +4943,8 @@
     "TablesTemplateColumnTitle": "模板列",
     "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>",
     "TablesVisibleTitle": "Table 编辑时显示/隐藏",
-    "TableTemplateColumnText": "模板列"
+    "TableTemplateColumnText": "模板列",
+    "TableTemplateColumnText2": "姓名 & 数量"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelCellRenderIntro": "高级用法",
