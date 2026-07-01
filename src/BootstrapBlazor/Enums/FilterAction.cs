@@ -70,6 +70,13 @@ public enum FilterAction
     NotContains,
 
     /// <summary>
+    /// <para lang="zh">正则表达式匹配</para>
+    /// <para lang="en">Regular expression match</para>
+    /// </summary>
+    [Description("正则匹配")]
+    Regex,
+
+    /// <summary>
     /// <para lang="zh">自定义条件</para>
     /// <para lang="en">Custom Predicate</para>
     /// </summary>
