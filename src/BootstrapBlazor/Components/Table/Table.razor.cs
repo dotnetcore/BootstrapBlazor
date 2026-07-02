@@ -1333,9 +1333,32 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
+        EnsureTemplateColumnFieldNames();
 
         // 加载客户端持久化列状态
         ResetTableColumns();
+    }
+
+    private void EnsureTemplateColumnFieldNames()
+    {
+        const string prefix = "__bb_template_column_";
+        var fieldNames = Columns.Select(i => i.GetFieldName()).Where(i => !string.IsNullOrEmpty(i)).ToHashSet(StringComparer.Ordinal);
+        var index = 0;
+
+        foreach (var col in Columns)
+        {
+            if (col is TableTemplateColumn<TItem> templateColumn && string.IsNullOrEmpty(col.GetFieldName()))
+            {
+                string fieldName;
+                do
+                {
+                    fieldName = $"{prefix}{index++}";
+                }
+                while (!fieldNames.Add(fieldName));
+
+                templateColumn.SetFieldName(fieldName);
+            }
+        }
     }
 
     private async Task LoadTableColumnStates()
