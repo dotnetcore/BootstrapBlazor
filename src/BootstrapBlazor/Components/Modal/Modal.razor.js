@@ -42,6 +42,30 @@ export function init(id, invoke, shownCallback, closeCallback) {
             modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
             modal.modal.show()
+
+            // 自己监听背景点击
+            el.addEventListener('click', e => {
+                if (e.target === el && e.target.classList.contains('modal') && e.target.classList.contains('fade') && e.target.classList.contains('show')) {
+                    // 点击的是背景层
+                    if (backdrop !== 'static') {
+                        EventHandler.off(el, 'click')
+                        modal.close();
+                    }
+                    else {
+                        /*
+                        * 由于 Bootstrap 里面有bug，第一次点击背景层时，会自动加上 modal-static，
+                        * 但窗口关闭后再次显示点击背景时并没有自动加上 modal-static，所以这里需要手动处理
+                        */
+                        e.target.classList.add('modal-static');
+                        e.target.style.overflowY = 'hide';
+                        var timer = setTimeout(function () {
+                            e.target.classList.remove('modal-static');
+                            e.target.style.overflowY = '';
+                            clearTimeout(timer);
+                        }, 300)
+                    }
+                }
+            })
         }
         else {
             modal.invoke.invokeMethodAsync(modal.shownCallback)
@@ -99,6 +123,19 @@ export function init(id, invoke, shownCallback, closeCallback) {
                     const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
                         modal.close();
+                    }
+                    else {
+                        const dialogs = el.querySelectorAll('.modal-dialog-scrollable');
+                        if (dialogs.length > 0) {
+                            const dial = dialogs[dialogs.length - 1];
+                            dial.style.overflowY = 'hide';
+                            dial.style.transform = 'scale(1.02)';
+                            var timer = setTimeout(function () {
+                                dial.style.transform = '';
+                                dial.style.overflowY = '';
+                                clearTimeout(timer);
+                            }, 300)
+                        }
                     }
                 }
             })
