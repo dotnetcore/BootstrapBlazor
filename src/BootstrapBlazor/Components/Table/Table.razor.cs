@@ -1439,6 +1439,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
+                col.Fixed = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var state) ? stateMap[item.Name].Fixed : false;
                 if (item.Visible)
                 {
                     // 增加到可见列缓存集合
@@ -1453,7 +1454,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
         Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
-        Visible = col.GetVisible(_screenSize)
+        Visible = col.GetVisible(_screenSize),
+        Fixed = col.Fixed
     };
 
     private async Task OnTableRenderAsync(bool firstRender)
@@ -1943,6 +1945,33 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task FitAllColumnWidth()
     {
         await InvokeVoidAsync("fitAllColumnWidth", Id);
+    }
+
+    /// <summary>
+    /// <para lang="zh">更新表格列客户端状态方法</para>
+    /// <para lang="en">Update Table Column Client Status Method</para>
+    /// </summary>
+    /// <returns></returns>
+    public async Task<TableColumnClientStatus> UpdateTableColumnClientStatus()
+    {
+        if (Columns.Count != 0)
+        {
+            // 用户在外面变更了列状态后，为避免用户变更状态丢失，须将变更后的状态同步到缓存中
+            foreach (var item in Columns)
+            {
+                var columnState = _tableColumnStates.Find(x => x.Name == item.GetFieldName());
+                if (columnState != null)
+                {
+                    columnState.Fixed = item.Fixed;
+                    columnState.Width = item.Fixed && !item.Width.HasValue ? DefaultFixedColumnWidth : item.Width;
+                }
+            }
+            StateHasChanged();
+        }
+        // 如果启用了 ClientTableName 则更新浏览器持久化列状态
+        await InvokeVoidAsync("updateColumnStates", Id);
+
+        return _tableColumnStateCache;
     }
 
     /// <summary>
