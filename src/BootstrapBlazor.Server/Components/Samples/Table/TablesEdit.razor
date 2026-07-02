@@ -324,9 +324,14 @@
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
-            <TableTemplateColumn Text="@Localizer["TableTemplateColumnText"]">
+            <TableTemplateColumn FieldName="Field1" Text="@Localizer["TableTemplateColumnText"]">
                 <Template Context="v">
                     @v.Row.ReadonlyColumn
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn FieldName="Field2" Text="@Localizer["TableTemplateColumnText2"]">
+                <Template Context="v">
+                    @v.Row.Name - @v.Row.Count
                 </Template>
             </TableTemplateColumn>
         </TableColumns>

@@ -4784,6 +4784,7 @@
     "TableColumnP1": " 本例中列 <code>DateTime</code> 值根据 <code>Complete</code> 值是否为 <code>true</code> 显示不同颜色",
     "TableColumnP2": "本例中列 <code>Complete</code> 根据 <code>Complete</code> 值自定义显示为 <code>Checkbox</code> 组件",
     "TableColumnP3": "<code>Template</code> 模板自带 <code>Context</code> 相关联上下文，其值为 <code>TableColumnContext</code> 类型",
+    "TableColumnP4": "从 <code>10.6.1</code> 版本开始 <code>@bind-Field</code> 不再允许多个列绑定相同属性，如要实现相应操作请使用 <code>TableTemplateColumn</code>。请参阅 <a href=\"table/edit#TableTemplateColumn\" target=\"_blank\">[传送门]</a>",
     "TableColumnTitle": "自定义列数据模板",
     "TablesColumnDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
     "TablesColumnTitle": "Table 表格",
@@ -4942,7 +4943,8 @@
     "TablesTemplateColumnTitle": "模板列",
     "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>",
     "TablesVisibleTitle": "Table 编辑时显示/隐藏",
-    "TableTemplateColumnText": "模板列"
+    "TableTemplateColumnText": "模板列",
+    "TableTemplateColumnText2": "姓名 & 数量"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelCellRenderIntro": "高级用法",
