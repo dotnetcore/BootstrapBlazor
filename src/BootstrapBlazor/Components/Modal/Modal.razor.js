@@ -124,6 +124,19 @@ export function init(id, invoke, shownCallback, closeCallback) {
                     if (backdrop !== 'static') {
                         modal.close();
                     }
+                    else {
+                        const dialogs = el.querySelectorAll('.modal-dialog-scrollable');
+                        if (dialogs.length > 0) {
+                            const dial = dialogs[dialogs.length - 1];
+                            dial.style.overflowY = 'hide';
+                            dial.style.transform = 'scale(1.02)';
+                            var timer = setTimeout(function () {
+                                dial.style.transform = '';
+                                dial.style.overflowY = '';
+                                clearTimeout(timer);
+                            }, 300)
+                        }
+                    }
                 }
             })
         }
