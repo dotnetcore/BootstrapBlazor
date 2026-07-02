@@ -4784,7 +4784,7 @@
     "TableColumnP1": "In this example, the column <code>DateTime</code> value is displayed in different colors depending on whether the <code>Complete</code> value is <code>true</code>",
     "TableColumnP2": "In this example, the column <code>Complete</code> is displayed as a <code>Checkbox</code> component according to the value of <code>Complete</code>",
     "TableColumnP3": "<code>Template</code> template comes with <code>Context</code> associated context, its value is of type <code>TableColumnContext</code>",
-    "TableColumnP4": "Starting from version <code>10.6.1</code>, <code>@bind-Field</code>no longer allows multiple columns to be bound to the same attribute. To achieve the corresponding operation, please use <code>TableTemplateColumn</code>, please refer to <a href=\"table/edit#TableTemplateColumn\" target=\"_blank\">[Portal]</a>",
+    "TableColumnP4": "Starting from version <code>10.6.1</code>, <code>@bind-Field</code> no longer allows multiple columns to be bound to the same attribute. To achieve this, use <code>TableTemplateColumn</code>. See <a href=\"table/edit#TableTemplateColumn\" target=\"_blank\">[Portal]</a>",
     "TableColumnTitle": "Custom Column Data Template",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "TablesColumnTitle": "Table Column",
