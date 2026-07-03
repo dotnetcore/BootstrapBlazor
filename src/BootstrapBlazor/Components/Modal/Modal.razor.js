@@ -57,7 +57,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
                         * 但窗口关闭后再次显示点击背景时并没有自动加上 modal-static，所以这里需要手动处理
                         */
                         e.target.classList.add('modal-static');
-                        e.target.style.overflowY = 'hide';
+                        e.target.style.overflowY = 'hidden';
                         var timer = setTimeout(function () {
                             e.target.classList.remove('modal-static');
                             e.target.style.overflowY = '';
@@ -128,7 +128,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
                         const dialogs = el.querySelectorAll('.modal-dialog-scrollable');
                         if (dialogs.length > 0) {
                             const dial = dialogs[dialogs.length - 1];
-                            dial.style.overflowY = 'hide';
+                            dial.style.overflowY = 'hidden';
                             dial.style.transform = 'scale(1.02)';
                             var timer = setTimeout(function () {
                                 dial.style.transform = '';
