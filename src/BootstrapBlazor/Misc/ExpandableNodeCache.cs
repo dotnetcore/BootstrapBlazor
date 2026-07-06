@@ -89,12 +89,6 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     {
         if (node.IsExpand)
         {
-            // 已收缩
-            if (CollapsedNodeCache.Contains(node.Value))
-            {
-                node.IsExpand = false;
-            }
-
             // 状态为 展开
             ExpandedNodeCache.Add(node.Value);
         }
