@@ -1435,7 +1435,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
-                col.Fixed = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var state) ? stateMap[item.Name].Fixed : false;
+                col.Fixed = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var stateF) ? stateMap[item.Name].Fixed : false;
+                // 这里一定要使用 stateMap[item.Name].Width 而不是 item.Width 因为 item.Width 可能是 null；
+                // 以解决持久化回来时，列宽为_visibleColumnsCache里面列宽为null 的问题导致固定列上style时值不正确的问题
+                col.Width = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var stateW) ? stateMap[item.Name].Width: col.Width;
                 if (item.Visible)
                 {
                     // 增加到可见列缓存集合
