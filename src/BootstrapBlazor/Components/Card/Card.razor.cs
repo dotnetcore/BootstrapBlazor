@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -149,6 +151,30 @@ public partial class Card
         .AddClass($"--bs-card-cap-padding-y: {HeaderPaddingY};", !string.IsNullOrEmpty(HeaderPaddingY))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Header 自定义属性</para>
+    /// <para lang="en">Gets or sets header custom attributes</para>
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public IDictionary<string, object>? HeaderAttributes { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Body 自定义属性</para>
+    /// <para lang="en">Gets or sets body custom attributes</para>
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public IDictionary<string, object>? BodyAttributes { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Footer 自定义属性</para>
+    /// <para lang="en">Gets or sets footer custom attributes</para>
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public IDictionary<string, object>? FooterAttributes { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
