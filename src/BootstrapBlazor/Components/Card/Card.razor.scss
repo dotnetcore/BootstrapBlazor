@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .card {
     --bb-card-shadow: #{$bb-card-shadow};
@@ -6,6 +6,8 @@
     --bb-card-title-margin-left: #{$bb-card-title-margin-left};
     --bb-card-header-tag-height: #{$bb-card-header-tag-height};
     --bs-card-title-spacer-y: #{$bb-card-title-spacer-y};
+    --bs-card-body-color:;
+    --bs-card-footer-color:;
 }
 
 .card-header {
@@ -36,7 +38,11 @@
 
     + .card-body {
         border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
+        background-color: var(--bs-card-body-color);
     }
+}
+.card-footer {
+    background-color: var(--bs-card-footer-color);
 }
 
 .card-shadow {

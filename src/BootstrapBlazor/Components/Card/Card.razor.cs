@@ -153,6 +153,27 @@ public partial class Card
         .Build();
 
     /// <summary>
+    /// <para lang="zh">获得/设置 Header 背景颜色</para>
+    /// <para lang="en">Gets or sets the Header background color</para>
+    /// </summary>
+    [Parameter]
+    public string? HeaderBgColor { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Body 背景颜色</para>
+    /// <para lang="en">Gets or sets the Body background color</para>
+    /// </summary>
+    [Parameter]
+    public string? BodyBgColor { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Footer 背景颜色</para>
+    /// <para lang="en">Gets or sets the Footer background color</para>
+    /// </summary>
+    [Parameter]
+    public string? FooterBgColor { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Header 自定义属性</para>
     /// <para lang="en">Gets or sets header custom attributes</para>
     /// </summary>
@@ -184,6 +205,21 @@ public partial class Card
         base.OnParametersSet();
 
         CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardCollapseIcon);
+
+        HeaderBgColor = CssBuilder.Default()
+            .AddClass($"--bs-card-cap-bg: {HeaderBgColor};", !string.IsNullOrEmpty(HeaderBgColor))
+            .AddStyleFromAttributes(HeaderAttributes)
+            .Build();
+
+        BodyBgColor = CssBuilder.Default()
+            .AddClass($"--bs-card-body-color: {BodyBgColor};", !string.IsNullOrEmpty(BodyBgColor))
+            .AddStyleFromAttributes(BodyAttributes)
+            .Build();
+
+        FooterBgColor = CssBuilder.Default()
+            .AddClass($"--bs-card-footer-color: {FooterBgColor};", !string.IsNullOrEmpty(FooterBgColor))
+            .AddStyleFromAttributes(FooterAttributes)
+            .Build();
     }
 
     /// <summary>
