@@ -83,7 +83,7 @@ public class TableTemplateColumnTest : BootstrapBlazorTestBase
         Assert.Equal(2, fieldNames.Count);
         Assert.Equal(2, fieldNames.Distinct().Count());
         Assert.Contains("Field1", fieldNames);
-        Assert.Contains(fieldNames, i => i.StartsWith("__bb_template_column_"));
+        Assert.Contains(fieldNames, i => i.StartsWith("bb_template_column_"));
     }
 
     [Fact]
@@ -126,6 +126,6 @@ public class TableTemplateColumnTest : BootstrapBlazorTestBase
 
         // 与普通列冲突的模板列被采番，避免覆盖普通列
         var templateColumn = table.Columns.OfType<TableTemplateColumn<Foo>>().Single();
-        Assert.StartsWith("__bb_template_column_", templateColumn.GetFieldName());
+        Assert.StartsWith("bb_template_column_", templateColumn.GetFieldName());
     }
 }

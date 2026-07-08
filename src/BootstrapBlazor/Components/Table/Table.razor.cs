@@ -1341,7 +1341,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void EnsureTemplateColumnFieldNames()
     {
-        const string prefix = "__bb_template_column_";
+        const string prefix = "bb_template_column_";
 
         // 非模板列的 FieldName 参与取值/编辑，不能更改，优先占位
         var fieldNames = new HashSet<string>(StringComparer.Ordinal);
