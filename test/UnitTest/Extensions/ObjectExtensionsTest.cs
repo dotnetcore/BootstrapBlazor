@@ -294,6 +294,11 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
 
         // DynamicObject always return True
         Assert.True(item2.CanWrite(typeof(DynamicObject)));
+
+        // TableTemplateColumn always return False
+        var templateColumn = new TableTemplateColumn<Foo>();
+        Assert.False(templateColumn.CanWrite(typeof(Foo)));
+        Assert.False(templateColumn.CanWrite(typeof(DynamicObject)));
     }
 
     [Theory]
