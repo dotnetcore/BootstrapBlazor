@@ -311,15 +311,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 节点状态变化时是否自动更新子节点，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to automatically update child nodes when the node state changes. Default is false</para>
+    /// <para lang="zh">获得/设置 节点状态变化时是否自动更新子节点状态 子节点状态与本节点保持一致，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to automatically update child nodes state when the node state changes. Child nodes keep the same state as this node. Default is false</para>
     /// </summary>
     [Parameter]
     public bool AutoCheckChildren { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 节点状态变化时是否自动更新父节点，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to automatically update parent nodes when the node state changes. Default is false</para>
+    /// <para lang="zh">获得/设置 节点状态变化时是否自动更新父节点状态 父节点状态由子节点状态派生 全部选中时为选中 全部未选中时为未选中 否则为半选，默认为 false。由 true 更改为 false 时 半选节点将重置为未选中</para>
+    /// <para lang="en">Gets or sets whether to automatically update parent nodes state when the node state changes. Parent state is derived from children: checked when all children are checked, unchecked when none are checked, otherwise indeterminate. Default is false. When changed from true to false, indeterminate nodes are reset to unchecked</para>
     /// </summary>
     [Parameter]
     public bool AutoCheckParent { get; set; }
@@ -358,6 +358,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private bool _shouldRender = true;
     private bool _init;
     private bool _scrollIntoView = false;
+    private List<TreeViewItem<TItem>>? _lastItems;
+    private bool _lastShowCheckbox;
+    private bool _lastAutoCheckParent;
+    private bool _lastAutoCheckChildren;
 
     /// <summary>
     /// <inheritdoc/>
@@ -403,9 +407,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 _rows = null;
             }
 
-            if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
+            // 仅在数据源引用或级联勾选相关参数变化时重算勾选状态 普通重渲染不重算 防止覆盖用户显式设置的节点状态
+            if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren) && IsCheckedParameterChanged())
             {
-                _treeNodeStateCache.IsChecked(Items);
+                _treeNodeStateCache.IsChecked(Items, AutoCheckParent);
+            }
+
+            // 关闭 AutoCheckParent 后半选状态失去派生来源 将半选节点重置为未选中
+            if (ShowCheckbox && _lastAutoCheckParent && !AutoCheckParent)
+            {
+                ResetIndeterminateNodes();
             }
 
             if (_activeItem != null)
@@ -416,9 +427,31 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (_init == false)
             {
                 _activeItem ??= Items.FirstOrDefaultActiveItem();
-                _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+                ExpandParentNodes(_activeItem);
                 _init = true;
                 _scrollIntoView = true;
+            }
+        }
+
+        _lastItems = Items;
+        _lastShowCheckbox = ShowCheckbox;
+        _lastAutoCheckParent = AutoCheckParent;
+        _lastAutoCheckChildren = AutoCheckChildren;
+    }
+
+    private bool IsCheckedParameterChanged() => !ReferenceEquals(_lastItems, Items)
+        || _lastShowCheckbox != ShowCheckbox
+        || _lastAutoCheckParent != AutoCheckParent
+        || _lastAutoCheckChildren != AutoCheckChildren;
+
+    private void ResetIndeterminateNodes()
+    {
+        foreach (var node in Items.GetAllItems())
+        {
+            if (node.CheckedState == CheckboxState.Indeterminate)
+            {
+                node.CheckedState = CheckboxState.UnChecked;
+                _treeNodeStateCache.ToggleCheck(node);
             }
         }
     }
@@ -527,13 +560,24 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         var rows = Rows;
         var result = items.Select(i =>
         {
-            var item = rows[i];
+            // 客户端回调期间数据源可能已更新 索引越界或无子节点时不重算 返回值数量与请求保持一一对应
+            var item = i >= 0 && i < rows.Count ? rows[i] : null;
+            if (item == null)
+            {
+                return CheckboxState.UnChecked;
+            }
+            if (item.Items.Count == 0)
+            {
+                return item.CheckedState;
+            }
+
             var checkedState = item.Items[0].CheckedState;
             if (item.Items.Any(s => s.CheckedState != checkedState))
             {
                 checkedState = CheckboxState.Indeterminate;
             }
             item.CheckedState = checkedState;
+            _treeNodeStateCache.ToggleCheck(item);
             return checkedState;
         }).ToList();
         return Task.FromResult(result);
@@ -718,9 +762,25 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public void SetActiveItem(TreeViewItem<TItem>? item)
     {
         _activeItem = item;
-        _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        ExpandParentNodes(_activeItem);
+        _rows = null;
         _scrollIntoView = true;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// <para lang="zh">向上级联展开祖先节点并同步节点缓存状态 防止缓存中的收缩状态覆盖此处的展开状态</para>
+    /// <para lang="en">Cascade expand ancestor nodes upwards and synchronize the node cache state to prevent the collapsed state in the cache from overriding the expanded state set here</para>
+    /// </summary>
+    /// <param name="item"></param>
+    private void ExpandParentNodes(TreeViewItem<TItem>? item)
+    {
+        var parent = item?.Parent;
+        while (parent is TreeViewItem<TItem> p)
+        {
+            _treeNodeStateCache.ExpandNode(p);
+            parent = p.Parent;
+        }
     }
 
     /// <summary>
@@ -763,6 +823,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         // 手风琴效果逻辑
         node.IsExpand = !node.IsExpand;
 
+        // 展开节点无子项时将触发懒加载 新增子节点后需要同步级联勾选状态
+        var lazyLoad = node.IsExpand && node.HasChildren && node.Items.Count == 0;
+
         if (IsAccordion && !IsVirtualize)
         {
             await _treeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
@@ -788,18 +851,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             _rows = null;
         }
 
-        if (ShowCheckbox)
+        // 仅在懒加载新增子节点后同步级联勾选状态 普通展开/折叠不重算 防止覆盖用户显式设置的节点状态
+        if (ShowCheckbox && lazyLoad && node.Items.Count > 0)
         {
             if (AutoCheckChildren)
             {
+                // 新增子节点继承本节点勾选状态
                 node.SetChildrenCheck(_treeNodeStateCache);
             }
             if (AutoCheckParent)
             {
-                node.SetParentCheck(_treeNodeStateCache);
-            }
-            if (!AutoCheckChildren && AutoCheckParent && node.Items.Count > 0)
-            {
+                // 由新增子节点状态派生本节点及其祖先节点状态
                 node.Items[0].SetParentCheck(_treeNodeStateCache);
             }
         }

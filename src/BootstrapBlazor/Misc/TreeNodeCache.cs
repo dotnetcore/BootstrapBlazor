@@ -78,9 +78,9 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <para lang="en">Check whether current node is checked</para>
     /// </summary>
     /// <param name="node"></param>
-    private void IsChecked(TNode node)
+    /// <param name="autoCheckParent"><para lang="zh">是否由子节点状态派生本节点状态</para><para lang="en">Whether to derive the node state from its children</para></param>
+    private void IsChecked(TNode node, bool autoCheckParent)
     {
-        var nodes = node.Items.OfType<ICheckableNode<TItem>>().ToList();
         if (_checkedNodeCache.Contains(node.Value))
         {
             node.CheckedState = CheckboxState.Checked;
@@ -94,7 +94,11 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
             node.CheckedState = CheckboxState.Indeterminate;
         }
 
-        CheckChildren(nodes, node);
+        if (autoCheckParent)
+        {
+            var nodes = node.Items.OfType<ICheckableNode<TItem>>().ToList();
+            CheckChildren(nodes, node);
+        }
     }
 
     private void CheckChildren(List<ICheckableNode<TItem>> nodes, TNode node)
@@ -129,15 +133,16 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <para lang="en">Reset checked state</para>
     /// </summary>
     /// <param name="nodes"></param>
-    public void IsChecked(List<TNode> nodes)
+    /// <param name="autoCheckParent"><para lang="zh">是否由子节点状态派生父节点状态 默认 true</para><para lang="en">Whether to derive parent state from children. Default is true</para></param>
+    public void IsChecked(List<TNode> nodes, bool autoCheckParent = true)
     {
         if (nodes.Count != 0)
         {
-            ResetCheckNodes(nodes);
+            ResetCheckNodes(nodes, autoCheckParent);
         }
     }
 
-    private void ResetCheckNodes(List<TNode> items)
+    private void ResetCheckNodes(List<TNode> items, bool autoCheckParent)
     {
         // 恢复当前节点状态
         foreach (var node in items)
@@ -145,11 +150,11 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
             // 恢复子节点
             if (node.Items.Any())
             {
-                IsChecked(node.Items.OfType<TNode>().ToList());
+                IsChecked(node.Items.OfType<TNode>().ToList(), autoCheckParent);
             }
 
             // 设置本节点
-            IsChecked(node);
+            IsChecked(node, autoCheckParent);
         }
     }
 
