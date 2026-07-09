@@ -427,7 +427,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (_init == false)
             {
                 _activeItem ??= Items.FirstOrDefaultActiveItem();
-                _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+                ExpandParentNodes(_activeItem);
                 _init = true;
                 _scrollIntoView = true;
             }
@@ -762,9 +762,25 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public void SetActiveItem(TreeViewItem<TItem>? item)
     {
         _activeItem = item;
-        _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        ExpandParentNodes(_activeItem);
+        _rows = null;
         _scrollIntoView = true;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// <para lang="zh">向上级联展开祖先节点并同步节点缓存状态 防止缓存中的收缩状态覆盖此处的展开状态</para>
+    /// <para lang="en">Cascade expand ancestor nodes upwards and synchronize the node cache state to prevent the collapsed state in the cache from overriding the expanded state set here</para>
+    /// </summary>
+    /// <param name="item"></param>
+    private void ExpandParentNodes(TreeViewItem<TItem>? item)
+    {
+        var parent = item?.Parent;
+        while (parent is TreeViewItem<TItem> p)
+        {
+            _treeNodeStateCache.ExpandNode(p);
+            parent = p.Parent;
+        }
     }
 
     /// <summary>

@@ -4052,8 +4052,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("fa-solid fa-caret-right", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
-        // 单元测试默认节点为展开状态，因此这里将期望值改为4
-        Assert.Equal(4, nodes.Count);
+        Assert.Equal(2, nodes.Count);
     }
 
     private static Task<QueryData<FooTree>> OnQueryAsync(QueryPageOptions _, IStringLocalizer<Foo> localizer)
