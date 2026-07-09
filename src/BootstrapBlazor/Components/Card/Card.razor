@@ -1,11 +1,11 @@
-@namespace BootstrapBlazor.Components
+﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@HeaderStyleString">
     @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
-        <div class="card-header" @attributes="@HeaderAttributes">
+        <div class="card-header">
             @if (IsCollapsible)
             {
                 <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@BodyId" aria-expanded="@ExpandedString">
@@ -33,7 +33,7 @@
             }
         </div>
     }
-    <div id="@BodyId" class="@BodyClassName" @attributes="@BodyAttributes">
+    <div id="@BodyId" class="@BodyClassName">
         @if (IsCollapsible)
         {
             <div class="card-body-wrapper">
@@ -47,7 +47,7 @@
     </div>
     @if (FooterTemplate != null)
     {
-        <div class="@FooterClassName" @attributes="@FooterAttributes">
+        <div class="@FooterClassName">
             @FooterTemplate
         </div>
     }
