@@ -1333,9 +1333,54 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
+        EnsureTemplateColumnFieldNames();
 
         // 加载客户端持久化列状态
         ResetTableColumns();
+    }
+
+    private void EnsureTemplateColumnFieldNames()
+    {
+        const string prefix = "bb_template_column_";
+
+        // 非模板列的 FieldName 参与取值/编辑，不能更改，优先占位
+        var fieldNames = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var col in Columns)
+        {
+            if (col is not TableTemplateColumn<TItem>)
+            {
+                var name = col.GetFieldName();
+                if (!string.IsNullOrEmpty(name))
+                {
+                    fieldNames.Add(name);
+                }
+            }
+        }
+
+        // 模板列的 FieldName 仅作为列的唯一标识（列状态持久化、排序、拖拽等），不参与取值
+        // 因此未设置 FieldName 或与其他列冲突（含多个模板列设置了相同 FieldName）时自动生成唯一字段名
+        var index = 0;
+        foreach (var col in Columns)
+        {
+            if (col is TableTemplateColumn<TItem> templateColumn)
+            {
+                var fieldName = col.GetFieldName();
+
+                // 首次出现且未与其他列冲突时保留用户设置的 FieldName
+                if (!string.IsNullOrEmpty(fieldName) && fieldNames.Add(fieldName))
+                {
+                    continue;
+                }
+
+                do
+                {
+                    fieldName = $"{prefix}{index++}";
+                }
+                while (!fieldNames.Add(fieldName));
+
+                templateColumn.SetFieldName(fieldName);
+            }
+        }
     }
 
     private async Task LoadTableColumnStates()
