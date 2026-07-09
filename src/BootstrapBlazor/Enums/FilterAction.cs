@@ -74,5 +74,19 @@ public enum FilterAction
     /// <para lang="en">Custom Predicate</para>
     /// </summary>
     [Description("自定义条件")]
-    CustomPredicate
+    CustomPredicate,
+
+    /// <summary>
+    /// <para lang="zh">正则匹配</para>
+    /// <para lang="en">Regex Match</para>
+    /// </summary>
+    [Description("正则匹配")]
+    Match,
+
+    /// <summary>
+    /// <para lang="zh">正则不匹配</para>
+    /// <para lang="en">Regex Not Match</para>
+    /// </summary>
+    [Description("正则不匹配")]
+    NotMatch
 }
