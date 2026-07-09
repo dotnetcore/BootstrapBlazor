@@ -12,50 +12,6 @@ namespace BootstrapBlazor.Components;
 public partial class Card
 {
     /// <summary>
-    /// <para lang="zh">Card 组件样式</para>
-    /// <para lang="en">Card component style</para>
-    /// </summary>
-    protected string? ClassString => CssBuilder.Default("card")
-        .AddClass("text-center", IsCenter)
-        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("card-shadow", IsShadow)
-        .AddClass("is-collapsible", IsCollapsible)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// <para lang="zh">获得 收缩图标样式</para>
-    /// <para lang="en">Get the collapse icon style</para>
-    /// </summary>
-    protected string? ArrowClassString => CssBuilder.Default("card-collapse-arrow")
-        .AddClass(CollapseIcon)
-        .Build();
-
-    /// <summary>
-    /// <para lang="zh">设置 Body Class 组件样式</para>
-    /// <para lang="en">Set Body Class component style</para>
-    /// </summary>
-    protected string? BodyClassName => CssBuilder.Default("card-body")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("collapse", IsCollapsible && Collapsed)
-        .AddClass("collapse show", IsCollapsible && !Collapsed)
-        .Build();
-
-    /// <summary>
-    /// <para lang="zh">节点是否展开 aria Label</para>
-    /// <para lang="en">Node expansion status aria Label</para>
-    /// </summary>
-    protected string? ExpandedString => Collapsed ? "false" : "true";
-
-    /// <summary>
-    /// <para lang="zh">设置 Footer Class 样式</para>
-    /// <para lang="en">Set Footer Class style</para>
-    /// </summary>
-    protected string? FooterClassName => CssBuilder.Default("card-footer")
-        .AddClass("text-muted", IsCenter)
-        .Build();
-
-    /// <summary>
     /// <para lang="zh">获得/设置 Card Header 高度 padding Y轴值 默认 null</para>
     /// <para lang="en">Gets or sets the Card Header height padding Y-axis value. Default is null</para>
     /// <para lang="zh">单位需自行给定 如 0.25rem</para>
@@ -141,13 +97,91 @@ public partial class Card
     [Parameter]
     public bool IsShadow { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 Header 自定义样式</para>
+    /// <para lang="en">Gets or sets the custom style for the Header</para>
+    /// <para>v<version>10.8.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? HeaderCustomClass { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Body 自定义样式</para>
+    /// <para lang="en">Gets or sets the custom style for the Body</para>
+    /// <para>v<version>10.8.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? BodyCustomClass { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 Footer 自定义样式</para>
+    /// <para lang="en">Gets or sets the custom style for the Footer</para>
+    /// <para>v<version>10.8.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? FooterCustomClass { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">Card 组件样式</para>
+    /// <para lang="en">Card component style</para>
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("card")
+        .AddClass("text-center", IsCenter)
+        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("card-shadow", IsShadow)
+        .AddClass("is-collapsible", IsCollapsible)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// <para lang="zh">获得 收缩图标样式</para>
+    /// <para lang="en">Get the collapse icon style</para>
+    /// </summary>
+    private string? ArrowClassString => CssBuilder.Default("card-collapse-arrow")
+        .AddClass(CollapseIcon)
+        .Build();
+
+    /// <summary>
+    /// <para lang="zh">设置 Header Class 组件样式</para>
+    /// <para lang="en">Set Header Class component style</para>
+    /// </summary>
+    private string? HeaderClassName => CssBuilder.Default("card-header")
+        .AddClass(HeaderCustomClass)
+        .Build();
+
     private string? HeaderStyleString => CssBuilder.Default()
         .AddClass($"--bs-card-cap-padding-y: {HeaderPaddingY};", !string.IsNullOrEmpty(HeaderPaddingY))
         .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// <para lang="zh">设置 Body Class 组件样式</para>
+    /// <para lang="en">Set Body Class component style</para>
+    /// </summary>
+    private string? BodyClassName => CssBuilder.Default("card-body")
+        .AddClass(BodyCustomClass)
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("collapse", IsCollapsible && Collapsed)
+        .AddClass("collapse show", IsCollapsible && !Collapsed)
+        .Build();
+
+    /// <summary>
+    /// <para lang="zh">节点是否展开 aria Label</para>
+    /// <para lang="en">Node expansion status aria Label</para>
+    /// </summary>
+    private string? ExpandedString => Collapsed ? "false" : "true";
+
+    /// <summary>
+    /// <para lang="zh">设置 Footer Class 样式</para>
+    /// <para lang="en">Set Footer Class style</para>
+    /// </summary>
+    private string? FooterClassName => CssBuilder.Default("card-footer")
+        .AddClass(FooterCustomClass)
+        .AddClass("text-muted", IsCenter)
         .Build();
 
     /// <summary>

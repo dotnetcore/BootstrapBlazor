@@ -1,6 +1,23 @@
 @page "/card"
 @inject IStringLocalizer<Cards> Localizer
 
+<HeadContent>
+    <style>
+        .custom-header {
+            --bs-card-header-bg: #198754;
+            --bs-card-header-color: #fff;
+        }
+
+        .custom-body {
+            --bs-card-body-bg: #f7eed0;
+        }
+
+        .custom-footer {
+            --bs-card-footer-bg: #b5b5c3;
+        }
+    </style>
+</HeadContent>
+
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
@@ -190,43 +207,34 @@
     </Card>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Compare"]" Name="Compare">
-    <Card IsCollapsible="false" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
-        <HeaderTemplate>
-            <div class="flex-fill">
-            </div>
-            <div class="me-2">@Localizer["CollapsibleHeaderTemplate"]</div>
-            <Select TValue="string">
-                <Options>
-                    <SelectOption Text="Test1" Value="" />
-                    <SelectOption Text="Test2" Value="1" />
-                    <SelectOption Text="Test3" Value="2" />
-                    <SelectOption Text="Test4" Value="3" />
-                </Options>
-            </Select>
-        </HeaderTemplate>
-        <BodyTemplate>
-            @Localizer["CollapsibleBody"]
-        </BodyTemplate>
-    </Card>
+<DemoBlock Title="@Localizer["CustomClassTitle"]" Introduction="@Localizer["CustomClassIntro"]" Name="CustomClass">
+    <section ignore>
+        <p>@Localizer["CustomClassStep1"]</p>
+        <Pre>.custom-header {
+    background-color: #198754;
+    color: #fff;
+}
 
-    <Card IsCollapsible="true" HeaderText="@Localizer["CollapsibleTitle"]" class="mt-3">
+.custom-body {
+    background-color: #f7eed0;
+}
+
+.custom-footer {
+    background-color: #b5b5c3;
+}</Pre>
+    <p>@((MarkupString)Localizer["CustomClassStep2"].Value)</p>
+    </section>
+    <Card HeaderCustomClass="custom-header" BodyCustomClass="custom-body" FooterCustomClass="custom-footer">
         <HeaderTemplate>
-            <div class="flex-fill">
-            </div>
-            <div class="me-2">@Localizer["CollapsibleHeaderTemplate"]</div>
-            <Select TValue="string">
-                <Options>
-                    <SelectOption Text="Test1" Value="" />
-                    <SelectOption Text="Test2" Value="1" />
-                    <SelectOption Text="Test3" Value="2" />
-                    <SelectOption Text="Test4" Value="3" />
-                </Options>
-            </Select>
+            Featured
         </HeaderTemplate>
         <BodyTemplate>
-            @Localizer["CollapsibleBody"]
+            <h5>Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         </BodyTemplate>
+        <FooterTemplate>
+            2 days ago
+        </FooterTemplate>
     </Card>
 </DemoBlock>
 

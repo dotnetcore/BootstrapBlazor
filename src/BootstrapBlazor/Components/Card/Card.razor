@@ -1,11 +1,11 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@HeaderStyleString">
     @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
-        <div class="card-header">
+        <div class="@HeaderClassName">
             @if (IsCollapsible)
             {
                 <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@BodyId" aria-expanded="@ExpandedString">
