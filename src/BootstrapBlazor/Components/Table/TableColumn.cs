@@ -489,8 +489,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, I
     [Parameter]
     public string? FieldName { get; set; }
 
-    internal void SetFieldName(string fieldName) => FieldName = fieldName;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
