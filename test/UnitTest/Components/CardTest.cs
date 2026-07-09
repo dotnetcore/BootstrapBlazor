@@ -58,6 +58,35 @@ public class CardTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeaderCustomClass_Ok()
+    {
+        var cut = Context.Render<Card>(builder =>
+        {
+            builder.Add(a => a.HeaderText, "Header");
+            builder.Add(a => a.HeaderCustomClass, "custom-header");
+        });
+        cut.Contains("class=\"card-header custom-header\"");
+    }
+
+    [Fact]
+    public void BodyCustomClass_Ok()
+    {
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.BodyCustomClass, "custom-body"));
+        cut.Contains("class=\"card-body custom-body\"");
+    }
+
+    [Fact]
+    public void FooterCustomClass_Ok()
+    {
+        var cut = Context.Render<Card>(builder =>
+        {
+            builder.Add(a => a.FooterTemplate, CreateComponent());
+            builder.Add(a => a.FooterCustomClass, "custom-footer");
+        });
+        cut.Contains("class=\"card-footer custom-footer\"");
+    }
+
+    [Fact]
     public void HeaderText_Ok()
     {
         var cut = Context.Render<Card>(builder => builder.Add(a => a.HeaderText, "Header"));

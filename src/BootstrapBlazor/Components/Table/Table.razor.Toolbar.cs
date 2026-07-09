@@ -930,7 +930,9 @@ public partial class Table<TItem>
     {
         option.ShowLoading = ShowLoading;
         option.Model = EditModel;
-        option.Items = Columns.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()));
+        // 模板列不参与编辑，不生成编辑表单项
+        // Template columns do not participate in editing and do not generate edit form items
+        option.Items = Columns.Where(i => i is not TableTemplateColumn<TItem> && !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()));
         option.SaveButtonIcon = EditDialogSaveButtonIcon;
         option.SaveButtonText = EditDialogSaveButtonText;
         option.CloseButtonIcon = EditDialogCloseButtonIcon;

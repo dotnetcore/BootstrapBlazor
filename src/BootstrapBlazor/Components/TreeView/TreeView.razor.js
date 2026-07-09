@@ -173,9 +173,12 @@ export function toggleLoading(id, index, state) {
 
 export function setChildrenState(id, index, state) {
     const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
     const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
-    const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
     if (node) {
+        const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
         let next = node.nextElementSibling;
         while (next) {
             const currentLevel = parseInt(next.style.getPropertyValue('--bb-tree-view-level'));
@@ -195,9 +198,12 @@ export function setChildrenState(id, index, state) {
 
 export async function setParentState(id, invoke, method, index) {
     const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
     const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
-    let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
     if (node) {
+        let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
         const parents = [];
         let prev = node.previousElementSibling;
         while (prev) {
