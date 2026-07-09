@@ -12,5 +12,5 @@ namespace BootstrapBlazor.Components;
 /// <remarks>No need to bind model properties</remarks>
 public class TableTemplateColumn<TItem> : TableColumn<TItem, object>
 {
-
+    internal void SetFieldName(string fieldName) => FieldName = fieldName;
 }
