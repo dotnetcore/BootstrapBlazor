@@ -12,6 +12,8 @@
     border-bottom-width: 0;
     display: flex;
     align-items: center;
+    background-color: var(--bs-card-header-bg);
+    color: var(--bs-card-header-color);
 
     .card-collapse-arrow {
         transition: transform .3s linear;
@@ -37,6 +39,16 @@
     + .card-body {
         border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
     }
+}
+
+.card-body {
+    background-color: var(--bs-card-body-bg);
+    color: var(--bs-card-body-color);
+}
+
+.card-footer {
+    background-color: var(--bs-card-footer-bg);
+    color: var(--bs-card-footer-color);
 }
 
 .card-shadow {
