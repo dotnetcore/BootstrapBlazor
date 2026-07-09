@@ -179,6 +179,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Render();
         node = cut.Find(".active .tree-node-text");
         Assert.Equal("Sub menu 1", node.TextContent);
+
+        // 再次手动收缩激活节点的祖先节点后重新渲染 保持用户手动设置的收缩状态
+        await cut.InvokeAsync(() => cut.FindAll(".node-icon.visible")[0].Click());
+        cut.Render();
+        Assert.DoesNotContain("Sub menu 1", cut.Markup);
     }
 
     [Fact]
