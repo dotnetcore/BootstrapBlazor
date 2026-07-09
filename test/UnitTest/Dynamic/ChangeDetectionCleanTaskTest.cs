@@ -119,7 +119,7 @@ public class ChangeDetectionCleanTaskTest
             var removed = false;
             for (var i = 0; i < 100 && !removed; i++)
             {
-                await Task.Delay(50);
+                await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
                 removed = !cache.ContainsKey(dynamicType);
             }
             Assert.True(removed);

@@ -151,6 +151,42 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SetActiveItem_ExpandCollapsedParent()
+    {
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/8185
+        // 手动收缩父节点后再设置激活子节点 祖先节点应重新展开
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        // 初始激活节点为 Sub Menu Three 祖先节点 Navigation two 处于展开状态
+        // 手动收缩 Navigation two 节点
+        await cut.InvokeAsync(() => cut.FindAll(".node-icon.visible")[0].Click());
+        Assert.DoesNotContain("Sub menu 1", cut.Markup);
+
+        // 设置激活节点为 Navigation two 的子节点 Sub menu 1 祖先节点应重新展开
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[1].Items[0].Value));
+        Assert.Contains("Sub menu 1", cut.Markup);
+
+        // 模拟父组件重新渲染 缓存中的收缩状态不应覆盖程序设置的展开状态
+        cut.Render();
+        var node = cut.Find(".active .tree-node-text");
+        Assert.Equal("Sub menu 1", node.TextContent);
+
+        // 再次渲染 确认展开状态稳定 不出现展开收缩循环切换
+        cut.Render();
+        node = cut.Find(".active .tree-node-text");
+        Assert.Equal("Sub menu 1", node.TextContent);
+
+        // 再次手动收缩激活节点的祖先节点后重新渲染 保持用户手动设置的收缩状态
+        await cut.InvokeAsync(() => cut.FindAll(".node-icon.visible")[0].Click());
+        cut.Render();
+        Assert.DoesNotContain("Sub menu 1", cut.Markup);
+    }
+
+    [Fact]
     public void AppendNode_Ok()
     {
         var items = TreeFoo.GetAccordionItems();
