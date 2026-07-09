@@ -5,7 +5,7 @@
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@HeaderStyleString">
     @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
-        <div @attributes="@HeaderAttributes" class="card-header" style="@HeaderBgColor">
+        <div class="card-header" @attributes="@HeaderAttributes">
             @if (IsCollapsible)
             {
                 <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@BodyId" aria-expanded="@ExpandedString">
@@ -33,7 +33,7 @@
             }
         </div>
     }
-    <div @attributes="@BodyAttributes" id="@BodyId" class="@BodyClassName" style="@BodyBgColor">
+    <div id="@BodyId" class="@BodyClassName" @attributes="@BodyAttributes">
         @if (IsCollapsible)
         {
             <div class="card-body-wrapper">
@@ -47,7 +47,7 @@
     </div>
     @if (FooterTemplate != null)
     {
-        <div @attributes="@FooterAttributes" class="@FooterClassName" style="@FooterBgColor">
+        <div class="@FooterClassName" @attributes="@FooterAttributes">
             @FooterTemplate
         </div>
     }
