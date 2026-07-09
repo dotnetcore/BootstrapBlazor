@@ -321,6 +321,7 @@
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowColumnList="true" AllowDragColumn="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
