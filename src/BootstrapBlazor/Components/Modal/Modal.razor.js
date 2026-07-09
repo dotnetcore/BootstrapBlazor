@@ -40,11 +40,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
                 modal.modal._focustrap._handleFocusin = e => { }
             }
 
-            /*
-            * Dialog 服务再次弹窗时 .modal-dialog 元素已被重建，实例构造时缓存的 _dialog 变为游离节点，
-            * 导致 Bootstrap 计算 static 背景动画的过渡时长为 0（modal-static 加上后立即被移除，看不到动画），
-            * 因此每次显示时刷新引用
-            */
             modal.modal._dialog = dialogs[0]
             modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
@@ -108,7 +103,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
                         modal.close();
                     }
                     else if (modal.modal) {
-                        // 多层弹窗未使用 bootstrap 实例显示，手动触发 static 背景动画，过渡时长取自当前显示的 .modal-dialog
                         const dialogs = [...el.querySelectorAll('.modal-dialog')].filter(d => !d.classList.contains('d-none'));
                         if (dialogs.length > 0) {
                             modal.modal._dialog = dialogs[dialogs.length - 1];
