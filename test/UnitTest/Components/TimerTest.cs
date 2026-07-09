@@ -113,7 +113,7 @@ public class TimerTest : BootstrapBlazorTestBase
         var confirm = cut.Find(".time-panel-btn.confirm");
         await cut.InvokeAsync(() => confirm.Click());
 
-        await Task.Delay(2000);
+        await Task.Delay(2000, CancellationToken.None);
         Assert.True(timeout);
     }
 
@@ -138,7 +138,7 @@ public class TimerTest : BootstrapBlazorTestBase
         Assert.True(buttons[1].ClassList.Contains("btn-warning"));
         Assert.Equal("暂停", buttons[1].GetInnerText());
         await cut.InvokeAsync(() => buttons[1].Click());
-        await Task.Delay(1000);
+        await Task.Delay(1000, CancellationToken.None);
 
         // resume
         buttons = cut.FindAll(".timer-buttons button");

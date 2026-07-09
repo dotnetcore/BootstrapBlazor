@@ -80,6 +80,18 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
+    /// <para lang="zh">展开指定节点并同步缓存状态</para>
+    /// <para lang="en">Expand the specified node and synchronize the cache state</para>
+    /// </summary>
+    /// <param name="node"></param>
+    public void ExpandNode(IExpandableNode<TItem> node)
+    {
+        node.IsExpand = true;
+        ExpandedNodeCache.Add(node.Value);
+        CollapsedNodeCache.Remove(node.Value);
+    }
+
+    /// <summary>
     /// <para lang="zh">检查当前节点是否展开</para>
     /// <para lang="en">Check whether current node is expanded</para>
     /// </summary>
@@ -89,14 +101,16 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     {
         if (node.IsExpand)
         {
-            // 已收缩
             if (CollapsedNodeCache.Contains(node.Value))
             {
+                // 用户手动收缩过此节点 保持收缩状态
                 node.IsExpand = false;
             }
-
-            // 状态为 展开
-            ExpandedNodeCache.Add(node.Value);
+            else
+            {
+                // 状态为 展开
+                ExpandedNodeCache.Add(node.Value);
+            }
         }
         else
         {

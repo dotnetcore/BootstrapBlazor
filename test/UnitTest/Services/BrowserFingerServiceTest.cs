@@ -12,7 +12,7 @@ public class BrowserFingerServiceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<string?>("getFingerCode").SetResult("9527");
         var service = Context.Services.GetRequiredService<IBrowserFingerService>();
-        var code = await service.GetFingerCodeAsync();
+        var code = await service.GetFingerCodeAsync(CancellationToken.None);
         Assert.Equal("9527", code);
     }
 
@@ -21,7 +21,7 @@ public class BrowserFingerServiceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<string?>("getClientHubId").SetResult("9528");
         var service = Context.Services.GetRequiredService<IBrowserFingerService>();
-        var code = await service.GetClientHubIdAsync();
+        var code = await service.GetClientHubIdAsync(CancellationToken.None);
         Assert.Equal("9528", code);
     }
 }

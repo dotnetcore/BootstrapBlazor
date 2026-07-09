@@ -26,7 +26,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
         };
         Context.JSInterop.Setup<ClientInfo>("ping", _ => true).SetResult(mockData);
         var service = Context.Services.GetRequiredService<WebClientService>();
-        var client = await service.GetClientInfo();
+        var client = await service.GetClientInfo(CancellationToken.None);
 
         client.City = "test_city";
         client.RequestUrl = "test_url";
@@ -49,7 +49,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
         options.CurrentValue.WebClientOptions.EnableIpLocator = true;
 
         var service = Context.Services.GetRequiredService<WebClientService>();
-        var client = await service.GetClientInfo();
+        var client = await service.GetClientInfo(CancellationToken.None);
         Assert.Null(client.Ip);
     }
 
@@ -60,7 +60,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
 
         // Exception
         Context.JSInterop.Setup<ClientInfo>("ping", _ => true).SetException(new Exception("test-exception"));
-        var client = await service.GetClientInfo();
+        var client = await service.GetClientInfo(CancellationToken.None);
     }
 
     [Fact]

@@ -14,14 +14,14 @@ public class ThrottleTest : BootstrapBlazorTestBase
         var dispatcher = factory.GetOrCreate("test", 200);
 
         var count = 0;
-        dispatcher.Throttle(() => count++);
+        dispatcher.Throttle(() => count++, CancellationToken.None);
         Assert.Equal(1, count);
 
-        dispatcher.Throttle(() => count++);
+        dispatcher.Throttle(() => count++, CancellationToken.None);
         Assert.Equal(1, count);
 
-        await Task.Delay(250);
-        dispatcher.Throttle(() => count++);
+        await Task.Delay(250, CancellationToken.None);
+        dispatcher.Throttle(() => count++, CancellationToken.None);
         Assert.Equal(2, count);
     }
 
@@ -32,14 +32,14 @@ public class ThrottleTest : BootstrapBlazorTestBase
         var dispatcher = factory.GetOrCreate("test-async", new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(200) });
 
         var count = 0;
-        await dispatcher.ThrottleAsync(Count);
+        await dispatcher.ThrottleAsync(Count, CancellationToken.None);
         Assert.Equal(1, count);
 
-        await dispatcher.ThrottleAsync(Count);
+        await dispatcher.ThrottleAsync(Count, CancellationToken.None);
         Assert.Equal(1, count);
 
-        await Task.Delay(250);
-        await dispatcher.ThrottleAsync(Count);
+        await Task.Delay(250, CancellationToken.None);
+        await dispatcher.ThrottleAsync(Count, CancellationToken.None);
         Assert.Equal(2, count);
 
         Task Count()
@@ -63,15 +63,15 @@ public class ThrottleTest : BootstrapBlazorTestBase
         {
             await Task.Delay(100);
             count++;
-        });
-        await Task.Delay(150);
+        }, CancellationToken.None);
+        await Task.Delay(150, CancellationToken.None);
 
         // 如果 DelayAfterExecution = false 再次执行时计数 已经超出 200ms
         // 如果 DelayAfterExecution = true 再次执行时不会计数 invokeTime 重置 未到达 200ms
         dispatcher.Throttle(() =>
         {
             count++;
-        });
+        }, CancellationToken.None);
     }
 
     [Fact]
@@ -85,16 +85,16 @@ public class ThrottleTest : BootstrapBlazorTestBase
         {
             count++;
             throw new Exception();
-        });
+        }, CancellationToken.None);
         Assert.Equal(1, count);
 
-        dispatcher.Throttle(() => throw new InvalidOperationException());
+        dispatcher.Throttle(() => throw new InvalidOperationException(), CancellationToken.None);
 
         // 发生错误后可以立即执行下一次任务，不限流
         dispatcher.Throttle(() =>
         {
             count++;
-        });
+        }, CancellationToken.None);
         Assert.Equal(2, count);
     }
 
@@ -112,9 +112,9 @@ public class ThrottleTest : BootstrapBlazorTestBase
     {
         var dispatch = new ThrottleDispatcher(new ThrottleOptions());
         var count = 0;
-        dispatch.Throttle(() => count++);
+        dispatch.Throttle(() => count++, CancellationToken.None);
         Assert.Equal(1, count);
-        dispatch.Throttle(() => count++);
+        dispatch.Throttle(() => count++, CancellationToken.None);
         Assert.Equal(1, count);
     }
 
@@ -136,7 +136,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
         {
             await Task.Delay(120);
             count++;
-        }));
+        }, CancellationToken.None));
         await Task.WhenAll(tasks);
         Assert.Equal(1, count);
     }

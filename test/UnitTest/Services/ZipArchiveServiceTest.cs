@@ -55,7 +55,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             Directory.Delete(destFolder, true);
         }
-        await archService.ExtractToDirectoryAsync(archiveFile, destFolder);
+        await archService.ExtractToDirectoryAsync(archiveFile, destFolder, token: CancellationToken.None);
         Assert.True(Directory.Exists(destFolder));
 
         // 删除文件夹
@@ -63,7 +63,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         Assert.False(Directory.Exists(destFolder));
 
         // 异步解压缩单元测试
-        await archService.ExtractToDirectoryAsync(archiveFile, destFolder);
+        await archService.ExtractToDirectoryAsync(archiveFile, destFolder, token: CancellationToken.None);
         Assert.True(Directory.Exists(destFolder));
 
         // 打包文件夹单元测试
@@ -77,17 +77,27 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             File.Delete(destFile);
         }
-        await archService.ArchiveDirectoryAsync(destFile, destFolder, includeBaseDirectory: true);
+        await archService.ArchiveDirectoryAsync(destFile, destFolder, includeBaseDirectory: true, token: CancellationToken.None);
         Assert.True(File.Exists(destFile));
         File.Delete(destFile);
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectoryAsync(null!, destFolder, includeBaseDirectory: true));
+        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectoryAsync(null!, destFolder, includeBaseDirectory: true, token: CancellationToken.None));
     }
 
     [Fact]
     public async Task ZipArchive_Ok()
     {
-        var fileName = Path.Combine(AppContext.BaseDirectory, "test", "3.zip");
+        var folder = Path.Combine(AppContext.BaseDirectory, "test");
+        if (!Directory.Exists(folder))
+        {
+            Directory.CreateDirectory(folder);
+        }
+
+        // 准备待压缩文件，避免依赖其他单元测试产生的文件导致一起运行时失败
+        var item = Path.Combine(folder, "1.txt");
+        await File.WriteAllTextAsync(item, "A", CancellationToken.None);
+
+        var fileName = Path.Combine(folder, "3.zip");
         if (File.Exists(fileName))
         {
             File.Delete(fileName);
@@ -96,9 +106,8 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         await using var fs = File.OpenWrite(fileName);
         await using var zip = new ZipArchive(fs, ZipArchiveMode.Create);
 
-        var item = Path.Combine(AppContext.BaseDirectory, "test", "1.txt");
         zip.CreateEntry("text/");
-        await zip.CreateEntryFromFileAsync(item, "text/1.txt");
+        await zip.CreateEntryFromFileAsync(item, "text/1.txt", CancellationToken.None);
     }
 
     [Fact]

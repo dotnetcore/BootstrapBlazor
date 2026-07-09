@@ -3,6 +3,8 @@
   <ItemGroup>
     <PackageReference Include="bunit" Version="2.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.*" />
+    <!-- 覆盖 EFCore.Sqlite 传递引入的有漏洞原生包 SQLitePCLRaw.lib.e_sqlite3 2.1.11 (NU1903 / GHSA-2m69-gcr7-jv3q) -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,10 +51,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="BootstrapBlazor.Components"/>
-    <Using Include="Bunit"/>
-    <Using Include="Microsoft.AspNetCore.Components"/>
-    <Using Include="UnitTest.Core"/>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="Bunit" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="UnitTest.Core" />
   </ItemGroup>
   
 </Project>

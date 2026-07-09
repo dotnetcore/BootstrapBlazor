@@ -79,7 +79,15 @@ public static class IEditorItemExtensions
     /// <param name="modelType"></param>
     public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();
+        // <para lang="zh">模板列不支持编辑</para>
+        // <para lang="en">Template column does not support editing</para>
+        var type = item.GetType();
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(TableTemplateColumn<>))
+        {
+            return false;
+        }
+
+        return typeof(DynamicObject).IsAssignableFrom(modelType) || ComplexCanWrite();
 
         bool ComplexCanWrite()
         {

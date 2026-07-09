@@ -25,13 +25,13 @@ public class AjaxTest : BootstrapBlazorTestBase
         Assert.False(option.ToJson);
 
         var service = Context.Services.GetRequiredService<AjaxService>();
-        await service.InvokeAsync(option);
+        await service.InvokeAsync(option, CancellationToken.None);
     }
 
     [Fact]
     public async Task Goto_Test()
     {
         var service = Context.Services.GetRequiredService<AjaxService>();
-        await service.Goto("http://www.blazor.zone");
+        await service.Goto("http://www.blazor.zone", CancellationToken.None);
     }
 }

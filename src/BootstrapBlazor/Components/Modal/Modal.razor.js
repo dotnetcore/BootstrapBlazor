@@ -39,6 +39,8 @@ export function init(id, invoke, shownCallback, closeCallback) {
                 // hack: fix focusin event
                 modal.modal._focustrap._handleFocusin = e => { }
             }
+
+            modal.modal._dialog = dialogs[0]
             modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
             modal.modal.show()
@@ -99,6 +101,13 @@ export function init(id, invoke, shownCallback, closeCallback) {
                     const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
                         modal.close();
+                    }
+                    else if (modal.modal) {
+                        const dialogs = [...el.querySelectorAll('.modal-dialog')].filter(d => !d.classList.contains('d-none'));
+                        if (dialogs.length > 0) {
+                            modal.modal._dialog = dialogs[dialogs.length - 1];
+                            modal.modal._triggerBackdropTransition();
+                        }
                     }
                 }
             })

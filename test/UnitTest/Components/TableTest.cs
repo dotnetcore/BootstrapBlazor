@@ -7916,7 +7916,7 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        await Task.Delay(1200);
+        await Task.Delay(1200, CancellationToken.None);
         Assert.True(index > 1);
     }
 

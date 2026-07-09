@@ -27,7 +27,7 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("setSignals", matcher => matcher.Arguments.Count == 2 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
         var serialService = Context.Services.GetRequiredService<ISerialService>();
 
-        var serialPort = await serialService.GetPort();
+        var serialPort = await serialService.GetPort(CancellationToken.None);
         Assert.True(serialService.IsSupport);
         Assert.NotNull(serialPort);
 
@@ -46,7 +46,7 @@ public class SerialServiceTest : BootstrapBlazorTestBase
             ParityType = SerialPortParityType.Odd,
             StopBits = 1
         };
-        await serialPort.Open(option);
+        await serialPort.Open(option, CancellationToken.None);
         Assert.True(serialPort.IsOpen);
         Assert.Equal(9600, option.BaudRate);
         Assert.Equal(1024, option.BufferSize);
@@ -55,20 +55,20 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         Assert.Equal(SerialPortParityType.Odd, option.ParityType);
         Assert.Equal(1, option.StopBits);
 
-        await serialPort.Write([0x31, 0x32]);
+        await serialPort.Write([0x31, 0x32], CancellationToken.None);
 
         var mi = serialPort.GetType().GetMethod("DataReceiveCallback");
         Assert.NotNull(mi);
         mi.Invoke(serialPort, ["12"u8.ToArray()]);
 
         // getInfo
-        var info = await serialPort.GetUsbInfo();
+        var info = await serialPort.GetUsbInfo(CancellationToken.None);
         Assert.NotNull(info);
         Assert.Equal("Test", info.UsbVendorId);
         Assert.Equal("Test123", info.UsbProductId);
 
         // getSignals
-        var signals = await serialPort.GetSignals();
+        var signals = await serialPort.GetSignals(CancellationToken.None);
         Assert.NotNull(signals);
         Assert.False(signals.RING);
         Assert.True(signals.DSR);
@@ -82,13 +82,13 @@ public class SerialServiceTest : BootstrapBlazorTestBase
             DTR = true,
             RTS = true
         };
-        var ret = await serialPort.SetSignals(signalOption);
+        var ret = await serialPort.SetSignals(signalOption, CancellationToken.None);
         Assert.True(ret);
         Assert.True(signalOption.Break);
         Assert.True(signalOption.DTR);
         Assert.True(signalOption.RTS);
 
-        await serialPort.Close();
+        await serialPort.Close(CancellationToken.None);
         Assert.False(serialPort.IsOpen);
 
         await serialPort.DisposeAsync();

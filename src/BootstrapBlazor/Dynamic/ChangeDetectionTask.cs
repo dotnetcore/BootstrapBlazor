@@ -21,7 +21,7 @@ static class ChangeDetectionCleanTask
 #endif
 
     private static ConcurrentDictionary<Type, bool> _cache = new();
-    private static CancellationTokenSource? _cancellationTokenSource;
+    private static PeriodicTimer? _timer;
     private static Task? _cleanTask;
     private static ConcurrentDictionary<ITable, byte> _tableCache = new();
 
@@ -82,7 +82,17 @@ static class ChangeDetectionCleanTask
                 return;
             }
 
-            _cleanTask = Task.Run(Clean);
+            // 组件变更检测清理方法执行间隔，默认 5000 毫秒，最小 500 毫秒
+            var interval = 5000;
+            if (CacheManager.Options != null)
+            {
+                interval = Math.Max(500, CacheManager.Options.ChangeDetectionTaskInterval);
+            }
+
+            // 在锁内创建 PeriodicTimer，与 Stop 互斥，确保其创建与销毁不会发生竞态
+            var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(interval));
+            _timer = timer;
+            _cleanTask = Task.Run(() => Clean(timer));
         }
     }
 
@@ -90,38 +100,18 @@ static class ChangeDetectionCleanTask
     {
         lock (_locker)
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = null;
+            // 释放定时器后 WaitForNextTickAsync 返回 false，Clean 循环正常退出
+            _timer?.Dispose();
+            _timer = null;
         }
     }
 
-    private static async Task Clean()
+    private static async Task Clean(PeriodicTimer timer)
     {
-        _cancellationTokenSource ??= new();
-
-        // 组件变更检测清理方法执行间隔，默认 5000 毫秒，最小 500 毫秒
-        var interval = 5000;
-        if (CacheManager.Options != null)
+        // 每隔 interval 毫秒执行一次清理方法；调用 Stop 释放定时器后 WaitForNextTickAsync 返回 false 退出循环
+        while (await timer.WaitForNextTickAsync())
         {
-            interval = Math.Max(500, CacheManager.Options.ChangeDetectionTaskInterval);
-        }
-        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(interval));
-        while (_cancellationTokenSource is { IsCancellationRequested: false })
-        {
-            try
-            {
-                // 每隔 interval 毫秒执行一次清理方法
-                await timer.WaitForNextTickAsync(_cancellationTokenSource.Token);
-            }
-            catch (OperationCanceledException)
-            {
-
-            }
-            finally
-            {
-                DoTask();
-            }
+            DoTask();
         }
     }
 

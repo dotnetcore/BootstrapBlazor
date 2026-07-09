@@ -152,7 +152,7 @@ public class SwalTest : BootstrapBlazorTestBase
                     return Task.CompletedTask;
                 }
             });
-        }));
+        }), CancellationToken.None);
 
         var tick = DateTime.Now;
         while (!cut.Markup.Contains("test-cancel-text"))
@@ -192,7 +192,7 @@ public class SwalTest : BootstrapBlazorTestBase
                     return Task.CompletedTask;
                 }
             });
-        }));
+        }), CancellationToken.None);
 
         tick = DateTime.Now;
         while (!cut.Markup.Contains("test-cancel-text"))
@@ -231,7 +231,7 @@ public class SwalTest : BootstrapBlazorTestBase
             });
         });
 
-        Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<Select<string>>().Instance.ConfirmSelectedItem(0)));
+        Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<Select<string>>().Instance.ConfirmSelectedItem(0)), CancellationToken.None);
         tick = DateTime.Now;
         while (!cut.Markup.Contains("test-swal-footer"))
         {

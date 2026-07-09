@@ -283,6 +283,28 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetExpression_Match()
+    {
+        var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = "^Test\\d+$", FilterAction = FilterAction.Match };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+        Assert.True(invoker.Invoke(new Foo() { Name = "Test1" }));
+        Assert.True(invoker.Invoke(new Foo() { Name = "Test123" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "Test" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "1Test1" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = null }));
+    }
+
+    [Fact]
+    public void GetExpression_NotMatch()
+    {
+        var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = "^Test\\d+$", FilterAction = FilterAction.NotMatch };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+        Assert.False(invoker.Invoke(new Foo() { Name = "Test1" }));
+        Assert.True(invoker.Invoke(new Foo() { Name = "Test" }));
+        Assert.True(invoker.Invoke(new Foo() { Name = null }));
+    }
+
+    [Fact]
     public void GetExpression_CustomPredicate()
     {
         var foo = new Foo() { Name = "11" };

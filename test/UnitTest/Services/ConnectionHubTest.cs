@@ -48,7 +48,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
 
         // 触发 Beat 时间
-        await Task.Delay(200);
+        await Task.Delay(200, CancellationToken.None);
         authorizationContext.SetAuthorized("mock_user");
         await cut.InvokeAsync(async () =>
         {
@@ -102,7 +102,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
         Assert.Single(service.Connections);
 
-        await Task.Delay(500);
+        await Task.Delay(500, CancellationToken.None);
         Assert.Equal(0, service.Count);
     }
 
@@ -127,7 +127,7 @@ public class ConnectionHubTest
         var token = fieldInfo.GetValue(service) as CancellationTokenSource;
         Assert.NotNull(token);
 
-        await Task.Delay(200);
+        await Task.Delay(200, CancellationToken.None);
         token.Cancel();
     }
 

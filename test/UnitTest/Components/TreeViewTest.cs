@@ -151,6 +151,42 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SetActiveItem_ExpandCollapsedParent()
+    {
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/8185
+        // 手动收缩父节点后再设置激活子节点 祖先节点应重新展开
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        // 初始激活节点为 Sub Menu Three 祖先节点 Navigation two 处于展开状态
+        // 手动收缩 Navigation two 节点
+        await cut.InvokeAsync(() => cut.FindAll(".node-icon.visible")[0].Click());
+        Assert.DoesNotContain("Sub menu 1", cut.Markup);
+
+        // 设置激活节点为 Navigation two 的子节点 Sub menu 1 祖先节点应重新展开
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[1].Items[0].Value));
+        Assert.Contains("Sub menu 1", cut.Markup);
+
+        // 模拟父组件重新渲染 缓存中的收缩状态不应覆盖程序设置的展开状态
+        cut.Render();
+        var node = cut.Find(".active .tree-node-text");
+        Assert.Equal("Sub menu 1", node.TextContent);
+
+        // 再次渲染 确认展开状态稳定 不出现展开收缩循环切换
+        cut.Render();
+        node = cut.Find(".active .tree-node-text");
+        Assert.Equal("Sub menu 1", node.TextContent);
+
+        // 再次手动收缩激活节点的祖先节点后重新渲染 保持用户手动设置的收缩状态
+        await cut.InvokeAsync(() => cut.FindAll(".node-icon.visible")[0].Click());
+        cut.Render();
+        Assert.DoesNotContain("Sub menu 1", cut.Markup);
+    }
+
+    [Fact]
     public void AppendNode_Ok()
     {
         var items = TreeFoo.GetAccordionItems();
@@ -239,6 +275,295 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
         Assert.Equal(CheckboxState.Indeterminate, checkboxes[3].Instance.Value.CheckedState);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[5].Instance.Value.CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckParent_TriState_Ok()
+    {
+        // 仅设置 AutoCheckParent 时 父节点状态由子节点状态派生
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        // 部分选中 父节点半选
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
+
+        // 全部选中 父节点选中
+        await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
+
+        // 取消一个子节点 父节点半选
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.UnChecked));
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
+
+        // 全部取消 父节点未选中
+        await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.UnChecked));
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.Value.CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckParent_ToggleNode_Ok()
+    {
+        // 仅设置 AutoCheckParent 时 展开/折叠已加载子节点的节点不重算勾选状态
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        // 折叠状态下显式勾选父节点
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(() => checkboxes[0].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+
+        // 展开节点 子节点已加载 不触发懒加载 父节点勾选状态保持不变
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+
+        // 折叠节点 勾选状态依然保持
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckChildren_ToggleNode_Ok()
+    {
+        // 仅设置 AutoCheckChildren 时 展开/折叠不向子节点强推状态 保持用户显式设置的状态
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckChildren, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        // 勾选父节点 子节点级联选中
+        await cut.InvokeAsync(() => checkboxes[0].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, nodes[0].Items[0].CheckedState);
+        Assert.Equal(CheckboxState.Checked, nodes[0].Items[1].CheckedState);
+
+        // 取消第一个子节点 未设置 AutoCheckParent 父节点保持选中
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.UnChecked));
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].Items[0].CheckedState);
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+
+        // 折叠再展开 子节点状态保持 不被父节点状态覆盖
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].Items[0].CheckedState);
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckChildren_Rerender_Ok()
+    {
+        // 仅设置 AutoCheckChildren 时 组件重新收参不派生父节点状态
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckChildren, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(() => checkboxes[0].Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.UnChecked));
+
+        // 重新设置参数触发 OnParametersSetAsync 父节点状态不被子节点状态派生覆盖
+        cut.Render(pb => pb.Add(a => a.Items, nodes));
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].Items[0].CheckedState);
+        Assert.Equal(CheckboxState.Checked, nodes[0].Items[1].CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckParent_Rerender_Ok()
+    {
+        // 仅设置 AutoCheckParent 时 参数与数据源均未变化的重新收参不重算 保持用户显式设置的父节点状态
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        // 显式勾选父节点 未设置 AutoCheckChildren 子节点不跟随
+        await cut.InvokeAsync(() => checkboxes[0].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].Items[0].CheckedState);
+
+        // 重新收参触发 OnParametersSetAsync 父节点状态不被子节点状态派生覆盖
+        cut.Render(pb => pb.Add(a => a.Items, nodes));
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
+    }
+
+    [Fact]
+    public void AutoCheckParent_ParameterChanged_Ok()
+    {
+        // 外部更改 AutoCheckParent 参数后重算勾选状态并刷新 UI
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        nodes[0].Items[0].CheckedState = CheckboxState.Checked;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        // 未开启 AutoCheckParent 父节点保持未选中
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].CheckedState);
+
+        // 开启 AutoCheckParent 参数变化触发重算 父节点由子节点状态派生为半选
+        cut.Render(pb => pb.Add(a => a.AutoCheckParent, true));
+        Assert.Equal(CheckboxState.Indeterminate, nodes[0].CheckedState);
+
+        // UI 同步刷新 父节点复选框为半选状态
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.State);
+    }
+
+    [Fact]
+    public void AutoCheckParent_ItemsChanged_Ok()
+    {
+        // 外部替换 Items 数据源后重算勾选状态
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].CheckedState);
+
+        // 替换数据源 其中一个子节点选中 父节点派生为半选
+        var newNodes = TreeFoo.CascadingTree(items);
+        newNodes[0].IsExpand = true;
+        newNodes[0].Items[0].CheckedState = CheckboxState.Checked;
+
+        cut.Render(pb => pb.Add(a => a.Items, newNodes));
+        Assert.Equal(CheckboxState.Indeterminate, newNodes[0].CheckedState);
+    }
+
+    [Fact]
+    public async Task AutoCheckParent_Disabled_Ok()
+    {
+        // 关闭 AutoCheckParent 后 半选状态失去派生来源 半选节点重置为未选中
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        // 勾选一个子节点 父节点派生为半选
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Indeterminate, nodes[0].CheckedState);
+
+        // 关闭 AutoCheckParent 半选父节点重置为未选中 子节点状态保持
+        cut.Render(pb => pb.Add(a => a.AutoCheckParent, false));
+        Assert.Equal(CheckboxState.UnChecked, nodes[0].CheckedState);
+        Assert.Equal(CheckboxState.Checked, nodes[0].Items[0].CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
+
+        // 重新开启 AutoCheckParent 父节点重新派生为半选
+        cut.Render(pb => pb.Add(a => a.AutoCheckParent, true));
+        Assert.Equal(CheckboxState.Indeterminate, nodes[0].CheckedState);
     }
 
     [Fact]
@@ -617,7 +942,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 触发第一个节点展开
         await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count == 2);
-        await Task.Delay(50);
+        await Task.Delay(50, CancellationToken.None);
 
         cut.Contains("--bb-tree-view-level: 0;");
         cut.Contains("--bb-tree-view-level: 1;");
@@ -661,6 +986,44 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         Assert.Single(results);
         Assert.Equal(CheckboxState.Indeterminate, results[0]);
+    }
+
+    [Fact]
+    public async Task GetParentsState_InvalidIndex_Ok()
+    {
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        nodes[0].Items[0].CheckedState = CheckboxState.Checked;
+        nodes[0].Items[1].CheckedState = CheckboxState.Checked;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        // Rows 顺序 [0] 父节点 [1] [2] 子节点
+        var results = await cut.Instance.GetParentsState(new List<int> { -1, 3, 1, 0 });
+        Assert.Equal(4, results.Count);
+
+        // 索引越界返回未选中
+        Assert.Equal(CheckboxState.UnChecked, results[0]);
+        Assert.Equal(CheckboxState.UnChecked, results[1]);
+
+        // 无子节点的叶子节点返回自身状态 不重算
+        Assert.Equal(CheckboxState.Checked, results[2]);
+
+        // 子节点状态一致时父节点取相同状态
+        Assert.Equal(CheckboxState.Checked, results[3]);
+        Assert.Equal(CheckboxState.Checked, nodes[0].CheckedState);
     }
 
     [Fact]

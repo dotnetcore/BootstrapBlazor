@@ -10,7 +10,7 @@
     <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
-                   OnDisabledCallback="OnDisabledCallback"
+                   OnDisabledCallback="OnLeftDisabledCallback"
                    HeaderTemplate="LeftHeaderTemplate" ItemTemplate="LeftItemTemplate">
     </TransferPanel>
     <div class="transfer-buttons">
@@ -28,7 +28,7 @@
     <TransferPanel Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled" class="@ValidateClass" Id="@Id"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
-                   OnDisabledCallback="OnDisabledCallback"
+                   OnDisabledCallback="OnRightDisabledCallback"
                    HeaderTemplate="RightHeaderTemplate" ItemTemplate="RightItemTemplate">
     </TransferPanel>
 </div>

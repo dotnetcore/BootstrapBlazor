@@ -279,6 +279,8 @@
     "NotEqual": "不等于",
     "Contains": "包含",
     "NotContains": "不包含",
+    "Match": "匹配",
+    "NotMatch": "不匹配",
     "EnumFilter.AllText": "全选",
     "NotSupportedColumnFilterMessage": "<p>不支持的类型，请使用 <code>FilterTemplate</code> 自定义过滤组件</p><div>请参考文档 <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "请输入 ...",

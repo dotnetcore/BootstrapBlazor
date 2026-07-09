@@ -12,7 +12,7 @@ public class EyeDropperServiceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<string?>("open").SetResult("#FFFFFF");
         var service = Context.Services.GetRequiredService<EyeDropperService>();
-        var expected = await service.PickAsync();
+        var expected = await service.PickAsync(CancellationToken.None);
         Assert.Equal("#FFFFFF", expected);
     }
 }

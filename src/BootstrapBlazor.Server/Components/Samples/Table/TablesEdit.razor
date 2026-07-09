@@ -321,12 +321,18 @@
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowColumnList="true" AllowDragColumn="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
-            <TableTemplateColumn Text="@Localizer["TableTemplateColumnText"]">
+            <TableTemplateColumn Text="@Localizer["TableTemplateColumnText1"]">
                 <Template Context="v">
                     @v.Row.ReadonlyColumn
+                </Template>
+            </TableTemplateColumn>
+            <TableTemplateColumn Text="@Localizer["TableTemplateColumnText2"]">
+                <Template Context="v">
+                    @v.Row.Name - @v.Row.Count
                 </Template>
             </TableTemplateColumn>
         </TableColumns>
