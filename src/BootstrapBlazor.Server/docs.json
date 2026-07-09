@@ -580,6 +580,7 @@
       "MultiSelectFilter",
       "NotSupportFilter",
       "NumberFilter",
+      "RegexFilter",
       "StringFilter",
       "TableColumnFilter"
     ],
