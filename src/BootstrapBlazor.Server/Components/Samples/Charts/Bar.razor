@@ -1,5 +1,6 @@
-﻿@page "/chart/bar"
+@page "/chart/bar"
 @inject IStringLocalizer<Bar> Localizer
+@inherits WebSiteModuleComponentBase
 
 <DemoBlock Title="@Localizer["BarTypeTitle"]"
            Introduction="@Localizer["BarTypeIntro"]"
@@ -60,4 +61,46 @@
            Introduction="@Localizer["BarColorSeparatelyIntro"]"
            Name="BarColorSeparately">
     <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitBarColorSeparately(true)" Title="BarColorSeparately Demo" Height="500px" Width="500px" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomTooltipTitle"]"
+           Introduction="@Localizer["CustomTooltipIntro"]"
+           Name="CustomTooltip">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi1"].Value)</p>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@@CustomTooltipId" /&gt;</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
+                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
+
+export function customTooltip(id) {
+    // chart.js documentation: https://www.chartjs.org/docs/latest/configuration/tooltip.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: tooltipItems => `Day ${tooltipItems[0].label}`,
+                        label: context => ` ${context.dataset.label}: ${context.parsed.y} units`
+                    }
+                }
+            }
+        }
+    });
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi3"].Value)</p>
+                <Pre>protected override async Task InvokeInitAsync()
+{
+    await InvokeVoidAsync("customTooltip", CustomTooltipId);
+}</Pre>
+            </li>
+        </ul>
+    </section>
+    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@CustomTooltipId" />
 </DemoBlock>

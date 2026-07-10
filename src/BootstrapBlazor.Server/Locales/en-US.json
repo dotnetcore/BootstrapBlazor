@@ -1272,7 +1272,12 @@
     "BarTypeReload": "Reload",
     "BarTypeRemoveData": "Remove data",
     "BarTypeRemoveDataSet": "Remove dataset",
-    "BarTypeTitle": "Bar graph"
+    "BarTypeTitle": "Bar graph",
+    "CustomTooltipIntro": "Customize the hover <code>Tooltip</code> text of the bar chart by client script",
+    "CustomTooltipLi1": "Set the <b>Id</b> parameter of the <code>Chart</code> component",
+    "CustomTooltipLi2": "Create a client <code>JavaScript</code> script, set the <code>tooltip</code> callbacks by <code>setOptionsById</code> method. In this example, the <code>title</code> and <code>label</code> text are customized",
+    "CustomTooltipLi3": "Override the base class method <code>InvokeInitAsync</code> and call the client script by <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId)</code>",
+    "CustomTooltipTitle": "Custom Tooltip"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bubble": {
     "BubbleBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",

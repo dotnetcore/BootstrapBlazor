@@ -1272,7 +1272,12 @@
     "BarTypeReload": "重载",
     "BarTypeRemoveData": "移除数据",
     "BarTypeRemoveDataSet": "移除数据集",
-    "BarTypeTitle": "Bar 图"
+    "BarTypeTitle": "Bar 图",
+    "CustomTooltipIntro": "自定义柱状图悬停 <code>Tooltip</code> 显示文本，需要使用客户端脚本设置",
+    "CustomTooltipLi1": "<code>Chart</code> 组件设置 <b>Id</b> 参数",
+    "CustomTooltipLi2": "创建客户端 <code>JavaScript</code> 脚本，通过 <code>setOptionsById</code> 方法设置 <code>tooltip</code> 回调函数，本例中自定义了 <code>title</code> 与 <code>label</code> 显示文本",
+    "CustomTooltipLi3": "本例中重载基类方法 <code>InvokeInitAsync</code> 通过 <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId)</code> 语句调用客户端脚本",
+    "CustomTooltipTitle": "自定义 Tooltip"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bubble": {
     "BubbleBarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
