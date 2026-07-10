@@ -8,10 +8,13 @@ namespace BootstrapBlazor.Server.Components.Samples.Charts;
 /// <summary>
 /// Bar 图表示例
 /// </summary>
+[JSModuleAutoLoader("Samples/Charts/Bar.razor.js", JSObjectReference = true)]
 public partial class Bar
 {
     private int _barDatasetCount = 2;
     private int _barDataCount = 7;
+
+    private string CustomTooltipId => $"custom_tooltip_{Id}";
 
     private int BarDatasetCount { get; set; } = 2;
 
@@ -35,6 +38,14 @@ public partial class Bar
         {
             Logger.Log("Bar loading data ...");
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task InvokeInitAsync()
+    {
+        await InvokeVoidAsync("customTooltip", CustomTooltipId);
     }
 
     private Task OnAfterInit()
