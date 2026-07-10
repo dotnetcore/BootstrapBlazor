@@ -971,21 +971,28 @@ const removeColumnWidthState = tableName => {
 }
 
 export function clearColumnStates(tableName) {
-    const columnStateKey = `bb-table-${tableName}`;
-    localStorage.removeItem(columnStateKey);
+    localStorage.removeItem(tableName);
+    localStorage.removeItem(`bb-table-${tableName}`);
 }
 
 const getColumnStateFromLocalstorage = tableName => {
-    const columnStateKey = `bb-table-${tableName}`;
-    return getLocalStorageValue(columnStateKey);
+    let state = getLocalStorageValue(tableName);
+    if (state === null) {
+        const legacyKey = `bb-table-${tableName}`;
+        state = getLocalStorageValue(legacyKey);
+        if (state !== null) {
+            localStorage.setItem(tableName, JSON.stringify(state));
+            localStorage.removeItem(legacyKey);
+        }
+    }
+    return state;
 }
 
 const saveColumnStateToLocalstorage = (table, state) => {
     const { options: { tableName } } = table;
     if (tableName) {
-        const columnStateKey = `bb-table-${tableName}`;
         const columnState = state ?? getColumnStateObject(table);
-        localStorage.setItem(columnStateKey, JSON.stringify(columnState));
+        localStorage.setItem(tableName, JSON.stringify(columnState));
     }
 }
 
