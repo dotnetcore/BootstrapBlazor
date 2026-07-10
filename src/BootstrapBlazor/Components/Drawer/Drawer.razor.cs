@@ -160,14 +160,7 @@ public partial class Drawer
 
     private string? BodyScrollString => BodyScroll ? "true" : null;
 
-    private bool _render = true;
-
     private bool _firstOpened;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// <inheritdoc/>
@@ -224,9 +217,7 @@ public partial class Drawer
         {
             await OnClickBackdrop();
         }
-        _render = false;
         await Close();
-        _render = true;
     }
 
     /// <summary>
