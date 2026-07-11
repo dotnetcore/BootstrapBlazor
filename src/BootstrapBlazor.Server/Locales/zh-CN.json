@@ -1265,7 +1265,7 @@
     "BarStackedShowDataLabelIntro": "堆叠模式开启 <code>ShowDataLabel</code> 时，值为 <code>0</code> 的分段不绘制数据标签，避免与相邻分段标签重叠。本例中 <b>Bob</b> 顶部分段值为 <code>0</code>，仅显示下方分段的数据标签",
     "BarStackedShowDataLabelTitle": "堆叠图数据标签",
     "BarStackedTitle": "堆砌排列",
-    "BarTotalDataLabelIntro": "堆叠模式通过设置 <code>ShowTotalDataLabel</code> 属性，在每个柱条顶部显示总计数据标签，点击图例隐藏数据集时总计值自动重新计算",
+    "BarTotalDataLabelIntro": "堆叠模式通过设置 <code>ShowTotalDataLabel</code> 属性，在每个柱条顶部显示总计数据标签，点击图例隐藏数据集时总计值自动重新计算。本例中通过客户端脚本 <code>setOptionsById</code> 覆盖 <code>total</code> 标签的 <code>formatter</code> 回调，将总计文本自定义为 <code>Total: {X}</code> 格式",
     "BarTotalDataLabelTitle": "堆叠总计标签",
     "BarTwoYAxesIntro": "显示第二Y轴:对齐方式,标题和对应数据组",
     "BarTwoYAxesTitle": "双Y轴",

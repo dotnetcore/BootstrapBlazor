@@ -18,6 +18,8 @@ public partial class Bar
 
     private string CustomCategoryLabelId => $"custom_category_label_{Id}";
 
+    private string TotalDataLabelId => $"total_data_label_{Id}";
+
     private int BarDatasetCount { get; set; } = 2;
 
     private int BarDataCount { get; set; } = 7;
@@ -49,6 +51,7 @@ public partial class Bar
     {
         await InvokeVoidAsync("customTooltip", CustomTooltipId);
         await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+        await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
     }
 
     private Task OnAfterInit()
