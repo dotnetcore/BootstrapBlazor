@@ -18,6 +18,8 @@ public partial class Bar
 
     private string CustomCategoryLabelId => $"custom_category_label_{Id}";
 
+    private string TotalDataLabelId => $"total_data_label_{Id}";
+
     private int BarDatasetCount { get; set; } = 2;
 
     private int BarDataCount { get; set; } = 7;
@@ -49,6 +51,7 @@ public partial class Bar
     {
         await InvokeVoidAsync("customTooltip", CustomTooltipId);
         await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+        await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
     }
 
     private Task OnAfterInit()
@@ -225,6 +228,31 @@ public partial class Bar
         var ds = new ChartDataSource();
         ds.Options.Title = "Stacked with zero value segment";
         ds.Options.ShowDataLabel = true;
+        ds.Options.X.Title = "name";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = true;
+        ds.Options.Y.Stacked = true;
+        ds.Labels = ["Alice", "Bob", "Carol"];
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = new object[] { 3, 5, 2 }
+        });
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 1",
+            Data = new object[] { 2, 0, 4 }
+        });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitTotalDataLabel()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Stacked total";
+        ds.Options.ShowDataLabel = true;
+        ds.Options.ShowTotalDataLabel = true;
+        ds.Options.Anchor = ChartDataLabelPosition.Center;
         ds.Options.X.Title = "name";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = true;

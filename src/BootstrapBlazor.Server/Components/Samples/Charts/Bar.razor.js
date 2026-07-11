@@ -18,6 +18,33 @@ export function customCategoryLabel(id) {
     });
 }
 
+export function customTotalDataLabel(id) {
+    // chartjs-plugin-datalabels documentation: https://chartjs-plugin-datalabels.netlify.app/guide/options.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            plugins: {
+                datalabels: {
+                    labels: {
+                        total: {
+                            color: '#fff',
+                            backgroundColor: 'rgb(75, 192, 192)',
+                            borderRadius: 4,
+                            padding: { top: 2, bottom: 2, left: 6, right: 6 },
+                            font: { weight: 'bold' },
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets.reduce(
+                                    (sum, v, index) => context.chart.isDatasetVisible(index) ? sum + (Number(v.data[context.dataIndex]) || 0) : sum, 0);
+                                return `Total: ${total}`;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
 export function customTooltip(id) {
     // chart.js documentation: https://www.chartjs.org/docs/latest/configuration/tooltip.html
     const chart = BootstrapBlazor.Chart;
