@@ -51,15 +51,6 @@ public partial class Bar
         await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
     }
 
-    /// <summary>
-    /// 等待页面脚本注册完成后再返回图表数据，确保图表初始化时能合并 setOptionsById 注册的自定义配置
-    /// </summary>
-    private async Task<ChartDataSource> OnInitCustomChartAsync()
-    {
-        await ModuleInitTask.Task;
-        return await OnInit(false);
-    }
-
     private Task OnAfterInit()
     {
         Logger.Log("Bar initialization is complete");
