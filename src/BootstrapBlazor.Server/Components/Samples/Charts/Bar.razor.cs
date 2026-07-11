@@ -243,6 +243,23 @@ public partial class Bar
         return Task.FromResult(ds);
     }
 
+    private Task<ChartDataSource> OnInitAutoSkip(bool autoSkip)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = autoSkip ? "AutoSkip: true" : "AutoSkip: false";
+        ds.Options.ShowLegend = false;
+        ds.Options.X.AutoSkip = autoSkip;
+        ds.Options.X.Title = "category";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, 16).Select(i => $"Category {i}");
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = Enumerable.Range(1, 16).Select(i => Random.Shared.Next(20, 37)).Cast<object>()
+        });
+        return Task.FromResult(ds);
+    }
+
     private Task<ChartDataSource> OnInitBarColorSeparately(bool barColorSeparately)
     {
         var ds = new ChartDataSource();

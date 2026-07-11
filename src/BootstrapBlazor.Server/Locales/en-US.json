@@ -1255,6 +1255,8 @@
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",
     "BarAspectRatioTitle": "Chart ratio",
+    "BarAutoSkipIntro": "By setting the X axis <code>AutoSkip</code> property, control whether to automatically skip some tick labels when the container width is insufficient. The default is <code>true</code> to avoid label overlapping; set it to <code>false</code> to always display all labels. In this example, the left side is the default behavior, and the right side disables auto skip",
+    "BarAutoSkipTitle": "Axis Label Auto Skip",
     "BarColorSeparatelyIntro": "By setting <code>BarColorSeparately</code> property，control whether to Set bar chart colors separately，and By setting <code>BackgroundColor</code> property, set bar chart color",
     "BarColorSeparatelyTitle": "Set bar chart colors separately",
     "BarShowDataLabelIntro": "By setting <code>ShowDataLabel</code> property，control whether to display chart data values",
