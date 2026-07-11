@@ -60,7 +60,14 @@
 <DemoBlock Title="@Localizer["BarStackedShowDataLabelTitle"]"
            Introduction="@Localizer["BarStackedShowDataLabelIntro"]"
            Name="BarStackedShowDataLabel">
-    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitStackedShowDataLabel" Height="500px" Width="500px" />
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitStackedShowDataLabel(false)" Height="400px" Width="360px" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitStackedShowDataLabel(true)" Height="400px" Width="360px" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BarTotalDataLabelTitle"]"

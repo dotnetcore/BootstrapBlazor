@@ -223,11 +223,15 @@ public partial class Bar
         return Task.FromResult(ds);
     }
 
-    private Task<ChartDataSource> OnInitStackedShowDataLabel()
+    private Task<ChartDataSource> OnInitStackedShowDataLabel(bool center)
     {
         var ds = new ChartDataSource();
-        ds.Options.Title = "Stacked with zero value segment";
+        ds.Options.Title = center ? "Anchor: Center" : "Anchor: End";
         ds.Options.ShowDataLabel = true;
+        if (center)
+        {
+            ds.Options.Anchor = ChartDataLabelPosition.Center;
+        }
         ds.Options.X.Title = "name";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = true;
