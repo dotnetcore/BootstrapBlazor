@@ -66,6 +66,52 @@
 <DemoBlock Title="@Localizer["BarTotalDataLabelTitle"]"
            Introduction="@Localizer["BarTotalDataLabelIntro"]"
            Name="BarTotalDataLabel">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>
+                <p>@((MarkupString)Localizer["BarTotalDataLabelLi1"].Value)</p>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" Id="@@TotalDataLabelId" /&gt;</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["BarTotalDataLabelLi2"].Value)</p>
+                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
+
+export function customTotalDataLabel(id) {
+    // chartjs-plugin-datalabels documentation: https://chartjs-plugin-datalabels.netlify.app/guide/options.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            plugins: {
+                datalabels: {
+                    labels: {
+                        total: {
+                            color: '#fff',
+                            backgroundColor: 'rgb(75, 192, 192)',
+                            borderRadius: 4,
+                            padding: { top: 2, bottom: 2, left: 6, right: 6 },
+                            font: { weight: 'bold' },
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets.reduce(
+                                    (sum, v, index) => context.chart.isDatasetVisible(index) ? sum + (Number(v.data[context.dataIndex]) || 0) : sum, 0);
+                                return `Total: ${total}`;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["BarTotalDataLabelLi3"].Value)</p>
+                <Pre>protected override async Task InvokeInitAsync()
+{
+    await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
+}</Pre>
+            </li>
+        </ul>
+    </section>
     <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" Id="@TotalDataLabelId" Height="500px" Width="500px" />
 </DemoBlock>
 
