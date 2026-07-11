@@ -69,6 +69,19 @@
     <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitBarColorSeparately(true)" Title="BarColorSeparately Demo" Height="500px" Width="500px" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BarAutoSkipTitle"]"
+           Introduction="@Localizer["BarAutoSkipIntro"]"
+           Name="BarAutoSkip">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitAutoSkip(true)" Height="300px" Width="260px" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitAutoSkip(false)" Height="300px" Width="260px" />
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["CustomTooltipTitle"]"
            Introduction="@Localizer["CustomTooltipIntro"]"
            Name="CustomTooltip">

@@ -1255,6 +1255,8 @@
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
     "BarAspectRatioTitle": "图表比例",
+    "BarAutoSkipIntro": "通过设置 X 轴 <code>AutoSkip</code> 属性，控制容器宽度不足时是否自动跳过部分刻度标签。默认为 <code>true</code> 自动跳过避免标签重叠；设置为 <code>false</code> 时始终显示全部标签。本例中左侧为默认行为，右侧关闭自动跳过",
+    "BarAutoSkipTitle": "坐标轴标签跳过",
     "BarColorSeparatelyIntro": "通过设置<code>BarColorSeparately</code>属性，控制是否单独设置柱状图颜色，以及通过<code>BackgroundColor</code> 集合设置柱状图颜色",
     "BarColorSeparatelyTitle": "单独设置柱状图颜色",
     "BarShowDataLabelIntro": "通过设置<code>ShowDataLabel</code> 属性，控制是否显示数据值",
