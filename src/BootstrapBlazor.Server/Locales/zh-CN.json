@@ -1262,7 +1262,7 @@
     "BarShowDataLabelIntro": "通过设置<code>ShowDataLabel</code> 属性，控制是否显示数据值",
     "BarShowDataLabelTitle": "显示图表数据值",
     "BarStackedIntro": "通过设置 X/Y 轴 <code>Stacked</code> 属性，控制是否堆砌排列",
-    "BarStackedShowDataLabelIntro": "堆叠模式开启 <code>ShowDataLabel</code> 时，值为 <code>0</code> 的分段不绘制数据标签，避免与相邻分段标签重叠。本例中 <b>Bob</b> 顶部分段值为 <code>0</code>，仅显示下方分段的数据标签",
+    "BarStackedShowDataLabelIntro": "堆叠模式开启 <code>ShowDataLabel</code> 时，通过 <code>Anchor</code> 属性控制数据标签位置，默认 <code>End</code> 显示在分段顶部，设置为 <code>Center</code> 时显示在分段中间；值为 <code>0</code> 的分段不绘制数据标签，避免与相邻分段标签重叠。本例中 <b>Bob</b> 顶部分段值为 <code>0</code>，仅显示下方分段的数据标签",
     "BarStackedShowDataLabelTitle": "堆叠图数据标签",
     "BarStackedTitle": "堆砌排列",
     "BarTwoYAxesIntro": "显示第二Y轴:对齐方式,标题和对应数据组",
