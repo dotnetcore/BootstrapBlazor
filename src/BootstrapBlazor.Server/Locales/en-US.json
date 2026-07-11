@@ -1265,6 +1265,8 @@
     "BarStackedShowDataLabelIntro": "When <code>ShowDataLabel</code> is enabled in stacked mode, segments with a value of <code>0</code> do not draw data labels to avoid overlapping with adjacent segment labels. In this example, the top segment of <b>Bob</b> has a value of <code>0</code>, so only the lower segment's data label is displayed",
     "BarStackedShowDataLabelTitle": "Stacked Data Label",
     "BarStackedTitle": "Stacked",
+    "BarTotalDataLabelIntro": "In stacked mode, set the <code>ShowTotalDataLabel</code> property to display the total data label above each bar. The total value is automatically recalculated when a dataset is hidden by clicking the legend",
+    "BarTotalDataLabelTitle": "Stacked Total Label",
     "BarTwoYAxesIntro": "Show secondary Y axis: alignment, title and data group",
     "BarTwoYAxesTitle": "Double Y axis",
     "BarTypeAddData": "Adding data",

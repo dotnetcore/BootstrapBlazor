@@ -243,6 +243,31 @@ public partial class Bar
         return Task.FromResult(ds);
     }
 
+    private Task<ChartDataSource> OnInitTotalDataLabel()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Stacked total";
+        ds.Options.ShowDataLabel = true;
+        ds.Options.ShowTotalDataLabel = true;
+        ds.Options.Anchor = ChartDataLabelPosition.Center;
+        ds.Options.X.Title = "name";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = true;
+        ds.Options.Y.Stacked = true;
+        ds.Labels = ["Alice", "Bob", "Carol"];
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = new object[] { 3, 5, 2 }
+        });
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 1",
+            Data = new object[] { 2, 0, 4 }
+        });
+        return Task.FromResult(ds);
+    }
+
     private Task<ChartDataSource> OnInitAutoSkip(bool autoSkip)
     {
         var ds = new ChartDataSource();
