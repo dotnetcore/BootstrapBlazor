@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Collections.Concurrent;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -1322,6 +1323,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
+        // 重建列信息前先同步运行时变更的固定列状态，支持动态设置固定列
+        SyncColumnsFixedState();
+
         // 构建列信息
         var cols = GetTableColumns();
 
@@ -1400,9 +1404,37 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    /// <summary>
+    /// <para lang="zh">列固定状态应用缓存 键为列实例 值为最后一次应用到该实例上的固定状态 用于识别运行时变更</para>
+    /// <para lang="en">Applied fixed state cache keyed by column instance. Used to detect runtime changes</para>
+    /// </summary>
+    private readonly ConcurrentDictionary<ITableColumn, bool> _appliedFixedColumnCache = new(ReferenceEqualityComparer.Instance);
+
+    private void SyncColumnsFixedState()
+    {
+        foreach (var col in Columns)
+        {
+            // 仅同步应用过固定状态的列实例，避免覆盖持久化恢复的状态
+            if (_appliedFixedColumnCache.TryGetValue(col, out var applied) && applied != col.Fixed)
+            {
+                var state = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
+                if (state != null)
+                {
+                    state.Fixed = col.Fixed;
+                    state.Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width;
+                }
+            }
+        }
+    }
+
     private void ResetTableColumns()
     {
         _visibleColumnsCache.Clear();
+        _appliedFixedColumnCache.Clear();
+
+        // 固定列变化影响相邻列的 fl fr 样式 重建时清除缓存重新计算
+        FirstFixedColumnCache.Clear();
+        LastFixedColumnCache.Clear();
 
         if (_tableColumnStates.Count == 0)
         {
@@ -1417,6 +1449,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 var state = CreateTableColumnState(col);
                 _tableColumnStates.Add(state);
+                _appliedFixedColumnCache[col] = col.Fixed;
 
                 if (col.GetVisible(_screenSize))
                 {
@@ -1484,10 +1517,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
-                col.Fixed = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var stateF) ? stateMap[item.Name].Fixed : false;
-                // 这里一定要使用 stateMap[item.Name].Width 而不是 item.Width 因为 item.Width 可能是 null；
-                // 以解决持久化回来时，列宽为_visibleColumnsCache里面列宽为null 的问题导致固定列上style时值不正确的问题
-                col.Width = !string.IsNullOrEmpty(item.Name) && stateMap.TryGetValue(item.Name, out var stateW) ? stateMap[item.Name].Width: col.Width;
+
+                // 将列状态回放到列实例上 解决持久化恢复与动态固定列问题
+                col.Fixed = item.Fixed;
+                col.Width = item.Width ?? col.Width;
+                _appliedFixedColumnCache[col] = col.Fixed;
+
                 if (item.Visible)
                 {
                     // 增加到可见列缓存集合
@@ -2017,7 +2052,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             StateHasChanged();
         }
         // 如果启用了 ClientTableName 则更新浏览器持久化列状态
-        await InvokeVoidAsync("updateColumnStates", Id);
+        await InvokeVoidAsync("updateColumnStates", Id, _tableColumnStates);
 
         return _tableColumnStateCache;
     }

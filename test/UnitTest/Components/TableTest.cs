@@ -9079,6 +9079,176 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicFixedColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(7, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(8);
+                    builder.AddAttribute(9, "Field", foo.Address);
+                    builder.AddAttribute(10, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 初始无固定列
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+
+        // 运行时设置前两列固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        Assert.Contains("table-fixed-column", cut.Markup);
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("left: 0px;", columns[0].OuterHtml);
+        Assert.Contains("fixed", columns[1].ClassName);
+
+        // 最后一个左固定列应包含 fr 样式
+        Assert.Contains("fr", columns[1].ClassName);
+        Assert.Contains("left: 100px;", columns[1].OuterHtml);
+        Assert.DoesNotContain("fixed", columns[2].ClassName ?? "");
+
+        // 运行时取消固定列
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+            table.Instance.Columns[1].Fixed = false;
+        });
+        table.Render();
+
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.DoesNotContain("fixed", columns[1].ClassName ?? "");
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_ClientTableName_Ok()
+    {
+        // 持久化状态中 Name 列为固定列
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, Fixed = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, Fixed = false });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_dynamic_fixed").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_dynamic_fixed");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 持久化状态恢复 Name 列固定
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.True(table.Instance.Columns[0].Fixed);
+
+        // 运行时取消固定 持久化恢复的状态不覆盖运行时变更
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.False(table.Instance.Columns[0].Fixed);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_AutoGenerateColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+
+        // 运行时设置前两列固定 模拟 #8094 场景 自动生成列每次渲染重建实例
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        Assert.Contains("table-fixed-column", cut.Markup);
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("fixed", columns[1].ClassName);
+        Assert.Contains("fr", columns[1].ClassName);
+
+        // 再次渲染后固定状态保持 不被自动生成列重建逻辑重置
+        table.Render();
+        columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("fixed", columns[1].ClassName);
+
+        // 运行时取消固定列
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+            table.Instance.Columns[1].Fixed = false;
+        });
+        table.Render();
+
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+    }
+
+    [Fact]
     public async Task ClearTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();

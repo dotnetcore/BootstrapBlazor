@@ -970,17 +970,17 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
-export function updateColumnStates(id) {    
-    const el = document.getElementById(id)
-    if (el === null) {
+export function updateColumnStates(id, columnStates) {
+    const table = Data.get(id)
+    if (!table) {
         return
-    }    
-    let table = Data.get(id)
-    table.el = el;
-    Data.set(id, table)
-    const state = getColumnStateObject(table);
-    saveColumnStateToLocalstorage(table, state);
+    }
+    if (columnStates) {
+        table.options.columnStates = columnStates;
+    }
+    saveColumnStateToLocalstorage(table);
 }
+
 export function clearColumnStates(tableName) {
     localStorage.removeItem(tableName);
     localStorage.removeItem(`bb-table-${tableName}`);
