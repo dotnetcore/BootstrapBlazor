@@ -57,6 +57,12 @@
     <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInitShowDataLabel(true)" Title="ShowDataLabel Demo" Height="500px" Width="500px" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BarStackedShowDataLabelTitle"]"
+           Introduction="@Localizer["BarStackedShowDataLabelIntro"]"
+           Name="BarStackedShowDataLabel">
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitStackedShowDataLabel" Height="500px" Width="500px" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["BarColorSeparatelyTitle"]"
            Introduction="@Localizer["BarColorSeparatelyIntro"]"
            Name="BarColorSeparately">

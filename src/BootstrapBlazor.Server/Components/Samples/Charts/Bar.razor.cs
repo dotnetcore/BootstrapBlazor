@@ -229,6 +229,29 @@ public partial class Bar
         return Task.FromResult(ds);
     }
 
+    private Task<ChartDataSource> OnInitStackedShowDataLabel()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Stacked with zero value segment";
+        ds.Options.ShowDataLabel = true;
+        ds.Options.X.Title = "name";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = true;
+        ds.Options.Y.Stacked = true;
+        ds.Labels = ["Alice", "Bob", "Carol"];
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = new object[] { 3, 5, 2 }
+        });
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 1",
+            Data = new object[] { 2, 0, 4 }
+        });
+        return Task.FromResult(ds);
+    }
+
     private Task<ChartDataSource> OnInitBarColorSeparately(bool barColorSeparately)
     {
         var ds = new ChartDataSource();
