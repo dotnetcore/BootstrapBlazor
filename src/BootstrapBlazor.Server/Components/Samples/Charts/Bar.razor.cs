@@ -8,10 +8,17 @@ namespace BootstrapBlazor.Server.Components.Samples.Charts;
 /// <summary>
 /// Bar 图表示例
 /// </summary>
+[JSModuleAutoLoader("Samples/Charts/Bar.razor.js", JSObjectReference = true)]
 public partial class Bar
 {
     private int _barDatasetCount = 2;
     private int _barDataCount = 7;
+
+    private string CustomTooltipId => $"custom_tooltip_{Id}";
+
+    private string CustomCategoryLabelId => $"custom_category_label_{Id}";
+
+    private string TotalDataLabelId => $"total_data_label_{Id}";
 
     private int BarDatasetCount { get; set; } = 2;
 
@@ -35,6 +42,16 @@ public partial class Bar
         {
             Logger.Log("Bar loading data ...");
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task InvokeInitAsync()
+    {
+        await InvokeVoidAsync("customTooltip", CustomTooltipId);
+        await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+        await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
     }
 
     private Task OnAfterInit()
@@ -202,6 +219,75 @@ public partial class Bar
         {
             Label = $"Set {0}",
             Data = Enumerable.Range(1, BarDataCount).Select(i => Random.Shared.Next(20, 37)).Cast<object>()
+        });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitStackedShowDataLabel(bool center)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = center ? "Anchor: Center" : "Anchor: End";
+        ds.Options.ShowDataLabel = true;
+        if (center)
+        {
+            ds.Options.Anchor = ChartDataLabelPosition.Center;
+        }
+        ds.Options.X.Title = "name";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = true;
+        ds.Options.Y.Stacked = true;
+        ds.Labels = ["Alice", "Bob", "Carol"];
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = new object[] { 3, 5, 2 }
+        });
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 1",
+            Data = new object[] { 2, 0, 4 }
+        });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitTotalDataLabel()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Stacked total";
+        ds.Options.ShowDataLabel = true;
+        ds.Options.ShowTotalDataLabel = true;
+        ds.Options.Anchor = ChartDataLabelPosition.Center;
+        ds.Options.X.Title = "name";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Options.X.Stacked = true;
+        ds.Options.Y.Stacked = true;
+        ds.Labels = ["Alice", "Bob", "Carol"];
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = new object[] { 3, 5, 2 }
+        });
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 1",
+            Data = new object[] { 2, 0, 4 }
+        });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitAutoSkip(bool autoSkip)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = autoSkip ? "AutoSkip: true" : "AutoSkip: false";
+        ds.Options.ShowLegend = false;
+        ds.Options.X.AutoSkip = autoSkip;
+        ds.Options.X.Title = "category";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, 16).Select(i => $"Category {i}");
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = "Set 0",
+            Data = Enumerable.Range(1, 16).Select(i => Random.Shared.Next(20, 37)).Cast<object>()
         });
         return Task.FromResult(ds);
     }

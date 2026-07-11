@@ -804,7 +804,8 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
 const deepMerge = (obj1, obj2, skipNull = true) => {
     for (const key in obj2) {
         if (obj2.hasOwnProperty(key)) {
-            if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
+            if (obj2[key] instanceof Object && obj1[key] instanceof Object
+                && typeof obj2[key] !== 'function' && typeof obj1[key] !== 'function') {
                 obj1[key] = deepMerge(obj1[key], obj2[key]);
             }
             else {

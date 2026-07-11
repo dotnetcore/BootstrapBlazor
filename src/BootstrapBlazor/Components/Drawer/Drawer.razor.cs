@@ -148,16 +148,34 @@ public partial class Drawer
     [Parameter]
     public bool BodyScroll { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否延迟渲染子组件 默认 false 立即渲染 设置为 true 时首次打开抽屉后才渲染子组件 防止子组件脚本在不可见状态下测量尺寸失效 关闭后子组件保持渲染状态不销毁</para>
+    /// <para lang="en">Gets or sets Whether to lazy render child content. Default is false. When true, child content is rendered after the drawer is opened for the first time, preventing child component scripts from measuring size incorrectly while hidden. Content stays rendered after closing</para>
+    /// <para>v<version>10.8.1</version></para>
+    /// </summary>
+    [Parameter]
+    public bool IsLazyLoadChildContent { get; set; }
+
     private string? KeyboardString => IsKeyboard ? "true" : null;
 
     private string? BodyScrollString => BodyScroll ? "true" : null;
 
-    private bool _render = true;
+    private bool _firstOpened;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override bool ShouldRender() => _render;
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // 启用延迟渲染时 首次打开后才渲染 ChildContent 防止不可见状态下子组件脚本测量尺寸失效
+        // When lazy load is enabled, render ChildContent after first opened to prevent child component scripts from measuring size incorrectly while hidden
+        if (IsOpen)
+        {
+            _firstOpened = true;
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -199,9 +217,7 @@ public partial class Drawer
         {
             await OnClickBackdrop();
         }
-        _render = false;
         await Close();
-        _render = true;
     }
 
     /// <summary>

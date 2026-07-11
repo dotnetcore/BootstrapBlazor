@@ -103,8 +103,40 @@ public class DrawerTest : BootstrapBlazorTestBase
             });
         });
 
+        // 默认 IsLazyLoadChildContent 为 false 未打开时也渲染 ChildContent
         var button = cut.FindComponent<Button>();
         Assert.NotNull(button);
+    }
+
+    [Fact]
+    public void IsLazyLoadChildContent_Ok()
+    {
+        var cut = Context.Render<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsLazyLoadChildContent, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+
+        // 未打开时不渲染 ChildContent
+        Assert.Empty(cut.FindComponents<Button>());
+
+        // 首次打开后渲染 ChildContent
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsOpen, true);
+        });
+        Assert.Single(cut.FindComponents<Button>());
+
+        // 关闭后 ChildContent 保持渲染 内部组件状态不丢失
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsOpen, false);
+        });
+        Assert.Single(cut.FindComponents<Button>());
     }
 
     [Fact]
