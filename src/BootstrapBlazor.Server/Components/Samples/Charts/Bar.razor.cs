@@ -16,6 +16,8 @@ public partial class Bar
 
     private string CustomTooltipId => $"custom_tooltip_{Id}";
 
+    private string CustomCategoryLabelId => $"custom_category_label_{Id}";
+
     private int BarDatasetCount { get; set; } = 2;
 
     private int BarDataCount { get; set; } = 7;
@@ -46,6 +48,16 @@ public partial class Bar
     protected override async Task InvokeInitAsync()
     {
         await InvokeVoidAsync("customTooltip", CustomTooltipId);
+        await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+    }
+
+    /// <summary>
+    /// 等待页面脚本注册完成后再返回图表数据，确保图表初始化时能合并 setOptionsById 注册的自定义配置
+    /// </summary>
+    private async Task<ChartDataSource> OnInitCustomChartAsync()
+    {
+        await ModuleInitTask.Task;
+        return await OnInit(false);
     }
 
     private Task OnAfterInit()

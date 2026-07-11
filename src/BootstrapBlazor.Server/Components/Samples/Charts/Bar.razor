@@ -70,7 +70,7 @@
         <ul class="ul-demo">
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi1"].Value)</p>
-                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@@CustomTooltipId" /&gt;</Pre>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomChartAsync" Id="@@CustomTooltipId" /&gt;</Pre>
             </li>
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
@@ -95,12 +95,73 @@ export function customTooltip(id) {
             </li>
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi3"].Value)</p>
-                <Pre>protected override async Task InvokeInitAsync()
+                <Pre class="mb-3">protected override async Task InvokeInitAsync()
 {
     await InvokeVoidAsync("customTooltip", CustomTooltipId);
 }</Pre>
             </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomChartLi4"].Value)</p>
+                <Pre>private async Task&lt;ChartDataSource&gt; OnInitCustomChartAsync()
+{
+    // 等待页面脚本注册完成，确保图表初始化时合并自定义配置
+    await ModuleInitTask.Task;
+    return await OnInit(false);
+}</Pre>
+            </li>
         </ul>
     </section>
-    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@CustomTooltipId" />
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomChartAsync" Id="@CustomTooltipId" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomCategoryLabelTitle"]"
+           Introduction="@Localizer["CustomCategoryLabelIntro"]"
+           Name="CustomCategoryLabel">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>
+                <p>@((MarkupString)Localizer["CustomCategoryLabelLi1"].Value)</p>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomChartAsync" Id="@@CustomCategoryLabelId" /&gt;</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomCategoryLabelLi2"].Value)</p>
+                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
+
+export function customCategoryLabel(id) {
+    // chart.js documentation: https://www.chartjs.org/docs/latest/axes/labelling.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        callback: function (value) {
+                            return `Day ${this.getLabelForValue(value)}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomCategoryLabelLi3"].Value)</p>
+                <Pre class="mb-3">protected override async Task InvokeInitAsync()
+{
+    await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomChartLi4"].Value)</p>
+                <Pre>private async Task&lt;ChartDataSource&gt; OnInitCustomChartAsync()
+{
+    // 等待页面脚本注册完成，确保图表初始化时合并自定义配置
+    await ModuleInitTask.Task;
+    return await OnInit(false);
+}</Pre>
+            </li>
+        </ul>
+    </section>
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomChartAsync" Id="@CustomCategoryLabelId" />
 </DemoBlock>
