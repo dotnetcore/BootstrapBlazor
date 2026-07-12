@@ -1460,6 +1460,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
 
+            // 未匹配到状态的列按其在 Columns 中的相对位置插入而不是追加到末尾
+            // 防止多语言切换等场景列字段名变化导致仅部分列匹配时列顺序错乱
+            var insertIndex = 0;
             foreach (var col in Columns)
             {
                 if (col.GetIgnore())
@@ -1471,11 +1474,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (stateMap.TryGetValue(name, out var item))
                 {
                     item.DisplayName = col.GetDisplayName();
+                    insertIndex = _tableColumnStates.IndexOf(item) + 1;
                 }
                 else
                 {
                     item = CreateTableColumnState(col);
-                    _tableColumnStates.Add(item);
+                    _tableColumnStates.Insert(insertIndex, item);
+                    insertIndex++;
                 }
             }
 
