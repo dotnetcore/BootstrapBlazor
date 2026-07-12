@@ -9071,6 +9071,131 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("style=\"width: 80px;\"", colGroup.ToMarkup());
     }
 
+    [Fact]
+    public void ColumnStates_PartialMatch_KeepColumnOrder_Ok()
+    {
+        // 持久化状态中前两列字段名与当前列不匹配 仅 Count 列匹配
+        // 模拟多语言切换后列字段名变化场景
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = "OldName1", Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = "OldName2", Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Count), Visible = true });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_partial_match").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_partial_match");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 未匹配的列应按声明相对位置插入 Count 列不应跳到最前
+        var table = cut.FindComponent<Table<Foo>>();
+        var order = string.Join(",", table.Instance.GetVisibleColumns().Select(i => i.GetFieldName()));
+        Assert.Equal("Name,Address,Count", order);
+    }
+
+    [Fact]
+    public void ColumnStates_DataTableLocalizedColumnName_Ok()
+    {
+        // 模拟英文会话保存的持久化列状态
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = "Name", Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = "Address", Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = "Id", Visible = true });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_localized_datatable").SetResult(state);
+
+        // 切换中文后 DataTable 列名变化 仅 Id 列与持久化状态匹配
+        var data = new DataTable();
+        data.Columns.Add("姓名", typeof(string));
+        data.Columns.Add("地址", typeof(string));
+        data.Columns.Add("Id", typeof(int));
+        data.Rows.Add("张三", "某地", 1);
+        data.AcceptChanges();
+
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_localized_datatable");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.DynamicContext, new DataTableDynamicContext(data));
+            });
+        });
+
+        // 列顺序应保持 DataTable 列声明顺序 Id 列不应跳到最前
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        var order = string.Join(",", table.Instance.GetVisibleColumns().Select(i => i.GetFieldName()));
+        Assert.Equal("姓名,地址,Id", order);
+    }
+
+    [Fact]
+    public void ColumnStates_FullMatch_KeepPersistedOrder_Ok()
+    {
+        // 持久化状态全部匹配时保持持久化顺序 模拟用户拖拽列后的自定义顺序
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Count), Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_full_match").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_full_match");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var order = string.Join(",", table.Instance.GetVisibleColumns().Select(i => i.GetFieldName()));
+        Assert.Equal("Count,Name,Address", order);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
