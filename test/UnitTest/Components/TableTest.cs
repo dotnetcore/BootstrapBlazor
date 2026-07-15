@@ -9323,6 +9323,92 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicFixedColumn_FixRight_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(7, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(8);
+                    builder.AddAttribute(9, "Field", foo.Count);
+                    builder.AddAttribute(10, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(11, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(12);
+                    builder.AddAttribute(13, "Field", foo.Complete);
+                    builder.AddAttribute(14, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(15, "Width", 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 固定最后两列 构成固定后缀 判定为右固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[2].Fixed = true;
+            table.Instance.Columns[3].Fixed = true;
+        });
+        table.Render();
+
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed-right", columns[2].ClassName);
+        Assert.Contains("right: 100px;", columns[2].OuterHtml);
+        Assert.Contains("fixed-right", columns[3].ClassName);
+        Assert.Contains("right: 0px;", columns[3].OuterHtml);
+
+        // 取消固定后 固定中间单列 不构成固定后缀 回落为左固定 不应误判为右固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[2].Fixed = false;
+            table.Instance.Columns[3].Fixed = false;
+        });
+        table.Render();
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed-right", columns[1].ClassName);
+        Assert.Contains("left: 100px;", columns[1].OuterHtml);
+
+        // 全部列固定 判定为左固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[2].Fixed = true;
+            table.Instance.Columns[3].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.All(columns, th => Assert.DoesNotContain("fixed-right", th.ClassName ?? ""));
+        Assert.Contains("left: 300px;", columns[3].OuterHtml);
+    }
+
+    [Fact]
     public async Task DynamicFixedColumn_ResizedWidth_Ok()
     {
         Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>

@@ -320,7 +320,9 @@ public partial class Table<TItem>
         // 获得当前列索引
         var index = columns.IndexOf(col);
 
-        return !columns.Take(index).All(i => i.Fixed);
+        // 前缀固定列判定为左固定，该列到最后一列全部固定（构成固定后缀）时判定为右固定
+        // 孤立的中间固定列回落为左固定，避免动态切换固定列时误判为右固定
+        return !columns.Take(index).All(i => i.Fixed) && columns.Skip(index).All(i => i.Fixed);
     }
 
     /// <summary>
