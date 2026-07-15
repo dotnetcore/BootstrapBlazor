@@ -970,6 +970,18 @@ const removeColumnWidthState = tableName => {
     localStorage.removeItem(columnWidthKey);
 }
 
+export function getColumnWidths(id) {
+    const table = Data.get(id)
+    if (!table || !table.tables || table.tables.length === 0) {
+        return null
+    }
+    const widths = {}
+    table.tables[0].querySelectorAll('thead > tr > th[data-bb-field]').forEach(th => {
+        widths[th.getAttribute('data-bb-field')] = Math.round(getWidth(th))
+    })
+    return widths
+}
+
 export function updateColumnStates(id, columnStates) {
     const table = Data.get(id)
     if (!table) {
