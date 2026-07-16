@@ -91,7 +91,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-excel", IsExcel)
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
-        .AddClass("table-layout-fixed", IsFixedHeader)
+        .AddClass("table-layout-fixed", IsFixedHeader || IsFixedColumnLayout)
         .AddClass("table-draggable", AllowDragColumn)
         .Build();
 
@@ -117,6 +117,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     private bool FixedColumn => FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn || FixedLineNoColumn || Columns.Any(c => c.Fixed);
+
+    /// <summary>
+    /// <para lang="zh">存在固定列且所有可见列均有宽度时使用 fixed 布局 保证 colgroup 宽度精确生效与 sticky 偏移一致</para>
+    /// <para lang="en">Use fixed table layout when fixed columns exist and all visible columns have explicit width</para>
+    /// </summary>
+    private bool IsFixedColumnLayout
+    {
+        get
+        {
+            var columns = GetVisibleColumns();
+            return columns.Count > 0 && columns.All(i => i.Width.HasValue) && columns.Any(i => i.Fixed);
+        }
+    }
 
     /// <summary>
     /// <para lang="zh">获得 Body 内行样式</para>
@@ -1324,7 +1337,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async Task BuildTableColumnsAsync()
     {
         // 重建列信息前先同步运行时变更的固定列状态，支持动态设置固定列
-        await SyncColumnsFixedStateAsync();
+        SyncColumnsFixedState();
 
         // 构建列信息
         var cols = GetTableColumns();
@@ -1416,9 +1429,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     private readonly Dictionary<string, int> _autoFixedColumnWidthCache = [];
 
-    private async Task SyncColumnsFixedStateAsync()
+    /// <summary>
+    /// <para lang="zh">客户端实际渲染列宽快照 渲染结束后由脚本测量更新 未显式设置宽度列的实际宽度由浏览器布局决定 服务器端无法得知</para>
+    /// <para lang="en">Snapshot of actual rendered column widths measured by script after each render</para>
+    /// </summary>
+    private Dictionary<string, int>? _clientColumnWidths;
+
+    private async Task RefreshClientColumnWidthsAsync()
     {
-        List<(ITableColumn Column, TableColumnState State)>? changedColumns = null;
+        var widths = await InvokeAsync<Dictionary<string, int>>("getColumnWidths", Id);
+        if (widths != null)
+        {
+            _clientColumnWidths = widths;
+        }
+    }
+
+    private void SyncColumnsFixedState()
+    {
+        var changed = false;
         foreach (var col in Columns)
         {
             // 仅同步应用过固定状态的列实例，避免覆盖持久化恢复的状态
@@ -1427,61 +1455,77 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var state = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
                 if (state != null)
                 {
-                    changedColumns ??= [];
-                    changedColumns.Add((col, state));
+                    ApplyColumnFixedState(col, state);
+                    changed = true;
                 }
             }
         }
 
-        if (changedColumns == null)
+        if (changed)
         {
-            return;
-        }
-
-        var clientWidths = await GetClientColumnWidthsAsync(changedColumns.Exists(i => i.Column is { Fixed: true, Width: null }));
-        foreach (var (col, state) in changedColumns)
-        {
-            ApplyColumnFixedState(col, state, clientWidths);
+            SyncColumnsWidthState();
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">获得客户端实际渲染列宽集合 未固定列无显式宽度时其实际宽度由浏览器布局决定 服务器端无法得知</para>
-    /// <para lang="en">Get actual rendered column widths from client. Browser decides width of columns without explicit width</para>
-    /// </summary>
-    private async Task<Dictionary<string, int>?> GetClientColumnWidthsAsync(bool required) => required
-        ? await InvokeAsync<Dictionary<string, int>>("getColumnWidths", Id)
-        : null;
-
-    private void ApplyColumnFixedState(ITableColumn col, TableColumnState state, Dictionary<string, int>? clientWidths)
+    private void ApplyColumnFixedState(ITableColumn col, TableColumnState state)
     {
+        _appliedFixedColumnCache[col] = col.Fixed;
+
         state.Fixed = col.Fixed;
-        if (col.Fixed)
+        if (col.Fixed && !col.Width.HasValue)
         {
-            if (col.Width.HasValue)
-            {
-                state.Width = col.Width;
-            }
-            else
-            {
-                // 未显式设置宽度时使用客户端实际渲染宽度，保证 sticky 偏移量与客户端一致且切换时宽度不跳变
-                var width = clientWidths?.TryGetValue(state.Name, out var w) == true ? w : DefaultFixedColumnWidth;
-                state.Width = width;
-                _autoFixedColumnWidthCache[state.Name] = width;
-            }
-        }
-        else if (_autoFixedColumnWidthCache.Remove(state.Name, out var applied))
-        {
-            // 取消固定时还原自动回填的宽度恢复浏览器自动布局，用户拖拽调整过列宽时保留调整值
-            if (state.Width == applied)
-            {
-                state.Width = null;
-                col.Width = null;
-            }
+            // 未显式设置宽度时使用客户端实际渲染宽度，保证 sticky 偏移量与客户端一致且切换时宽度不跳变
+            var width = _clientColumnWidths?.TryGetValue(state.Name, out var w) == true ? w : DefaultFixedColumnWidth;
+            state.Width = width;
+            _autoFixedColumnWidthCache[state.Name] = width;
         }
         else
         {
             state.Width = col.Width;
+        }
+    }
+
+    private void SyncColumnsWidthState()
+    {
+        if (Columns.Exists(i => i.Fixed))
+        {
+            if (_clientColumnWidths == null)
+            {
+                return;
+            }
+
+            // 存在固定列时回填所有未显式设置宽度列的客户端实际渲染宽度
+            // 全列宽度已知后启用 fixed 布局 colgroup 宽度精确生效 保证 sticky 偏移与实际渲染一致且切换时无宽度跳变
+            foreach (var col in Columns)
+            {
+                if (!col.Width.HasValue)
+                {
+                    var state = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
+                    if (state != null && _clientColumnWidths.TryGetValue(state.Name, out var width))
+                    {
+                        state.Width = width;
+                        _autoFixedColumnWidthCache[state.Name] = width;
+                    }
+                }
+            }
+        }
+        else
+        {
+            // 无固定列时还原全部自动回填宽度恢复浏览器自动布局 用户拖拽调整过列宽时保留调整值
+            foreach (var (name, applied) in _autoFixedColumnWidthCache)
+            {
+                var state = _tableColumnStates.Find(i => i.Name == name);
+                if (state != null && state.Width == applied)
+                {
+                    state.Width = null;
+                    var col = Columns.Find(i => i.GetFieldName() == name);
+                    if (col != null)
+                    {
+                        col.Width = null;
+                    }
+                }
+            }
+            _autoFixedColumnWidthCache.Clear();
         }
     }
 
@@ -1650,6 +1694,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (OnAfterRenderCallback != null)
         {
             await OnAfterRenderCallback(this, firstRender);
+        }
+
+        // 渲染结束后刷新客户端实际列宽快照供运行时切换固定列时使用
+        // 不可在渲染管线中等待脚本测量 否则 RenderTemplate 会渲染空内容导致表格重建 客户端脚本引用失效
+        if (Columns.Exists(i => !i.Width.HasValue))
+        {
+            await RefreshClientColumnWidthsAsync();
         }
     }
 
@@ -2102,7 +2153,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (Columns.Count != 0)
         {
-            var clientWidths = await GetClientColumnWidthsAsync(Columns.Exists(i => i is { Fixed: true, Width: null }));
+            if (Columns.Exists(i => i.Fixed) && Columns.Exists(i => !i.Width.HasValue))
+            {
+                await RefreshClientColumnWidthsAsync();
+            }
 
             // 用户在外面变更了列状态后，为避免用户变更状态丢失，须将变更后的状态同步到缓存中
             foreach (var item in Columns)
@@ -2110,9 +2164,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var columnState = _tableColumnStates.Find(x => x.Name == item.GetFieldName());
                 if (columnState != null)
                 {
-                    ApplyColumnFixedState(item, columnState, clientWidths);
+                    ApplyColumnFixedState(item, columnState);
                 }
             }
+            SyncColumnsWidthState();
             StateHasChanged();
         }
         // 如果启用了 ClientTableName 则更新浏览器持久化列状态

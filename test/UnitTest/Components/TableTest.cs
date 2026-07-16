@@ -9307,6 +9307,10 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("width: 120px;", colGroup.ToMarkup());
         Assert.Contains("width: 180px;", colGroup.ToMarkup());
 
+        // 未固定列同样回填实际宽度 全列宽度已知后启用 fixed 布局保证宽度精确生效
+        Assert.Contains("width: 80px;", colGroup.ToMarkup());
+        Assert.Contains("table-layout-fixed", cut.Markup);
+
         // 取消固定后还原自动回填宽度 恢复浏览器自动布局
         await cut.InvokeAsync(() =>
         {
@@ -9320,6 +9324,8 @@ public class TableTest : BootstrapBlazorTestBase
         colGroup = table.Find("colgroup");
         Assert.DoesNotContain("width: 120px;", colGroup.ToMarkup());
         Assert.DoesNotContain("width: 180px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 80px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("table-layout-fixed", cut.Markup);
     }
 
     [Fact]
