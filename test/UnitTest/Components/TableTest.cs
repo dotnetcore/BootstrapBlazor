@@ -9392,7 +9392,9 @@ public class TableTest : BootstrapBlazorTestBase
 
         columns = cut.FindAll("thead th");
         Assert.DoesNotContain("fixed-right", columns[1].ClassName);
-        Assert.Contains("left: 100px;", columns[1].OuterHtml);
+
+        // 孤立固定列前面无固定列 偏移不累加未固定列宽度
+        Assert.Contains("left: 0px;", columns[1].OuterHtml);
 
         // 全部列固定 判定为左固定
         await cut.InvokeAsync(() =>

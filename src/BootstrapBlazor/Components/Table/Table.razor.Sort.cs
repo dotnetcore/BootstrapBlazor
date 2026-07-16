@@ -379,7 +379,12 @@ public partial class Table<TItem>
         while (index > start)
         {
             var column = columns[start++];
-            width += column.Width ?? defaultWidth;
+
+            // 仅累加左固定列宽度 未固定列滚动时移出视口 不参与 sticky 偏移
+            if (column.Fixed)
+            {
+                width += column.Width ?? defaultWidth;
+            }
         }
         return $"left: {width}px;";
     }
@@ -395,7 +400,12 @@ public partial class Table<TItem>
         for (var i = index + 1; i < columns.Count; i++)
         {
             var column = columns[i];
-            width += column.Width ?? defaultWidth;
+
+            // 仅累加右固定列宽度 未固定列滚动时移出视口 不参与 sticky 偏移
+            if (column.Fixed)
+            {
+                width += column.Width ?? defaultWidth;
+            }
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
