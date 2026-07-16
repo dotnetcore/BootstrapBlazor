@@ -1424,10 +1424,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private readonly ConcurrentDictionary<ITableColumn, bool> _appliedFixedColumnCache = new(ReferenceEqualityComparer.Instance);
 
     /// <summary>
-    /// <para lang="zh">自动回填宽度缓存 键为列名称 值为固定列时回填的宽度 用于取消固定时还原</para>
+    /// <para lang="zh">自动回填宽度缓存 键为列名称 值为固定列时回填的宽度与原始宽度 用于取消固定时还原</para>
     /// <para lang="en">Auto backfill width cache keyed by column name. Used to restore width when unfixed</para>
     /// </summary>
-    private readonly Dictionary<string, int> _autoFixedColumnWidthCache = [];
+    private readonly Dictionary<string, (int Applied, int? Original)> _autoFixedColumnWidthCache = [];
 
     /// <summary>
     /// <para lang="zh">客户端实际渲染列宽快照 渲染结束后由脚本测量更新 未显式设置宽度列的实际宽度由浏览器布局决定 服务器端无法得知</para>
@@ -1472,56 +1472,54 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         _appliedFixedColumnCache[col] = col.Fixed;
 
         state.Fixed = col.Fixed;
-        if (col.Fixed && !col.Width.HasValue)
-        {
-            // 未显式设置宽度时使用客户端实际渲染宽度，保证 sticky 偏移量与客户端一致且切换时宽度不跳变
-            var width = _clientColumnWidths?.TryGetValue(state.Name, out var w) == true ? w : DefaultFixedColumnWidth;
-            state.Width = width;
-            _autoFixedColumnWidthCache[state.Name] = width;
-        }
-        else
-        {
-            state.Width = col.Width;
-        }
+        state.Width = col.Width;
     }
 
     private void SyncColumnsWidthState()
     {
         if (Columns.Exists(i => i.Fixed))
         {
-            if (_clientColumnWidths == null)
-            {
-                return;
-            }
-
-            // 存在固定列时回填所有未显式设置宽度列的客户端实际渲染宽度
-            // 全列宽度已知后启用 fixed 布局 colgroup 宽度精确生效 保证 sticky 偏移与实际渲染一致且切换时无宽度跳变
+            // 存在固定列时将所有列宽度覆盖为客户端实际渲染宽度并记录原始宽度用于还原
+            // auto 布局下 colgroup 宽度按内容盒渲染与显式宽度不一致 全列覆盖实测宽度后启用 fixed 布局
+            // colgroup 宽度精确生效 保证 sticky 偏移与实际渲染一致且切换时无宽度跳变
             foreach (var col in Columns)
             {
-                if (!col.Width.HasValue)
+                var state = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
+                if (state == null)
                 {
-                    var state = _tableColumnStates.Find(i => i.Name == col.GetFieldName());
-                    if (state != null && _clientColumnWidths.TryGetValue(state.Name, out var width))
+                    continue;
+                }
+
+                if (_clientColumnWidths != null && _clientColumnWidths.TryGetValue(state.Name, out var width))
+                {
+                    if (state.Width != width)
                     {
+                        var original = _autoFixedColumnWidthCache.TryGetValue(state.Name, out var exist) ? exist.Original : col.Width;
+                        _autoFixedColumnWidthCache[state.Name] = (width, original);
                         state.Width = width;
-                        _autoFixedColumnWidthCache[state.Name] = width;
                     }
+                }
+                else if (col.Fixed && !col.Width.HasValue && state.Width == null)
+                {
+                    // 无实测宽度时为固定列兜底默认宽度
+                    _autoFixedColumnWidthCache[state.Name] = (DefaultFixedColumnWidth, null);
+                    state.Width = DefaultFixedColumnWidth;
                 }
             }
         }
         else
         {
-            // 无固定列时还原全部自动回填宽度恢复浏览器自动布局 用户拖拽调整过列宽时保留调整值
-            foreach (var (name, applied) in _autoFixedColumnWidthCache)
+            // 无固定列时还原全部覆盖宽度恢复原始布局 用户拖拽调整过列宽时保留调整值
+            foreach (var (name, item) in _autoFixedColumnWidthCache)
             {
                 var state = _tableColumnStates.Find(i => i.Name == name);
-                if (state != null && state.Width == applied)
+                if (state != null && state.Width == item.Applied)
                 {
-                    state.Width = null;
+                    state.Width = item.Original;
                     var col = Columns.Find(i => i.GetFieldName() == name);
                     if (col != null)
                     {
-                        col.Width = null;
+                        col.Width = item.Original;
                     }
                 }
             }
@@ -2159,15 +2157,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
 
             // 用户在外面变更了列状态后，为避免用户变更状态丢失，须将变更后的状态同步到缓存中
+            var fixedChanged = false;
             foreach (var item in Columns)
             {
                 var columnState = _tableColumnStates.Find(x => x.Name == item.GetFieldName());
                 if (columnState != null)
                 {
+                    fixedChanged |= columnState.Fixed != item.Fixed;
                     ApplyColumnFixedState(item, columnState);
                 }
             }
-            SyncColumnsWidthState();
+
+            // 固定状态变化或固定列缺少宽度时同步列宽度 其余场景跳过防止手动调整的列宽被实测快照覆盖
+            if (fixedChanged || Columns.Exists(i => i.Fixed && !i.Width.HasValue))
+            {
+                SyncColumnsWidthState();
+            }
             StateHasChanged();
         }
         // 如果启用了 ClientTableName 则更新浏览器持久化列状态

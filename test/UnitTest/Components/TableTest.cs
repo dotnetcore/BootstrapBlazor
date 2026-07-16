@@ -9417,6 +9417,69 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicFixedColumn_ExplicitWidth_Ok()
+    {
+        // auto 布局下显式宽度列实际渲染宽度大于设置值（含 padding/border）固定时应使用实测宽度避免跳变
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 197 },
+            { nameof(Foo.Address), 220 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 180);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 固定第一列 显式宽度 180 的列使用实测宽度 197 保证切换时渲染宽度不变
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+
+        var colGroup = table.Find("colgroup");
+        Assert.Contains("width: 197px;", colGroup.ToMarkup());
+        Assert.Contains("width: 220px;", colGroup.ToMarkup());
+        Assert.Contains("table-layout-fixed", cut.Markup);
+
+        // 取消固定后还原原始显式宽度 180 未设置宽度列还原为空
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+
+        Assert.Equal(180, table.Instance.Columns[0].Width);
+        Assert.False(table.Instance.Columns[1].Width.HasValue);
+        colGroup = table.Find("colgroup");
+        Assert.Contains("width: 180px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 197px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 220px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("table-layout-fixed", cut.Markup);
+    }
+
+    [Fact]
     public async Task DynamicFixedColumn_ResizedWidth_Ok()
     {
         Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
