@@ -1408,22 +1408,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (state != null)
             {
                 _tableColumnStateCache = state;
-                _clientTableColumnStateRestored = true;
             }
         }
         else if (OnLoadTableColumnClientStatus != null)
         {
             // 恢复持久化列状态配置
             _tableColumnStateCache = await OnLoadTableColumnClientStatus();
-            _clientTableColumnStateRestored = true;
         }
     }
 
     /// <summary>
-    /// <para lang="zh">列状态是否刚从客户端持久化配置恢复 固定列状态不参与持久化 首次回放时以列实例值为准</para>
-    /// <para lang="en">Whether column states were just restored from client persistence. Fixed state is not persisted</para>
+    /// <para lang="zh">运行时动态固定列缓存 键为列名称 值为运行时变更后的固定状态 列重建时回放 未变更过的列保持代码声明值</para>
+    /// <para lang="en">Runtime dynamic fixed state cache keyed by column name. Replayed on column rebuild</para>
     /// </summary>
-    private bool _clientTableColumnStateRestored;
+    private readonly Dictionary<string, bool> _dynamicFixedColumnCache = [];
 
     /// <summary>
     /// <para lang="zh">列固定状态应用缓存 键为列实例 值为最后一次应用到该实例上的固定状态 用于识别运行时变更</para>
@@ -1477,9 +1475,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void ApplyColumnFixedState(ITableColumn col, TableColumnState state)
     {
+        // 仅记录运行时变更过的固定状态 未变更过的列保持代码声明值 避免列重建回放时覆盖代码赋值
+        if (_appliedFixedColumnCache.TryGetValue(col, out var applied) && applied != col.Fixed)
+        {
+            _dynamicFixedColumnCache[state.Name] = col.Fixed;
+        }
         _appliedFixedColumnCache[col] = col.Fixed;
 
-        state.Fixed = col.Fixed;
         state.Width = col.Width;
     }
 
@@ -1631,14 +1633,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
 
-                // 固定列状态不参与客户端持久化 恢复的状态首次回放时以列实例代码声明值为准
-                if (_clientTableColumnStateRestored)
+                // 将列状态回放到列实例上 运行时动态变更过的固定状态回放 未变更过的列保持代码声明值
+                if (_dynamicFixedColumnCache.TryGetValue(item.Name, out var fixedState))
                 {
-                    item.Fixed = col.Fixed;
+                    col.Fixed = fixedState;
                 }
-
-                // 将列状态回放到列实例上 解决持久化恢复与动态固定列问题
-                col.Fixed = item.Fixed;
                 col.Width = item.Width ?? col.Width;
                 _appliedFixedColumnCache[col] = col.Fixed;
 
@@ -1649,8 +1648,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
-
-        _clientTableColumnStateRestored = false;
     }
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
@@ -1658,8 +1655,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         DisplayName = col.GetDisplayName(),
         Name = col.GetFieldName(),
         Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
-        Visible = col.GetVisible(_screenSize),
-        Fixed = col.Fixed
+        Visible = col.GetVisible(_screenSize)
     };
 
     private async Task OnTableRenderAsync(bool firstRender)
@@ -2179,7 +2175,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var columnState = _tableColumnStates.Find(x => x.Name == item.GetFieldName());
                 if (columnState != null)
                 {
-                    fixedChanged |= columnState.Fixed != item.Fixed;
+                    fixedChanged |= _appliedFixedColumnCache.TryGetValue(item, out var applied) && applied != item.Fixed;
                     ApplyColumnFixedState(item, columnState);
                 }
             }

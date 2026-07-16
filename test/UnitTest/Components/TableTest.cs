@@ -9027,8 +9027,8 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var state = new TableColumnClientStatus();
         state.TableWidth = 220;
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Fixed = true });
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, Fixed = false });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_update").SetResult(state);
         var invoker = Context.JSInterop.SetupVoid("updateColumnStates", "test_update");
@@ -9064,7 +9064,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
 
         var status = await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
-        Assert.Equal(true, status.Columns[0].Fixed);
+        Assert.True(table.Instance.Columns[0].Fixed);
         Assert.Equal(state.Columns.Count, status.Columns.Count);
 
         table = cut.FindComponent<Table<Foo>>();
@@ -9151,10 +9151,10 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task DynamicFixedColumn_ClientTableName_Ok()
     {
-        // 固定列状态由代码管理不参与持久化 持久化状态中的 Fixed 值不恢复到列实例上
+        // 固定列状态由代码管理不参与持久化 持久化状态只包含宽度可见性等用户个性化配置
         var state = new TableColumnClientStatus();
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, Fixed = true });
-        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, Fixed = false });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
 
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_dynamic_fixed").SetResult(state);
 
