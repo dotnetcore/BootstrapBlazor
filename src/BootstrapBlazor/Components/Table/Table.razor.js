@@ -1040,8 +1040,7 @@ const getColumnStateObject = table => {
                 return {
                     name: col.name,
                     width: getColumnWidth(col, table.columns),
-                    visible: col.visible,
-                    fixed: col.fixed
+                    visible: col.visible
                 }
             }),
             table: getTableWidth(table.tables[0])
@@ -1053,8 +1052,7 @@ const getColumnStateObject = table => {
             return {
                 name: getColumnName(col),
                 width: getResizableColumnWidth(col),
-                visible: true,
-                fixed: getColumnHeader(col).classList.contains('fixed')
+                visible: true
             }
         }),
         table: getTableWidth(table.tables[0])

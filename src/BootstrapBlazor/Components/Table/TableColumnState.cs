@@ -40,8 +40,9 @@ public class TableColumnState
     public int? Width { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 列固定</para>
-    /// <para lang="en">Gets or sets column fixed</para>
+    /// <para lang="zh">获得/设置 列固定 固定列状态由代码管理 不参与客户端持久化</para>
+    /// <para lang="en">Gets or sets column fixed. Fixed state is code-managed and excluded from client persistence</para>
     /// </summary>
+    [JsonIgnore]
     public bool Fixed { get; set; }
 }

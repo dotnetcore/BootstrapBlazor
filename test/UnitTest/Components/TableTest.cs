@@ -9151,7 +9151,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task DynamicFixedColumn_ClientTableName_Ok()
     {
-        // 持久化状态中 Name 列为固定列
+        // 固定列状态由代码管理不参与持久化 持久化状态中的 Fixed 值不恢复到列实例上
         var state = new TableColumnClientStatus();
         state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100, Fixed = true });
         state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120, Fixed = false });
@@ -9183,12 +9183,24 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
 
-        // 持久化状态恢复 Name 列固定
+        // 持久化状态中的 Fixed 不恢复 列实例保持代码声明值 宽度正常恢复
         var columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.False(table.Instance.Columns[0].Fixed);
+        Assert.Equal(100, table.Instance.Columns[0].Width);
+        Assert.Equal(120, table.Instance.Columns[1].Width);
+
+        // 运行时切换固定列仍正常工作
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
         Assert.Contains("fixed", columns[0].ClassName);
         Assert.True(table.Instance.Columns[0].Fixed);
 
-        // 运行时取消固定 持久化恢复的状态不覆盖运行时变更
         await cut.InvokeAsync(() =>
         {
             table.Instance.Columns[0].Fixed = false;

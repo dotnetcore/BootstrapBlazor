@@ -1408,14 +1408,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (state != null)
             {
                 _tableColumnStateCache = state;
+                _clientTableColumnStateRestored = true;
             }
         }
         else if (OnLoadTableColumnClientStatus != null)
         {
             // 恢复持久化列状态配置
             _tableColumnStateCache = await OnLoadTableColumnClientStatus();
+            _clientTableColumnStateRestored = true;
         }
     }
+
+    /// <summary>
+    /// <para lang="zh">列状态是否刚从客户端持久化配置恢复 固定列状态不参与持久化 首次回放时以列实例值为准</para>
+    /// <para lang="en">Whether column states were just restored from client persistence. Fixed state is not persisted</para>
+    /// </summary>
+    private bool _clientTableColumnStateRestored;
 
     /// <summary>
     /// <para lang="zh">列固定状态应用缓存 键为列实例 值为最后一次应用到该实例上的固定状态 用于识别运行时变更</para>
@@ -1623,6 +1631,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var item = _tableColumnStates[index];
                 var col = columnMap[item.Name];
 
+                // 固定列状态不参与客户端持久化 恢复的状态首次回放时以列实例代码声明值为准
+                if (_clientTableColumnStateRestored)
+                {
+                    item.Fixed = col.Fixed;
+                }
+
                 // 将列状态回放到列实例上 解决持久化恢复与动态固定列问题
                 col.Fixed = item.Fixed;
                 col.Width = item.Width ?? col.Width;
@@ -1635,6 +1649,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
+
+        _clientTableColumnStateRestored = false;
     }
 
     private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
