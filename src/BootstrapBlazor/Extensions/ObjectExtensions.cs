@@ -163,7 +163,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型</para>
+    /// <para lang="zh">尝试将字符串表示的值转换为指定类型</para>
     /// <para lang="en">Tries to convert the string representation of a value to a specified type</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
@@ -207,7 +207,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Formats the file size into a string with appropriate units</para>
+    /// <para lang="zh">将文件大小格式化为带有适当单位的字符串</para>
     /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
     /// <param name="fileSize"></param>
