@@ -179,6 +179,18 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Theory]
+    [InlineData("de-DE", "1,5 GB")]
+    [InlineData("en-US", "1.5 GB")]
+    [InlineData("zh-CN", "1.5 GB")]
+    public void ToFileSizeString_WithCulture(string cultureName, string expect)
+    {
+        // 显式传入文化，输出随之本地化
+        var bytes = (long)(1024L * 1024 * 1024 * 1.5);
+        var actual = bytes.ToFileSizeString(new CultureInfo(cultureName));
+        Assert.Equal(expect, actual);
+    }
+
+    [Theory]
     [InlineData(ItemChangedType.Add, true, false)]
     [InlineData(ItemChangedType.Update, true, false)]
     [InlineData(ItemChangedType.Add, false, true)]
