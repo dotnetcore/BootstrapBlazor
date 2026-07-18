@@ -210,14 +210,27 @@ public static class ObjectExtensions
     /// <para lang="zh">将文件大小格式化为带有适当单位的字符串</para>
     /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
-    /// <param name="fileSize"></param>
-    public static string ToFileSizeString(this long fileSize) => fileSize switch
+    /// <param name="bytes"></param>
+    public static string ToFileSizeString(this long bytes)
     {
-        >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
-        >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
-        >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
-        _ => $"{fileSize} B"
-    };
+        const double kb = 1024d;
+        const double mb = kb * 1024d;
+        const double gb = mb * 1024d;
+        const double tb = gb * 1024d;
+        const double pb = tb * 1024d;
+        const double eb = pb * 1024d;
+
+        return bytes switch
+        {
+            >= (long)eb => $"{bytes / eb:0.0} EB",
+            >= (long)pb => $"{bytes / pb:0.0} PB",
+            >= (long)tb => $"{bytes / tb:0.0} TB",
+            >= (long)gb => $"{bytes / gb:0.0} GB",
+            >= (long)mb => $"{bytes / mb:0.0} MB",
+            >= (long)kb => $"{bytes / kb:0.0} KB",
+            _ => $"{bytes} B"
+        };
+    }
 
     internal static void Clone<TModel>(this TModel source, TModel item)
     {
