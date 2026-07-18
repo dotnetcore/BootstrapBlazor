@@ -166,12 +166,12 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
 
     [Theory]
     [InlineData(100f, "100 B")]
-    [InlineData(1024f, "1 KB")]
-    [InlineData(1024 * 1024f, "1 MB")]
-    [InlineData(1024 * 1024 * 1024f, "1 GB")]
-    [InlineData(1024L * 1024 * 1024 * 1024, "1 TB")]
-    [InlineData(1024L * 1024 * 1024 * 1024 * 1024, "1 PB")]
-    [InlineData(1024L * 1024 * 1024 * 1024 * 1024 * 1024, "1 EB")]
+    [InlineData(1024f, "1.0 KB")]
+    [InlineData(1024 * 1024f, "1.0 MB")]
+    [InlineData(1024 * 1024 * 1024f, "1.0 GB")]
+    [InlineData(1024L * 1024 * 1024 * 1024, "1.0 TB")]
+    [InlineData(1024L * 1024 * 1024 * 1024 * 1024, "1.0 PB")]
+    [InlineData(1024L * 1024 * 1024 * 1024 * 1024 * 1024, "1.0 EB")]
     public void ToFileSizeString_Ok(long source, string expect)
     {
         var actual = source.ToFileSizeString();
