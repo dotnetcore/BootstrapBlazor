@@ -211,7 +211,18 @@ public static class ObjectExtensions
     /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
     /// <param name="bytes"></param>
-    public static string ToFileSizeString(this long bytes)
+    public static string ToFileSizeString(this long bytes) => bytes.ToFileSizeString(CultureInfo.CurrentCulture);
+
+    /// <summary>
+    /// <para lang="zh">使用指定文化将文件大小格式化为带有适当单位的字符串</para>
+    /// <para lang="en">Formats the file size into a string with appropriate units using the specified culture</para>
+    /// </summary>
+    /// <param name="bytes"></param>
+    /// <param name="culture">
+    /// <para lang="zh">格式化使用的文化，为 <c>null</c> 时使用 <see cref="CultureInfo.CurrentCulture"/></para>
+    /// <para lang="en">The culture used for formatting; falls back to <see cref="CultureInfo.CurrentCulture"/> when <c>null</c></para>
+    /// </param>
+    public static string ToFileSizeString(this long bytes, CultureInfo culture)
     {
         const double kb = 1024d;
         const double mb = kb * 1024d;
@@ -222,13 +233,13 @@ public static class ObjectExtensions
 
         return bytes switch
         {
-            >= (long)eb => $"{bytes / eb:0.0} EB",
-            >= (long)pb => $"{bytes / pb:0.0} PB",
-            >= (long)tb => $"{bytes / tb:0.0} TB",
-            >= (long)gb => $"{bytes / gb:0.0} GB",
-            >= (long)mb => $"{bytes / mb:0.0} MB",
-            >= (long)kb => $"{bytes / kb:0.0} KB",
-            _ => $"{bytes} B"
+            >= (long)eb => string.Create(culture, $"{bytes / eb:0.0} EB"),
+            >= (long)pb => string.Create(culture, $"{bytes / pb:0.0} PB"),
+            >= (long)tb => string.Create(culture, $"{bytes / tb:0.0} TB"),
+            >= (long)gb => string.Create(culture, $"{bytes / gb:0.0} GB"),
+            >= (long)mb => string.Create(culture, $"{bytes / mb:0.0} MB"),
+            >= (long)kb => string.Create(culture, $"{bytes / kb:0.0} KB"),
+            _ => string.Create(culture, $"{bytes} B")
         };
     }
 
