@@ -166,12 +166,27 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
 
     [Theory]
     [InlineData(100f, "100 B")]
-    [InlineData(1024f, "1 KB")]
-    [InlineData(1024 * 1024f, "1 MB")]
-    [InlineData(1024 * 1024 * 1024f, "1 GB")]
+    [InlineData(1024f, "1.0 KB")]
+    [InlineData(1024 * 1024f, "1.0 MB")]
+    [InlineData(1024 * 1024 * 1024f, "1.0 GB")]
+    [InlineData(1024L * 1024 * 1024 * 1024, "1.0 TB")]
+    [InlineData(1024L * 1024 * 1024 * 1024 * 1024, "1.0 PB")]
+    [InlineData(1024L * 1024 * 1024 * 1024 * 1024 * 1024, "1.0 EB")]
     public void ToFileSizeString_Ok(long source, string expect)
     {
         var actual = source.ToFileSizeString();
+        Assert.Equal(expect, actual);
+    }
+
+    [Theory]
+    [InlineData("de-DE", "1,5 GB")]
+    [InlineData("en-US", "1.5 GB")]
+    [InlineData("zh-CN", "1.5 GB")]
+    public void ToFileSizeString_WithCulture(string cultureName, string expect)
+    {
+        // 显式传入文化，输出随之本地化
+        var bytes = (long)(1024L * 1024 * 1024 * 1.5);
+        var actual = bytes.ToFileSizeString(new CultureInfo(cultureName));
         Assert.Equal(expect, actual);
     }
 
