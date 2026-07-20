@@ -999,6 +999,116 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowColumnList_NewVisibleColumnUseDefaultWidth_Ok()
+    {
+        var state = new TableColumnClientStatus()
+        {
+            TableWidth = 240,
+            Columns =
+            [
+                new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 120 },
+                new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 },
+                new TableColumnState() { Name = nameof(Foo.Count), Visible = true },
+                new TableColumnState() { Name = nameof(Foo.DateTime), Visible = true }
+            ]
+        };
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test-new-column").SetResult(state);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.ColumnMinWidth, 80);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", "Address");
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(9, nameof(ITableColumn.Width), 90);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(10);
+                    builder.AddAttribute(11, "Field", foo.Complete);
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(13);
+                    builder.AddAttribute(14, "Field", foo.DateTime);
+                    builder.AddAttribute(15, "FieldExpression", Utility.GenerateValueExpression(foo, "DateTime", typeof(DateTime?)));
+                    builder.AddAttribute(16, nameof(ITableColumn.Fixed), true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.ClientTableName, "test-new-column");
+            });
+        });
+
+        cut.Contains("style=\"width: 90px;\"");
+        cut.Contains("style=\"width: 80px;\"");
+        cut.Contains("style=\"width: 200px;\"");
+    }
+
+    [Fact]
+    public void ShowColumnList_NewVisibleColumnUseOptionDefaultWidth_Ok()
+    {
+        var state = new TableColumnClientStatus()
+        {
+            TableWidth = 240,
+            Columns =
+            [
+                new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 120 },
+                new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 }
+            ]
+        };
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test-new-column-option-width").SetResult(state);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", "Address");
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.ClientTableName, "test-new-column-option-width");
+            });
+        });
+
+        cut.Contains("style=\"width: 64px;\"");
+        cut.Contains("style=\"width: 304px;\"");
+    }
+
+    [Fact]
     public void ShowCardView_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
