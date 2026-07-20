@@ -1515,22 +1515,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else
         {
-            // 无固定列时还原全部覆盖宽度恢复原始布局 用户拖拽调整过列宽时保留调整值
-            foreach (var (name, item) in _autoFixedColumnWidthCache)
+            // 无固定列时还原全部覆盖宽度恢复原始布局
+            RestoreAutoFixedColumnWidths();
+        }
+    }
+
+    private void RestoreAutoFixedColumnWidths()
+    {
+        // 还原全部覆盖宽度恢复原始布局 用户拖拽调整过列宽时保留调整值
+        foreach (var (name, item) in _autoFixedColumnWidthCache)
+        {
+            var state = _tableColumnStates.Find(i => i.Name == name);
+            if (state != null && state.Width == item.Applied)
             {
-                var state = _tableColumnStates.Find(i => i.Name == name);
-                if (state != null && state.Width == item.Applied)
+                state.Width = item.Original;
+                var col = Columns.Find(i => i.GetFieldName() == name);
+                if (col != null)
                 {
-                    state.Width = item.Original;
-                    var col = Columns.Find(i => i.GetFieldName() == name);
-                    if (col != null)
-                    {
-                        col.Width = item.Original;
-                    }
+                    col.Width = item.Original;
                 }
             }
-            _autoFixedColumnWidthCache.Clear();
         }
+        _autoFixedColumnWidthCache.Clear();
     }
 
     private void ResetTableColumns()
@@ -2257,9 +2263,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("clearColumnStates", ClientTableName);
         }
 
+        // 固定列期间清除状态时先还原自动回填的覆盖宽度 避免后续取消固定时宽度残留
+        // 注意须在清空前还原 清空后 _tableColumnStates 为空将无法还原
+        RestoreAutoFixedColumnWidths();
+
         // 清除缓存的列状态
         _tableColumnStateCache.Clear();
-        _autoFixedColumnWidthCache.Clear();
 
         StateHasChanged();
     }
