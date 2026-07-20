@@ -1642,7 +1642,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 {
                     col.Fixed = fixedState;
                 }
-                col.Width = item.Width ?? col.Width;
+
+                // 无宽列的占位回填宽（NormalizeVisibleColumnWidth 兜底值 DefaultFixedColumnWidth 或 ColumnMinWidth）不回灌列实例
+                // 占位宽仅保留在列状态中供客户端布局使用 列实例保持无宽
+                // 以便实测宽度快照采集、固定布局判定、取消固定还原等逻辑按真实宽度工作
+                // 注意占位值与列固定状态无关 此处不能用 GetDefaultColumnStateWidth 动态求值 固定状态变化会导致占位宽漏判
+                if (col.Width.HasValue || (item.Width != DefaultFixedColumnWidth && item.Width != (ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth)))
+                {
+                    col.Width = item.Width ?? col.Width;
+                }
                 _appliedFixedColumnCache[col] = col.Fixed;
 
                 if (item.Visible)
