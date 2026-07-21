@@ -1442,6 +1442,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private readonly Dictionary<string, (int Applied, int? Original)> _autoFixedColumnWidthCache = [];
 
     /// <summary>
+    /// <para lang="zh">占位宽度列名集合 由 NormalizeVisibleColumnWidth/CreateTableColumnState 回填兜底宽度时标记 真实宽度写入时移除
+    /// 列状态回放到列实例时据此区分占位宽与真实宽 避免按值比较误伤与占位值相等的真实宽度</para>
+    /// <para lang="en">Names of columns whose state width is a placeholder backfill. Marked when backfilled, removed when a real width is written.
+    /// Used during column state replay to distinguish placeholders from real widths without value comparison.</para>
+    /// </summary>
+    private readonly HashSet<string> _placeholderWidthColumnNames = new(StringComparer.Ordinal);
+
+    /// <summary>
     /// <para lang="zh">客户端实际渲染列宽快照 渲染结束后由脚本测量更新 未显式设置宽度列的实际宽度由浏览器布局决定 服务器端无法得知</para>
     /// <para lang="en">Snapshot of actual rendered column widths measured by script after each render</para>
     /// </summary>
@@ -1502,6 +1510,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                         _autoFixedColumnWidthCache[state.Name] = (width, original);
                         state.Width = width;
                         col.Width = width;
+
+                        // 实测宽度为真实宽度 移除占位标记
+                        _placeholderWidthColumnNames.Remove(state.Name);
                     }
                 }
                 else if (col.Fixed && !col.Width.HasValue && state.Width == null)
@@ -1510,6 +1521,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     _autoFixedColumnWidthCache[state.Name] = (DefaultFixedColumnWidth, null);
                     state.Width = DefaultFixedColumnWidth;
                     col.Width = DefaultFixedColumnWidth;
+
+                    // 兜底宽度已应用到列实例 视为真实宽度 移除占位标记
+                    _placeholderWidthColumnNames.Remove(state.Name);
                 }
             }
         }
@@ -1534,6 +1548,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 {
                     col.Width = item.Original;
                 }
+
+                // 还原后宽度身份重置 真实值已由上方写回 空值由下轮重建的占位回填重新标记
+                _placeholderWidthColumnNames.Remove(name);
             }
         }
         _autoFixedColumnWidthCache.Clear();
@@ -1601,6 +1618,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
                 else
                 {
+                    // 列已不存在 同步移除其占位标记防止残留
+                    _placeholderWidthColumnNames.Remove(item.Name);
                     _tableColumnStates.RemoveAt(i);
                 }
             }
@@ -1649,11 +1668,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     col.Fixed = fixedState;
                 }
 
-                // 无宽列的占位回填宽（NormalizeVisibleColumnWidth 兜底值 DefaultFixedColumnWidth 或 ColumnMinWidth）不回灌列实例
-                // 占位宽仅保留在列状态中供客户端布局使用 列实例保持无宽
+                // 占位回填宽不回灌列实例 占位宽仅保留在列状态中供客户端布局使用 列实例保持无宽
                 // 以便实测宽度快照采集、固定布局判定、取消固定还原等逻辑按真实宽度工作
-                // 注意占位值与列固定状态无关 此处不能用 GetDefaultColumnStateWidth 动态求值 固定状态变化会导致占位宽漏判
-                if (col.Width.HasValue || (item.Width != DefaultFixedColumnWidth && item.Width != (ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth)))
+                // 占位身份由 NormalizeVisibleColumnWidth/CreateTableColumnState 回填时显式标记 真实宽度写入时移除
+                // 不做按值比较 与占位值相等的真实宽度（如用户拖拽至 ColumnMinWidth）不受误伤
+                if (col.Width.HasValue || !_placeholderWidthColumnNames.Contains(item.Name))
                 {
                     col.Width = item.Width ?? col.Width;
                 }
@@ -1668,13 +1687,29 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private TableColumnState CreateTableColumnState(ITableColumn col) => new TableColumnState()
+    private TableColumnState CreateTableColumnState(ITableColumn col)
     {
-        DisplayName = col.GetDisplayName(),
-        Name = col.GetFieldName(),
-        Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
-        Visible = col.GetVisible(_screenSize)
-    };
+        var state = new TableColumnState()
+        {
+            DisplayName = col.GetDisplayName(),
+            Name = col.GetFieldName(),
+            Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
+            Visible = col.GetVisible(_screenSize)
+        };
+
+        if (col.Fixed && !col.Width.HasValue)
+        {
+            // 固定列无显式宽度时状态宽为占位回填值 标记占位身份
+            _placeholderWidthColumnNames.Add(state.Name);
+        }
+        else
+        {
+            // 同名状态重建等场景下清除可能残留的占位标记
+            _placeholderWidthColumnNames.Remove(state.Name);
+        }
+
+        return state;
+    }
 
     private bool NormalizeVisibleColumnWidth(TableColumnState item, ITableColumn col)
     {
@@ -1684,6 +1719,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         item.Width = GetDefaultColumnStateWidth(col);
+
+        // 回填的兜底宽仅为客户端布局占位 标记占位身份 不代表列真实宽度
+        _placeholderWidthColumnNames.Add(item.Name);
         return true;
     }
 
@@ -1802,6 +1840,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (col.Width.HasValue)
                 {
                     column.Width = col.Width;
+
+                    // 宿主显式设置的宽度为真实宽度 移除占位标记
+                    _placeholderWidthColumnNames.Remove(col.Name);
                 }
             }
         }
@@ -2234,6 +2275,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (columnState != null)
                 {
                     columnState.Width = item.Width;
+
+                    // 宿主变更了显式宽度时视为真实宽度 移除占位标记
+                    if (item.Width.HasValue)
+                    {
+                        _placeholderWidthColumnNames.Remove(columnState.Name);
+                    }
                 }
             }
 
@@ -2269,6 +2316,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 清除缓存的列状态
         _tableColumnStateCache.Clear();
+
+        // 列状态已全部清除 占位标记同步清空
+        _placeholderWidthColumnNames.Clear();
 
         StateHasChanged();
     }
@@ -2308,7 +2358,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
                 if (OnTableColumnClientStatusChanged != null)
                 {
-                    await OnTableColumnClientStatusChanged(firstColumn.Name, _tableColumnStateCache);
+                    await OnTableColumnClientStatusChanged(firstColumn.Name, GetTableColumnClientStatusForPersist());
                 }
 
                 _resetColumns = true;
@@ -2331,10 +2381,30 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 触发回调
         if (OnTableColumnClientStatusChanged != null)
         {
-            await OnTableColumnClientStatusChanged(name, _tableColumnStateCache);
+            await OnTableColumnClientStatusChanged(name, GetTableColumnClientStatusForPersist());
         }
 
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// <para lang="zh">获得供宿主持久化的列状态副本 占位回填宽度以 null 输出 防止占位值被宿主存档后下一会话误认作真实宽度</para>
+    /// <para lang="en">Get a copy of column states for host persistence. Placeholder widths are emitted as null so they are not mistaken for real widths in the next session.</para>
+    /// </summary>
+    private TableColumnClientStatus GetTableColumnClientStatusForPersist()
+    {
+        var status = new TableColumnClientStatus() { TableWidth = _tableColumnStateCache.TableWidth };
+        foreach (var item in _tableColumnStates)
+        {
+            status.Columns.Add(new TableColumnState()
+            {
+                Name = item.Name,
+                DisplayName = item.DisplayName,
+                Visible = item.Visible,
+                Width = _placeholderWidthColumnNames.Contains(item.Name) ? null : item.Width
+            });
+        }
+        return status;
     }
 
     /// <summary>
@@ -2355,6 +2425,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (colState != null)
             {
                 item.Width = colState.Width;
+
+                // 客户端回传的拖拽/实测宽度为真实宽度 移除占位标记
+                if (colState.Width.HasValue)
+                {
+                    _placeholderWidthColumnNames.Remove(item.Name);
+                }
             }
         }
         _tableColumnStateCache.TableWidth = columnState.TableWidth;
