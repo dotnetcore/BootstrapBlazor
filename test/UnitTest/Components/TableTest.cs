@@ -9704,6 +9704,182 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DynamicFixedColumn_PersistedDefaultWidthCollision_Ok()
+    {
+        // 持久化宽度恰与 DefaultFixedColumnWidth(200) 相同 该宽度是真实用户配置而非占位回填 应正常回放到列实例
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 200 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_width_collision_default").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_width_collision_default");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 真实持久化宽度 200 回放到列实例
+        Assert.Equal(200, table.Instance.Columns[0].Width);
+
+        // 同步客户端状态后持久化宽度不被擦除
+        var status = await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
+        Assert.Equal(200, status.Columns.Find(i => i.Name == nameof(Foo.Name))?.Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PersistedMinWidthCollision_Ok()
+    {
+        // 固定列持久化宽度恰与 ColumnMinWidth(64) 相同（用户曾拖拽至最小宽） 该宽度是真实用户配置
+        // 应回放到列实例 保证 fixed 布局生效 sticky 偏移精确
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 64 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_width_collision_min").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_width_collision_min");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Fixed", true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(6, "Width", 120);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 真实持久化宽度 64 回放到列实例 fixed 布局生效
+        Assert.Equal(64, table.Instance.Columns[0].Width);
+        Assert.Contains("table-layout-fixed", cut.Markup);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PlaceholderWidthNotLeakToHost_Ok()
+    {
+        // 占位回填宽仅服务客户端布局 不应经 OnTableColumnClientStatusChanged 泄漏给宿主持久化
+        // 防止占位值被宿主存档后下一会话误认作真实宽度
+        TableColumnClientStatus? captured = null;
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (string name, TableColumnClientStatus status) =>
+                {
+                    captured = status;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 模拟客户端拖拽 Name 列宽后回传列状态 Address 列仍为占位回填宽
+        var dragState = new TableColumnClientStatus();
+        dragState.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100 });
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Name), dragState));
+
+        Assert.NotNull(captured);
+        Assert.Equal(100, captured.Columns.Find(i => i.Name == nameof(Foo.Name))?.Width);
+        Assert.Null(captured.Columns.Find(i => i.Name == nameof(Foo.Address))?.Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PlaceholderWidthNotLeakOnDrag_Ok()
+    {
+        // 拖拽列顺序触发宿主持久化回调时 占位回填宽同样不泄漏
+        TableColumnClientStatus? captured = null;
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (string name, TableColumnClientStatus status) =>
+                {
+                    captured = status;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 拖拽第一列到第二列位置 触发宿主持久化回调
+        await cut.InvokeAsync(() => table.Instance.DragColumnCallback(0, 1));
+
+        Assert.NotNull(captured);
+        Assert.All(captured.Columns, c => Assert.Null(c.Width));
+    }
+
+    [Fact]
     public async Task ClearTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();
