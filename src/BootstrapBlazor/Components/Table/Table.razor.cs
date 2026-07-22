@@ -1463,7 +1463,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // 未匹配到状态的列按其在 Columns 中的相对位置插入而不是追加到末尾
             // 防止多语言切换等场景列字段名变化导致仅部分列匹配时列顺序错乱
             var insertIndex = 0;
-            var widthChanged = false;
             foreach (var col in Columns)
             {
                 if (col.GetIgnore())
@@ -1475,21 +1474,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (stateMap.TryGetValue(name, out var item))
                 {
                     item.DisplayName = col.GetDisplayName();
-                    widthChanged = NormalizeVisibleColumnWidth(item, col) || widthChanged;
                     insertIndex = _tableColumnStates.IndexOf(item) + 1;
                 }
                 else
                 {
                     item = CreateTableColumnState(col);
-                    widthChanged = NormalizeVisibleColumnWidth(item, col) || widthChanged;
                     _tableColumnStates.Insert(insertIndex, item);
                     insertIndex++;
                 }
-            }
-
-            if (widthChanged)
-            {
-                UpdateTableColumnStateWidth();
             }
 
             // 根据 _tableColumnStates 顺序重建可见列顺序
@@ -1513,45 +1505,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Width = col.Fixed && !col.Width.HasValue ? DefaultFixedColumnWidth : col.Width,
         Visible = col.GetVisible(_screenSize)
     };
-
-    private bool NormalizeVisibleColumnWidth(TableColumnState item, ITableColumn col)
-    {
-        if (!item.Visible || item.Width.HasValue)
-        {
-            return false;
-        }
-
-        item.Width = GetDefaultColumnStateWidth(col);
-        return true;
-    }
-
-    private int GetDefaultColumnStateWidth(ITableColumn col) => col.Width ?? (col.Fixed ? DefaultFixedColumnWidth : ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth);
-
-    private void UpdateTableColumnStateWidth()
-    {
-        var tableWidth = 0;
-        var useTableWidth = true;
-        foreach (var column in _tableColumnStateCache.Columns)
-        {
-            if (!column.Visible)
-            {
-                continue;
-            }
-
-            if (column.Width.HasValue)
-            {
-                tableWidth += column.Width.Value;
-            }
-            else
-            {
-                useTableWidth = false;
-                break;
-            }
-        }
-
-        _tableColumnStateCache.TableWidth = useTableWidth ? tableWidth : 0;
-        UpdateTableWidth();
-    }
 
     private async Task OnTableRenderAsync(bool firstRender)
     {
