@@ -9133,6 +9133,753 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task UpdateTableColumnClientStatus_Ok()
+    {
+        var state = new TableColumnClientStatus();
+        state.TableWidth = 220;
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_update").SetResult(state);
+        var invoker = Context.JSInterop.SetupVoid("updateColumnStates", "test_update");
+        invoker.SetVoidResult();
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_update");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Fixed", true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var colGroup = table.Find("colgroup");
+        Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
+
+        var status = await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
+        Assert.True(table.Instance.Columns[0].Fixed);
+        Assert.Equal(state.Columns.Count, status.Columns.Count);
+
+        table = cut.FindComponent<Table<Foo>>();
+        var columns = cut.FindAll("th");
+        colGroup = table.Find("colgroup");
+        Assert.Contains("style=\"width: 200px;\"", colGroup.ToMarkup());
+        Assert.Contains("fixed", columns[0].ClassName ?? "");
+        Assert.Contains("width: 200px", cut.FindAll("col")[0].OuterHtml);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(7, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(8);
+                    builder.AddAttribute(9, "Field", foo.Address);
+                    builder.AddAttribute(10, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 初始无固定列
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+
+        // 运行时设置前两列固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        Assert.Contains("table-fixed-column", cut.Markup);
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("left: 0px;", columns[0].OuterHtml);
+        Assert.Contains("fixed", columns[1].ClassName);
+
+        // 最后一个左固定列应包含 fr 样式
+        Assert.Contains("fr", columns[1].ClassName);
+        Assert.Contains("left: 100px;", columns[1].OuterHtml);
+        Assert.DoesNotContain("fixed", columns[2].ClassName ?? "");
+
+        // 运行时取消固定列
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+            table.Instance.Columns[1].Fixed = false;
+        });
+        table.Render();
+
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.DoesNotContain("fixed", columns[1].ClassName ?? "");
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_ClientTableName_Ok()
+    {
+        // 固定列状态由代码管理不参与持久化 持久化状态只包含宽度可见性等用户个性化配置
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_dynamic_fixed").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_dynamic_fixed");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 持久化状态中的 Fixed 不恢复 列实例保持代码声明值 宽度正常恢复
+        var columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.False(table.Instance.Columns[0].Fixed);
+        Assert.Equal(100, table.Instance.Columns[0].Width);
+        Assert.Equal(120, table.Instance.Columns[1].Width);
+
+        // 运行时切换固定列仍正常工作
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.True(table.Instance.Columns[0].Fixed);
+
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed", columns[0].ClassName ?? "");
+        Assert.False(table.Instance.Columns[0].Fixed);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_AutoGenerateColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+
+        // 运行时设置前两列固定 模拟 #8094 场景 自动生成列每次渲染重建实例
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        Assert.Contains("table-fixed-column", cut.Markup);
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("fixed", columns[1].ClassName);
+        Assert.Contains("fr", columns[1].ClassName);
+
+        // 再次渲染后固定状态保持 不被自动生成列重建逻辑重置
+        table.Render();
+        columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("fixed", columns[1].ClassName);
+
+        // 运行时取消固定列
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+            table.Instance.Columns[1].Fixed = false;
+        });
+        table.Render();
+
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_ClientWidth_Ok()
+    {
+        // 模拟客户端实际渲染宽度 未显式设置 Width 的列固定时使用实际宽度而不是默认宽度 200
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 120 },
+            { nameof(Foo.Address), 180 },
+            { nameof(Foo.Count), 80 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 运行时固定前两列
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("left: 0px;", columns[0].OuterHtml);
+
+        // 第二列偏移量使用第一列客户端实际宽度 120 而不是默认宽度 200
+        Assert.Contains("left: 120px;", columns[1].OuterHtml);
+
+        // colgroup 应用实际宽度 固定期间列宽保持稳定不跳变
+        var colGroup = table.Find("colgroup");
+        Assert.Contains("width: 120px;", colGroup.ToMarkup());
+        Assert.Contains("width: 180px;", colGroup.ToMarkup());
+
+        // 未固定列同样回填实际宽度 全列宽度已知后启用 fixed 布局保证宽度精确生效
+        Assert.Contains("width: 80px;", colGroup.ToMarkup());
+        Assert.Contains("table-layout-fixed", cut.Markup);
+
+        // 取消固定后还原自动回填宽度 恢复浏览器自动布局
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+            table.Instance.Columns[1].Fixed = false;
+        });
+        table.Render();
+
+        Assert.False(table.Instance.Columns[0].Width.HasValue);
+        Assert.False(table.Instance.Columns[1].Width.HasValue);
+        colGroup = table.Find("colgroup");
+        Assert.DoesNotContain("width: 120px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 180px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 80px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("table-layout-fixed", cut.Markup);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_FixRight_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(7, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(8);
+                    builder.AddAttribute(9, "Field", foo.Count);
+                    builder.AddAttribute(10, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(11, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(12);
+                    builder.AddAttribute(13, "Field", foo.Complete);
+                    builder.AddAttribute(14, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(15, "Width", 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 固定最后两列 构成固定后缀 判定为右固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[2].Fixed = true;
+            table.Instance.Columns[3].Fixed = true;
+        });
+        table.Render();
+
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed-right", columns[2].ClassName);
+        Assert.Contains("right: 100px;", columns[2].OuterHtml);
+        Assert.Contains("fixed-right", columns[3].ClassName);
+        Assert.Contains("right: 0px;", columns[3].OuterHtml);
+
+        // 取消固定后 固定中间单列 不构成固定后缀 回落为左固定 不应误判为右固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[2].Fixed = false;
+            table.Instance.Columns[3].Fixed = false;
+        });
+        table.Render();
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[1].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.DoesNotContain("fixed-right", columns[1].ClassName);
+
+        // 孤立固定列前面无固定列 偏移不累加未固定列宽度
+        Assert.Contains("left: 0px;", columns[1].OuterHtml);
+
+        // 全部列固定 判定为左固定
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+            table.Instance.Columns[2].Fixed = true;
+            table.Instance.Columns[3].Fixed = true;
+        });
+        table.Render();
+
+        columns = cut.FindAll("thead th");
+        Assert.All(columns, th => Assert.DoesNotContain("fixed-right", th.ClassName ?? ""));
+        Assert.Contains("left: 300px;", columns[3].OuterHtml);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_ExplicitWidth_Ok()
+    {
+        // auto 布局下显式宽度列实际渲染宽度大于设置值（含 padding/border）固定时应使用实测宽度避免跳变
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 197 },
+            { nameof(Foo.Address), 220 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", 180);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", foo.Address);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 固定第一列 显式宽度 180 的列使用实测宽度 197 保证切换时渲染宽度不变
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+
+        var colGroup = table.Find("colgroup");
+        Assert.Contains("width: 197px;", colGroup.ToMarkup());
+        Assert.Contains("width: 220px;", colGroup.ToMarkup());
+        Assert.Contains("table-layout-fixed", cut.Markup);
+
+        // 取消固定后还原原始显式宽度 180 未设置宽度列还原为空
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+
+        Assert.Equal(180, table.Instance.Columns[0].Width);
+        Assert.False(table.Instance.Columns[1].Width.HasValue);
+        colGroup = table.Find("colgroup");
+        Assert.Contains("width: 180px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 197px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("width: 220px;", colGroup.ToMarkup());
+        Assert.DoesNotContain("table-layout-fixed", cut.Markup);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_ResizedWidth_Ok()
+    {
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 120 },
+            { nameof(Foo.Address), 180 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 运行时固定第一列 使用客户端实际宽度 120
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+        Assert.Equal(120, table.Instance.Columns[0].Width);
+
+        // 模拟用户固定期间拖拽调整列宽
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Width = 150;
+        });
+        await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
+
+        // 取消固定后保留用户调整值 不还原自动回填宽度
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+
+        Assert.Equal(150, table.Instance.Columns[0].Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_IgnoreColumn_Ok()
+    {
+        // 固定列时被忽略列没有列状态 同步列宽时跳过该列不影响固定列
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 120 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(6, "Ignore", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 运行时固定第一列 被忽略的 Address 列无列状态 同步宽度时跳过
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+
+        var columns = cut.FindAll("thead th");
+        Assert.Contains("fixed", columns[0].ClassName);
+        Assert.Contains("left: 0px;", columns[0].OuterHtml);
+        Assert.Equal(120, table.Instance.Columns[0].Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PersistedDefaultWidthCollision_Ok()
+    {
+        // 持久化宽度恰与 DefaultFixedColumnWidth(200) 相同 该宽度是真实用户配置而非占位回填 应正常回放到列实例
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 200 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_width_collision_default").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_width_collision_default");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 真实持久化宽度 200 回放到列实例
+        Assert.Equal(200, table.Instance.Columns[0].Width);
+
+        // 同步客户端状态后持久化宽度不被擦除
+        var status = await cut.InvokeAsync(() => table.Instance.UpdateTableColumnClientStatus());
+        Assert.Equal(200, status.Columns.Find(i => i.Name == nameof(Foo.Name))?.Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PersistedMinWidthCollision_Ok()
+    {
+        // 固定列持久化宽度恰与 ColumnMinWidth(64) 相同（用户曾拖拽至最小宽） 该宽度是真实用户配置
+        // 应回放到列实例 保证 fixed 布局生效 sticky 偏移精确
+        var state = new TableColumnClientStatus();
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 64 });
+        state.Columns.Add(new TableColumnState() { Name = nameof(Foo.Address), Visible = true, Width = 120 });
+
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_width_collision_min").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ClientTableName, "test_width_collision_min");
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Fixed", true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.AddAttribute(6, "Width", 120);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 真实持久化宽度 64 回放到列实例 fixed 布局生效
+        Assert.Equal(64, table.Instance.Columns[0].Width);
+        Assert.Contains("table-layout-fixed", cut.Markup);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PlaceholderWidthNotLeakToHost_Ok()
+    {
+        // 占位回填宽仅服务客户端布局 不应经 OnTableColumnClientStatusChanged 泄漏给宿主持久化
+        // 防止占位值被宿主存档后下一会话误认作真实宽度
+        TableColumnClientStatus? captured = null;
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (string name, TableColumnClientStatus status) =>
+                {
+                    captured = status;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 模拟客户端拖拽 Name 列宽后回传列状态 Address 列仍为占位回填宽
+        var dragState = new TableColumnClientStatus();
+        dragState.Columns.Add(new TableColumnState() { Name = nameof(Foo.Name), Visible = true, Width = 100 });
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Name), dragState));
+
+        Assert.NotNull(captured);
+        Assert.Equal(100, captured.Columns.Find(i => i.Name == nameof(Foo.Name))?.Width);
+        Assert.Null(captured.Columns.Find(i => i.Name == nameof(Foo.Address))?.Width);
+    }
+
+    [Fact]
+    public async Task DynamicFixedColumn_PlaceholderWidthNotLeakOnDrag_Ok()
+    {
+        // 拖拽列顺序触发宿主持久化回调时 占位回填宽同样不泄漏
+        TableColumnClientStatus? captured = null;
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.OnTableColumnClientStatusChanged, (string name, TableColumnClientStatus status) =>
+                {
+                    captured = status;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 拖拽第一列到第二列位置 触发宿主持久化回调
+        await cut.InvokeAsync(() => table.Instance.DragColumnCallback(0, 1));
+
+        Assert.NotNull(captured);
+        Assert.All(captured.Columns, c => Assert.Null(c.Width));
+    }
+
+    [Fact]
     public async Task ClearTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();
@@ -9179,6 +9926,60 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.ClearTableColumnClientStatus());
         invoker.VerifyInvoke("clearColumnStates");
         Assert.Contains("style=\"width: 80px;\"", colGroup.ToMarkup());
+    }
+
+    [Fact]
+    public async Task ClearTableColumnClientStatus_RestoreAutoFixedWidth_Ok()
+    {
+        // 固定列期间清除了客户端状态 自动回填的实测宽度应同步还原 后续取消固定时列宽不残留
+        Context.JSInterop.Setup<Dictionary<string, int>>("getColumnWidths", _ => true).SetResult(new Dictionary<string, int>
+        {
+            { nameof(Foo.Name), 120 },
+            { nameof(Foo.Address), 180 }
+        });
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 固定第一列 使用客户端实测宽度 120
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = true;
+        });
+        table.Render();
+        Assert.Equal(120, table.Instance.Columns[0].Width);
+
+        // 固定期间清除客户端状态
+        await cut.InvokeAsync(() => table.Instance.ClearTableColumnClientStatus());
+
+        // 取消固定后 自动回填的宽度应还原为空 不残留在列实例上
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.Columns[0].Fixed = false;
+        });
+        table.Render();
+        Assert.False(table.Instance.Columns[0].Width.HasValue);
     }
 
     [Fact]
