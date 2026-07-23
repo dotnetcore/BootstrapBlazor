@@ -11,7 +11,7 @@ const openDevice = camera => {
         const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
         play(camera, {
             video: {
-                deviceId,
+                deviceId: { exact: deviceId },
                 width: { ideal: videoWidth },
                 height: { ideal: videoHeight }
             }
