@@ -8,17 +8,10 @@ namespace BootstrapBlazor.Server.Components.Samples.Charts;
 /// <summary>
 /// Bar 图表示例
 /// </summary>
-[JSModuleAutoLoader("Samples/Charts/Bar.razor.js", JSObjectReference = true)]
 public partial class Bar
 {
     private int _barDatasetCount = 2;
     private int _barDataCount = 7;
-
-    private string CustomTooltipId => $"custom_tooltip_{Id}";
-
-    private string CustomCategoryLabelId => $"custom_category_label_{Id}";
-
-    private string TotalDataLabelId => $"total_data_label_{Id}";
 
     private int BarDatasetCount { get; set; } = 2;
 
@@ -42,16 +35,6 @@ public partial class Bar
         {
             Logger.Log("Bar loading data ...");
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task InvokeInitAsync()
-    {
-        await InvokeVoidAsync("customTooltip", CustomTooltipId);
-        await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
-        await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
     }
 
     private Task OnAfterInit()
@@ -256,6 +239,12 @@ public partial class Bar
         ds.Options.Title = "Stacked total";
         ds.Options.ShowDataLabel = true;
         ds.Options.ShowTotalDataLabel = true;
+        ds.Options.TotalDataLabelFormatter = "Total: {total}";
+        ds.Options.TotalDataLabelColor = "#fff";
+        ds.Options.TotalDataLabelBackgroundColor = "rgb(75, 192, 192)";
+        ds.Options.TotalDataLabelBorderRadius = 4;
+        ds.Options.TotalDataLabelPadding = 6;
+        ds.Options.TotalDataLabelFontWeight = "bold";
         ds.Options.Anchor = ChartDataLabelPosition.Center;
         ds.Options.X.Title = "name";
         ds.Options.Y.Title = "Numerical value";
@@ -272,6 +261,21 @@ public partial class Bar
             Label = "Set 1",
             Data = new object[] { 2, 0, 4 }
         });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitCustomTooltip()
+    {
+        var ds = OnInit(false).Result;
+        ds.Options.TooltipTitleFormatter = "Day {label}";
+        ds.Options.TooltipLabelFormatter = " {datasetLabel}: {value} units";
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitCustomCategoryLabel()
+    {
+        var ds = OnInit(false).Result;
+        ds.Options.CategoryLabelFormatter = "Day {label}";
         return Task.FromResult(ds);
     }
 
