@@ -77,49 +77,27 @@
         <ul class="ul-demo">
             <li>
                 <p>@((MarkupString)Localizer["BarTotalDataLabelLi1"].Value)</p>
-                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" Id="@@TotalDataLabelId" /&gt;</Pre>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" /&gt;</Pre>
             </li>
             <li>
                 <p>@((MarkupString)Localizer["BarTotalDataLabelLi2"].Value)</p>
-                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
-
-export function customTotalDataLabel(id) {
-    // chartjs-plugin-datalabels documentation: https://chartjs-plugin-datalabels.netlify.app/guide/options.html
-    const chart = BootstrapBlazor.Chart;
-    chart.setOptionsById(id, {
-        options: {
-            plugins: {
-                datalabels: {
-                    labels: {
-                        total: {
-                            color: '#fff',
-                            backgroundColor: 'rgb(75, 192, 192)',
-                            borderRadius: 4,
-                            padding: { top: 2, bottom: 2, left: 6, right: 6 },
-                            font: { weight: 'bold' },
-                            formatter: (value, context) => {
-                                const total = context.chart.data.datasets.reduce(
-                                    (sum, v, index) => context.chart.isDatasetVisible(index) ? sum + (Number(v.data[context.dataIndex]) || 0) : sum, 0);
-                                return `Total: ${total}`;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    });
-}</Pre>
-            </li>
-            <li>
-                <p>@((MarkupString)Localizer["BarTotalDataLabelLi3"].Value)</p>
-                <Pre>protected override async Task InvokeInitAsync()
+                <Pre>private Task&lt;ChartDataSource&gt; OnInitTotalDataLabel()
 {
-    await InvokeVoidAsync("customTotalDataLabel", TotalDataLabelId);
+    var ds = new ChartDataSource();
+    ds.Options.ShowDataLabel = true;
+    ds.Options.ShowTotalDataLabel = true;
+    ds.Options.TotalDataLabelFormatter = "Total: {total}";
+    ds.Options.TotalDataLabelColor = "#fff";
+    ds.Options.TotalDataLabelBackgroundColor = "rgb(75, 192, 192)";
+    ds.Options.TotalDataLabelBorderRadius = 4;
+    ds.Options.TotalDataLabelPadding = 6;
+    ds.Options.TotalDataLabelFontWeight = "bold";
+    return Task.FromResult(ds);
 }</Pre>
             </li>
         </ul>
     </section>
-    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" Id="@TotalDataLabelId" Height="500px" Width="500px" />
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitTotalDataLabel" Height="500px" Width="500px" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BarColorSeparatelyTitle"]"
@@ -148,39 +126,21 @@ export function customTotalDataLabel(id) {
         <ul class="ul-demo">
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi1"].Value)</p>
-                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@@CustomTooltipId" /&gt;</Pre>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomTooltip" /&gt;</Pre>
             </li>
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
-                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
-
-export function customTooltip(id) {
-    // chart.js documentation: https://www.chartjs.org/docs/latest/configuration/tooltip.html
-    const chart = BootstrapBlazor.Chart;
-    chart.setOptionsById(id, {
-        options: {
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        title: tooltipItems => `Day ${tooltipItems[0].label}`,
-                        label: context => ` ${context.dataset.label}: ${context.parsed.y} units`
-                    }
-                }
-            }
-        }
-    });
-}</Pre>
-            </li>
-            <li>
-                <p>@((MarkupString)Localizer["CustomTooltipLi3"].Value)</p>
-                <Pre>protected override async Task InvokeInitAsync()
+                <Pre>private Task&lt;ChartDataSource&gt; OnInitCustomTooltip()
 {
-    await InvokeVoidAsync("customTooltip", CustomTooltipId);
+    var ds = OnInit(false).Result;
+    ds.Options.TooltipTitleFormatter = "Day {label}";
+    ds.Options.TooltipLabelFormatter = " {datasetLabel}: {value} units";
+    return Task.FromResult(ds);
 }</Pre>
             </li>
         </ul>
     </section>
-    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@CustomTooltipId" />
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomTooltip" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomCategoryLabelTitle"]"
@@ -190,38 +150,18 @@ export function customTooltip(id) {
         <ul class="ul-demo">
             <li>
                 <p>@((MarkupString)Localizer["CustomCategoryLabelLi1"].Value)</p>
-                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@@CustomCategoryLabelId" /&gt;</Pre>
+                <Pre class="mb-3">&lt;Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomCategoryLabel" /&gt;</Pre>
             </li>
             <li>
                 <p>@((MarkupString)Localizer["CustomCategoryLabelLi2"].Value)</p>
-                <Pre class="mb-3">import '../../../_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js'
-
-export function customCategoryLabel(id) {
-    // chart.js documentation: https://www.chartjs.org/docs/latest/axes/labelling.html
-    const chart = BootstrapBlazor.Chart;
-    chart.setOptionsById(id, {
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        callback: function (value) {
-                            return `Day ${this.getLabelForValue(value)}`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-}</Pre>
-            </li>
-            <li>
-                <p>@((MarkupString)Localizer["CustomCategoryLabelLi3"].Value)</p>
-                <Pre>protected override async Task InvokeInitAsync()
+                <Pre>private Task&lt;ChartDataSource&gt; OnInitCustomCategoryLabel()
 {
-    await InvokeVoidAsync("customCategoryLabel", CustomCategoryLabelId);
+    var ds = OnInit(false).Result;
+    ds.Options.CategoryLabelFormatter = "Day {label}";
+    return Task.FromResult(ds);
 }</Pre>
             </li>
         </ul>
     </section>
-    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" Id="@CustomCategoryLabelId" />
+    <Chart ChartType="ChartType.Bar" OnInitAsync="OnInitCustomCategoryLabel" />
 </DemoBlock>

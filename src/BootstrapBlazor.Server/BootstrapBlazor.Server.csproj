@@ -29,7 +29,7 @@
     <PackageReference Include="BootstrapBlazor.BarCode" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="10.0.6" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="10.0.7" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
@@ -41,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="10.0.7" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.2" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.3" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.1" />
