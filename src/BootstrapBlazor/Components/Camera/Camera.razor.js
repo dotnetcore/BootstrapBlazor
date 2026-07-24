@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 
 const openDevice = camera => {
     if (camera.video) {
@@ -29,42 +29,38 @@ const stopDevice = camera => {
     }
 }
 
-const play = (camera, option = {}) => {
+const play = async (camera, option = {}) => {
     const constrains = {
-        ...{
-            video: {
-                facingMode: "environment"
-            },
-            audio: false
-        },
+        video: { facingMode: "environment" },
+        audio: false,
         ...option
     }
-    navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constrains);
         camera.video = { deviceId: option.video.deviceId };
         camera.video.element = camera.el.querySelector('video')
         camera.video.element.srcObject = stream
-        camera.video.element.play()
+        await camera.video.element.play()
         camera.video.track = stream.getVideoTracks()[0]
+        // 写入当前正常运行的设备ID
+        camera.lastUsedDeviceId = option.video.deviceId.exact ?? option.video.deviceId;
         camera.invoke.invokeMethodAsync("TriggerOpen")
-    }).catch(err => {
+    } catch (err) {
         delete camera.video
         camera.invoke.invokeMethodAsync("TriggerError", err.name)
-    })
+    }
 }
 
 export function init(id, invoke) {
     const el = document.getElementById(id)
-    if (el === null) {
-        return
-    }
-    const camera = { el, invoke }
+    if (el === null) return
+    // 新增lastUsedDeviceId记录当前正在运行的设备ID
+    const camera = { el, invoke, lastUsedDeviceId: null }
     Data.set(id, camera)
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(s => {
         navigator.mediaDevices.enumerateDevices().then(videoInputDevices => {
-            const videoInputs = videoInputDevices.filter(device => {
-                return device.kind === 'videoinput'
-            })
+            const videoInputs = videoInputDevices.filter(device => device.kind === 'videoinput')
             invoke.invokeMethodAsync("TriggerInit", videoInputs)
         })
     }).catch(err => {
@@ -72,25 +68,22 @@ export function init(id, invoke) {
     })
 }
 
-export function update(id) {
+export async function update(id) {
     const camera = Data.get(id)
-    if (camera === null) {
-        return
-    }
+    if (camera === null) return
 
-    // handler switch device
+    const domDeviceId = camera.el.getAttribute("data-device-id")
+    // ID没有发生变化，直接return，不会执行关闭、重开硬件流程，彻底消除闪烁
+    if (camera.lastUsedDeviceId === domDeviceId) return;
+
+    // 只有切换设备时才执行硬件重启
     if (camera.video) {
-        const deviceId = camera.el.getAttribute("data-device-id")
-        if (camera.video.deviceId !== deviceId) {
-            stopDevice(camera)
-            openDevice(camera)
-        }
-    }
-    else {
+        stopDevice(camera)
+        await new Promise(r => setTimeout(r, 350));
+        await openDevice(camera)
+    } else {
         const autoStart = camera.el.getAttribute("data-auto-start") || false
-        if (autoStart) {
-            openDevice(camera)
-        }
+        if (autoStart) await openDevice(camera)
     }
 }
 
