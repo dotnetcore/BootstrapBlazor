@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 
 const openDevice = camera => {
     if (camera.video) {
@@ -45,6 +45,7 @@ const play = (camera, option = {}) => {
         camera.video.element.srcObject = stream
         camera.video.element.play()
         camera.video.track = stream.getVideoTracks()[0]
+        camera.lastUsedDeviceId = option.video.deviceId.exact ?? option.video.deviceId;
         camera.invoke.invokeMethodAsync("TriggerOpen")
     }).catch(err => {
         delete camera.video
@@ -57,7 +58,7 @@ export function init(id, invoke) {
     if (el === null) {
         return
     }
-    const camera = { el, invoke }
+    const camera = { el, invoke, lastUsedDeviceId: null }
     Data.set(id, camera)
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(s => {
@@ -81,6 +82,7 @@ export function update(id) {
     // handler switch device
     if (camera.video) {
         const deviceId = camera.el.getAttribute("data-device-id")
+        if (camera.lastUsedDeviceId === deviceId) return;
         if (camera.video.deviceId !== deviceId) {
             stopDevice(camera)
             openDevice(camera)
