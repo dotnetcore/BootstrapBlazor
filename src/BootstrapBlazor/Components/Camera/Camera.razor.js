@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 
 const openDevice = camera => {
     if (camera.video) {
