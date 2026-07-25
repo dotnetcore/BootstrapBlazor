@@ -777,7 +777,8 @@ public static class Utility
 
         if (IsCheckboxList(fieldType, componentType) && item.Items != null)
         {
-            builder.AddAttribute(90, nameof(CheckboxList<>.Items), item.Items.Clone());
+            // 这里不能用Clone方法，因为克隆后会导致CheckboxList组件 Items 每次都是新的实例
+            builder.AddAttribute(90, nameof(CheckboxList<>.Items), item.Items);
         }
 
         // Nullable<bool?>
