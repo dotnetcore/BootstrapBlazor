@@ -98,7 +98,7 @@ public partial class ImagePreviewer
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? GetFirstImageUrl() => PreviewList.First();
+    private string? GetFirstImageUrl() => PreviewList.FirstOrDefault();
 
     private bool ShowButtons => PreviewList.Count > 1;
 
