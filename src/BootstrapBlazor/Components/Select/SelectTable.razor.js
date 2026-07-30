@@ -39,6 +39,14 @@ export function init(id, invoke) {
                 dropdown.style.removeProperty('position');
             }
         },
+        shownCallback: () => {
+            const handler = setTimeout(() => {
+                const activeItem = popover.popover.tip.querySelector('.table-fixed-body > table > tbody > tr.active');
+                if (activeItem !== null) {
+                    scrollIntoView(el, activeItem);
+                }
+            }, 0);
+        },
         hideCallback: async () => {
             await invoke.invokeMethodAsync("TriggerUpdateSelectedItems");
         }
