@@ -47,9 +47,10 @@ export function init(id, invoke) {
     const observer = new ResizeObserver(setWidth);
     observer.observe(el)
 
+    const input = el.querySelector(".form-select");
     const selectTable = {
         el,
-        input: el.querySelector(".form-select"),
+        input,
         popover,
         observer
     }
@@ -73,6 +74,51 @@ export function init(id, invoke) {
             }
         }
     });
+
+    EventHandler.on(input, 'keydown', e => {
+        handlerKeydown(selectTable, e);
+    });
+}
+
+const handlerKeydown = (table, e) => {
+    const key = e.key;
+    const { el, invoke, popover: { popover: { tip } } } = table;
+    if (key === 'Enter') {
+        const activeItem = tip.querySelector('.table-fixed-body > table > tbody > tr.active');
+        if (activeItem !== null) {
+            setTimeout(() => activeItem.click(), 0);
+        }
+    }
+    else if (key === 'ArrowUp' || key === 'ArrowDown') {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const items = [...tip.querySelectorAll('.table-fixed-body > table > tbody > tr')];
+        if (items.length === 0) {
+            return;
+        }
+
+        let current = tip.querySelector('.active');
+        if (current !== null) {
+            current.classList.remove('active');
+        }
+        let index = current === null ? -1 : items.indexOf(current);
+        index = key === 'ArrowUp' ? index - 1 : index + 1;
+        if (index < 0) {
+            index = items.length - 1;
+        }
+        else if (index > items.length - 1) {
+            index = 0;
+        }
+        current = items[index];
+        current.classList.add('active');
+        scrollIntoView(el, current);
+    }
+}
+
+const scrollIntoView = (el, item) => {
+    const behavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+    item.scrollIntoView({ behavior: behavior, block: "nearest", inline: "start" });
 }
 
 export function close(id) {
@@ -86,8 +132,10 @@ export function dispose(id) {
     Data.remove(id)
 
     if (data) {
-        data.observer.disconnect();
-        Popover.dispose(data.popover)
-        EventHandler.off(data.el, 'click');
+        const { el, popover, input, observer } = data;
+        observer.disconnect();
+        Popover.dispose(popover)
+        EventHandler.off(el, 'click');
+        EventHandler.off(input, 'keydown');
     }
 }
