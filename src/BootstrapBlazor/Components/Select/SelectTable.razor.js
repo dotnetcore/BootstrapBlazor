@@ -81,8 +81,12 @@ export function init(id, invoke) {
 }
 
 const handlerKeydown = (table, e) => {
-    const key = e.key;
     const { el, invoke, popover: { popover: { tip } } } = table;
+    if (tip === null) {
+        return;
+    }
+
+    const key = e.key;
     if (key === 'Enter') {
         const activeItem = tip.querySelector('.table-fixed-body > table > tbody > tr.active');
         if (activeItem !== null) {
