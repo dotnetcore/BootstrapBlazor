@@ -1517,6 +1517,32 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Search_SelectedItem_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(_ =>
+            {
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(
+                [
+                    new TreeViewItem<TreeFoo>(items[1].Value) { Text = items[1].Text }
+                ]);
+            }));
+            pb.Add(a => a.Items, items);
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(items[1].Text));
+        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
+        Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
+
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
+        Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
+    }
+
+    [Fact]
     public async Task KeyBoard_Ok()
     {
         List<TreeFoo> data =
