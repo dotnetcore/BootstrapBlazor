@@ -740,9 +740,23 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         if (OnSearchAsync != null)
         {
-            _searchItems = await OnSearchAsync(_searchText);
             _rows = null;
-            StateHasChanged();
+            _searchItems = await OnSearchAsync(_searchText);
+            if (_searchItems == null || _activeItem == null)
+            {
+                StateHasChanged();
+                return;
+            }
+
+            var val = _searchItems.GetAllItems().FirstOrDefault(i => Equals(i.Value, _activeItem.Value));
+            if (val == null)
+            {
+                StateHasChanged();
+                return;
+            }
+
+            _activeItem = val;
+            SetActiveItem(val.Value);
         }
     }
 
@@ -750,12 +764,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         _searchText = null;
         _searchItems = null;
+        _rows = null;
         if (_activeItem != null && Items != null)
         {
-            _activeItem = _treeNodeStateCache.Find(Items, _activeItem.Value, out _);
+            SetActiveItem(_activeItem.Value);
         }
-        _rows = null;
-        StateHasChanged();
+        else
+        {
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 
@@ -804,11 +821,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     public void SetActiveItem(TItem item)
     {
-        if (Items != null)
-        {
-            var val = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
-            SetActiveItem(val);
-        }
+        var val = Rows.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+        SetActiveItem(val);
     }
 
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
