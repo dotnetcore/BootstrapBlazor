@@ -613,6 +613,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
         options.CurrentValue.DisableAutoSubmitFormByEnter = true;
+        var property = typeof(ValidateForm).GetProperty("DisableAutoSubmitString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(property);
 
         var foo = new Foo() { Name = "Test" };
         var cut = Context.Render<ValidateForm>(pb =>
@@ -631,12 +633,27 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
 
         Assert.True(cut.Instance.DisableAutoSubmitFormByEnter);
+        Assert.Equal("true", property.GetValue(cut.Instance));
+        Assert.Equal("true", cut.Find("form").GetAttribute("data-bb-dissubmit"));
 
         cut.Render(pb =>
         {
             pb.Add(a => a.DisableAutoSubmitFormByEnter, false);
         });
         Assert.False(cut.Instance.DisableAutoSubmitFormByEnter);
+        Assert.Null(property.GetValue(cut.Instance));
+        Assert.Null(cut.Find("form").GetAttribute("data-bb-dissubmit"));
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.DisableAutoSubmitFormByEnter, true);
+            pb.Add(a => a.IsFormless, true);
+        });
+
+        Assert.True(cut.Instance.DisableAutoSubmitFormByEnter);
+        Assert.True(cut.Instance.IsFormless);
+        Assert.Null(property.GetValue(cut.Instance));
+        Assert.Empty(cut.FindAll("form"));
     }
 
     [Fact]
