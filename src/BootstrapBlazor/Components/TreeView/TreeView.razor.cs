@@ -750,6 +750,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         _searchText = null;
         _searchItems = null;
+        if (_activeItem != null && Items != null)
+        {
+            _activeItem = _treeNodeStateCache.Find(Items, _activeItem.Value, out _);
+        }
         _rows = null;
         StateHasChanged();
         return Task.CompletedTask;
