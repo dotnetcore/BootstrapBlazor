@@ -788,8 +788,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">Set the 数据 source method for <see cref="Items"/></para>
-    /// <para lang="en">Set the data source method for <see cref="Items"/></para>
+    /// <para lang="zh">设置数据集方法</para>
+    /// <para lang="en">Set the data source method</para>
     /// </summary>
     public void SetItems(List<TreeViewItem<TItem>> items)
     {
