@@ -151,6 +151,21 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Items_KeepActiveItem()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb => pb.Add(a => a.Items, items));
+
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
+        Assert.Equal("Navigation one", cut.Find(".active .tree-node-text").TextContent);
+
+        var newItems = TreeFoo.GetTreeItems();
+        cut.Render(pb => pb.Add(a => a.Items, newItems));
+
+        Assert.Equal("Navigation one", cut.Find(".active .tree-node-text").TextContent);
+    }
+
+    [Fact]
     public async Task SetActiveItem_ExpandCollapsedParent()
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/8185
@@ -1540,6 +1555,40 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
         Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
+    }
+
+    [Fact]
+    public async Task Search_NullBranches_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        List<TreeViewItem<TreeFoo>>? searchResult = [items[0]];
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult(searchResult));
+        });
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem((TreeViewItem<TreeFoo>?)null));
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Empty(cut.FindAll(".tree-content.active"));
+
+        searchResult = null;
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
+
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, null);
+        });
+        input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
     }
 
     [Fact]
