@@ -170,6 +170,19 @@ public partial class ValidateForm
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
+    }
+
+    /// <summary>
     /// <para lang="zh">添加数据验证组件到 EditForm 中</para>
     /// <para lang="en">Adds a data validation component to the EditForm</para>
     /// </summary>

@@ -1,20 +1,48 @@
-﻿import EventHandler from "../../modules/event-handler.js"
+import EventHandler from "../../modules/event-handler.js"
+import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
+    Data.set(id, {
+        el
+    });
 
-    EventHandler.on(el, 'keydown', e => {
-        if (e.target.nodeName !== 'TEXTAREA') {
-            const dissubmit = el.getAttribute('data-bb-dissubmit') === 'true'
-            if (e.keyCode === 13 && dissubmit) {
-                e.preventDefault()
-                e.stopPropagation()
-            }
-        }
-    })
+    const dissubmit = el.getAttribute('data-bb-dissubmit') === 'true';
+    if (dissubmit) {
+        bind(el);
+    }
+}
+
+export function update(id) {
+    const el = document.getElementById(id);
+    const form = Data.get(id);
+
+    if (el === form.el) {
+        return;
+    }
+
+    dispose(id);
+    init(id);
 }
 
 export function dispose(id) {
-    const el = document.getElementById(id)
-    EventHandler.off(el, 'keydown')
+    const form = Data.get(id);
+    Data.remove(id);
+
+    if (form) {
+        unbind(form.el);
+    }
+}
+
+const unbind = el => {
+    EventHandler.off(el, 'keydown');
+}
+
+const bind = el => {
+    EventHandler.on(el, 'keydown', e => {
+        if (e.key === 'Enter' && e.target.nodeName !== 'TEXTAREA') {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+    });
 }
