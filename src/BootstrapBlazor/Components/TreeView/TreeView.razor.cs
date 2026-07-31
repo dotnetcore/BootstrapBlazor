@@ -799,7 +799,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">Set the active node</para>
+    /// <para lang="zh">设置活动节点</para>
     /// <para lang="en">Set the active node</para>
     /// </summary>
     public void SetActiveItem(TItem item)
