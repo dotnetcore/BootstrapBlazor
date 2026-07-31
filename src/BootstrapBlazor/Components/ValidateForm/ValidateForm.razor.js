@@ -14,11 +14,13 @@ export function init(id) {
 }
 
 export function update(id) {
-    const el = document.getElementById(id);
     const form = Data.get(id);
+    if (form) {
+        const el = document.getElementById(id);
 
-    if (el === form.el) {
-        return;
+        if (el === form.el) {
+            return;
+        }
     }
 
     dispose(id);
