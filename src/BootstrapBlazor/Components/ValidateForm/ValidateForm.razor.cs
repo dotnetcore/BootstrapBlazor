@@ -128,7 +128,9 @@ public partial class ValidateForm
 
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
 
-    private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
+    private string? DisableAutoSubmitString => IsFormless
+        ? null
+        : DisableAutoSubmitFormByEnter is true ? "true" : null;
 
     /// <summary>
     /// <para lang="zh">获得验证合法成员集合</para>
