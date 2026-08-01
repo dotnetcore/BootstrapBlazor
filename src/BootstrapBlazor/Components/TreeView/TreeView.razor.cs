@@ -968,7 +968,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
 
-    private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
+    private bool GetActive(TreeViewItem<TItem> item) => _activeItem == null ? false : this.Equals<TItem>(_activeItem.Value, item.Value);
 
     private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
 }
