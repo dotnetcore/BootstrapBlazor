@@ -1549,8 +1549,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[1]));
         await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(items[1].Text));
-        await cut.InvokeAsync(() => cut.Find(".tree-node").Click());
         Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
 
         await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
