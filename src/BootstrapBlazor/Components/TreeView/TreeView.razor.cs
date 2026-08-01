@@ -915,7 +915,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">Clear all selected nodes</para>
+    /// <para lang="zh">清除所有选中的节点</para>
     /// <para lang="en">Clear all selected nodes</para>
     /// </summary>
     public void ClearCheckedItems()
@@ -937,7 +937,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获得 all selected node 集合s</para>
+    /// <para lang="zh">获得所有选中的节点集合</para>
     /// <para lang="en">Gets all selected node collections</para>
     /// </summary>
     public IEnumerable<TreeViewItem<TItem>> GetCheckedItems() => Items.Aggregate(new List<TreeViewItem<TItem>>(), (t, item) =>
@@ -948,7 +948,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }).Where(i => i.CheckedState == CheckboxState.Checked);
 
     /// <summary>
-    /// <para lang="zh">Check if the 数据 is the same</para>
+    /// <para lang="zh">检查数据是否相同</para>
     /// <para lang="en">Check if the data is the same</para>
     /// </summary>
     /// <param name="x"></param>
