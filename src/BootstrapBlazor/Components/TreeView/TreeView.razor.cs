@@ -908,9 +908,36 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             _ = InvokeVoidAsync("setParentState", Id, Interop, nameof(GetParentsState), Rows.IndexOf(item));
         }
 
+        SyncSearchItemCheckedState(item);
+
         if (OnTreeItemChecked != null)
         {
             await OnTreeItemChecked([.. GetCheckedItems()]);
+        }
+    }
+
+    private void SyncSearchItemCheckedState(TreeViewItem<TItem> item)
+    {
+        if (_searchItems == null)
+        {
+            return;
+        }
+
+        var sourceItem = _treeNodeStateCache.Find(Items, item.Value, out _);
+        if (sourceItem == null || ReferenceEquals(sourceItem, item))
+        {
+            return;
+        }
+
+        sourceItem.CheckedState = item.CheckedState;
+        _treeNodeStateCache.ToggleCheck(sourceItem);
+        if (AutoCheckChildren && sourceItem.CheckedState != CheckboxState.Indeterminate)
+        {
+            sourceItem.SetChildrenCheck(_treeNodeStateCache);
+        }
+        if (AutoCheckParent)
+        {
+            sourceItem.SetParentCheck(_treeNodeStateCache);
         }
     }
 
