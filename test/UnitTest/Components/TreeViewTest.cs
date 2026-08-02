@@ -1558,6 +1558,95 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Search_CheckedItem_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        List<TreeViewItem<TreeFoo>>? checkedItems = null;
+        List<TreeViewItem<TreeFoo>> searchItems =
+        [
+            new(new TreeFoo { Id = items[0].Value.Id, Text = items[0].Value.Text }) { Text = items[0].Text }
+        ];
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult<List<TreeViewItem<TreeFoo>>?>(searchItems));
+            pb.Add(a => a.OnTreeItemChecked, result =>
+            {
+                checkedItems = result;
+                return Task.CompletedTask;
+            });
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(items[0].Text));
+
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Single(checkedItems!);
+        Assert.Equal(items[0].Value.Id, checkedItems[0].Value.Id);
+        Assert.Equal(CheckboxState.Checked, items[0].CheckedState);
+
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Empty(checkedItems!);
+        Assert.Equal(CheckboxState.UnChecked, items[0].CheckedState);
+
+        searchItems = [new(new TreeFoo { Id = "NotFound", Text = "NotFound" }) { Text = "NotFound" }];
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Empty(checkedItems!);
+
+        searchItems = [items[0]];
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Single(checkedItems!);
+        Assert.Same(items[0], checkedItems[0]);
+    }
+
+    [Fact]
+    public async Task Search_CheckedItem_Cascade_Ok()
+    {
+        var root = new TreeViewItem<TreeFoo>(new TreeFoo { Id = "Root", Text = "Root" }) { Text = "Root" };
+        var child = new TreeViewItem<TreeFoo>(new TreeFoo { Id = "Child", Text = "Child" }) { Text = "Child", Parent = root };
+        root.Items.Add(child);
+        List<TreeViewItem<TreeFoo>>? checkedItems = null;
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.AutoCheckChildren, true);
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, new List<TreeViewItem<TreeFoo>> { root });
+            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult<List<TreeViewItem<TreeFoo>>?>(
+            [
+                new(new TreeFoo { Id = root.Value.Id, Text = root.Value.Text }) { Text = root.Text }
+            ]));
+            pb.Add(a => a.OnTreeItemChecked, result =>
+            {
+                checkedItems = result;
+                return Task.CompletedTask;
+            });
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(root.Text));
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Indeterminate));
+        Assert.Empty(checkedItems!);
+        Assert.Equal(CheckboxState.Indeterminate, root.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, child.CheckedState);
+
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(2, checkedItems!.Count);
+        Assert.Equal(CheckboxState.Checked, root.CheckedState);
+        Assert.Equal(CheckboxState.Checked, child.CheckedState);
+    }
+
+    [Fact]
     public async Task Search_NullBranches_Ok()
     {
         var items = TreeFoo.GetTreeItems();
