@@ -2,14 +2,16 @@ import EventHandler from "../../modules/event-handler.js"
 import Data from "../../modules/data.js"
 
 export function init(id) {
-    const el = document.getElementById(id)
-    Data.set(id, {
-        el
-    });
+    const el = document.getElementById(id);
+    if (el) {
+        Data.set(id, {
+            el
+        });
 
-    const dissubmit = el.getAttribute('data-bb-dissubmit') === 'true';
-    if (dissubmit) {
-        bind(el);
+        const dissubmit = el.getAttribute('data-bb-dissubmit') === 'true';
+        if (dissubmit) {
+            bind(el);
+        }
     }
 }
 
