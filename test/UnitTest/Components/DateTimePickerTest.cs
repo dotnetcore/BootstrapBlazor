@@ -187,6 +187,39 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ClearIcon_Ok()
+    {
+        DateTime? value = DateTime.Today;
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, v => value = v);
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.ClearIcon, "clear-icon-test");
+        });
+
+        cut.Contains("is-clearable");
+        cut.Contains("clear-icon-test");
+
+        await cut.InvokeAsync(() => cut.Find(".clear-icon").Click());
+        Assert.Null(value);
+        Assert.Equal(string.Empty, cut.Find(".datetime-picker-input").GetAttribute("value"));
+
+        cut.Render(pb => pb.Add(a => a.IsDisabled, true));
+        Assert.Empty(cut.FindAll(".clear-icon"));
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsButton, true);
+        });
+        Assert.Empty(cut.FindAll(".clear-icon"));
+
+        var nonNullable = Context.Render<DateTimePicker<DateTime>>(pb => pb.Add(a => a.IsClearable, true));
+        Assert.Empty(nonNullable.FindAll(".clear-icon"));
+    }
+
+    [Fact]
     public void ShowSiderBar_Ok()
     {
         var cut = Context.Render<DateTimePicker<DateTime>>(builder => builder.Add(a => a.ShowSidebar, true));
