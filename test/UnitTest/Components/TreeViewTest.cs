@@ -1513,7 +1513,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(v =>
             {
                 key = v;
-                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>([new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(string.IsNullOrEmpty(v)
+                    ? null
+                    : [new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
             }));
             pb.Add(a => a.Items, items);
         });
@@ -1651,11 +1653,18 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = TreeFoo.GetTreeItems();
         List<TreeViewItem<TreeFoo>>? searchResult = [items[0]];
+        var searchCount = 0;
+        string? searchText = string.Empty;
         var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.Items, items);
-            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult(searchResult));
+            pb.Add(a => a.OnSearchAsync, text =>
+            {
+                searchCount++;
+                searchText = text;
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(searchResult);
+            });
         });
         var input = cut.FindComponent<BootstrapInput<string?>>();
 
@@ -1669,6 +1678,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
         Assert.Equal(9, cut.FindAll(".tree-content").Count);
+        Assert.Equal(3, searchCount);
+        Assert.Null(searchText);
 
         cut.Render(pb =>
         {
