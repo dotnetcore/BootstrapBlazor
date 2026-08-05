@@ -124,8 +124,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ClearSearchIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the search callback method. Default is null</para>
+    /// <para lang="zh">获得/设置 搜索回调方法，默认为 null。重置搜索时以 null 作为搜索条件再次调用</para>
+    /// <para lang="en">Gets or sets the search callback method. Default is null. It is invoked again with a null search term when the search is reset</para>
     /// </summary>
     /// <remarks>Enabled by setting <see cref="ShowSearch"/> to true.</remarks>
     [Parameter]
@@ -738,42 +738,25 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task OnClickSearch()
     {
-        if (OnSearchAsync != null)
+        _searchItems = OnSearchAsync == null ? null : await OnSearchAsync(_searchText);
+        _rows = null;
+        if (_activeItem != null)
         {
-            _rows = null;
-            _searchItems = await OnSearchAsync(_searchText);
-            if (_searchItems == null || _activeItem == null)
+            var item = Rows.FirstOrDefault(i => Equals(i.Value, _activeItem.Value));
+            if (item != null)
             {
-                StateHasChanged();
+                SetActiveItem(item);
                 return;
             }
-
-            var val = _searchItems.GetAllItems().FirstOrDefault(i => Equals(i.Value, _activeItem.Value));
-            if (val == null)
-            {
-                StateHasChanged();
-                return;
-            }
-
-            _activeItem = val;
-            SetActiveItem(val.Value);
         }
+
+        StateHasChanged();
     }
 
-    private Task OnClickResetSearch()
+    private async Task OnClickResetSearch()
     {
         _searchText = null;
-        _searchItems = null;
-        _rows = null;
-        if (_activeItem != null && Items != null)
-        {
-            SetActiveItem(_activeItem.Value);
-        }
-        else
-        {
-            StateHasChanged();
-        }
-        return Task.CompletedTask;
+        await OnClickSearch();
     }
 
     /// <summary>
