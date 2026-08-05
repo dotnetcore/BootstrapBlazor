@@ -1586,25 +1586,26 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
-        Assert.Single(checkedItems!);
+        Assert.NotNull(checkedItems);
+        Assert.Single(checkedItems);
         Assert.Equal(items[0].Value.Id, checkedItems[0].Value.Id);
         Assert.Equal(CheckboxState.Checked, items[0].CheckedState);
 
         await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
-        Assert.Empty(checkedItems!);
+        Assert.Empty(checkedItems);
         Assert.Equal(CheckboxState.UnChecked, items[0].CheckedState);
 
         searchItems = [new(new TreeFoo { Id = "NotFound", Text = "NotFound" }) { Text = "NotFound" }];
         await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
         checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
-        Assert.Empty(checkedItems!);
+        Assert.Empty(checkedItems);
 
         searchItems = [items[0]];
         await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
         checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
-        Assert.Single(checkedItems!);
+        Assert.Single(checkedItems);
         Assert.Same(items[0], checkedItems[0]);
     }
 
