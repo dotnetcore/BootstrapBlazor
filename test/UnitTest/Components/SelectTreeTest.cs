@@ -235,7 +235,9 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(v =>
             {
                 key = v;
-                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>([new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(string.IsNullOrEmpty(v)
+                    ? null
+                    : [new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
             }));
             builder.Add(a => a.Items, items);
         });
