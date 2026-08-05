@@ -20,6 +20,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("select datetime-picker")
         .AddClass("disabled", IsDisabled)
+        .AddClass("is-clearable", GetClearable())
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -44,6 +45,12 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-bar")
         .AddClass(Icon)
+        .Build();
+
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass("text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
     private string? TabIndexString => ValidateForm != null ? "0" : null;
@@ -143,6 +150,21 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; } = true;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示清除图标 默认 true 显示</para>
+    /// <para lang="en">Gets or sets whether to show the clear icon. Default is true</para>
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; } = true;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 清除图标 默认使用内置主题图标</para>
+    /// <para lang="en">Gets or sets the clear icon. The built-in theme icon is used by default</para>
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置  控件边框颜色样式 默认为 None 显示</para>
@@ -358,6 +380,7 @@ public partial class DateTimePicker<TValue>
         PickerButtonText ??= Localizer[nameof(PickerButtonText)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
 
         var type = typeof(TValue);
 
@@ -487,6 +510,8 @@ public partial class DateTimePicker<TValue>
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
+
+    private bool GetClearable() => IsClearable && AllowNull && !IsDisabled && !IsButton;
 
     /// <summary>
     /// <para lang="zh">清除内部缓存方法</para>
