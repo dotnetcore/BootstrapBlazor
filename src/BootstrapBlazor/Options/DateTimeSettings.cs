@@ -13,10 +13,10 @@ public class DateTimeSettings
     /// <summary>
     /// <para lang="zh">自定义解析日期时间的方法</para>
     /// </summary>
-    public Func<string, DateTime>? ParseDateTimeResolve { get; set; }
+    public Func<string, DateTime>? ParseDateTimeCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">自定义解析日期时间偏移的方法</para>
     /// </summary>
-    public Func<string, DateTimeOffset>? ParseDateTimeOffsetResolve { get; set; }
+    public Func<string, DateTimeOffset>? ParseDateTimeOffsetCallback { get; set; }
 }

@@ -7,7 +7,11 @@ using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
-static class DateTimeHelper
+/// <summary>
+/// <para lang="zh">日期时间相关帮助类</para>
+/// <para lang="en">DateTime related helper class</para>
+/// </summary>
+public static class DateTimeHelper
 {
     /// <summary>
     /// 无分隔符等标准解析无法识别的紧凑格式，需要显式列出
@@ -20,30 +24,47 @@ static class DateTimeHelper
         "yyyyMMddHHmmssfff",
         "yyyyMMdd HHmmss",
         "yyyyMMdd HH:mm:ss",
-        "yyyyMMdd HH:mm",
-        "yyyy-M-d",
-        "yyyy/M/d"
+        "yyyyMMdd HH:mm"
     ];
 
     /// <summary>
-    /// 将字符串解析为 <see cref="DateTime"/>，无法解析时返回 <see langword="null"/>
+    /// <para lang="zh">将字符串解析为 <see cref="DateTime"/>，无法解析时返回 <see langword="null"/></para>
+    /// <para lang="en">Parse the string to <see cref="DateTime"/>, return <see langword="null"/> if parsing fails</para>
     /// </summary>
+    /// <param name="value">
+    ///  <para lang="zh">要解析的字符串</para>
+    ///  <para lang="en">The string to parse</para>
+    /// </param>
     public static DateTime? ToDateTime(string value)
         => TryToDateTime(value, out var result) ? result : null;
 
     /// <summary>
-    /// 将字符串解析为 <see cref="DateTime"/>，无法解析时返回 <paramref name="defaultValue"/>
+    /// <para lang="zh">将字符串解析为 <see cref="DateTime"/>，无法解析时返回 <paramref name="defaultValue"/></para>
+    /// <para lang="en">Parse the string to <see cref="DateTime"/>, return <paramref name="defaultValue"/> if parsing fails</para>
     /// </summary>
-    /// <param name="value">要解析的字符串</param>
-    /// <param name="defaultValue">解析失败时返回的默认值</param>
+    /// <param name="value">
+    ///  <para lang="zh">要解析的字符串</para>
+    ///  <para lang="en">The string to parse</para>
+    /// </param>
+    /// <param name="defaultValue">
+    ///   <para lang="zh">解析失败时返回的默认值</para>
+    ///   <para lang="en">The default value to return if parsing fails</para>
+    /// </param>
     public static DateTime ToDateTime(string value, DateTime defaultValue)
             => TryToDateTime(value, out var result) ? result : defaultValue;
 
     /// <summary>
-    /// 尝试将字符串解析为 <see cref="DateTime"/>
+    /// <para lang="zh">尝试将字符串解析为 <see cref="DateTime"/></para>
+    /// <para lang="en">Try to parse the string to <see cref="DateTime"/></para>
     /// </summary>
-    /// <param name="value">要解析的字符串</param>
-    /// <param name="result">解析成功时的结果，失败时为 <see cref="DateTime.MinValue"/></param>
+    /// <param name="value">
+    ///  <para lang="zh">要解析的字符串</para>
+    ///  <para lang="en">The string to parse</para>
+    /// </param>
+    /// <param name="result">
+    ///   <para lang="zh">解析成功时的结果，失败时为 <see cref="DateTime.MinValue"/></para>
+    ///   <para lang="en">The result when parsing succeeds, otherwise <see cref="DateTime.MinValue"/></para>
+    /// </param>
     public static bool TryToDateTime(string value, out DateTime result)
     {
         result = DateTime.MinValue;
@@ -65,14 +86,13 @@ static class DateTimeHelper
     }
 
     /// <summary>
-    /// 将字符串解析为 <see cref="DateTimeOffset"/>，无法解析时返回 <see langword="null"/>
+    /// <para lang="zh">将字符串解析为 <see cref="DateTimeOffset"/>，无法解析时返回 <see langword="null"/></para>
+    /// <para lang="en">Parse the string to <see cref="DateTimeOffset"/>, return <see langword="null"/> if parsing fails</para>
     /// </summary>
-    /// <remarks>
-    /// 适用于 <c>DateTimePicker</c> 绑定 <see cref="DateTimeOffset"/> 的场景；
-    /// 不含时区信息时按本地时区处理。
-    /// </remarks>
-    /// <param name="value">要解析的字符串</param>
-    /// <returns>解析成功返回对应的 <see cref="DateTimeOffset"/>，否则返回 <see langword="null"/></returns>
+    /// <param name="value">
+    ///  <para lang="zh">要解析的字符串</para>
+    ///  <para lang="en">The string to parse</para>
+    /// </param>
     public static DateTimeOffset? ToDateTimeOffset(string value)
     {
         if (TryToDateTime(value, out var dateTime))

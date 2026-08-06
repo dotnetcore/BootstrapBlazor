@@ -1492,7 +1492,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
             pb.Add(a => a.DateFormat, "MM/dd/yyyy");
-            pb.Add(a => a.ParseDateTimeResolve, v => new DateTime(2020, 1, 1));
+            pb.Add(a => a.ParseDateTimeCallback, v => new DateTime(2020, 1, 1));
         });
         var input = cut.Find(".datetime-picker-input");
 
@@ -1506,7 +1506,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         // 全局配置自定义解析方法
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
-        options.CurrentValue.DateTimeSettings.ParseDateTimeResolve = v => new DateTime(2021, 2, 2);
+        options.CurrentValue.DateTimeSettings.ParseDateTimeCallback = v => new DateTime(2021, 2, 2);
 
         var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
@@ -1521,7 +1521,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 组件参数优先级高于全局配置
         cut.Render(pb =>
         {
-            pb.Add(a => a.ParseDateTimeResolve, v => new DateTime(2022, 3, 3));
+            pb.Add(a => a.ParseDateTimeCallback, v => new DateTime(2022, 3, 3));
         });
         await cut.InvokeAsync(() => input.Change("test"));
         Assert.Equal(new DateTime(2022, 3, 3), cut.Instance.Value);
@@ -1536,7 +1536,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
             pb.Add(a => a.DateFormat, "MM/dd/yyyy");
-            pb.Add(a => a.ParseDateTimeOffsetResolve, v => expected);
+            pb.Add(a => a.ParseDateTimeOffsetCallback, v => expected);
         });
         var input = cut.Find(".datetime-picker-input");
 
@@ -1551,7 +1551,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 全局配置自定义解析方法
         var expected = new DateTimeOffset(new DateTime(2021, 2, 2), TimeSpan.FromHours(8));
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
-        options.CurrentValue.DateTimeSettings.ParseDateTimeOffsetResolve = v => expected;
+        options.CurrentValue.DateTimeSettings.ParseDateTimeOffsetCallback = v => expected;
 
         var cut = Context.Render<DateTimePicker<DateTimeOffset>>(pb =>
         {
@@ -1567,7 +1567,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var expectedParameter = new DateTimeOffset(new DateTime(2022, 3, 3), TimeSpan.FromHours(8));
         cut.Render(pb =>
         {
-            pb.Add(a => a.ParseDateTimeOffsetResolve, v => expectedParameter);
+            pb.Add(a => a.ParseDateTimeOffsetCallback, v => expectedParameter);
         });
         await cut.InvokeAsync(() => input.Change("test"));
         Assert.Equal(expectedParameter, cut.Instance.Value);
