@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using AngleSharp.Dom;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Components;
 
@@ -1423,6 +1424,153 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find("input");
         await cut.InvokeAsync(() => { input.Blur(); });
         Assert.True(blur);
+    }
+
+    [Fact]
+    public async Task TryParseValueFromString_NullableDateTime_Ok()
+    {
+        // Value 为 null 时应按泛型类型走 DateTime 解析分支
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+            pb.Add(a => a.Value, null);
+        });
+        var input = cut.Find(".datetime-picker-input");
+        await cut.InvokeAsync(() => input.Change("02/15/2024"));
+        Assert.Equal(new DateTime(2024, 2, 15), cut.Instance.Value);
+
+        // 非法数值组件值保持不变
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(new DateTime(2024, 2, 15), cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task TryParseValueFromString_DateTimeOffset_Ok()
+    {
+        var cut = Context.Render<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        var input = cut.Find(".datetime-picker-input");
+
+        // 无时区信息按本地时区补齐偏移
+        await cut.InvokeAsync(() => input.Change("02/15/2024"));
+        Assert.Equal(new DateTimeOffset(new DateTime(2024, 2, 15, 0, 0, 0, DateTimeKind.Local)), cut.Instance.Value);
+
+        // 非法数值组件值保持不变
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(new DateTimeOffset(new DateTime(2024, 2, 15, 0, 0, 0, DateTimeKind.Local)), cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task TryParseValueFromString_NullableDateTimeOffset_Ok()
+    {
+        // Value 为 null 时应按泛型类型走 DateTimeOffset 解析分支
+        var cut = Context.Render<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+            pb.Add(a => a.Value, null);
+        });
+        var input = cut.Find(".datetime-picker-input");
+        await cut.InvokeAsync(() => input.Change("02/15/2024"));
+        Assert.Equal(new DateTimeOffset(new DateTime(2024, 2, 15, 0, 0, 0, DateTimeKind.Local)), cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ParseDateTimeResolve_Parameter_Ok()
+    {
+        // 自定义解析方法优先级高于内置解析
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+            pb.Add(a => a.ParseDateTimeResolve, v => new DateTime(2020, 1, 1));
+        });
+        var input = cut.Find(".datetime-picker-input");
+
+        // 传入非法字符串同样返回自定义解析结果
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(new DateTime(2020, 1, 1), cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ParseDateTimeResolve_Options_Ok()
+    {
+        // 全局配置自定义解析方法
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.DateTimeSettings.ParseDateTimeResolve = v => new DateTime(2021, 2, 2);
+
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+        });
+        var input = cut.Find(".datetime-picker-input");
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(new DateTime(2021, 2, 2), cut.Instance.Value);
+
+        // 组件参数优先级高于全局配置
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ParseDateTimeResolve, v => new DateTime(2022, 3, 3));
+        });
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(new DateTime(2022, 3, 3), cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ParseDateTimeOffsetResolve_Parameter_Ok()
+    {
+        var expected = new DateTimeOffset(new DateTime(2020, 1, 1), TimeSpan.FromHours(8));
+        var cut = Context.Render<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+            pb.Add(a => a.ParseDateTimeOffsetResolve, v => expected);
+        });
+        var input = cut.Find(".datetime-picker-input");
+
+        // 传入非法字符串同样返回自定义解析结果
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(expected, cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ParseDateTimeOffsetResolve_Options_Ok()
+    {
+        // 全局配置自定义解析方法
+        var expected = new DateTimeOffset(new DateTime(2021, 2, 2), TimeSpan.FromHours(8));
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.DateTimeSettings.ParseDateTimeOffsetResolve = v => expected;
+
+        var cut = Context.Render<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+        });
+        var input = cut.Find(".datetime-picker-input");
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(expected, cut.Instance.Value);
+
+        // 组件参数优先级高于全局配置
+        var expectedParameter = new DateTimeOffset(new DateTime(2022, 3, 3), TimeSpan.FromHours(8));
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ParseDateTimeOffsetResolve, v => expectedParameter);
+        });
+        await cut.InvokeAsync(() => input.Change("test"));
+        Assert.Equal(expectedParameter, cut.Instance.Value);
     }
 
     class MockDateTimePicker : DatePickerBody
