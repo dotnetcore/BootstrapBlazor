@@ -20,9 +20,7 @@ static class DateTimeHelper
         "yyyyMMddHHmmssfff",
         "yyyyMMdd HHmmss",
         "yyyyMMdd HH:mm:ss",
-        "yyyyMMdd HH:mm",
-        "yyyy-M-d",
-        "yyyy/M/d"
+        "yyyyMMdd HH:mm"
     ];
 
     /// <summary>
