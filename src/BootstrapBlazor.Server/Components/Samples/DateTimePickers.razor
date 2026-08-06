@@ -103,9 +103,12 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["IsEditableTitle"]" Introduction="@Localizer["IsEditableIntro"]" Name="IsEditable">
+	<section ignore class="mb-3">
+		<Tips>@((MarkupString)Localizer["IsEditableTip"].Value)</Tips>
+	</section>
 	<div class="row g-3">
 		<div class="col-sm-6">
-			<DateTimePicker @bind-Value="@BindValue" IsEditable="true" DateFormat="yyyy-MM-dd" />
+			<DateTimePicker @bind-Value="@BindValue" IsEditable="true" DateFormat="yyyy-MM-dd" ParseDateTimeResolve="ParseDateTime" />
 		</div>
 	</div>
 </DemoBlock>
