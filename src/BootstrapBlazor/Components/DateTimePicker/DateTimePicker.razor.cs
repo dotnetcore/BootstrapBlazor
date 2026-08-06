@@ -342,7 +342,7 @@ public partial class DateTimePicker<TValue>
     /// <para>v<version>10.9.1</version></para>
     /// </summary>
     [Parameter]
-    public Func<string, DateTime>? ParseDateTimeResolve { get; set; }
+    public Func<string, DateTime>? ParseDateTimeCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">自定义解析日期时间偏移的方法</para>
@@ -350,7 +350,7 @@ public partial class DateTimePicker<TValue>
     /// <para>v<version>10.9.1</version></para>
     /// </summary>
     [Parameter]
-    public Func<string, DateTimeOffset>? ParseDateTimeOffsetResolve { get; set; }
+    public Func<string, DateTimeOffset>? ParseDateTimeOffsetCallback { get; set; }
 
     [Inject]
     [NotNull]
@@ -601,7 +601,7 @@ public partial class DateTimePicker<TValue>
     private bool TryParseDateTime(string value, out object val)
     {
         var op = Options.CurrentValue;
-        var resolve = ParseDateTimeResolve ?? op.DateTimeSettings.ParseDateTimeResolve;
+        var resolve = ParseDateTimeCallback ?? op.DateTimeSettings.ParseDateTimeCallback;
         if (resolve != null)
         {
             val = resolve(value);
@@ -616,7 +616,7 @@ public partial class DateTimePicker<TValue>
     private bool TryParseDateTimeOffset(string value, out object val)
     {
         var op = Options.CurrentValue;
-        var resolve = ParseDateTimeOffsetResolve ?? op.DateTimeSettings.ParseDateTimeOffsetResolve;
+        var resolve = ParseDateTimeOffsetCallback ?? op.DateTimeSettings.ParseDateTimeOffsetCallback;
         if (resolve != null)
         {
             val = resolve(value);
