@@ -339,12 +339,14 @@ public partial class DateTimePicker<TValue>
     /// <summary>
     /// <para lang="zh">自定义解析日期时间的方法</para>
     /// <para lang="en">Custom method to parse date and time</para>
+    /// <para>v<version>10.9.1</version></para>
     /// </summary>
     public Func<string, DateTime>? ParseDateTimeResolve { get; set; }
 
     /// <summary>
     /// <para lang="zh">自定义解析日期时间偏移的方法</para>
     /// <para lang="en">Custom method to parse date and time offset</para>
+    /// <para>v<version>10.9.1</version></para>
     /// </summary>
     public Func<string, DateTimeOffset>? ParseDateTimeOffsetResolve { get; set; }
 
