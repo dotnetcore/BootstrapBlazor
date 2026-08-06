@@ -336,6 +336,18 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">自定义解析日期时间的方法</para>
+    /// <para lang="en">Custom method to parse date and time</para>
+    /// </summary>
+    public Func<string, DateTime>? ParseDateTimeResolve { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">自定义解析日期时间偏移的方法</para>
+    /// <para lang="en">Custom method to parse date and time offset</para>
+    /// </summary>
+    public Func<string, DateTimeOffset>? ParseDateTimeOffsetResolve { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -343,6 +355,10 @@ public partial class DateTimePicker<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     [NotNull]
     private string? GenericTypeErrorMessage { get; set; }
@@ -570,12 +586,42 @@ public partial class DateTimePicker<TValue>
     {
         result = default;
         validationErrorMessage = null;
-        var ret = DateTimeHelper.TryToDateTime(value, out var val);
+        var ret = Value is DateTime ? TryParseDateTime(value, out var val) : TryParseDateTimeOffset(value, out val);
         if (ret)
         {
-            result = (TValue)(object)val;
+            result = (TValue)val;
         }
         return ret;
+    }
+
+    private bool TryParseDateTime(string value, out object val)
+    {
+        var op = Options.CurrentValue;
+        var resolve = ParseDateTimeResolve ?? op.DateTimeSettings.ParseDateTimeResolve;
+        if (resolve != null)
+        {
+            val = resolve(value);
+            return true;
+        }
+
+        var ret = DateTimeHelper.TryToDateTime(value, out var d);
+        val = ret ? d : DateTime.MinValue;
+        return ret;
+    }
+
+    private bool TryParseDateTimeOffset(string value, out object val)
+    {
+        var op = Options.CurrentValue;
+        var resolve = ParseDateTimeOffsetResolve ?? op.DateTimeSettings.ParseDateTimeOffsetResolve;
+        if (resolve != null)
+        {
+            val = resolve(value);
+            return true;
+        }
+
+        var v = DateTimeHelper.ToDateTimeOffset(value);
+        val = v ?? DateTimeOffset.MinValue;
+        return v != null;
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
