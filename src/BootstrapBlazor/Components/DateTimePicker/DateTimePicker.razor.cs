@@ -341,6 +341,7 @@ public partial class DateTimePicker<TValue>
     /// <para lang="en">Custom method to parse date and time</para>
     /// <para>v<version>10.9.1</version></para>
     /// </summary>
+    [Parameter]
     public Func<string, DateTime>? ParseDateTimeResolve { get; set; }
 
     /// <summary>
@@ -348,6 +349,7 @@ public partial class DateTimePicker<TValue>
     /// <para lang="en">Custom method to parse date and time offset</para>
     /// <para>v<version>10.9.1</version></para>
     /// </summary>
+    [Parameter]
     public Func<string, DateTimeOffset>? ParseDateTimeOffsetResolve { get; set; }
 
     [Inject]
