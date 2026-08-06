@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -569,10 +568,9 @@ public partial class DateTimePicker<TValue>
     /// <param name="validationErrorMessage"></param>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
         result = default;
         validationErrorMessage = null;
-        var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+        var ret = DateTimeHelper.TryToDateTime(value, out var val);
         if (ret)
         {
             result = (TValue)(object)val;
