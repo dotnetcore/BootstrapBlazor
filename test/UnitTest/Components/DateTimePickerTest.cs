@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using AngleSharp.Dom;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Components;
 
