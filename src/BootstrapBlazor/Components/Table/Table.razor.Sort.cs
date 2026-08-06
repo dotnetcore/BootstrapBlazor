@@ -358,7 +358,7 @@ public partial class Table<TItem>
     private string? GetLeftStyle(ITableColumn col)
     {
         var columns = GetVisibleColumns();
-        var defaultWidth = 200;
+        var defaultWidth = DefaultFixedColumnWidth;
         var width = 0;
         var start = 0;
         var index = columns.IndexOf(col);

@@ -1890,6 +1890,47 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void FixedColumn_DynamicToggle_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AutoGenerateColumns, true);
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.True(table.Instance.Columns.Count > 2);
+
+        // 默认无固定列
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+
+        // 运行时固定前两列
+        table.Instance.Columns[0].Fixed = true;
+        table.Instance.Columns[1].Fixed = true;
+        cut.Render();
+
+        Assert.True(table.Instance.Columns[0].Fixed);
+        Assert.True(table.Instance.Columns[0] != table.Instance.Columns[1]);
+        Assert.Contains("table-fixed-column", cut.Markup);
+        Assert.True(cut.FindAll("th.fixed").Count >= 2);
+        cut.Contains("left: 0px;");
+        cut.Contains("left: 180px;");
+
+        // 取消固定
+        table.Instance.Columns[0].Fixed = false;
+        table.Instance.Columns[1].Fixed = false;
+        cut.Render();
+
+        Assert.DoesNotContain("table-fixed-column", cut.Markup);
+        Assert.Empty(cut.FindAll("th.fixed"));
+    }
+
+    [Fact]
     public void ColumnFixed_TailColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

@@ -1322,6 +1322,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
+        // 记录当前列运行时固定状态（按字段名），列重建后回放，支持运行时动态设置固定列
+        var fixedColumnState = new Dictionary<string, bool>(StringComparer.Ordinal);
+        foreach (var col in Columns)
+        {
+            fixedColumnState[col.GetFieldName()] = col.Fixed;
+        }
+
         // 构建列信息
         var cols = GetTableColumns();
 
@@ -1334,6 +1341,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
         EnsureTemplateColumnFieldNames();
+
+        // 回放运行时固定列状态
+        if (fixedColumnState.Count > 0)
+        {
+            foreach (var col in Columns)
+            {
+                if (fixedColumnState.TryGetValue(col.GetFieldName(), out var isFixed))
+                {
+                    col.Fixed = isFixed;
+                }
+            }
+        }
 
         // 加载客户端持久化列状态
         ResetTableColumns();
@@ -1403,6 +1422,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private void ResetTableColumns()
     {
         _visibleColumnsCache.Clear();
+
+        // 固定列状态变更影响相邻列 fl/fr 样式计算 重建时清除缓存重新计算
+        FirstFixedColumnCache.Clear();
+        LastFixedColumnCache.Clear();
 
         if (_tableColumnStates.Count == 0)
         {
