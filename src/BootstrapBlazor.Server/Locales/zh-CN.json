@@ -1679,6 +1679,7 @@
     "FeatureShowLunarIntro": "<code>ShowLunar</code> 是否显示农历",
     "FeatureShowSolarTerm": "24 节气",
     "FeatureShowSolarTermIntro": "<code>ShowSolarTerm</code> 是否显示 24 节气",
+    "IsEditableCallbackTip": "为了方便将录入的字符串自动转换为 <code>DateTime</code>/<code>DateTimeOffset</code> 数据类型，除了组件提供的 <code>ParseDateTimeCallback</code> 和 <code>ParseDateTimeOffsetCallback</code> 参数可用于自定义转换逻辑外，全局配置 <code><a href=\"global-option\" target=\"_blank\">BootstrapBlazorOptions</a></code> 的 <code>DateTimeSettings</code> 属性也提供了对应的配置项。组件会优先使用自身的回调函数，其次使用全局配置的回调函数；如果均未设置，则使用默认的 <code>DateTimeHelper.ToDateTime</code> 转换逻辑。",
     "IsEditableIntro": "通过设置 <code>IsEditable=\"true\"</code> 开启手工录入日期功能，通过 <code>ParseDateTimeCallback</code> 自定义录入文本的日期格式转换逻辑",
     "IsEditableTip": "本例设置 <code>ParseDateTimeCallback</code> 将 <code>yyyyMMdd</code> 格式的文本转换为日期，请尝试输入 <code>20250808</code>。绑定值为 <code>DateTimeOffset</code> 或 <code>DateTimeOffset?</code> 时，请使用 <code>ParseDateTimeOffsetCallback</code> 参数自定义转换逻辑",
     "IsEditableTitle": "手工录入",

@@ -1679,6 +1679,7 @@
     "FeatureShowLunarIntro": "<code>ShowLunar</code> Whether to display the lunar calendar",
     "FeatureShowSolarTerm": "Solar Term",
     "FeatureShowSolarTermIntro": "<code>ShowSolarTerm</code> Whether to display the 24 solar terms",
+    "IsEditableCallbackTip": "To automatically convert entered text to <code>DateTime</code>/<code>DateTimeOffset</code>, use the component-level <code>ParseDateTimeCallback</code> and <code>ParseDateTimeOffsetCallback</code> parameters to customize the conversion logic. Corresponding options are also available through the <code>DateTimeSettings</code> property of the global <code><a href=\"global-option\" target=\"_blank\">BootstrapBlazorOptions</a></code> configuration. The component callback takes precedence, followed by the global callback. If neither is configured, the default <code>DateTimeHelper.ToDateTime</code> conversion logic is used.",
     "IsEditableIntro": "Enable manual date input by setting <code>IsEditable=\"true\"</code>, and customize how the input text is converted to a date with <code>ParseDateTimeCallback</code>",
     "IsEditableTip": "This example sets <code>ParseDateTimeCallback</code> to convert text in <code>yyyyMMdd</code> format to a date. Try entering <code>20250808</code>. When binding to <code>DateTimeOffset</code> or <code>DateTimeOffset?</code>, use <code>ParseDateTimeOffsetCallback</code> to customize the conversion logic",
     "IsEditableTitle": "Editable",
