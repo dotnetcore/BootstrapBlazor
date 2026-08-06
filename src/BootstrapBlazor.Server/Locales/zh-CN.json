@@ -525,6 +525,9 @@
     "Title": "全球化"
   },
   "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
+    "DateTimeSettingsIntro": "通过此配置统一设置 <code>DateTimePicker</code> 组件在 <code>IsEditable=\"true\"</code> 时的文本转换逻辑。组件未单独设置回调时，使用此处的全局配置；组件回调的优先级高于全局配置。",
+    "DateTimeSettingsParseDateTimeCallback": "<code>ParseDateTimeCallback</code> 自定义解析 <code>DateTime</code> 的回调方法",
+    "DateTimeSettingsParseDateTimeOffsetCallback": "<code>ParseDateTimeOffsetCallback</code> 自定义解析 <code>DateTimeOffset</code> 的回调方法",
     "SubTitle": "组件库提供一种对当前应用程序中所有组件进行配置的方法，通过 <code>BootstrapBlazorOptions</code> 全局配置类实现此功能",
     "Title": "全局配置"
   },
