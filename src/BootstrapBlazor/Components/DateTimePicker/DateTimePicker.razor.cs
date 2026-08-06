@@ -590,7 +590,7 @@ public partial class DateTimePicker<TValue>
     {
         result = default;
         validationErrorMessage = null;
-        var ret = Value is DateTime ? TryParseDateTime(value, out var val) : TryParseDateTimeOffset(value, out val);
+        var ret = ValueType == typeof(DateTime) ? TryParseDateTime(value, out var val) : TryParseDateTimeOffset(value, out val);
         if (ret)
         {
             result = (TValue)val;
