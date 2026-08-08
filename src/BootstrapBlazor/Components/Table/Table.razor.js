@@ -1176,7 +1176,8 @@ const setColSize = (table, options) => {
             return;
         }
         const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
-        if (th === void 0) {
+        if (th === void 0 || th.classList.contains('fixed')) {
+            // skip fixed column which width is controlled by colgroup
             return;
         }
         const colIndex = headerCollection.indexOf(th);

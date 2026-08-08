@@ -206,6 +206,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColWidthString(int? width) => (width.HasValue && width.Value > 0) ? $"width: {width.Value}px;" : null;
 
+    private int? GetColWidth(TableColumnState state)
+    {
+        // 列状态中的宽度在首次构建列时生成，运行时动态设置 Fixed 后状态中的宽度可能为空
+        // 固定列未设置宽度时使用默认固定列宽，保证固定列偏移量与实际列宽一致
+        var col = Columns.Find(i => i.GetFieldName() == state.Name);
+        return state.Width ?? (col is { Fixed: true } ? DefaultFixedColumnWidth : null);
+    }
+
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
     /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
@@ -1102,6 +1110,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
+
+            // 固定列状态可能在运行时发生改变，清空缓存重新计算固定列边界
+            FirstFixedColumnCache.Clear();
+            LastFixedColumnCache.Clear();
         }
 
         // 检查状态变化
