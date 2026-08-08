@@ -1163,6 +1163,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var measureColumnMinWidth = _measureColumnMinWidth;
             var updateSortTooltip = _updateSortTooltip;
             var scrollToTop = _shouldScrollTop;
+            var fixColumnOffset = _fixColumnOffset;
 
             _invoke = false;
             _resetColumnListPopover = false;
@@ -1171,6 +1172,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _measureColumnMinWidth = false;
             _updateSortTooltip = false;
             _shouldScrollTop = false;
+            _fixColumnOffset = false;
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
@@ -1185,7 +1187,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 AutoScrollLastSelectedRowToView,
                 AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
                 ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
-                ScrollToTop = scrollToTop
+                ScrollToTop = scrollToTop,
+                FixColumnOffset = fixColumnOffset
             });
         }
 
@@ -1361,7 +1364,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 加载客户端持久化列状态
         ResetTableColumns();
+
+        // 固定列集合发生变化时通知客户端脚本按实际渲染宽度修正固定列偏移量
+        var fixedColumnNames = Columns.Where(i => i.Fixed).Select(i => i.GetFieldName()).ToHashSet(StringComparer.Ordinal);
+        if (!fixedColumnNames.SetEquals(_lastFixedColumnNames))
+        {
+            _lastFixedColumnNames = fixedColumnNames;
+            _fixColumnOffset = true;
+            _invoke = true;
+        }
     }
+
+    private HashSet<string> _lastFixedColumnNames = new(StringComparer.Ordinal);
+
+    private bool _fixColumnOffset;
 
     private void EnsureTemplateColumnFieldNames()
     {
