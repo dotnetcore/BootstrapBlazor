@@ -1944,6 +1944,51 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColumnFixed_DynamicAutoGenerateColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.DefaultFixedColumnWidth, 200);
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 运行时动态设置前两列为固定列
+        table.Instance.Columns[0].Fixed = true;
+        table.Instance.Columns[1].Fixed = true;
+        cut.Render();
+
+        // 自动生成列模式下列实例每次渲染均会重新创建，固定状态应保留
+        Assert.True(table.Instance.Columns[0].Fixed);
+        Assert.True(table.Instance.Columns[1].Fixed);
+
+        // 未设置宽度的固定列使用默认固定列宽渲染 col 元素，已设置宽度的固定列保持原宽度
+        var cols = cut.FindAll("colgroup col");
+        Assert.Single(cols.Where(c => (c.GetAttribute("style") ?? "").Contains("width: 200px;")));
+        Assert.Single(cols.Where(c => (c.GetAttribute("style") ?? "").Contains("width: 180px;")));
+
+        // 固定列单元格输出固定样式与偏移量
+        cut.Contains("left: 0px;");
+        cut.Contains("left: 180px;");
+
+        // 取消固定后恢复
+        table.Instance.Columns[0].Fixed = false;
+        table.Instance.Columns[1].Fixed = false;
+        cut.Render();
+
+        Assert.False(table.Instance.Columns[0].Fixed);
+        cut.DoesNotContain("width: 200px;");
+        cut.DoesNotContain("left: 180px;");
+    }
+
+    [Fact]
     public void ColumnFixed_TailColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

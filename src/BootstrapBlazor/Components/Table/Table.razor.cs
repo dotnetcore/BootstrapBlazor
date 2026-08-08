@@ -1110,10 +1110,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
-
-            // 固定列状态可能在运行时发生改变，清空缓存重新计算固定列边界
-            FirstFixedColumnCache.Clear();
-            LastFixedColumnCache.Clear();
         }
 
         // 检查状态变化
@@ -1334,6 +1330,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
+        // 缓存运行时动态设置的固定列状态
+        // 自动生成列模式下列实例每次渲染均会重新创建，重建后回放固定状态防止丢失
+        var fixedColumns = Columns.Where(i => i.Fixed).Select(i => i.GetFieldName()).ToHashSet(StringComparer.Ordinal);
+
         // 构建列信息
         var cols = GetTableColumns();
 
@@ -1346,6 +1346,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
         EnsureTemplateColumnFieldNames();
+
+        // 回放运行时动态设置的固定列状态
+        if (fixedColumns.Count != 0)
+        {
+            foreach (var col in Columns)
+            {
+                if (fixedColumns.Contains(col.GetFieldName()))
+                {
+                    col.Fixed = true;
+                }
+            }
+        }
 
         // 加载客户端持久化列状态
         ResetTableColumns();
@@ -1415,6 +1427,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private void ResetTableColumns()
     {
         _visibleColumnsCache.Clear();
+
+        // 固定列状态可能在运行时发生改变且自动生成列模式下列实例每次渲染均会重新创建
+        // 清空缓存重新计算固定列边界，同时防止缓存按引用累积过期列实例
+        FirstFixedColumnCache.Clear();
+        LastFixedColumnCache.Clear();
 
         if (_tableColumnStates.Count == 0)
         {
