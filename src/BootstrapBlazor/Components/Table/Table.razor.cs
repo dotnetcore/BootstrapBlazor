@@ -211,7 +211,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 列状态中的宽度在首次构建列时生成，运行时动态设置 Fixed 后状态中的宽度可能为空
         // 固定列未设置宽度时使用默认固定列宽，保证固定列偏移量与实际列宽一致
         var col = Columns.Find(i => i.GetFieldName() == state.Name);
-        return state.Width ?? (col is { Fixed: true } ? DefaultFixedColumnWidth : null);
+        var width = state.Width ?? col?.Width;
+        return width ?? (col is { Fixed: true } ? DefaultFixedColumnWidth : null);
     }
 
     /// <summary>
