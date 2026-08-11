@@ -1,4 +1,4 @@
-﻿@page "/global-option"
+@page "/global-option"
 @inject IStringLocalizer<GlobalOption> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -64,6 +64,21 @@
     <li><code>TableExportOptions.UseEnumDescription</code> 是否使用枚举类型的标签值</li>
     <li><code>TableExportOptions.ArrayDelimiter</code> 数组类型合并操作时使用的分隔符</li>
 </ul>
+
+<p class="code-label"><code>DateTimeSettings</code> 日期时间全局配置</p>
+
+<p>@((MarkupString)Localizer["DateTimeSettingsIntro"].Value)</p>
+
+<ul class="demo-ul">
+    <li>@((MarkupString)Localizer["DateTimeSettingsParseDateTimeCallback"].Value)</li>
+    <li>@((MarkupString)Localizer["DateTimeSettingsParseDateTimeOffsetCallback"].Value)</li>
+</ul>
+
+<Pre>builder.Services.AddBootstrapBlazor(options =&gt;
+{
+    options.DateTimeSettings.ParseDateTimeCallback = value =&gt; DateTime.ParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture);
+    options.DateTimeSettings.ParseDateTimeOffsetCallback = value =&gt; DateTimeOffset.ParseExact(value, "yyyyMMdd zzz", CultureInfo.InvariantCulture);
+});</Pre>
 
 <p class="code-label"><code>StepSettings</code> 步长全局统一配置各种数据类型的步长值</p>
 

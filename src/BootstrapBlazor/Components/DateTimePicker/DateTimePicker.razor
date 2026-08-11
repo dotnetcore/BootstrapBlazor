@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits PopoverDropdownBase<TValue>
 @attribute [BootstrapModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js", JSObjectReference = true)]
@@ -22,6 +22,10 @@
         @if (ShowIcon)
         {
             <i class="@DateTimePickerIconClassString"></i>
+        }
+        @if (GetClearable())
+        {
+            <span class="@ClearClassString" @onclick:stopPropagation @onclick="OnClear"><i class="@ClearIcon"></i></span>
         }
     }
     <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"

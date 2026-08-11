@@ -163,7 +163,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型</para>
+    /// <para lang="zh">尝试将字符串表示的值转换为指定类型</para>
     /// <para lang="en">Tries to convert the string representation of a value to a specified type</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
@@ -207,17 +207,41 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Formats the file size into a string with appropriate units</para>
+    /// <para lang="zh">将文件大小格式化为带有适当单位的字符串</para>
     /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
-    /// <param name="fileSize"></param>
-    public static string ToFileSizeString(this long fileSize) => fileSize switch
+    /// <param name="bytes"></param>
+    public static string ToFileSizeString(this long bytes) => bytes.ToFileSizeString(CultureInfo.CurrentCulture);
+
+    /// <summary>
+    /// <para lang="zh">使用指定文化将文件大小格式化为带有适当单位的字符串</para>
+    /// <para lang="en">Formats the file size into a string with appropriate units using the specified culture</para>
+    /// </summary>
+    /// <param name="bytes"></param>
+    /// <param name="culture">
+    /// <para lang="zh">格式化使用的文化，为 <c>null</c> 时使用 <see cref="CultureInfo.CurrentCulture"/></para>
+    /// <para lang="en">The culture used for formatting; falls back to <see cref="CultureInfo.CurrentCulture"/> when <c>null</c></para>
+    /// </param>
+    public static string ToFileSizeString(this long bytes, CultureInfo culture)
     {
-        >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
-        >= 1024 * 1024 and < 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} MB",
-        >= 1024 * 1024 * 1024 => $"{Math.Round(fileSize / 1024 / 1024 / 1024D, 0, MidpointRounding.AwayFromZero)} GB",
-        _ => $"{fileSize} B"
-    };
+        const double kb = 1024d;
+        const double mb = kb * 1024d;
+        const double gb = mb * 1024d;
+        const double tb = gb * 1024d;
+        const double pb = tb * 1024d;
+        const double eb = pb * 1024d;
+
+        return bytes switch
+        {
+            >= (long)eb => string.Create(culture, $"{bytes / eb:0.0} EB"),
+            >= (long)pb => string.Create(culture, $"{bytes / pb:0.0} PB"),
+            >= (long)tb => string.Create(culture, $"{bytes / tb:0.0} TB"),
+            >= (long)gb => string.Create(culture, $"{bytes / gb:0.0} GB"),
+            >= (long)mb => string.Create(culture, $"{bytes / mb:0.0} MB"),
+            >= (long)kb => string.Create(culture, $"{bytes / kb:0.0} KB"),
+            _ => string.Create(culture, $"{bytes} B")
+        };
+    }
 
     internal static void Clone<TModel>(this TModel source, TModel item)
     {

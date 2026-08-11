@@ -55,12 +55,19 @@ export function init(id, invoke, value, changedEventCallback) {
         ac.close();
     });
 
+    let isPointerFocus = false;
+    EventHandler.on(input, 'pointerdown', e => {
+        isPointerFocus = true;
+        const handler = setTimeout(() => {
+            clearTimeout(handler);
+            isPointerFocus = false;
+        }, 0);
+    });
+
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
-        if (showDropdownOnFocus) {
-            if (isPopover === false) {
-                ac.show();
-            }
+        if (showDropdownOnFocus && !(isPopover && isPointerFocus)) {
+            ac.show();
         }
     });
 
@@ -80,9 +87,7 @@ export function init(id, invoke, value, changedEventCallback) {
     }, filterDuration);
 
     Input.composition(input, v => {
-        if (isPopover === false) {
-            ac.show();
-        }
+        ac.show();
 
         const skipMatch = input.getAttribute('data-bb-skip-match') === 'true';
         if (skipMatch) {
@@ -94,11 +99,21 @@ export function init(id, invoke, value, changedEventCallback) {
     });
 
     ac.show = () => {
-        ac.el.classList.add('show');
+        if (ac.popover) {
+            ac.popover.show();
+        }
+        else {
+            ac.el.classList.add('show');
+        }
     }
 
     ac.close = () => {
-        ac.el.classList.remove('show');
+        if (ac.popover) {
+            ac.popover.hide();
+        }
+        else {
+            ac.el.classList.remove('show');
+        }
     }
 
     ac.closePopover = e => {
@@ -224,6 +239,7 @@ export function dispose(id) {
             }
         }
         EventHandler.off(menu, 'click');
+        EventHandler.off(input, 'pointerdown');
         EventHandler.off(input, 'keydown');
         Input.dispose(input);
 

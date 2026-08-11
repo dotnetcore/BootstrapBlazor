@@ -20,10 +20,9 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
     public Placement Placement { get; set; } = Placement.Bottom;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自定义样式 参数 默认 null</para>
-    /// <para lang="en">Gets or sets Custom Class. Default is null</para>
+    /// <para lang="zh">获得/设置 自定义样式 参数 默认 null 由 data-bs-custom-class 实现</para>
+    /// <para lang="en">Gets or sets Custom Class. Default is null. Implemented by data-bs-custom-class.</para>
     /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
     public string? CustomClass { get; set; }
 

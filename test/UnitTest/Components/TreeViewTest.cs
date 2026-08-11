@@ -151,6 +151,21 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Items_KeepActiveItem()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb => pb.Add(a => a.Items, items));
+
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
+        Assert.Equal("Navigation one", cut.Find(".active .tree-node-text").TextContent);
+
+        var newItems = TreeFoo.GetTreeItems();
+        cut.Render(pb => pb.Add(a => a.Items, newItems));
+
+        Assert.Equal("Navigation one", cut.Find(".active .tree-node-text").TextContent);
+    }
+
+    [Fact]
     public async Task SetActiveItem_ExpandCollapsedParent()
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/8185
@@ -1498,7 +1513,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(v =>
             {
                 key = v;
-                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>([new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(string.IsNullOrEmpty(v)
+                    ? null
+                    : [new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = v }]);
             }));
             pb.Add(a => a.Items, items);
         });
@@ -1514,6 +1531,165 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => input.Instance.OnEscAsync!(""));
         nodes = cut.FindAll(".tree-content");
         Assert.Equal(9, nodes.Count);
+    }
+
+    [Fact]
+    public async Task Search_SelectedItem_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(_ =>
+            {
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(
+                [
+                    new TreeViewItem<TreeFoo>(items[1].Value) { Text = items[1].Text }
+                ]);
+            }));
+            pb.Add(a => a.Items, items);
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[1]));
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(items[1].Text));
+        Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
+
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
+        Assert.Equal(items[1].Text, cut.Find(".active .tree-node-text").TextContent);
+    }
+
+    [Fact]
+    public async Task Search_CheckedItem_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        List<TreeViewItem<TreeFoo>>? checkedItems = null;
+        List<TreeViewItem<TreeFoo>> searchItems =
+        [
+            new(new TreeFoo { Id = items[0].Value.Id, Text = items[0].Value.Text }) { Text = items[0].Text }
+        ];
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult<List<TreeViewItem<TreeFoo>>?>(searchItems));
+            pb.Add(a => a.OnTreeItemChecked, result =>
+            {
+                checkedItems = result;
+                return Task.CompletedTask;
+            });
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(items[0].Text));
+
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.NotNull(checkedItems);
+        Assert.Single(checkedItems);
+        Assert.Equal(items[0].Value.Id, checkedItems[0].Value.Id);
+        Assert.Equal(CheckboxState.Checked, items[0].CheckedState);
+
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Empty(checkedItems);
+        Assert.Equal(CheckboxState.UnChecked, items[0].CheckedState);
+
+        searchItems = [new(new TreeFoo { Id = "NotFound", Text = "NotFound" }) { Text = "NotFound" }];
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Empty(checkedItems);
+
+        searchItems = [items[0]];
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
+        Assert.Single(checkedItems);
+        Assert.Same(items[0], checkedItems[0]);
+    }
+
+    [Fact]
+    public async Task Search_CheckedItem_Cascade_Ok()
+    {
+        var root = new TreeViewItem<TreeFoo>(new TreeFoo { Id = "Root", Text = "Root" }) { Text = "Root" };
+        var child = new TreeViewItem<TreeFoo>(new TreeFoo { Id = "Child", Text = "Child" }) { Text = "Child", Parent = root };
+        root.Items.Add(child);
+        List<TreeViewItem<TreeFoo>>? checkedItems = null;
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.AutoCheckChildren, true);
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, new List<TreeViewItem<TreeFoo>> { root });
+            pb.Add(a => a.OnSearchAsync, _ => Task.FromResult<List<TreeViewItem<TreeFoo>>?>(
+            [
+                new(new TreeFoo { Id = root.Value.Id, Text = root.Value.Text }) { Text = root.Text }
+            ]));
+            pb.Add(a => a.OnTreeItemChecked, result =>
+            {
+                checkedItems = result;
+                return Task.CompletedTask;
+            });
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(root.Text));
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
+
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Indeterminate));
+        Assert.Empty(checkedItems!);
+        Assert.Equal(CheckboxState.Indeterminate, root.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, child.CheckedState);
+
+        await cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
+        Assert.Equal(2, checkedItems!.Count);
+        Assert.Equal(CheckboxState.Checked, root.CheckedState);
+        Assert.Equal(CheckboxState.Checked, child.CheckedState);
+    }
+
+    [Fact]
+    public async Task Search_NullBranches_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        List<TreeViewItem<TreeFoo>>? searchResult = [items[0]];
+        var searchCount = 0;
+        string? searchText = string.Empty;
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, text =>
+            {
+                searchCount++;
+                searchText = text;
+                return Task.FromResult<List<TreeViewItem<TreeFoo>>?>(searchResult);
+            });
+        });
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem((TreeViewItem<TreeFoo>?)null));
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Empty(cut.FindAll(".tree-content.active"));
+
+        searchResult = null;
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
+
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
+        Assert.Equal(3, searchCount);
+        Assert.Null(searchText);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnSearchAsync, null);
+        });
+        input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!(string.Empty));
+        Assert.Equal(9, cut.FindAll(".tree-content").Count);
     }
 
     [Fact]

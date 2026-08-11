@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .datetime-picker {
     --bb-dt-picker-bar-color: #{$bb-dt-picker-bar-color};
@@ -16,6 +16,20 @@
 
         &.has-icon {
             --bb-form-control-padding: var(--bb-dt-picker-input-icon-padding);
+        }
+    }
+
+    &.is-clearable {
+        &:hover {
+            .form-control {
+                &.is-invalid {
+                    background-image: none;
+                }
+
+                &.is-valid {
+                    background-image: none;
+                }
+            }
         }
     }
 

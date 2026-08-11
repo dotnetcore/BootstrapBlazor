@@ -385,4 +385,6 @@ src/**/wwwroot/**/uploader
 
 # llms
 **/wwwroot/llms
-/test/BootstrapBlazorTest
+
+# Kiro
+.kiro

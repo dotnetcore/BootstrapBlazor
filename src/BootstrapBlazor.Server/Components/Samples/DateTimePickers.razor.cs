@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -72,6 +74,8 @@ public sealed partial class DateTimePickers
     private bool IsDisabled { get; set; } = true;
 
     private DateTime? BindValue { get; set; } = DateTime.Today;
+
+    private static DateTime ParseDateTime(string value) => DateTime.ParseExact(value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
 
     private string BindValueString
     {

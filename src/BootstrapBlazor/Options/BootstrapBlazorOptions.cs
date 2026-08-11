@@ -190,6 +190,13 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public int ChangeDetectionTaskInterval { get; set; } = 5000;
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 <see cref="DateTimeSettings"/> 配置实例</para>
+    /// <para lang="en">Gets or sets the <see cref="DateTimeSettings"/> configuration instance</para>
+    /// <para>v<version>10.9.1</version></para>
+    /// </summary>
+    public DateTimeSettings DateTimeSettings { get; set; } = new();
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>
