@@ -54,7 +54,7 @@
     <PackageReference Include="BootstrapBlazor.JitViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.1.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="10.0.1" />
