@@ -124,7 +124,7 @@ public partial class ValidateForm
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
-    private readonly ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
+    private readonly ConcurrentDictionary<(string Id, string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
 
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
 
@@ -188,7 +188,7 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    internal void AddValidator((string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
+    internal void AddValidator((string Id, string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
     {
         _validatorCache.TryAdd(key, value);
     }
@@ -199,7 +199,7 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    internal bool TryRemoveValidator((string FieldName, Type ModelType) key, out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => _validatorCache.TryRemove(key, out value);
+    internal bool TryRemoveValidator((string Id, string FieldName, Type ModelType) key, out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => _validatorCache.TryRemove(key, out value);
 
     /// <summary>
     /// <para lang="zh">设置指定字段错误信息</para>
@@ -383,7 +383,7 @@ public partial class ValidateForm
     /// <param name="results"></param>
     internal async Task ValidateFieldAsync(ValidationContext context, List<ValidationResult> results)
     {
-        if (!string.IsNullOrEmpty(context.MemberName) && _validatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
+        if (!string.IsNullOrEmpty(context.MemberName) && _validatorCache.TryGetValue((((IdComponentBase)context.ObjectInstance).Id, context.MemberName, context.ObjectType), out var v))
         {
             var validator = v.ValidateComponent;
             if (validator.IsNeedValidate)
@@ -497,7 +497,7 @@ public partial class ValidateForm
             context.DisplayName = fieldIdentifier.GetDisplayName();
             context.MemberName = fieldIdentifier.FieldName;
 
-            if (_validatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
+            if (_validatorCache.TryGetValue((((IdComponentBase)context.ObjectInstance).Id, fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
             {
                 var validator = v.ValidateComponent;
 

@@ -66,6 +66,7 @@
     <File Path="src/SourceLink.targets" />
   </Folder>
   <Folder Name="/test/">
+    <Project Path="test/BootstrapBlazorTest/BootstrapBlazorTest.Server/BootstrapBlazorTest.Server.csproj" Id="3d28dd89-5e95-4caa-a747-9f1b8e7e9b17" />
     <Project Path="test/UniTest.Sass/UniTest.Sass.csproj" />
     <Project Path="test/UnitTest.Localization/UnitTest.Localization.csproj" />
     <Project Path="test/UnitTest/UnitTest.csproj" />
