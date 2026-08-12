@@ -1,0 +1,23 @@
+﻿<div class="@ClassString" @onclick="TriggerClick">
+    <LayoutThumbnail IsFullSide="@IsFullSide"></LayoutThumbnail>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsFullSide { get; set; }
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    [Parameter, NotNull, EditorRequired]
+    public Func<bool, Task>? OnClick { get; set; }
+
+    private string? ClassString => CssBuilder.Default("layout-preview")
+        .AddClass("active", IsActive)
+        .Build();
+
+    private async Task TriggerClick()
+    {
+        await OnClick(IsFullSide);
+    }
+}
