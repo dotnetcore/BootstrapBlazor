@@ -1,0 +1,44 @@
+﻿@if (IsFullSide)
+{
+    <section class="layout has-sidebar has-footer">
+        <aside class="layout-side">
+            <div class="layout-banner"><div class="layout-title">Logo</div></div>
+            <div class="layout-menu">Menu</div>
+        </aside>
+        <section class="layout-right">
+            <header class="layout-header">
+                Header
+            </header><main class="layout-main">
+                Main
+            </main><footer class="layout-footer">
+                Footer
+            </footer>
+        </section>
+    </section>
+}
+else
+{
+    <section class="layout has-footer">
+        <header class="layout-header">
+            Header
+        </header>
+        <section class="has-sidebar">
+            <aside class="layout-side">
+                <div class="layout-banner">
+                    <div class="layout-title">Logo</div>
+                </div>
+                <div class="layout-menu">Menu</div>
+            </aside>
+            <main class="layout-main">
+                Main
+            </main>
+        </section><footer class="layout-footer">
+            Footer
+        </footer>
+    </section>
+}
+
+@code {
+    [Parameter]
+    public bool IsFullSide { get; set; }
+}

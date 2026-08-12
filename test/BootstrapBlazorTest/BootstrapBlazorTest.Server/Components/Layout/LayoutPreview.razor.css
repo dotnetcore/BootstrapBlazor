@@ -1,0 +1,37 @@
+﻿.layout-preview {
+    font-size: 9px;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    border: 2px solid #c0c4cc;
+    transition: border .3s linear;
+}
+
+    .layout-preview:hover {
+        border: 2px solid #28a745;
+    }
+
+    .layout-preview.active {
+        border: 2px solid #28a745;
+    }
+
+::deep .layout {
+    --bb-layout-height: 80px;
+    --bb-layout-header-height: 16px;
+    --bb-layout-footer-height: 12px;
+    --bb-layout-sidebar-width: 30%;
+    --bb-layout-banner-font-size: 9px;
+    --bb-layout-title-color: #fff;
+    border: 1px solid var(--bb-layout-header-background);
+}
+
+    ::deep .layout .layout-footer,
+    ::deep .layout .layout-header {
+        justify-content: center;
+    }
+
+    ::deep .layout .layout-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }

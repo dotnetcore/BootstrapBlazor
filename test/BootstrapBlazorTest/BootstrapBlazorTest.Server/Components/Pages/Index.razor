@@ -1,0 +1,79 @@
+﻿@page "/"
+@attribute [TabItemOption(Text = "Index", Closable = false)]
+
+<ValidateForm @ref="NestForm" Model="@Model2" OnValidSubmit="@OnValidSubmit2" OnInvalidSubmit="@OnInvalidSubmit2">
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="@Model2.Name" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber @bind-Value="@Model2.Count" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker @bind-Value="@Model2.DateTime" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@Model2.Education" />
+        </div>
+        <div class="col-12">
+            <CheckboxList @bind-Value="@Model2.Hobby" Items="@Hobbies2" />
+        </div>
+        <GroupBox Title="角色列表" class="m-3">
+            <div class="col-12">
+                @if (Model2.Roles != null && Model2.Roles.Any())
+                {
+                    <div class="row g-3 form-inline">
+                        @foreach (var item in Model2.Roles)
+                        {
+                            <div class="col-12 col-sm-6">
+                                <BootstrapInput @bind-Value="@item.RoleName" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-muted">暂无角色</div>
+                }
+            </div>
+        </GroupBox>
+        <div class="col-12">
+            <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" IsAsync="true" Text="提交" />
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    [NotNull]
+    private Foo? Model2 { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies2 { get; set; }
+
+    [NotNull]
+    private ValidateForm? NestForm { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Model2 = new Foo
+        {
+            Roles = new List<Role>()
+            {
+                new Role(),
+                new Role(),
+                new Role()
+            }
+        };
+        return Task.CompletedTask;
+    }
+
+    private async Task OnValidSubmit2(EditContext context)
+    {
+        await Task.Delay(3000);
+    }
+
+    private Task OnInvalidSubmit2(EditContext context)
+    {
+        return Task.CompletedTask;
+    }
+}
