@@ -1,4 +1,4 @@
-﻿import { getClientInfo } from "./client.js"
+import { getClientInfo } from "./client.js"
 import Data from "./data.js"
 import EventHandler from "./event-handler.js";
 
@@ -55,7 +55,7 @@ export async function init(id, options) {
         await callback();
     }, interval);
 
-    window.addEventListener('unload', () => {
+    EventHandler.on(window, 'pagehide', () => {
         dispose(id);
     });
 
@@ -67,6 +67,7 @@ export async function dispose(id) {
     const hub = Data.get(id);
 
     if (hub) {
+        EventHandler.off(window, 'pagehide');
         clearInterval(hub.handler);
         hub.chanel.postMessage({ id, type: 'dispose' });
         hub.chanel.close();
