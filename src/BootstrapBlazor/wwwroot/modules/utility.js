@@ -175,9 +175,22 @@ const normalizeLink = link => {
     return url
 }
 
+const resolveAssetUrl = content => {
+    if (isFunction(import.meta.resolve)) {
+        try {
+            const url = new URL(content, document.baseURI).href
+            return import.meta.resolve(url)
+        }
+        catch {
+        }
+    }
+    return content
+}
+
 const addScript = content => {
     const scripts = [...document.getElementsByTagName('script')]
-    const url = normalizeLink(content)
+    const source = resolveAssetUrl(content)
+    const url = normalizeLink(source)
     let link = scripts.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
@@ -186,7 +199,7 @@ const addScript = content => {
         created = true
         const script = document.createElement('script')
         link.push(script)
-        script.setAttribute('src', content)
+        script.setAttribute('src', source)
         document.body.appendChild(script)
         script.onload = () => {
             script.setAttribute('loaded', 'true')
@@ -219,7 +232,7 @@ const addScript = content => {
 
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
-    const url = normalizeLink(content)
+    const url = normalizeLink(resolveAssetUrl(content))
     const nodes = links.filter(function(link) {
         return link.src.indexOf(url) > -1
     })
