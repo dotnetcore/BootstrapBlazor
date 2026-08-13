@@ -3416,7 +3416,9 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        cut.Contains("Name-HeaderTemplate");
+        var content = cut.Find("th[data-bb-field='Name'] .table-header-content");
+        Assert.Equal("Name-HeaderTemplate", content.TextContent);
+        cut.Find("th[data-bb-field='Name'] .table-header-actions");
     }
 
     [Fact]
@@ -3438,11 +3440,17 @@ public class TableTest : BootstrapBlazorTestBase
                     {
                         builder.AddContent(0, $"{col.GetFieldName()}-ToolboxTemplate");
                     }));
+                    builder.AddAttribute(4, "Sortable", true);
+                    builder.AddAttribute(5, "Filterable", true);
                     builder.CloseComponent();
                 });
             });
         });
         cut.Contains("Name-ToolboxTemplate");
+        cut.Find("th[data-bb-field='Name'] .table-header-content .table-text");
+        cut.Find("th[data-bb-field='Name'] .table-header-actions .filter-icon");
+        cut.Find("th[data-bb-field='Name'] .table-header-actions .sort-icon");
+        cut.Find("th[data-bb-field='Name'] .table-header-actions .toolbox-icon");
     }
 
     [Fact]
