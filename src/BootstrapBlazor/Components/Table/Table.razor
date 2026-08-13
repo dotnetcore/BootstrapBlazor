@@ -312,66 +312,70 @@
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
                                         draggable="@GetDraggableString(col)">
                             <div class="@GetHeaderWrapperClassString(col)">
-                                @if (col.GetShowCopyColumn())
-                                {
-                                    if (ShowCopyColumnTooltip)
+                                <div class="table-header-content">
+                                    @if (col.GetShowCopyColumn())
                                     {
-                                        <Tooltip Placement="Placement.Top" Trigger="hover" Title="@CopyColumnTooltipText"
-                                                 data-bb-title="@CopyColumnCopiedTooltipText">
+                                        if (ShowCopyColumnTooltip)
+                                        {
+                                            <Tooltip Placement="Placement.Top" Trigger="hover" Title="@CopyColumnTooltipText"
+                                                     data-bb-title="@CopyColumnCopiedTooltipText">
+                                                <i class="@CopyColumnButtonIconString"></i>
+                                            </Tooltip>
+                                        }
+                                        else
+                                        {
                                             <i class="@CopyColumnButtonIconString"></i>
+                                        }
+                                    }
+                                    @if (col.HeaderTemplate != null)
+                                    {
+                                        @col.HeaderTemplate(col)
+                                    }
+                                    else if (col.ShowHeaderTooltip)
+                                    {
+                                        <Tooltip class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)"
+                                                 Title="@GetHeaderTooltipText(col.HeaderTextTooltip, displayName)" Trigger="hover">
+                                            <span>@displayName</span>
+                                        </Tooltip>
+                                    }
+                                    else if (col.GetSortable())
+                                    {
+                                        <Tooltip class="@GetHeaderCellClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
+                                            <span>@displayName</span>
                                         </Tooltip>
                                     }
                                     else
                                     {
-                                        <i class="@CopyColumnButtonIconString"></i>
+                                        <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
                                     }
-                                }
-                                @if (col.HeaderTemplate != null)
-                                {
-                                    @col.HeaderTemplate(col)
-                                }
-                                else if (col.ShowHeaderTooltip)
-                                {
-                                    <Tooltip class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)"
-                                             Title="@GetHeaderTooltipText(col.HeaderTextTooltip, displayName)" Trigger="hover">
-                                        <span>@displayName</span>
-                                    </Tooltip>
-                                }
-                                else if (col.GetSortable())
-                                {
-                                    <Tooltip class="@GetHeaderCellClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
-                                        <span>@displayName</span>
-                                    </Tooltip>
-                                }
-                                else
-                                {
-                                    <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
-                                }
-                                @if (col.GetFilterable() && !ShowFilterHeader)
-                                {
-                                    <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this"
-                                                       IsActive="@Filters.ContainsKey(fieldName)"
-                                                       NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage"
-                                                       @onclick:stopPropagation>
-                                    </TableColumnFilter>
-                                }
-                                @if (col.GetSortable())
-                                {
-                                    <i class="@GetIconClassString(fieldName)"></i>
-                                }
-                                @if (col.ToolboxTemplate != null)
-                                {
-                                    <Popover Title="@Localizer["ColumnToolboxTitle"]" Trigger="click" Placement="Placement.Top"
-                                             FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox"
-                                             class="toolbox-icon" @onclick:stopPropagation>
-                                        <ChildContent>
-                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@fieldName"></i>
-                                        </ChildContent>
-                                        <Template>
-                                            @col.ToolboxTemplate(col)
-                                        </Template>
-                                    </Popover>
-                                }
+                                </div>
+                                <div class="table-header-actions">
+                                    @if (col.GetFilterable() && !ShowFilterHeader)
+                                    {
+                                        <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this"
+                                                           IsActive="@Filters.ContainsKey(fieldName)"
+                                                           NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage"
+                                                           @onclick:stopPropagation>
+                                        </TableColumnFilter>
+                                    }
+                                    @if (col.GetSortable())
+                                    {
+                                        <i class="@GetIconClassString(fieldName)"></i>
+                                    }
+                                    @if (col.ToolboxTemplate != null)
+                                    {
+                                        <Popover Title="@Localizer["ColumnToolboxTitle"]" Trigger="click" Placement="Placement.Top"
+                                                 FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox"
+                                                 class="toolbox-icon" @onclick:stopPropagation>
+                                            <ChildContent>
+                                                <i class="@GetColumnToolboxIconClassString()" data-bb-field="@fieldName"></i>
+                                            </ChildContent>
+                                            <Template>
+                                                @col.ToolboxTemplate(col)
+                                            </Template>
+                                        </Popover>
+                                    }
+                                </div>
                             </div>
                             @if (AllowResizing)
                             {

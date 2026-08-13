@@ -156,11 +156,6 @@
     cursor: pointer;
 }
 
-.table thead th.sortable .table-text,
-.table thead th.filterable .table-text {
-    padding-right: 1rem;
-}
-
 .table thead th.sortable:hover,
 .table thead th.filterable:hover {
     background-color: var(--bb-table-header-hover-bg);
@@ -170,17 +165,30 @@
     position: relative;
 }
 
+.table thead th .table-header-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.table thead th .table-header-actions {
+    display: inline-flex;
+    align-self: stretch;
+    flex: 0 0 auto;
+}
+
 .table thead th .table-text {
     flex: 1;
+    min-width: 0;
 }
 
 .table thead th .filter-icon,
 .table thead th .sort-icon,
 .table thead th .toolbox-icon {
-    position: absolute;
-    right: calc(0px - var(--bb-table-td-padding-x));
-    top: calc(0px - var(--bb-table-td-padding-y));
-    bottom: calc(0px - var(--bb-table-td-padding-y));
+    position: relative;
+    flex: 0 0 1.5rem;
+    align-self: stretch;
 }
 
 .table thead th .filter-icon > i,
@@ -201,28 +209,11 @@
 .table thead th .filter-icon > i:hover,
 .table thead th .sort-icon:hover,
 .table thead th .toolbox-icon:hover {
-    background-color: var(--bb-table-header-icon-hover-bg);
     color: var(--bb-table-header-icon-hover-color);
 }
 
 .table thead th .filter-icon > i.active {
     color: var(--bb-table-header-icon-active-color);
-}
-
-.table thead th.sortable.filterable .filter-icon,
-.table thead th.sortable .toolbox-icon,
-.table thead th.filterable .toolbox-icon {
-    right: calc(1.5rem - var(--bb-table-td-padding-x));
-}
-
-.table thead th.sortable.filterable.toolbox .toolbox-icon {
-    right: calc(3rem - var(--bb-table-td-padding-x));
-}
-
-.table thead th.sortable.filterable .table-text {
-    padding-right: 2.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .table .table-footer {

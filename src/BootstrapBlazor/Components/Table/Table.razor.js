@@ -672,9 +672,14 @@ const getColumnMaxCellWidth = (table, index) => {
 
 const getCellWidth = cell => {
     const span = cell.querySelector('.table-cell');
+    const content = span.querySelector('.table-header-content');
+    const actions = span.querySelector('.table-header-actions');
     const cellStyle = getComputedStyle(cell);
     const margin = parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'))
-    return calcCellWidth(span) + margin;
+    const width = content && actions
+        ? calcCellWidth(content) + getWidth(actions)
+        : calcCellWidth(span);
+    return width + margin;
 }
 
 const formControlSelector = 'input.form-control:not([type="hidden"]), textarea.form-control';
@@ -1180,19 +1185,11 @@ const setColSize = (table, options) => {
             return;
         }
         const colIndex = headerCollection.indexOf(th);
-        const minWidth = Math.max(getCellWidth(th) + getHeaderIconsWidth(th), getColumnMaxCellWidth(table, colIndex), columnMinWidth) | 0;
+        const minWidth = Math.max(getCellWidth(th), getColumnMaxCellWidth(table, colIndex), columnMinWidth) | 0;
         autoColumns.push({ colIndex, minWidth });
     });
     table.autoColumns = autoColumns;
     applyColumnMinWidth(table);
-}
-
-const getHeaderIconsWidth = th => {
-    let width = 0;
-    th.querySelectorAll('.sort-icon, .filter-icon, .toolbox-icon, .col-copy').forEach(icon => {
-        width += getWidth(icon);
-    });
-    return width;
 }
 
 const applyColumnMinWidth = table => {
