@@ -69,7 +69,13 @@ export async function reset(id) {
                     }
                     table.minWidthRaf = requestAnimationFrame(() => {
                         table.minWidthRaf = null;
-                        applyColumnMinWidth(table);
+                        // 浏览器窗口变化时，不应触发列宽及表格宽度修改
+                        // 如果这里执行，会导致用户在拖动列宽时，列宽修复多次执行，
+                        // 期望的行为应该是，用户拖动列宽完毕后，计算全部列宽并回调重新渲染
+                        // 因为下面这句倒导偶尔情况下页面中元素colgroup中col宽度为空，各列宽上没有正确的值，给人以为是异步导致的错觉，
+                        // 实际为组件后台已正确给了列宽值并渲染，因为这里的缘故，导致js文件中第1210行的判断成立，从而导致执行 setAutoColWidths 时，
+                        // 页面元素上colgroup中col宽度为空
+                        //applyColumnMinWidth(table);
                     });
                 });
                 table.minWidthObserver.observe(table.body);
@@ -620,7 +626,7 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     let maxWidth = getColumnMaxCellWidth(table, index);
-    
+
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = getColumnHeader(col);
         maxWidth = Math.max(maxWidth, getCellWidth(th));
