@@ -1189,8 +1189,18 @@ const setColSize = (table, options) => {
         const minWidth = Math.max(getCellWidth(th) + getHeaderIconsWidth(th), getColumnMaxCellWidth(table, colIndex), columnMinWidth) | 0;
         autoColumns.push({ colIndex, minWidth });
     });
+    const state = getColumnStateObject(table);
+    // 更改浏览器窗口大小时，不应该将已由用户设置过的列宽重置为自动计算的列宽，应保存用户设置过的列宽
+    let colInvalid = false;
+    for (var i = 1; i < state.cols.length; i++) {
+        if (state.cols[i - 1].width !== state.cols[i].width) {
+            colInvalid = true;
+            break;
+        }
+    }
     table.autoColumns = autoColumns;
-    applyColumnMinWidth(table);
+    if (!colInvalid)
+        applyColumnMinWidth(table);
 }
 
 const getHeaderIconsWidth = th => {
