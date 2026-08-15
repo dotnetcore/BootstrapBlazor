@@ -107,6 +107,7 @@ public partial class AvatarUpload<TValue>
         .AddClass(classString)
         .AddClass("is-circle", IsCircle)
         .AddClass("disabled", IsDisabled)
+        .AddClass("d-none", classString == null && !ShowAddButton())
         .Build();
 
     private string? ItemStyleString => CssBuilder.Default()
