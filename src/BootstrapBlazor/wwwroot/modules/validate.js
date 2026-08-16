@@ -1,8 +1,9 @@
-﻿export function execute(id, title) {
+export function execute(id, title) {
     const el = document.getElementById(id);
 
     if (el) {
         const tip = bootstrap.Tooltip.getOrCreateInstance(el, { customClass: 'is-invalid', title })
+        tooltipCache.set(id, tip); // 缓存实例
         if (!tip._isShown()) {
             if (title !== tip._config.title) {
                 tip._config.title = title;
@@ -27,6 +28,8 @@ const showResult = el => {
     return ret;
 }
 
+const tooltipCache = new Map(); // 全局缓存池，用来处理上传时增加按钮未渲染，导致提示不能正确删除
+
 export function dispose(id) {
     const el = document.getElementById(id)
 
@@ -34,6 +37,14 @@ export function dispose(id) {
         const tip = bootstrap.Tooltip.getInstance(el)
         if (tip) {
             tip.dispose()
+            tooltipCache.delete(id); // 清理缓存
+        }
+    }
+    else {
+        const cachedTip = tooltipCache.get(id);
+        if (cachedTip) {
+            cachedTip.dispose();
+            tooltipCache.delete(id);
         }
     }
 }
