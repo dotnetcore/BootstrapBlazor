@@ -41,7 +41,6 @@ public partial class CardUpload<TValue>
 
     private string? CardItemClass => CssBuilder.Default("upload-item upload-item-plus btn-browser upload-drop-body")
         .AddClass("disabled", IsDisabled)
-        .AddClass("d-none", !ShowAddButton())
         .Build();
 
     private string? StatusIconString => CssBuilder.Default("valid-icon valid")

@@ -51,7 +51,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div id="@AddId" class="@GetItemClassString("upload-item-plus upload-drop-body btn-browser")" style="@ItemStyleString">
+    @<div id="@AddId" class="@GetItemClassString("upload-item-plus upload-drop-body btn-browser")" style="@ItemStyleString" hidden="@(!ShowAddButton())">
         <i class="@AddIcon"></i>
     </div>;
 }

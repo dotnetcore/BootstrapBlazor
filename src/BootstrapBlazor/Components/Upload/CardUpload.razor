@@ -115,7 +115,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div id="@AddId" class="@CardItemClass">
+    @<div id="@AddId" class="@CardItemClass" hidden="@(!ShowAddButton())">
         <i class="@AddIcon"></i>
     </div>;
 }
