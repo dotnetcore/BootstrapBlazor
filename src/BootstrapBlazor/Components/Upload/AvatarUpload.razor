@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="upload-body is-avatar">
-        @if (IsUploadButtonAtFirst)
+        @if (IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }
@@ -37,7 +37,7 @@
                 }
             </div>
         }
-        @if (!IsUploadButtonAtFirst)
+        @if (!IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }
@@ -51,7 +51,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div id="@AddId" class="@GetItemClassString("upload-item-plus upload-drop-body btn-browser")" style="@ItemStyleString" hidden="@(!ShowAddButton())">
+    @<div id="@AddId" class="@GetItemClassString("upload-item-plus upload-drop-body btn-browser")" style="@ItemStyleString">
         <i class="@AddIcon"></i>
     </div>;
 }
