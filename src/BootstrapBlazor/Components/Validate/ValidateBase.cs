@@ -302,6 +302,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         base.OnInitialized();
 
+        if (ValidateForm != null && FieldIdentifier.HasValue)
+        {
+            ValidateForm.AddValidator(FieldIdentifier.Value, this);
+        }
+
         Id = (!string.IsNullOrEmpty(ValidateForm?.Id) && FieldIdentifier != null)
                 ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}"
                 : base.Id;
@@ -597,7 +602,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         {
             if (ValidateForm != null && FieldIdentifier.HasValue)
             {
-                ValidateForm.TryRemoveValidator((this.Id, FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
+                ValidateForm.TryRemoveValidator(FieldIdentifier.Value, out _);
             }
 
             if (ValidateModule != null)
