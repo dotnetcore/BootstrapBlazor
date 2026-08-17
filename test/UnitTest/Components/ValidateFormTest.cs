@@ -235,8 +235,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         // 利用反射提高代码覆盖率
         var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
-        cache.Remove(("Value", typeof(Dummy)), out _);
+        var cache = (ConcurrentDictionary<FieldIdentifier, IValidateComponent>)fieldInfo.GetValue(cut.Instance)!;
+        cache.Remove(new FieldIdentifier(dummy, "Value"), out _);
         await cut.InvokeAsync(() => cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError"));
     }
 
@@ -663,9 +663,14 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var method = typeof(ValidateForm).GetMethod("ValidateFieldAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         Assert.NotNull(method);
 
-        var context = new ValidationContext(new Foo());
+        var model = new Foo();
+        var fieldIdentifier = new FieldIdentifier(model, "Name");
+        var context = new ValidationContext(model)
+        {
+            MemberName = "Name"
+        };
         var result = new List<ValidationResult>();
-        method.Invoke(form, [context, result]);
+        method.Invoke(form, [fieldIdentifier, context, result]);
     }
 
     [Fact]
