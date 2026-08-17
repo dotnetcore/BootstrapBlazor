@@ -113,7 +113,13 @@ public class TimerTest : BootstrapBlazorTestBase
         var confirm = cut.Find(".time-panel-btn.confirm");
         await cut.InvokeAsync(() => confirm.Click());
 
-        await Task.Delay(2000, CancellationToken.None);
+        // 使用轮询等待，避免在并发测试时因固定等待时间不足而失败
+        var maxWaitTime = TimeSpan.FromSeconds(5);
+        var startTime = DateTime.Now;
+        while (!timeout && DateTime.Now - startTime < maxWaitTime)
+        {
+            await Task.Delay(100, CancellationToken.None);
+        }
         Assert.True(timeout);
     }
 
