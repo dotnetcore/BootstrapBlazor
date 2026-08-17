@@ -1,4 +1,4 @@
-﻿.theme-list {
+.theme-list {
     position: fixed;
     z-index: 47;
     bottom: 12rem;
@@ -6,14 +6,15 @@
     background: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     width: 260px;
-    height: 0;
+    max-height: 0;
     overflow: hidden;
-    transition: height .3s ease-in-out;
+    transition: max-height .3s ease-in-out;
     box-shadow: var(--bb-layout-button-shadow);
 }
 
     .theme-list.is-open {
-        height: 306px;
+        max-height: min(70vh, 480px);
+        overflow-y: auto;
     }
 
 .theme-header {
