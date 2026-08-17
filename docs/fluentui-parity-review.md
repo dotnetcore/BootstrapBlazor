@@ -399,3 +399,30 @@ BootstrapBlazor 的弹出层基于 Bootstrap 的 `.dropdown-menu` / `.popover` /
 
 - 站点主题页切至 Fluent，逐项打开上述弹出组件，核对明暗两种模式。
 - 重点核对：Select 选中 ✓ 与分组标题（Divider）的混排、SelectTable/SelectObject 宽面板的定位、TableColumnFilter 去箭头后的偏移、Tooltip 在 dark 模式下的描边可读性。
+
+
+---
+
+## 执行记录（2026-08-17，分支 `lee/feat-fluent-ui-theme`）
+
+按第二部分计划执行，状态如下：
+
+| 阶段 | 状态 | 产出与验证 |
+|---|---|---|
+| 一、补齐主题 Token | ✅ 完成 | 明暗两套补齐 `--bs-emphasis-color` / `--bs-secondary/tertiary-color` / `--bs-secondary/tertiary-bg` 及 RGB 变量，另补 `--bs-code-color`、`--bs-focus-ring-color`、表单校验色；修复两处悬空 `var()` 引用 |
+| 二、主题加载机制 | ✅ 完成 | `App.razor` 移除固定加载的 `motronic.min.css`；Motronic 注册为可选主题（`appsettings.json`）；切换主题由 Blazor HeadContent diff 移除旧 link，无变量残留；刷新回到 Bootstrap 基座（既有行为，主题选择不持久化）。`dotnet build` 0 警告 0 错误 |
+| 三、组件覆盖 | ✅ 完成 | 主题文件 663 → 1871 行；6 个类别（布局导航/表单按钮/数据展示/反馈/选择器上传/状态与杂项）审计+补齐；含弹出层 Fluent 化（第三部分）、输入框底部描边焦点、Switch 品牌轨道、Modal radius 12px + shadow64、SweetAlert/Toast/Alert 配色等 |
+| 四、预览与测试 | ✅ 完成（自动部分） | `Theme.razor` 增加组件预览墙（按钮/表单/数据/反馈/导航/选择器全量静态展示）；新增 `test/UniTest.Sass/FluentThemeTest.cs`；ThemeChooser 修复：选择后关闭、外部点击关闭、触控高度 44px、窄屏宽度保护、长列表吸顶头 + `overscroll-behavior: contain` |
+| 五、发布文件 | ✅ 完成 | `fluent.css`（可读源码，74,171 B）与 `fluent.min.css`（真压缩产物，41,954 B，保留 banner）分离；打包机制核实：两文件均随静态 Web 资产进入 NuGet（未被 csproj 排除，`pack.yml` 为打包入口）；Theme/Install 页文档与中英本地化更新，示例可直接运行 |
+| 六、最终验证 | 🟡 自动项完成 | `git diff --check` ✅；解决方案 `dotnet build` ✅（0 错误，1 个既有 BL0005 测试警告）；`UniTest.Sass` 15/15 ✅（含 14 项主题检查）；主单元测试套件结果见下 |
+
+### 主测试套件
+
+`dotnet test test/UnitTest/UnitTest.csproj`：✅ 2552/2552 通过（0 失败 0 跳过，49s）。
+
+### 仍需人工验证（本环境无浏览器，无法执行）
+
+- 主题切换 / 明暗模式切换 / 页面刷新后的视觉一致性
+- `/theme` 预览页在 Fluent Light、Fluent Dark、Bootstrap、Motronic 四种组合下逐项过目
+- 移动端真机：主题选择器展开/滚动/关闭手感、DialButton 与外部点击关闭的交互
+- 第三部分"待验证"清单：Select 选中 ✓ 与分组 Divider 混排、SelectTable/SelectObject 宽面板定位、TableColumnFilter 去箭头后偏移、dark 模式 Tooltip 描边
