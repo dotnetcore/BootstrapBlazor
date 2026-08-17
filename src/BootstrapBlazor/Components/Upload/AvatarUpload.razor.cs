@@ -234,7 +234,7 @@ public partial class AvatarUpload<TValue>
         {
             if (ValidateForm != null && FieldIdentifier.HasValue)
             {
-                ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
+                ValidateForm.TryRemoveValidator(FieldIdentifier.Value, out _);
             }
 
             if (ValidateModule != null)

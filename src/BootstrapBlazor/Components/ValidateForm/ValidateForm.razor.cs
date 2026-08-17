@@ -124,7 +124,7 @@ public partial class ValidateForm
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
-    private readonly ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
+    private readonly ConcurrentDictionary<FieldIdentifier, IValidateComponent> _validatorCache = new();
 
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
 
@@ -186,20 +186,20 @@ public partial class ValidateForm
     /// <para lang="zh">添加数据验证组件到 EditForm 中</para>
     /// <para lang="en">Adds a data validation component to the EditForm</para>
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    internal void AddValidator((string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
+    /// <param name="fieldIdentifier"></param>
+    /// <param name="component"></param>
+    internal void AddValidator(FieldIdentifier fieldIdentifier, IValidateComponent component)
     {
-        _validatorCache.TryAdd(key, value);
+        _validatorCache.TryAdd(fieldIdentifier, component);
     }
 
     /// <summary>
     /// <para lang="zh">移除数据验证组件到 EditForm 中</para>
     /// <para lang="en">Removes a data validation component from the EditForm</para>
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    internal bool TryRemoveValidator((string FieldName, Type ModelType) key, out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => _validatorCache.TryRemove(key, out value);
+    /// <param name="fieldIdentifier"></param>
+    /// <param name="component"></param>
+    internal bool TryRemoveValidator(FieldIdentifier fieldIdentifier, [MaybeNullWhen(false)] out IValidateComponent component) => _validatorCache.TryRemove(fieldIdentifier, out component);
 
     /// <summary>
     /// <para lang="zh">设置指定字段错误信息</para>
@@ -226,7 +226,7 @@ public partial class ValidateForm
         {
             var fieldName = exp.Member.Name;
             var modelType = exp.Expression.Type;
-            var validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+            var validator = _validatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
             if (validator == null)
             {
                 return;
@@ -282,7 +282,7 @@ public partial class ValidateForm
 
     private bool TryGetValidator(Type modelType, string fieldName, out IValidateComponent validator)
     {
-        validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+        validator = _validatorCache.FirstOrDefault(c => c.Key.Model.GetType() == modelType && c.Key.FieldName == fieldName).Value;
         return validator != null;
     }
 
@@ -306,17 +306,15 @@ public partial class ValidateForm
         else
         {
             // 遍历所有可验证组件进行数据验证
-            foreach (var key in _validatorCache.Keys)
+            foreach (var (fieldIdentifier, validator) in _validatorCache)
             {
-                // 验证 DataAnnotations
-                var (fieldIdentifier, validator) = _validatorCache[key];
                 if (!validator.IsNeedValidate)
                 {
                     continue;
                 }
 
                 var messages = new List<ValidationResult>();
-                var pi = key.ModelType.GetPropertyByName(key.FieldName);
+                var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
                 if (pi != null)
                 {
                     var propertyValidateContext = new ValidationContext(fieldIdentifier.Model, context, null)
@@ -351,10 +349,8 @@ public partial class ValidateForm
                     var messages = validate.Validate(context).ToList();
                     if (messages.Count > 0)
                     {
-                        foreach (var key in _validatorCache.Keys)
+                        foreach (var validator in _validatorCache.Values)
                         {
-                            var validatorValue = _validatorCache[key];
-                            var validator = validatorValue.ValidateComponent;
                             if (validator.IsNeedValidate)
                             {
                                 _validateResults[validator].AddRange(messages);
@@ -379,19 +375,19 @@ public partial class ValidateForm
     /// <para lang="zh">通过表单内绑定的字段验证方法</para>
     /// <para lang="en">Validates a field bound within the form</para>
     /// </summary>
+    /// <param name="fieldIdentifier"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    internal async Task ValidateFieldAsync(ValidationContext context, List<ValidationResult> results)
+    internal async Task ValidateFieldAsync(FieldIdentifier fieldIdentifier, ValidationContext context, List<ValidationResult> results)
     {
-        if (!string.IsNullOrEmpty(context.MemberName) && _validatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
+        if (_validatorCache.TryGetValue(fieldIdentifier, out var validator))
         {
-            var validator = v.ValidateComponent;
             if (validator.IsNeedValidate)
             {
-                var pi = context.ObjectType.GetPropertyByName(context.MemberName);
+                var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
                 if (pi != null)
                 {
-                    var propertyValue = Utility.GetPropertyValue(context.ObjectInstance, context.MemberName);
+                    var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
                     await ValidateAsync(validator, context, results, pi, propertyValue);
                 }
 
@@ -497,10 +493,8 @@ public partial class ValidateForm
             context.DisplayName = fieldIdentifier.GetDisplayName();
             context.MemberName = fieldIdentifier.FieldName;
 
-            if (_validatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
+            if (_validatorCache.TryGetValue(fieldIdentifier, out var validator))
             {
-                var validator = v.ValidateComponent;
-
                 if (validator.IsComplexValue(propertyValue) && propertyValue != null)
                 {
                     var fieldContext = new ValidationContext(propertyValue, context, null);
