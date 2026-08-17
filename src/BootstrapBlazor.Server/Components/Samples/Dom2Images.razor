@@ -16,6 +16,7 @@
 <DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
     <section ignore>
         <p>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</p>
+        <p>@((MarkupString)Localizer["Dom2ImageExcludeTip"].Value)</p>
         <div>
             <Button OnClick="OnGetUrlAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image"></Button>
             <Button OnClickWithoutRender="OnDownloadAsync" Text="@Localizer["Dom2ImageDownloadText"]" Icon="fa-solid fa-download"></Button>

@@ -39,18 +39,27 @@ public partial class Dom2Images
 
     private async Task OnGetUrlAsync()
     {
-        _imageData = await Dom2ImageService.GetUrlAsync("#table-9527");
+        var options = GetDom2ImageOptions();
+        _imageData = await Dom2ImageService.GetUrlAsync("#table-9527", options);
     }
 
     private async Task OnDownloadAsync()
     {
         var fileName = $"table-9527-{DateTime.Now:HHmmss}";
-        await Dom2ImageService.DownloadAsync("#table-9527", fileName);
+        var options = GetDom2ImageOptions();
+        await Dom2ImageService.DownloadAsync("#table-9527", fileName, options: options);
     }
 
     private async Task OnFullAsync()
     {
         var fileName = $"full-{DateTime.Now:HHmmss}";
-        await Dom2ImageService.DownloadAsync(".tabs-body-content:not(.d-none)", fileName);
+        var options = GetDom2ImageOptions();
+        await Dom2ImageService.DownloadAsync(".tabs-body-content:not(.d-none)", fileName, options: options);
     }
+
+    private static Dom2ImageOptions GetDom2ImageOptions() => new()
+    {
+        // 排除表格 Header 中的筛选和排序图标，避免对齐问题
+        Exclude = new[] { ".filter-icon", ".sort-icon" }
+    };
 }

@@ -2091,6 +2091,7 @@
     "Dom2ImageButtonText": "转换",
     "Dom2ImageDesc": "由于底层使用的是 <a href=\"https://github.com/zumerlab/snapdom?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">SnapDOM</a> 实际使用过程中遇到问题请参考项目 <a href=\"https://github.com/zumerlab/snapdom/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>",
     "Dom2ImageDownloadText": "下载",
+    "Dom2ImageExcludeTip": "本例中，通过设置 <code>Exclude</code> 过滤掉表头上的图标",
     "Dom2ImageFullText": "长截图",
     "Dom2ImageIntro": "将 Html 片段导出为图片",
     "Dom2ImageNormalIntro": "通过指定 <code>Selector</code> 将此节点转成图片",
