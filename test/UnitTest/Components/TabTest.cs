@@ -323,6 +323,32 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task CloseAllTabs_Ok()
+    {
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+                pb.Add(a => a.Closable, true);
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+                pb.Add(a => a.Closable, true);
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.CloseAllTabs());
+        Assert.Empty(cut.Instance.Items);
+    }
+
+    [Fact]
     public void AddTab_Ok()
     {
         var cut = Context.Render<Tab>(pb =>
@@ -534,6 +560,53 @@ public class TabTest : BootstrapBlazorTestBase
     {
         var cut = Context.Render<TabItem>();
         cut.Instance.SetDisabled(true);
+    }
+
+    [Fact]
+    public async Task SetDisabledItem_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+        var items = cut.Instance.Items.ToList();
+
+        await cut.InvokeAsync(() => cut.Instance.SetDisabledItem(new TabItem(), false));
+        await cut.InvokeAsync(() => items[1].SetDisabled(true));
+        await cut.InvokeAsync(cut.Instance.ClickNextTab);
+        Assert.Same(items[2], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(cut.Instance.ClickPrevTab);
+        Assert.Same(items[0], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[1]));
+        Assert.Same(items[0], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => items[1].SetDisabled(false));
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[1]));
+        await cut.InvokeAsync(() => items[1].SetDisabled(true));
+        Assert.Same(items[2], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => items[2].SetDisabled(true));
+        Assert.Same(items[0], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => items[0].SetDisabled(true));
+        Assert.Null(cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => items[1].SetDisabled(false));
+        Assert.Same(items[1], cut.Instance.GetActiveTab());
+
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(new TabItem()));
+        Assert.Same(items[1], cut.Instance.GetActiveTab());
+        Assert.Equal(["Tab1", "Tab3", "Tab1", "Tab2", "Tab3", "Tab1", null, "Tab2"], changedItems.Select(i => i?.Text));
     }
 
     [Fact]
@@ -750,6 +823,109 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");
+    }
+
+    [Fact]
+    public async Task ActiveTabItemChanged_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+
+        Assert.Equal(["Tab1"], changedItems.Select(i => i?.Text));
+
+        var items = cut.FindAll(".tabs-item");
+        await cut.InvokeAsync(() => items[1].Click());
+        Assert.Equal("Tab2", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab1", "Tab2"], changedItems.Select(i => i?.Text));
+
+        await cut.InvokeAsync(() => cut.FindAll(".tabs-item")[1].Click());
+        Assert.Equal(["Tab1", "Tab2"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ActiveTabItemChanged_EmptyAndDisabled()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+
+        Assert.Equal(["Tab1"], changedItems.Select(i => i?.Text));
+
+        var firstItem = cut.Instance.Items.First();
+        await cut.InvokeAsync(() => firstItem.SetDisabled(true));
+        Assert.Equal(["Tab1", "Tab2"], changedItems.Select(i => i?.Text));
+
+        var activeItem = cut.Instance.GetActiveTab();
+        Assert.NotNull(activeItem);
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(activeItem));
+        Assert.Null(cut.Instance.GetActiveTab());
+        Assert.Equal(new string?[] { "Tab1", "Tab2", null }, changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ActiveTabItemChanged_CollectionOrderChanged()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+        });
+        var activeItem = cut.Instance.GetActiveTab();
+        changedItems.Clear();
+
+        await cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
+        {
+            [nameof(TabItem.Text)] = "Inserted",
+            [nameof(TabItem.Url)] = "Inserted"
+        }, 0));
+        Assert.Same(activeItem, cut.Instance.GetActiveTab());
+        Assert.Empty(changedItems);
+
+        await cut.InvokeAsync(() => cut.Instance.DragItemCallback(1, 2));
+        Assert.Same(activeItem, cut.Instance.GetActiveTab());
+        Assert.Empty(changedItems);
     }
 
     [Fact]
@@ -1182,6 +1358,381 @@ public class TabTest : BootstrapBlazorTestBase
         cut.Contains("Localized-Cat");
     }
 
+    [Fact]
+    public async Task ClickPrevTab_WithDisabledTabs_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 激活 Tab3
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[2]));
+        Assert.Equal("Tab3", cut.Instance.GetActiveTab()?.Text);
+
+        // ClickPrev 应该跳过禁用的 Tab2，激活 Tab1
+        await cut.InvokeAsync(() => cut.Instance.ClickPrevTab());
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab3", "Tab1"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ClickNextTab_WithDisabledTabs_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        changedItems.Clear();
+
+        // 当前是 Tab1，ClickNext 应该跳过禁用的 Tab2，激活 Tab3
+        await cut.InvokeAsync(() => cut.Instance.ClickNextTab());
+        Assert.Equal("Tab3", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab3"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ClickPrevTab_AllDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 禁用除当前激活外的所有 Tab
+        await cut.InvokeAsync(() => items[1].SetDisabled(true));
+
+        // ClickPrev 应该无效（无可用 Tab）
+        await cut.InvokeAsync(() => cut.Instance.ClickPrevTab());
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Empty(changedItems);
+    }
+
+    [Fact]
+    public async Task ClickNextTab_AllDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 禁用除当前激活外的所有 Tab
+        await cut.InvokeAsync(() => items[1].SetDisabled(true));
+
+        // ClickNext 应该无效（无可用 Tab）
+        await cut.InvokeAsync(() => cut.Instance.ClickNextTab());
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Empty(changedItems);
+    }
+
+    [Fact]
+    public async Task ClickPrevTab_LoopMode_WithDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.IsLoopSwitchTabItem, true);
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        changedItems.Clear();
+
+        // 当前是 Tab2，ClickPrev 应该跳过禁用的 Tab1，循环到 Tab3
+        await cut.InvokeAsync(() => cut.Instance.ClickPrevTab());
+        Assert.Equal("Tab3", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab3"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ClickNextTab_LoopMode_WithDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.IsLoopSwitchTabItem, true);
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab3");
+                pb.Add(a => a.IsDisabled, true);
+            });
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 激活 Tab2
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[1]));
+        changedItems.Clear();
+
+        // ClickNext 应该跳过禁用的 Tab3，循环到 Tab1
+        await cut.InvokeAsync(() => cut.Instance.ClickNextTab());
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab1"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task AddTabItem_WithIsActiveTrue_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+        });
+
+        changedItems.Clear();
+
+        // 添加一个 IsActive=true 的新 Tab
+        await cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
+        {
+            [nameof(TabItem.Text)] = "Tab2",
+            [nameof(TabItem.Url)] = "Tab2",
+            [nameof(TabItem.IsActive)] = true
+        }));
+
+        Assert.Equal("Tab2", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab2"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task ActiveTabItem_WithDisabledItem_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.IsDisabled, true);
+            });
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 尝试激活被禁用的 Tab，应该失败
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[1]));
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Empty(changedItems);
+    }
+
+    [Fact]
+    public async Task ActiveTabItem_WithNonExistentItem_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+        });
+
+        changedItems.Clear();
+
+        // 尝试激活不在集合中的 Tab，应该失败
+        var externalTab = new TabItem { Text = "External" };
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(externalTab));
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Empty(changedItems);
+    }
+
+    [Fact]
+    public async Task RemoveTab_ActivatesNextNonDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        changedItems.Clear();
+
+        // 删除 Tab1（当前激活），应该跳过禁用的 Tab2，激活 Tab3
+        var activeItem = cut.Instance.GetActiveTab();
+        Assert.NotNull(activeItem);
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(activeItem));
+        Assert.Equal("Tab3", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab3"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task RemoveTab_ActivatesPreviousNonDisabled_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 激活 Tab3
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(items[2]));
+        changedItems.Clear();
+
+        // 删除 Tab3，应该跳过禁用的 Tab2，激活 Tab1
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(items[2]));
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab1"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task SetDisabledItem_ReEnableWithNoActiveTab_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+        });
+
+        var items = cut.Instance.Items.ToList();
+        changedItems.Clear();
+
+        // 禁用所有 Tab
+        await cut.InvokeAsync(() => items[0].SetDisabled(true));
+        await cut.InvokeAsync(() => items[1].SetDisabled(true));
+        Assert.Null(cut.Instance.GetActiveTab());
+
+        // 重新启用 Tab1，应该自动激活它
+        await cut.InvokeAsync(() => items[0].SetDisabled(false));
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Equal(["Tab2", null, "Tab1"], changedItems.Select(i => i?.Text));
+    }
+
+    [Fact]
+    public async Task CloseOtherTabs_TriggersSync_Ok()
+    {
+        var changedItems = new List<TabItem?>();
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.OnActiveTabItemChanged, item =>
+            {
+                changedItems.Add(item);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab1"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab2"));
+            pb.AddChildContent<TabItem>(pb => pb.Add(a => a.Text, "Tab3"));
+        });
+
+        changedItems.Clear();
+
+        // 关闭其他标签（保留当前激活的 Tab1）
+        await cut.InvokeAsync(() => cut.Instance.CloseOtherTabs());
+        Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
+        Assert.Single(cut.Instance.Items);
+        // 由于激活 Tab 未变化（仍是 Tab1），不应触发回调
+        Assert.Empty(changedItems);
+    }
+
     class DisableTabItemButton : ComponentBase
     {
         [CascadingParameter, NotNull]
@@ -1211,4 +1762,5 @@ public class TabTest : BootstrapBlazorTestBase
 
         protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, _renderFragment);
     }
+
 }

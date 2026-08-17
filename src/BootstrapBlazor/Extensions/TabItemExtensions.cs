@@ -8,28 +8,31 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TabItem Extension</para>
+/// <para lang="zh">TabItem 扩展方法</para>
 /// <para lang="en">TabItem Extension</para>
 /// </summary>
 internal static class TabItemExtensions
 {
-    public static RenderFragment RenderContent(this TabItem item, ConcurrentDictionary<TabItem, TabItemContent> cache) => builder =>
+    extension(TabItem item)
     {
-        builder.OpenComponent<TabItemContent>(0);
-        builder.AddAttribute(10, nameof(TabItemContent.Item), item);
-        builder.AddComponentReferenceCapture(20, content =>
+        public RenderFragment RenderContent(ConcurrentDictionary<TabItem, TabItemContent> cache) => builder =>
         {
-            var tabItemContent = (TabItemContent)content;
-            cache.AddOrUpdate(item, tabItemContent, (_, _) => tabItemContent);
-        });
-        builder.CloseComponent();
-    };
+            builder.OpenComponent<TabItemContent>(0);
+            builder.AddAttribute(10, nameof(TabItemContent.Item), item);
+            builder.AddComponentReferenceCapture(20, content =>
+            {
+                var tabItemContent = (TabItemContent)content;
+                cache.AddOrUpdate(item, tabItemContent, (_, _) => tabItemContent);
+            });
+            builder.CloseComponent();
+        };
 
-    public static void Refresh(this TabItem item, ConcurrentDictionary<TabItem, TabItemContent> cache)
-    {
-        if (cache.TryGetValue(item, out var content))
+        public void Refresh(ConcurrentDictionary<TabItem, TabItemContent> cache)
         {
-            content.Render();
+            if (cache.TryGetValue(item, out var content))
+            {
+                content.Render();
+            }
         }
     }
 }
