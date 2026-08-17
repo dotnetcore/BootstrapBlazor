@@ -313,7 +313,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (ValidateForm != null && FieldIdentifier.HasValue)
         {
-            ValidateForm.AddValidator((Id, FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
+            ValidateForm.AddValidator(FieldIdentifier.Value, this);
         }
     }
 
