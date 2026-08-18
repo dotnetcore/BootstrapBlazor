@@ -1890,6 +1890,105 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColumnFixed_Dynamic_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.DefaultFixedColumnWidth, 200);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", foo.Address);
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 未固定列时 col 元素不输出宽度
+        cut.DoesNotContain("width: 200px;");
+
+        // 运行时动态设置前两列为固定列
+        table.Instance.Columns[0].Fixed = true;
+        table.Instance.Columns[1].Fixed = true;
+        cut.Render();
+
+        // 固定列未设置宽度时使用默认固定列宽渲染 col 元素
+        var cols = cut.FindAll("colgroup col");
+        Assert.Equal(2, cols.Count);
+        Assert.All(cols, col => Assert.Contains("width: 200px;", col.GetAttribute("style")));
+
+        // 固定列单元格输出固定样式与偏移量
+        cut.Contains("left: 0px;");
+        cut.Contains("left: 200px;");
+
+        // 取消固定后恢复
+        table.Instance.Columns[0].Fixed = false;
+        table.Instance.Columns[1].Fixed = false;
+        cut.Render();
+
+        cut.DoesNotContain("width: 200px;");
+        cut.DoesNotContain("left: 200px;");
+    }
+
+    [Fact]
+    public void ColumnFixed_DynamicAutoGenerateColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.DefaultFixedColumnWidth, 200);
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+
+        // 运行时动态设置前两列为固定列
+        table.Instance.Columns[0].Fixed = true;
+        table.Instance.Columns[1].Fixed = true;
+        cut.Render();
+
+        // 自动生成列模式下列实例每次渲染均会重新创建，固定状态应保留
+        Assert.True(table.Instance.Columns[0].Fixed);
+        Assert.True(table.Instance.Columns[1].Fixed);
+
+        // 未设置宽度的固定列使用默认固定列宽渲染 col 元素，已设置宽度的固定列保持原宽度
+        var cols = cut.FindAll("colgroup col");
+        Assert.Single(cols.Where(c => (c.GetAttribute("style") ?? "").Contains("width: 200px;")));
+        Assert.Single(cols.Where(c => (c.GetAttribute("style") ?? "").Contains("width: 180px;")));
+
+        // 固定列单元格输出固定样式与偏移量
+        cut.Contains("left: 0px;");
+        cut.Contains("left: 180px;");
+
+        // 取消固定后恢复
+        table.Instance.Columns[0].Fixed = false;
+        table.Instance.Columns[1].Fixed = false;
+        cut.Render();
+
+        Assert.False(table.Instance.Columns[0].Fixed);
+        cut.DoesNotContain("width: 200px;");
+        cut.DoesNotContain("left: 180px;");
+    }
+
+    [Fact]
     public void ColumnFixed_TailColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();

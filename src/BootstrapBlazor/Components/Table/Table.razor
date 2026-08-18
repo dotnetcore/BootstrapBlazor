@@ -253,7 +253,7 @@
             {
                 if (col.Visible)
                 {
-                    <col style="@GetColWidthString(col.Width)" />
+                    <col style="@GetColWidthString(GetColWidth(col))" />
                 }
             }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)

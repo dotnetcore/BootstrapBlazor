@@ -206,6 +206,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColWidthString(int? width) => (width.HasValue && width.Value > 0) ? $"width: {width.Value}px;" : null;
 
+    private int? GetColWidth(TableColumnState state)
+    {
+        // 列状态中的宽度在首次构建列时生成，运行时动态设置 Fixed 后状态中的宽度可能为空
+        // 固定列未设置宽度时使用默认固定列宽，保证固定列偏移量与实际列宽一致
+        var col = Columns.Find(i => i.GetFieldName() == state.Name);
+        var width = state.Width ?? col?.Width;
+        return width ?? (col is { Fixed: true } ? DefaultFixedColumnWidth : null);
+    }
+
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
     /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
@@ -1155,6 +1164,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var measureColumnMinWidth = _measureColumnMinWidth;
             var updateSortTooltip = _updateSortTooltip;
             var scrollToTop = _shouldScrollTop;
+            var fixColumnOffset = _fixColumnOffset;
 
             _invoke = false;
             _resetColumnListPopover = false;
@@ -1163,6 +1173,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _measureColumnMinWidth = false;
             _updateSortTooltip = false;
             _shouldScrollTop = false;
+            _fixColumnOffset = false;
 
             await InvokeVoidAsync("updateTableState", Id, new
             {
@@ -1177,7 +1188,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 AutoScrollLastSelectedRowToView,
                 AutoScrollVerticalAlign = AutoScrollVerticalAlign.ToDescriptionString(),
                 ScrollIntoViewBehavior = ScrollIntoViewBehavior.ToDescriptionString(),
-                ScrollToTop = scrollToTop
+                ScrollToTop = scrollToTop,
+                FixColumnOffset = fixColumnOffset
             });
         }
 
@@ -1322,6 +1334,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task BuildTableColumnsAsync()
     {
+        // 缓存运行时动态设置的固定列状态
+        // 自动生成列模式下列实例每次渲染均会重新创建，重建后回放固定状态防止丢失
+        var fixedColumns = Columns.Where(i => i.Fixed).Select(i => i.GetFieldName()).ToHashSet(StringComparer.Ordinal);
+
         // 构建列信息
         var cols = GetTableColumns();
 
@@ -1335,9 +1351,34 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Columns.AddRange(cols.OrderFunc());
         EnsureTemplateColumnFieldNames();
 
+        // 回放运行时动态设置的固定列状态
+        if (fixedColumns.Count != 0)
+        {
+            foreach (var col in Columns)
+            {
+                if (fixedColumns.Contains(col.GetFieldName()))
+                {
+                    col.Fixed = true;
+                }
+            }
+        }
+
         // 加载客户端持久化列状态
         ResetTableColumns();
+
+        // 固定列集合发生变化时通知客户端脚本按实际渲染宽度修正固定列偏移量
+        var fixedColumnNames = Columns.Where(i => i.Fixed).Select(i => i.GetFieldName()).ToHashSet(StringComparer.Ordinal);
+        if (!fixedColumnNames.SetEquals(_lastFixedColumnNames))
+        {
+            _lastFixedColumnNames = fixedColumnNames;
+            _fixColumnOffset = true;
+            _invoke = true;
+        }
     }
+
+    private HashSet<string> _lastFixedColumnNames = new(StringComparer.Ordinal);
+
+    private bool _fixColumnOffset;
 
     private void EnsureTemplateColumnFieldNames()
     {
@@ -1403,6 +1444,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private void ResetTableColumns()
     {
         _visibleColumnsCache.Clear();
+
+        // 固定列状态可能在运行时发生改变且自动生成列模式下列实例每次渲染均会重新创建
+        // 清空缓存重新计算固定列边界，同时防止缓存按引用累积过期列实例
+        FirstFixedColumnCache.Clear();
+        LastFixedColumnCache.Clear();
 
         if (_tableColumnStates.Count == 0)
         {
