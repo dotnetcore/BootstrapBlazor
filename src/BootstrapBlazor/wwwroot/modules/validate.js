@@ -28,8 +28,11 @@ const showResult = el => {
 }
 
 export function dispose(id) {
-    const el = document.getElementById(id)
+    const el = document.getElementById(id);
+    disposeTip(el);
+}
 
+const disposeTip = el => {
     if (el) {
         const tip = bootstrap.Tooltip.getInstance(el)
         if (tip) {
