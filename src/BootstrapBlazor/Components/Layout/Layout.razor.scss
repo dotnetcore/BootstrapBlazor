@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 [data-bs-theme='dark'] .layout {
     --bb-layout-header-background: #{$bb-layout-header-background-dark};
@@ -340,7 +340,7 @@
             }
         }
 
-        &.is-collapsed {
+        &.is-collapsed:not(.is-click-expand) {
             .layout-side {
                 &:not(:hover) {
                     --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
@@ -357,7 +357,28 @@
                     }
                 }
             }
+        }
 
+        &.is-collapsed.is-click-expand {
+            .layout-side {
+                &:not(.is-expand) {
+                    --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+
+                    .menu.is-vertical {
+                        --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+                    }
+                }
+
+                &.is-expand {
+                    .layout-title,
+                    .menu.is-vertical .menu-text {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &.is-collapsed {
             .layout-main {
                 display: block;
             }

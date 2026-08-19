@@ -122,6 +122,13 @@ public partial class Layout : ITabHeader
     public EventCallback<bool> IsCollapsedChanged { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏收缩后是否鼠标悬停展开 默认为 true 悬停展开；为 false 时点击侧边栏展开，鼠标移出后自动收起</para>
+    /// <para lang="en">Gets or sets Whether the collapsed sidebar expands on mouse hover. Default true. When false, the sidebar expands on click and collapses when the mouse leaves</para>
+    /// </summary>
+    [Parameter]
+    public bool IsExpandOnHover { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 菜单手风琴效果</para>
     /// <para lang="en">Gets or sets Menu Accordion effect</para>
     /// </summary>
@@ -468,6 +475,7 @@ public partial class Layout : ITabHeader
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClass("is-collapsed", IsCollapsed)
+        .AddClass("is-click-expand", IsCollapsed && !IsExpandOnHover)
         .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
         .AddClass("is-page", IsPage)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -502,6 +510,7 @@ public partial class Layout : ITabHeader
     private string? SideClassString => CssBuilder.Default("layout-side")
         .AddClass("is-fixed-header", IsFixedHeader)
         .AddClass("is-fixed-footer", IsFixedFooter)
+        .AddClass("is-expand", _isSidebarExpand)
         .Build();
 
     /// <summary>
@@ -756,8 +765,37 @@ public partial class Layout : ITabHeader
     private async Task ToggleSidebar()
     {
         IsCollapsed = !IsCollapsed;
+        _isSidebarExpand = false;
 
         await TriggerCollapseChanged();
+    }
+
+    private bool _isSidebarExpand;
+
+    /// <summary>
+    /// <para lang="zh">点击侧边栏回调方法 IsExpandOnHover 为 false 时点击展开侧边栏</para>
+    /// <para lang="en">Callback method when clicking the sidebar. Expands the sidebar when IsExpandOnHover is false</para>
+    /// </summary>
+    private void OnClickSidebar()
+    {
+        if (IsCollapsed && !IsExpandOnHover && !_isSidebarExpand)
+        {
+            _isSidebarExpand = true;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// <para lang="zh">鼠标移出侧边栏回调方法 IsExpandOnHover 为 false 时自动收起侧边栏</para>
+    /// <para lang="en">Callback method when the mouse leaves the sidebar. Collapses the sidebar when IsExpandOnHover is false</para>
+    /// </summary>
+    private void OnMouseLeaveSidebar()
+    {
+        if (_isSidebarExpand)
+        {
+            _isSidebarExpand = false;
+            StateHasChanged();
+        }
     }
 
     /// <summary>
