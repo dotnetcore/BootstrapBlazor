@@ -99,11 +99,41 @@ public partial class FluentThemeTest
     [InlineData(".modal")]
     [InlineData(".switch")]
     [InlineData(".table")]
+    [InlineData(".pagination")]
+    [InlineData(".form-check")]
+    [InlineData(".form-range")]
     public void FluentTheme_ComponentSections_Ok(string selector)
     {
         // 检查关键组件样式节是否存在
         var css = ReadThemeWithoutComments();
         Assert.Matches($"{Regex.Escape(selector)}[\\s\\{{\\.:#,\\[]", css);
+    }
+
+    [Fact]
+    public void FluentTheme_SizingLayer_Ok()
+    {
+        // 检查尺寸与间距层关键规则存在(Fluent medium 32px 控件密度)
+        var css = ReadThemeWithoutComments();
+        Assert.Contains("--bs-btn-padding-y: 5px", css);
+        Assert.Contains("--bs-btn-line-height: 20px", css);
+        Assert.Contains("min-height: 32px", css);
+        Assert.Contains("--bb-height: 32px", css);
+        Assert.Contains("padding-left: 28px", css);
+        Assert.Contains("--bs-modal-padding: 24px", css);
+    }
+
+    [Theory]
+    [InlineData("--bb-disabled-bg")]
+    [InlineData("--bb-border-focus-color")]
+    [InlineData("--bb-border-hover-color")]
+    [InlineData("--bb-shadow")]
+    [InlineData("--bb-hover-shadow")]
+    public void FluentTheme_DarkBbVariables_Ok(string variable)
+    {
+        // 检查主题自定义 bb 根变量的暗色对等定义(bundle 未定义这些变量,漏配暗色无回退)
+        var css = ReadThemeWithoutComments();
+        var block = ExtractBlock(css, "[data-bs-theme='dark']");
+        Assert.Matches($"{Regex.Escape(variable)}\\s*:", block);
     }
 
     [Fact]
