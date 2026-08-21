@@ -238,6 +238,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsExpandOnHover, false);
         });
         Assert.Contains("is-click-expand", cut.Markup);
+        Assert.DoesNotContain("is-collapsed", cut.Markup);
         Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
 
         // 点击侧边栏展开
@@ -252,6 +253,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         // 默认悬停展开 不追加 is-click-expand 样式
         cut.Render(pb => pb.Add(a => a.IsExpandOnHover, true));
         cut.WaitForAssertion(() => Assert.DoesNotContain("is-click-expand", cut.Markup));
+        Assert.Contains("is-collapsed", cut.Markup);
     }
 
     [Fact]

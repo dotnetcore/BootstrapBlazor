@@ -474,7 +474,7 @@ public partial class Layout : ITabHeader
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
-        .AddClass("is-collapsed", IsCollapsed)
+        .AddClass("is-collapsed", IsCollapsed && IsExpandOnHover)
         .AddClass("is-click-expand", IsCollapsed && !IsExpandOnHover)
         .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
         .AddClass("is-page", IsPage)
