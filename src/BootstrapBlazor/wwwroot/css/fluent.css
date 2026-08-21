@@ -86,6 +86,10 @@
     --bs-font-sans-serif: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
     --bs-font-monospace: Consolas, 'Courier New', Courier, monospace;
 
+    /* Base text metrics — fontSizeBase300 / lineHeightBase300 (Fluent body1) */
+    --bs-body-font-size: .875rem; /* fontSizeBase300 (14px) */
+    --bs-body-line-height: 1.4286; /* lineHeightBase300 (20px) */
+
     /* Borders — colorNeutralStroke1 & borderRadius tokens */
     --bs-border-color: #d1d1d1;
     --bs-border-radius-sm: 2px;
@@ -703,6 +707,7 @@
 .dropdown-menu {
     --bs-dropdown-bg: var(--bs-body-bg);
     --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-font-size: .875rem; /* fontSizeBase300 */
     --bs-dropdown-border-color: var(--bs-border-color);
     --bs-dropdown-border-radius: var(--bs-border-radius); /* 4px */
     --bs-dropdown-box-shadow: var(--bs-box-shadow); /* shadow16 */
@@ -871,8 +876,12 @@
     --bb-step-item-line-bg: #4d4d4d; /* colorNeutralStroke2 (dark) */
 }
 
-/* Pagination — Fluent neutral pages (current page keeps the themed brand fill) */
+/* Pagination — Fluent neutral pages (current page keeps the themed brand fill);
+ * 32px page buttons match the medium control height (5px + 20px line + 2px border) */
 .pagination {
+    --bs-pagination-font-size: .875rem; /* fontSizeBase300 */
+    --bs-pagination-padding-y: 5px;
+    --bs-pagination-padding-x: 12px; /* spacingHorizontalM */
     --bs-pagination-color: #424242; /* colorNeutralForeground2 */
     --bs-pagination-hover-color: #242424; /* colorNeutralForeground1 */
     --bs-pagination-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
@@ -890,9 +899,29 @@
     --bs-pagination-disabled-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
 }
 
-/* ===== Buttons — Fluent label weight, focus stroke, neutral disabled ===== */
+/* ===== Buttons — Fluent label weight, sizing, focus stroke, neutral disabled ===== */
+/* Fluent medium button: 5px vertical padding + 20px line + 2px border = 32px;
+ * horizontal padding already matches spacingHorizontalM (12px) */
 .btn {
     --bs-btn-font-weight: 600; /* fontWeightSemibold */
+    --bs-btn-font-size: .875rem; /* fontSizeBase300 */
+    --bs-btn-line-height: 20px; /* lineHeightBase300 */
+    --bs-btn-padding-y: 5px; /* buttonSpacingMedium */
+}
+
+/* Fluent small button: 24px (3px + 16px line), fontWeightRegular; horizontal 8px already matches spacingHorizontalS */
+.btn-sm {
+    --bs-btn-font-size: .75rem; /* fontSizeBase200 (12px) */
+    --bs-btn-line-height: 16px; /* lineHeightBase200 */
+    --bs-btn-padding-y: 3px;
+    --bs-btn-font-weight: 400; /* fontWeightRegular */
+}
+
+/* Fluent large button: 40px (8px + 22px line); horizontal 16px already matches spacingHorizontalL */
+.btn-lg {
+    --bs-btn-font-size: 1rem; /* fontSizeBase400 (16px) */
+    --bs-btn-line-height: 22px; /* lineHeightBase400 */
+    --bs-btn-padding-y: 8px;
 }
 
 /* Fluent focus indicator: 2px colorStrokeFocus1 gap + 2px colorStrokeFocus2 ring (keyboard only) */
@@ -953,6 +982,53 @@ fieldset:disabled .btn {
 .form-control::placeholder {
     color: var(--bs-tertiary-color); /* colorNeutralForeground4 */
     opacity: 1;
+}
+
+/* Fluent Input metrics — medium 32px (5px + 20px line + 2px border),
+ * padding-inline spacingHorizontalM; typography body1 (14/20) */
+.form-control,
+.form-select,
+.input-group-text {
+    padding: 5px 12px; /* spacingHorizontalM */
+    font-size: .875rem; /* fontSizeBase300 */
+    line-height: 20px; /* lineHeightBase300 */
+}
+
+/* Fluent Select trigger: 20px chevron inset spacingHorizontalMNudge */
+.form-select {
+    padding-right: 34px; /* spacingHorizontalMNudge + 20px icon + 2× spacingHorizontalXXS */
+    background-position: right 10px center; /* spacingHorizontalMNudge */
+}
+
+/* Fluent small: 24px, caption1 (12/16), padding-inline spacingHorizontalS */
+.form-control-sm,
+.form-select-sm {
+    padding: 3px 8px; /* spacingHorizontalS */
+    font-size: .75rem; /* fontSizeBase200 */
+    line-height: 16px; /* lineHeightBase200 */
+}
+
+.form-select-sm {
+    padding-right: 26px;
+}
+
+/* Fluent large: 40px, body2 (16/22), padding-inline spacingHorizontalM + spacingHorizontalSNudge */
+.form-control-lg,
+.form-select-lg {
+    padding: 8px 18px;
+    font-size: 1rem; /* fontSizeBase400 */
+    line-height: 22px; /* lineHeightBase400 */
+}
+
+.form-select-lg {
+    padding-right: 48px;
+}
+
+/* Horizontal-form label aligned with the 32px control (5px padding + 1px border) */
+.col-form-label {
+    padding-top: calc(5px + var(--bs-border-width));
+    padding-bottom: calc(5px + var(--bs-border-width));
+    line-height: 20px; /* lineHeightBase300 */
 }
 
 /* Fluent motion — durationNormal / curveEasyEase */
@@ -1051,6 +1127,20 @@ fieldset:disabled .btn {
 /* ===== Checkbox — Fluent Checkbox: strokeAccessible outline, borderRadiusSmall, brand fill ===== */
 .form-check {
     --bb-checkbox-input-focus-border-color: #616161; /* colorNeutralStrokeAccessible */
+}
+
+/* Fluent Checkbox/Radio metrics — 16px indicator; gap = indicator margin (spacingHorizontalS)
+ * + label padding (spacingHorizontalS) = 16px. Excludes .form-switch (2em track) */
+.form-check:not(.form-switch) {
+    padding-left: 32px; /* 16px indicator + 2× spacingHorizontalS */
+    min-height: 20px; /* lineHeightBase300 */
+}
+
+.form-check:not(.form-switch) .form-check-input {
+    width: 16px; /* indicatorSizeMedium */
+    height: 16px;
+    margin-top: 2px; /* center the 16px indicator on the 20px first line */
+    margin-left: -32px;
 }
 
 .form-check .form-check-input {
@@ -1316,6 +1406,8 @@ fieldset:disabled .btn {
  */
 .card {
     --bs-card-border-color: var(--bs-border-color); /* colorNeutralStroke1 */
+    --bs-card-spacer-x: 12px; /* --fui-Card--size medium (spacingM) */
+    --bs-card-spacer-y: 12px;
 }
 
 /* ===== Avatar — Fluent Avatar "neutral" recipe ===== */
@@ -1354,6 +1446,9 @@ fieldset:disabled .btn {
     --bs-list-group-active-border-color: var(--bs-primary);
     --bs-list-group-action-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
     --bs-list-group-action-active-bg: #e0e0e0; /* colorNeutralBackground1Pressed */
+    /* Fluent ListItem defines no padding of its own; align density with spacingVerticalS / spacingHorizontalM */
+    --bs-list-group-item-padding-x: 12px; /* spacingHorizontalM */
+    --bs-list-group-item-padding-y: 8px; /* spacingVerticalS */
 }
 
 [data-bs-theme='dark'] .list-group {
@@ -1377,6 +1472,9 @@ fieldset:disabled .btn {
     --bs-modal-border-radius: var(--bs-border-radius-xxl); /* borderRadiusXLarge */
     --bs-modal-header-border-color: transparent; /* DialogTitle: no divider */
     --bs-modal-footer-border-color: transparent; /* DialogActions: no divider */
+    --bs-modal-padding: 24px; /* SURFACE_PADDING (spacingXXL) */
+    --bs-modal-header-padding: 24px 24px 8px; /* DialogBody grid gap: title → content 8px (DIALOG_GAP) */
+    --bs-modal-footer-gap: 8px; /* DialogActions gap (DIALOG_GAP) */
 }
 
 .modal-title {
@@ -1403,6 +1501,8 @@ fieldset:disabled .btn {
 /* ===== Alert / Message — Fluent InfoBar: no visible border ===== */
 .alert {
     --bs-alert-border: 0; /* InfoBar: border replaced by status background tint */
+    --bs-alert-padding-x: 12px; /* MessageBar paddingLeft (spacingHorizontalM) */
+    --bs-alert-padding-y: 8px; /* 8px + 20px line + 8px = 36px (MessageBar minHeight) */
 }
 
 /* Fluent InfoBar "info" intent = neutral surface, not a cyan tint */
