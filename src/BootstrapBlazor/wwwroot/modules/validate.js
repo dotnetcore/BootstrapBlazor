@@ -1,3 +1,5 @@
+import Data from "./data.js"
+
 export function execute(id, title) {
     const el = document.getElementById(id);
 
@@ -29,10 +31,6 @@ const showResult = el => {
 
 export function dispose(id) {
     const el = document.getElementById(id);
-    disposeTip(el);
-}
-
-const disposeTip = el => {
     if (el) {
         const tip = bootstrap.Tooltip.getInstance(el)
         if (tip) {
@@ -51,20 +49,41 @@ export function executeUpload(items, invalidItems, addId) {
                 execute(id, errorMessage);
                 el.classList.remove('is-valid');
                 el.classList.add('is-invalid');
+
+                if (id === addId) {
+                    const tip = bootstrap.Tooltip.getInstance(el);
+                    if (tip) {
+                        Data.set(addId, tip);
+                        addId = null;
+                    }
+                }
             }
             else {
                 dispose(id);
                 el.classList.remove('is-invalid');
                 el.classList.add('is-valid');
+
+                disposeTip(addId);
+                addId = null;
             }
         }
     });
 
     if (addId) {
-        const el = document.getElementById(addId);
+        disposeTip(addId);
+    }
+}
+
+const disposeTip = id => {
+    const tip = Data.get(id);
+    Data.remove(id);
+
+    if (tip) {
+        tip.dispose();
+
+        const el = document.getElementById(id);
         if (el) {
-            el.classList.remove('is-valid', 'is-invalid');
-            dispose(addId);
+            el.classList.remove('is-invalid');
         }
     }
 }
