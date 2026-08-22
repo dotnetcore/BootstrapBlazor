@@ -244,11 +244,11 @@ public class LayoutTest : BootstrapBlazorTestBase
         // 点击侧边栏展开
         var side = cut.Find(".layout-side");
         await cut.InvokeAsync(() => side.Click());
-        cut.WaitForAssertion(() => Assert.Contains("is-expand", cut.Find(".layout-side").ClassName));
+        Assert.Contains("is-expand", cut.Find(".layout-side").ClassName);
 
         // 鼠标移出侧边栏收起
         await cut.InvokeAsync(() => side.TriggerEvent("onmouseleave", new MouseEventArgs()));
-        cut.WaitForAssertion(() => Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName));
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
 
         // 默认悬停展开 不追加 is-click-expand 样式
         cut.Render(pb => pb.Add(a => a.IsExpandOnHover, true));
@@ -257,17 +257,19 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         cut.Render(pb =>
         {
-            pb.Add(a => a.IsExpandOnHover, false);
+            pb.Add(a => a.IsCollapsed, true);
+            pb.Add(a => a.IsExpandOnHover, true);
         });
         await cut.InvokeAsync(() => side.Click());
-        cut.WaitForAssertion(() => Assert.Contains("is-expand", cut.Find(".layout-side").ClassName));
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
 
         cut.Render(pb =>
         {
             pb.Add(a => a.IsCollapsed, false);
+            pb.Add(a => a.IsExpandOnHover, true);
         });
         await cut.InvokeAsync(() => side.Click());
-        cut.WaitForAssertion(() => Assert.Contains("is-expand", cut.Find(".layout-side").ClassName));
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
     }
 
     [Fact]
