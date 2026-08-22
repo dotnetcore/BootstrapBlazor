@@ -240,6 +240,57 @@ public class DrawerTest : BootstrapBlazorTestBase
         cut.Contains("data-bb-scroll=\"true\"");
     }
 
+    [Fact]
+    public async Task OnClosingAsync_ReturnFalse()
+    {
+        var onCloseCalled = false;
+        var isOpenChangedCalled = false;
+        var cut = Context.Render<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.OnClosingAsync, () => Task.FromResult(false));
+            builder.Add(a => a.OnCloseAsync, () =>
+            {
+                onCloseCalled = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, _ => isOpenChangedCalled = true));
+        });
+
+        Assert.IsType<IClosable>(cut.Instance, exactMatch: false);
+        await cut.InvokeAsync(cut.Instance.Close);
+
+        Assert.True(cut.Instance.IsOpen);
+        Assert.False(onCloseCalled);
+        Assert.False(isOpenChangedCalled);
+    }
+
+    [Fact]
+    public async Task OnClosingAsync_ReturnTrue()
+    {
+        var callbacks = new List<string>();
+        var cut = Context.Render<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.OnClosingAsync, () =>
+            {
+                callbacks.Add("closing");
+                return Task.FromResult(true);
+            });
+            builder.Add(a => a.OnCloseAsync, () =>
+            {
+                callbacks.Add("close");
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, _ => callbacks.Add("changed")));
+        });
+
+        await cut.InvokeAsync(cut.Instance.Close);
+
+        Assert.False(cut.Instance.IsOpen);
+        Assert.Equal(["closing", "close", "changed"], callbacks);
+    }
+
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]

@@ -2143,6 +2143,7 @@
     "Close": "close the drawer",
     "Content": "The layout, components, etc. in the drawer are fully customizable",
     "Description": "Sometimes, the Dialog component does not meet our needs. For example, your form is very long, or you need to temporarily display some documents. Drawer has almost the same API as Dialog, which brings a different experience to the UI.",
+    "DrawerServiceContent": "When opening a drawer by calling <code>DrawerService.Show</code>, you can intercept closing through the <code>OnClosingAsync</code> callback of <code>DrawerOption</code>. This works in the same way as components such as <code>Dialog</code>. Return <code>false</code> from the callback to cancel closing the drawer.",
     "DrawerServiceIntro": "Open the drawer pop-up window by calling the <code>DrawerService</code> service",
     "DrawerServiceTitle": "Drawer Service",
     "DrawerTips": "Sometimes we want to expand a pop-up window in a certain container. We can do this by embedding a <code>&lt;Drawer/&gt;</code> drawer component in a specific container and then setting the parameter <code>Position=\"absolute\"</code> for relative positioning. Note: The parent container style needs to be set to <code>position: relative;</code>",

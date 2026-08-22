@@ -72,6 +72,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DrawerServiceTitle"]" Introduction="@Localizer["DrawerServiceIntro"]" Name="DrawerService">
+    <section ignore>
+        <p>@((MarkupString)Localizer["DrawerServiceContent"].Value)</p>
+    </section>
     <Button OnClickWithoutRender="@DrawerServiceShow" Text="@Localizer["Open"]"></Button>
 </DemoBlock>
 
