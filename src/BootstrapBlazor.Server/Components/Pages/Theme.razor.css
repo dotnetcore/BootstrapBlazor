@@ -1,0 +1,5 @@
+/* 预览墙中的 Table 直接位于页面流内，.table-container 默认 height: 100%
+   会沿 flex 链拉伸到整页高度；此处让其按内容高度收缩 */
+.theme-preview-table ::deep .table-container {
+    height: auto;
+}

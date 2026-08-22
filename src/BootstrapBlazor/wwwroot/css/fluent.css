@@ -1,0 +1,2453 @@
+/*
+ * Fluent UI Web theme for BootstrapBlazor
+ * Ported from Microsoft Fluent UI (Fluent 2) design tokens
+ * Source: https://github.com/microsoft/fluentui
+ *   @fluentui/tokens webLightTheme / webDarkTheme (brandWeb ramp #0f6cbd)
+ *   packages/tokens/src/themes/web, global/brandColors.ts, alias/lightColor.ts, alias/darkColor.ts
+ *
+ * Usage: add after bootstrap.blazor.bundle.min.css
+ *   <link rel="stylesheet" href="_content/BootstrapBlazor/css/fluent.min.css" />
+ */
+
+/* ===== Light theme ===== */
+:root, [data-bs-theme='light'] {
+    /* Neutral colors — Fluent global grey ramp */
+    --bs-gray: #616161;
+    --bs-gray-dark: #242424;
+    --bs-gray-100: #f5f5f5;
+    --bs-gray-200: #f0f0f0;
+    --bs-gray-300: #e0e0e0;
+    --bs-gray-400: #d1d1d1;
+    --bs-gray-500: #b3b3b3;
+    --bs-gray-600: #757575;
+    --bs-gray-700: #616161;
+    --bs-gray-800: #424242;
+    --bs-gray-900: #242424;
+
+    /* Theme colors — Fluent brandWeb ramp & shared palettes */
+    --bs-primary: #0f6cbd; /* colorBrandBackground (brand80) */
+    --bs-secondary: #ebebeb; /* colorNeutralBackground5 (grey92) */
+    --bs-success: #107c10; /* colorStatusSuccessBackground3 (green) */
+    --bs-info: #0099bc; /* colorPaletteCyanBackground3 */
+    --bs-warning: #f7630c; /* colorStatusWarningBackground3 (orange) */
+    --bs-danger: #c50f1f; /* colorStatusDangerBackground3 (cranberry) */
+    --bs-light: #fafafa; /* grey98 */
+    --bs-dark: #242424; /* grey14 */
+    --bs-primary-rgb: 15,108,189;
+    --bs-secondary-rgb: 235,235,235;
+    --bs-success-rgb: 16,124,16;
+    --bs-info-rgb: 0,153,188;
+    --bs-warning-rgb: 247,99,12;
+    --bs-danger-rgb: 197,15,31;
+    --bs-light-rgb: 250,250,250;
+    --bs-dark-rgb: 36,36,36;
+
+    /* Body — colorNeutralForeground1 / colorNeutralBackground1 */
+    --bs-body-color: #242424;
+    --bs-body-color-rgb: 36,36,36;
+    --bs-body-bg: #ffffff;
+    --bs-body-bg-rgb: 255,255,255;
+
+    /* Emphasis — colorNeutralForeground1 (tables, .text-bg-*, close buttons) */
+    --bs-emphasis-color: #242424;
+    --bs-emphasis-color-rgb: 36,36,36;
+
+    /* Secondary/tertiary text — colorNeutralForeground3 / colorNeutralForeground4 */
+    --bs-secondary-color: #616161;
+    --bs-secondary-color-rgb: 97,97,97;
+    --bs-tertiary-color: #707070;
+    --bs-tertiary-color-rgb: 112,112,112;
+
+    /* Secondary/tertiary surfaces — colorNeutralBackground3 / colorNeutralBackground2 */
+    --bs-secondary-bg: #f5f5f5;
+    --bs-secondary-bg-rgb: 245,245,245;
+    --bs-tertiary-bg: #fafafa;
+    --bs-tertiary-bg-rgb: 250,250,250;
+
+    /* Code — colorNeutralForeground2 (no Fluent code token; replaces Bootstrap pink #d63384) */
+    --bs-code-color: #424242;
+
+    /* Focus ring — colorCompoundBrandStroke (brand80) at the default 0.25 opacity */
+    --bs-focus-ring-color: rgba(15,108,189,0.25);
+
+    /* Validation feedback — colorStatusSuccessBackground3 / colorStatusDangerBackground3 */
+    --bs-form-valid-color: #107c10;
+    --bs-form-valid-border-color: #107c10;
+    --bs-form-invalid-color: #c50f1f;
+    --bs-form-invalid-border-color: #c50f1f;
+
+    /* Links — colorBrandForegroundLink */
+    --bs-link-color: #115ea3; /* brand70 */
+    --bs-link-color-rgb: 17,94,163;
+    --bs-link-hover-color: #0f548c; /* brand60 */
+    --bs-link-hover-color-rgb: 15,84,140;
+
+    /* Typography — fontFamilyBase / fontFamilyMonospace */
+    --bs-font-sans-serif: 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    --bs-font-monospace: Consolas, 'Courier New', Courier, monospace;
+
+    /* Base text metrics — fontSizeBase300 / lineHeightBase300 (Fluent body1) */
+    --bs-body-font-size: .875rem; /* fontSizeBase300 (14px) */
+    --bs-body-line-height: 1.4286; /* lineHeightBase300 (20px) */
+
+    /* Borders — colorNeutralStroke1 & borderRadius tokens */
+    --bs-border-color: #d1d1d1;
+    --bs-border-radius-sm: 2px;
+    --bs-border-radius: 4px;
+    --bs-border-radius-lg: 6px;
+    --bs-border-radius-xl: 8px;
+    --bs-border-radius-xxl: 12px;
+
+    /* Shadows — Fluent shadow tokens (ambient 0.12 / key 0.14) */
+    --bs-box-shadow-sm: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+    --bs-box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.14);
+    --bs-box-shadow-lg: 0 0 8px rgba(0,0,0,0.12), 0 32px 64px rgba(0,0,0,0.14);
+
+    /* Text emphasis — Fluent foreground tokens */
+    --bs-primary-text-emphasis: #0f6cbd; /* colorBrandForeground1 */
+    --bs-secondary-text-emphasis: #616161; /* colorNeutralForeground3 */
+    --bs-success-text-emphasis: #0e700e; /* colorStatusSuccessForeground1 */
+    --bs-info-text-emphasis: #008aa9; /* colorPaletteCyanForeground1 */
+    --bs-warning-text-emphasis: #bc4b09; /* colorStatusWarningForeground1 */
+    --bs-danger-text-emphasis: #b10e1c; /* colorStatusDangerForeground1 */
+    --bs-light-text-emphasis: #616161;
+    --bs-dark-text-emphasis: #242424;
+
+    /* Background subtle — Fluent Background1/Background2 tokens */
+    --bs-primary-bg-subtle: #ebf3fc; /* colorBrandBackground2 (brand160) */
+    --bs-secondary-bg-subtle: #f5f5f5;
+    --bs-success-bg-subtle: #f1faf1; /* colorStatusSuccessBackground1 */
+    --bs-info-bg-subtle: #f2fafc; /* colorPaletteCyanBackground1 */
+    --bs-warning-bg-subtle: #fff9f5; /* colorStatusWarningBackground1 */
+    --bs-danger-bg-subtle: #fdf3f4; /* colorStatusDangerBackground1 */
+    --bs-light-bg-subtle: #fafafa;
+    --bs-dark-bg-subtle: #e0e0e0;
+
+    /* Border subtle — Fluent Border1/Stroke2 tokens */
+    --bs-primary-border-subtle: #b4d6fa; /* colorBrandStroke2 (brand140) */
+    --bs-secondary-border-subtle: #e0e0e0;
+    --bs-success-border-subtle: #9fd89f; /* colorStatusSuccessBorder1 */
+    --bs-info-border-subtle: #a4deeb; /* colorPaletteCyanBorder1 */
+    --bs-warning-border-subtle: #fdcfb4; /* colorStatusWarningBorder1 */
+    --bs-danger-border-subtle: #eeacb2; /* colorStatusDangerBorder1 */
+    --bs-light-border-subtle: #f0f0f0;
+    --bs-dark-border-subtle: #b3b3b3;
+
+    /* BootstrapBlazor root variables */
+    --bb-primary-color: #0f6cbd;
+    --bb-primary-color-rgb: 15,108,189;
+    --bb-disabled-bg: #f0f0f0; /* colorNeutralBackgroundDisabled */
+    --bb-border-focus-color: #0f6cbd; /* colorCompoundBrandStroke */
+    --bb-border-hover-color: #c7c7c7; /* colorNeutralStroke1Hover */
+    --bb-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.14); /* shadow4 */
+    --bb-hover-shadow: 0 0 2px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.14); /* shadow8 */
+    --bb-height: 32px; /* Fluent medium control height — bundle default is 35px */
+    --bs-btn-close-focus-shadow: 0 0 0 .25rem rgba(15,108,189,.25); /* brand80 at the default 0.25 opacity */
+}
+
+/* ===== Dark theme ===== */
+[data-bs-theme='dark'] {
+    /* Text emphasis — Fluent dark foreground tokens */
+    --bs-primary-text-emphasis: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bs-secondary-text-emphasis: #adadad; /* colorNeutralForeground3 (grey68) */
+    --bs-success-text-emphasis: #54b054; /* colorStatusSuccessForeground1 (green tint30) */
+    --bs-info-text-emphasis: #56bfd7; /* colorPaletteCyanForeground1 (cyan tint30) */
+    --bs-warning-text-emphasis: #faa06b; /* colorStatusWarningForeground1 (orange tint30) */
+    --bs-danger-text-emphasis: #dc626d; /* colorStatusDangerForeground1 (cranberry tint30) */
+    --bs-light-text-emphasis: #f5f5f5;
+    --bs-dark-text-emphasis: #d6d6d6;
+
+    /* Background subtle — Fluent dark shade40 tokens */
+    --bs-primary-bg-subtle: #082338; /* colorBrandBackground2 (brand20) */
+    --bs-secondary-bg-subtle: #1f1f1f; /* grey12 */
+    --bs-success-bg-subtle: #052505; /* colorStatusSuccessBackground1 */
+    --bs-info-bg-subtle: #002e38; /* colorPaletteCyanBackground1 */
+    --bs-warning-bg-subtle: #4a1e04; /* colorStatusWarningBackground1 */
+    --bs-danger-bg-subtle: #3b0509; /* colorStatusDangerBackground1 */
+    --bs-light-bg-subtle: #3d3d3d; /* grey24 */
+    --bs-dark-bg-subtle: #141414; /* grey8 */
+
+    /* Border subtle — Fluent dark stroke tokens */
+    --bs-primary-border-subtle: #0e4775; /* colorBrandStroke2 (brand50) */
+    --bs-secondary-border-subtle: #424242; /* grey26 */
+    --bs-success-border-subtle: #094509; /* green shade30 */
+    --bs-info-border-subtle: #005669; /* cyan shade30 */
+    --bs-warning-border-subtle: #8a3707; /* orange shade30 */
+    --bs-danger-border-subtle: #6e0811; /* cranberry shade30 */
+    --bs-light-border-subtle: #525252;
+    --bs-dark-border-subtle: #3d3d3d;
+
+    /* Body — colorNeutralForeground1 / colorNeutralBackground1 (dark) */
+    --bs-body-color: #ffffff;
+    --bs-body-color-rgb: 255,255,255;
+    --bs-body-bg: #292929; /* grey16 */
+    --bs-body-bg-rgb: 41,41,41;
+
+    /* Emphasis — colorNeutralForeground1 (dark) */
+    --bs-emphasis-color: #ffffff;
+    --bs-emphasis-color-rgb: 255,255,255;
+
+    /* Secondary/tertiary text — colorNeutralForeground3 (grey68) / colorNeutralForeground4 (grey60) */
+    --bs-secondary-color: #adadad;
+    --bs-secondary-color-rgb: 173,173,173;
+    --bs-tertiary-color: #999999;
+    --bs-tertiary-color-rgb: 153,153,153;
+
+    /* Secondary/tertiary surfaces — colorNeutralBackground3 (grey8) / colorNeutralBackground2 (grey12) */
+    --bs-secondary-bg: #141414;
+    --bs-secondary-bg-rgb: 20,20,20;
+    --bs-tertiary-bg: #1f1f1f;
+    --bs-tertiary-bg-rgb: 31,31,31;
+
+    /* Code — colorNeutralForeground2 (grey84) */
+    --bs-code-color: #d6d6d6;
+
+    /* Focus ring — colorCompoundBrandStroke (brand100) at the default 0.25 opacity */
+    --bs-focus-ring-color: rgba(71,158,245,0.25);
+
+    /* Validation feedback — colorStatusSuccessForeground1 / colorStatusDangerForeground1 (dark) */
+    --bs-form-valid-color: #54b054;
+    --bs-form-valid-border-color: #54b054;
+    --bs-form-invalid-color: #dc626d;
+    --bs-form-invalid-border-color: #dc626d;
+
+    /* Links — colorBrandForegroundLink (dark) */
+    --bs-link-color: #479ef5; /* brand100 */
+    --bs-link-color-rgb: 71,158,245;
+    --bs-link-hover-color: #62abf5; /* brand110 */
+    --bs-link-hover-color-rgb: 98,171,245;
+
+    /* Borders & shadows — colorNeutralStroke1 & dark shadow tokens (ambient 0.24 / key 0.28) */
+    --bs-border-color: #666666; /* grey40 */
+    --bs-box-shadow-sm: 0 0 2px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.28);
+    --bs-box-shadow: 0 0 2px rgba(0,0,0,0.24), 0 8px 16px rgba(0,0,0,0.28);
+    --bs-box-shadow-lg: 0 0 8px rgba(0,0,0,0.24), 0 32px 64px rgba(0,0,0,0.28);
+
+    /* BootstrapBlazor root variables */
+    --bb-disabled-bg: #141414; /* colorNeutralBackgroundDisabled (grey8) */
+    --bb-border-focus-color: #479ef5; /* colorCompoundBrandStroke (brand100) */
+    --bb-border-hover-color: #757575; /* colorNeutralStroke1Hover (grey46) */
+    --bb-shadow: 0 0 2px rgba(0,0,0,0.24), 0 2px 4px rgba(0,0,0,0.28);
+    --bb-hover-shadow: 0 0 2px rgba(0,0,0,0.24), 0 4px 8px rgba(0,0,0,0.28);
+    --bs-btn-close-focus-shadow: 0 0 0 .25rem rgba(71,158,245,.25); /* brand100 at 0.25 opacity */
+}
+
+/* ===== Component variable overrides — re-point hard-coded accent colors to theme tokens ===== */
+
+.layout {
+    --bb-layout-header-background: var(--bs-primary);
+    --bb-layout-header-border-color: var(--bs-primary);
+    --bb-layout-headerbar-background: var(--bs-primary);
+    --bb-layout-sidebar-banner-background: var(--bs-primary);
+    --bb-layout-banner-border-color: var(--bs-primary);
+    --bb-layout-menu-user-banner-background: var(--bs-primary);
+    --bb-layout-menu-user-border-color: #115ea3; /* brand70 */
+    --bb-layout-menu-item-hover-bg: var(--bs-primary);
+    --bb-layout-logo-bg: var(--bs-primary);
+    --bb-layout-logo-border-color: var(--bs-border-color); /* colorNeutralStroke1 (bundle hard-codes #d5d5d5) */
+}
+
+/* Dark: the bundle's own dark block still falls back to legacy greys
+ * (#606266 / #2c3034) — re-point to Fluent dark surface/stroke tokens */
+[data-bs-theme='dark'] .layout {
+    --bb-layout-headerbar-background: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bb-layout-menu-item-hover-bg: #3d3d3d;
+    --bb-layout-menu-user-border-color: var(--bs-border-color); /* colorNeutralStroke1 (dark) */
+    --bb-layout-logo-bg: #3d3d3d; /* grey24 */
+    --bb-layout-menu-user-banner-background: #3d3d3d; /* grey24 — bundle dark still falls back to legacy #2c3034 */
+}
+
+.menu {
+    --bb-menu-active-color: var(--bs-primary);
+    --bb-menu-bar-bg: var(--bs-primary);
+    --bb-menu-item-hover-bg: var(--bs-primary);
+    --bb-menu-item-hover-color: #ffffff; /* colorNeutralForegroundInverted — legible on the themed brand hover fill */
+    --bs-nav-link-disabled-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+/* Dark: brand80 #0f6cbd is too dim as a foreground on dark surfaces — use brand100 */
+[data-bs-theme='dark'] .menu {
+    --bb-menu-active-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-menu-bar-bg: #479ef5; /* colorCompoundBrandStroke (dark) */
+    --bs-nav-link-disabled-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* Cascader items consume the menu hover vars, but .cascade never defines them — provide the Fluent neutral fill here */
+.cascade {
+    --bb-menu-item-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bb-menu-item-hover-color: var(--bs-body-color); /* colorNeutralForeground1 */
+}
+
+[data-bs-theme='dark'] .cascade {
+    --bb-menu-item-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+/* Bottom-menu divider — bundle uses --bs-gray-400, a light-ramp grey that glows on dark surfaces */
+[data-bs-theme='dark'] .menu.is-bottom .nav {
+    border-top-color: #525252; /* colorNeutralStroke2 (dark, grey32) */
+}
+
+.tabs {
+    --bb-tabs-item-active-color: var(--bs-primary);
+    --bb-tabs-item-hover-color: var(--bs-primary);
+    --bb-tabs-bar-bg: var(--bs-primary);
+}
+
+[data-bs-theme='dark'] .tabs {
+    --bb-tabs-item-active-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-tabs-item-hover-color: #479ef5;
+    --bb-tabs-bar-bg: #479ef5; /* colorCompoundBrandStroke (dark) */
+}
+
+.calendar {
+    --bb-calendar-toolbar-hover-color: var(--bs-primary);
+    --bb-calendar-toolbar-focus-color: var(--bs-primary);
+    --bb-calendar-toolbar-active-color: var(--bs-primary);
+    --bb-calendar-today-color: var(--bs-primary);
+    --bb-calendar-today-border-color: var(--bs-primary);
+    --bb-calendar-selected-bg: var(--bs-primary);
+    --bb-calendar-week-today-color: var(--bs-primary);
+    --bb-calendar-week-today-border-color: var(--bs-primary);
+    --bb-calendar-toolbar-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bb-calendar-toolbar-focus-bg: #e0e0e0; /* colorNeutralBackground1Pressed */
+    --bb-calendar-cell-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+}
+
+[data-bs-theme='dark'] .calendar {
+    --bb-calendar-selected-bg: var(--bs-primary);
+    --bb-calendar-toolbar-hover-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-calendar-toolbar-focus-color: #479ef5;
+    --bb-calendar-toolbar-active-color: #479ef5;
+    --bb-calendar-today-color: #479ef5;
+    --bb-calendar-today-border-color: #479ef5;
+    --bb-calendar-week-today-color: #479ef5;
+    --bb-calendar-week-today-border-color: #479ef5;
+    --bb-calendar-toolbar-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bb-calendar-toolbar-focus-bg: #1f1f1f; /* colorNeutralBackground1Pressed (dark, grey12) */
+    --bb-calendar-cell-hover-bg: #3d3d3d;
+}
+
+.picker-panel {
+    --bb-picker-hover-color: var(--bs-primary);
+    --bb-picker-panel-today-bg: var(--bs-primary);
+    box-shadow: var(--bs-box-shadow); /* Fluent flyout surface: shadow16 */
+}
+
+[data-bs-theme='dark'] .picker-panel {
+    --bb-picker-hover-color: #479ef5; /* colorBrandForeground1 (brand100) */
+}
+
+.bb-clock-picker {
+    --bb-time-text-color: var(--bs-primary);
+    --bb-time-footer-btn-border: var(--bs-border-width) solid var(--bs-border-color); /* colorNeutralStroke1 */
+    --bb-time-footer-btn-color: var(--bs-body-color); /* colorNeutralForeground1 */
+    --bb-time-footer-btn-hover-border-color: var(--bs-primary); /* colorBrandBackground */
+    --bb-time-footer-btn-hover-bg-color: var(--bs-primary);
+    --bb-time-footer-btn-active-color: var(--bs-primary);
+    --bb-time-footer-btn-active-border-color: var(--bs-primary);
+}
+
+.table-container {
+    --bb-table-header-icon-color: rgba(var(--bs-body-color-rgb),.4);
+    --bb-table-header-icon-active-color: var(--bs-primary);
+    --bb-table-header-icon-hover-color: var(--bs-body-color);
+    --bb-table-header-icon-hover-bg: rgba(var(--bs-body-color-rgb),.1);
+    --bb-table-header-hover-bg: rgba(var(--bs-body-color-rgb),.08);
+    --bb-table-column-resizer-color: #e0e0e0; /* colorNeutralStroke2 */
+    --bb-table-column-resizer-hover-color: var(--bs-primary); /* colorCompoundBrandStroke */
+}
+
+[data-bs-theme='dark'] .table-container {
+    --bb-table-header-icon-active-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-table-column-resizer-color: #525252; /* colorNeutralStroke2 (dark, grey32) */
+}
+
+/* The bundle's own dark block re-defines these on .table with legacy Bootstrap greys — re-point on the same scope */
+[data-bs-theme='dark'] .table {
+    --bb-table-header-hover-bg: rgba(var(--bs-body-color-rgb),.08);
+    --bb-table-header-icon-hover-bg: rgba(var(--bs-body-color-rgb),.1);
+    --bb-table-header-icon-hover-color: var(--bs-body-color);
+}
+
+.slide-button {
+    --bb-slide-list-bg: var(--bs-body-bg);
+    --bb-slide-item-active-bg: var(--bs-primary);
+    --bb-slide-list-shadow: var(--bs-box-shadow); /* shadow16 */
+    --bb-slide-list-border: var(--bs-border-width) solid var(--bs-border-color); /* colorNeutralStroke1 */
+    --bb-slide-item-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+}
+
+[data-bs-theme='dark'] .slide-button {
+    --bb-slide-item-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+.drawer {
+    --bb-drawer-bar-hover-color: var(--bs-primary);
+    --bb-drawer-bar-drag-color: var(--bs-primary);
+    --bb-drawer-body-shadow: var(--bs-box-shadow); /* shadow16 */
+}
+
+.filter-item {
+    --bb-filter-item-btn-hover-color: var(--bs-primary);
+    --bb-filter-item-btn-hover-border-color: var(--bs-primary);
+}
+
+.listview {
+    --bb-lv-header-bg: var(--bs-secondary-bg);
+    --bb-lv-item-border-hover-color: var(--bs-primary);
+}
+
+.dropdown-logout {
+    --bb-logout-menu-border-color: var(--bs-primary);
+    --bb-logout-user-bg: var(--bs-primary);
+}
+
+.ribbon-tab {
+    --bb-ribbon-menu-hover-color: var(--bs-primary);
+    --bb-ribbon-button-hover-bg: rgba(var(--bs-primary-rgb),.24);
+    --bb-ribbon-button-hover-border-color: rgba(var(--bs-primary-rgb),.5);
+    --bb-ribbon-button-active-bg: rgba(var(--bs-primary-rgb),.32);
+    --bb-ribbon-button-active-border-color: rgba(var(--bs-primary-rgb),.6);
+}
+
+.select,
+.popover-dropdown {
+    --bb-dropdown-link-pre-active-bg: var(--bs-primary);
+}
+
+.tree-view {
+    --bb-tree-item-hover-color: var(--bs-primary);
+    --bb-tree-drop-preview-color: var(--bs-primary);
+    --bb-tree-item-active-color: var(--bs-primary); /* colorBrandForeground1 */
+}
+
+.upload {
+    --bb-upload-body-list-item-hover-color: var(--bs-primary);
+    --bb-upload-card-shadow: var(--bb-shadow); /* shadow4 — Fluent card rest elevation */
+}
+
+.bb-transfer {
+    --bb-transfer-filter-focus-border-color: var(--bs-primary);
+}
+
+.layout-split-bar .layout-split-bar-body {
+    --bb-split-bar-body-drag-hover-bg: var(--bs-primary);
+    --bb-split-bar-body-hover-bg: rgba(var(--bs-body-color-rgb),.08); /* neutral overlay, matches .layout-gotop */
+}
+
+/* Split arrow hover — bundle default is the legacy Bootstrap blue */
+.split {
+    --bb-split-bar-arrow-hover-border-color: var(--bs-primary); /* colorBrandBackground */
+}
+
+[data-bs-theme='dark'] .split {
+    --bb-split-bar-arrow-hover-border-color: #479ef5; /* brand100 */
+}
+
+.search.auto-complete {
+    --bb-search-prefix-icon-color: var(--bs-secondary-color);
+}
+
+.layout-gotop {
+    --bb-gotop-bg: rgba(var(--bs-body-color-rgb),.08);
+    --bb-gotop-hover-bg: var(--bs-primary);
+    --bb-gotop-hover-color: #fff;
+}
+
+.captcha {
+    --bb-captcha-bar-invalid-bg: var(--bs-danger);
+    --bb-captcha-bar-invalid-mask-bg: rgba(var(--bs-danger-rgb),.15);
+    --bb-captcha-bar-valid-bg: var(--bs-success);
+    --bb-captcha-bar-valid-mask-bg: rgba(var(--bs-success-rgb),.15);
+    --bb-captcha-radius: var(--bs-border-radius); /* borderRadiusMedium 4px */
+    --bb-captcha-bar-shadow: var(--bs-box-shadow-sm); /* shadow2 */
+}
+
+/* White bar icon on the deep status fills (was near-black body color, ~1.6:1) */
+.captcha-footer.is-invalid .captcha-bar,
+.captcha-footer.is-valid .captcha-bar {
+    color: #fff;
+}
+
+.switch {
+    --bb-switch-bg: #e0e0e0; /* colorNeutralStroke2 */
+    --bb-switch-border-color: #c7c7c7; /* colorNeutralStroke1Hover */
+    --bb-switch-inner-off-text-color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .switch {
+    --bb-switch-bg: #3d3d3d; /* grey24 */
+    --bb-switch-border-color: #666666; /* colorNeutralStroke1 (dark) */
+    --bb-switch-inner-off-text-color: #d6d6d6;
+}
+
+/* ===== Buttons — colorBrandBackground / colorStatus*Background3 ===== */
+/* Explicit foreground on every solid button: a consumer that re-points --bs-btn-color
+ * (equal specificity, loaded before this theme) must not end up with their foreground
+ * stranded on this theme's brand fill — keep the fg/bg pair defined together */
+.btn-primary {
+    --bs-btn-color: #fff; /* colorNeutralForegroundOnBrand */
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #115ea3; /* colorBrandBackgroundHover */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #0c3b5e; /* colorBrandBackgroundPressed */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-primary);
+    --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-secondary {
+    --bs-btn-color: #424242; /* colorNeutralForeground2 */
+    --bs-btn-bg: var(--bs-secondary);
+    --bs-btn-border-color: var(--bs-secondary);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #f5f5f5; /* colorNeutralBackground5Hover */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #f0f0f0; /* colorNeutralBackground5Pressed */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-secondary);
+    --bs-btn-disabled-border-color: var(--bs-secondary);
+}
+
+.btn-success {
+    --bs-btn-color: #fff; /* colorNeutralForegroundOnBrand */
+    --bs-btn-bg: var(--bs-success);
+    --bs-btn-border-color: var(--bs-success);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #0e700e; /* green shade10 */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #0c5e0c; /* green shade20 */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-success);
+    --bs-btn-disabled-border-color: var(--bs-success);
+}
+
+.btn-info {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-info);
+    --bs-btn-border-color: var(--bs-info);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #008aa9; /* cyan shade10 */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #00748f; /* cyan shade20 */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-info);
+    --bs-btn-disabled-border-color: var(--bs-info);
+}
+
+.btn-warning {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-warning);
+    --bs-btn-border-color: var(--bs-warning);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #de590b; /* orange shade10 */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #bc4b09; /* orange shade20 */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-warning);
+    --bs-btn-disabled-border-color: var(--bs-warning);
+}
+
+.btn-danger {
+    --bs-btn-color: #fff; /* colorNeutralForegroundOnBrand */
+    --bs-btn-bg: var(--bs-danger);
+    --bs-btn-border-color: var(--bs-danger);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #b10e1c; /* colorStatusDangerBackground3Hover */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #960b18; /* colorStatusDangerBackground3Pressed */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-danger);
+    --bs-btn-disabled-border-color: var(--bs-danger);
+}
+
+.btn-dark {
+    --bs-btn-color: #fff; /* colorNeutralForegroundOnBrand */
+    --bs-btn-bg: var(--bs-dark);
+    --bs-btn-border-color: var(--bs-dark);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #3d3d3d; /* grey24 */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #1a1a1a; /* grey10 */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-dark);
+    --bs-btn-disabled-border-color: var(--bs-dark);
+}
+
+.btn-light {
+    --bs-btn-color: #242424;
+    --bs-btn-bg: var(--bs-light);
+    --bs-btn-border-color: var(--bs-light);
+    --bs-btn-hover-color: var(--bs-btn-color);
+    --bs-btn-hover-bg: #f0f0f0; /* grey94 */
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-color);
+    --bs-btn-active-bg: #e0e0e0; /* grey88 */
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-bg: var(--bs-light);
+    --bs-btn-disabled-border-color: var(--bs-light);
+}
+
+.btn-link {
+    text-decoration: none;
+    --bs-btn-color: var(--bs-link-color);
+    --bs-btn-hover-color: var(--bs-link-hover-color);
+}
+
+/* Fluent Link is fontWeightRegular, not semibold */
+.btn-link,
+.link-button {
+    --bs-btn-font-weight: 400; /* fontWeightRegular */
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: #115ea3;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #0c3b5e;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-primary);
+    --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #616161;
+    --bs-btn-border-color: #d1d1d1; /* colorNeutralStroke1 */
+    --bs-btn-hover-color: #424242;
+    --bs-btn-hover-bg: #f5f5f5;
+    --bs-btn-hover-border-color: #c7c7c7; /* colorNeutralStroke1Hover */
+    --bs-btn-active-color: #424242;
+    --bs-btn-active-bg: #e0e0e0;
+    --bs-btn-active-border-color: var(--bs-btn-hover-border-color);
+    --bs-btn-disabled-color: var(--bs-btn-color);
+    --bs-btn-disabled-border-color: var(--bs-btn-border-color);
+}
+
+.btn-outline-success {
+    --bs-btn-color: var(--bs-success);
+    --bs-btn-border-color: var(--bs-success);
+    --bs-btn-hover-bg: #0e700e;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #0c5e0c;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-success);
+    --bs-btn-disabled-border-color: var(--bs-success);
+}
+
+.btn-outline-info {
+    --bs-btn-color: var(--bs-info);
+    --bs-btn-border-color: var(--bs-info);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #008aa9;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #00748f;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-info);
+    --bs-btn-disabled-border-color: var(--bs-info);
+}
+
+.btn-outline-warning {
+    --bs-btn-color: var(--bs-warning);
+    --bs-btn-border-color: var(--bs-warning);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #de590b;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #bc4b09;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-warning);
+    --bs-btn-disabled-border-color: var(--bs-warning);
+}
+
+.btn-outline-danger {
+    --bs-btn-color: var(--bs-danger);
+    --bs-btn-border-color: var(--bs-danger);
+    --bs-btn-hover-bg: #b10e1c;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #960b18;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-danger);
+    --bs-btn-disabled-border-color: var(--bs-danger);
+}
+
+.btn-outline-dark {
+    --bs-btn-color: var(--bs-dark);
+    --bs-btn-border-color: var(--bs-dark);
+    --bs-btn-hover-bg: #3d3d3d;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #1a1a1a;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-dark);
+    --bs-btn-disabled-border-color: var(--bs-dark);
+}
+
+.btn-outline-light {
+    --bs-btn-color: var(--bs-light);
+    --bs-btn-border-color: var(--bs-light);
+    --bs-btn-hover-color: #242424;
+    --bs-btn-hover-bg: #f0f0f0;
+    --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #e0e0e0;
+    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-disabled-color: var(--bs-light);
+    --bs-btn-disabled-border-color: var(--bs-light);
+}
+
+/* ===== Table — Fluent DataGrid row hover (colorNeutralBackground1Hover) ===== */
+.table {
+    --bs-table-striped-bg: rgba(250, 250, 250, 0.75);
+    --bs-table-hover-bg: #f5f5f5;
+}
+
+[data-bs-theme='dark'] .table {
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.03);
+    --bs-table-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+/* ===== Modal — Fluent dialog shadow64 ===== */
+.modal-content {
+    box-shadow: 0 0 8px rgba(0,0,0,0.12), 0 32px 64px rgba(0,0,0,0.14);
+}
+
+[data-bs-theme='dark'] .modal-content {
+    box-shadow: 0 0 8px rgba(0,0,0,0.24), 0 32px 64px rgba(0,0,0,0.28);
+}
+
+/* ===== Validation — Fluent status strokes (ValidateForm / EditorForm) ===== */
+.form-control.is-valid, .was-validated .form-control:valid {
+    border-color: var(--bs-success);
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: var(--bs-danger);
+}
+
+/* Status-colored bottom stroke on focus, no ring glow */
+.was-validated .form-control:valid:focus, .form-control.is-valid:focus,
+.was-validated .form-select:valid:focus, .form-select.is-valid:focus {
+    border-color: var(--bs-success); /* colorStatusSuccessBackground3 */
+    box-shadow: inset 0 -1px 0 var(--bs-success);
+}
+
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus,
+.was-validated .form-select:invalid:focus, .form-select.is-invalid:focus {
+    border-color: var(--bs-danger); /* colorStatusDangerBackground3 */
+    box-shadow: inset 0 -1px 0 var(--bs-danger); /* danger bottom-stroke, no ring glow */
+}
+
+.validation-message {
+    color: var(--bs-danger-text-emphasis); /* colorStatusDangerForeground1 */
+    font-size: 0.75rem; /* fontSizeBase200 */
+}
+
+/* ===== Flyout surfaces — Fluent Menu / Popover / Tooltip =====
+ * Native Fluent flyouts: no arrow, borderRadiusMedium (4px),
+ * shadow16, colorNeutralStroke1 border, neutral item hover/selected.
+ * Covers: Select, MultiSelect, SelectTree/Table/Object, Cascader,
+ * AutoComplete, AutoFill, Search, Dropdown, TopMenu, Logout, Tab,
+ * Table toolbars and filter buttons.
+ */
+.dropdown-menu {
+    --bs-dropdown-bg: var(--bs-body-bg);
+    --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-font-size: .875rem; /* fontSizeBase300 */
+    --bs-dropdown-border-color: var(--bs-border-color);
+    --bs-dropdown-border-radius: var(--bs-border-radius); /* 4px */
+    --bs-dropdown-box-shadow: var(--bs-box-shadow); /* shadow16 */
+    --bs-dropdown-divider-bg: #e0e0e0; /* colorNeutralStroke2 */
+    --bs-dropdown-padding-x: 4px;
+    --bs-dropdown-padding-y: 4px;
+    --bs-dropdown-item-padding-x: 12px;
+    --bs-dropdown-item-padding-y: 6px;
+    --bs-dropdown-link-hover-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bs-dropdown-link-active-color: var(--bs-body-color);
+    --bs-dropdown-link-active-bg: #ebebeb; /* colorNeutralBackground1Selected */
+    --bs-dropdown-link-disabled-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+    --bs-dropdown-header-color: #616161; /* colorNeutralForeground3 */
+    --bb-select-search-border-color: #e0e0e0;
+}
+
+/* Fluent menus have no arrow */
+.dropdown-menu-arrow {
+    display: none !important;
+}
+
+/* Fluent flyout offset: 4px */
+.cascade,
+.select {
+    --bb-select-dropdown-menu-margin-top: 4px;
+}
+
+/* Selected option — Fluent Listbox: reserved gutter + brand check mark */
+/* :not(:has(.multi-select-item)) — popover-mode MultiSelect panels only carry "select
+ * popover-region" (no .multi-select class), so guard on the item markup instead */
+.select:not(.multi-select):not(:has(.multi-select-item)) .dropdown-menu .dropdown-item {
+    position: relative;
+    padding-inline-start: 28px;
+}
+
+.select:not(.multi-select):not(:has(.multi-select-item)) .dropdown-menu .dropdown-item.active::before {
+    content: "\2713";
+    position: absolute;
+    inset-inline-start: 10px;
+    color: var(--bs-primary); /* colorCompoundBrandForeground */
+}
+
+/* Popover card — Fluent Popover keeps its arrow, radius 4px, shadow16 */
+.popover {
+    --bs-popover-bg: var(--bs-body-bg);
+    --bs-popover-color: var(--bs-body-color);
+    --bs-popover-border-color: var(--bs-border-color);
+    --bs-popover-border-radius: var(--bs-border-radius);
+    --bs-popover-box-shadow: var(--bs-box-shadow);
+    --bs-popover-header-bg: transparent;
+    --bs-popover-header-color: var(--bs-body-color);
+    --bs-popover-header-padding-x: 12px;
+    --bs-popover-header-padding-y: 10px;
+    --bs-popover-body-color: var(--bs-body-color);
+    --bs-popover-body-padding-x: 12px;
+    --bs-popover-body-padding-y: 10px;
+}
+
+.popover-header {
+    font-weight: 600;
+    border-block-end: none;
+    padding-block-end: 0;
+}
+
+/* Picker panels (DateTimePicker/DateTimeRange/SelectObject/SelectTable/filters)
+ * are menu-like flyouts in Fluent — no arrow */
+.popover-dropdown .popover-arrow {
+    display: none;
+}
+
+/* Tooltip — Fluent dark surface, radius 4px, no arrow */
+.tooltip {
+    --bs-tooltip-bg: #242424; /* grey14 */
+    --bs-tooltip-color: #ffffff;
+    --bs-tooltip-border-radius: var(--bs-border-radius);
+    --bs-tooltip-padding-x: 8px;
+    --bs-tooltip-padding-y: 4px;
+    --bs-tooltip-opacity: 1;
+}
+
+.tooltip .tooltip-arrow {
+    display: none;
+}
+
+[data-bs-theme='dark'] .dropdown-menu {
+    --bs-dropdown-bg: var(--bs-body-bg); /* bundle dark re-points this to legacy #343a40 on the same scope */
+    --bs-dropdown-divider-bg: #525252; /* colorNeutralStroke2 (dark, grey32) */
+    --bs-dropdown-link-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bs-dropdown-link-active-bg: #383838; /* colorNeutralBackground1Selected (dark, grey22) */
+    --bs-dropdown-link-disabled-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+    --bs-dropdown-header-color: #adadad; /* colorNeutralForeground3 (dark) */
+    --bb-select-search-border-color: #525252; /* colorNeutralStroke2 (dark, grey32) */
+}
+
+[data-bs-theme='dark'] .tooltip .tooltip-inner {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+/* ===== Layout & Navigation — Fluent menu flyouts, neutral foregrounds ===== */
+
+/* Fluent Menu flyout: shadow16 (bundle hard-codes 0 2px 12px rgba(0,0,0,.1)) */
+.menu .nav .sub-menu,
+.cascade .has-leaf .sub-menu {
+    box-shadow: var(--bs-box-shadow); /* shadow16 */
+}
+
+/* Fluent flyout offset: 4px (bundle hard-codes 10px for menu dropdowns) */
+.menu .nav .dropdown-menu {
+    margin-block-start: 4px;
+}
+
+/* Navbar — intentionally NOT re-pointed to the Fluent neutral foreground ramp.
+ * This theme loads after consumer stylesheets, so a global --bs-navbar-color override
+ * wins over equal-specificity site rules and paints dark text on brand-colored navbars
+ * (Bootstrap's own default is rgba emphasis, which consumers already theme around) */
+
+/* Breadcrumb — Fluent Breadcrumb links are neutral, not brand */
+.breadcrumb {
+    --bs-breadcrumb-divider-color: #616161; /* colorNeutralForeground3 */
+    --bs-breadcrumb-item-active-color: #242424; /* colorNeutralForeground1 */
+}
+
+.breadcrumb-item a {
+    color: #424242; /* colorNeutralForeground2 */
+}
+
+.breadcrumb-item a:hover {
+    color: #242424; /* colorNeutralForeground2Hover */
+}
+
+[data-bs-theme='dark'] .breadcrumb {
+    --bs-breadcrumb-divider-color: #adadad; /* colorNeutralForeground3 (grey68) */
+    --bs-breadcrumb-item-active-color: #ffffff; /* colorNeutralForeground1 (dark) */
+}
+
+[data-bs-theme='dark'] .breadcrumb-item a {
+    color: #d6d6d6; /* colorNeutralForeground2 (grey84) */
+}
+
+[data-bs-theme='dark'] .breadcrumb-item a:hover {
+    color: #ffffff; /* colorNeutralForeground2Hover (dark) */
+}
+
+/* Tab close-button hover — Fluent neutral fill (bundle hard-codes #e4e7ed) */
+.tabs .tabs-item-close:hover {
+    background-color: #e0e0e0; /* colorNeutralBackground1Pressed */
+}
+
+[data-bs-theme='dark'] .tabs .tabs-item-close:hover {
+    background-color: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+/* Border-card elevation — Fluent shadow4; --bb-shadow already carries the dark variant */
+.tabs.tabs-border-card {
+    box-shadow: var(--bb-shadow); /* shadow4 */
+}
+
+/* Step — pending states re-pointed to Fluent foreground/stroke tokens;
+ * the component default var(--bs-secondary) is a surface tone in this theme,
+ * so pending step circles/text would render nearly invisible */
+.step {
+    --bb-step-item-color: #616161; /* colorNeutralForeground3 */
+    --bb-step-item-line-bg: #e0e0e0; /* colorNeutralStroke2 */
+}
+
+[data-bs-theme='dark'] .step {
+    --bb-step-item-color: #adadad; /* colorNeutralForeground3 (grey68) */
+    --bb-step-item-line-bg: #525252; /* colorNeutralStroke2 (dark, grey32) */
+    --bb-step-item-line-progress-bg: #54b054; /* colorStatusSuccessForeground1 (dark) — bundle default --bs-success is too dim on dark */
+}
+
+[data-bs-theme='dark'] .step .step-header .step-item.is-done {
+    --bb-step-item-color: #54b054; /* colorStatusSuccessForeground1 (dark) */
+}
+
+/* ===== Nav — pills active fill re-pointed from the bundle's compiled legacy blue to brand ===== */
+.nav-pills {
+    --bs-nav-pills-link-active-bg: var(--bs-primary); /* colorBrandBackground */
+}
+
+/* Pagination — Fluent neutral pages; 32px page buttons match the medium control height
+ * (5px + 20px line + 2px border). BB drives .page-link padding through
+ * --bb-pagination-link-padding at three breakpoints — the --bs-pagination-padding-*
+ * vars have no consumer here, so mirror the bundle's tiers instead. */
+.pagination {
+    --bs-pagination-font-size: .875rem; /* fontSizeBase300 */
+    --bb-pagination-link-padding: 5px 5.6px;
+    --bs-pagination-active-bg: var(--bs-primary); /* colorBrandBackground — bundle hard-codes the legacy Bootstrap blue */
+    --bs-pagination-active-border-color: var(--bs-primary);
+    --bs-pagination-color: #424242; /* colorNeutralForeground2 */
+    --bs-pagination-hover-color: #242424; /* colorNeutralForeground1 */
+    --bs-pagination-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bs-pagination-focus-color: #242424;
+    --bs-pagination-focus-bg: #f5f5f5;
+    --bs-pagination-disabled-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+[data-bs-theme='dark'] .pagination {
+    --bs-pagination-active-bg: #115ea3; /* colorBrandBackground (dark, brand70) */
+    --bs-pagination-color: #d6d6d6; /* colorNeutralForeground2 (grey84) */
+    --bs-pagination-hover-color: #ffffff; /* colorNeutralForeground1 (dark) */
+    --bs-pagination-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bs-pagination-focus-color: #ffffff;
+    --bs-pagination-focus-bg: #3d3d3d;
+    --bs-pagination-disabled-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+@media (min-width: 375px) {
+    .pagination {
+        --bb-pagination-link-padding: 5px 8px;
+    }
+}
+
+@media (min-width: 456px) {
+    .pagination {
+        --bb-pagination-link-padding: 5px 12px; /* spacingHorizontalM */
+    }
+}
+
+/* ===== Buttons — Fluent label weight, sizing, focus stroke, neutral disabled ===== */
+/* Fluent medium button: 5px vertical padding + 20px line + 2px border = 32px;
+ * horizontal padding already matches spacingHorizontalM (12px) */
+.btn {
+    --bs-btn-font-weight: 600; /* fontWeightSemibold */
+    --bs-btn-font-size: .875rem; /* fontSizeBase300 */
+    --bs-btn-line-height: 20px; /* lineHeightBase300 */
+    --bs-btn-padding-y: 5px; /* buttonSpacingMedium */
+}
+
+/* Fluent small button: 24px (3px + 16px line), fontWeightRegular; horizontal 8px already matches spacingHorizontalS */
+.btn-sm {
+    --bs-btn-font-size: .75rem; /* fontSizeBase200 (12px) */
+    --bs-btn-line-height: 16px; /* lineHeightBase200 */
+    --bs-btn-padding-y: 3px;
+    --bs-btn-font-weight: 400; /* fontWeightRegular */
+}
+
+/* Fluent large button: 40px (8px + 22px line); horizontal 16px already matches spacingHorizontalL */
+.btn-lg {
+    --bs-btn-font-size: 1rem; /* fontSizeBase400 (16px) */
+    --bs-btn-line-height: 22px; /* lineHeightBase400 */
+    --bs-btn-padding-y: 8px;
+}
+
+/* Button groups — bundle targets .btn-group-sm/lg > .btn directly at higher specificity */
+.btn-group-sm > .btn {
+    --bs-btn-font-size: .75rem; /* fontSizeBase200 */
+    --bs-btn-line-height: 16px; /* lineHeightBase200 */
+    --bs-btn-padding-y: 3px;
+    --bs-btn-font-weight: 400; /* fontWeightRegular */
+}
+
+.btn-group-lg > .btn {
+    --bs-btn-font-size: 1rem; /* fontSizeBase400 */
+    --bs-btn-line-height: 22px; /* lineHeightBase400 */
+    --bs-btn-padding-y: 8px;
+}
+
+/* Fluent focus indicator: 2px colorStrokeFocus1 gap + 2px colorStrokeFocus2 ring (keyboard only) */
+.btn:focus-visible,
+.btn-check:focus-visible + .btn {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000; /* colorStrokeFocus1 / colorStrokeFocus2 */
+}
+
+[data-bs-theme='dark'] .btn:focus-visible,
+[data-bs-theme='dark'] .btn-check:focus-visible + .btn {
+    box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff; /* colorStrokeFocus1 / colorStrokeFocus2 (dark) */
+}
+
+/* Keep the Fluent ring on active/pressed/open buttons — bundle raises specificity there
+ * (.btn.active:focus-visible etc.) and BB sets --bs-btn-focus-box-shadow: none */
+.btn.active:focus-visible,
+.btn.show:focus-visible,
+:not(.btn-check) + .btn:active:focus-visible {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000; /* colorStrokeFocus1 / colorStrokeFocus2 */
+}
+
+[data-bs-theme='dark'] .btn.active:focus-visible,
+[data-bs-theme='dark'] .btn.show:focus-visible,
+[data-bs-theme='dark'] :not(.btn-check) + .btn:active:focus-visible {
+    box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff; /* colorStrokeFocus1 / colorStrokeFocus2 (dark) */
+}
+
+/* Fluent disabled looks identical for every appearance — no opacity fade */
+.btn:disabled,
+.btn.disabled,
+.btn-check:disabled + .btn,
+fieldset:disabled .btn {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled */
+    border-color: var(--bb-disabled-bg);
+    opacity: 1;
+}
+
+/* Transparent appearances stay transparent when disabled */
+.btn-link:disabled,
+.btn-link.disabled,
+.link-button:disabled,
+.link-button.disabled {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/* Outline appearances keep a transparent fill when disabled — only the stroke remains (colorNeutralStrokeDisabled) */
+.btn[class*='btn-outline-']:disabled,
+.btn[class*='btn-outline-'].disabled {
+    background-color: transparent;
+    border-color: #e0e0e0; /* colorNeutralStrokeDisabled */
+}
+
+[data-bs-theme='dark'] .btn[class*='btn-outline-']:disabled,
+[data-bs-theme='dark'] .btn[class*='btn-outline-'].disabled {
+    border-color: #424242; /* colorNeutralStrokeDisabled (grey26) */
+}
+
+[data-bs-theme='dark'] .btn:disabled,
+[data-bs-theme='dark'] .btn.disabled,
+[data-bs-theme='dark'] .btn-check:disabled + .btn,
+[data-bs-theme='dark'] fieldset:disabled .btn {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* Dark solid primary — webDarkTheme brand ramp sits one step up: rest brand70 / hover brand80 / pressed brand40 */
+[data-bs-theme='dark'] .btn-primary {
+    --bs-btn-bg: #115ea3; /* colorBrandBackground (dark, brand70) */
+    --bs-btn-border-color: #115ea3;
+    --bs-btn-hover-bg: #0f6cbd; /* colorBrandBackgroundHover (dark, brand80) */
+    --bs-btn-hover-border-color: #0f6cbd;
+    --bs-btn-active-bg: #0c3b5e; /* colorBrandBackgroundPressed (brand40) */
+    --bs-btn-active-border-color: #0f6cbd;
+    --bs-btn-disabled-bg: #115ea3;
+    --bs-btn-disabled-border-color: #115ea3;
+}
+
+/* Dark secondary — official secondary appearance: Background1 fill + Stroke1 border + Foreground1 text */
+[data-bs-theme='dark'] .btn-secondary {
+    --bs-btn-color: #ffffff; /* colorNeutralForeground1 (dark) */
+    --bs-btn-bg: #292929; /* colorNeutralBackground1 (grey16) */
+    --bs-btn-border-color: #666666; /* colorNeutralStroke1 (grey40) */
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bs-btn-hover-border-color: #757575; /* colorNeutralStroke1Hover (grey46) */
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: #1f1f1f; /* colorNeutralBackground1Pressed (grey12) */
+    --bs-btn-active-border-color: #6e6e6e; /* colorNeutralStroke1Pressed (grey42) */
+    --bs-btn-disabled-color: #ffffff;
+    --bs-btn-disabled-bg: #292929;
+    --bs-btn-disabled-border-color: #666666;
+}
+
+/* Dark outline family — foreground/border switch to the dark tint ramps; hover fills stay on the light solid ramp */
+[data-bs-theme='dark'] .btn-outline-primary {
+    --bs-btn-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bs-btn-border-color: #479ef5;
+    --bs-btn-disabled-color: #479ef5;
+    --bs-btn-disabled-border-color: #479ef5;
+}
+
+[data-bs-theme='dark'] .btn-outline-secondary {
+    --bs-btn-color: #d6d6d6; /* colorNeutralForeground2 (grey84) */
+    --bs-btn-border-color: #666666; /* colorNeutralStroke1 (dark) */
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+    --bs-btn-hover-border-color: #757575; /* colorNeutralStroke1Hover (dark) */
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: #1f1f1f; /* colorNeutralBackground1Pressed (grey12) */
+    --bs-btn-active-border-color: #757575;
+    --bs-btn-disabled-color: #d6d6d6;
+    --bs-btn-disabled-border-color: #666666;
+}
+
+[data-bs-theme='dark'] .btn-outline-success {
+    --bs-btn-color: #54b054; /* colorStatusSuccessForeground1 (dark) */
+    --bs-btn-border-color: #54b054;
+    --bs-btn-disabled-color: #54b054;
+    --bs-btn-disabled-border-color: #54b054;
+}
+
+[data-bs-theme='dark'] .btn-outline-info {
+    --bs-btn-color: #56bfd7; /* colorPaletteCyanForeground1 (dark) */
+    --bs-btn-border-color: #56bfd7;
+    --bs-btn-disabled-color: #56bfd7;
+    --bs-btn-disabled-border-color: #56bfd7;
+}
+
+[data-bs-theme='dark'] .btn-outline-warning {
+    --bs-btn-color: #faa06b; /* colorStatusWarningForeground1 (dark) */
+    --bs-btn-border-color: #faa06b;
+    --bs-btn-disabled-color: #faa06b;
+    --bs-btn-disabled-border-color: #faa06b;
+}
+
+[data-bs-theme='dark'] .btn-outline-danger {
+    --bs-btn-color: #dc626d; /* colorStatusDangerForeground1 (dark) */
+    --bs-btn-border-color: #dc626d;
+    --bs-btn-disabled-color: #dc626d;
+    --bs-btn-disabled-border-color: #dc626d;
+}
+
+[data-bs-theme='dark'] .btn-outline-dark {
+    --bs-btn-color: #d6d6d6; /* grey84 — --bs-dark #242424 is invisible on dark surfaces */
+    --bs-btn-border-color: #d6d6d6;
+    --bs-btn-disabled-color: #d6d6d6;
+    --bs-btn-disabled-border-color: #d6d6d6;
+}
+
+/* .link-* utilities — bundle hard-codes the old Bootstrap palette on hover/focus with !important */
+.link-primary:hover,
+.link-primary:focus {
+    color: #115ea3 !important; /* brand70 */
+}
+
+.link-success:hover,
+.link-success:focus {
+    color: #0e700e !important; /* green shade10 */
+}
+
+.link-info:hover,
+.link-info:focus {
+    color: #008aa9 !important; /* cyan shade10 */
+}
+
+.link-warning:hover,
+.link-warning:focus {
+    color: #de590b !important; /* orange shade10 */
+}
+
+.link-danger:hover,
+.link-danger:focus {
+    color: #b10e1c !important; /* cranberry shade10 */
+}
+
+/* ===== DialButton — Fluent FAB menu items: neutral hover, shadow4 ===== */
+.dial-button {
+    --bb-dial-item-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bb-dial-item-shadow: var(--bb-shadow); /* shadow4 */
+}
+
+[data-bs-theme='dark'] .dial-button {
+    --bb-dial-item-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+/* ===== Text inputs — Fluent Input: stroke1 outline + brand bottom-stroke on focus =====
+ * Covers BootstrapInput, InputNumber, Textarea, AutoComplete trigger,
+ * Select trigger (input carries .form-select + .form-control).
+ * Input elements cannot render ::after, so the strokeWidthThick (2px)
+ * underline is composed of the 1px bottom border (recolored to
+ * colorCompoundBrandStroke) plus a 1px inset box-shadow stacked on it.
+ */
+.form-control::placeholder {
+    color: var(--bs-tertiary-color); /* colorNeutralForeground4 */
+    opacity: 1;
+}
+
+/* Fluent Input metrics — medium 32px (5px + 20px line + 2px border),
+ * padding-inline spacingHorizontalM; typography body1 (14/20).
+ * .form-control goes through the bundle's --bb-form-control-padding variable so components
+ * that re-point it (DateTimePicker icon reserve, .has-icon) keep working; min-height is
+ * required because the bundle's calc(1.5em + .75rem + 2px) would give 35px at 14px. */
+.form-control {
+    --bb-form-control-padding: 5px 12px; /* spacingHorizontalM */
+    min-height: 32px; /* fieldHeights.medium */
+    font-size: .875rem; /* fontSizeBase300 */
+    line-height: 20px; /* lineHeightBase300 */
+}
+
+.form-select,
+.input-group-text {
+    padding: 5px 12px; /* spacingHorizontalM */
+    min-height: 32px; /* fieldHeights.medium */
+    font-size: .875rem; /* fontSizeBase300 */
+    line-height: 20px; /* lineHeightBase300 */
+}
+
+/* DateTimePicker trigger — keep the 33px icon reserve, only match the 32px vertical rhythm */
+.datetime-picker {
+    --bb-dt-picker-input-padding: 5px 33px 5px 12px;
+    --bb-dt-picker-input-icon-padding: 5px 33px;
+}
+
+/* Fluent Select trigger: 20px chevron inset spacingHorizontalMNudge */
+.form-select {
+    padding-right: 34px; /* spacingHorizontalMNudge + 20px icon + 2× spacingHorizontalXXS */
+    background-position: right 10px center; /* spacingHorizontalMNudge */
+}
+
+/* Fluent small: 24px, caption1 (12/16), padding-inline spacingHorizontalS */
+.form-control-sm,
+.form-select-sm,
+.input-group-sm > .form-control,
+.input-group-sm > .form-select,
+.input-group-sm > .input-group-text {
+    padding: 3px 8px; /* spacingHorizontalS */
+    min-height: 24px;
+    font-size: .75rem; /* fontSizeBase200 */
+    line-height: 16px; /* lineHeightBase200 */
+}
+
+.form-select-sm {
+    padding-right: 26px;
+}
+
+/* Fluent large: 40px, body2 (16/22), padding-inline spacingHorizontalM + spacingHorizontalSNudge */
+.form-control-lg,
+.form-select-lg,
+.input-group-lg > .form-control,
+.input-group-lg > .form-select,
+.input-group-lg > .input-group-text {
+    padding: 8px 18px;
+    min-height: 40px;
+    font-size: 1rem; /* fontSizeBase400 */
+    line-height: 22px; /* lineHeightBase400 */
+}
+
+.form-select-lg {
+    padding-right: 48px;
+}
+
+/* Horizontal-form label aligned with the 32px control (5px padding + 1px border) */
+.col-form-label {
+    padding-top: calc(5px + var(--bs-border-width));
+    padding-bottom: calc(5px + var(--bs-border-width));
+    line-height: 20px; /* lineHeightBase300 */
+}
+
+.col-form-label-sm {
+    padding-top: calc(3px + var(--bs-border-width));
+    padding-bottom: calc(3px + var(--bs-border-width));
+    font-size: .75rem; /* fontSizeBase200 */
+    line-height: 16px; /* lineHeightBase200 */
+}
+
+.col-form-label-lg {
+    padding-top: calc(8px + var(--bs-border-width));
+    padding-bottom: calc(8px + var(--bs-border-width));
+    font-size: 1rem; /* fontSizeBase400 */
+    line-height: 22px; /* lineHeightBase400 */
+}
+
+/* Fluent motion — durationNormal / curveEasyEase (bundle disables transitions under
+ * prefers-reduced-motion; re-adding them unguarded would win by load order) */
+@media (prefers-reduced-motion: no-preference) {
+    .form-control,
+    .form-select {
+        transition: border-color .2s cubic-bezier(.33,0,.67,1), box-shadow .2s cubic-bezier(.33,0,.67,1), background-color .2s cubic-bezier(.33,0,.67,1);
+    }
+}
+
+/* Mirror the bundle's exclusion chain: no-border lists, validation states and read-only
+ * Display must not grow a hover border */
+.form-control:hover:not(:disabled):not([readonly]):not(:focus):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display),
+.form-select:hover:not(:disabled):not(:focus):not(.is-valid):not(.is-invalid) {
+    border-color: var(--bb-border-hover-color); /* colorNeutralStroke1Hover */
+}
+
+/* The :not() chain mirrors the bundle hover rule so equal specificity + later order wins */
+.form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):focus,
+.form-select:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):focus {
+    border-color: var(--bs-border-color); /* keep colorNeutralStroke1 outline on focus */
+    border-bottom-color: var(--bb-border-focus-color); /* colorCompoundBrandStroke */
+    box-shadow: inset 0 -1px 0 var(--bb-border-focus-color); /* strokeWidthThick brand underline */
+}
+
+/* Fluent disabled: backgroundDisabled fill, strokeDisabled outline, foregroundDisabled text */
+.form-control:disabled,
+.form-control.disabled,
+.form-select:disabled,
+.multi-select .dropdown-toggle.disabled {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled */
+    border-color: #e0e0e0; /* colorNeutralStrokeDisabled */
+    opacity: 1;
+}
+
+[data-bs-theme='dark'] .form-control:disabled,
+[data-bs-theme='dark'] .form-control.disabled,
+[data-bs-theme='dark'] .form-select:disabled,
+[data-bs-theme='dark'] .multi-select .dropdown-toggle.disabled {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+    border-color: #424242; /* colorNeutralStrokeDisabled (grey26) */
+}
+
+/* Search — the trigger is a .form-control wrapper around a borderless input */
+.search.auto-complete .form-control-group:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):focus-within {
+    border-color: var(--bs-border-color);
+    border-bottom-color: var(--bb-border-focus-color); /* colorCompoundBrandStroke */
+    box-shadow: inset 0 -1px 0 var(--bb-border-focus-color);
+}
+
+/* ===== Select / MultiSelect trigger — append icon + placeholder + focus underline ===== */
+.select,
+.auto-complete {
+    --bb-select-append-color: #616161; /* colorNeutralStrokeAccessible — chevron / clear icon */
+}
+
+/* 32px trigger, matching .form-control (bundle default 6px .75rem would give 34px) */
+.select {
+    --bb-select-padding: 5px 12px;
+}
+
+/* bundle default 35px */
+.multi-select {
+    --bb-multi-select-min-height: 32px;
+}
+
+[data-bs-theme='dark'] .select,
+[data-bs-theme='dark'] .auto-complete {
+    --bb-select-append-color: #adadad; /* colorNeutralForeground3 (grey68) */
+}
+
+.multi-select .multi-select-ph {
+    color: var(--bs-tertiary-color); /* colorNeutralForeground4 */
+}
+
+/* MultiSelect trigger is a focusable div — same bottom-stroke focus language */
+.multi-select .dropdown-toggle:not(.disabled):focus,
+.multi-select .dropdown-toggle:not(.disabled):focus-within {
+    border-color: var(--bs-border-color);
+    border-bottom-color: var(--bb-border-focus-color); /* colorCompoundBrandStroke */
+    box-shadow: inset 0 -1px 0 var(--bb-border-focus-color);
+    outline: none;
+}
+
+/* ===== OtpInput — same underline focus per cell, status colors win ===== */
+.bb-otp-input {
+    --bb-otp-item-disabled-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+.bb-otp-input .bb-otp-item:focus {
+    border-bottom-color: var(--bb-border-focus-color); /* colorCompoundBrandStroke */
+    box-shadow: inset 0 -1px 0 var(--bb-border-focus-color);
+}
+
+.bb-otp-input .bb-otp-item.is-valid:focus {
+    border-bottom-color: var(--bs-success);
+    box-shadow: inset 0 -1px 0 var(--bs-success);
+}
+
+.bb-otp-input .bb-otp-item.is-invalid:focus {
+    border-bottom-color: var(--bs-danger);
+    box-shadow: inset 0 -1px 0 var(--bs-danger);
+}
+
+[data-bs-theme='dark'] .bb-otp-input {
+    --bb-otp-item-disabled-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* ===== Checkbox — Fluent Checkbox: strokeAccessible outline, borderRadiusSmall, brand fill ===== */
+.form-check {
+    --bb-checkbox-input-focus-border-color: #616161; /* colorNeutralStrokeAccessible */
+}
+
+/* Fluent Checkbox/Radio metrics — 16px indicator; gap = indicator margin spacingHorizontalS (8px)
+ * + label padding spacingHorizontalXS (4px) = 12px → padding-left 28px.
+ * :where() keeps the exclusions specificity-free, so the bundle's own size variants
+ * (form-check-sm…xxl), .form-check-reverse, .is-label and .table-excel cells stay intact. */
+.form-check:not(:where(.form-switch, .form-check-sm, .form-check-md, .form-check-lg, .form-check-xl, .form-check-xxl, .form-check-reverse, .is-label)) {
+    padding-left: 28px; /* 16px indicator + 12px gap */
+    min-height: 20px; /* lineHeightBase300 — compact density; Fluent's full hit target is 32px */
+}
+
+.form-check:not(:where(.form-switch, .form-check-sm, .form-check-md, .form-check-lg, .form-check-xl, .form-check-xxl, .form-check-reverse, .is-label)) .form-check-input {
+    width: 16px; /* indicatorSizeMedium */
+    height: 16px;
+    margin-top: 2px; /* center the 16px indicator on the 20px first line */
+    margin-left: -28px;
+}
+
+/* BB adds .5rem between input and label — already accounted for in the 12px Fluent gap */
+.form-check:not(:where(.form-switch, .form-check-sm, .form-check-md, .form-check-lg, .form-check-xl, .form-check-xxl, .form-check-reverse, .is-label)) .form-check-input + .form-check-label {
+    margin-inline-start: 0;
+}
+
+.form-check .form-check-input {
+    border-color: #616161; /* colorNeutralStrokeAccessible */
+}
+
+.form-check-input[type='checkbox'] {
+    border-radius: var(--bs-border-radius-sm); /* borderRadiusSmall (2px) */
+}
+
+.form-check .form-check-input:hover:not(:disabled):not(:checked):not(:indeterminate) {
+    border-color: #575757; /* colorNeutralStrokeAccessibleHover */
+}
+
+/* Checked hover deepens the brand fill; colored variants keep their own hue */
+.form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked:hover:not(:disabled),
+.form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input[type='checkbox']:indeterminate:hover:not(:disabled) {
+    background-color: #115ea3; /* colorCompoundBrandBackgroundHover */
+    border-color: #115ea3;
+}
+
+/* Secondary variant — bundle fills checked state with var(--bs-secondary), a surface tone in
+ * this theme, which strands a white check on #ebebeb; use the neutral foreground ramp instead */
+.form-check.form-check-secondary .form-check-input:checked {
+    background-color: #616161; /* colorNeutralForeground3 */
+    border-color: #616161;
+}
+
+[data-bs-theme='dark'] .form-check.form-check-secondary .form-check-input:checked {
+    background-color: #757575; /* grey46 */
+    border-color: #757575;
+}
+
+/* Dark checked — colorCompoundBrandBackground (dark) = brand100, with a dark check mark (colorNeutralForegroundInverted) */
+[data-bs-theme='dark'] .form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked {
+    background-color: #479ef5; /* brand100 */
+    border-color: #479ef5;
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23242424' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e"); /* grey14 check on brand100 */
+}
+
+[data-bs-theme='dark'] .form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked:hover:not(:disabled),
+[data-bs-theme='dark'] .form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input[type='checkbox']:indeterminate:hover:not(:disabled) {
+    background-color: #62abf5; /* brand110 colorCompoundBrandBackgroundHover (dark) */
+    border-color: #62abf5;
+}
+
+/* Fluent focus ring instead of the recolored border glow */
+.form-check .form-check-input:focus-visible {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000; /* colorStrokeFocus1 / colorStrokeFocus2 */
+}
+
+[data-bs-theme='dark'] .form-check {
+    --bb-checkbox-input-focus-border-color: #adadad; /* colorNeutralStrokeAccessible (grey68) */
+}
+
+[data-bs-theme='dark'] .form-check .form-check-input {
+    border-color: #adadad; /* colorNeutralStrokeAccessible (grey68) */
+}
+
+[data-bs-theme='dark'] .form-check .form-check-input:hover:not(:disabled):not(:checked):not(:indeterminate) {
+    border-color: #bdbdbd; /* colorNeutralStrokeAccessibleHover (grey74) */
+}
+
+[data-bs-theme='dark'] .form-check .form-check-input:focus-visible {
+    box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff; /* colorStrokeFocus1 / colorStrokeFocus2 (dark) */
+}
+
+/* ===== Radio — Fluent RadioButton: brand ring + brand dot instead of a filled disc =====
+ * --bs-primary is not redefined in the dark block, so the brand dot fill
+ * matches the themed border in both themes. */
+/* Colored variants (form-check-success etc.) keep their own hue — excluding them avoids a colored ring with a brand dot */
+.form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked[type='radio'] {
+    background-color: transparent;
+    border-color: var(--bs-primary); /* colorCompoundBrandBackground */
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2.5' fill='%230f6cbd'/%3e%3c/svg%3e"); /* brand80 dot */
+}
+
+.form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked[type='radio']:hover:not(:disabled) {
+    border-color: #115ea3; /* colorCompoundBrandBackgroundHover */
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2.5' fill='%23115ea3'/%3e%3c/svg%3e"); /* brand70 dot */
+}
+
+[data-bs-theme='dark'] .form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked[type='radio'] {
+    border-color: #479ef5; /* colorCompoundBrandStroke (dark, brand100) */
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2.5' fill='%23479ef5'/%3e%3c/svg%3e"); /* brand100 dot */
+}
+
+[data-bs-theme='dark'] .form-check:not(.form-check-success):not(.form-check-danger):not(.form-check-warning):not(.form-check-info):not(.form-check-secondary):not(.form-check-dark) .form-check-input:checked[type='radio']:hover:not(:disabled) {
+    border-color: #62abf5; /* brand110 */
+    --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2.5' fill='%2362abf5'/%3e%3c/svg%3e"); /* brand110 dot */
+}
+
+/* ===== Slider — Fluent Slider: strokeAccessible rail, brand donut thumb =====
+ * WebKit cannot paint the filled rail portion without JS; Firefox gets it
+ * via ::-moz-range-progress. */
+.form-range::-webkit-slider-runnable-track {
+    height: 4px; /* Fluent medium rail */
+    background-color: #616161; /* colorNeutralStrokeAccessible */
+    border-radius: var(--bs-border-radius-sm);
+}
+
+.form-range::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -8px; /* center the 20px thumb on the 4px rail */
+    background-color: var(--bs-primary); /* colorCompoundBrandBackground */
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg); /* Fluent donut thumb */
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    background-color: #115ea3; /* colorCompoundBrandBackgroundHover */
+}
+
+.form-range::-webkit-slider-thumb:active {
+    background-color: #0f548c; /* brand60 colorCompoundBrandBackgroundPressed */
+    box-shadow: inset 0 0 0 6px var(--bs-body-bg); /* pressed: inner dot shrinks */
+}
+
+.form-range:focus::-webkit-slider-thumb {
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg), 0 0 0 2px #ffffff, 0 0 0 4px #000000; /* donut + colorStrokeFocus2 ring */
+}
+
+.form-range::-moz-range-track {
+    height: 4px;
+    background-color: #616161; /* colorNeutralStrokeAccessible */
+    border-radius: var(--bs-border-radius-sm);
+}
+
+.form-range::-moz-range-progress {
+    height: 4px;
+    background-color: var(--bs-primary); /* colorCompoundBrandBackground fill */
+    border-radius: var(--bs-border-radius-sm);
+}
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--bs-primary); /* colorCompoundBrandBackground */
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg);
+}
+
+.form-range::-moz-range-thumb:hover {
+    background-color: #115ea3; /* colorCompoundBrandBackgroundHover */
+}
+
+.form-range::-moz-range-thumb:active {
+    background-color: #0f548c; /* brand60 colorCompoundBrandBackgroundPressed */
+    box-shadow: inset 0 0 0 6px var(--bs-body-bg);
+}
+
+.form-range:focus::-moz-range-thumb {
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg), 0 0 0 2px #ffffff, 0 0 0 4px #000000;
+}
+
+.form-range:disabled::-webkit-slider-runnable-track {
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled */
+}
+
+.form-range:disabled::-webkit-slider-thumb {
+    background-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg);
+}
+
+.form-range:disabled::-moz-range-track,
+.form-range:disabled::-moz-range-progress {
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled */
+}
+
+.form-range:disabled::-moz-range-thumb {
+    background-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+[data-bs-theme='dark'] .form-range::-webkit-slider-runnable-track {
+    background-color: #adadad; /* colorNeutralStrokeAccessible (grey68) */
+}
+
+[data-bs-theme='dark'] .form-range::-moz-range-track {
+    background-color: #adadad; /* colorNeutralStrokeAccessible (grey68) */
+}
+
+[data-bs-theme='dark'] .form-range:focus::-webkit-slider-thumb {
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg), 0 0 0 2px #000000, 0 0 0 4px #ffffff; /* colorStrokeFocus2 (dark) */
+}
+
+[data-bs-theme='dark'] .form-range:focus::-moz-range-thumb {
+    box-shadow: inset 0 0 0 4px var(--bs-body-bg), 0 0 0 2px #000000, 0 0 0 4px #ffffff;
+}
+
+[data-bs-theme='dark'] .form-range:disabled::-webkit-slider-runnable-track {
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled (dark) */
+}
+
+[data-bs-theme='dark'] .form-range:disabled::-webkit-slider-thumb {
+    background-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+[data-bs-theme='dark'] .form-range:disabled::-moz-range-track,
+[data-bs-theme='dark'] .form-range:disabled::-moz-range-progress {
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled (dark) */
+}
+
+[data-bs-theme='dark'] .form-range:disabled::-moz-range-thumb {
+    background-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* Dark thumb/progress — colorCompoundBrandBackground ramp (brand100/110/90) */
+[data-bs-theme='dark'] .form-range::-webkit-slider-thumb {
+    background-color: #479ef5; /* brand100 */
+}
+
+[data-bs-theme='dark'] .form-range::-webkit-slider-thumb:hover {
+    background-color: #62abf5; /* brand110 */
+}
+
+[data-bs-theme='dark'] .form-range::-webkit-slider-thumb:active {
+    background-color: #2886de; /* brand90 colorCompoundBrandBackgroundPressed (dark) */
+}
+
+[data-bs-theme='dark'] .form-range::-moz-range-progress {
+    background-color: #479ef5; /* brand100 */
+}
+
+[data-bs-theme='dark'] .form-range::-moz-range-thumb {
+    background-color: #479ef5; /* brand100 */
+}
+
+[data-bs-theme='dark'] .form-range::-moz-range-thumb:hover {
+    background-color: #62abf5; /* brand110 */
+}
+
+[data-bs-theme='dark'] .form-range::-moz-range-thumb:active {
+    background-color: #2886de; /* brand90 */
+}
+
+/* ===== Rate — Fluent Rating: marigold filled stars, neutral empty stars ===== */
+.rate {
+    --bb-rate-color: #d1d1d1; /* colorNeutralStroke1 — unfilled star */
+    --bb-rate-active-color: #eaa300; /* colorPaletteMarigoldBackground3 */
+    --bb-rate-hover-color: #eaa300; /* hover preview fill */
+}
+
+.rate.disabled .rate-item i {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+[data-bs-theme='dark'] .rate {
+    --bb-rate-color: #666666; /* colorNeutralStroke1 (grey40) */
+}
+
+[data-bs-theme='dark'] .rate.disabled .rate-item i {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* ===== Table — Fluent DataGrid details =====
+ * Header icons, header hover bg and striped/hover row bg are already themed
+ * above; below: remaining hard-coded Element/Bootstrap accents.
+ */
+
+/* Active column-resize indicator — colorCompoundBrandStroke */
+.table-resize .border-resize {
+    border-right-color: var(--bs-primary);
+}
+
+/* Detail-row expand caret hover — colorNeutralBackground1Hover */
+.table .is-bar .fa-caret-right:hover {
+    background-color: #f5f5f5;
+}
+
+[data-bs-theme='dark'] .table .is-bar .fa-caret-right:hover {
+    background-color: #3d3d3d; /* grey24 */
+}
+
+/* Drag-over row — colorNeutralBackground1Selected */
+.table-drag {
+    background-color: #ebebeb !important;
+}
+
+[data-bs-theme='dark'] .table-drag {
+    background-color: #383838 !important; /* colorNeutralBackground1Selected (dark, grey22) */
+}
+
+/* Cell placeholder block — colorNeutralBackground4 */
+.is-ph {
+    background-color: #f0f0f0;
+}
+
+[data-bs-theme='dark'] .is-ph {
+    background-color: #3d3d3d; /* grey24 */
+}
+
+/* Toolbar gear flyout — neutral foreground & stroke instead of hard-coded greys */
+.btn-gear .dropdown-menu .dropdown-item:not(.disabled) {
+    color: var(--bs-body-color); /* colorNeutralForeground1 */
+}
+
+.btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
+    border-inline-start-color: var(--bs-border-color); /* colorNeutralStroke1 */
+}
+
+/* Search shortcut key hint — colorPaletteCyanBackground3 */
+.search-input-tooltip kbd {
+    background: var(--bs-info);
+}
+
+/* ===== Tree (legacy .tree) — Fluent TreeView hover/selected surfaces =====
+ * .tree-view (hover color, drop preview, active color) is themed above;
+ * the legacy .tree highlight bars were hard-coded Element blues.
+ */
+.tree .tree-item.hover:before {
+    background-color: #f5f5f5; /* colorNeutralBackground1Hover */
+}
+
+.tree .tree-item.active:before {
+    background-color: #ebebeb; /* colorNeutralBackground1Selected */
+}
+
+[data-bs-theme='dark'] .tree .tree-item.hover:before {
+    background-color: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+[data-bs-theme='dark'] .tree .tree-item.active:before {
+    background-color: #383838; /* colorNeutralBackground1Selected (dark, grey22) */
+}
+
+/* Dark brand foreground accents — brand100, matching what .menu/.tabs already do */
+[data-bs-theme='dark'] .tree-view {
+    --bb-tree-item-hover-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-tree-drop-preview-color: #479ef5;
+    --bb-tree-item-active-color: #479ef5;
+}
+
+[data-bs-theme='dark'] .filter-item {
+    --bb-filter-item-btn-hover-color: #479ef5;
+    --bb-filter-item-btn-hover-border-color: #479ef5;
+}
+
+[data-bs-theme='dark'] .drawer {
+    --bb-drawer-bar-hover-color: #479ef5;
+    --bb-drawer-bar-drag-color: #479ef5;
+}
+
+[data-bs-theme='dark'] .listview {
+    --bb-lv-item-border-hover-color: #479ef5;
+}
+
+[data-bs-theme='dark'] .dropdown-logout {
+    --bb-logout-menu-border-color: var(--bs-border-color); /* neutral stroke — brand80 is too dim on dark */
+}
+
+/* ===== Card — Fluent stroke instead of translucent Bootstrap border =====
+ * Radius (borderRadiusMedium 4px) and shadows (shadow4/shadow8) already
+ * come from the themed --bs-border-radius / --bb-shadow tokens.
+ */
+.card {
+    --bs-card-border-color: var(--bs-border-color); /* colorNeutralStroke1 */
+    --bs-card-spacer-x: 12px; /* --fui-Card--size medium (spacingM) */
+    --bs-card-spacer-y: 12px;
+}
+
+/* ===== Avatar — Fluent Avatar "neutral" recipe ===== */
+.avatar {
+    --bb-avatar-bg: #e6e6e6; /* colorNeutralBackground6 (grey90) */
+    --bb-avatar-color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .avatar {
+    --bb-avatar-bg: #333333; /* colorNeutralBackground6 (grey20, dark) */
+    --bb-avatar-color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+/* ===== ShieldBadge — re-point hard-coded blue to brand ===== */
+.shield-badge {
+    --bb-shield-badge-text-bg: var(--bs-primary); /* colorBrandBackground */
+}
+
+/* ===== Timeline — neutral stroke/foreground tokens ===== */
+.timeline {
+    --bb-timeline-node-bg: #d1d1d1; /* colorNeutralStroke1 */
+    --bb-timeline-timestamp-color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .timeline {
+    --bb-timeline-node-bg: #666666; /* colorNeutralStroke1 (dark) */
+    --bb-timeline-timestamp-color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+/* ===== ListGroup — Fluent list hover/pressed; fix compiled #0d6efd active =====
+ * bootstrap.blazor.bundle.min.css hard-codes --bs-list-group-active-bg: #0d6efd;
+ * re-point to the themed brand token.
+ */
+.list-group {
+    --bs-list-group-active-bg: var(--bs-primary); /* colorBrandBackground */
+    --bs-list-group-active-border-color: var(--bs-primary);
+    --bs-list-group-action-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bs-list-group-action-active-bg: #e0e0e0; /* colorNeutralBackground1Pressed */
+    /* Fluent ListItem defines no padding of its own; align density with spacingVerticalS / spacingHorizontalM */
+    --bs-list-group-item-padding-x: 12px; /* spacingHorizontalM */
+    --bs-list-group-item-padding-y: 8px; /* spacingVerticalS */
+}
+
+[data-bs-theme='dark'] .list-group {
+    --bs-list-group-action-hover-bg: #3d3d3d; /* grey24 */
+    --bs-list-group-action-active-bg: #1f1f1f; /* grey12 */
+}
+
+/* ===== Display — Fluent read-only field surface =====
+ * Light uses the themed --bs-secondary-bg (colorNeutralBackground3);
+ * dark lifts the surface to colorNeutralBackground2 for contrast.
+ */
+[data-bs-theme='dark'] .form-control.is-display {
+    --bs-secondary-bg: #1f1f1f; /* colorNeutralBackground2 (grey12) */
+}
+
+/* ===== Modal/Dialog — Fluent DialogSurface: borderRadiusXLarge (12px), transparent stroke =====
+ * shadow64 elevation on .modal-content is already themed above.
+ */
+.modal {
+    --bs-modal-border-width: 0; /* colorTransparentStroke */
+    --bs-modal-border-radius: var(--bs-border-radius-xl); /* borderRadiusXLarge (8px) — official DialogSurface */
+    --bs-modal-header-border-color: transparent; /* DialogTitle: no divider */
+    --bs-modal-footer-border-color: transparent; /* DialogActions: no divider */
+    --bs-modal-padding: 24px; /* SURFACE_PADDING (spacingXXL) */
+    --bs-modal-header-padding: 24px 24px 8px; /* DialogBody grid gap: title → content 8px (DIALOG_GAP) */
+    --bs-modal-footer-gap: 8px; /* DialogActions gap (DIALOG_GAP) */
+}
+
+/* BB hard-codes .modal-header/.modal-footer padding (.5rem 1rem), starving the padding
+ * vars above — set them directly */
+.modal-header {
+    padding: 24px 24px 8px; /* SURFACE_PADDING + DIALOG_GAP */
+}
+
+.modal-footer {
+    padding: 8px 24px 24px; /* DIALOG_GAP + SURFACE_PADDING */
+}
+
+/* EditDialog/SearchDialog footer strip — negative margins were calibrated to the old 16px
+ * body padding; re-calibrate to the 24px Fluent surface padding */
+.modal-body .form-footer {
+    margin: 16px -24px -16px;
+    padding: 8px 24px 0;
+}
+
+/* Scrollable table dialogs keep their 16px rhythm (the nested form's -1rem margin depends on it) */
+.modal-dialog-table.modal-dialog-scrollable .modal-body {
+    padding: 16px;
+}
+
+.modal-dialog-table.modal-dialog-scrollable .modal-body .form-footer {
+    margin: 16px -16px -16px;
+    padding: 8px 16px 0;
+}
+
+.modal-title {
+    font-weight: 600; /* DialogTitle: fontWeightSemibold */
+}
+
+/* Fluent Dialog backdrop — colorBackgroundOverlay rgba(0,0,0,.4) */
+.modal-backdrop {
+    --bs-backdrop-opacity: .4;
+}
+
+[data-bs-theme='dark'] .modal-backdrop {
+    --bs-backdrop-opacity: .5; /* colorBackgroundOverlay (dark) */
+}
+
+/* ===== Toast — Fluent Toast: transparent stroke, shadow8, single neutral surface ===== */
+.toast {
+    --bs-toast-border-color: transparent; /* colorTransparentStroke */
+    --bs-toast-box-shadow: var(--bb-hover-shadow); /* shadow8 */
+    --bs-toast-header-bg: transparent; /* colorNeutralBackground1 surface */
+    --bs-toast-header-color: var(--bs-body-color); /* colorNeutralForeground1 */
+    --bs-toast-bg: var(--bs-body-bg); /* Fluent Toast surface is opaque (bundle default is 85% translucent) */
+    --bs-toast-header-border-color: transparent; /* Fluent Toast has no header divider */
+}
+
+/* ===== Alert / Message — Fluent InfoBar: no visible border ===== */
+.alert {
+    --bs-alert-border: 0; /* InfoBar: border replaced by status background tint */
+    --bs-alert-padding-x: 12px; /* MessageBar paddingLeft (spacingHorizontalM) */
+    --bs-alert-padding-y: 8px; /* 8px + 20px line + 8px = 36px (MessageBar minHeight) */
+}
+
+/* Fluent InfoBar "info" intent = neutral surface, not a cyan tint */
+.alert-info {
+    --bs-alert-color: var(--bs-body-color); /* colorNeutralForeground1 */
+    --bs-alert-bg: #f5f5f5; /* colorNeutralBackground3 */
+}
+
+[data-bs-theme='dark'] .alert-info {
+    --bs-alert-bg: #141414; /* colorNeutralBackground3 (dark, grey8) */
+}
+
+/* ===== SweetAlert — Fluent status foregrounds & neutral text ===== */
+/* bundle hard-codes a white popup surface — pair it with the themed body bg so the
+ * themed foregrounds below stay legible in dark mode */
+.swal2-popup {
+    background-color: var(--bs-body-bg); /* colorNeutralBackground1 */
+    color: var(--bs-body-color); /* colorNeutralForeground1 */
+}
+
+.swal2-title {
+    color: var(--bs-body-color); /* colorNeutralForeground1 */
+    font-size: 1.25rem; /* DialogTitle: fontSizeBase500 */
+    font-weight: 600; /* fontWeightSemibold */
+}
+
+.swal2-content {
+    color: var(--bs-body-color); /* DialogContent: colorNeutralForeground1 */
+    font-weight: 400; /* DialogContent: fontWeightRegular */
+}
+
+.swal2-footer {
+    border-top-color: #e0e0e0; /* colorNeutralStroke2 */
+    color: #616161; /* colorNeutralForeground3 */
+}
+
+.swal2-icon.swal2-success {
+    border-color: var(--bs-success-text-emphasis); /* colorStatusSuccessForeground1 */
+    color: var(--bs-success-text-emphasis);
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+    border-color: rgba(var(--bs-success-rgb), .3);
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+    background-color: var(--bs-success-text-emphasis);
+}
+
+.swal2-icon.swal2-error {
+    border-color: var(--bs-danger-text-emphasis); /* colorStatusDangerForeground1 */
+    color: var(--bs-danger-text-emphasis);
+}
+
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+    background-color: var(--bs-danger-text-emphasis);
+}
+
+.swal2-icon.swal2-warning {
+    border-color: var(--bs-warning-text-emphasis); /* colorStatusWarningForeground1 */
+    color: var(--bs-warning-text-emphasis);
+}
+
+.swal2-icon.swal2-info {
+    border-color: var(--bs-info-text-emphasis); /* colorPaletteCyanForeground1 */
+    color: var(--bs-info-text-emphasis);
+}
+
+.swal2-icon.swal2-question {
+    border-color: var(--bs-secondary-text-emphasis); /* colorNeutralForeground3 */
+    color: var(--bs-secondary-text-emphasis);
+}
+
+[data-bs-theme='dark'] .swal2-footer {
+    border-top-color: #525252; /* colorNeutralStroke2 (dark, grey32) */
+    color: #adadad; /* colorNeutralForeground3 (dark, grey68) */
+}
+
+/* ===== Progress — Fluent ProgressBar: rail colorNeutralBackground6, bar colorCompoundBrandBackground ===== */
+.progress {
+    --bs-progress-bg: #e6e6e6; /* colorNeutralBackground6 (grey90) */
+    --bs-progress-bar-bg: var(--bs-primary); /* colorCompoundBrandBackground — bundle hard-codes the legacy Bootstrap blue */
+    --bs-progress-box-shadow: none; /* Fluent ProgressBar has no inset shadow */
+}
+
+[data-bs-theme='dark'] .progress {
+    --bs-progress-bg: #333333; /* colorNeutralBackground6 (dark, grey20) */
+}
+
+/* ===== Circle — Fluent ProgressBar rail color for the track ring ===== */
+.circle {
+    --bb-circle-stroke-color: #e6e6e6; /* colorNeutralBackground6 (grey90) */
+}
+
+/* Color.Secondary ring consumes var(--bs-secondary), a surface tone in this theme */
+.circle-secondary {
+    --bb-circle-progress-stroke-color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .circle-secondary {
+    --bb-circle-progress-stroke-color: #adadad; /* colorNeutralForeground3 (grey68) */
+}
+
+[data-bs-theme='dark'] .circle {
+    --bb-circle-stroke-color: #333333; /* colorNeutralBackground6 (dark, grey20) */
+}
+
+/* Skeleton — Fluent stencil tokens (the dark ramp is noticeably lighter than the bundle default) */
+[data-bs-theme='dark'] .skeleton {
+    --bb-skeleton-gradient-from-color: #575757; /* colorNeutralStencil1 (dark) */
+    --bb-skeleton-gradient-to-color: #333333; /* colorNeutralStencil2 (dark) */
+}
+
+/* ===== Mask — Fluent overlay: colorBackgroundOverlay ===== */
+.bb-mask {
+    --bb-mask-opacity: .4; /* colorBackgroundOverlay rgba(0,0,0,.4) */
+}
+
+[data-bs-theme='dark'] .bb-mask {
+    --bb-mask-opacity: .5; /* colorBackgroundOverlay (dark) */
+}
+
+/* ===== Picker panel (DateTimePicker / DateTimeRange flyout) ===== */
+
+/* Sidebar (range shortcut list) — themed divider, brand text hover */
+.picker-panel-sidebar {
+    border-right-color: var(--bs-border-color); /* colorNeutralStroke1 */
+}
+
+/* DateTimeRange renders the sidebar/footer outside .picker-panel — keep a brand fallback */
+.picker-panel .picker-panel-sidebar .sidebar-item:hover,
+.picker-panel-sidebar .sidebar-item:hover {
+    color: var(--bb-picker-hover-color, var(--bs-primary));
+}
+
+/* Day cell hover — brand foreground */
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content .date-table td:not(.prev-month):not(.next-month):hover {
+    color: var(--bb-picker-hover-color);
+}
+
+/* Selected day with lunar text — re-point hard-coded #409eff marker */
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.current:not(.disabled) .cell:has(.bb-picker-body-lunar-text):before,
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.start:not(.disabled) .cell:has(.bb-picker-body-lunar-text):before,
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.end:not(.disabled) .cell:has(.bb-picker-body-lunar-text):before {
+    background-color: var(--bb-picker-panel-today-bg);
+}
+
+/* Range band — brand160 light / brand20 dark (via themed subtle bg) */
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.range:before {
+    background-color: var(--bs-primary-bg-subtle); /* colorBrandBackground2 */
+}
+
+/* Adjacent-month & disabled days — colorNeutralForegroundDisabled */
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content .date-table td.next-month,
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content .date-table td.prev-month,
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.disabled .cell {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+/* Holiday / workday corner badges (adjacent months) — neutral fill */
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td .cell span.is-holiday,
+.picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td .cell span.is-workday {
+    background-color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+[data-bs-theme='dark'] .picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content .date-table td.next-month,
+[data-bs-theme='dark'] .picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content .date-table td.prev-month,
+[data-bs-theme='dark'] .picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td.disabled .cell {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+[data-bs-theme='dark'] .picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td .cell span.is-holiday,
+[data-bs-theme='dark'] .picker-panel .picker-panel-body .picker-panel-body-main .picker-panel-content table td .cell span.is-workday {
+    background-color: #5c5c5c; /* colorNeutralForegroundDisabled (grey36) */
+}
+
+/* Footer link buttons — brand hover instead of legacy #409eff */
+.picker-panel-footer .picker-panel-link-btn:hover {
+    border-color: var(--bb-picker-hover-color, var(--bs-primary));
+    color: var(--bb-picker-hover-color, var(--bs-primary));
+}
+
+.picker-panel-footer .picker-timer:hover {
+    color: var(--bb-picker-hover-color, var(--bs-primary));
+}
+
+[data-bs-theme='dark'] .picker-panel-sidebar .sidebar-item:hover,
+[data-bs-theme='dark'] .picker-panel-footer .picker-panel-link-btn:hover,
+[data-bs-theme='dark'] .picker-panel-footer .picker-timer:hover {
+    color: #479ef5; /* colorBrandForeground1 (brand100) */
+}
+
+[data-bs-theme='dark'] .picker-panel-footer .picker-panel-link-btn:hover {
+    border-color: #479ef5;
+}
+
+/* ===== DateTimePicker / DateTimeRange trigger icons ===== */
+.datetime-picker {
+    --bb-dt-picker-bar-color: #616161; /* colorNeutralForeground3 — matches the select chevron */
+}
+
+.datetime-range {
+    --bb-dt-range-bar-color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .datetime-picker {
+    --bb-dt-picker-bar-color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+[data-bs-theme='dark'] .datetime-range {
+    --bb-dt-range-bar-color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+/* Disabled range trigger — colorNeutralBackgroundDisabled */
+.datetime-range.disabled,
+.datetime-range-control .datetime-range-input.disabled {
+    background-color: var(--bb-disabled-bg);
+}
+
+/* ===== TimePicker — Fluent flyout shadow ===== */
+.bb-time-picker {
+    --bb-time-picker-shadow: var(--bs-box-shadow); /* shadow16 */
+}
+
+/* ClockPicker hand pivot dot follows foreground (was hard-coded black) */
+.bb-clock-picker .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-star {
+    background-color: var(--bs-body-color);
+}
+
+/* Dial ticks consume var(--bs-secondary), a surface tone in this theme (invisible on the white dial) */
+.bb-clock-picker .bb-clock-panel-scale > div {
+    background-color: var(--bs-border-color); /* colorNeutralStroke1 */
+}
+
+[data-bs-theme='dark'] .bb-clock-picker {
+    --bb-time-text-color: #479ef5; /* colorBrandForeground1 (brand100) */
+    --bb-time-footer-btn-hover-border-color: #479ef5;
+    --bb-time-footer-btn-hover-bg-color: #115ea3; /* colorBrandBackground (dark, brand70) */
+    --bb-time-footer-btn-active-color: #479ef5;
+    --bb-time-footer-btn-active-border-color: #479ef5;
+}
+
+/* ===== ColorPicker — trigger only (native popup is OS-rendered, cannot be themed) ===== */
+.bb-color-picker .form-control-color.disabled {
+    background-color: var(--bb-disabled-bg); /* colorNeutralBackgroundDisabled */
+}
+
+/* ===== Upload family (Button/Input/Avatar/Card/Drop + preview list) ===== */
+
+/* Preview list rows — Fluent neutral hover fill */
+.upload .upload-body.is-list .upload-item:hover {
+    background-color: #f5f5f5; /* colorNeutralBackground1Hover */
+}
+
+[data-bs-theme='dark'] .upload .upload-body.is-list .upload-item:hover {
+    background-color: #3d3d3d; /* colorNeutralBackground1Hover (grey24) */
+}
+
+/* Drop zone — resting neutral dashed stroke, brand only while dragging */
+.upload.is-drop .upload-drop-body {
+    border-color: var(--bs-border-color); /* colorNeutralStroke1 */
+}
+
+.upload.is-drop .upload-drop-body .upload-drop-icon > i {
+    color: #616161; /* colorNeutralForeground3 */
+}
+
+.upload.is-drop:not(.disabled) .upload-drop-body em {
+    color: var(--bs-link-color); /* colorBrandForegroundLink */
+}
+
+.upload.is-drop.dropping .upload-drop-body {
+    border-color: var(--bs-primary); /* colorBrandBackground */
+    background-color: var(--bs-primary-bg-subtle); /* colorBrandBackground2 (brand160) */
+}
+
+[data-bs-theme='dark'] .upload.is-drop .upload-drop-body .upload-drop-icon > i {
+    color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+/* ===== ImagePreviewer — overlay chrome ===== */
+.bb-previewer {
+    --bb-viewer-button-bg: #3d3d3d; /* grey24 — Fluent dark chrome on overlay */
+}
+
+/* Fluent colorBackgroundOverlay is rgba(0,0,0,.4) */
+.bb-previewer .bb-viewer-mask {
+    opacity: .4;
+}
+
+[data-bs-theme='dark'] .bb-previewer .bb-viewer-mask {
+    opacity: .5; /* colorBackgroundOverlay (dark) */
+}
+
+/* ===== Switch / NullSwitch — Fluent Switch: pill track, brand when on =====
+ * The on-state is rendered via bg-success/border-success utilities (OnColor
+ * defaults to Color.Success); re-point --bs-success-rgb to the brand ramp
+ * instead of fighting the utility's !important. Custom OnColor is untouched.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .switch .switch-core {
+        transition: border-color .2s cubic-bezier(.33,0,.67,1), background-color .2s cubic-bezier(.33,0,.67,1); /* durationNormal / curveEasyEase */
+    }
+}
+
+/* Off hover/pressed */
+.switch:not(.disabled):not(.is-checked):hover .switch-core {
+    background-color: #d1d1d1; /* colorNeutralStroke1 */
+    border-color: #c7c7c7; /* colorNeutralStroke1Hover */
+}
+
+.switch:not(.disabled):not(.is-checked):active .switch-core {
+    background-color: #c7c7c7; /* colorNeutralStroke1Hover */
+    border-color: #bdbdbd; /* colorNeutralStroke1Pressed */
+}
+
+/* On — colorCompoundBrandBackground / Hover / Pressed (scoped to .switch-core) */
+.switch .switch-core.bg-success {
+    --bs-success-rgb: var(--bs-primary-rgb); /* brand80 #0f6cbd */
+}
+
+.switch:not(.disabled):hover .switch-core.bg-success {
+    --bs-success-rgb: 17,94,163; /* brand70 colorCompoundBrandBackgroundHover */
+}
+
+.switch:not(.disabled):active .switch-core.bg-success {
+    --bs-success-rgb: 15,84,140; /* brand60 colorCompoundBrandBackgroundPressed */
+}
+
+/* Disabled — Fluent uses disabled tokens, not an opacity fade */
+.switch.disabled {
+    opacity: 1;
+}
+
+.switch.disabled .switch-core {
+    background-color: var(--bb-disabled-bg) !important; /* colorNeutralBackgroundDisabled */
+    border-color: #e0e0e0 !important; /* colorNeutralStrokeDisabled */
+    cursor: not-allowed;
+}
+
+.switch.disabled .switch-core:after {
+    background-color: #bdbdbd; /* colorNeutralForegroundDisabled thumb */
+}
+
+.switch.disabled .switch-core:before,
+.switch.disabled .switch-label {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+    cursor: not-allowed;
+}
+
+[data-bs-theme='dark'] .switch:not(.disabled):not(.is-checked):hover .switch-core {
+    background-color: #4d4d4d; /* grey30 */
+    border-color: #757575; /* colorNeutralStroke1Hover (dark) */
+}
+
+[data-bs-theme='dark'] .switch:not(.disabled):not(.is-checked):active .switch-core {
+    background-color: #525252; /* grey32 */
+    border-color: #757575;
+}
+
+[data-bs-theme='dark'] .switch .switch-core.bg-success {
+    --bs-success-rgb: 71,158,245; /* brand100 colorCompoundBrandBackground (dark) */
+}
+
+[data-bs-theme='dark'] .switch:not(.disabled):hover .switch-core.bg-success {
+    --bs-success-rgb: 98,171,245; /* brand110 colorCompoundBrandBackgroundHover (dark) */
+}
+
+[data-bs-theme='dark'] .switch:not(.disabled):active .switch-core.bg-success {
+    --bs-success-rgb: 40,134,222; /* brand90 colorCompoundBrandBackgroundPressed (dark) */
+}
+
+[data-bs-theme='dark'] .switch.disabled .switch-core {
+    border-color: #424242 !important; /* colorNeutralStrokeDisabled (dark) */
+}
+
+[data-bs-theme='dark'] .switch.disabled .switch-core:after {
+    background-color: #5c5c5c; /* colorNeutralForegroundDisabled (dark) */
+}
+
+[data-bs-theme='dark'] .switch.disabled .switch-core:before,
+[data-bs-theme='dark'] .switch.disabled .switch-label {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (dark) */
+}
+
+/* ===== Transfer — Fluent list hover & neutral foregrounds ===== */
+@media (prefers-reduced-motion: no-preference) {
+    .transfer-panel-item {
+        transition: background-color .2s cubic-bezier(.33,0,.67,1); /* durationNormal / curveEasyEase */
+    }
+}
+
+.transfer-panel-item:hover {
+    background-color: #f5f5f5; /* colorNeutralBackground1Hover */
+}
+
+/* Filter input hard-codes Element-UI greys — re-point to Fluent foreground tokens */
+.transfer-panel-filter .input-inner {
+    color: var(--bs-body-color); /* colorNeutralForeground1 */
+}
+
+.transfer-panel-filter .input-inner:hover:not(:focus) {
+    border-color: var(--bb-border-hover-color); /* colorNeutralStroke1Hover */
+}
+
+.transfer-panel-filter .input-prefix {
+    color: #616161; /* colorNeutralForeground3 */
+}
+
+[data-bs-theme='dark'] .transfer-panel-item:hover {
+    background-color: #3d3d3d; /* colorNeutralBackground1Hover (dark) */
+}
+
+[data-bs-theme='dark'] .transfer-panel-filter .input-prefix {
+    color: #adadad; /* colorNeutralForeground3 (dark) */
+}
+
+/* ===== Segmented — Fluent neutral hover/pressed/disabled =====
+ * Component default pressed is lighter than hover; Fluent pressed is darker.
+ */
+.segmented {
+    --bb-segmented-item-hover-bg: #f5f5f5; /* colorNeutralBackground1Hover */
+    --bb-segmented-item-active-bg: #e0e0e0; /* colorNeutralBackground1Pressed */
+}
+
+.segmented .segmented-item.disabled {
+    color: #bdbdbd; /* colorNeutralForegroundDisabled */
+}
+
+[data-bs-theme='dark'] .segmented {
+    --bb-segmented-item-hover-bg: #3d3d3d; /* colorNeutralBackground1Hover (dark) */
+    --bb-segmented-item-active-bg: #1f1f1f; /* colorNeutralBackground1Pressed (dark, grey12) */
+}
+
+[data-bs-theme='dark'] .segmented .segmented-item.disabled {
+    color: #5c5c5c; /* colorNeutralForegroundDisabled (dark) */
+}
+
+/* ===== Light — Fluent brand / status ramps (indicator dot) ===== */
+.bb-light {
+    --bb-light-primary-bg: radial-gradient(circle, #62abf5, #0f6cbd, #0c3b5e); /* brand110/80/40 */
+    --bb-light-primary-hover-bg: radial-gradient(circle, #77b7f7, #115ea3, #0c3b5e); /* brand120/70/40 */
+    --bb-light-success-bg: radial-gradient(circle, #54b054, #107c10, #094509); /* green tint30/base/shade30 */
+    --bb-light-success-hover-bg: radial-gradient(circle, #9fd89f, #0e700e, #094509); /* green tint60/shade10/shade30 */
+    --bb-light-info-bg: radial-gradient(circle, #56bfd7, #0099bc, #005669); /* cyan tint30/base/shade30 */
+    --bb-light-info-hover-bg: radial-gradient(circle, #a4deeb, #008aa9, #005669); /* cyan tint60/shade10/shade30 */
+    --bb-light-warning-bg: radial-gradient(circle, #faa06b, #f7630c, #8a3707); /* orange tint30/base/shade30 */
+    --bb-light-warning-hover-bg: radial-gradient(circle, #fdcfb4, #de590b, #8a3707); /* orange tint60/shade10/shade30 */
+    --bb-light-danger-bg: radial-gradient(circle, #dc626d, #c50f1f, #6e0811); /* cranberry tint30/base/shade30 */
+    --bb-light-danger-hover-bg: radial-gradient(circle, #eeacb2, #b10e1c, #6e0811); /* cranberry tint60/shade10/shade30 */
+    --bb-light-secondary-bg: radial-gradient(circle, #b3b3b3, #757575, #424242); /* neutral grey ramp */
+    --bb-light-secondary-hover-bg: radial-gradient(circle, #d1d1d1, #616161, #424242);
+    --bb-light-dark-bg: radial-gradient(circle, #757575, #424242, #1a1a1a); /* neutral dark greys */
+    --bb-light-dark-hover-bg: radial-gradient(circle, #999999, #242424, #1a1a1a);
+}
+
+/* Flash animations — component keyframes use the old Bootstrap palette;
+ * re-declare with Fluent ramps (later keyframe definition wins) */
+@keyframes light-primary {
+    0%, 55% {
+        background: radial-gradient(circle, #62abf5, #0f6cbd, #0c3b5e);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-success {
+    0%, 55% {
+        background: radial-gradient(circle, #54b054, #107c10, #094509);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-info {
+    0%, 55% {
+        background: radial-gradient(circle, #56bfd7, #0099bc, #005669);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-warning {
+    0%, 55% {
+        background: radial-gradient(circle, #faa06b, #f7630c, #8a3707);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-danger {
+    0%, 55% {
+        background: radial-gradient(circle, #dc626d, #c50f1f, #6e0811);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-secondary {
+    0%, 55% {
+        background: radial-gradient(circle, #b3b3b3, #757575, #424242);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
+
+@keyframes light-dark {
+    0%, 55% {
+        background: radial-gradient(circle, #757575, #424242, #1a1a1a);
+    }
+
+    100% {
+        background: radial-gradient(circle, #fff, #aaa, #333);
+    }
+}
