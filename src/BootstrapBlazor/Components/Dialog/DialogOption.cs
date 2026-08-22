@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Dialog 对话框组件</para>
 /// <para lang="en">Dialog component</para>
 /// </summary>
-public class DialogOption : ICloseable
+public class DialogOption : IClosable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 关联的 Modal 实例</para>
@@ -192,12 +192,12 @@ public class DialogOption : ICloseable
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ICloseable.OnCloseAsync"/>
+    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ICloseable.OnClosingAsync"/>
+    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
     /// </summary>
     public Func<Task<bool>>? OnClosingAsync { get; set; }
 

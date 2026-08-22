@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Drawer 弹出窗参数配置类</para>
 /// <para lang="en">Drawer Option Class</para>
 /// </summary>
-public class DrawerOption
+public class DrawerOption : IClosable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 Drawer 组件样式</para>
@@ -84,10 +84,14 @@ public class DrawerOption
     public Func<Task>? OnClickBackdrop { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭当前 Drawer 回调委托 默认 null</para>
-    /// <para lang="en">Gets or sets Close Drawer Callback Delegate. Default is null</para>
+    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
+    /// </summary>
+    public Func<Task<bool>>? OnClosingAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 相关连数据，多用于传值使用</para>
