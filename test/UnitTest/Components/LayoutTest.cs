@@ -254,6 +254,20 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.Render(pb => pb.Add(a => a.IsExpandOnHover, true));
         cut.WaitForAssertion(() => Assert.DoesNotContain("is-click-expand", cut.Markup));
         Assert.Contains("is-collapsed", cut.Markup);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsExpandOnHover, false);
+        });
+        await cut.InvokeAsync(() => side.Click());
+        cut.WaitForAssertion(() => Assert.Contains("is-expand", cut.Find(".layout-side").ClassName));
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsCollapsed, false);
+        });
+        await cut.InvokeAsync(() => side.Click());
+        cut.WaitForAssertion(() => Assert.Contains("is-expand", cut.Find(".layout-side").ClassName));
     }
 
     [Fact]
