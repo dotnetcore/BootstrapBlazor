@@ -89,7 +89,7 @@
     </header>;
 
     RenderFragment RenderSide =>
-    @<aside class="@SideClassString" style="@SideStyleString">
+    @<aside class="@SideClassString" style="@SideStyleString" @onclick="OnClickSidebar" @onmouseleave="OnMouseLeaveSidebar">
         @if (Side != null)
         {
             @Side

@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 [data-bs-theme='dark'] .layout {
     --bb-layout-header-background: #{$bb-layout-header-background-dark};
@@ -240,7 +240,8 @@
         --bb-layout-footer-height: 0px;
     }
 
-    &.is-collapsed {
+    &.is-collapsed,
+    &.is-click-expand {
         .fa-bars {
             transform: rotate(90deg);
         }
@@ -303,7 +304,7 @@
 }
 
 @media (max-width: 767.99px) {
-    .layout.is-collapsed .layout-right {
+    .layout:is(.is-collapsed, .is-click-expand) .layout-right {
         overflow: hidden;
         height: var(--bb-layout-height);
     }
@@ -357,7 +358,29 @@
                     }
                 }
             }
+        }
 
+        &.is-click-expand {
+            .layout-side {
+                &:not(.is-expand) {
+                    --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+
+                    .menu.is-vertical {
+                        --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+                    }
+                }
+
+                &.is-expand {
+                    .layout-title,
+                    .menu.is-vertical .menu-text {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &.is-collapsed,
+        &.is-click-expand {
             .layout-main {
                 display: block;
             }
