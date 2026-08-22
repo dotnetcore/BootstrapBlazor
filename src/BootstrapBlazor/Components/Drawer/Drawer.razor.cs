@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Drawer 抽屉组件</para>
 /// <para lang="en">Drawer component</para>
 /// </summary>
-public partial class Drawer
+public partial class Drawer : IClosable
 {
     private string? ClassString => CssBuilder.Default("drawer collapse")
         .AddClass("no-bd", !ShowBackdrop)
@@ -121,11 +121,16 @@ public partial class Drawer
     public int? ZIndex { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭抽屉回调委托 默认 null</para>
-    /// <para lang="en">Gets or sets Close Drawer Callback Delegate. Default is null</para>
+    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnClosingAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉内容相关数据 多用于传值</para>
@@ -227,6 +232,11 @@ public partial class Drawer
     [JSInvokable]
     public async Task Close()
     {
+        if (OnClosingAsync != null && !await OnClosingAsync())
+        {
+            return;
+        }
+
         IsOpen = false;
         var animation = await InvokeAsync<bool>("execute", Id, false);
         if (animation)

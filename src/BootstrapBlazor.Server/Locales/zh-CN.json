@@ -2143,6 +2143,7 @@
     "Close": "关闭抽屉",
     "Content": "抽屉内布局、组件等完全可以自定义",
     "Description": "有些时候, Dialog 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档, Drawer 拥有和 Dialog 几乎相同的 API, 在 UI 上带来不一样的体验",
+    "DrawerServiceContent": "通过调用 <code>DrawerService.Show</code> 方法打开抽屉弹窗时，可以通过 <code>DrawerOption</code> 的 <code>OnClosingAsync</code> 回调方法进行拦截，用法与 <code>Dialog</code> 等组件一致，回调方法返回 <code>false</code> 时中止弹窗关闭",
     "DrawerServiceIntro": "通过调用 <code>DrawerService</code> 服务打开抽屉弹窗",
     "DrawerServiceTitle": "调用服务打开抽屉",
     "DrawerTips": "有时候我们的弹窗希望在某个容器内展开，可通过在特定容器内置 <code>&lt;Drawer/&gt;</code> 抽屉组件，然后设置参数 <code>Position=\"absolute\"</code> 相对定位来实现此需求；注意：父容器样式需要设置 <code>position: relative;</code>",
