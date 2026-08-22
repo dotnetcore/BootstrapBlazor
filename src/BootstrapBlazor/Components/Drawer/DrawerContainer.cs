@@ -98,6 +98,10 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             parameters.Add(nameof(Drawer.OnClickBackdrop), option.OnClickBackdrop);
         }
+        if (option.OnClosingAsync != null)
+        {
+            parameters.Add(nameof(Drawer.OnClosingAsync), option.OnClosingAsync);
+        }
         if (option.BodyContext != null)
         {
             parameters.Add(nameof(Drawer.BodyContext), option.BodyContext);
