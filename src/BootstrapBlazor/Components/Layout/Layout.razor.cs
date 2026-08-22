@@ -673,6 +673,11 @@ public partial class Layout : ITabHeader
     {
         base.OnParametersSet();
 
+        if (!IsCollapsed || IsExpandOnHover)
+        {
+            _isSidebarExpand = false;
+        }
+
         TooltipText ??= Localizer[nameof(TooltipText)];
         MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
     }
