@@ -229,6 +229,50 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsExpandOnHover_OK()
+    {
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.IsCollapsed, true);
+            pb.Add(a => a.Side, CreateSide());
+            pb.Add(a => a.IsExpandOnHover, false);
+        });
+        Assert.Contains("is-click-expand", cut.Markup);
+        Assert.DoesNotContain("is-collapsed", cut.Markup);
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
+
+        // 点击侧边栏展开
+        var side = cut.Find(".layout-side");
+        await cut.InvokeAsync(() => side.Click());
+        Assert.Contains("is-expand", cut.Find(".layout-side").ClassName);
+
+        // 鼠标移出侧边栏收起
+        await cut.InvokeAsync(() => side.TriggerEvent("onmouseleave", new MouseEventArgs()));
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
+
+        // 默认悬停展开 不追加 is-click-expand 样式
+        cut.Render(pb => pb.Add(a => a.IsExpandOnHover, true));
+        cut.WaitForAssertion(() => Assert.DoesNotContain("is-click-expand", cut.Markup));
+        Assert.Contains("is-collapsed", cut.Markup);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsCollapsed, true);
+            pb.Add(a => a.IsExpandOnHover, true);
+        });
+        await cut.InvokeAsync(() => side.Click());
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsCollapsed, false);
+            pb.Add(a => a.IsExpandOnHover, true);
+        });
+        await cut.InvokeAsync(() => side.Click());
+        Assert.DoesNotContain("is-expand", cut.Find(".layout-side").ClassName);
+    }
+
+    [Fact]
     public async Task ShowCollapseBar_OK()
     {
         var cut = Context.Render<Layout>(pb =>

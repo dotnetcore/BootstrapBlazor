@@ -67,6 +67,36 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
         Assert.True(closed);
     }
 
+    [Fact]
+    public async Task OnClosingAsync_Ok()
+    {
+        var closing = false;
+        var closed = false;
+        var option = new DrawerOption
+        {
+            OnClosingAsync = () =>
+            {
+                closing = true;
+                return Task.FromResult(false);
+            },
+            OnCloseAsync = () =>
+            {
+                closed = true;
+                return Task.CompletedTask;
+            }
+        };
+        var service = Context.Services.GetRequiredService<DrawerService>();
+        var cut = Context.Render<BootstrapBlazorRoot>();
+
+        Assert.IsType<IClosable>(option, exactMatch: false);
+        await service.Show(option);
+        await cut.InvokeAsync(option.CloseAsync);
+
+        Assert.True(closing);
+        Assert.False(closed);
+        Assert.Single(cut.FindComponents<Drawer>());
+    }
+
     private static RenderFragment RenderContent() => builder =>
     {
         builder.AddContent(0, "drawer-content");
