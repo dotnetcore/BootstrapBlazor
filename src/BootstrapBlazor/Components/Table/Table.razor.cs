@@ -1010,6 +1010,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
             return QueryAsync();
         };
+
+        // 如果设置了 UseSearchForm 为 true 则将 SearchFormItems 转换为 _searchFilter
+        if (UseSearchForm)
+        {
+            _searchFilter = SearchFormItems.ToFilter();
+        }
     }
 
     /// <summary>
