@@ -43,7 +43,7 @@
 .theme-item {
     cursor: pointer;
     border-radius: 100px;
-    padding: 10px 15px;
+    padding: 6px 15px;
     background-color: var(--bb-button-theme-item-bg);
     color: var(--bb-button-theme-item-color);
     transition: background-color .3s linear;
