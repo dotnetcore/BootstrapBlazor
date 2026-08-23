@@ -6,17 +6,14 @@
     background: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     width: 260px;
-    max-width: calc(100vw - 2rem);
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height .3s ease-in-out;
+    transition: height .3s ease-in-out;
     box-shadow: var(--bb-layout-button-shadow);
 }
 
     .theme-list.is-open {
-        max-height: min(70vh, 480px);
-        overflow-y: auto;
-        overscroll-behavior: contain;
+        height: 355px;
     }
 
 .theme-header {
@@ -27,9 +24,6 @@
     border-top-right-radius: 5px;
     display: flex;
     margin-bottom: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
 }
 
 .btn-close {
