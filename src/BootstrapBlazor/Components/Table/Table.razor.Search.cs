@@ -419,7 +419,7 @@ public partial class Table<TItem>
     /// <para lang="en">Assemble IFilterAction collection using <see cref="ITableColumn.Searchable"/> columns and <see cref="SearchText"/></para>
     /// </summary>
     protected List<IFilterAction> GetSearches() => UseSearchForm
-        ? _searchFilter.ToSearches()
+        ? (_searchFilter ?? SearchFormItems.ToFilter()).ToSearches()
         : Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
     /// <summary>
