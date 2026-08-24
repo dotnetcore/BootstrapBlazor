@@ -19,6 +19,8 @@ public partial class Tab
 {
     private bool FirstRender { get; set; } = true;
 
+    private TabItem? _activeTabItem;
+
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
@@ -248,6 +250,13 @@ public partial class Tab
     /// </summary>
     [Parameter]
     public Func<TabItem, Task>? OnClickTabItemAsync { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 当前激活标签变化时的回调方法</para>
+    /// <para lang="en">Gets or sets the callback when the active tab changes</para>
+    /// </summary>
+    [Parameter]
+    public Func<TabItem?, Task>? OnActiveTabItemChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭当前 TabItem 菜单文本</para>
@@ -725,8 +734,7 @@ public partial class Tab
 
         if (!ClickTabToNavigation)
         {
-            TabItems.ForEach(i => i.SetActive(false));
-            item.SetActive(true);
+            ActiveTabItem(item);
             InvokeUpdate = true;
             StateHasChanged();
         }
@@ -744,32 +752,19 @@ public partial class Tab
             var index = TabItems.IndexOf(item);
             if (index > -1)
             {
-                index--;
-                if (index < 0)
+                item = TabItems.Take(index).LastOrDefault(i => !i.IsDisabled)
+                    ?? (IsLoopSwitchTabItem ? TabItems.Skip(index + 1).LastOrDefault(i => !i.IsDisabled) : null);
+                if (item == null)
                 {
-                    if (IsLoopSwitchTabItem)
-                    {
-                        index = TabItems.Count - 1;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    return;
                 }
-
-                if (!ClickTabToNavigation)
-                {
-                    item.SetActive(false);
-                }
-
-                item = TabItems[index];
                 if (ClickTabToNavigation)
                 {
                     Navigator.NavigateTo(item.Url);
                 }
                 else
                 {
-                    item.SetActive(true);
+                    ActiveTabItem(item);
                     InvokeUpdate = true;
                 }
             }
@@ -786,35 +781,21 @@ public partial class Tab
         if (item != null)
         {
             var index = TabItems.IndexOf(item);
-            if (index < TabItems.Count)
+            if (index > -1)
             {
-                index++;
-                if (index + 1 > TabItems.Count)
+                item = TabItems.Skip(index + 1).FirstOrDefault(i => !i.IsDisabled)
+                    ?? (IsLoopSwitchTabItem ? TabItems.Take(index).FirstOrDefault(i => !i.IsDisabled) : null);
+                if (item == null)
                 {
-                    if (IsLoopSwitchTabItem)
-                    {
-                        index = 0;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    return;
                 }
-
-                if (!ClickTabToNavigation)
-                {
-                    item.SetActive(false);
-                }
-
-                item = TabItems[index];
-
                 if (ClickTabToNavigation)
                 {
                     Navigator.NavigateTo(item.Url);
                 }
                 else
                 {
-                    item.SetActive(true);
+                    ActiveTabItem(item);
                     InvokeUpdate = true;
                 }
             }
@@ -843,8 +824,12 @@ public partial class Tab
             if (activeItem == null)
             {
                 activeItem = TabItems[0];
-                activeItem.SetActive(true);
+                ActiveTabItem(activeItem);
             }
+        }
+        else
+        {
+            SynchronizeActiveTabItem();
         }
         InvokeUpdate = true;
     }
@@ -880,7 +865,11 @@ public partial class Tab
     /// <para lang="en">Add TabItem method. Called by TabItem</para>
     /// </summary>
     /// <param name="item"><para lang="zh">TabItemBase 实例</para><para lang="en">TabItemBase instance</para></param>
-    internal void AddItem(TabItem item) => TabItems.Add(item);
+    internal void AddItem(TabItem item)
+    {
+        TabItems.Add(item);
+        SynchronizeActiveTabItem();
+    }
 
     /// <summary>
     /// <para lang="zh">通过 Url 添加 TabItem 标签方法</para>
@@ -986,10 +975,6 @@ public partial class Tab
     {
         var item = TabItem.Create(parameters);
         item.TabSet = this;
-        if (item.IsActive)
-        {
-            TabItems.ForEach(i => i.SetActive(false));
-        }
 
         if (index.HasValue)
         {
@@ -998,6 +983,11 @@ public partial class Tab
         else
         {
             TabItems.Add(item);
+        }
+
+        if (item.IsActive)
+        {
+            ActiveTabItem(item);
         }
     }
 
@@ -1022,7 +1012,8 @@ public partial class Tab
         // 删除的 TabItem 是当前 Tab
         // 查找后面的 Tab
         var activeItem = TabItems.Find(i => i.IsActive)
-                         ?? (index < TabItems.Count ? TabItems[index] : TabItems.LastOrDefault());
+                         ?? TabItems.Skip(index).FirstOrDefault(i => !i.IsDisabled)
+                         ?? TabItems.Take(index).LastOrDefault(i => !i.IsDisabled);
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
@@ -1031,13 +1022,14 @@ public partial class Tab
             }
             else
             {
-                activeItem.SetActive(true);
+                ActiveTabItem(activeItem);
                 StateHasChanged();
             }
         }
         else
         {
             // 无标签
+            SynchronizeActiveTabItem();
             StateHasChanged();
         }
     }
@@ -1074,10 +1066,32 @@ public partial class Tab
     /// </summary>
     public TabItem? GetActiveTab() => TabItems.Find(s => s.IsActive);
 
-    private void ActiveTabItem(TabItem item)
+    private void ActiveTabItem(TabItem? item)
     {
+        if (item != null && (item.IsDisabled || !TabItems.Contains(item)))
+        {
+            return;
+        }
+
         TabItems.ForEach(i => i.SetActive(false));
-        item.SetActive(true);
+        item?.SetActive(true);
+        NotifyActiveTabChanged(item);
+    }
+
+    private void SynchronizeActiveTabItem() => NotifyActiveTabChanged(GetActiveTab());
+
+    private void NotifyActiveTabChanged(TabItem? item)
+    {
+        if (ReferenceEquals(item, _activeTabItem))
+        {
+            return;
+        }
+        _activeTabItem = item;
+
+        if (OnActiveTabItemChanged != null)
+        {
+            _ = OnActiveTabItemChanged(item);
+        }
     }
 
     /// <summary>
@@ -1088,6 +1102,12 @@ public partial class Tab
     /// <param name="disabled"></param>
     public void SetDisabledItem(TabItem item, bool disabled)
     {
+        var index = TabItems.IndexOf(item);
+        if (index < 0)
+        {
+            return;
+        }
+
         item.SetDisabledWithoutRender(disabled);
         if (disabled)
         {
@@ -1095,8 +1115,10 @@ public partial class Tab
         }
         if (TabItems.Find(i => i.IsActive) == null)
         {
-            var tabItem = TabItems.Find(i => !i.IsDisabled);
-            tabItem?.SetActive(true);
+            var tabItem = disabled
+                ? TabItems.Skip(index + 1).FirstOrDefault(i => !i.IsDisabled) ?? TabItems.Take(index).LastOrDefault(i => !i.IsDisabled)
+                : item;
+            ActiveTabItem(tabItem);
         }
         StateHasChanged();
     }
@@ -1262,8 +1284,12 @@ public partial class Tab
                 var item = TabItems.Find(i => i.IsDisabled == false);
                 if (item != null)
                 {
-                    item.SetActive(true);
+                    ActiveTabItem(item);
                 }
+            }
+            else
+            {
+                SynchronizeActiveTabItem();
             }
         }
 

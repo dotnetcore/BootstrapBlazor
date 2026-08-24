@@ -7,7 +7,6 @@ using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
 
 namespace UnitTest.Components;
 
@@ -175,8 +174,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var element = cut.Find(".context-trigger");
-        var sw = Stopwatch.StartNew();
-        await element.TouchStartAsync(new TouchEventArgs
+        var touchStartTask = element.TouchStartAsync(new TouchEventArgs
         {
             Detail = 0,
             Touches = [new TouchPoint { ClientX = 10, ClientY = 10, ScreenX = 10, ScreenY = 10 }]
@@ -184,12 +182,13 @@ public class ContextMenuTest : BootstrapBlazorTestBase
 
         var trigger = cut.FindComponent<ContextMenuTrigger>().Instance;
         Assert.NotNull(trigger);
+        Assert.True(trigger.IsTouchStarted);
+        Assert.False(touchStartTask.IsCompleted);
 
+        await touchStartTask;
         Assert.True(trigger.IsTouchStarted);
         await cut.InvokeAsync(() => element.TouchEndAsync());
-        sw.Stop();
 
-        Assert.True(sw.ElapsedMilliseconds >= Delay * 2);
         Assert.False(trigger.IsTouchStarted);
     }
 

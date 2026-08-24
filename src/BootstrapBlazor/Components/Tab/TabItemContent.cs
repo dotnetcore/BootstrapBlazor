@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BootstrapBlazor.Components;
 
-class TabItemContent : IComponent
+internal class TabItemContent : IComponent
 {
     /// <summary>
     /// <para lang="zh">获得/设置 标签项，默认为 null</para>

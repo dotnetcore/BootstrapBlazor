@@ -1,4 +1,4 @@
-﻿.theme-list {
+.theme-list {
     position: fixed;
     z-index: 47;
     bottom: 12rem;
@@ -13,7 +13,7 @@
 }
 
     .theme-list.is-open {
-        height: 306px;
+        height: 355px;
     }
 
 .theme-header {
