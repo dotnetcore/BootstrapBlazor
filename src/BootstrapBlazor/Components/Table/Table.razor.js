@@ -35,6 +35,7 @@ export async function reset(id) {
         table.minWidthRaf = null;
     }
     table.autoColumns = [];
+    table.resizing = false;
 
     table.columns = [];
     table.tables = [];
@@ -470,6 +471,7 @@ const setResizeListener = table => {
     let tableWidth = 0
     let colIndex = 0
     let originalX = 0
+    let resized = false
 
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
@@ -484,9 +486,12 @@ const setResizeListener = table => {
         setColumnResizingListen(table, col);
         drag(col,
             e => {
+                // 拖动期间暂停列宽测试，防止 ResizeObserver 恢复拖动前宽度
+                table.resizing = true;
+                resized = false;
                 colIndex = eff(col, true)
-                const table = col.closest('table')
-                const currentCol = table.querySelectorAll('colgroup col')[colIndex]
+                const tableEl = col.closest('table')
+                const currentCol = tableEl.querySelectorAll('colgroup col')[colIndex]
                 const width = currentCol.style.width
                 if (width) {
                     colWidth = parseInt(width)
@@ -494,10 +499,11 @@ const setResizeListener = table => {
                 else {
                     colWidth = getResizableColumnWidth(col);
                 }
-                tableWidth = getWidth(col.closest('table'));
+                tableWidth = getWidth(tableEl);
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
+                resized = true;
                 const eventX = e.clientX ?? e.changedTouches[0].clientX
                 const marginX = eventX - originalX
                 table.tables.forEach(t => {
@@ -538,12 +544,23 @@ const setResizeListener = table => {
             },
             () => {
                 eff(col, false)
+                table.resizing = false;
 
-                const state = getColumnStateObject(table);
-                saveColumnStateToLocalstorage(table, state);
+                // 仅在发生实际拖动且表格未被重置/销毁时生效
+                const th = getColumnHeader(col);
+                if (resized && th !== null && th.parentNode !== null) {
+                    // 拖动的列由用户显式设定宽度，移出自动测量集合，防止列宽测试恢复拖动前宽度
+                    removeAutoColumn(table, col, colIndex);
 
-                const field = getColumnName(col);
-                table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
+                    // 拖动结束后列宽测试只执行一次
+                    applyColumnMinWidth(table);
+
+                    const state = getColumnStateObject(table);
+                    saveColumnStateToLocalstorage(table, state);
+
+                    const field = getColumnName(col);
+                    table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
+                }
             }
         )
     })
@@ -642,6 +659,9 @@ const autoFitColumnWidth = async (table, col) => {
             const tableWidth = getTableWidth(table);
             table.style.setProperty('width', `${tableWidth}px`);
         });
+
+        // 自适应的列由用户显式设定宽度，移出自动测量集合，防止列宽测试恢复自适应前宽度
+        removeAutoColumn(table, col, index);
 
         resetColumnWidthTips(table, col);
 
@@ -1196,7 +1216,8 @@ const getHeaderIconsWidth = th => {
 }
 
 const applyColumnMinWidth = table => {
-    if (!table.thead || !table.body || !table.autoColumns || table.autoColumns.length === 0) {
+    // 拖动调整列宽期间暂停列宽测试，防止恢复拖动前宽度
+    if (table.resizing === true || !table.thead || !table.body || !table.autoColumns || table.autoColumns.length === 0) {
         return;
     }
     setAutoColWidths(table, true);
@@ -1217,6 +1238,19 @@ const setAutoColWidths = (table, apply) => {
             }
         });
     });
+}
+
+const removeAutoColumn = (table, col, colIndex) => {
+    if (table.autoColumns) {
+        table.autoColumns = table.autoColumns.filter(i => i.colIndex !== colIndex);
+    }
+
+    // 同步列状态宽度，防止 reset 时 setColSize 将该列重新加入自动测量集合
+    const field = getColumnName(col);
+    const state = (table.options.columnStates ?? []).find(i => i.name === field);
+    if (state) {
+        state.width = getResizableColumnWidth(col);
+    }
 }
 
 const updateSortTooltip = table => {
