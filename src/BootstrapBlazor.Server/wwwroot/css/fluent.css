@@ -1,6 +1,6 @@
 /*
  * Fluent UI 主题演示站配套样式（仅覆盖站点外观变量）
- * 组件主题本体由 BootstrapBlazor.Theme.Fluent 包分发：_content/BootstrapBlazor.Theme.Fluent/fluent.min.css
+ * 组件主题本体由 BootstrapBlazor.Theme.Fluent 包分发：_content/BootstrapBlazor.Theme.Fluent/fluent.css
  * 令牌来源：https://github.com/microsoft/fluentui @fluentui/tokens (brandWeb)
  */
 :root {
