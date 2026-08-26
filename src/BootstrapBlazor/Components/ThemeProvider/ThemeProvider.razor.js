@@ -1,4 +1,4 @@
-import { getTheme, setTheme, switchTheme } from "../../modules/utility.js"
+﻿import { getTheme, setTheme, switchTheme, calcCenterPosition } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 import Data from "../../modules/data.js"
 
@@ -26,7 +26,8 @@ export function init(id, invoke, themeValue, callback) {
         const activeTheme = e.delegateTarget.getAttribute('data-bb-theme-value');
         theme.currentTheme = activeTheme;
 
-        switchTheme(activeTheme);
+        const rect = calcCenterPosition(el);
+        switchTheme(activeTheme, rect.x, rect.y);
         if (callback) {
             invoke.invokeMethodAsync(callback, activeTheme);
         }
@@ -52,6 +53,6 @@ const changeTheme = id => {
     }
 
     if (theme.currentTheme === 'auto') {
-        switchTheme('auto');
+        switchTheme('auto', window.innerWidth, 0);
     }
 }
