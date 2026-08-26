@@ -17,6 +17,7 @@ public partial class PopConfirmButton
         .AddClass("disabled", IsDisabled)
         .AddClass(InternalClassName, IsLink)
         .AddClass(ClassName, !IsLink)
+        .AddClass("isclick-blank-close", IsClickBlankClose)
         .Build();
 
     private string? InternalClassName => CssBuilder.Default()

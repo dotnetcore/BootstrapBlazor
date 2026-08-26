@@ -27,6 +27,7 @@ public class TableConfirmTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "AutoSelectedRowWhenClick", true);
                     builder.AddAttribute(3, "AutoRenderTableWhenClick", false);
                     builder.AddAttribute(3, "IsShow", true);
+                    builder.AddAttribute(4, "IsClickBlankClose", false);
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.OnClickButton, args =>
@@ -38,6 +39,7 @@ public class TableConfirmTest : BootstrapBlazorTestBase
         });
 
         var button = cut1.Find("div");
+        Assert.DoesNotContain("isclick-blank-close", button.ClassList);
         cut1.InvokeAsync(() => button.Click());
 
         var buttonConfirm = cut1.Find(".popover-confirm-buttons .btn-primary");

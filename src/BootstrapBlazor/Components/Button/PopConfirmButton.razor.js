@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
+import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 export { showTooltip, removeTooltip } from "./Button.razor.js"
@@ -103,7 +103,10 @@ export function init(id, invoke, closeCallback) {
     }
 
     registerBootstrapBlazorModule('PopConfirmButton', id, () => {
-        EventHandler.on(document, 'click', confirm.closeConfirm);
+        const isClickBlankClose = el.classList.contains("isclick-blank-close");
+        console.log("isClickBlankClose", isClickBlankClose)
+        if (isClickBlankClose)
+            EventHandler.on(document, 'click', confirm.closeConfirm);
     });
 }
 
