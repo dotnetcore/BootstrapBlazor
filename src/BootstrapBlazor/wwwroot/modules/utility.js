@@ -802,16 +802,17 @@ export function setActiveTheme(el, activeItem) {
 }
 
 export function switchTheme(theme, x = 0, y = 0, sync = true) {
-    if (isFunction(document.startViewTransition)) {
-        document.documentElement.style.setProperty('--bb-theme-x', `${x}px`);
-        document.documentElement.style.setProperty('--bb-theme-y', `${y}px`);
-        document.startViewTransition(() => {
-            setTheme(theme, sync);
-        });
-    }
-    else {
-        setTheme(theme, sync);
-    }
+    //if (isFunction(document.startViewTransition)) {
+    //    document.documentElement.style.setProperty('--bb-theme-x', `${x}px`);
+    //    document.documentElement.style.setProperty('--bb-theme-y', `${y}px`);
+    //    document.startViewTransition(() => {
+    //        setTheme(theme, sync);
+    //    });
+    //}
+    //else {
+    //    setTheme(theme, sync);
+    //}
+    setTheme(theme, sync);
 }
 
 const deepMerge = (obj1, obj2, skipNull = true) => {
