@@ -22,7 +22,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ConfirmButtonColor, Color.Danger);
                 pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                 pb.Add(a => a.Text, "Test_Text");
-                pb.Add(a => a.IsClickBlankClose, false);
+                pb.Add(a => a.IsCloseOnOutsideClick, false);
                 pb.Add(a => a.CloseButtonIcon, "fa-solid fa-xmark");
                 pb.Add(a => a.ConfirmButtonIcon, "fa-solid fa-check");
             });
@@ -34,7 +34,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
 
         // Show
         var button = cut.Find("div");
-        Assert.DoesNotContain("isclick-blank-close", button.ClassList);
+        Assert.Equal("false", button.GetAttribute("data-bb-close-on-outside-click"));
         await cut.InvokeAsync(() =>
         {
             button.Click();

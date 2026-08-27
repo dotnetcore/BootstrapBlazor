@@ -32,11 +32,11 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public bool IsLink { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否点击空白处关闭弹窗 默认 true</para>
-    /// <para lang="en">Gets or sets whether to close the popup when clicking on blank space. Default is true</para>
+    /// <para lang="zh">获得/设置 点击弹窗外部时是否关闭弹窗 默认 true</para>
+    /// <para lang="en">Gets or sets whether to close the popup when clicking outside it. Default is true</para>
     /// </summary>
     [Parameter]
-    public bool IsClickBlankClose { get; set; } = true;
+    public bool IsCloseOnOutsideClick { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗显示位置 默认 <see cref="Placement.Auto"/></para>

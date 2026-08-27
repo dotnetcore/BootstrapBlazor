@@ -17,7 +17,6 @@ public partial class PopConfirmButton
         .AddClass("disabled", IsDisabled)
         .AddClass(InternalClassName, IsLink)
         .AddClass(ClassName, !IsLink)
-        .AddClass("isclick-blank-close", IsClickBlankClose)
         .Build();
 
     private string? InternalClassName => CssBuilder.Default()
@@ -30,6 +29,8 @@ public partial class PopConfirmButton
     private string? CustomClassString => CssBuilder.Default(CustomClass)
         .AddClass("shadow", ShowShadow)
         .Build();
+
+    private string? CloseOnOutsideClickString => IsCloseOnOutsideClick ? null : "false";
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
