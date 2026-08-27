@@ -84,7 +84,7 @@ export function init(id, invoke, closeCallback) {
                 const element = getDescribedOwner(ele)
                 if (element) {
                     const isClickBlankClose = element.classList.contains("isclick-blank-close");
-                    if (isClickBlankClose) return;
+                    if (!isClickBlankClose) return;
                     const popover = bootstrap.Popover.getInstance(element);
                     if (popover) {
                         popover.hide();
