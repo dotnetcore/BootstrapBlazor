@@ -83,8 +83,8 @@ export function init(id, invoke, closeCallback) {
             document.querySelectorAll(config.popoverSelector).forEach(function (ele) {
                 const element = getDescribedOwner(ele)
                 if (element) {
-                    const closeOnOutsideClick = element.getAttribute('data-bb-close-on-outside-click') !== 'false';
-                    if (!closeOnOutsideClick) return;
+                    const keepOpenOnOutsideClick = element.getAttribute('data-bb-keep-open-on-outside-click') === 'true';
+                    if (keepOpenOnOutsideClick) return;
                     const popover = bootstrap.Popover.getInstance(element);
                     if (popover) {
                         popover.hide();
