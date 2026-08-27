@@ -219,7 +219,9 @@ public partial class Table<TItem>
                     item.Reset();
                 }
             }
-            _searchItems = null;
+            //_searchItems = null;
+            // 这里不能完全将_searchFilter设为null，以便用户在实现自定义时部分查询条件没有置为null
+            _searchFilter = _searchItems.ToFilter();
         }
         else if (CustomerSearchModel != null)
         {
