@@ -83,10 +83,11 @@ export function init(id, invoke, closeCallback) {
             document.querySelectorAll(config.popoverSelector).forEach(function (ele) {
                 const element = getDescribedOwner(ele)
                 if (element) {
+                    const isClickBlankClose = element.classList.contains("isclick-blank-close");
+                    if (isClickBlankClose) return;
                     const popover = bootstrap.Popover.getInstance(element);
                     if (popover) {
                         popover.hide();
-
                         const id = element.getAttribute('id');
                         if (id) {
                             const com = Data.get(id);
@@ -103,9 +104,7 @@ export function init(id, invoke, closeCallback) {
     }
 
     registerBootstrapBlazorModule('PopConfirmButton', id, () => {
-        const isClickBlankClose = el.classList.contains("isclick-blank-close");
-        if (isClickBlankClose)
-            EventHandler.on(document, 'click', confirm.closeConfirm);
+        EventHandler.on(document, 'click', confirm.closeConfirm);
     });
 }
 
