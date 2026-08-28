@@ -3765,6 +3765,7 @@
     "PopoverConfirmsNormalPopupBoxText": "下面弹框",
     "PopoverConfirmsNormalRightPopup": "右侧弹窗",
     "PopoverConfirmsNormalRightPopupContent": "这是一段内容确定删除吗？",
+    "PopoverConfirmsNormalTips": "<code>10.9.3</code> 版本前点击按钮弹窗后点击文档其他地方弹窗是保持打开状态的，<code>10.9.3</code> 增加了参数 <code>IsKeepOpenOnOutsideClick</code> 默认值为 <code>false</code> 点击文档其他地方时弹窗会关闭，设置其值为 <code>true</code> 可保持弹窗打开状态",
     "PopoverConfirmsNormalTitle": "基础用法",
     "PopoverConfirmsShowButtonsButtonText": "自定义组件",
     "PopoverConfirmsShowButtonsDesc": "自定义组件内可通过级联参数调用组件内部的 <code>Close</code> 或者 <code>Confirm</code> 方法",
