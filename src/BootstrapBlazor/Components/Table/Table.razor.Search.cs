@@ -218,8 +218,8 @@ public partial class Table<TItem>
                 {
                     item.Reset();
                 }
+                _searchFilter = _searchItems.ToFilter();
             }
-            _searchItems = null;
         }
         else if (CustomerSearchModel != null)
         {
