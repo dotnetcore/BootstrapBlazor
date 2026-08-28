@@ -206,11 +206,7 @@ public partial class Table<TItem>
     protected async Task ResetSearchClick()
     {
         await ToggleLoading(true);
-        if (OnResetSearchAsync != null)
-        {
-            await OnResetSearchAsync(SearchModel);
-        }
-        else if(UseSearchForm)
+        if (UseSearchForm)
         {
             _searchFilter = null;
             _advanceSearchFilter = null;
@@ -228,6 +224,10 @@ public partial class Table<TItem>
         else if (CustomerSearchModel != null)
         {
             CustomerSearchModel.Reset();
+        }
+        else if (OnResetSearchAsync != null)
+        {
+            await OnResetSearchAsync(SearchModel);
         }
         else if (SearchTemplate == null)
         {
