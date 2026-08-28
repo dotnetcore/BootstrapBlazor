@@ -3765,6 +3765,7 @@
     "PopoverConfirmsNormalPopupBoxText": "pop-up box below",
     "PopoverConfirmsNormalRightPopup": "right popup",
     "PopoverConfirmsNormalRightPopupContent": "Is this a piece of content sure to delete?",
+    "PopoverConfirmsNormalTips": "Before version <code>10.9.3</code>, the popover remained open when clicking elsewhere in the document. Version <code>10.9.3</code> added the <code>IsKeepOpenOnOutsideClick</code> parameter. Its default value is <code>false</code>, which closes the popover when clicking elsewhere. Set it to <code>true</code> to keep the popover open.",
     "PopoverConfirmsNormalTitle": "Basic usage",
     "PopoverConfirmsShowButtonsButtonText": "Custom Component",
     "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters",
