@@ -34,6 +34,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击弹窗外部时是否保持弹窗打开 默认 false</para>
     /// <para lang="en">Gets or sets whether to keep the popup open when clicking outside it. Default is false</para>
+    /// <para>v<version>10.9.3</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeepOpenOnOutsideClick { get; set; }
