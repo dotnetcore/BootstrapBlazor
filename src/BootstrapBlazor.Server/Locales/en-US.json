@@ -334,6 +334,7 @@
     "OnlineText": "Online Users",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "OpcDaService": "OpcDaServer",
+    "OpcUaService": "OpcUaServer",
     "OtherComponents": "Others",
     "OtpInput": "OtpInput",
     "Pagination": "Pagination",

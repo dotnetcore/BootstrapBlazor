@@ -334,6 +334,7 @@
     "OnlineText": "在线统计 Online",
     "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard",
     "OpcDaService": "OpcDaServer 服务",
+    "OpcUaService": "OpcUaServer 服务",
     "OtherComponents": "其他组件",
     "OtpInput": "验证码输入框 OtpInput",
     "Pagination": "分页 Pagination",

@@ -1695,6 +1695,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["OpcUaService"],
+                    Url = "opc-ua"
+                },
+                new()
+                {
                     Text = Localizer["PrintService"],
                     Url = "print-service"
                 },
