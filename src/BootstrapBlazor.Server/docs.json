@@ -253,6 +253,7 @@
     "network-monitor": "NetworkMonitors",
     "toolbar": "Toolbars",
     "opc-da": "OpcDa",
+    "opc-ua": "OpcUa",
     "navbar": "Navbars",
     "task-board": "TaskBoard",
     "modbus-factory": "Modbus\\ModbusFactories",
