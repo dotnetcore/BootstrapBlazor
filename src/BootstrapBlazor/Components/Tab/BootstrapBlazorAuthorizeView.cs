@@ -112,12 +112,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
             object? value;
             if (mapping.IsArray)
             {
-                var accumulator = new StringSegmentAccumulator();
-                foreach (var item in values)
-                {
-                    accumulator.Add(item.AsMemory());
-                }
-                value = mapping.Parser.ParseMultiple(accumulator, mapping.ComponentParameterName);
+                value = mapping.Parser.ParseMultiple(values, mapping.ComponentParameterName);
             }
             else
             {
@@ -153,7 +148,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
 
             var isArray = property.PropertyType.IsArray;
             var targetType = isArray ? property.PropertyType.GetElementType()! : property.PropertyType;
-            if (!UrlValueConstraint.TryGetByTargetType(targetType, out var parser))
+            if (!RouteValueConverter.TryGet(targetType, out var parser))
             {
                 throw new NotSupportedException($"Querystring values cannot be parsed as type '{property.PropertyType}'.");
             }
@@ -167,6 +162,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     private sealed record QueryParameterMapping(
         string ComponentParameterName,
         string QueryParameterName,
-        UrlValueConstraint Parser,
+        RouteValueConverter Parser,
         bool IsArray);
 }
