@@ -769,7 +769,7 @@
     },
     "BootstrapBlazor.OpcDa": {
       "components": [],
-      "services": ["IOpcDaServer", "IOpcItem", "IOpcSubscription"]
+      "services": ["IOpcDaClient", "IOpcItem", "IOpcSubscription"]
     },
     "BootstrapBlazor.OpcUa": {
       "components": [],

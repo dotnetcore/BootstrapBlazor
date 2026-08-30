@@ -11,13 +11,13 @@ namespace Microsoft.Extensions.DependencyInjection;
 static class MockOpcServicesExtensions
 {
     /// <summary>
-    /// 增加模拟 OpcDaServer 操作服务
+    /// 增加模拟 OpcDaClient 操作服务
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddMockOpcDaServer(this IServiceCollection services)
+    public static IServiceCollection AddMockOpcDaClient(this IServiceCollection services)
     {
-        services.AddSingleton<IOpcDaServer, MockOpcDaServer>();
+        services.AddSingleton<IOpcDaClient, MockOpcDaClient>();
         return services;
     }
 

@@ -15,7 +15,7 @@ public partial class OpcDa : ComponentBase
 {
     [Inject]
     [NotNull]
-    private IOpcDaServer? OpcDaServer { get; set; }
+    private IOpcDaClient? OpcDaClient { get; set; }
 
     private string? _serverName = "opcda://localhost/Kepware.KEPServerEX.V6";
 
@@ -37,19 +37,19 @@ public partial class OpcDa : ComponentBase
     {
         if (!string.IsNullOrEmpty(_serverName))
         {
-            OpcDaServer.Connect(_serverName);
+            OpcDaClient.Connect(_serverName);
         }
     }
 
     private void OnDisConnect()
     {
         OnCancelSubscription();
-        OpcDaServer.Disconnect();
+        OpcDaClient.Disconnect();
     }
 
     private void OnRead()
     {
-        var items = OpcDaServer.Read(Tag1, Tag2);
+        var items = OpcDaClient.Read(Tag1, Tag2);
         var value1 = items.FirstOrDefault(i => i.Name == Tag1).Value;
         if (value1 != null)
         {
@@ -67,7 +67,7 @@ public partial class OpcDa : ComponentBase
         _subscribed = true;
         _culture = CultureInfo.CurrentCulture;
         _uiCulture = CultureInfo.CurrentUICulture;
-        _subscription = OpcDaServer.CreateSubscription("Subscription1", 1000, true);
+        _subscription = OpcDaClient.CreateSubscription("Subscription1", 1000, true);
         _subscription.DataChanged += UpdateValues;
         _subscription.AddItems([Tag1, Tag2]);
     }
@@ -78,7 +78,7 @@ public partial class OpcDa : ComponentBase
         if (_subscription != null)
         {
             _subscription.DataChanged -= UpdateValues;
-            OpcDaServer.CancelSubscription(_subscription);
+            OpcDaClient.CancelSubscription(_subscription);
         }
     }
 
@@ -114,7 +114,7 @@ public partial class OpcDa : ComponentBase
 
     private void OnBrowse()
     {
-        var elements = OpcDaServer.Browse("", new OpcBrowseFilters(), out _);
+        var elements = OpcDaClient.Browse("", new OpcBrowseFilters(), out _);
         _roots = [.. elements.Select(element => new TreeViewItem<OpcBrowseElement>(element)
         {
             Text = element.Name,
@@ -125,7 +125,7 @@ public partial class OpcDa : ComponentBase
 
     private Task<IEnumerable<TreeViewItem<OpcBrowseElement>>> OnExpandNodeAsync(TreeViewItem<OpcBrowseElement> element)
     {
-        var children = OpcDaServer.Browse(element.Value.ItemName, new OpcBrowseFilters(), out _);
+        var children = OpcDaClient.Browse(element.Value.ItemName, new OpcBrowseFilters(), out _);
         var items = children.Select(i => new TreeViewItem<OpcBrowseElement>(i)
         {
             Text = i.Name,
