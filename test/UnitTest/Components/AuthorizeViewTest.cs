@@ -38,7 +38,7 @@ public class AuthorizeViewTest : AuthorizationViewTestBase
     {
         AuthorizationContext.SetAuthorized("admin");
         var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
-        nav.NavigateTo("/Dog?class=test");
+        nav.NavigateTo("/Dog?CLASS=test&value=10&tags=one&tags=two");
         var cut = Context.Render<CascadingAuthenticationState>(pb =>
         {
             pb.AddChildContent<BootstrapBlazorAuthorizeView>(pb =>
@@ -52,6 +52,8 @@ public class AuthorizeViewTest : AuthorizationViewTestBase
         });
         cut.Contains("Dog");
         cut.Contains("class=\"test\"");
+        cut.Contains("data-value=\"10\"");
+        cut.Contains("data-tags=\"one,two\"");
     }
 
     [Fact]
@@ -68,5 +70,62 @@ public class AuthorizeViewTest : AuthorizationViewTestBase
                 pb.Add(a => a.Resource, typeof(Dog));
             });
         });
+    }
+
+    [Fact]
+    public void NoQueryParameters_Ok()
+    {
+        AuthorizationContext.SetAuthorized("admin");
+        RenderComponent(typeof(NoQueryParametersComponent));
+    }
+
+    [Fact]
+    public void DuplicateQueryParameter_Throws()
+    {
+        AuthorizationContext.SetAuthorized("admin");
+        var exception = Assert.Throws<InvalidOperationException>(() => RenderComponent(typeof(DuplicateQueryParameterComponent)));
+        Assert.Contains("declares more than one mapping for the query parameter", exception.Message);
+    }
+
+    [Fact]
+    public void UnsupportedQueryParameterType_Throws()
+    {
+        AuthorizationContext.SetAuthorized("admin");
+        var exception = Assert.Throws<NotSupportedException>(() => RenderComponent(typeof(UnsupportedQueryParameterComponent)));
+        Assert.Contains("System.Int16", exception.Message);
+    }
+
+    private void RenderComponent(Type componentType)
+    {
+        Context.Render<CascadingAuthenticationState>(pb =>
+        {
+            pb.AddChildContent<BootstrapBlazorAuthorizeView>(pb => pb.Add(a => a.Type, componentType));
+        });
+    }
+
+    private sealed class NoQueryParametersComponent : ComponentBase
+    {
+        public string? Value { get; set; }
+
+        [Parameter]
+        public string? Parameter { get; set; }
+    }
+
+    private sealed class DuplicateQueryParameterComponent : ComponentBase
+    {
+        [Parameter]
+        [SupplyParameterFromQuery(Name = "value")]
+        public string? First { get; set; }
+
+        [Parameter]
+        [SupplyParameterFromQuery(Name = "VALUE")]
+        public string? Second { get; set; }
+    }
+
+    private sealed class UnsupportedQueryParameterComponent : ComponentBase
+    {
+        [Parameter]
+        [SupplyParameterFromQuery]
+        public short Value { get; set; }
     }
 }
