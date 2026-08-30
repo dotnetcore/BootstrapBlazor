@@ -320,9 +320,7 @@ public partial class Table<TItem>
         // 获得当前列索引
         var index = columns.IndexOf(col);
 
-        // 前缀固定列判定为左固定，该列到最后一列全部固定（构成固定后缀）时判定为右固定
-        // 孤立的中间固定列回落为左固定，避免动态切换固定列时误判为右固定
-        return !columns.Take(index).All(i => i.Fixed) && columns.Skip(index).All(i => i.Fixed);
+        return !columns.Take(index).All(i => i.Fixed);
     }
 
     /// <summary>
@@ -360,7 +358,7 @@ public partial class Table<TItem>
     private string? GetLeftStyle(ITableColumn col)
     {
         var columns = GetVisibleColumns();
-        var defaultWidth = DefaultFixedColumnWidth;
+        var defaultWidth = 200;
         var width = 0;
         var start = 0;
         var index = columns.IndexOf(col);
@@ -379,12 +377,7 @@ public partial class Table<TItem>
         while (index > start)
         {
             var column = columns[start++];
-
-            // 仅累加左固定列宽度 未固定列滚动时移出视口 不参与 sticky 偏移
-            if (column.Fixed)
-            {
-                width += column.Width ?? defaultWidth;
-            }
+            width += column.Width ?? defaultWidth;
         }
         return $"left: {width}px;";
     }
@@ -400,12 +393,7 @@ public partial class Table<TItem>
         for (var i = index + 1; i < columns.Count; i++)
         {
             var column = columns[i];
-
-            // 仅累加右固定列宽度 未固定列滚动时移出视口 不参与 sticky 偏移
-            if (column.Fixed)
-            {
-                width += column.Width ?? defaultWidth;
-            }
+            width += column.Width ?? defaultWidth;
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
