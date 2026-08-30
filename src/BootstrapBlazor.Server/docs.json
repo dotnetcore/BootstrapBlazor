@@ -771,6 +771,10 @@
       "components": [],
       "services": ["IOpcDaServer", "IOpcItem", "IOpcSubscription"]
     },
+    "BootstrapBlazor.OpcUa": {
+      "components": [],
+      "services": ["IOpcUaServer", "IOpcUaSubscription"]
+    },
     "BootstrapBlazor.PdfReader": {
       "components": ["PdfReader"],
       "services": []
