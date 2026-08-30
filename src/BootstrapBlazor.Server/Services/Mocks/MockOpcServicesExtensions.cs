@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.OpcDa;
+using BootstrapBlazor.OpcUa;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,17 @@ static class MockOpcServicesExtensions
     public static IServiceCollection AddMockOpcDaServer(this IServiceCollection services)
     {
         services.AddSingleton<IOpcDaServer, MockOpcDaServer>();
+        return services;
+    }
+
+    /// <summary>
+    /// 增加模拟 OpcUaServer 操作服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddMockOpcUaServer(this IServiceCollection services)
+    {
+        services.AddScoped<IOpcUaServer, MockOpcUaServer>();
         return services;
     }
 }
