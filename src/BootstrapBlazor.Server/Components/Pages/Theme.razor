@@ -3,41 +3,42 @@
 @inject MessageService MessageService
 @inject ToastService ToastService
 
-<h3>@Localizer["H1"]</h3>
+<h3>@Localizer["Title"]</h3>
 
-<h4>@Localizer["H2"]</h4>
+<h4>@Localizer["BuiltInThemesTitle"]</h4>
 
-<p>@Localizer["P1"]：</p>
+<p>@Localizer["SupportedThemesDescription"]：</p>
 
 <ul class="ul-demo">
-    <li>@Localizer["P2"]</li>
-    <li>@Localizer["P11"]</li>
-    <li>@Localizer["P3"]</li>
-    <li>@Localizer["P4"]</li>
-    <li>@Localizer["P5"]</li>
+    <li>@Localizer["MotronicTheme"]</li>
+    <li>@Localizer["FluentTheme"]</li>
+    <li>@Localizer["LayUITheme"]</li>
+    <li>@Localizer["BlumaTheme"]</li>
+    <li>@Localizer["AntDesignTheme"]</li>
 </ul>
 
-<h4>@Localizer["P6"]</h4>
+<PackageTips Name="BootstrapBlazor.Theme.Fluent" />
 
-<p>@Localizer["P12"] <code>head</code> @Localizer["P14"]：</p>
+<h4>@Localizer["ThemeSwitchTitle"]</h4>
 
-<Pre>// @Localizer["P23"]
+<p>@Localizer["ThemeStylesPrefix"] <code>head</code> @Localizer["ThemeStylesSuffix"]：</p>
+
+<Pre>// @Localizer["RequiredBaseStylesheet"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"&gt;
 
-// @Localizer["P15"] Fluent UI
-dotnet add package BootstrapBlazor.Theme.Fluent
+// @Localizer["EnableTheme"] Fluent UI
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor.Theme.Fluent/fluent.css"&gt;
 
-// @Localizer["P19"] Motronic
+// @Localizer["OptionalTheme"] Motronic
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css"&gt;</Pre>
 
-<p>@Localizer["P24"] <code>BootstrapBlazor.Theme.Fluent</code> @Localizer["P25"] <code>_content/BootstrapBlazor.Theme.Fluent/fluent.css</code></p>
+<p>@Localizer["FluentPackagePrefix"] <code>BootstrapBlazor.Theme.Fluent</code> @Localizer["FluentPackageSuffix"] <code>_content/BootstrapBlazor.Theme.Fluent/fluent.css</code></p>
 
-<p>@Localizer["P16"] <code>data-bs-theme</code> @Localizer["P17"] <code>&lt;html&gt;</code> @Localizer["P20"] <code>data-bs-theme="dark"</code> @Localizer["P21"] <code>ThemeProvider</code> @Localizer["P22"]</p>
+<p>@Localizer["ThemeModeIntro"] <code>data-bs-theme</code> @Localizer["ThemeModeAttributePlacement"] <code>&lt;html&gt;</code> @Localizer["ThemeModeDarkSetting"] <code>data-bs-theme="dark"</code> @Localizer["ThemeModeRuntimeSwitch"] <code>ThemeProvider</code> @Localizer["ThemeModeSiteButtonReference"]</p>
 
 <h4>Component preview</h4>
 
-<p>Sections below exercise the core components with minimal parameters. Use the theme button at the bottom-right corner of this site to switch between Fluent UI, Motronic and Bootstrap in light or dark mode and eyeball the result in one place.</p>
+<p>@Localizer["ComponentPreviewDescription"]</p>
 
 <h4>Buttons</h4>
 
