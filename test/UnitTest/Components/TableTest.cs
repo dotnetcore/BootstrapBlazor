@@ -2025,6 +2025,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", foo.Name);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(4, nameof(TableColumn<,>.Width), 180);
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
@@ -2042,6 +2043,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("style=\"left: 136px;\"");
         // Name
         cut.Contains("style=\"left: 236px;\"");
+        cut.Contains("width: 180px; min-width: 180px;");
 
         var table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
