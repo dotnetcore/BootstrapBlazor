@@ -61,11 +61,11 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
-    private List<TreeViewItem<TreeFoo>>? MaxItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> MaxItems { get; set; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>>? SearchItems1 { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> SearchItems1 { get; set; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>>? SearchItems2 { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> SearchItems2 { get; set; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
@@ -269,20 +269,56 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private static async Task<List<TreeViewItem<TreeFoo>>?> OnSearchAsync(string searchText)
+    private async Task<List<TreeViewItem<TreeFoo>>?> OnSearchAsync(string? searchText)
     {
         await Task.Delay(20);
 
         List<TreeViewItem<TreeFoo>>? items = null;
         if (!string.IsNullOrEmpty(searchText))
         {
-            items =
-            [
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
-            ];
+            items = GetSearchItems(searchText, SearchItems1);
         }
         return items;
     }
+
+    private static List<TreeViewItem<TreeFoo>> GetSearchItems(string searchText, IEnumerable<TreeViewItem<TreeFoo>> source)
+    {
+        var items = new List<TreeViewItem<TreeFoo>>();
+        foreach (var item in source)
+        {
+            // 递归过滤子节点，保留层次结构
+            var children = GetSearchItems(searchText, item.Items);
+
+            // 节点自身匹配或其后代存在匹配时保留该节点
+            var isMatch = !string.IsNullOrEmpty(item.Text) && item.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+            if (isMatch || children.Count > 0)
+            {
+                // 克隆节点，避免污染原始数据源
+                var node = CloneItem(item);
+                node.Items = children;
+                foreach (var child in children)
+                {
+                    child.Parent = node;
+                }
+                items.Add(node);
+            }
+        }
+        return items;
+    }
+
+    private static TreeViewItem<TreeFoo> CloneItem(TreeViewItem<TreeFoo> item) => new(item.Value)
+    {
+        Text = item.Text,
+        Icon = item.Icon,
+        ExpandIcon = item.ExpandIcon,
+        CssClass = item.CssClass,
+        IsActive = item.IsActive,
+        IsDisabled = item.IsDisabled,
+        IsExpand = true,
+        HasChildren = item.HasChildren,
+        CheckedState = item.CheckedState,
+        Template = item.Template
+    };
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandVirtualNodeAsync(TreeViewItem<TreeFoo> node)
     {

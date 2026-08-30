@@ -20,11 +20,21 @@ public class Dog : ComponentBase
     [SupplyParameterFromQuery]
     public string? Class { get; set; }
 
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "value")]
+    public int? Value { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string[] Tags { get; set; } = [];
+
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "div");
         builder.AddAttribute(1, "class", Class);
-        builder.AddContent(2, Parameter1);
+        builder.AddAttribute(2, "data-value", Value);
+        builder.AddAttribute(3, "data-tags", string.Join(",", Tags));
+        builder.AddContent(4, Parameter1);
         builder.CloseElement();
     }
 }

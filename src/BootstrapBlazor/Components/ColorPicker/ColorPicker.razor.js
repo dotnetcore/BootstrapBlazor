@@ -1,5 +1,4 @@
-﻿import '../../lib/pickr/pickr.es5.min.js'
-import { addLink } from "../../modules/utility.js"
+import { addLink, addScript } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export async function init(id, invoke, options) {
@@ -26,6 +25,7 @@ const getOrCreatePickr = async (id, picker, options) => {
 
     if (isSupportOpacity === true) {
         await addLink("./_content/BootstrapBlazor/lib/pickr/nano.min.css");
+        await addScript("./_content/BootstrapBlazor/lib/pickr/pickr.min.js");
 
         const { invoke, pickr } = picker;
         if (pickr) {

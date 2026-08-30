@@ -124,8 +124,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ClearSearchIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the search callback method. Default is null</para>
+    /// <para lang="zh">获得/设置 搜索回调方法，默认为 null。重置搜索时以 null 作为搜索条件再次调用</para>
+    /// <para lang="en">Gets or sets the search callback method. Default is null. It is invoked again with a null search term when the search is reset</para>
     /// </summary>
     /// <remarks>Enabled by setting <see cref="ShowSearch"/> to true.</remarks>
     [Parameter]
@@ -738,25 +738,29 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task OnClickSearch()
     {
-        if (OnSearchAsync != null)
+        _searchItems = OnSearchAsync == null ? null : await OnSearchAsync(_searchText);
+        _rows = null;
+        if (_activeItem != null)
         {
-            _searchItems = await OnSearchAsync(_searchText);
-            _rows = null;
-            StateHasChanged();
+            var item = Rows.FirstOrDefault(i => Equals(i.Value, _activeItem.Value));
+            if (item != null)
+            {
+                SetActiveItem(item);
+                return;
+            }
         }
+
+        StateHasChanged();
     }
 
-    private Task OnClickResetSearch()
+    private async Task OnClickResetSearch()
     {
         _searchText = null;
-        _searchItems = null;
-        _rows = null;
-        StateHasChanged();
-        return Task.CompletedTask;
+        await OnClickSearch();
     }
 
     /// <summary>
-    /// <para lang="zh">Set the active node</para>
+    /// <para lang="zh">设置活动节点</para>
     /// <para lang="en">Set the active node</para>
     /// </summary>
     public void SetActiveItem(TreeViewItem<TItem>? item)
@@ -784,8 +788,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">Set the 数据 source method for <see cref="Items"/></para>
-    /// <para lang="en">Set the data source method for <see cref="Items"/></para>
+    /// <para lang="zh">设置数据集方法</para>
+    /// <para lang="en">Set the data source method</para>
     /// </summary>
     public void SetItems(List<TreeViewItem<TItem>> items)
     {
@@ -795,16 +799,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">Set the active node</para>
+    /// <para lang="zh">设置活动节点</para>
     /// <para lang="en">Set the active node</para>
     /// </summary>
     public void SetActiveItem(TItem item)
     {
-        if (Items != null)
-        {
-            var val = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
-            SetActiveItem(val);
-        }
+        var val = Rows.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+        SetActiveItem(val);
     }
 
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
@@ -890,14 +891,41 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             _ = InvokeVoidAsync("setParentState", Id, Interop, nameof(GetParentsState), Rows.IndexOf(item));
         }
 
+        SyncSearchItemCheckedState(item);
+
         if (OnTreeItemChecked != null)
         {
             await OnTreeItemChecked([.. GetCheckedItems()]);
         }
     }
 
+    private void SyncSearchItemCheckedState(TreeViewItem<TItem> item)
+    {
+        if (_searchItems == null)
+        {
+            return;
+        }
+
+        var sourceItem = _treeNodeStateCache.Find(Items, item.Value, out _);
+        if (sourceItem == null || ReferenceEquals(sourceItem, item))
+        {
+            return;
+        }
+
+        sourceItem.CheckedState = item.CheckedState;
+        _treeNodeStateCache.ToggleCheck(sourceItem);
+        if (AutoCheckChildren && sourceItem.CheckedState != CheckboxState.Indeterminate)
+        {
+            sourceItem.SetChildrenCheck(_treeNodeStateCache);
+        }
+        if (AutoCheckParent)
+        {
+            sourceItem.SetParentCheck(_treeNodeStateCache);
+        }
+    }
+
     /// <summary>
-    /// <para lang="zh">Clear all selected nodes</para>
+    /// <para lang="zh">清除所有选中的节点</para>
     /// <para lang="en">Clear all selected nodes</para>
     /// </summary>
     public void ClearCheckedItems()
@@ -919,7 +947,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获得 all selected node 集合s</para>
+    /// <para lang="zh">获得所有选中的节点集合</para>
     /// <para lang="en">Gets all selected node collections</para>
     /// </summary>
     public IEnumerable<TreeViewItem<TItem>> GetCheckedItems() => Items.Aggregate(new List<TreeViewItem<TItem>>(), (t, item) =>
@@ -930,7 +958,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }).Where(i => i.CheckedState == CheckboxState.Checked);
 
     /// <summary>
-    /// <para lang="zh">Check if the 数据 is the same</para>
+    /// <para lang="zh">检查数据是否相同</para>
     /// <para lang="en">Check if the data is the same</para>
     /// </summary>
     /// <param name="x"></param>
@@ -950,7 +978,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
 
-    private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
+    private bool GetActive(TreeViewItem<TItem> item) => _activeItem == null ? false : this.Equals<TItem>(_activeItem.Value, item.Value);
 
     private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
 }

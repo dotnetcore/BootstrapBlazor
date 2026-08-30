@@ -199,8 +199,7 @@ public partial class AvatarUpload<TValue>
             ? [AddId]
             : Files.Select(i => i.ValidateId).ToList();
         var invalidItems = _results.GetInvalidItems(IsInValidOnAddItem, AddId);
-        var addId = IsInValidOnAddItem ? null : AddId;
-        await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, addId);
+        await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, AddId);
     }
 
     private bool IsInValidOnAddItem => Files.Count == 0 && _results.Count > 0;
@@ -234,7 +233,7 @@ public partial class AvatarUpload<TValue>
         {
             if (ValidateForm != null && FieldIdentifier.HasValue)
             {
-                ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
+                ValidateForm.TryRemoveValidator(FieldIdentifier.Value, out _);
             }
 
             if (ValidateModule != null)

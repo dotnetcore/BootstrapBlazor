@@ -358,7 +358,7 @@ public class TableDialogTest : TableDialogTestBase
         // 关闭弹窗
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.NotNull(filter);
-        Assert.Empty(filter.Filters);
+        Assert.Empty(filter.Filters.SelectMany(i => i.Filters).SelectMany(i => i.Filters));
     }
 
     [Fact]

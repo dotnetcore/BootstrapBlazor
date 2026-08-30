@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -20,6 +19,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("select datetime-picker")
         .AddClass("disabled", IsDisabled)
+        .AddClass("is-clearable", GetClearable())
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -44,6 +44,12 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private string? DateTimePickerIconClassString => CssBuilder.Default("datetime-picker-bar")
         .AddClass(Icon)
+        .Build();
+
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass("text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
     private string? TabIndexString => ValidateForm != null ? "0" : null;
@@ -143,6 +149,21 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; } = true;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示清除图标 默认 true 显示</para>
+    /// <para lang="en">Gets or sets whether to show the clear icon. Default is true</para>
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; } = true;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 清除图标 默认使用内置主题图标</para>
+    /// <para lang="en">Gets or sets the clear icon. The built-in theme icon is used by default</para>
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置  控件边框颜色样式 默认为 None 显示</para>
@@ -315,6 +336,22 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">自定义解析日期时间的方法</para>
+    /// <para lang="en">Custom method to parse date and time</para>
+    /// <para>v<version>10.9.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Func<string, DateTime>? ParseDateTimeCallback { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">自定义解析日期时间偏移的方法</para>
+    /// <para lang="en">Custom method to parse date and time offset</para>
+    /// <para>v<version>10.9.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Func<string, DateTimeOffset>? ParseDateTimeOffsetCallback { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -322,6 +359,10 @@ public partial class DateTimePicker<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     [NotNull]
     private string? GenericTypeErrorMessage { get; set; }
@@ -358,6 +399,7 @@ public partial class DateTimePicker<TValue>
         PickerButtonText ??= Localizer[nameof(PickerButtonText)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
 
         var type = typeof(TValue);
 
@@ -488,6 +530,8 @@ public partial class DateTimePicker<TValue>
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
 
+    private bool GetClearable() => IsClearable && AllowNull && !IsDisabled && !IsButton;
+
     /// <summary>
     /// <para lang="zh">清除内部缓存方法</para>
     /// <para lang="en">Clear Internal Cache Method</para>
@@ -544,15 +588,44 @@ public partial class DateTimePicker<TValue>
     /// <param name="validationErrorMessage"></param>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
         result = default;
         validationErrorMessage = null;
-        var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+        var ret = ValueType == typeof(DateTime) ? TryParseDateTime(value, out var val) : TryParseDateTimeOffset(value, out val);
         if (ret)
         {
-            result = (TValue)(object)val;
+            result = (TValue)val;
         }
         return ret;
+    }
+
+    private bool TryParseDateTime(string value, out object val)
+    {
+        var op = Options.CurrentValue;
+        var resolve = ParseDateTimeCallback ?? op.DateTimeSettings.ParseDateTimeCallback;
+        if (resolve != null)
+        {
+            val = resolve(value);
+            return true;
+        }
+
+        var ret = DateTimeHelper.TryToDateTime(value, out var d);
+        val = ret ? d : DateTime.MinValue;
+        return ret;
+    }
+
+    private bool TryParseDateTimeOffset(string value, out object val)
+    {
+        var op = Options.CurrentValue;
+        var resolve = ParseDateTimeOffsetCallback ?? op.DateTimeSettings.ParseDateTimeOffsetCallback;
+        if (resolve != null)
+        {
+            val = resolve(value);
+            return true;
+        }
+
+        var v = DateTimeHelper.ToDateTimeOffset(value);
+        val = v ?? DateTimeOffset.MinValue;
+        return v != null;
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";

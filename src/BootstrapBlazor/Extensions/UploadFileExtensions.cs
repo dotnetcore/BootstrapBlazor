@@ -105,15 +105,8 @@ public static class UploadFileExtensions
                         totalRead += bytesRead;
                         await uploadFile.WriteAsync(buffer, 0, bytesRead, token);
 
-                        if (upload.UpdateCallback != null)
-                        {
-                            var percent = (int)((totalRead / upload.File.Size) * 100);
-                            if (percent > upload.ProgressPercent)
-                            {
-                                upload.ProgressPercent = percent;
-                                upload.UpdateCallback(upload);
-                            }
-                        }
+                        var percent = (int)((totalRead / upload.File.Size) * 100);
+                        upload.UpdateProgress(percent);
                     }
                     upload.Uploaded = true;
                     ret = true;
