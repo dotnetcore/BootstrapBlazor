@@ -8,9 +8,9 @@ using Opc.Ua;
 namespace BootstrapBlazor.OpcUa;
 
 /// <summary>
-/// 模拟 OpcUa Server 实现类
+/// 模拟 OpcUa Client 实现类
 /// </summary>
-sealed class MockOpcUaServer : IOpcUaServer
+sealed class MockOpcUaClient : IOpcUaClient
 {
     private readonly Dictionary<string, IOpcUaSubscription> _subscriptions = [];
 

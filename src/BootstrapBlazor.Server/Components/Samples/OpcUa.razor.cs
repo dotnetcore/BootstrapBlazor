@@ -15,7 +15,7 @@ public partial class OpcUa : ComponentBase
 {
     [Inject]
     [NotNull]
-    private IOpcUaServer? OpcUaServer { get; set; }
+    private IOpcUaClient? OpcUaClient { get; set; }
 
     private string? _endpoint = "opc.tcp://localhost:49320";
 
@@ -31,21 +31,21 @@ public partial class OpcUa : ComponentBase
     {
         if (!string.IsNullOrEmpty(_endpoint))
         {
-            await OpcUaServer.ConnectAsync(_endpoint);
+            await OpcUaClient.ConnectAsync(_endpoint);
         }
     }
 
     private async Task OnDisconnect()
     {
         await OnCancelSubscription();
-        await OpcUaServer.DisconnectAsync();
+        await OpcUaClient.DisconnectAsync();
     }
 
     private async Task OnRead()
     {
         if (!string.IsNullOrEmpty(_nodeId))
         {
-            var items = await OpcUaServer.ReadAsync([_nodeId]);
+            var items = await OpcUaClient.ReadAsync([_nodeId]);
             _value = items.FirstOrDefault()?.Value?.ToString();
         }
     }
@@ -54,7 +54,7 @@ public partial class OpcUa : ComponentBase
     {
         if (!string.IsNullOrEmpty(_nodeId))
         {
-            _subscription = await OpcUaServer.CreateSubscriptionAsync("Subscription1");
+            _subscription = await OpcUaClient.CreateSubscriptionAsync("Subscription1");
             _subscription.DataChanged = UpdateValues;
             await _subscription.AddItemsAsync([_nodeId]);
         }
@@ -65,7 +65,7 @@ public partial class OpcUa : ComponentBase
         if (_subscription != null)
         {
             _subscription.DataChanged = null;
-            await OpcUaServer.CancelSubscriptionAsync(_subscription);
+            await OpcUaClient.CancelSubscriptionAsync(_subscription);
             _subscription = null;
         }
     }
@@ -81,13 +81,13 @@ public partial class OpcUa : ComponentBase
 
     private async Task OnBrowse()
     {
-        var elements = await OpcUaServer.BrowseAsync(ObjectIds.ObjectsFolder.ToString());
+        var elements = await OpcUaClient.BrowseAsync(ObjectIds.ObjectsFolder.ToString());
         _roots = [.. elements.Select(CreateTreeItem)];
     }
 
     private async Task<IEnumerable<TreeViewItem<OpcUaBrowseElement>>> OnExpandNodeAsync(TreeViewItem<OpcUaBrowseElement> element)
     {
-        var children = await OpcUaServer.BrowseAsync(element.Value.NodeId);
+        var children = await OpcUaClient.BrowseAsync(element.Value.NodeId);
         var items = children.Select(CreateTreeItem).ToList();
         if (items.Count == 0)
         {

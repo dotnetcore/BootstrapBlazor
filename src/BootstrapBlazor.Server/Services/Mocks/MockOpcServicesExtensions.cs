@@ -22,13 +22,13 @@ static class MockOpcServicesExtensions
     }
 
     /// <summary>
-    /// 增加模拟 OpcUaServer 操作服务
+    /// 增加模拟 OpcUaClient 操作服务
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddMockOpcUaServer(this IServiceCollection services)
+    public static IServiceCollection AddMockOpcUaClient(this IServiceCollection services)
     {
-        services.AddScoped<IOpcUaServer, MockOpcUaServer>();
+        services.AddScoped<IOpcUaClient, MockOpcUaClient>();
         return services;
     }
 }
