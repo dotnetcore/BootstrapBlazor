@@ -1954,6 +1954,61 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColumnFixed_DynamicBoundaryClass_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var fixedColumns = false;
+        RenderFragment<Foo> columns = foo => builder =>
+        {
+            builder.OpenComponent<TableColumn<Foo, string>>(0);
+            builder.AddAttribute(1, "Field", foo.Name);
+            builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+            builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), fixedColumns);
+            builder.AddAttribute(4, nameof(TableColumn<,>.Width), 100);
+            builder.CloseComponent();
+
+            builder.OpenComponent<TableColumn<Foo, DateTime?>>(5);
+            builder.AddAttribute(6, "Field", foo.DateTime);
+            builder.AddAttribute(7, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+            builder.AddAttribute(8, nameof(TableColumn<,>.Fixed), fixedColumns);
+            builder.AddAttribute(9, nameof(TableColumn<,>.Width), 100);
+            builder.CloseComponent();
+
+            builder.OpenComponent<TableColumn<Foo, string>>(10);
+            builder.AddAttribute(11, "Field", foo.Address);
+            builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+            builder.AddAttribute(13, nameof(TableColumn<,>.Width), 100);
+            builder.CloseComponent();
+        };
+        var cut = Context.Render<Table<Foo>>(pb =>
+        {
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+            pb.Add(a => a.TableColumns, columns);
+        });
+
+        var headers = cut.FindAll("th");
+        Assert.DoesNotContain("fixed", headers[0].ClassList);
+        Assert.DoesNotContain("fr", headers[1].ClassList);
+
+        fixedColumns = true;
+        cut.Render(pb => pb.Add(a => a.TableColumns, columns));
+
+        headers = cut.FindAll("th");
+        Assert.Contains("fixed", headers[0].ClassList);
+        Assert.Contains("fixed", headers[1].ClassList);
+        Assert.Contains("fr", headers[1].ClassList);
+
+        fixedColumns = false;
+        cut.Render(pb => pb.Add(a => a.TableColumns, columns));
+
+        headers = cut.FindAll("th");
+        Assert.DoesNotContain("fixed", headers[0].ClassList);
+        Assert.DoesNotContain("fixed", headers[1].ClassList);
+        Assert.DoesNotContain("fr", headers[1].ClassList);
+    }
+
+    [Fact]
     public void ScrollWidth_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
