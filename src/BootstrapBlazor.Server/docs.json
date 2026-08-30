@@ -773,7 +773,7 @@
     },
     "BootstrapBlazor.OpcUa": {
       "components": [],
-      "services": ["IOpcUaServer", "IOpcUaSubscription"]
+      "services": ["IOpcUaClient", "IOpcUaSubscription"]
     },
     "BootstrapBlazor.PdfReader": {
       "components": ["PdfReader"],
