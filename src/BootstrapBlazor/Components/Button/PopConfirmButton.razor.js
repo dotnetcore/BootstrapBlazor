@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
+import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 export { showTooltip, removeTooltip } from "./Button.razor.js"
@@ -83,10 +83,11 @@ export function init(id, invoke, closeCallback) {
             document.querySelectorAll(config.popoverSelector).forEach(function (ele) {
                 const element = getDescribedOwner(ele)
                 if (element) {
+                    const keepOpenOnOutsideClick = element.getAttribute('data-bb-keep-open-on-outside-click') === 'true';
+                    if (keepOpenOnOutsideClick) return;
                     const popover = bootstrap.Popover.getInstance(element);
                     if (popover) {
                         popover.hide();
-
                         const id = element.getAttribute('id');
                         if (id) {
                             const com = Data.get(id);

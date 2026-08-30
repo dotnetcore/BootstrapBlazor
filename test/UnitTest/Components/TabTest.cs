@@ -322,6 +322,25 @@ public class TabTest : BootstrapBlazorTestBase
         button.Click();
     }
 
+    [Theory]
+    [InlineData("/route-test/123?query=value#fragment", "int:123")]
+    [InlineData("/route-test/value", "string:value")]
+    [InlineData("/optional", "optional:null")]
+    [InlineData("/optional/value", "optional:value")]
+    [InlineData("/catch-all/folder/encoded%20value", "catch:folder/encoded value")]
+    [InlineData("/multiple", "multiple:null")]
+    [InlineData("/multiple/10", "multiple:10")]
+    public void AddTab_RouteTemplate_Ok(string url, string expected)
+    {
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+        });
+
+        cut.InvokeAsync(() => cut.Instance.AddTab(url, "Route"));
+        cut.Contains(expected);
+    }
+
     [Fact]
     public async Task CloseAllTabs_Ok()
     {

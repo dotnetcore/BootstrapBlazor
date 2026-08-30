@@ -20,5 +20,9 @@ public class QueryHelperTest
         querys = QueryHelper.ParseQuery(url);
         Assert.Equal("更新日志", querys["test1"]);
         Assert.Equal("2", querys["test2"]);
+
+        querys = QueryHelper.ParseQuery("?tag=one&TAG=two");
+        Assert.Equal("one", querys["tag"][0]);
+        Assert.Equal("two", querys["tag"][1]);
     }
 }

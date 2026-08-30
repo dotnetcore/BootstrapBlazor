@@ -307,7 +307,7 @@
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)"
-                                        style="@GetFixedCellStyleString(col, ActualScrollWidth)"
+                                        style="@GetHeaderStyleString(col, ActualScrollWidth)"
                                         data-bb-field="@fieldName"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)"
                                         draggable="@GetDraggableString(col)">
@@ -332,7 +332,7 @@
                                 }
                                 else if (col.ShowHeaderTooltip)
                                 {
-                                    <Tooltip class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)"
+                                    <Tooltip class="@GetHeaderCellClassString(col)"
                                              Title="@GetHeaderTooltipText(col.HeaderTextTooltip, displayName)" Trigger="hover">
                                         <span>@displayName</span>
                                     </Tooltip>
@@ -345,7 +345,7 @@
                                 }
                                 else
                                 {
-                                    <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
+                                    <span class="@GetHeaderCellClassString(col)">@displayName</span>
                                 }
                                 @if (col.GetFilterable() && !ShowFilterHeader)
                                 {
@@ -421,7 +421,7 @@
                     @foreach (var col in GetVisibleColumns())
                     {
                         <th @key="col" class="@GetHeaderClassString(col, true)"
-                            style="@GetFixedCellStyleString(col, ActualScrollWidth)">
+                            style="@GetHeaderStyleString(col, ActualScrollWidth)">
                             <div class="table-cell">
                                 @if (col.GetFilterable())
                                 {
