@@ -206,6 +206,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColWidthString(int? width) => (width.HasValue && width.Value > 0) ? $"width: {width.Value}px;" : null;
 
+    private string? GetHeaderStyleString(ITableColumn col, int margin = 0)
+    {
+        var fixedStyle = GetFixedCellStyleString(col, margin);
+        var widthStyle = col.Width is > 0 ? $"width: {col.Width}px; min-width: {col.Width}px;" : null;
+        if (fixedStyle == null)
+        {
+            return widthStyle;
+        }
+
+        return widthStyle == null ? fixedStyle : $"{fixedStyle} {widthStyle}";
+    }
+
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
     /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
