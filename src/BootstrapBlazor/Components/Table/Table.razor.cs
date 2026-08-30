@@ -1421,6 +1421,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private void ResetTableColumns()
     {
         _visibleColumnsCache.Clear();
+        FirstFixedColumnCache.Clear();
+        LastFixedColumnCache.Clear();
 
         if (_tableColumnStates.Count == 0)
         {
