@@ -34,14 +34,6 @@ export async function reset(id) {
         cancelAnimationFrame(table.minWidthRaf);
         table.minWidthRaf = null;
     }
-    if (table.fixedOffsetObserver) {
-        table.fixedOffsetObserver.disconnect();
-        table.fixedOffsetObserver = null;
-    }
-    if (table.fixedOffsetRaf) {
-        cancelAnimationFrame(table.fixedOffsetRaf);
-        table.fixedOffsetRaf = null;
-    }
     table.autoColumns = [];
 
     table.columns = [];
@@ -126,10 +118,6 @@ export async function reset(id) {
     if (table.thead) {
         setColSize(table, table.options);
     }
-
-    // 修正固定列 sticky 偏移量并监听表格尺寸变化
-    fixColumnOffset(table);
-    setFixedOffsetObserver(table);
 }
 
 export async function switchCardView(id) {
@@ -158,14 +146,6 @@ const destroyTable = table => {
         }
         if (table.minWidthRaf) {
             cancelAnimationFrame(table.minWidthRaf);
-        }
-        if (table.fixedOffsetObserver) {
-            table.fixedOffsetObserver.disconnect();
-            table.fixedOffsetObserver = null;
-        }
-        if (table.fixedOffsetRaf) {
-            cancelAnimationFrame(table.fixedOffsetRaf);
-            table.fixedOffsetRaf = null;
         }
         if (table.thead) {
             EventHandler.off(table.body, 'scroll')
@@ -1127,10 +1107,6 @@ export async function updateTableState(id, options) {
             setColSize(table, options);
         }
 
-        if (options.fixColumnOffset) {
-            fixColumnOffset(table);
-        }
-
         if (options.resetColumnListPopover) {
             resetColumnListPopover(table);
         }
@@ -1200,8 +1176,7 @@ const setColSize = (table, options) => {
             return;
         }
         const th = headerCollection.find(i => i.getAttribute('data-bb-field') === col.name);
-        if (th === void 0 || th.classList.contains('fixed')) {
-            // skip fixed column which width is controlled by colgroup
+        if (th === void 0) {
             return;
         }
         const colIndex = headerCollection.indexOf(th);
@@ -1229,78 +1204,6 @@ const applyColumnMinWidth = table => {
     if (!compact) {
         setAutoColWidths(table, false);
     }
-}
-
-const setFixedOffsetObserver = table => {
-    if (!window.ResizeObserver || !table.tables || table.tables.length === 0) {
-        return;
-    }
-    table.fixedOffsetObserver = new ResizeObserver(() => {
-        if (table.fixedOffsetRaf) {
-            cancelAnimationFrame(table.fixedOffsetRaf);
-        }
-        table.fixedOffsetRaf = requestAnimationFrame(() => {
-            table.fixedOffsetRaf = null;
-            fixColumnOffset(table);
-        });
-    });
-    table.tables.forEach(t => table.fixedOffsetObserver.observe(t));
-}
-
-const fixColumnOffset = table => {
-    if (!table.tables || table.tables.length === 0) {
-        return;
-    }
-
-    table.tables.forEach(t => {
-        if (isVisible(t) === false || t.querySelector('.fixed') === null) {
-            return;
-        }
-
-        // 以首个完整行单元格的实际渲染宽度为基准重新计算固定列 sticky 偏移量
-        // 自动布局下列实际渲染宽度可能大于服务端声明宽度，导致偏移量与实际列宽错位
-        const cells = getOffsetBaseCells(t);
-        if (cells.length === 0) {
-            return;
-        }
-
-        const leftOffsets = [];
-        const rightOffsets = [];
-        let left = 0;
-        cells.forEach((cell, index) => {
-            leftOffsets[index] = left;
-            left += getWidth(cell);
-        });
-        let right = 0;
-        for (let index = cells.length - 1; index >= 0; index--) {
-            rightOffsets[index] = right;
-            right += getWidth(cells[index]);
-        }
-
-        [...t.querySelectorAll('tr')].forEach(row => {
-            [...row.children].forEach((cell, index) => {
-                if (cell.classList.contains('fixed')) {
-                    if (cell.classList.contains('fixed-right')) {
-                        if (rightOffsets[index] !== void 0) {
-                            cell.style.right = `${rightOffsets[index]}px`;
-                        }
-                    }
-                    else if (leftOffsets[index] !== void 0) {
-                        cell.style.left = `${leftOffsets[index]}px`;
-                    }
-                }
-            });
-        });
-    });
-}
-
-const getOffsetBaseCells = t => {
-    const headerRow = t.querySelector('thead > tr');
-    if (headerRow) {
-        return [...headerRow.children];
-    }
-    const bodyRow = [...t.querySelectorAll('tbody > tr')].find(r => !r.classList.contains('is-detail'));
-    return bodyRow ? [...bodyRow.children] : [];
 }
 
 const setAutoColWidths = (table, apply) => {
