@@ -128,7 +128,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
             DisplayName = field.GetDisplayName()
         };
 
-        await ValidateForm.ValidateFieldAsync(validationContext, validationResults);
+        await ValidateForm.ValidateFieldAsync(field, validationContext, validationResults);
 
         messages.Clear(field);
         messages.Add(field, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));

@@ -1,0 +1,57 @@
+@page "/opc-ua"
+@inject IStringLocalizer<OpcUa> Localizer
+
+<h3>@Localizer["OpcUaTitle"]</h3>
+
+<h4>@Localizer["OpcUaDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.OpcUa"/>
+
+<p class="code-label">@Localizer["RegisterServiceText"]</p>
+
+<Pre>// 增加 BootstrapBlazor.OpcUa 服务
+services.AddOpcUaClient();</Pre>
+
+<DemoBlock Title="@Localizer["OpcUaNormalTitle"]" Introduction="@Localizer["OpcUaNormalIntro"]" ShowCode="false" Name="Normal">
+    <p class="code-label">@Localizer["InjectServiceText"]</p>
+    <Pre>[Inject]
+[NotNull]
+    private IOpcUaClient? OpcUaClient { get; set; }</Pre>
+
+    <p class="code-label">@((MarkupString)Localizer["Step1Text"].Value)</p>
+    <p>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="@Localizer["EndpointLabel"]"></BootstrapInputGroupLabel>
+            <BootstrapInput @bind-Value="@_endpoint"></BootstrapInput>
+            <Button Text="@Localizer["ConnectButtonText"]" OnClick="OnConnect" IsDisabled="OpcUaClient.IsConnected"></Button>
+            <Button Text="@Localizer["DisconnectButtonText"]" OnClick="OnDisconnect" IsDisabled="!OpcUaClient.IsConnected" Color="Color.Danger"></Button>
+        </BootstrapInputGroup>
+    </p>
+
+    <p class="code-label">@((MarkupString)Localizer["Step2Text"].Value)</p>
+    <p>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="@Localizer["NodeIdLabel"]"></BootstrapInputGroupLabel>
+            <BootstrapInput @bind-Value="@_nodeId"></BootstrapInput>
+            <BootstrapInputGroupLabel DisplayText="@Localizer["ValueLabel"]"></BootstrapInputGroupLabel>
+            <Display @bind-Value="@_value"></Display>
+            <Button OnClick="OnRead" Text="@Localizer["ReadButtonText"]" IsDisabled="!OpcUaClient.IsConnected"></Button>
+        </BootstrapInputGroup>
+    </p>
+
+    <p class="code-label">@Localizer["Step3Title"]</p>
+    <p>@((MarkupString)Localizer["Step3Text"].Value)</p>
+    <p>
+        <Button OnClick="OnCreateSubscription" Text="@Localizer["SubscribeButtonText"]" IsDisabled="@(!OpcUaClient.IsConnected || _subscription != null)"></Button>
+        <Button OnClick="OnCancelSubscription" Text="@Localizer["CancelButtonText"]" IsDisabled="_subscription == null"></Button>
+    </p>
+
+    <p class="code-label">@Localizer["Step4Title"]</p>
+    <p>@((MarkupString)Localizer["Step4Text"].Value)</p>
+    <p>
+        <Button OnClick="OnBrowse" Text="@Localizer["BrowseButtonText"]" IsDisabled="!OpcUaClient.IsConnected"></Button>
+    </p>
+    <p>
+        <TreeView Items="_roots" ShowIcon="true" OnExpandNodeAsync="OnExpandNodeAsync"></TreeView>
+    </p>
+</DemoBlock>

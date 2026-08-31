@@ -54,12 +54,12 @@
 
 .card-footer-control {
     text-align: center;
-    color: #d3dce6;
+    color: var(--bs-secondary-color);
     display: block;
 }
 
     .card-footer-control:hover {
-        color: #409eff;
+        color: var(--bs-primary);
     }
 
     .card-footer-control i {

@@ -68,22 +68,40 @@ public class UploadFile
     internal Action<UploadFile>? UpdateCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 上传进度百分比</para>
-    /// <para lang="en">Gets or sets the upload progress percentage</para>
+    /// <para lang="zh">获得 上传进度百分比</para>
+    /// <para lang="en">Gets the upload progress percentage</para>
     /// </summary>
-    internal int ProgressPercent { get; set; }
+    public int ProgressPercent { get; internal set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 文件是否上传处理完毕</para>
-    /// <para lang="en">Gets or sets whether the file upload has been completed</para>
+    /// <para lang="zh">获得 文件是否上传处理完毕</para>
+    /// <para lang="en">Gets whether the file upload has been completed</para>
     /// </summary>
-    internal bool Uploaded { get; set; } = true;
+    public bool Uploaded { get; internal set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 用于客户端验证的 ID</para>
     /// <para lang="en">Gets or sets the ID for client-side validation</para>
     /// </summary>
     internal string? ValidateId { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">更新上传进度百分比</para>
+    /// <para lang="en">Updates the upload progress percentage</para>
+    /// </summary>
+    /// <param name="progressPercent">上传进度百分比，取值范围 0 到 100 / Upload progress percentage, ranging from 0 to 100</param>
+    public void UpdateProgress(int progressPercent)
+    {
+        var percent = Math.Clamp(progressPercent, 0, 100);
+        if (percent > ProgressPercent)
+        {
+            ProgressPercent = percent;
+            if (UpdateCallback != null)
+            {
+                UpdateCallback(this);
+            }
+        }
+    }
 
     /// <summary>
     /// <para lang="zh">获得 UploadFile 的文件名</para>

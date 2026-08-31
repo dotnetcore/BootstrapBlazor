@@ -1,4 +1,4 @@
-﻿@page "/install"
+@page "/install"
 @inject IStringLocalizer<Install> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -30,6 +30,9 @@
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" /&gt;
 @Localizer["BootstrapStyle"]
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]" /&gt;
+@Localizer["FluentDesc"]
+dotnet add package BootstrapBlazor.Theme.Fluent
+&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.Theme.Fluent/fluent.css"]" /&gt;
 @Localizer["MotronicDesc"]
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" /&gt;</Pre>
 	</TabItem>
@@ -38,6 +41,9 @@
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" /&gt;
 @Localizer["BootstrapStyle"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" /&gt;
+@Localizer["FluentDesc"]
+dotnet add package BootstrapBlazor.Theme.Fluent
+&lt;link rel="stylesheet" href="_content/BootstrapBlazor.Theme.Fluent/fluent.css" /&gt;
 @Localizer["MotronicDesc"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" /&gt;</Pre>
 	</TabItem>

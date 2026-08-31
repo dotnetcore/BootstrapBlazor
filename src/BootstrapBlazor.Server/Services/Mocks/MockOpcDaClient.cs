@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.OpcDa;
 
 /// <summary>
-/// 模拟 OpcDa Server 实现类
+/// 模拟 OpcDa Client 实现类
 /// </summary>
-sealed class MockOpcDaServer : IOpcDaServer
+sealed class MockOpcDaClient : IOpcDaClient
 {
     public bool IsConnected { get; set; }
 

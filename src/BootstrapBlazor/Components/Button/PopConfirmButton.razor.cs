@@ -30,6 +30,8 @@ public partial class PopConfirmButton
         .AddClass("shadow", ShowShadow)
         .Build();
 
+    private string? KeepOpenOnOutsideClickString => IsKeepOpenOnOutsideClick ? "true" : null;
+
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets the button color</para>

@@ -1,0 +1,23 @@
+/*
+ * Fluent UI 主题演示站配套样式（仅覆盖站点外观变量）
+ * 组件主题本体由 BootstrapBlazor.Theme.Fluent 包分发：_content/BootstrapBlazor.Theme.Fluent/fluent.css
+ * 令牌来源：https://github.com/microsoft/fluentui @fluentui/tokens (brandWeb)
+ */
+:root {
+    --bb-sidebar-navbar-bg: #115ea3; /* brand70 */
+    --bb-sidebar-navbar-bar-bg: #0f6cbd; /* brand80 colorBrandBackground */
+    --bb-layout-button-bg: #0f6cbd;
+    --bb-layout-button-hover-bg: #115ea3; /* colorBrandBackgroundHover */
+    --bb-layout-button-active-bg: #0c3b5e; /* colorBrandBackgroundPressed */
+    --bb-layout-button-shadow: 0 0 6px rgba(15,108,189,.5);
+    --bb-layout-button-color: #fff;
+    --bb-layout-button-update-bg: #479ef5; /* brand100 */
+    --bb-button-theme-list-header-color: #fff;
+    --bb-button-theme-item-bg: #f5f5f5;
+    --bb-button-theme-item-color: var(--bs-body-color);
+    --bb-button-theme-item-hover-color: #fff;
+    --bb-button-theme-item-hover-bg: #115ea3;
+    --bb-button-theme-item-active-color: #fff;
+    --bb-button-theme-item-active-bg: #0f6cbd;
+    --bb-button-chat-color: #fff;
+}
