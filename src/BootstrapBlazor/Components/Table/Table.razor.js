@@ -484,6 +484,7 @@ const setResizeListener = table => {
         setColumnResizingListen(table, col);
         drag(col,
             e => {
+                stopAutoColumnWidth(table);
                 colIndex = eff(col, true)
                 const table = col.closest('table')
                 const currentCol = table.querySelectorAll('colgroup col')[colIndex]
@@ -616,6 +617,7 @@ const indexOfCol = col => {
 }
 
 const autoFitColumnWidth = async (table, col) => {
+    stopAutoColumnWidth(table);
     const field = getColumnName(col);
     const index = indexOfCol(col);
     let rows = null;
@@ -1185,6 +1187,14 @@ const setColSize = (table, options) => {
     });
     table.autoColumns = autoColumns;
     applyColumnMinWidth(table);
+}
+
+const stopAutoColumnWidth = table => {
+    if (table.minWidthRaf) {
+        cancelAnimationFrame(table.minWidthRaf);
+        table.minWidthRaf = null;
+    }
+    table.autoColumns = [];
 }
 
 const getHeaderIconsWidth = th => {
