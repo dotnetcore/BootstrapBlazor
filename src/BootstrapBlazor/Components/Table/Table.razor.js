@@ -486,8 +486,8 @@ const setResizeListener = table => {
             e => {
                 stopAutoColumnWidth(table);
                 colIndex = eff(col, true)
-                const currentTable = col.closest('table')
-                const currentCol = currentTable.querySelectorAll('colgroup col')[colIndex]
+                const tableEl = col.closest('table')
+                const currentCol = tableEl.querySelectorAll('colgroup col')[colIndex]
                 const width = currentCol.style.width
                 if (width) {
                     colWidth = parseInt(width)
@@ -495,7 +495,7 @@ const setResizeListener = table => {
                 else {
                     colWidth = getResizableColumnWidth(col);
                 }
-                tableWidth = getWidth(currentTable);
+                tableWidth = getWidth(tableEl);
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
