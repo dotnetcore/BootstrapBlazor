@@ -81,7 +81,24 @@ internal static class RouteTableFactory
         }
 
         routes.Sort(CompareRoutes);
+        DetectAmbiguousRoutes(routes);
         return [.. routes];
+    }
+
+    private static void DetectAmbiguousRoutes(List<RouteDefinition> routes)
+    {
+        for (var i = 1; i < routes.Count; i++)
+        {
+            var x = routes[i - 1];
+            var y = routes[i];
+            if (CompareRoutes(x, y) == 0)
+            {
+                throw new InvalidOperationException(
+                    $"The following routes are ambiguous:{Environment.NewLine}" +
+                    $"'{x.Template}' in '{x.Handler.FullName}'{Environment.NewLine}" +
+                    $"'{y.Template}' in '{y.Handler.FullName}'");
+            }
+        }
     }
 
     private static string[] GetSegments(string url)
@@ -252,16 +269,7 @@ internal static class RouteTableFactory
             }
         }
 
-        var lengthResult = x.Segments.Length.CompareTo(y.Segments.Length);
-        if (lengthResult != 0)
-        {
-            return lengthResult;
-        }
-
-        throw new InvalidOperationException(
-            $"The following routes are ambiguous:{Environment.NewLine}" +
-            $"'{x.Template}' in '{x.Handler.FullName}'{Environment.NewLine}" +
-            $"'{y.Template}' in '{y.Handler.FullName}'");
+        return x.Segments.Length.CompareTo(y.Segments.Length);
     }
 
     private static int GetRank(RouteSegment segment) => segment switch
