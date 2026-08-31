@@ -6,11 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 [ExcludeFromCodeCoverage]
-internal class RouteContext
+internal sealed class RouteContext
 {
-    public string[]? Segments { get; set; }
+    public RouteContext(
+        string[] segments,
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? handler = null,
+        IReadOnlyDictionary<string, object?>? parameters = null)
+    {
+        Segments = segments;
+        Handler = handler;
+        Parameters = parameters;
+    }
 
-    public Type? Handler { get; set; }
+    public string[] Segments { get; }
 
-    public IReadOnlyDictionary<string, object>? Parameters { get; set; }
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    public Type? Handler { get; }
+
+    public IReadOnlyDictionary<string, object?>? Parameters { get; }
 }

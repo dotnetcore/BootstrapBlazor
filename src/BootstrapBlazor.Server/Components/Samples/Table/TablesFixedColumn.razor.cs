@@ -18,6 +18,10 @@ public partial class TablesFixedColumn
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private bool _isFixed;
+
+    private void ToggleFirstTwoColumns() => _isFixed = !_isFixed;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

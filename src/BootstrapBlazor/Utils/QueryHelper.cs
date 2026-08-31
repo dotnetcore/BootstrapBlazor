@@ -179,14 +179,20 @@ public static class QueryHelper
             var equalIndex = segment.Span.IndexOf('=');
             if (equalIndex >= 0)
             {
-                ret ??= [];
+                ret ??= new(StringComparer.OrdinalIgnoreCase);
+                var key = Uri.UnescapeDataString(segment[..equalIndex].ToString());
                 var v = Uri.UnescapeDataString(segment[(equalIndex + 1)..].ToString());
-                ret.Add(segment[..equalIndex].ToString(), v);
+                ret[key] = ret.TryGetValue(key, out var values)
+                    ? StringValues.Concat(values, v)
+                    : v;
             }
             else if (!segment.IsEmpty)
             {
-                ret ??= [];
-                ret.Add(segment.ToString(), default);
+                ret ??= new(StringComparer.OrdinalIgnoreCase);
+                var key = Uri.UnescapeDataString(segment.ToString());
+                ret[key] = ret.TryGetValue(key, out var values)
+                    ? StringValues.Concat(values, default(string))
+                    : default;
             }
         }
         return ret;

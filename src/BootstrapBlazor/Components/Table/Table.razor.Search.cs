@@ -160,8 +160,8 @@ public partial class Table<TItem>
     public Alignment SearchDialogLabelAlign { get; set; }
 
     /// <summary>
-    /// <para lang="zh">重置搜索按钮异步回调方法</para>
-    /// <para lang="en">Reset Search Button Async Callback</para>
+    /// <para lang="zh">重置搜索按钮异步回调方法，仅使用 <see cref="SearchModel" /> 时触发此回调方法</para>
+    /// <para lang="en">Reset Search Button Async Callback, only triggered when using <see cref="SearchModel" /></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
@@ -218,8 +218,8 @@ public partial class Table<TItem>
                 {
                     item.Reset();
                 }
+                _searchFilter = _searchItems.ToFilter();
             }
-            _searchItems = null;
         }
         else if (CustomerSearchModel != null)
         {

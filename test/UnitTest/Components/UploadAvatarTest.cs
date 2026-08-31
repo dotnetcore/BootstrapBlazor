@@ -222,6 +222,29 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void UpdateProgress_Ok()
+    {
+        var updateCount = 0;
+        var file = new UploadFile();
+        SetUpdateCallback(file, _ => updateCount++);
+
+        Assert.True(file.Uploaded);
+        Assert.Equal(0, file.ProgressPercent);
+
+        file.UpdateProgress(50);
+        Assert.Equal(50, file.ProgressPercent);
+        Assert.Equal(1, updateCount);
+
+        file.UpdateProgress(40);
+        Assert.Equal(50, file.ProgressPercent);
+        Assert.Equal(1, updateCount);
+
+        file.UpdateProgress(120);
+        Assert.Equal(100, file.ProgressPercent);
+        Assert.Equal(2, updateCount);
+    }
+
+    [Fact]
     public async Task ValidateForm_ToggleMessage()
     {
         bool? invalid = null;
@@ -331,4 +354,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
 
     [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "set_Uploaded")]
     static extern void SetUploaded(UploadFile @this, bool v);
+
+    [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "set_UpdateCallback")]
+    static extern void SetUpdateCallback(UploadFile @this, Action<UploadFile>? v);
 }

@@ -253,6 +253,7 @@
     "network-monitor": "NetworkMonitors",
     "toolbar": "Toolbars",
     "opc-da": "OpcDa",
+    "opc-ua": "OpcUa",
     "navbar": "Navbars",
     "task-board": "TaskBoard",
     "modbus-factory": "Modbus\\ModbusFactories",
@@ -768,7 +769,11 @@
     },
     "BootstrapBlazor.OpcDa": {
       "components": [],
-      "services": ["IOpcDaServer", "IOpcItem", "IOpcSubscription"]
+      "services": ["IOpcDaClient", "IOpcItem", "IOpcSubscription"]
+    },
+    "BootstrapBlazor.OpcUa": {
+      "components": [],
+      "services": ["IOpcUaClient", "IOpcUaSubscription"]
     },
     "BootstrapBlazor.PdfReader": {
       "components": ["PdfReader"],

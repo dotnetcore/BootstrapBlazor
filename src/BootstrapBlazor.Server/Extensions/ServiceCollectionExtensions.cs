@@ -48,12 +48,15 @@ static class ServiceCollectionExtensions
 
         if (OperatingSystem.IsWindows())
         {
-            services.AddOpcDaServer();
+            services.AddOpcDaClient();
+            services.AddOpcUaClient();
         }
         else
         {
             // 增加 OpcDa 模拟服务（给 Linux 平台使用）
-            services.AddMockOpcDaServer();
+            services.AddMockOpcDaClient();
+            // 增加 OpcUa 模拟服务（给 Linux 平台使用）
+            services.AddMockOpcUaClient();
         }
 
         // 增加 ITcpSocketFactory 服务
