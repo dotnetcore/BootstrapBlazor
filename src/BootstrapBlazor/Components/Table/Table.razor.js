@@ -484,9 +484,9 @@ const setResizeListener = table => {
         setColumnResizingListen(table, col);
         drag(col,
             e => {
-                stopAutoColumnWidth(table);
                 colIndex = eff(col, true)
                 const table = col.closest('table')
+                stopAutoColumnWidth(table);
                 const currentCol = table.querySelectorAll('colgroup col')[colIndex]
                 const width = currentCol.style.width
                 if (width) {
