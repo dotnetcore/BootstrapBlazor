@@ -663,18 +663,14 @@ public partial class ValidateForm
     private EditContext? _formlessEditContext;
 
     /// <summary>
-    /// <para lang="zh">同步验证方法 用于代码调用触发表单验证（不支持某些组件的异步验证）</para>
-    /// <para lang="en">Synchronous validation method used to trigger form validation via code (does not support asynchronous validation for some components)</para>
-    /// </summary>
-    [Obsolete("已弃用，请使用 ValidateAsync 方法。Deprecated. Please use the ValidateAsync method.")]
-    [ExcludeFromCodeCoverage]
-    public bool Validate() => Validator.Validate();
-
-    /// <summary>
     /// <para lang="zh">异步验证方法 用于代码调用触发表单验证（支持异步验证）</para>
     /// <para lang="en">Asynchronous validation method used to trigger form validation via code (supports asynchronous validation)</para>
     /// </summary>
+#if NET11_0_OR_GREATER
+    public Task<bool> ValidateAsync(CancellationToken cancellationToken = default) => Validator.ValidateAsync(cancellationToken);
+#else
     public Task<bool> ValidateAsync() => Validator.ValidateAsync();
+#endif
 
     /// <summary>
     /// <para lang="zh">通知属性改变方法</para>
