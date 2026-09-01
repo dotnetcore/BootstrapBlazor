@@ -67,6 +67,7 @@ public sealed partial class Drawers
         ChildContent = builder => builder.AddContent(0, "Test"),
         ShowBackdrop = true,
         AllowResize = true,
-        IsBackdrop = true
+        IsBackdrop = true,
+        Width = "50%"
     });
 }

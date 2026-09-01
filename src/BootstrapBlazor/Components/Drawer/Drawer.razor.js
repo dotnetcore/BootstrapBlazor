@@ -22,11 +22,11 @@ const initDrag = el => {
             isVertical = drawerBody.classList.contains("top") || drawerBody.classList.contains("bottom")
             bar.classList.add('drag')
             if (isVertical) {
-                height = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-height'))
+                height = drawerBody.getBoundingClientRect().height
                 originY = e.clientY || e.touches[0].clientY
             }
             else {
-                width = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-width'))
+                width = drawerBody.getBoundingClientRect().width
                 originX = e.clientX || e.touches[0].clientX
             }
         },
