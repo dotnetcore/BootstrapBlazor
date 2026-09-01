@@ -122,7 +122,6 @@ public partial class FilterProvider
         {
             await TableColumnFilter.Reset();
         }
-        StateHasChanged();
     }
 
     /// <summary>
