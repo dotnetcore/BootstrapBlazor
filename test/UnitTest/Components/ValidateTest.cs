@@ -407,7 +407,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         var c = cut.Find("input");
         await cut.InvokeAsync(() => c.Change("Test"));
         await Task.Delay(300, CancellationToken.None);
-        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.SubmitAsync());
         Assert.True(invalid);
     }
 
