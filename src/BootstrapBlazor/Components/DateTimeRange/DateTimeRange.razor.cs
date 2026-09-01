@@ -554,10 +554,6 @@ public partial class DateTimeRange
         {
             await ClickConfirmButton();
         }
-        else
-        {
-            StateHasChanged();
-        }
     }
 
     /// <summary>
