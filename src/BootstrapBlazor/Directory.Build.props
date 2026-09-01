@@ -27,6 +27,7 @@
     <NET8Version>8.0.*</NET8Version>
     <NET9Version>9.0.*</NET9Version>
     <NET10Version>10.0.0</NET10Version>
+    <NET11Version>11.0.0-preview*</NET11Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
@@ -75,7 +76,16 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET10Version)" />
   </ItemGroup>
-  
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net11.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET11Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET11Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET11Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET11Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET11Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET11Version)" />
+  </ItemGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
