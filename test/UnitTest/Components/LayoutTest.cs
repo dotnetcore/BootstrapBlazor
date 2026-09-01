@@ -68,7 +68,7 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         // test context menu onclick event handler
         var tab = cut.Find(".tabs-item");
-        await cut.InvokeAsync(() => tab.ContextMenu());
+        await tab.ContextMenuAsync();
 
         var buttons = cut.FindAll(".bb-cm-zone > .dropdown-menu .dropdown-item");
         foreach (var button in buttons)
@@ -89,7 +89,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        await cut.InvokeAsync(() => tab.ContextMenu());
+        await tab.ContextMenuAsync();
         Assert.True(show);
     }
 
