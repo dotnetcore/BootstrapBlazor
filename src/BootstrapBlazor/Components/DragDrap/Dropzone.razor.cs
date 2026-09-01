@@ -277,7 +277,6 @@ public partial class Dropzone<TItem> : IDisposable
                     //DragDropService.Commit();
                 }
             }
-            StateHasChanged();
         }
         Items.Remove(default!);
     }
@@ -305,14 +304,11 @@ public partial class Dropzone<TItem> : IDisposable
         }
 
         DragDropService.DragTargetItem = item;
-
-        StateHasChanged();
     }
 
     private void OnDragLeave()
     {
         DragDropService.DragTargetItem = default;
-        StateHasChanged();
     }
 
     private void OnDrop()
@@ -357,7 +353,6 @@ public partial class Dropzone<TItem> : IDisposable
             }
         }
 
-        StateHasChanged();
         OnItemDrop.InvokeAsync(activeItem);
     }
 
