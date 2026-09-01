@@ -799,7 +799,6 @@ public partial class Layout : ITabHeader
         if (_isSidebarExpand)
         {
             _isSidebarExpand = false;
-            StateHasChanged();
         }
     }
 
