@@ -51,9 +51,6 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         AddEditContextDataAnnotationsValidation();
     }
 
-#if NET11_0_OR_GREATER
-    internal Task<bool> ValidateAsync(CancellationToken cancellationToken = default) => CurrentEditContext.ValidateAsync(cancellationToken);
-#else
     private TaskCompletionSource<bool>? _tcs;
     /// <summary>
     /// <para lang="zh">手动验证表单方法</para>
@@ -66,7 +63,13 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         var valid = await _tcs.Task;
         return ret && valid;
     }
-#endif
+
+    /// <summary>
+    /// <para lang="zh">手动验证表单方法</para>
+    /// <para lang="en">手动验证表单方法</para>
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    internal bool Validate() => CurrentEditContext.Validate();
 
     private void AddEditContextDataAnnotationsValidation()
     {
@@ -109,13 +112,10 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         }
         editContext.NotifyValidationStateChanged();
 
-#if NET11_0_OR_GREATER
-#else
         if (_tcs != null)
         {
             _tcs.TrySetResult(validationResults.Count == 0);
         }
-#endif
     }
 
     private async Task ValidateField(EditContext editContext, ValidationMessageStore messages, FieldIdentifier field, IServiceProvider provider)
