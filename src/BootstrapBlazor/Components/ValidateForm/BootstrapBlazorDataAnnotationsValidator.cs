@@ -66,7 +66,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     /// <summary>
     /// <para lang="zh">手动验证表单方法</para>
-    /// <para lang="en">手动验证表单方法</para>
+    /// <para lang="en">Validates the form manually</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     internal bool Validate() => CurrentEditContext.Validate();
