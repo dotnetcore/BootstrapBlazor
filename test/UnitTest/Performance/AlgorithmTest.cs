@@ -27,12 +27,12 @@ public class AlgorithmTest
         rsa1.FromXmlString(publicKey);
 
         var dataBytes = Encoding.UTF8.GetBytes("2024-08-08");
-        byte[] encryptedData = rsa1.Encrypt(dataBytes, false);
+        byte[] encryptedData = rsa1.Encrypt(dataBytes, RSAEncryptionPadding.OaepSHA1);
 
         // 私钥解密
         using RSACryptoServiceProvider rsa2 = new RSACryptoServiceProvider();
         rsa2.FromXmlString(privateKey);
-        var decryptedData = rsa2.Decrypt(encryptedData, false);
+        var decryptedData = rsa2.Decrypt(encryptedData, RSAEncryptionPadding.OaepSHA1);
         var data = Encoding.UTF8.GetString(decryptedData);
     }
 }

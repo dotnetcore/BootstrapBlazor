@@ -423,9 +423,9 @@ public class ValidateTest : BootstrapBlazorTestBase
 
     class MockAsyncValidator : ValidatorAsyncBase
     {
-        public override async Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+        public override async Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default)
         {
-            await Task.Delay(100);
+            await Task.Delay(100, cancellationToken);
             results.Add(new ValidationResult("Invalid", new string[] { context.DisplayName }));
         }
     }

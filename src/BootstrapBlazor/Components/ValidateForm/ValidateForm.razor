@@ -8,7 +8,7 @@
         @if (IsFormless)
         {
             <CascadingValue Value="_formlessEditContext" IsFixed="true">
-                <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
+                <BootstrapBlazorDataAnnotationsValidator @ref="_validator" />
                 @ChildContent
             </CascadingValue>
         }
@@ -17,8 +17,8 @@
             <EditForm @attributes="@AdditionalAttributes" id="@Id" Model="@Model"
                       data-bb-dissubmit="@DisableAutoSubmitString" data-bb-invalid-result="@ShowAllInvalidResultString"
                       style="@StyleString"
-                      OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
-                <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
+                      OnSubmit="@OnSubmitForm">
+                <BootstrapBlazorDataAnnotationsValidator @ref="_validator" />
                 @ChildContent
             </EditForm>
         }
