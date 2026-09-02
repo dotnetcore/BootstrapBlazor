@@ -171,6 +171,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     public async Task OnToggleClick()
     {
+        await TiggerToggleClick();
+        StateHasChanged();
+    }
+
+    private async Task TiggerToggleClick()
+    {
         var valid = true;
         CheckboxState state;
         if (State == CheckboxState.Indeterminate)
