@@ -189,7 +189,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         if (valid)
         {
             await InternalStateChanged(state);
-            StateHasChanged();
         }
     }
 
