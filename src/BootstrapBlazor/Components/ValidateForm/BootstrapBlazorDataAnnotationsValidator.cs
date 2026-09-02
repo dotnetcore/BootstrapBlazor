@@ -9,13 +9,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">BootstrapBlazorDataAnnotationsValidator 验证组件</para>
-/// <para lang="en">BootstrapBlazorDataAnnotationsValidator Validation Component</para>
+/// <para lang="en">BootstrapBlazorDataAnnotationsValidator validation component</para>
 /// </summary>
 public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 当前编辑数据上下文</para>
-    /// <para lang="en">Gets or sets Current Edit Data Context</para>
+    /// <para lang="en">Gets or sets the current edit context</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
@@ -23,7 +23,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前编辑窗体上下文</para>
-    /// <para lang="en">Gets or sets 当前编辑窗体上下文</para>
+    /// <para lang="en">Gets or sets the current validation form</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
@@ -38,7 +38,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     /// <summary>
     /// <para lang="zh">初始化方法</para>
-    /// <para lang="en">初始化方法</para>
+    /// <para lang="en">Initializes the component</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -57,7 +57,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     private TaskCompletionSource<bool>? _tcs;
     /// <summary>
     /// <para lang="zh">手动验证表单方法</para>
-    /// <para lang="en">Manually validate the form</para>
+    /// <para lang="en">Validates the form manually</para>
     /// </summary>
     internal async Task<bool> ValidateAsync()
     {
@@ -145,8 +145,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {
