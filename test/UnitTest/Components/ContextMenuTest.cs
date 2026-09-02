@@ -52,7 +52,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = cut.Find(".context-trigger");
-        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
+        await row.ContextMenuAsync(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         menu.Contains("shadow");
@@ -232,7 +232,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
-        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
+        await row.ContextMenuAsync(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -295,7 +295,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = cut.Find(".tree-content");
-        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
+        await row.ContextMenuAsync(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
