@@ -786,7 +786,6 @@ public partial class Layout : ITabHeader
         if (IsCollapsed && !IsExpandOnHover && !_isSidebarExpand)
         {
             _isSidebarExpand = true;
-            StateHasChanged();
         }
     }
 
@@ -799,7 +798,6 @@ public partial class Layout : ITabHeader
         if (_isSidebarExpand)
         {
             _isSidebarExpand = false;
-            StateHasChanged();
         }
     }
 

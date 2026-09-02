@@ -796,7 +796,6 @@ public partial class DatePickerBody
     private void OnShowTimePicker()
     {
         _showTimePicker = true;
-        StateHasChanged();
     }
 
     private bool HasSeconds => TimeFormat.Contains('s');
