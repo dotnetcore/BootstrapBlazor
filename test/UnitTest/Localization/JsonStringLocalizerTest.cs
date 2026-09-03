@@ -347,7 +347,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     private static readonly string[] localizationConfigure = ["zh-CN.json"];
 
     [Fact]
-    public void Validate_ResourceManagerStringLocalizerType()
+    public async Task Validate_ResourceManagerStringLocalizerType()
     {
         var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
@@ -371,10 +371,12 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         });
 
         // 反射触发 Validate 方法
-        var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotationsAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var pi = foo.GetType().GetProperty("Name");
         var result = new List<ValidationResult>();
-        mi.Invoke(cut.Instance, [null, new ValidationContext(cut.Instance), result, pi, "Name"]);
+        var task = (Task?)mi.Invoke(cut.Instance, [null, new ValidationContext(cut.Instance), result, pi, "Name", CancellationToken.None]);
+        Assert.NotNull(task);
+        await task;
         Assert.Equal("Test", result[0].ErrorMessage);
     }
 

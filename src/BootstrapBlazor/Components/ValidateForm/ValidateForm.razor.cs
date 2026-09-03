@@ -128,6 +128,8 @@ public partial class ValidateForm
 
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
 
+    private readonly SemaphoreSlim _validationLock = new(1, 1);
+
     private string? DisableAutoSubmitString => IsFormless
         ? null
         : DisableAutoSubmitFormByEnter is true ? "true" : null;
@@ -294,14 +296,34 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    internal async Task ValidateObject(ValidationContext context, List<ValidationResult> results)
+    /// <param name="cancellationToken"></param>
+    internal async Task ValidateObjectAsync(ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default)
     {
-        _tcs = new TaskCompletionSource<bool>();
+        await _validationLock.WaitAsync(cancellationToken);
+        try
+        {
+            await ValidateObjectCoreAsync(context, results, cancellationToken);
+        }
+        finally
+        {
+            _validationLock.Release();
+        }
+    }
+
+    private async Task ValidateObjectCoreAsync(ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken)
+    {
+        foreach (var validator in _validatorCache.Values)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            await validator.ToggleMessage([]);
+        }
+
         _validateResults.Clear();
 
         if (ValidateAllProperties)
         {
-            await ValidateProperty(context, results);
+            await ValidatePropertyAsync(context, results, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
         }
         else
         {
@@ -326,7 +348,8 @@ public partial class ValidateForm
                     // 设置其关联属性字段
                     var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
-                    await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
+                    await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue, cancellationToken);
+                    cancellationToken.ThrowIfCancellationRequested();
                 }
                 _validateResults.TryAdd(validator, messages);
                 results.AddRange(messages);
@@ -335,40 +358,64 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
-                IValidatableObject? validate;
-                if (context.ObjectInstance is IValidatableObject v)
+                var messages = new List<ValidationResult>();
+#if NET11_0_OR_GREATER
+                IAsyncValidatableObject? asyncValidate;
+                if (context.ObjectInstance is IAsyncValidatableObject asyncValidatableObject)
                 {
-                    validate = v;
+                    asyncValidate = asyncValidatableObject;
                 }
                 else
                 {
-                    validate = context.GetInstanceFromMetadataType<IValidatableObject>();
+                    asyncValidate = context.GetInstanceFromMetadataType<IAsyncValidatableObject>();
                 }
-                if (validate != null)
+
+                if (asyncValidate != null)
                 {
-                    var messages = validate.Validate(context).ToList();
-                    if (messages.Count > 0)
+                    await foreach (var message in asyncValidate.ValidateAsync(context, cancellationToken).WithCancellation(cancellationToken))
                     {
-                        foreach (var validator in _validatorCache.Values)
-                        {
-                            if (validator.IsNeedValidate)
-                            {
-                                _validateResults[validator].AddRange(messages);
-                            }
-                        }
-                        results.AddRange(messages);
+                        messages.Add(message);
                     }
+                }
+                else
+#endif
+                {
+                    IValidatableObject? validate;
+                    if (context.ObjectInstance is IValidatableObject v)
+                    {
+                        validate = v;
+                    }
+                    else
+                    {
+                        validate = context.GetInstanceFromMetadataType<IValidatableObject>();
+                    }
+                    if (validate != null)
+                    {
+                        messages.AddRange(validate.Validate(context));
+                    }
+                }
+
+                if (messages.Count > 0)
+                {
+                    foreach (var validator in _validatorCache.Values)
+                    {
+                        if (validator.IsNeedValidate)
+                        {
+                            _validateResults[validator].AddRange(messages);
+                        }
+                    }
+                    results.AddRange(messages);
                 }
             }
 
             ValidMemberNames.RemoveAll(name => _validateResults.Values.SelectMany(i => i).Any(i => i.MemberNames.Contains(name)));
             foreach (var (validator, messages) in _validateResults)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await validator.ToggleMessage(messages);
             }
         }
 
-        _tcs.TrySetResult(results.Count == 0);
     }
 
     /// <summary>
@@ -378,22 +425,35 @@ public partial class ValidateForm
     /// <param name="fieldIdentifier"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    internal async Task ValidateFieldAsync(FieldIdentifier fieldIdentifier, ValidationContext context, List<ValidationResult> results)
+    /// <param name="cancellationToken"></param>
+    internal async Task ValidateFieldAsync(FieldIdentifier fieldIdentifier, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default)
     {
-        if (_validatorCache.TryGetValue(fieldIdentifier, out var validator))
+        await _validationLock.WaitAsync(cancellationToken);
+        try
         {
-            if (validator.IsNeedValidate)
+            if (_validatorCache.TryGetValue(fieldIdentifier, out var validator))
             {
-                var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
-                if (pi != null)
+                if (validator.IsNeedValidate)
                 {
-                    var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
-                    await ValidateAsync(validator, context, results, pi, propertyValue);
-                }
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await validator.ToggleMessage([]);
 
-                // 客户端提示
-                await validator.ToggleMessage(results);
+                    var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
+                    if (pi != null)
+                    {
+                        var propertyValue = Utility.GetPropertyValue(fieldIdentifier.Model, fieldIdentifier.FieldName);
+                        await ValidateAsync(validator, context, results, pi, propertyValue, cancellationToken);
+                    }
+
+                    // 客户端提示
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await validator.ToggleMessage(results);
+                }
             }
+        }
+        finally
+        {
+            _validationLock.Release();
         }
     }
 
@@ -406,9 +466,10 @@ public partial class ValidateForm
     /// <param name="results"></param>
     /// <param name="propertyInfo"></param>
     /// <param name="memberName"></param>
-    private void ValidateDataAnnotations(object? value, ValidationContext context, List<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
+    /// <param name="cancellationToken"></param>
+    private async Task ValidateDataAnnotationsAsync(object? value, ValidationContext context, List<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null, CancellationToken cancellationToken = default)
     {
-        var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
+        IEnumerable<ValidationAttribute> rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
         var metadataType = context.ObjectType.GetCustomAttribute<MetadataTypeAttribute>(false);
         if (metadataType != null)
         {
@@ -418,62 +479,100 @@ public partial class ValidateForm
                 rules = rules.Concat(p.GetCustomAttributes(true).OfType<ValidationAttribute>());
             }
         }
-        var displayName = context.DisplayName;
+
+        var validationRules = rules.ToList();
         memberName ??= propertyInfo.Name;
-        var attributeSpan = nameof(Attribute).AsSpan();
-        foreach (var rule in rules)
+
+#if NET11_0_OR_GREATER
+        foreach (var rule in validationRules.Where(static rule => rule is RequiredAttribute))
         {
             var result = rule.GetValidationResult(value, context);
-            if (result != null && result != ValidationResult.Success)
+            AddValidationResult(rule, result, context, results, memberName);
+        }
+
+        if (results.Count == 0)
+        {
+            foreach (var rule in validationRules.Where(static rule => rule is not RequiredAttribute and not AsyncValidationAttribute))
             {
-                var find = false;
-                if (!string.IsNullOrEmpty(rule.ErrorMessage))
+                cancellationToken.ThrowIfCancellationRequested();
+                var result = rule.GetValidationResult(value, context);
+                AddValidationResult(rule, result, context, results, memberName);
+            }
+        }
+
+        if (results.Count == 0)
+        {
+            var validationTasks = validationRules
+                .OfType<AsyncValidationAttribute>()
+                .Select(async rule => (Rule: rule, Result: await rule.GetValidationResultAsync(value, context, cancellationToken)));
+            var validationResults = await Task.WhenAll(validationTasks);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            foreach (var (rule, result) in validationResults)
+            {
+                AddValidationResult(rule, result, context, results, memberName);
+            }
+        }
+#else
+        foreach (var rule in validationRules)
+        {
+            var result = rule.GetValidationResult(value, context);
+            AddValidationResult(rule, result, context, results, memberName);
+        }
+#endif
+    }
+
+    private void AddValidationResult(ValidationAttribute rule, ValidationResult? result, ValidationContext context, List<ValidationResult> results, string memberName)
+    {
+        if (result != null && result != ValidationResult.Success)
+        {
+            var find = false;
+            if (!string.IsNullOrEmpty(rule.ErrorMessage))
+            {
+                var resourceType = Options.CurrentValue.ResourceManagerStringLocalizerType;
+                if (resourceType != null && LocalizerFactory.Create(resourceType).TryGetLocalizerString(rule.ErrorMessage, out var text))
                 {
-                    var resourceType = Options.CurrentValue.ResourceManagerStringLocalizerType;
-                    if (resourceType != null && LocalizerFactory.Create(resourceType).TryGetLocalizerString(rule.ErrorMessage, out var text))
-                    {
-                        rule.ErrorMessage = text;
-                        find = true;
-                    }
+                    rule.ErrorMessage = text;
+                    find = true;
+                }
+            }
+
+            if (!context.ObjectType.Assembly.IsDynamic)
+            {
+                if (!find && !string.IsNullOrEmpty(rule.ErrorMessage)
+                    && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
+                {
+                    rule.ErrorMessage = msg;
+                    find = true;
                 }
 
-                if (!context.ObjectType.Assembly.IsDynamic)
+                if (!find && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
                 {
-                    if (!find && !string.IsNullOrEmpty(rule.ErrorMessage)
-                        && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
-                    {
-                        rule.ErrorMessage = msg;
-                        find = true;
-                    }
-
-                    if (!find && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
-                    {
-                        rule.ErrorMessage = msg;
-                        find = true;
-                    }
-
-                    if (!find)
-                    {
-                        var ruleNameSpan = rule.GetType().Name.AsSpan();
-                        var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
-                        var ruleName = index == -1 ? ruleNameSpan[..] : ruleNameSpan[..index];
-                        if (LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
-                        {
-                            rule.ErrorMessage = msg;
-                            find = true;
-                        }
-                    }
+                    rule.ErrorMessage = msg;
+                    find = true;
                 }
 
                 if (!find)
                 {
-                    rule.ErrorMessage = result.ErrorMessage;
+                    var ruleNameSpan = rule.GetType().Name.AsSpan();
+                    var index = ruleNameSpan.IndexOf(nameof(Attribute).AsSpan(), StringComparison.OrdinalIgnoreCase);
+                    var ruleName = index == -1 ? ruleNameSpan[..] : ruleNameSpan[..index];
+                    if (LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
+                    {
+                        rule.ErrorMessage = msg;
+                        find = true;
+                    }
                 }
-                var errorMessage = !string.IsNullOrEmpty(rule.ErrorMessage) && rule.ErrorMessage.Contains("{0}")
-                    ? rule.FormatErrorMessage(displayName)
-                    : rule.ErrorMessage;
-                results.Add(new ValidationResult(errorMessage, [memberName]));
             }
+
+            if (!find)
+            {
+                rule.ErrorMessage = result.ErrorMessage;
+            }
+            var errorMessage = !string.IsNullOrEmpty(rule.ErrorMessage) && rule.ErrorMessage.Contains("{0}")
+                ? rule.FormatErrorMessage(context.DisplayName)
+                : rule.ErrorMessage;
+            results.Add(new ValidationResult(errorMessage, [memberName]));
         }
     }
 
@@ -483,7 +582,8 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
+    /// <param name="cancellationToken"></param>
+    private async Task ValidatePropertyAsync(ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default)
     {
         var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.IsCanWrite() && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
@@ -498,15 +598,16 @@ public partial class ValidateForm
                 if (validator.IsComplexValue(propertyValue) && propertyValue != null)
                 {
                     var fieldContext = new ValidationContext(propertyValue, context, null);
-                    await ValidateProperty(fieldContext, results);
+                    await ValidatePropertyAsync(fieldContext, results, cancellationToken);
                 }
                 else
                 {
                     var messages = new List<ValidationResult>();
                     if (validator.IsNeedValidate)
                     {
-                        await ValidateAsync(validator, context, messages, pi, propertyValue);
+                        await ValidateAsync(validator, context, messages, pi, propertyValue, cancellationToken);
 
+                        cancellationToken.ThrowIfCancellationRequested();
                         await validator.ToggleMessage(messages);
                     }
                     results.AddRange(messages);
@@ -515,22 +616,22 @@ public partial class ValidateForm
             else
             {
                 var messages = new List<ValidationResult>();
-                ValidateDataAnnotations(propertyValue, context, messages, pi);
+                await ValidateDataAnnotationsAsync(propertyValue, context, messages, pi, cancellationToken: cancellationToken);
                 results.AddRange(messages);
             }
         }
     }
 
-    private async Task ValidateAsync(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue)
+    private async Task ValidateAsync(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue, CancellationToken cancellationToken = default)
     {
         if (validator is IUpload uploader)
         {
             if (uploader.UploadFiles.Count > 0)
             {
-                uploader.UploadFiles.ForEach(file =>
+                foreach (var file in uploader.UploadFiles)
                 {
-                    ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
-                });
+                    await ValidateDataAnnotationsAsync(file.File, context, messages, pi, file.ValidateId, cancellationToken);
+                }
             }
             else
             {
@@ -542,15 +643,15 @@ public partial class ValidateForm
                 {
                     propertyValue = null;
                 }
-                ValidateDataAnnotations(propertyValue, context, messages, pi);
+                await ValidateDataAnnotationsAsync(propertyValue, context, messages, pi, cancellationToken: cancellationToken);
             }
         }
         else
         {
-            ValidateDataAnnotations(propertyValue, context, messages, pi);
+            await ValidateDataAnnotationsAsync(propertyValue, context, messages, pi, cancellationToken: cancellationToken);
             if (messages.Count == 0)
             {
-                await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                await validator.ValidatePropertyAsync(propertyValue, context, messages, cancellationToken);
             }
 
             if (messages.Count == 0)
@@ -596,9 +697,7 @@ public partial class ValidateForm
         AsyncSubmitButtons.Remove(button);
     }
 
-    private TaskCompletionSource<bool>? _tcs;
-
-    private async Task OnValidSubmitForm(EditContext context)
+    private async Task OnSubmitForm(EditContext context)
     {
         var isAsync = AsyncSubmitButtons.Count > 0;
         foreach (var b in AsyncSubmitButtons)
@@ -610,71 +709,40 @@ public partial class ValidateForm
             await Task.Yield();
         }
 
-        var valid = true;
-        if (_tcs != null)
+        try
         {
-            valid = await _tcs.Task;
-        }
-        if (valid)
-        {
-            if (OnValidSubmit != null)
+            var valid = await _validator.ValidateAsync();
+            if (valid)
             {
-                await OnValidSubmit(context);
+                if (OnValidSubmit != null)
+                {
+                    await OnValidSubmit(context);
+                }
             }
-        }
-        else
-        {
-            if (OnInvalidSubmit != null)
+            else if (OnInvalidSubmit != null)
             {
                 await OnInvalidSubmit(context);
             }
         }
-
-        foreach (var b in AsyncSubmitButtons)
+        finally
         {
-            b.TriggerAsync(false);
+            foreach (var b in AsyncSubmitButtons)
+            {
+                b.TriggerAsync(false);
+            }
         }
     }
 
-    private async Task OnInvalidSubmitForm(EditContext context)
-    {
-        var isAsync = AsyncSubmitButtons.Count > 0;
-        foreach (var b in AsyncSubmitButtons)
-        {
-            b.TriggerAsync(true);
-        }
-        if (isAsync)
-        {
-            await Task.Yield();
-        }
-        if (OnInvalidSubmit != null)
-        {
-            await OnInvalidSubmit(context);
-        }
-        foreach (var b in AsyncSubmitButtons)
-        {
-            b.TriggerAsync(false);
-        }
-    }
-
-    [NotNull]
-    private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
+    private BootstrapBlazorDataAnnotationsValidator _validator = default!;
 
     private EditContext? _formlessEditContext;
 
     /// <summary>
-    /// <para lang="zh">同步验证方法 用于代码调用触发表单验证（不支持某些组件的异步验证）</para>
-    /// <para lang="en">Synchronous validation method used to trigger form validation via code (does not support asynchronous validation for some components)</para>
+    /// <para lang="zh">支持取消操作的异步验证方法</para>
+    /// <para lang="en">Asynchronously validates the form with cancellation support</para>
     /// </summary>
-    [Obsolete("已弃用，请使用 ValidateAsync 方法。Deprecated. Please use the ValidateAsync method.")]
-    [ExcludeFromCodeCoverage]
-    public bool Validate() => Validator.Validate();
-
-    /// <summary>
-    /// <para lang="zh">异步验证方法 用于代码调用触发表单验证（支持异步验证）</para>
-    /// <para lang="en">Asynchronous validation method used to trigger form validation via code (supports asynchronous validation)</para>
-    /// </summary>
-    public Task<bool> ValidateAsync() => Validator.ValidateAsync();
+    /// <param name="cancellationToken"></param>
+    public Task<bool> ValidateAsync(CancellationToken cancellationToken = default) => _validator.ValidateAsync(cancellationToken);
 
     /// <summary>
     /// <para lang="zh">通知属性改变方法</para>

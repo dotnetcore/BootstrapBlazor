@@ -4,9 +4,13 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
+#if NET11_0_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
 
 namespace UnitTest.Components;
 
@@ -16,6 +20,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         services.AddBootstrapBlazor();
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
+#if !NET11_0_OR_GREATER
+        services.AddSingleton<ILogger<BootstrapBlazorDataAnnotationsValidator>, ValidateFormTestLogger>();
+#endif
     }
 
     [Fact]
@@ -25,10 +32,138 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnValidationRequested_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+#if NET11_0_OR_GREATER
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(Xunit.TestContext.Current.CancellationToken));
+        Assert.False(valid);
+#else
+        await cut.InvokeAsync(() => editContext.Validate());
+#endif
+
+        cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
+    }
+
+#if !NET11_0_OR_GREATER
+    [Fact]
+    public async Task OnValidationRequested_Exception()
+    {
+        var logger = Assert.IsType<ValidateFormTestLogger>(
+            Context.Services.GetRequiredService<ILogger<BootstrapBlazorDataAnnotationsValidator>>());
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [new ThrowingValidator()]);
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+        await cut.InvokeAsync(() => editContext.Validate());
+
+        cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
+    }
+
+    [Fact]
+    public async Task ValidateFieldAndCleanupAsync_Cancel()
+    {
+        var rule = new CancellableFieldValidator();
+        var foo = new Foo() { Name = "Initial" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, value => foo.Name = value);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [rule]);
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("First"));
+        await rule.FirstValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
+
+        await rule.FirstValidationCancelled.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.SecondValidationCompleted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
+            "_fieldValidationOperations",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var operations = Assert.IsAssignableFrom<System.Collections.IDictionary>(field?.GetValue(validator));
+        cut.WaitForAssertion(() => Assert.Empty(operations));
+    }
+
+    [Fact]
+    public async Task ValidateFieldAndCleanupAsync_OperationCancellation()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
+        var operationType = validatorType.GetNestedType(
+            "FieldValidationOperation",
+            System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(operationType);
+        var operation = Activator.CreateInstance(operationType, nonPublic: true);
+        Assert.NotNull(operation);
+        var method = validatorType.GetMethod(
+            "ValidateFieldAndCleanupAsync",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var cancelMethod = operationType.GetMethod(nameof(CancellationTokenSource.Cancel));
+        Assert.NotNull(cancelMethod);
+        cancelMethod.Invoke(operation, null);
+
+        await cut.InvokeAsync(async () =>
+        {
+            var validation = Assert.IsType<Task>(
+                method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
+            await validation;
+        });
+    }
+#endif
+
+    [Fact]
     public async Task Validate_Ok()
     {
         var valid = false;
         var invalid = false;
+        var changed = false;
         var foo = new Foo();
         var cut = Context.Render<ValidateForm>(pb =>
         {
@@ -44,33 +179,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 invalid = true;
                 return Task.CompletedTask;
             });
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
-            {
-                pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
-                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
-            });
-        });
-        var form = cut.Find("form");
-        await cut.InvokeAsync(() => form.Submit());
-        Assert.True(invalid);
-
-        await cut.InvokeAsync(() =>
-        {
-            cut.Find("input").Change("Test");
-            form.Submit();
-        });
-        Assert.True(valid);
-    }
-
-    [Fact]
-    public void OnFieldValueChanged_Ok()
-    {
-        var changed = false;
-        var foo = new Foo();
-        var cut = Context.Render<ValidateForm>(pb =>
-        {
-            pb.Add(a => a.Model, foo);
             pb.Add(a => a.OnFieldValueChanged, (fieldName, v) =>
             {
                 changed = true;
@@ -83,8 +191,16 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => cut.Find("input").Change("Test"));
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+        Assert.False(changed);
+
+        await cut.InvokeAsync(() =>
+        {
+            cut.Find("input").Change("Test");
+            form.Submit();
+        });
+        Assert.True(valid);
         Assert.True(changed);
     }
 
@@ -670,7 +786,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             MemberName = "Name"
         };
         var result = new List<ValidationResult>();
-        method.Invoke(form, [fieldIdentifier, context, result]);
+        method.Invoke(form, [fieldIdentifier, context, result, CancellationToken.None]);
     }
 
     [Fact]
@@ -696,6 +812,95 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
     }
+
+    [Fact]
+    public async Task IValidatableObject_ModelError()
+    {
+        var model = new MockModelError();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+        var messages = editContext.GetValidationMessages(new FieldIdentifier(model, string.Empty));
+        Assert.Equal(["Model validation failed"], messages);
+    }
+
+#if NET11_0_OR_GREATER
+    [Fact]
+    public async Task IAsyncValidatableObject_Ok()
+    {
+        var model = new MockAsyncValidatableModel();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+        Assert.True(model.AsyncValidated);
+        Assert.False(model.SyncValidated);
+        Assert.Equal("Async validation failed", cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
+    }
+
+    [Fact]
+    public async Task AsyncValidationAttribute_Ok()
+    {
+        var model = new MockAsyncValidationAttributeModel();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+        Assert.Equal("Async attribute validation failed", cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
+    }
+
+    [Fact]
+    public async Task IAsyncValidatableObject_ModelError()
+    {
+        var model = new MockAsyncModelError();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+    }
+#endif
 
     [Fact]
     public async Task IValidateCollection_Ok()
@@ -916,6 +1121,146 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             }
         }
     }
+
+    private sealed class MockModelError : IValidatableObject
+    {
+        public string? Name { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            yield return new ValidationResult("Model validation failed");
+        }
+    }
+
+#if !NET11_0_OR_GREATER
+    private sealed class ThrowingValidator : ValidatorAsyncBase
+    {
+        public override Task ValidateAsync(
+            object? propertyValue,
+            ValidationContext context,
+            List<ValidationResult> results,
+            CancellationToken cancellationToken = default)
+            => throw new InvalidOperationException("Validation failed");
+    }
+
+    private sealed class CancellableFieldValidator : ValidatorAsyncBase
+    {
+        public TaskCompletionSource FirstValidationStarted { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public TaskCompletionSource FirstValidationCancelled { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public TaskCompletionSource SecondValidationCompleted { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public override async Task ValidateAsync(
+            object? propertyValue,
+            ValidationContext context,
+            List<ValidationResult> results,
+            CancellationToken cancellationToken = default)
+        {
+            if (propertyValue?.ToString() == "First")
+            {
+                FirstValidationStarted.TrySetResult();
+                try
+                {
+                    await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    FirstValidationCancelled.TrySetResult();
+                    throw;
+                }
+            }
+            else if (propertyValue?.ToString() == "Second")
+            {
+                SecondValidationCompleted.TrySetResult();
+            }
+        }
+    }
+
+    private sealed class ValidateFormTestLogger : ILogger<BootstrapBlazorDataAnnotationsValidator>
+    {
+        public Exception? Exception { get; private set; }
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Exception = exception;
+        }
+    }
+#endif
+
+#if NET11_0_OR_GREATER
+    private sealed class MockAsyncValidatableModel : IAsyncValidatableObject
+    {
+        public string? Name { get; set; }
+
+        public bool AsyncValidated { get; private set; }
+
+        public bool SyncValidated { get; private set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            SyncValidated = true;
+            yield break;
+        }
+
+        public async IAsyncEnumerable<ValidationResult> ValidateAsync(
+            ValidationContext validationContext,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
+            AsyncValidated = true;
+            yield return new ValidationResult("Async validation failed", [nameof(Name)]);
+        }
+    }
+
+    private sealed class MockAsyncValidationAttributeModel
+    {
+        [MockAsyncValidation]
+        public string? Name { get; set; }
+    }
+
+    private sealed class MockAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override async Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
+            return new ValidationResult("Async attribute validation failed");
+        }
+    }
+
+    private sealed class MockAsyncModelError : IAsyncValidatableObject
+    {
+        public string? Name { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) => [];
+
+        public async IAsyncEnumerable<ValidationResult> ValidateAsync(
+            ValidationContext validationContext,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
+            yield return new ValidationResult("Model validation failed");
+        }
+    }
+#endif
 
     private class MockValidateCollectionModel : IValidateCollection
     {
