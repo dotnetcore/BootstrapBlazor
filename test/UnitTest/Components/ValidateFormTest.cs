@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         services.AddBootstrapBlazor();
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
+#if !NET11_0_OR_GREATER
+        services.AddSingleton<ILogger<BootstrapBlazorDataAnnotationsValidator>, ValidateFormTestLogger>();
+#endif
     }
 
     [Fact]
@@ -26,6 +30,64 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<BootstrapBlazorDataAnnotationsValidator>());
     }
+
+    [Fact]
+    public async Task OnValidationRequested_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+#if NET11_0_OR_GREATER
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(Xunit.TestContext.Current.CancellationToken));
+        Assert.False(valid);
+#else
+        await cut.InvokeAsync(() => editContext.Validate());
+#endif
+
+        cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
+    }
+
+#if !NET11_0_OR_GREATER
+    [Fact]
+    public async Task OnValidationRequested_Exception()
+    {
+        var logger = Assert.IsType<ValidateFormTestLogger>(
+            Context.Services.GetRequiredService<ILogger<BootstrapBlazorDataAnnotationsValidator>>());
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [new ThrowingValidator()]);
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+        await cut.InvokeAsync(() => editContext.Validate());
+
+        cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
+    }
+#endif
 
     [Fact]
     public async Task Validate_Ok()
@@ -682,6 +744,32 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
     }
 
+    [Fact]
+    public async Task IValidatableObject_ModelError()
+    {
+        var model = new MockModelError();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+        var messages = editContext.GetValidationMessages(new FieldIdentifier(model, string.Empty));
+        Assert.Equal(["Model validation failed"], messages);
+    }
+
 #if NET11_0_OR_GREATER
     [Fact]
     public async Task IAsyncValidatableObject_Ok()
@@ -964,6 +1052,47 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             }
         }
     }
+
+    private sealed class MockModelError : IValidatableObject
+    {
+        public string? Name { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            yield return new ValidationResult("Model validation failed");
+        }
+    }
+
+#if !NET11_0_OR_GREATER
+    private sealed class ThrowingValidator : ValidatorAsyncBase
+    {
+        public override Task ValidateAsync(
+            object? propertyValue,
+            ValidationContext context,
+            List<ValidationResult> results,
+            CancellationToken cancellationToken = default)
+            => throw new InvalidOperationException("Validation failed");
+    }
+
+    private sealed class ValidateFormTestLogger : ILogger<BootstrapBlazorDataAnnotationsValidator>
+    {
+        public Exception? Exception { get; private set; }
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            Exception = exception;
+        }
+    }
+#endif
 
 #if NET11_0_OR_GREATER
     private sealed class MockAsyncValidatableModel : IAsyncValidatableObject
