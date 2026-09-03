@@ -194,35 +194,37 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     private sealed class FieldValidationOperation
     {
-        private readonly CancellationTokenSource _tokenSource = new();
-        private int _cancellationRequested;
-        private int _completed;
+        private CancellationTokenSource? _tokenSource;
 
-        public CancellationToken Token => _tokenSource.Token;
+        public CancellationToken Token { get; }
 
-        public bool IsCancellationRequested => Volatile.Read(ref _cancellationRequested) == 1;
+        public bool IsCancellationRequested => Token.IsCancellationRequested;
+
+        public FieldValidationOperation()
+        {
+            _tokenSource = new();
+            Token = _tokenSource.Token;
+        }
 
         public void Cancel()
         {
-            Interlocked.Exchange(ref _cancellationRequested, 1);
-            if (Volatile.Read(ref _completed) == 0)
+            var tokenSource = Interlocked.Exchange(ref _tokenSource, null);
+            if (tokenSource != null)
             {
                 try
                 {
-                    _tokenSource.Cancel();
+                    tokenSource.Cancel();
                 }
-                catch (ObjectDisposedException) when (Volatile.Read(ref _completed) == 1)
+                finally
                 {
+                    tokenSource.Dispose();
                 }
             }
         }
 
         public void Complete()
         {
-            if (Interlocked.Exchange(ref _completed, 1) == 0)
-            {
-                _tokenSource.Dispose();
-            }
+            Interlocked.Exchange(ref _tokenSource, null)?.Dispose();
         }
     }
 #endif
