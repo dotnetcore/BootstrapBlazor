@@ -436,13 +436,14 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         && value.GetType().IsClass;
 
     /// <summary>
-    /// <para lang="zh">属性验证方法</para>
-    /// <para lang="en">Property validation method</para>
+    /// <para lang="zh">支持取消操作的属性验证方法</para>
+    /// <para lang="en">Validates the property asynchronously with cancellation support</para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public async Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results)
+    /// <param name="cancellationToken"></param>
+    public async Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default)
     {
         // 如果禁用移除验证信息
         if (IsNeedValidate)
@@ -457,7 +458,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 {
                     if (validator is IValidatorAsync v)
                     {
-                        await v.ValidateAsync(propertyValue, context, results);
+                        await v.ValidateAsync(propertyValue, context, results, cancellationToken);
                     }
                     else
                     {
@@ -477,7 +478,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 {
                     if (validator is IValidatorAsync v)
                     {
-                        await v.ValidateAsync(propertyValue, context, results);
+                        await v.ValidateAsync(propertyValue, context, results, cancellationToken);
                     }
                     else
                     {

@@ -24,5 +24,6 @@ public abstract class ValidatorAsyncBase : IValidatorAsync
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    public abstract Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    /// <param name="cancellationToken"></param>
+    public abstract Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default);
 }

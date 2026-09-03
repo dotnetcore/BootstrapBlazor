@@ -30,7 +30,8 @@ public interface IValidateComponent
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    /// <param name="cancellationToken"></param>
+    Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// <para lang="zh">显示或者隐藏提示信息方法</para>

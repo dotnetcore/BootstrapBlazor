@@ -18,5 +18,6 @@ public interface IValidatorAsync : IValidator
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
     /// <param name="results"></param>
-    Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results);
+    /// <param name="cancellationToken"></param>
+    Task ValidateAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default);
 }
