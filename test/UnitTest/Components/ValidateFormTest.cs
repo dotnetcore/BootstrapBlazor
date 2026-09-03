@@ -87,6 +87,75 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
     }
+
+    [Fact]
+    public async Task ValidateFieldAndCleanupAsync_Cancel()
+    {
+        var rule = new CancellableFieldValidator();
+        var foo = new Foo() { Name = "Initial" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, value => foo.Name = value);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [rule]);
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("First"));
+        await rule.FirstValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
+
+        await rule.FirstValidationCancelled.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.SecondValidationCompleted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
+            "_fieldValidationOperations",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var operations = Assert.IsAssignableFrom<System.Collections.IDictionary>(field?.GetValue(validator));
+        cut.WaitForAssertion(() => Assert.Empty(operations));
+    }
+
+    [Fact]
+    public async Task ValidateFieldAndCleanupAsync_OperationCancellation()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
+        var operationType = validatorType.GetNestedType(
+            "FieldValidationOperation",
+            System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(operationType);
+        var operation = Activator.CreateInstance(operationType, nonPublic: true);
+        Assert.NotNull(operation);
+        var method = validatorType.GetMethod(
+            "ValidateFieldAndCleanupAsync",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var cancelMethod = operationType.GetMethod(nameof(CancellationTokenSource.Cancel));
+        Assert.NotNull(cancelMethod);
+        cancelMethod.Invoke(operation, null);
+
+        await cut.InvokeAsync(async () =>
+        {
+            var validation = Assert.IsType<Task>(
+                method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
+            await validation;
+        });
+    }
 #endif
 
     [Fact]
@@ -1072,6 +1141,40 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             List<ValidationResult> results,
             CancellationToken cancellationToken = default)
             => throw new InvalidOperationException("Validation failed");
+    }
+
+    private sealed class CancellableFieldValidator : ValidatorAsyncBase
+    {
+        public TaskCompletionSource FirstValidationStarted { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public TaskCompletionSource FirstValidationCancelled { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public TaskCompletionSource SecondValidationCompleted { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public override async Task ValidateAsync(
+            object? propertyValue,
+            ValidationContext context,
+            List<ValidationResult> results,
+            CancellationToken cancellationToken = default)
+        {
+            if (propertyValue?.ToString() == "First")
+            {
+                FirstValidationStarted.TrySetResult();
+                try
+                {
+                    await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    FirstValidationCancelled.TrySetResult();
+                    throw;
+                }
+            }
+            else if (propertyValue?.ToString() == "Second")
+            {
+                SecondValidationCompleted.TrySetResult();
+            }
+        }
     }
 
     private sealed class ValidateFormTestLogger : ILogger<BootstrapBlazorDataAnnotationsValidator>
