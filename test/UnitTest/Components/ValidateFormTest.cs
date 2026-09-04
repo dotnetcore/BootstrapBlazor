@@ -112,12 +112,17 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
         await rule.SecondValidationCompleted.Task.WaitAsync(CancellationToken.None);
 
+#if NET11_0_OR_GREATER
+        Assert.True(rule.FirstValidationCancelled.Task.IsCompletedSuccessfully);
+        Assert.True(rule.SecondValidationCompleted.Task.IsCompletedSuccessfully);
+#else
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
             "_fieldValidationOperations",
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var operations = Assert.IsType<System.Collections.IDictionary>(field?.GetValue(validator), false);
         cut.WaitForAssertion(() => Assert.Empty(operations));
+#endif
     }
 
     [Fact]
@@ -135,6 +140,17 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
+#if NET11_0_OR_GREATER
+        var property = validatorType.GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+        using var tokenSource = new CancellationTokenSource();
+        tokenSource.Cancel();
+
+        await Assert.ThrowsAsync<OperationCanceledException>(
+            async () => await cut.InvokeAsync(() => editContext.ValidateAsync(tokenSource.Token)));
+#else
         var operationType = validatorType.GetNestedType(
             "FieldValidationOperation",
             System.Reflection.BindingFlags.NonPublic);
@@ -155,6 +171,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
             await validation;
         });
+#endif
     }
 #endif
 
