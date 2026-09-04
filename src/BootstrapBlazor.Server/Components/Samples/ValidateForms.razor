@@ -80,6 +80,43 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateFormAsyncValidatableObjectTitle"]" Introduction="@Localizer["ValidateFormAsyncValidatableObjectIntro"]" Name="AsyncValidatableObject">
+    <section ignore>
+        <p>@((MarkupString)Localizer["ValidateFormAsyncValidatableObjectDescription"].Value)</p>
+        <Pre class="mb-3">public sealed class UserModel : IAsyncValidatableObject
+{
+    public string? UserName { get; set; }
+
+    public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext context)
+        =&gt; [];
+
+    public async IAsyncEnumerable&lt;ValidationResult&gt; ValidateAsync(
+        ValidationContext context,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+        if (string.Equals(UserName, "Blazor", StringComparison.OrdinalIgnoreCase))
+        {
+            yield return new ValidationResult(
+                "The user name already exists.",
+                [nameof(UserName)]);
+        }
+    }
+}</Pre>
+    </section>
+
+    <ValidateForm Model="@AsyncValidatableModel">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@AsyncValidatableModel.UserName" DisplayText="@Localizer["AsyncValidationUserName"]" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" IsAsync="true" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ValidateFormInnerComponentTitle"]" Introduction="@Localizer["ValidateFormInnerComponentIntro"]" Name="InnerComponent">
     <section ignore>
         <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>
