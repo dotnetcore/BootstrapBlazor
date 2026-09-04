@@ -116,7 +116,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
             "_fieldValidationOperations",
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        var operations = Assert.IsAssignableFrom<System.Collections.IDictionary>(field?.GetValue(validator));
+        var operations = Assert.IsType<System.Collections.IDictionary>(field?.GetValue(validator), false);
         cut.WaitForAssertion(() => Assert.Empty(operations));
     }
 
