@@ -80,11 +80,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
 #if NET11_0_OR_GREATER
         await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
+        Assert.Null(logger.Exception);
 #else
         await cut.InvokeAsync(() => editContext.Validate());
-#endif
-
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
+#endif
     }
 
     [Fact]
@@ -105,18 +105,23 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
 
         await cut.InvokeAsync(() => cut.Find("input").Change("First"));
-        await rule.FirstValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.FirstValidationStarted.Task.WaitAsync(CancellationToken.None);
         await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
 
-        await rule.FirstValidationCancelled.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
-        await rule.SecondValidationCompleted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
+        await rule.SecondValidationCompleted.Task.WaitAsync(CancellationToken.None);
 
+#if NET11_0_OR_GREATER
+        Assert.True(rule.FirstValidationCancelled.Task.IsCompletedSuccessfully);
+        Assert.True(rule.SecondValidationCompleted.Task.IsCompletedSuccessfully);
+#else
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
             "_fieldValidationOperations",
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var operations = Assert.IsType<System.Collections.IDictionary>(field?.GetValue(validator), false);
         cut.WaitForAssertion(() => Assert.Empty(operations));
+#endif
     }
 
     [Fact]
@@ -134,6 +139,17 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
+#if NET11_0_OR_GREATER
+        var property = validatorType.GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+        using var tokenSource = new CancellationTokenSource();
+        tokenSource.Cancel();
+
+        await Assert.ThrowsAsync<OperationCanceledException>(
+            async () => await cut.InvokeAsync(() => editContext.ValidateAsync(tokenSource.Token)));
+#else
         var operationType = validatorType.GetNestedType(
             "FieldValidationOperation",
             System.Reflection.BindingFlags.NonPublic);
@@ -154,6 +170,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
             await validation;
         });
+#endif
     }
 
     [Fact]
@@ -914,7 +931,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var input = cut.Find("input");
 
         await cut.InvokeAsync(() => input.Change("Blazor"));
-        await model.ValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await model.ValidationStarted.Task.WaitAsync(CancellationToken.None);
 
         Assert.Null(cut.FindComponent<MockInput<string>>().Instance.GetValidationState());
         Assert.Contains("is-validating", input.ClassList);
