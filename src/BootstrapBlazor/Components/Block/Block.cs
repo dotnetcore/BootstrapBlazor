@@ -83,6 +83,7 @@ public class Block : BootstrapComponentBase
     {
         await base.OnParametersSetAsync();
 
+        IsShow = false;
         if (Users != null || Roles != null)
         {
             IsShow = await ProcessAuthorizeAsync();
