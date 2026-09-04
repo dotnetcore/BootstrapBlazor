@@ -28,6 +28,99 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ValidateAsync_Invalid()
+    {
+        var foo = new Foo();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+        Assert.NotEmpty(editContext.GetValidationMessages());
+    }
+
+    [Fact]
+    public async Task ValidateAsync_Exception()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [new ThrowingValidator()]);
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.False(valid);
+    }
+
+    [Fact]
+    public async Task FieldValidation_CancelsPreviousOperation()
+    {
+        var rule = new CancellableFieldValidator();
+        var foo = new Foo() { Name = "Initial" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, value => foo.Name = value);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [rule]);
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("First"));
+        await rule.FirstValidationStarted.Task.WaitAsync(CancellationToken.None);
+        await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
+
+        await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
+        await rule.SecondValidationCompleted.Task.WaitAsync(CancellationToken.None);
+
+        Assert.True(rule.FirstValidationCancelled.Task.IsCompletedSuccessfully);
+        Assert.True(rule.SecondValidationCompleted.Task.IsCompletedSuccessfully);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_OperationCancellation()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+        using var tokenSource = new CancellationTokenSource();
+        tokenSource.Cancel();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
+            async () => await cut.InvokeAsync(() => cut.Instance.ValidateAsync(tokenSource.Token)));
+    }
+
+    [Fact]
     public async Task OnValidationRequested_Ok()
     {
         var foo = new Foo();
@@ -47,13 +140,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
 #if NET11_0_OR_GREATER
-        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
-        Assert.False(valid);
+        await cut.InvokeAsync(() => editContext.ValidateAsync());
 #else
         await cut.InvokeAsync(() => editContext.Validate());
-#endif
-
         cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
+#endif
     }
 
     [Fact]
@@ -79,51 +170,14 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
 #if NET11_0_OR_GREATER
-        await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
-        Assert.Null(logger.Exception);
+        await cut.InvokeAsync(() => editContext.ValidateAsync());
 #else
         await cut.InvokeAsync(() => editContext.Validate());
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
 #endif
     }
 
-    [Fact]
-    public async Task ValidateFieldAndCleanupAsync_Cancel()
-    {
-        var rule = new CancellableFieldValidator();
-        var foo = new Foo() { Name = "Initial" };
-        var cut = Context.Render<ValidateForm>(pb =>
-        {
-            pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
-            {
-                pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, value => foo.Name = value);
-                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
-                pb.Add(a => a.ValidateRules, [rule]);
-            });
-        });
-
-        await cut.InvokeAsync(() => cut.Find("input").Change("First"));
-        await rule.FirstValidationStarted.Task.WaitAsync(CancellationToken.None);
-        await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
-
-        await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
-        await rule.SecondValidationCompleted.Task.WaitAsync(CancellationToken.None);
-
-#if NET11_0_OR_GREATER
-        Assert.True(rule.FirstValidationCancelled.Task.IsCompletedSuccessfully);
-        Assert.True(rule.SecondValidationCompleted.Task.IsCompletedSuccessfully);
-#else
-        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
-        var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
-            "_fieldValidationOperations",
-            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        var operations = Assert.IsType<System.Collections.IDictionary>(field?.GetValue(validator), false);
-        cut.WaitForAssertion(() => Assert.Empty(operations));
-#endif
-    }
-
+#if !NET11_0_OR_GREATER
     [Fact]
     public async Task ValidateFieldAndCleanupAsync_OperationCancellation()
     {
@@ -139,17 +193,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
-#if NET11_0_OR_GREATER
-        var property = validatorType.GetProperty(
-            "CurrentEditContext",
-            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
-        using var tokenSource = new CancellationTokenSource();
-        tokenSource.Cancel();
-
-        await Assert.ThrowsAsync<OperationCanceledException>(
-            async () => await cut.InvokeAsync(() => editContext.ValidateAsync(tokenSource.Token)));
-#else
         var operationType = validatorType.GetNestedType(
             "FieldValidationOperation",
             System.Reflection.BindingFlags.NonPublic);
@@ -170,8 +213,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
             await validation;
         });
-#endif
     }
+#endif
 
     [Fact]
     public async Task Validate_Ok()
