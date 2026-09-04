@@ -483,6 +483,7 @@ public partial class ValidateForm
         var validationRules = rules.ToList();
         memberName ??= propertyInfo.Name;
 
+        // 验证 RequiredAttribute 规则，确保必填项验证优先执行
         foreach (var rule in validationRules.Where(static rule => rule is RequiredAttribute))
         {
             var result = rule.GetValidationResult(value, context);
@@ -491,6 +492,7 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
+            // 验证非 RequiredAttribute 和非 AsyncValidationAttribute 规则
             foreach (var rule in validationRules.Where(static rule => rule is not RequiredAttribute and not AsyncValidationAttribute))
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -501,6 +503,7 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
+            // 验证 AsyncValidationAttribute 规则
             foreach (var rule in validationRules.OfType<AsyncValidationAttribute>())
             {
                 cancellationToken.ThrowIfCancellationRequested();

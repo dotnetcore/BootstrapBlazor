@@ -13,12 +13,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class ValidateForms
 {
-#if NET11_0_OR_GREATER
-    private const bool IsAsyncValidationSupported = true;
-#else
-    private const bool IsAsyncValidationSupported = false;
-#endif
-
     [NotNull]
     private Foo? Model1 { get; set; }
 
@@ -47,13 +41,10 @@ public partial class ValidateForms
     private sealed class AsyncValidationModel
     {
         [Required]
-#if NET11_0_OR_GREATER
         [UniqueUserName]
-#endif
         public string? UserName { get; set; }
     }
 
-#if NET11_0_OR_GREATER
     private sealed class UniqueUserNameAttribute : AsyncValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -70,7 +61,6 @@ public partial class ValidateForms
                 : ValidationResult.Success;
         }
     }
-#endif
 
     /// <summary>
     /// <inheritdoc/>
