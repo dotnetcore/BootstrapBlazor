@@ -87,7 +87,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 #endif
     }
 
-#if !NET11_0_OR_GREATER
     [Fact]
     public async Task ValidateFieldAndCleanupAsync_Cancel()
     {
@@ -173,7 +172,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
 #endif
     }
-#endif
 
     [Fact]
     public async Task Validate_Ok()
