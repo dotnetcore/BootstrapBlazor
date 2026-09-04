@@ -315,7 +315,7 @@ public partial class ValidateForm
         foreach (var validator in _validatorCache.Values)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await validator.ToggleMessage([]);
+            await validator.SetValidationPendingState();
         }
 
         _validateResults.Clear();
@@ -436,7 +436,7 @@ public partial class ValidateForm
                 if (validator.IsNeedValidate)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    await validator.ToggleMessage([]);
+                    await validator.SetValidationPendingState();
 
                     var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
                     if (pi != null)
@@ -483,7 +483,6 @@ public partial class ValidateForm
         var validationRules = rules.ToList();
         memberName ??= propertyInfo.Name;
 
-#if NET11_0_OR_GREATER
         foreach (var rule in validationRules.Where(static rule => rule is RequiredAttribute))
         {
             var result = rule.GetValidationResult(value, context);
@@ -502,24 +501,17 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
-            var validationTasks = validationRules
-                .OfType<AsyncValidationAttribute>()
-                .Select(async rule => (Rule: rule, Result: await rule.GetValidationResultAsync(value, context, cancellationToken)));
-            var validationResults = await Task.WhenAll(validationTasks);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            foreach (var (rule, result) in validationResults)
+            foreach (var rule in validationRules.OfType<AsyncValidationAttribute>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+                var result = await rule.GetValidationResultAsync(value, context, cancellationToken);
                 AddValidationResult(rule, result, context, results, memberName);
+                if (results.Count > 0)
+                {
+                    break;
+                }
             }
         }
-#else
-        foreach (var rule in validationRules)
-        {
-            var result = rule.GetValidationResult(value, context);
-            AddValidationResult(rule, result, context, results, memberName);
-        }
-#endif
     }
 
     private void AddValidationResult(ValidationAttribute rule, ValidationResult? result, ValidationContext context, List<ValidationResult> results, string memberName)

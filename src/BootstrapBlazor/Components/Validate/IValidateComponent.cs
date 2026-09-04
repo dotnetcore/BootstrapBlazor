@@ -34,6 +34,12 @@ public interface IValidateComponent
     Task ValidatePropertyAsync(object? propertyValue, ValidationContext context, List<ValidationResult> results, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// <para lang="zh">设置等待验证状态方法</para>
+    /// <para lang="en">Sets the pending validation state</para>
+    /// </summary>
+    Task SetValidationPendingState();
+
+    /// <summary>
     /// <para lang="zh">显示或者隐藏提示信息方法</para>
     /// <para lang="en">Shows or hides the validation message</para>
     /// </summary>

@@ -49,6 +49,39 @@
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
+<Block Condition="IsAsyncValidationSupported">
+    <DemoBlock Title="@Localizer["ValidateFormAsyncValidationTitle"]" Introduction="@Localizer["ValidateFormAsyncValidationIntro"]" Name="AsyncValidation">
+        <section ignore>
+            <p>@((MarkupString)Localizer["ValidateFormAsyncValidationDescription"].Value)</p>
+            <Pre class="mb-3">public sealed class UniqueUserNameAttribute : AsyncValidationAttribute
+{
+    protected override ValidationResult? IsValid(object? value, ValidationContext context)
+        =&gt; throw new InvalidOperationException("Synchronous validation is not supported.");
+
+    protected override async Task&lt;ValidationResult?&gt; IsValidAsync(
+        object? value, ValidationContext context, CancellationToken cancellationToken)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+        return string.Equals(value as string, "Blazor", StringComparison.OrdinalIgnoreCase)
+            ? new ValidationResult("The user name already exists.")
+            : ValidationResult.Success;
+    }
+}</Pre>
+        </section>
+
+        <ValidateForm Model="@AsyncModel">
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@AsyncModel.UserName" DisplayText="@Localizer["AsyncValidationUserName"]" />
+                </div>
+                <div class="col-12">
+                    <Button ButtonType="@ButtonType.Submit" IsAsync="true" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
+                </div>
+            </div>
+        </ValidateForm>
+    </DemoBlock>
+</Block>
+
 <DemoBlock Title="@Localizer["ValidateFormInnerComponentTitle"]" Introduction="@Localizer["ValidateFormInnerComponentIntro"]" Name="InnerComponent">
     <section ignore>
         <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>

@@ -6067,6 +6067,8 @@
     "Picture.Required": "{0} is required"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
+    "AsyncValidationError": "The user name already exists.",
+    "AsyncValidationUserName": "User name",
     "ChangeButtonText": "Change",
     "CustomValidationFormComment1": "Add mailbox validation rules",
     "CustomValidationFormComment2": "Used in Razor files",
@@ -6083,6 +6085,9 @@
     "OnValidSubmitStartingLog": "OnValidSubmit callback delegate: Starting ...",
     "ResetButtonText": "Reset",
     "ValidateButtonText": "Save",
+    "ValidateFormAsyncValidationDescription": ".NET 11 introduces <code>AsyncValidationAttribute</code> and <code>IAsyncValidatableObject</code>. Form submission waits for asynchronous validation to complete. This example simulates a database query with a one-second delay. The user name <code>Blazor</code> already exists; enter another value to pass validation. Customize the pending state with <code>--bb-validating-border-color</code>, <code>--bb-validating-animation-duration</code>, and <code>--bb-validating-box-shadow</code>.",
+    "ValidateFormAsyncValidationIntro": "Use the .NET 11 <code>AsyncValidationAttribute</code> for asynchronous validation such as database queries or remote API calls",
+    "ValidateFormAsyncValidationTitle": "Asynchronous validation (.NET 11+)",
     "ValidateFormComplexValidationDescription": "The second binding in this example is a super-complex type <code>ComplexModel.Dummy.Dummy2.Name</code> Empty the value, click <b>submit the form</b>validate the data. After the second text box verifies compliance, the error prompt is displayed again by calling the <code>SetError</code>",
     "ValidateFormComplexValidationIntro": "Supports any complex type of binding and validation",
     "ValidateFormComplexValidationPre": "ComplexForm.SetError('Dummy.Dummy2.Name','数据库中已存在');",
