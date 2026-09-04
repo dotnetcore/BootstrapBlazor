@@ -355,11 +355,9 @@ public partial class ValidateForm
                 results.AddRange(messages);
             }
 
-            // 验证 IValidatableObject
             if (results.Count == 0)
             {
                 var messages = new List<ValidationResult>();
-#if NET11_0_OR_GREATER
                 IAsyncValidatableObject? asyncValidate;
                 if (context.ObjectInstance is IAsyncValidatableObject asyncValidatableObject)
                 {
@@ -372,13 +370,13 @@ public partial class ValidateForm
 
                 if (asyncValidate != null)
                 {
+                    // 验证 IAsyncValidatableObject
                     await foreach (var message in asyncValidate.ValidateAsync(context, cancellationToken).WithCancellation(cancellationToken))
                     {
                         messages.Add(message);
                     }
                 }
                 else
-#endif
                 {
                     IValidatableObject? validate;
                     if (context.ObjectInstance is IValidatableObject v)
@@ -391,6 +389,7 @@ public partial class ValidateForm
                     }
                     if (validate != null)
                     {
+                        // 验证 IValidatableObject
                         messages.AddRange(validate.Validate(context));
                     }
                 }
@@ -483,7 +482,7 @@ public partial class ValidateForm
         var validationRules = rules.ToList();
         memberName ??= propertyInfo.Name;
 
-#if NET11_0_OR_GREATER
+        // 验证 RequiredAttribute 规则，确保必填项验证优先执行
         foreach (var rule in validationRules.Where(static rule => rule is RequiredAttribute))
         {
             var result = rule.GetValidationResult(value, context);
@@ -492,6 +491,7 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
+            // 验证非 RequiredAttribute 和非 AsyncValidationAttribute 规则
             foreach (var rule in validationRules.Where(static rule => rule is not RequiredAttribute and not AsyncValidationAttribute))
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -502,24 +502,18 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
-            var validationTasks = validationRules
-                .OfType<AsyncValidationAttribute>()
-                .Select(async rule => (Rule: rule, Result: await rule.GetValidationResultAsync(value, context, cancellationToken)));
-            var validationResults = await Task.WhenAll(validationTasks);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            foreach (var (rule, result) in validationResults)
+            // 验证 AsyncValidationAttribute 规则
+            foreach (var rule in validationRules.OfType<AsyncValidationAttribute>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+                var result = await rule.GetValidationResultAsync(value, context, cancellationToken);
                 AddValidationResult(rule, result, context, results, memberName);
+                if (results.Count > 0)
+                {
+                    break;
+                }
             }
         }
-#else
-        foreach (var rule in validationRules)
-        {
-            var result = rule.GetValidationResult(value, context);
-            AddValidationResult(rule, result, context, results, memberName);
-        }
-#endif
     }
 
     private void AddValidationResult(ValidationAttribute rule, ValidationResult? result, ValidationContext context, List<ValidationResult> results, string memberName)

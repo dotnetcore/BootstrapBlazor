@@ -8,9 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
-#if NET11_0_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 
 namespace UnitTest.Components;
 
@@ -20,9 +18,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         services.AddBootstrapBlazor();
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
-#if !NET11_0_OR_GREATER
         services.AddSingleton<ILogger<BootstrapBlazorDataAnnotationsValidator>, ValidateFormTestLogger>();
-#endif
     }
 
     [Fact]
@@ -51,7 +47,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
 #if NET11_0_OR_GREATER
-        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(Xunit.TestContext.Current.CancellationToken));
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
         Assert.False(valid);
 #else
         await cut.InvokeAsync(() => editContext.Validate());
@@ -60,7 +56,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
     }
 
-#if !NET11_0_OR_GREATER
     [Fact]
     public async Task OnValidationRequested_Exception()
     {
@@ -83,7 +78,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
+#if NET11_0_OR_GREATER
+        await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
+#else
         await cut.InvokeAsync(() => editContext.Validate());
+#endif
 
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
     }
@@ -116,7 +115,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
             "_fieldValidationOperations",
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        var operations = Assert.IsAssignableFrom<System.Collections.IDictionary>(field?.GetValue(validator));
+        var operations = Assert.IsType<System.Collections.IDictionary>(field?.GetValue(validator), false);
         cut.WaitForAssertion(() => Assert.Empty(operations));
     }
 
@@ -156,7 +155,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             await validation;
         });
     }
-#endif
 
     [Fact]
     public async Task Validate_Ok()
@@ -839,7 +837,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.Equal(["Model validation failed"], messages);
     }
 
-#if NET11_0_OR_GREATER
     [Fact]
     public async Task IAsyncValidatableObject_Ok()
     {
@@ -860,6 +857,24 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.True(model.AsyncValidated);
         Assert.False(model.SyncValidated);
         Assert.Equal("Async validation failed", cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
+    }
+
+    [Fact]
+    public async Task IAsyncValidatableObject_ModelError()
+    {
+        var model = new MockAsyncModelError();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+        Assert.False(valid);
     }
 
     [Fact]
@@ -914,9 +929,37 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IAsyncValidatableObject_ModelError()
+    public async Task AsyncValidationAttribute_CancelBeforeValidation()
     {
-        var model = new MockAsyncModelError();
+        var model = new MockCancelBeforeAsyncValidationAttributeModel();
+        MockCancelableAsyncValidationAttribute.Reset();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        try
+        {
+            await Assert.ThrowsAsync<OperationCanceledException>(async () => await cut.InvokeAsync(() => cut.Instance.ValidateAsync(model.TokenSource.Token)));
+            Assert.Equal(0, MockCancelableAsyncValidationAttribute.ValidateCount);
+        }
+        finally
+        {
+            model.TokenSource.Dispose();
+        }
+    }
+
+    [Fact]
+    public async Task AsyncValidationAttribute_AllPassed()
+    {
+        var model = new MockSuccessAsyncValidationAttributeModel();
+        MockFirstSuccessAsyncValidationAttribute.Reset();
+        MockSecondSuccessAsyncValidationAttribute.Reset();
         var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
@@ -929,9 +972,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
 
-        Assert.False(valid);
+        Assert.True(valid);
+        Assert.Equal(1, MockFirstSuccessAsyncValidationAttribute.ValidateCount);
+        Assert.Equal(1, MockSecondSuccessAsyncValidationAttribute.ValidateCount);
+        Assert.Null(cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
     }
-#endif
 
     [Fact]
     public async Task IValidateCollection_Ok()
@@ -1163,7 +1208,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         }
     }
 
-#if !NET11_0_OR_GREATER
     private sealed class ThrowingValidator : ValidatorAsyncBase
     {
         public override Task ValidateAsync(
@@ -1226,9 +1270,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             Exception = exception;
         }
     }
-#endif
 
-#if NET11_0_OR_GREATER
     private sealed class MockAsyncValidatableModel : IAsyncValidatableObject
     {
         public string? Name { get; set; }
@@ -1251,6 +1293,22 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             cancellationToken.ThrowIfCancellationRequested();
             AsyncValidated = true;
             yield return new ValidationResult("Async validation failed", [nameof(Name)]);
+        }
+    }
+
+    private sealed class MockAsyncModelError : IAsyncValidatableObject
+    {
+        public string? Name { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) => [];
+
+        public async IAsyncEnumerable<ValidationResult> ValidateAsync(
+            ValidationContext validationContext,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            await Task.Yield();
+            cancellationToken.ThrowIfCancellationRequested();
+            yield return new ValidationResult("Model validation failed");
         }
     }
 
@@ -1286,6 +1344,22 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         public TaskCompletionSource ContinueValidation { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
+    private sealed class MockCancelBeforeAsyncValidationAttributeModel
+    {
+        [MockCancelBeforeAsyncValidation]
+        [MockCancelableAsyncValidation]
+        public string? Name { get; set; }
+
+        public CancellationTokenSource TokenSource { get; } = new();
+    }
+
+    private sealed class MockSuccessAsyncValidationAttributeModel
+    {
+        [MockFirstSuccessAsyncValidation]
+        [MockSecondSuccessAsyncValidation]
+        public string? Name { get; set; } = "Test";
+    }
+
     private sealed class MockPendingAsyncValidationAttribute : AsyncValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -1303,22 +1377,72 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         }
     }
 
-    private sealed class MockAsyncModelError : IAsyncValidatableObject
+    private sealed class MockCancelBeforeAsyncValidationAttribute : ValidationAttribute
     {
-        public string? Name { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) => [];
-
-        public async IAsyncEnumerable<ValidationResult> ValidateAsync(
-            ValidationContext validationContext,
-            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            await Task.Yield();
-            cancellationToken.ThrowIfCancellationRequested();
-            yield return new ValidationResult("Model validation failed");
+            var model = (MockCancelBeforeAsyncValidationAttributeModel)validationContext.ObjectInstance;
+            model.TokenSource.Cancel();
+            return ValidationResult.Success;
         }
     }
-#endif
+
+    private sealed class MockCancelableAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
+        }
+    }
+
+    private sealed class MockFirstSuccessAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
+        }
+    }
+
+    private sealed class MockSecondSuccessAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
+        }
+    }
 
     private class MockValidateCollectionModel : IValidateCollection
     {
