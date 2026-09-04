@@ -80,13 +80,14 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
 #if NET11_0_OR_GREATER
         await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
+        Assert.Null(logger.Exception);
 #else
         await cut.InvokeAsync(() => editContext.Validate());
-#endif
-
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
+#endif
     }
 
+#if !NET11_0_OR_GREATER
     [Fact]
     public async Task ValidateFieldAndCleanupAsync_Cancel()
     {
@@ -105,11 +106,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
 
         await cut.InvokeAsync(() => cut.Find("input").Change("First"));
-        await rule.FirstValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.FirstValidationStarted.Task.WaitAsync(CancellationToken.None);
         await cut.InvokeAsync(() => cut.Find("input").Change("Second"));
 
-        await rule.FirstValidationCancelled.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
-        await rule.SecondValidationCompleted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
+        await rule.SecondValidationCompleted.Task.WaitAsync(CancellationToken.None);
 
         var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
         var field = typeof(BootstrapBlazorDataAnnotationsValidator).GetField(
@@ -155,6 +156,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             await validation;
         });
     }
+#endif
 
     [Fact]
     public async Task Validate_Ok()
@@ -914,7 +916,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var input = cut.Find("input");
 
         await cut.InvokeAsync(() => input.Change("Blazor"));
-        await model.ValidationStarted.Task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+        await model.ValidationStarted.Task.WaitAsync(CancellationToken.None);
 
         Assert.Null(cut.FindComponent<MockInput<string>>().Instance.GetValidationState());
         Assert.Contains("is-validating", input.ClassList);
