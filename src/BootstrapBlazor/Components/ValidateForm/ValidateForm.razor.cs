@@ -355,11 +355,9 @@ public partial class ValidateForm
                 results.AddRange(messages);
             }
 
-            // 验证 IValidatableObject
             if (results.Count == 0)
             {
                 var messages = new List<ValidationResult>();
-#if NET11_0_OR_GREATER
                 IAsyncValidatableObject? asyncValidate;
                 if (context.ObjectInstance is IAsyncValidatableObject asyncValidatableObject)
                 {
@@ -372,13 +370,13 @@ public partial class ValidateForm
 
                 if (asyncValidate != null)
                 {
+                    // 验证 IAsyncValidatableObject
                     await foreach (var message in asyncValidate.ValidateAsync(context, cancellationToken).WithCancellation(cancellationToken))
                     {
                         messages.Add(message);
                     }
                 }
                 else
-#endif
                 {
                     IValidatableObject? validate;
                     if (context.ObjectInstance is IValidatableObject v)
@@ -391,6 +389,7 @@ public partial class ValidateForm
                     }
                     if (validate != null)
                     {
+                        // 验证 IValidatableObject
                         messages.AddRange(validate.Validate(context));
                     }
                 }
