@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
+
 namespace UnitTest.Components;
 
 public class BlockTest : TestBase
@@ -52,12 +55,47 @@ public class BlockTest : TestBase
         Assert.Equal("", cut.Markup);
     }
 
+    [Fact]
+    public void ResetCondition_Ok()
+    {
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Condition, true);
+            builder.Add(a => a.ChildContent, BuildComponent());
+        });
+
+        cut.Render(parameters => parameters
+            .Add(a => a.Condition, null)
+            .Add(a => a.ChildContent, BuildComponent()));
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void NullIdentity_HidesContent_Ok()
+    {
+        Context.Services.AddSingleton<AuthenticationStateProvider, NullIdentityAuthenticationStateProvider>();
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["Admin"]);
+            builder.Add(a => a.ChildContent, BuildComponent());
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
     internal static RenderFragment BuildComponent() => builder =>
     {
         builder.OpenElement(0, "div");
         builder.AddContent(1, "test");
         builder.CloseElement();
     };
+
+    private sealed class NullIdentityAuthenticationStateProvider : AuthenticationStateProvider
+    {
+        public override Task<AuthenticationState> GetAuthenticationStateAsync() => Task.FromResult(new AuthenticationState(new ClaimsPrincipal()));
+    }
 }
 
 public class BlockAuthorizationTest : AuthorizationViewTestBase
@@ -69,7 +107,7 @@ public class BlockAuthorizationTest : AuthorizationViewTestBase
 
         var cut = Context.Render<Block>(builder =>
         {
-            builder.Add(a => a.Users, new List<string>() { "Admin" });
+            builder.Add(a => a.Users, ["Admin"]);
             builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
         });
         Assert.Equal("<div>test</div>", cut.Markup);
@@ -82,9 +120,146 @@ public class BlockAuthorizationTest : AuthorizationViewTestBase
 
         var cut = Context.Render<Block>(builder =>
         {
-            builder.Add(a => a.Roles, new List<string>() { "Administrators" });
+            builder.Add(a => a.Roles, ["Administrators"]);
             builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
         });
         Assert.Equal("<div>test</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void Users_NotEmpty_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["User", "Admin"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("<div>test</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void Roles_NotEmpty_Ok()
+    {
+        AuthorizationContext.SetRoles("Administrators");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Roles, ["Users", "Administrators"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("<div>test</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void UsersAndRoles_Match_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+        AuthorizationContext.SetRoles("Administrators");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["Admin"]);
+            builder.Add(a => a.Roles, ["Administrators"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("<div>test</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void UsersAndRoles_RequireBoth_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["Admin"]);
+            builder.Add(a => a.Roles, ["Administrators"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void UserMismatch_HidesContent_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["User"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void RoleMismatch_HidesContent_Ok()
+    {
+        AuthorizationContext.SetRoles("Users");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Roles, ["Administrators"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void UnauthorizedUser_HidesContent_Ok()
+    {
+        AuthorizationContext.SetNotAuthorized();
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, ["Admin"]);
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void EmptyUsers_DoesNotRestrict_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, Array.Empty<string>());
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("<div>test</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void Users_EnumeratedOnce_Ok()
+    {
+        AuthorizationContext.SetAuthorized("Admin");
+        var enumerationCount = 0;
+
+        IEnumerable<string> Users()
+        {
+            enumerationCount++;
+            yield return "Admin";
+        }
+
+        var cut = Context.Render<Block>(builder =>
+        {
+            builder.Add(a => a.Users, Users());
+            builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
+        });
+
+        Assert.Equal("<div>test</div>", cut.Markup);
+        Assert.Equal(1, enumerationCount);
     }
 }

@@ -37,15 +37,15 @@ public class Block : BootstrapComponentBase
     public IEnumerable<string>? Users { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示此 Block 默认显示 返回 true 时显示</para>
-    /// <para lang="en">Gets or sets whether to show this Block. Default is true</para>
+    /// <para lang="zh">获得/设置 是否显示此 Block 设置 true 时显示</para>
+    /// <para lang="en">Gets or sets whether to show this Block. The content is shown when set to true</para>
     /// </summary>
     [Parameter]
     public Func<string?, Task<bool>>? OnQueryCondition { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示此 Block 默认显示 null 未参与判断 设置 true 时显示</para>
-    /// <para lang="en">Gets or sets whether to show this Block. Default is null (not participating in judgment). Show if set to true</para>
+    /// <para lang="zh">获得/设置 是否显示此 Block 默认值为 null（不参与判断），未设置任何判断条件时不显示</para>
+    /// <para lang="en">Gets or sets whether to show this Block. Default is null (not participating in judgment); the content is hidden when no condition is configured</para>
     /// </summary>
     [Parameter]
     public bool? Condition { get; set; }
@@ -100,34 +100,42 @@ public class Block : BootstrapComponentBase
 
     private async Task<bool> ProcessAuthorizeAsync()
     {
-        bool isAuthenticated = false;
-        AuthenticationState? state = null;
+        var ret = false;
+
         var provider = ServiceProvider.GetService<AuthenticationStateProvider>();
         if (provider != null)
         {
-            state = await provider.GetAuthenticationStateAsync();
+            var state = await provider.GetAuthenticationStateAsync();
+            var user = state.User;
+            if (user.Identity is { IsAuthenticated: true })
+            {
+                ret = IsAllowed(Users, i => i.Equals(user.Identity.Name, StringComparison.OrdinalIgnoreCase)) && IsAllowed(Roles, user.IsInRole);
+            }
         }
-        if (state != null)
+
+        return ret;
+    }
+
+    private static bool IsAllowed(IEnumerable<string>? values, Func<string, bool> predicate)
+    {
+        // 为空是直接返回 true 允许
+        if (values == null)
         {
-            var identity = state.User.Identity;
-            if (identity != null)
-            {
-                isAuthenticated = identity.IsAuthenticated;
-            }
+            return true;
         }
-        if (isAuthenticated)
+
+        var hasValue = false;
+        foreach (var value in values)
         {
-            if (Users?.Any() ?? false)
+            hasValue = true;
+            if (predicate(value))
             {
-                var userName = state!.User.Identity!.Name;
-                isAuthenticated = Users.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase));
-            }
-            if (Roles?.Any() ?? false)
-            {
-                isAuthenticated = Roles.Any(i => state!.User.IsInRole(i));
+                return true;
             }
         }
-        return isAuthenticated;
+
+        // values 集合为空时返回 true 允许
+        return !hasValue;
     }
 
     /// <summary>
