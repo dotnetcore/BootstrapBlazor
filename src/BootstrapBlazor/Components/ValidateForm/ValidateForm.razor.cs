@@ -501,15 +501,15 @@ public partial class ValidateForm
 
         if (results.Count == 0)
         {
-            var validationTasks = validationRules
-                .OfType<AsyncValidationAttribute>()
-                .Select(async rule => (Rule: rule, Result: await rule.GetValidationResultAsync(value, context, cancellationToken)));
-            var validationResults = await Task.WhenAll(validationTasks);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            foreach (var (rule, result) in validationResults)
+            foreach (var rule in validationRules.OfType<AsyncValidationAttribute>())
             {
+                cancellationToken.ThrowIfCancellationRequested();
+                var result = await rule.GetValidationResultAsync(value, context, cancellationToken);
                 AddValidationResult(rule, result, context, results, memberName);
+                if (results.Count > 0)
+                {
+                    break;
+                }
             }
         }
     }
