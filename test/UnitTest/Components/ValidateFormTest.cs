@@ -8,9 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
-#if NET11_0_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 
 namespace UnitTest.Components;
 
@@ -20,9 +18,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         services.AddBootstrapBlazor();
         services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
-#if !NET11_0_OR_GREATER
         services.AddSingleton<ILogger<BootstrapBlazorDataAnnotationsValidator>, ValidateFormTestLogger>();
-#endif
     }
 
     [Fact]
@@ -51,7 +47,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
 #if NET11_0_OR_GREATER
-        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(Xunit.TestContext.Current.CancellationToken));
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
         Assert.False(valid);
 #else
         await cut.InvokeAsync(() => editContext.Validate());
@@ -60,7 +56,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
     }
 
-#if !NET11_0_OR_GREATER
     [Fact]
     public async Task OnValidationRequested_Exception()
     {
@@ -83,7 +78,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
+#if NET11_0_OR_GREATER
+        await cut.InvokeAsync(() => editContext.ValidateAsync(CancellationToken.None));
+#else
         await cut.InvokeAsync(() => editContext.Validate());
+#endif
 
         cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
     }
@@ -156,7 +155,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             await validation;
         });
     }
-#endif
 
     [Fact]
     public async Task Validate_Ok()
@@ -839,7 +837,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.Equal(["Model validation failed"], messages);
     }
 
-#if NET11_0_OR_GREATER
     [Fact]
     public async Task IAsyncValidatableObject_Ok()
     {
@@ -861,7 +858,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.False(model.SyncValidated);
         Assert.Equal("Async validation failed", cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
     }
-    
+
     [Fact]
     public async Task IAsyncValidatableObject_ModelError()
     {
@@ -877,10 +874,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
 
         var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
-
         Assert.False(valid);
     }
-#endif
 
     [Fact]
     public async Task AsyncValidationAttribute_Ok()
@@ -1213,7 +1208,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         }
     }
 
-#if !NET11_0_OR_GREATER
     private sealed class ThrowingValidator : ValidatorAsyncBase
     {
         public override Task ValidateAsync(
@@ -1276,9 +1270,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             Exception = exception;
         }
     }
-#endif
 
-#if NET11_0_OR_GREATER
     private sealed class MockAsyncValidatableModel : IAsyncValidatableObject
     {
         public string? Name { get; set; }
@@ -1319,7 +1311,6 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             yield return new ValidationResult("Model validation failed");
         }
     }
-#endif
 
     private sealed class MockAsyncValidationAttributeModel
     {
