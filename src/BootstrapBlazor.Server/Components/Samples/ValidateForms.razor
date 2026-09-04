@@ -54,17 +54,17 @@
         <p>@((MarkupString)Localizer["ValidateFormAsyncValidationDescription"].Value)</p>
         <Pre class="mb-3">public sealed class UniqueUserNameAttribute : AsyncValidationAttribute
 {
-protected override ValidationResult? IsValid(object? value, ValidationContext context)
-    =&gt; throw new InvalidOperationException("Synchronous validation is not supported.");
+    protected override ValidationResult? IsValid(object? value, ValidationContext context)
+        =&gt; throw new InvalidOperationException("Synchronous validation is not supported.");
 
-protected override async Task&lt;ValidationResult?&gt; IsValidAsync(
-    object? value, ValidationContext context, CancellationToken cancellationToken)
-{
-    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-    return string.Equals(value as string, "Blazor", StringComparison.OrdinalIgnoreCase)
-        ? new ValidationResult("The user name already exists.")
-        : ValidationResult.Success;
-}
+    protected override async Task&lt;ValidationResult?&gt; IsValidAsync(
+        object? value, ValidationContext context, CancellationToken cancellationToken)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+        return string.Equals(value as string, "Blazor", StringComparison.OrdinalIgnoreCase)
+            ? new ValidationResult("The user name already exists.")
+            : ValidationResult.Success;
+    }
 }</Pre>
     </section>
 
