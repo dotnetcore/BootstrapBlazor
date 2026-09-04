@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -38,6 +39,8 @@ public partial class ValidateForms
 
     private AsyncValidationModel AsyncModel { get; } = new() { UserName = "Blazor" };
 
+    private AsyncValidatableObjectModel AsyncValidatableModel { get; } = new() { UserName = "Blazor" };
+
     private sealed class AsyncValidationModel
     {
         [Required]
@@ -59,6 +62,26 @@ public partial class ValidateForms
             return string.Equals(value as string, "Blazor", StringComparison.OrdinalIgnoreCase)
                 ? new ValidationResult(validationContext.GetRequiredService<IStringLocalizer<ValidateForms>>()["AsyncValidationError"])
                 : ValidationResult.Success;
+        }
+    }
+
+    private sealed class AsyncValidatableObjectModel : IAsyncValidatableObject
+    {
+        public string? UserName { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) => [];
+
+        public async IAsyncEnumerable<ValidationResult> ValidateAsync(
+            ValidationContext validationContext,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            if (string.Equals(UserName, "Blazor", StringComparison.OrdinalIgnoreCase))
+            {
+                yield return new ValidationResult(
+                    validationContext.GetRequiredService<IStringLocalizer<ValidateForms>>()["AsyncValidationError"],
+                    [nameof(UserName)]);
+            }
         }
     }
 
