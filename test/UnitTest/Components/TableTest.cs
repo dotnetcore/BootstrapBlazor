@@ -9381,6 +9381,128 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ReloadColumnWidth_FixedColumnOffsetWithoutWidth_Ok()
+    {
+        // 持久化列状态中未保存列宽 此时固定列偏移量优先使用列自身 Width 未设置时使用 DefaultFixedColumnWidth
+        var state = new TableColumnClientStatus()
+        {
+            TableWidth = 1000,
+            Columns =
+            [
+                new() { Name = nameof(Foo.Name), Visible = true },
+                new() { Name = nameof(Foo.Count), Visible = true },
+                new() { Name = nameof(Foo.Complete), Visible = true },
+                new() { Name = nameof(Foo.Address), Visible = true },
+                new() { Name = nameof(Foo.DateTime), Visible = true },
+                new() { Name = nameof(Foo.Education), Visible = true },
+                new() { Name = nameof(Foo.Hobby), Visible = true }
+            ]
+        };
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_fixed_column_offset_without_width").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_fixed_column_offset_without_width");
+                pb.Add(a => a.DefaultFixedColumnWidth, 180);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    // 固定列 设置 Width 100
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(4, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    // 固定列 未设置 Width
+                    builder.OpenComponent<TableColumn<Foo, int>>(5);
+                    builder.AddAttribute(6, "Field", foo.Count);
+                    builder.AddAttribute(7, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(8, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(9);
+                    builder.AddAttribute(10, "Field", foo.Complete);
+                    builder.AddAttribute(11, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(12, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    // 非固定列 后续固定列均为右固定列
+                    builder.OpenComponent<TableColumn<Foo, string>>(13);
+                    builder.AddAttribute(14, "Field", foo.Address);
+                    builder.AddAttribute(15, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(16);
+                    builder.AddAttribute(17, "Field", foo.DateTime);
+                    builder.AddAttribute(18, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.AddAttribute(19, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    // 固定列 设置 Width 130
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(20);
+                    builder.AddAttribute(21, "Field", foo.Education);
+                    builder.AddAttribute(22, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(23, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(24, nameof(TableColumn<,>.Width), 130);
+                    builder.CloseComponent();
+
+                    // 固定列 未设置 Width
+                    builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(25);
+                    builder.AddAttribute(26, "Field", foo.Hobby);
+                    builder.AddAttribute(27, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Hobby), typeof(IEnumerable<string>)));
+                    builder.AddAttribute(28, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // Name 列持久化列宽为空 使用列自身 Width 100
+        Assert.Contains("left: 100px;", cut.Find($"th[data-bb-field='{nameof(Foo.Count)}']").GetAttribute("style"));
+
+        // Count 列持久化列宽与自身 Width 均为空 使用 DefaultFixedColumnWidth 180
+        Assert.Contains("left: 280px;", cut.Find($"th[data-bb-field='{nameof(Foo.Complete)}']").GetAttribute("style"));
+
+        // Education 列使用自身 Width 130 Hobby 列使用 DefaultFixedColumnWidth 180
+        Assert.Contains("right: 310px;", cut.Find($"th[data-bb-field='{nameof(Foo.DateTime)}']").GetAttribute("style"));
+        Assert.Contains("right: 180px;", cut.Find($"th[data-bb-field='{nameof(Foo.Education)}']").GetAttribute("style"));
+        Assert.Contains("right: 0px;", cut.Find($"th[data-bb-field='{nameof(Foo.Hobby)}']").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void GetFixedColumnWidth_WithoutColumnState_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.DefaultFixedColumnWidth, 180);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+            });
+        });
+
+        // 列状态集合中不存在指定列时的兜底逻辑 由于渲染前会重建列状态集合 此处通过反射直接调用私有方法模拟
+        var table = cut.FindComponent<Table<Foo>>();
+        var method = table.Instance.GetType().GetMethod("GetFixedColumnWidth", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(method);
+
+        // 使用列自身 Width
+        var width = (int)method.Invoke(table.Instance, [new InternalTableColumn("NotExists", typeof(string)) { Width = 120 }])!;
+        Assert.Equal(120, width);
+
+        // 列自身 Width 为空 使用 DefaultFixedColumnWidth
+        width = (int)method.Invoke(table.Instance, [new InternalTableColumn("NotExists", typeof(string))])!;
+        Assert.Equal(180, width);
+    }
+
+    [Fact]
     public async Task OnLoadTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();
