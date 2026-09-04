@@ -93,6 +93,15 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
             var valid = await ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken);
             return synchronousValid && valid && !CurrentEditContext.GetValidationMessages().Any();
         }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "An exception occurred while validating the form.");
+            return false;
+        }
         finally
         {
             _validationLock.Release();
