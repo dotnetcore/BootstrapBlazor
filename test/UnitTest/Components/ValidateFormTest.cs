@@ -934,6 +934,56 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AsyncValidationAttribute_CancelBeforeValidation()
+    {
+        var model = new MockCancelBeforeAsyncValidationAttributeModel();
+        MockCancelableAsyncValidationAttribute.Reset();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        try
+        {
+            await Assert.ThrowsAsync<OperationCanceledException>(async () => await cut.InvokeAsync(() => cut.Instance.ValidateAsync(model.TokenSource.Token)));
+            Assert.Equal(0, MockCancelableAsyncValidationAttribute.ValidateCount);
+        }
+        finally
+        {
+            model.TokenSource.Dispose();
+        }
+    }
+
+    [Fact]
+    public async Task AsyncValidationAttribute_AllPassed()
+    {
+        var model = new MockSuccessAsyncValidationAttributeModel();
+        MockFirstSuccessAsyncValidationAttribute.Reset();
+        MockSecondSuccessAsyncValidationAttribute.Reset();
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
+            });
+        });
+
+        var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
+
+        Assert.True(valid);
+        Assert.Equal(1, MockFirstSuccessAsyncValidationAttribute.ValidateCount);
+        Assert.Equal(1, MockSecondSuccessAsyncValidationAttribute.ValidateCount);
+        Assert.Null(cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage());
+    }
+
+    [Fact]
     public async Task IValidateCollection_Ok()
     {
         var model = new MockValidateCollectionModel() { Telephone1 = "123", Telephone2 = "123" };
@@ -1303,6 +1353,22 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         public TaskCompletionSource ContinueValidation { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
+    private sealed class MockCancelBeforeAsyncValidationAttributeModel
+    {
+        [MockCancelBeforeAsyncValidation]
+        [MockCancelableAsyncValidation]
+        public string? Name { get; set; }
+
+        public CancellationTokenSource TokenSource { get; } = new();
+    }
+
+    private sealed class MockSuccessAsyncValidationAttributeModel
+    {
+        [MockFirstSuccessAsyncValidation]
+        [MockSecondSuccessAsyncValidation]
+        public string? Name { get; set; } = "Test";
+    }
+
     private sealed class MockPendingAsyncValidationAttribute : AsyncValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -1317,6 +1383,73 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             model.ValidationStarted.TrySetResult();
             await model.ContinueValidation.Task.WaitAsync(cancellationToken);
             return new ValidationResult("Async attribute validation failed");
+        }
+    }
+
+    private sealed class MockCancelBeforeAsyncValidationAttribute : ValidationAttribute
+    {
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        {
+            var model = (MockCancelBeforeAsyncValidationAttributeModel)validationContext.ObjectInstance;
+            model.TokenSource.Cancel();
+            return ValidationResult.Success;
+        }
+    }
+
+    private sealed class MockCancelableAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
+        }
+    }
+
+    private sealed class MockFirstSuccessAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
+        }
+    }
+
+    private sealed class MockSecondSuccessAsyncValidationAttribute : AsyncValidationAttribute
+    {
+        public static int ValidateCount { get; private set; }
+
+        public static void Reset() => ValidateCount = 0;
+
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("The synchronous validation path should not be used.");
+
+        protected override Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            ValidateCount++;
+            return Task.FromResult<ValidationResult?>(ValidationResult.Success);
         }
     }
 
