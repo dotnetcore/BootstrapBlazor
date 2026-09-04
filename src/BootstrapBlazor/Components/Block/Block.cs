@@ -77,8 +77,7 @@ public class Block : BootstrapComponentBase
     private bool IsShow { get; set; }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSetAsync 方法</para>
-    /// <para lang="en">OnParametersSetAsync method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
