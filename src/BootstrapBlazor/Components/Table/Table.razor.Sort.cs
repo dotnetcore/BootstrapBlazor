@@ -377,7 +377,8 @@ public partial class Table<TItem>
         while (index > start)
         {
             var column = columns[start++];
-            width += column.Width ?? defaultWidth;
+            var colLong = _tableColumnStates.FirstOrDefault(x => x.Name == column.GetFieldName());
+            width += colLong?.Width ?? (column.Width ?? defaultWidth);
         }
         return $"left: {width}px;";
     }
@@ -393,7 +394,8 @@ public partial class Table<TItem>
         for (var i = index + 1; i < columns.Count; i++)
         {
             var column = columns[i];
-            width += column.Width ?? defaultWidth;
+            var colLong = _tableColumnStates.FirstOrDefault(x => x.Name == column.GetFieldName());
+            width += colLong?.Width ?? (column.Width ?? defaultWidth);
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
