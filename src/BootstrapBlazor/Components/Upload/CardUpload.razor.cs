@@ -252,6 +252,7 @@ public partial class CardUpload<TValue>
     public override async Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         _results = results;
+        IsValidating = false;
         IsValid = results.Count == 0;
 
         ValidateModule ??= await LoadValidateModule();

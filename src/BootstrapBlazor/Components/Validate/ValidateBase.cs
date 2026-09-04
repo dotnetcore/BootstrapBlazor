@@ -45,7 +45,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <para lang="zh">获得 数据合规样式</para>
     /// <para lang="en">Gets the validation CSS class</para>
     /// </summary>
-    protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
+    protected string? ValidCss => IsValidating ? "is-validating" : IsValid.HasValue ? GetValidString(IsValid.Value) : null;
 
     private static string GetValidString(bool valid) => valid ? "is-valid" : "is-invalid";
 
@@ -54,6 +54,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <para lang="en">Gets or sets whether the component is valid. Default is null (unchecked)</para>
     /// </summary>
     protected bool? IsValid { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 组件是否正在验证</para>
+    /// <para lang="en">Gets or sets whether the component is being validated</para>
+    /// </summary>
+    protected bool IsValidating { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得 组件是否被禁用属性值</para>
@@ -514,12 +520,28 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     private bool? _shouldRender = null;
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public virtual async Task SetValidationPendingState()
+    {
+        ErrorMessage = null;
+        IsValid = null;
+        IsValidating = true;
+        OnValidate(IsValid);
+
+        _shouldRender = true;
+        StateHasChanged();
+        await RemoveValidResult();
+    }
+
+    /// <summary>
     /// <para lang="zh">显示/隐藏验证结果方法</para>
     /// <para lang="en">Shows or hides the validation result message</para>
     /// </summary>
     /// <param name="results"></param>
     public virtual Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
+        IsValidating = false;
         if (FieldIdentifier != null)
         {
             var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName)).ToList();
