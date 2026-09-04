@@ -315,7 +315,7 @@ public partial class ValidateForm
         foreach (var validator in _validatorCache.Values)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await validator.ToggleMessage([]);
+            await validator.SetValidationPendingState();
         }
 
         _validateResults.Clear();
@@ -436,7 +436,7 @@ public partial class ValidateForm
                 if (validator.IsNeedValidate)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    await validator.ToggleMessage([]);
+                    await validator.SetValidationPendingState();
 
                     var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
                     if (pi != null)

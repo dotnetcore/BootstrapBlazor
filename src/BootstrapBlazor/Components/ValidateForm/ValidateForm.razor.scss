@@ -48,6 +48,23 @@ form {
     }
 }
 
+.is-validating {
+    border-color: var(--bb-validating-border-color, var(--bs-primary)) !important;
+    animation: bb-validation-pending var(--bb-validating-animation-duration, 1s) ease-in-out infinite;
+}
+
+@keyframes bb-validation-pending {
+    50% {
+        box-shadow: var(--bb-validating-box-shadow, 0 0 0 .2rem rgba(var(--bs-primary-rgb), .2));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .is-validating {
+        animation: none;
+    }
+}
+
 .was-validated .form-control:invalid:focus,
 .form-control.is-invalid:focus,
 .was-validated .custom-select:invalid:focus,
