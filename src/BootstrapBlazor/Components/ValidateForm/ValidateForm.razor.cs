@@ -483,7 +483,6 @@ public partial class ValidateForm
         var validationRules = rules.ToList();
         memberName ??= propertyInfo.Name;
 
-#if NET11_0_OR_GREATER
         foreach (var rule in validationRules.Where(static rule => rule is RequiredAttribute))
         {
             var result = rule.GetValidationResult(value, context);
@@ -513,13 +512,6 @@ public partial class ValidateForm
                 AddValidationResult(rule, result, context, results, memberName);
             }
         }
-#else
-        foreach (var rule in validationRules)
-        {
-            var result = rule.GetValidationResult(value, context);
-            AddValidationResult(rule, result, context, results, memberName);
-        }
-#endif
     }
 
     private void AddValidationResult(ValidationAttribute rule, ValidationResult? result, ValidationContext context, List<ValidationResult> results, string memberName)
