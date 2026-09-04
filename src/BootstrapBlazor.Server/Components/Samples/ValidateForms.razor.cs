@@ -13,6 +13,12 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class ValidateForms
 {
+#if NET11_0_OR_GREATER
+    private const bool IsAsyncValidationSupported = true;
+#else
+    private const bool IsAsyncValidationSupported = false;
+#endif
+
     [NotNull]
     private Foo? Model1 { get; set; }
 
@@ -35,6 +41,36 @@ public partial class ValidateForms
     {
         Logger1.Log($"{field}:{value}");
     }
+
+    private AsyncValidationModel AsyncModel { get; } = new() { UserName = "Blazor" };
+
+    private sealed class AsyncValidationModel
+    {
+        [Required]
+#if NET11_0_OR_GREATER
+        [UniqueUserName]
+#endif
+        public string? UserName { get; set; }
+    }
+
+#if NET11_0_OR_GREATER
+    private sealed class UniqueUserNameAttribute : AsyncValidationAttribute
+    {
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+            => throw new InvalidOperationException("Synchronous validation is not supported.");
+
+        protected override async Task<ValidationResult?> IsValidAsync(
+            object? value,
+            ValidationContext validationContext,
+            CancellationToken cancellationToken)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            return string.Equals(value as string, "Blazor", StringComparison.OrdinalIgnoreCase)
+                ? new ValidationResult(validationContext.GetRequiredService<IStringLocalizer<ValidateForms>>()["AsyncValidationError"])
+                : ValidationResult.Success;
+        }
+    }
+#endif
 
     /// <summary>
     /// <inheritdoc/>
