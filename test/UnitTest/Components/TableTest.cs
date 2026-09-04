@@ -9300,6 +9300,87 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ReloadColumnWidth_FixedColumnOffset_Ok()
+    {
+        var state = new TableColumnClientStatus()
+        {
+            TableWidth = 1000,
+            Columns =
+            [
+                new() { Name = nameof(Foo.Name), Visible = true, Width = 110 },
+                new() { Name = nameof(Foo.Count), Visible = true, Width = 120 },
+                new() { Name = nameof(Foo.Complete), Visible = true, Width = 125 },
+                new() { Name = nameof(Foo.Address), Visible = true, Width = 130 },
+                new() { Name = nameof(Foo.DateTime), Visible = true, Width = 135 },
+                new() { Name = nameof(Foo.Education), Visible = true, Width = 140 },
+                new() { Name = nameof(Foo.Hobby), Visible = true, Width = 150 }
+            ]
+        };
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_fixed_column_offset").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_fixed_column_offset");
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(4, nameof(TableColumn<,>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(5);
+                    builder.AddAttribute(6, "Field", foo.Count);
+                    builder.AddAttribute(7, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(8, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, bool>>(9);
+                    builder.AddAttribute(10, "Field", foo.Complete);
+                    builder.AddAttribute(11, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
+                    builder.AddAttribute(12, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(13);
+                    builder.AddAttribute(14, "Field", foo.Address);
+                    builder.AddAttribute(15, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(16);
+                    builder.AddAttribute(17, "Field", foo.DateTime);
+                    builder.AddAttribute(18, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.AddAttribute(19, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(20);
+                    builder.AddAttribute(21, "Field", foo.Education);
+                    builder.AddAttribute(22, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Education), typeof(EnumEducation?)));
+                    builder.AddAttribute(23, nameof(TableColumn<,>.Fixed), true);
+                    builder.AddAttribute(24, nameof(TableColumn<,>.Width), 130);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(25);
+                    builder.AddAttribute(26, "Field", foo.Hobby);
+                    builder.AddAttribute(27, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Hobby), typeof(IEnumerable<string>)));
+                    builder.AddAttribute(28, nameof(TableColumn<,>.Fixed), true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        Assert.Contains("left: 110px;", cut.Find($"th[data-bb-field='{nameof(Foo.Count)}']").GetAttribute("style"));
+        Assert.Contains("left: 230px;", cut.Find($"th[data-bb-field='{nameof(Foo.Complete)}']").GetAttribute("style"));
+        Assert.Contains("right: 290px;", cut.Find($"th[data-bb-field='{nameof(Foo.DateTime)}']").GetAttribute("style"));
+        Assert.Contains("right: 150px;", cut.Find($"th[data-bb-field='{nameof(Foo.Education)}']").GetAttribute("style"));
+    }
+
+    [Fact]
     public async Task OnLoadTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();
