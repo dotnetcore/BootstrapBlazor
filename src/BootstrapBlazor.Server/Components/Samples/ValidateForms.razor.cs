@@ -298,10 +298,7 @@ public partial class ValidateForms
     [NotNull]
     private ValidateForm? ValidatorForm { get; set; }
 
-    private async Task OnValidator()
-    {
-        await ValidatorForm.ValidateAsync();
-    }
+    private Task OnValidator() => ValidatorForm.ValidateAsync();
 
     [NotNull]
     private Foo? Model10 { get; set; }

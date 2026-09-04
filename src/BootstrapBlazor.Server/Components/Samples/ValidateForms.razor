@@ -326,11 +326,7 @@
         <Pre class="mb-3">[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 
-private Task OnClickValidate()
-{
-    ValidatorForm.Validate();
-    return Task.CompletedTask;
-}</Pre>
+private Task OnValidator() => ValidatorForm.ValidateAsync()</Pre>
     </section>
 
     <ValidateForm Model="@Model9" @ref="ValidatorForm">
