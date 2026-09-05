@@ -85,6 +85,34 @@ public partial class ValidateForms
         }
     }
 
+    private ValidatorAsyncRuleModel ValidatorAsyncModel { get; } = new() { UserName = "Blazor" };
+
+    private List<IValidator> ValidatorAsyncRules { get; } = [new UniqueUserNameValidator()];
+
+    private sealed class ValidatorAsyncRuleModel
+    {
+        [Required]
+        public string? UserName { get; set; }
+    }
+
+    private sealed class UniqueUserNameValidator : ValidatorAsyncBase
+    {
+        public override async Task ValidateAsync(
+            object? propertyValue,
+            ValidationContext context,
+            List<ValidationResult> results,
+            CancellationToken cancellationToken = default)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            if (string.Equals(propertyValue as string, "Blazor", StringComparison.OrdinalIgnoreCase))
+            {
+                results.Add(new ValidationResult(
+                    context.GetRequiredService<IStringLocalizer<ValidateForms>>()["AsyncValidationError"],
+                    [context.MemberName!]));
+            }
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
