@@ -117,6 +117,40 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateFormIValidatorAsyncTitle"]" Introduction="@Localizer["ValidateFormIValidatorAsyncIntro"]" Name="IValidatorAsync">
+    <section ignore>
+        <p>@((MarkupString)Localizer["ValidateFormIValidatorAsyncDescription"].Value)</p>
+        <Pre class="mb-3">public sealed class UniqueUserNameValidator : ValidatorAsyncBase
+{
+    public override async Task ValidateAsync(object? propertyValue, ValidationContext context,
+        List&lt;ValidationResult&gt; results, CancellationToken cancellationToken = default)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+        if (string.Equals(propertyValue as string, "Blazor", StringComparison.OrdinalIgnoreCase))
+        {
+            results.Add(new ValidationResult("The user name already exists.", [context.MemberName!]));
+        }
+    }
+}
+
+private List&lt;IValidator&gt; ValidatorAsyncRules { get; } = [new UniqueUserNameValidator()];</Pre>
+        <p>@((MarkupString)Localizer["ValidateFormIValidatorAsyncDescription2"].Value)</p>
+        <Pre class="mb-3">&lt;BootstrapInput @@bind-Value="@@ValidatorAsyncModel.UserName" ValidateRules="@@ValidatorAsyncRules" /&gt;</Pre>
+    </section>
+
+    <ValidateForm Model="@ValidatorAsyncModel">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@ValidatorAsyncModel.UserName" DisplayText="@Localizer["AsyncValidationUserName"]"
+                                ValidateRules="@ValidatorAsyncRules" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" IsAsync="true" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ValidateFormInnerComponentTitle"]" Introduction="@Localizer["ValidateFormInnerComponentIntro"]" Name="InnerComponent">
     <section ignore>
         <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>
@@ -326,10 +360,9 @@
         <Pre class="mb-3">[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 
-private Task OnClickValidate()
+private async Task OnValidator()
 {
-    ValidatorForm.Validate();
-    return Task.CompletedTask;
+    await ValidatorForm.ValidateAsync();
 }</Pre>
     </section>
 

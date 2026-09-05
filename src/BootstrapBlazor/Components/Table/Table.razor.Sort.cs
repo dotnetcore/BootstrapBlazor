@@ -358,7 +358,6 @@ public partial class Table<TItem>
     private string? GetLeftStyle(ITableColumn col)
     {
         var columns = GetVisibleColumns();
-        var defaultWidth = 200;
         var width = 0;
         var start = 0;
         var index = columns.IndexOf(col);
@@ -377,7 +376,7 @@ public partial class Table<TItem>
         while (index > start)
         {
             var column = columns[start++];
-            width += column.Width ?? defaultWidth;
+            width += GetFixedColumnWidth(column);
         }
         return $"left: {width}px;";
     }
@@ -385,7 +384,6 @@ public partial class Table<TItem>
     private string? GetRightStyle(ITableColumn col, int margin)
     {
         var columns = GetVisibleColumns();
-        var defaultWidth = DefaultFixedColumnWidth;
         var width = 0;
         var index = columns.IndexOf(col);
 
@@ -393,7 +391,7 @@ public partial class Table<TItem>
         for (var i = index + 1; i < columns.Count; i++)
         {
             var column = columns[i];
-            width += column.Width ?? defaultWidth;
+            width += GetFixedColumnWidth(column);
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
@@ -404,6 +402,12 @@ public partial class Table<TItem>
             width += margin;
         }
         return $"right: {width}px;";
+    }
+
+    private int GetFixedColumnWidth(ITableColumn column)
+    {
+        var columnState = _tableColumnStates.FirstOrDefault(x => x.Name == column.GetFieldName());
+        return columnState?.Width ?? column.Width ?? DefaultFixedColumnWidth;
     }
 
     /// <summary>
