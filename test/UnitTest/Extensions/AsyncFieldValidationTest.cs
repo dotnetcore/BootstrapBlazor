@@ -31,6 +31,22 @@ public class AsyncFieldValidationTest
     }
 
     [Fact]
+    public void IsValidationFaulted_UnregisteredField()
+    {
+        var context = new EditContext(new object());
+        var registeredField = context.Field("Name");
+        var unregisteredField = context.Field("Age");
+
+        Assert.False(context.IsValidationFaulted(unregisteredField));
+
+        context.RegisterAsyncFieldValidator(registeredField,
+            _ => Task.FromException(new InvalidOperationException("Validation failed")));
+
+        Assert.True(context.IsValidationFaulted(registeredField));
+        Assert.False(context.IsValidationFaulted(unregisteredField));
+    }
+
+    [Fact]
     public async Task PendingValidation()
     {
         var model = new Foo();

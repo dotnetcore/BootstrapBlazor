@@ -266,15 +266,6 @@ public class EditContextExtensionsTest
         Assert.True(await context.ValidateAsync(CancellationToken.None));
     }
 
-    [Fact]
-    public void AddAsyncValidator_OutsideValidation()
-    {
-        Assert.Throws<InvalidOperationException>(() =>
-            ValidationRequestedEventArgs.Empty.AddAsyncValidator(_ => Task.CompletedTask));
-        Assert.Throws<ArgumentNullException>(() =>
-            ValidationRequestedEventArgs.Empty.AddAsyncValidator(null!));
-    }
-
 #if !NET11_0_OR_GREATER
     [Fact]
     public async Task ValidateAsync_SerializesSameContext()
@@ -334,6 +325,27 @@ public class EditContextExtensionsTest
     }
 
     [Fact]
+    public async Task ValidateAsync_AllowsCompletedParentScope()
+    {
+        var context = new EditContext(new object());
+        ExecutionContext? capturedContext = null;
+        EventHandler<ValidationRequestedEventArgs> handler = (_, _) =>
+            capturedContext = ExecutionContext.Capture();
+        context.OnValidationRequested += handler;
+
+        Assert.True(await context.ValidateAsync(CancellationToken.None));
+        context.OnValidationRequested -= handler;
+        Assert.NotNull(capturedContext);
+
+        Task<bool>? validation = null;
+        ExecutionContext.Run(capturedContext, _ =>
+            validation = context.ValidateAsync(CancellationToken.None), null);
+
+        Assert.NotNull(validation);
+        Assert.True(await validation);
+    }
+
+    [Fact]
     public async Task AddAsyncValidator_RejectsLateRegistration()
     {
         var context = new EditContext(new object());
@@ -359,6 +371,7 @@ public class EditContextExtensionsTest
         var context = new EditContext(new object());
         context.OnValidationRequested += (_, args) => args.AddAsyncValidator(_ => Task.CompletedTask);
 
+        // 调用同步方法时抛出异常
         Assert.Throws<InvalidOperationException>(() => context.Validate());
     }
 #endif

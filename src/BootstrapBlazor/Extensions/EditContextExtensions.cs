@@ -366,7 +366,10 @@ public static class EditContextExtensions
         {
             lock (_lock)
             {
-                _tokenSource?.Cancel();
+                if (_tokenSource != null)
+                {
+                    _tokenSource.Cancel();
+                }
             }
         }
 
@@ -374,8 +377,11 @@ public static class EditContextExtensions
         {
             lock (_lock)
             {
-                _tokenSource?.Dispose();
-                _tokenSource = null;
+                if (_tokenSource != null)
+                {
+                    _tokenSource.Dispose();
+                    _tokenSource = null;
+                }
             }
         }
     }
