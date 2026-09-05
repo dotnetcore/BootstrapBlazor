@@ -249,8 +249,7 @@ public static class ObjectExtensions
             TypeCode.UInt64 => ulong.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
             TypeCode.Single => float.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
             TypeCode.Double => double.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
-            TypeCode.Decimal => decimal.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
-            _ => null
+            _ => decimal.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null
         };
 
         if (converted != null)

@@ -165,32 +165,121 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public static void TryConvertTo_GenericCulture()
+    public static void TryConvertTo_GenericCulture_StringNullAndEmpty()
+    {
+        var culture = CultureInfo.InvariantCulture;
+
+        Assert.True("test".TryConvertTo<string>(culture, out var text));
+        Assert.Equal("test", text);
+
+        Assert.True(((string?)null).TryConvertTo<string?>(culture, out var nullText));
+        Assert.Null(nullText);
+
+        Assert.True(((string?)null).TryConvertTo<int>(culture, out var nullInteger));
+        Assert.Equal(0, nullInteger);
+
+        Assert.True(((string?)null).TryConvertTo<int?>(culture, out var nullNullableInteger));
+        Assert.Null(nullNullableInteger);
+
+        Assert.False(string.Empty.TryConvertTo<int>(culture, out var emptyInteger));
+        Assert.Equal(0, emptyInteger);
+
+        Assert.True(string.Empty.TryConvertTo<int?>(culture, out var emptyNullableInteger));
+        Assert.Null(emptyNullableInteger);
+    }
+
+    [Theory]
+    [InlineData("true", true)]
+    [InlineData("TRUE", true)]
+    [InlineData("false", false)]
+    [InlineData("False", false)]
+    public static void TryConvertTo_GenericCulture_Boolean(string source, bool expected)
+    {
+        Assert.True(source.TryConvertTo<bool>(CultureInfo.InvariantCulture, out var actual));
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public static void TryConvertTo_GenericCulture_NumericBoundaries()
+    {
+        var culture = CultureInfo.InvariantCulture;
+
+        AssertConversion("-128", culture, sbyte.MinValue);
+        AssertConversion("255", culture, byte.MaxValue);
+        AssertConversion("-32768", culture, short.MinValue);
+        AssertConversion("65535", culture, ushort.MaxValue);
+        AssertConversion("-2147483648", culture, int.MinValue);
+        AssertConversion("4294967295", culture, uint.MaxValue);
+        AssertConversion("-9223372036854775808", culture, long.MinValue);
+        AssertConversion("18446744073709551615", culture, ulong.MaxValue);
+        AssertConversion("-3.4028235E+38", culture, float.MinValue);
+        AssertConversion("1.7976931348623157E+308", culture, double.MaxValue);
+        AssertConversion("79228162514264337593543950335", culture, decimal.MaxValue);
+    }
+
+    [Fact]
+    public static void TryConvertTo_GenericCulture_NumericFailuresReturnDefault()
+    {
+        var culture = CultureInfo.InvariantCulture;
+
+        AssertConversionFails<sbyte>("-129", culture);
+        AssertConversionFails<byte>("256", culture);
+        AssertConversionFails<short>("-32769", culture);
+        AssertConversionFails<ushort>("65536", culture);
+        AssertConversionFails<int>("-2147483649", culture);
+        AssertConversionFails<uint>("4294967296", culture);
+        AssertConversionFails<long>("-9223372036854775809", culture);
+        AssertConversionFails<ulong>("18446744073709551616", culture);
+        AssertConversionFails<float>("not-a-number", culture);
+        AssertConversionFails<double>("not-a-number", culture);
+        AssertConversionFails<decimal>("79228162514264337593543950336", culture);
+    }
+
+    [Fact]
+    public static void TryConvertTo_GenericCulture_NullableNumeric()
     {
         var culture = CultureInfo.GetCultureInfo("en-US");
 
-        Assert.True("$ 2".TryConvertTo<double>(culture, out var doubleValue));
-        Assert.Equal(2d, doubleValue);
+        AssertConversion<decimal?>("$ 2", culture, 2m);
+        AssertConversion<int?>("1,234", culture, 1234);
+    }
 
-        Assert.True("$1,234.50".TryConvertTo<decimal>(culture, out var decimalValue));
-        Assert.Equal(1234.50m, decimalValue);
+    [Fact]
+    public static void TryConvertTo_GenericCulture_NumberFormats()
+    {
+        var enUs = CultureInfo.GetCultureInfo("en-US");
+        AssertConversion("$ 2", enUs, 2d);
+        AssertConversion("$1,234.50", enUs, 1234.50m);
 
-        Assert.True("$12,345,678,901,234,567,890.123456789".TryConvertTo<decimal>(culture, out var preciseDecimalValue));
-        Assert.Equal(12345678901234567890.123456789m, preciseDecimalValue);
+        var deDe = CultureInfo.GetCultureInfo("de-DE");
+        AssertConversion("1.234,5", deDe, 1234.5d);
 
-        Assert.True("$ 2".TryConvertTo<decimal?>(culture, out var nullableDecimalValue));
-        Assert.Equal(2m, nullableDecimalValue);
+        var frFr = CultureInfo.GetCultureInfo("fr-FR");
+        AssertConversion(1234.5m.ToString("N2", frFr), frFr, 1234.5m);
+    }
 
-        Assert.True("1,234".TryConvertTo<int>(culture, out var integerValue));
-        Assert.Equal(1234, integerValue);
+    [Fact]
+    public static void TryConvertTo_GenericCulture_PreservesPrecision()
+    {
+        var culture = CultureInfo.GetCultureInfo("en-US");
 
-        Assert.True("18,446,744,073,709,551,615".TryConvertTo<ulong>(culture, out var unsignedValue));
-        Assert.Equal(ulong.MaxValue, unsignedValue);
+        AssertConversion("$12,345,678,901,234,567,890.123456789", culture, 12345678901234567890.123456789m);
+        AssertConversion("18,446,744,073,709,551,615", culture, ulong.MaxValue);
+    }
 
-        Assert.True("false".TryConvertTo<bool>(culture, out var booleanValue));
-        Assert.False(booleanValue);
+    [Fact]
+    public static void TryConvertTo_GenericCulture_NonNumericUsesBindConverter()
+    {
+        var culture = CultureInfo.InvariantCulture;
+        var guid = Guid.NewGuid();
 
-        Assert.False("not-a-number".TryConvertTo<double>(culture, out _));
+        AssertConversion(guid.ToString(), culture, guid);
+
+        Assert.False("not-a-date".TryConvertTo<DateTime>(culture, out var invalidDate));
+        Assert.Equal(default, invalidDate);
+
+        var deDe = CultureInfo.GetCultureInfo("de-DE");
+        AssertConversion("31.12.2025", deDe, new DateTime(2025, 12, 31));
     }
 
     [Theory]
@@ -399,6 +488,18 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     private interface MockInterface
     {
         string? Name { get; set; }
+    }
+
+    private static void AssertConversion<TValue>(string source, CultureInfo culture, TValue expected)
+    {
+        Assert.True(source.TryConvertTo<TValue>(culture, out var actual));
+        Assert.Equal(expected, actual);
+    }
+
+    private static void AssertConversionFails<TValue>(string source, CultureInfo culture)
+    {
+        Assert.False(source.TryConvertTo<TValue>(culture, out var actual));
+        Assert.Equal(default, actual);
     }
 
     private class MockComplexObject
