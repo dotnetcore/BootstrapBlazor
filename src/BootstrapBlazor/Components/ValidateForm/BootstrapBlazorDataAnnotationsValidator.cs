@@ -14,18 +14,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposable
 {
-#if !NET11_0_OR_GREATER
-    private readonly SemaphoreSlim _validationLock = new(1, 1);
-    private readonly Dictionary<FieldIdentifier, FieldValidationOperation> _fieldValidationOperations = [];
-    private bool _suppressValidationRequested;
-#endif
-
-#if NET9_0_OR_GREATER
-    private readonly Lock _fieldValidationLock = new();
-#else
-    private readonly object _fieldValidationLock = new();
-#endif
-
     /// <summary>
     /// <para lang="zh">获得/设置 当前编辑数据上下文</para>
     /// <para lang="en">Gets or sets the current edit context</para>
@@ -68,9 +56,42 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         AddEditContextDataAnnotationsValidation();
     }
 
+    private void AddEditContextDataAnnotationsValidation()
+    {
+        CurrentEditContext.OnValidationRequested += OnValidationRequested;
+        CurrentEditContext.OnFieldChanged += OnFieldChanged;
+    }
+
+    private void RemoveEditContextDataAnnotationsValidation()
+    {
+        CurrentEditContext.OnValidationRequested -= OnValidationRequested;
+        CurrentEditContext.OnFieldChanged -= OnFieldChanged;
+    }
+
 #if NET11_0_OR_GREATER
     internal Task<bool> ValidateAsync(CancellationToken cancellationToken = default) => CurrentEditContext.ValidateAsync(cancellationToken);
+
+    private void OnValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        args.AddAsyncValidator(cancellationToken => ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken));
+    }
+
+    private void OnFieldChanged(object? sender, FieldChangedEventArgs args)
+    {
+        var fieldIdentifier = args.FieldIdentifier;
+        CurrentEditContext.RegisterAsyncFieldValidator(fieldIdentifier, cancellationToken => ValidateFieldAsync(CurrentEditContext, _message, fieldIdentifier, Provider, cancellationToken));
+    }
 #else
+#if NET9_0_OR_GREATER
+    private readonly Lock _fieldValidationLock = new();
+#else
+    private readonly object _fieldValidationLock = new();
+#endif
+
+    private readonly SemaphoreSlim _validationLock = new(1, 1);
+    private readonly Dictionary<FieldIdentifier, FieldValidationOperation> _fieldValidationOperations = [];
+    private bool _suppressValidationRequested;
+
     internal async Task<bool> ValidateAsync(CancellationToken cancellationToken = default)
     {
         await _validationLock.WaitAsync(cancellationToken);
@@ -83,6 +104,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
             _suppressValidationRequested = true;
             try
             {
+                // NET10 只有同步方法
                 synchronousValid = CurrentEditContext.Validate();
             }
             finally
@@ -90,6 +112,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
                 _suppressValidationRequested = false;
             }
 
+            // 通过 _suppressValidationRequested 控制 OnValidationRequested 事件中的 ValidateModelAsync 不被调用，避免重复验证
             var valid = await ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken);
             return synchronousValid && valid && !CurrentEditContext.GetValidationMessages().Any();
         }
@@ -107,29 +130,9 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
             _validationLock.Release();
         }
     }
-#endif
 
-    private void AddEditContextDataAnnotationsValidation()
-    {
-        CurrentEditContext.OnValidationRequested += OnValidationRequested;
-        CurrentEditContext.OnFieldChanged += OnFieldChanged;
-    }
-
-    private void RemoveEditContextDataAnnotationsValidation()
-    {
-        CurrentEditContext.OnValidationRequested -= OnValidationRequested;
-        CurrentEditContext.OnFieldChanged -= OnFieldChanged;
-    }
-
-#if NET11_0_OR_GREATER
-    private void OnValidationRequested(object? sender, ValidationRequestedEventArgs args)
-#else
     private async void OnValidationRequested(object? sender, ValidationRequestedEventArgs args)
-#endif
     {
-#if NET11_0_OR_GREATER
-        args.AddAsyncValidator(cancellationToken => ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken));
-#else
         if (!_suppressValidationRequested)
         {
             try
@@ -141,15 +144,12 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
                 Logger.LogError(exception, "An exception occurred while validating the form.");
             }
         }
-#endif
     }
 
     private void OnFieldChanged(object? sender, FieldChangedEventArgs args)
     {
         var fieldIdentifier = args.FieldIdentifier;
-#if NET11_0_OR_GREATER
-        CurrentEditContext.RegisterAsyncFieldValidator(fieldIdentifier, cancellationToken => ValidateFieldAsync(CurrentEditContext, _message, fieldIdentifier, Provider, cancellationToken));
-#else
+
         FieldValidationOperation? previousOperation;
         FieldValidationOperation operation;
         lock (_fieldValidationLock)
@@ -160,10 +160,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         }
         previousOperation?.Cancel();
         _ = ValidateFieldAndCleanupAsync(fieldIdentifier, operation);
-#endif
     }
 
-#if !NET11_0_OR_GREATER
     private async Task ValidateFieldAndCleanupAsync(FieldIdentifier fieldIdentifier, FieldValidationOperation operation)
     {
         try
