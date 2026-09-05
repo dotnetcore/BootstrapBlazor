@@ -68,12 +68,11 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         CurrentEditContext.OnFieldChanged -= OnFieldChanged;
     }
 
-#if NET11_0_OR_GREATER
     internal Task<bool> ValidateAsync(CancellationToken cancellationToken = default) => CurrentEditContext.ValidateAsync(cancellationToken);
 
     private void OnValidationRequested(object? sender, ValidationRequestedEventArgs args)
     {
-        args.AddAsyncValidator(cancellationToken => ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken));
+        args.AddAsyncValidator(ValidateModelAsync);
     }
 
     private void OnFieldChanged(object? sender, FieldChangedEventArgs args)
@@ -81,162 +80,25 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         var fieldIdentifier = args.FieldIdentifier;
         CurrentEditContext.RegisterAsyncFieldValidator(fieldIdentifier, cancellationToken => ValidateFieldAsync(CurrentEditContext, _message, fieldIdentifier, Provider, cancellationToken));
     }
-#else
-#if NET9_0_OR_GREATER
-    private readonly Lock _fieldValidationLock = new();
-#else
-    private readonly object _fieldValidationLock = new();
-#endif
 
-    private readonly SemaphoreSlim _validationLock = new(1, 1);
-    private readonly Dictionary<FieldIdentifier, FieldValidationOperation> _fieldValidationOperations = [];
-    private bool _suppressValidationRequested;
-
-    internal async Task<bool> ValidateAsync(CancellationToken cancellationToken = default)
+    private async Task ValidateModelAsync(CancellationToken cancellationToken)
     {
-        await _validationLock.WaitAsync(cancellationToken);
         try
         {
-            CancelFieldValidations();
-            _message.Clear();
-
-            bool synchronousValid;
-            _suppressValidationRequested = true;
-            try
-            {
-                // NET10 只有同步方法
-                synchronousValid = CurrentEditContext.Validate();
-            }
-            finally
-            {
-                _suppressValidationRequested = false;
-            }
-
-            // 通过 _suppressValidationRequested 控制 OnValidationRequested 事件中的 ValidateModelAsync 不被调用，避免重复验证
-            var valid = await ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken);
-            return synchronousValid && valid && !CurrentEditContext.GetValidationMessages().Any();
+            await ValidateModelAsync(CurrentEditContext, _message, Provider, cancellationToken);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             throw;
         }
         catch (Exception exception)
         {
             Logger.LogError(exception, "An exception occurred while validating the form.");
-            return false;
-        }
-        finally
-        {
-            _validationLock.Release();
+            throw;
         }
     }
 
-    private async void OnValidationRequested(object? sender, ValidationRequestedEventArgs args)
-    {
-        if (!_suppressValidationRequested)
-        {
-            try
-            {
-                await ValidateModelAsync(CurrentEditContext, _message, Provider, CancellationToken.None);
-            }
-            catch (Exception exception)
-            {
-                Logger.LogError(exception, "An exception occurred while validating the form.");
-            }
-        }
-    }
-
-    private void OnFieldChanged(object? sender, FieldChangedEventArgs args)
-    {
-        var fieldIdentifier = args.FieldIdentifier;
-
-        FieldValidationOperation? previousOperation;
-        FieldValidationOperation operation;
-        lock (_fieldValidationLock)
-        {
-            _fieldValidationOperations.Remove(fieldIdentifier, out previousOperation);
-            operation = new FieldValidationOperation();
-            _fieldValidationOperations.Add(fieldIdentifier, operation);
-        }
-        previousOperation?.Cancel();
-        _ = ValidateFieldAndCleanupAsync(fieldIdentifier, operation);
-    }
-
-    private async Task ValidateFieldAndCleanupAsync(FieldIdentifier fieldIdentifier, FieldValidationOperation operation)
-    {
-        try
-        {
-            await ValidateFieldAsync(CurrentEditContext, _message, fieldIdentifier, Provider, operation.Token);
-        }
-        catch (OperationCanceledException) when (operation.IsCancellationRequested)
-        {
-        }
-        finally
-        {
-            lock (_fieldValidationLock)
-            {
-                if (_fieldValidationOperations.TryGetValue(fieldIdentifier, out var currentOperation)
-                    && ReferenceEquals(currentOperation, operation))
-                {
-                    _fieldValidationOperations.Remove(fieldIdentifier);
-                }
-            }
-            operation.Complete();
-        }
-    }
-
-    private void CancelFieldValidations()
-    {
-        FieldValidationOperation[] operations;
-        lock (_fieldValidationLock)
-        {
-            operations = [.. _fieldValidationOperations.Values];
-            _fieldValidationOperations.Clear();
-        }
-        foreach (var operation in operations)
-        {
-            operation.Cancel();
-        }
-    }
-
-    private sealed class FieldValidationOperation
-    {
-        private CancellationTokenSource? _tokenSource;
-
-        public CancellationToken Token { get; }
-
-        public bool IsCancellationRequested => Token.IsCancellationRequested;
-
-        public FieldValidationOperation()
-        {
-            _tokenSource = new();
-            Token = _tokenSource.Token;
-        }
-
-        public void Cancel()
-        {
-            var tokenSource = Interlocked.Exchange(ref _tokenSource, null);
-            if (tokenSource != null)
-            {
-                try
-                {
-                    tokenSource.Cancel();
-                }
-                finally
-                {
-                    tokenSource.Dispose();
-                }
-            }
-        }
-
-        public void Complete()
-        {
-            Interlocked.Exchange(ref _tokenSource, null)?.Dispose();
-        }
-    }
-#endif
-
-    private async Task<bool> ValidateModelAsync(EditContext editContext, ValidationMessageStore messages, IServiceProvider provider, CancellationToken cancellationToken)
+    private async Task ValidateModelAsync(EditContext editContext, ValidationMessageStore messages, IServiceProvider provider, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         var validationContext = new ValidationContext(editContext.Model, provider, null);
@@ -265,7 +127,6 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
             }
         }
         editContext.NotifyValidationStateChanged();
-        return validationResults.Count == 0;
     }
 
     private async Task ValidateFieldAsync(EditContext editContext, ValidationMessageStore messages, FieldIdentifier field, IServiceProvider provider, CancellationToken cancellationToken)
@@ -290,9 +151,13 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         {
             return;
         }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "An exception occurred while validating the field.");
+            throw;
+        }
 
         messages.Add(field, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
-
         editContext.NotifyValidationStateChanged();
     }
 
@@ -301,7 +166,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         if (disposing)
         {
 #if !NET11_0_OR_GREATER
-            CancelFieldValidations();
+            CurrentEditContext.CancelAsyncFieldValidations();
 #endif
             RemoveEditContextDataAnnotationsValidation();
         }

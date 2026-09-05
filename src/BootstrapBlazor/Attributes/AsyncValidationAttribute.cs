@@ -69,8 +69,6 @@ public abstract class AsyncValidationAttribute : ValidationAttribute
     /// <param name="cancellationToken"></param>
     public async Task<ValidationResult?> GetValidationResultAsync(object? value, ValidationContext validationContext, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(validationContext);
-
         var result = await IsValidAsync(value, validationContext, cancellationToken).ConfigureAwait(false);
         if (result != null && string.IsNullOrEmpty(result.ErrorMessage))
         {

@@ -139,12 +139,10 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
-#if NET11_0_OR_GREATER
-        await cut.InvokeAsync(() => editContext.ValidateAsync());
-#else
-        await cut.InvokeAsync(() => editContext.Validate());
-        cut.WaitForAssertion(() => Assert.NotEmpty(editContext.GetValidationMessages()));
-#endif
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync());
+
+        Assert.False(valid);
+        Assert.NotEmpty(editContext.GetValidationMessages());
     }
 
     [Fact]
@@ -169,19 +167,17 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
 
-#if NET11_0_OR_GREATER
-        await cut.InvokeAsync(() => editContext.ValidateAsync());
-#else
-        await cut.InvokeAsync(() => editContext.Validate());
-        cut.WaitForAssertion(() => Assert.IsType<InvalidOperationException>(logger.Exception));
-#endif
+        var valid = await cut.InvokeAsync(() => editContext.ValidateAsync());
+
+        Assert.False(valid);
+        Assert.True(editContext.IsValidationFaulted());
+        Assert.IsType<InvalidOperationException>(logger.Exception);
     }
 
-#if !NET11_0_OR_GREATER
     [Fact]
-    public async Task ValidateFieldAndCleanupAsync_OperationCancellation()
+    public async Task ValidateAsync_ClearsPreviousErrors()
     {
-        var foo = new Foo() { Name = "Test" };
+        var foo = new Foo();
         var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
@@ -191,30 +187,38 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
-        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
-        var validatorType = typeof(BootstrapBlazorDataAnnotationsValidator);
-        var operationType = validatorType.GetNestedType(
-            "FieldValidationOperation",
-            System.Reflection.BindingFlags.NonPublic);
-        Assert.NotNull(operationType);
-        var operation = Activator.CreateInstance(operationType, nonPublic: true);
-        Assert.NotNull(operation);
-        var method = validatorType.GetMethod(
-            "ValidateFieldAndCleanupAsync",
-            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        Assert.NotNull(method);
-        var cancelMethod = operationType.GetMethod(nameof(CancellationTokenSource.Cancel));
-        Assert.NotNull(cancelMethod);
-        cancelMethod.Invoke(operation, null);
 
-        await cut.InvokeAsync(async () =>
-        {
-            var validation = Assert.IsType<Task>(
-                method.Invoke(validator, [new FieldIdentifier(foo, nameof(foo.Name)), operation]), exactMatch: false);
-            await validation;
-        });
+        Assert.False(await cut.InvokeAsync(() => cut.Instance.ValidateAsync()));
+
+        foo.Name = "Test";
+        Assert.True(await cut.InvokeAsync(() => cut.Instance.ValidateAsync()));
     }
-#endif
+
+    [Fact]
+    public async Task ValidateAsync_CancelsFieldValidation()
+    {
+        var rule = new CancellableFieldValidator();
+        var foo = new Foo() { Name = "Initial" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, value => foo.Name = value);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [rule]);
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("First"));
+        await rule.FirstValidationStarted.Task.WaitAsync(CancellationToken.None);
+        foo.Name = "Second";
+
+        Assert.True(await cut.InvokeAsync(() => cut.Instance.ValidateAsync()));
+        await rule.FirstValidationCancelled.Task.WaitAsync(CancellationToken.None);
+        Assert.True(rule.SecondValidationCompleted.Task.IsCompletedSuccessfully);
+    }
 
     [Fact]
     public async Task Validate_Ok()
