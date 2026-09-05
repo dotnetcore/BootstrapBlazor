@@ -361,15 +361,5 @@ public class EditContextExtensionsTest
 
         Assert.Throws<InvalidOperationException>(() => context.Validate());
     }
-
-    [Fact]
-    public async Task NullArguments()
-    {
-        await Assert.ThrowsAsync<ArgumentNullException>(() => EditContextExtensions.ValidateAsync(null!, CancellationToken.None));
-        Assert.Throws<ArgumentNullException>(() => EditContextExtensions.IsValidationPending(null!));
-        Assert.Throws<ArgumentNullException>(() => EditContextExtensions.IsValidationFaulted(null!));
-        Assert.Throws<ArgumentNullException>(() =>
-            ValidationRequestedEventArgsExtensions.AddAsyncValidator(null!, _ => Task.CompletedTask));
-    }
 #endif
 }

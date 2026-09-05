@@ -73,6 +73,45 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ValidateFieldAsync_Exception()
+    {
+        var logger = Assert.IsType<ValidateFormTestLogger>(
+            Context.Services.GetRequiredService<ILogger<BootstrapBlazorDataAnnotationsValidator>>());
+        var foo = new Foo() { Name = "Initial" };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, value => foo.Name = value);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ValidateRules, [new ThrowingValidator()]);
+            });
+        });
+        var validator = cut.FindComponent<BootstrapBlazorDataAnnotationsValidator>().Instance;
+        var property = typeof(BootstrapBlazorDataAnnotationsValidator).GetProperty(
+            "CurrentEditContext",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var editContext = Assert.IsType<EditContext>(property?.GetValue(validator));
+        var field = editContext.Field(nameof(foo.Name));
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("Changed"));
+
+        cut.WaitForAssertion(() =>
+        {
+            var exception = Assert.IsType<InvalidOperationException>(logger.Exception);
+            Assert.Equal("Validation failed", exception.Message);
+            Assert.Equal(LogLevel.Error, logger.Level);
+            Assert.Equal("An exception occurred while validating the field.", logger.Message);
+            Assert.True(editContext.IsValidationFaulted(field));
+            Assert.False(editContext.IsValidationPending(field));
+            Assert.False(editContext.IsValidationFaulted());
+            Assert.Empty(editContext.GetValidationMessages(field));
+        });
+    }
+
+    [Fact]
     public async Task FieldValidation_CancelsPreviousOperation()
     {
         var rule = new CancellableFieldValidator();
@@ -1320,6 +1359,10 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         public Exception? Exception { get; private set; }
 
+        public LogLevel Level { get; private set; }
+
+        public string? Message { get; private set; }
+
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 
         public bool IsEnabled(LogLevel logLevel) => true;
@@ -1332,6 +1375,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             Func<TState, Exception?, string> formatter)
         {
             Exception = exception;
+            Level = logLevel;
+            Message = formatter(state, exception);
         }
     }
 
