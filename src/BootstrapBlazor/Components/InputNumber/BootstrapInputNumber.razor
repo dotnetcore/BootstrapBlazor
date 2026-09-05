@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits BootstrapInputNumberBase<TValue>
 
@@ -25,5 +25,5 @@ else
 
 @code {
     RenderFragment RenderInput =>
-    @<input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" />;
+    @<input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" inputmode="decimal" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" />;
 }

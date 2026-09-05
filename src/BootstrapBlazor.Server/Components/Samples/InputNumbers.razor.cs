@@ -1,7 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -51,9 +54,27 @@ public sealed partial class InputNumbers
 
     private double? InputNullableValue { get; set; } = 12.01;
 
-    private double InputValue { get; set; } = 12.01;
+    private decimal InputValue { get; set; } = 12.01m;
 
-    private int? BindInputNullableValue { get; set; } = 2;
+    private double BindInputNullableValue { get; set; } = 2;
 
     private int BindInputValue { get; set; } = 2;
+
+    private string Format1(double value)
+    {
+        double.TryParse("$235,623.235", NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out var number);
+        double.TryParse("￥1235,623.235", NumberStyles.Currency, CultureInfo.GetCultureInfo("zh-CN"), out var number1);
+        return $"$ {value.ToString("n0")}";
+    }
+
+    private string Format2(decimal value)
+    {        
+        return $"{value.ToString("n2")}%";
+    }
+
+    private (bool Success, decimal Value) Parser1(string arg1, CultureInfo info)
+    {
+        var ret = (true, decimal.Parse(arg1.Replace("%", ""), info));
+        return ret;
+    }
 }

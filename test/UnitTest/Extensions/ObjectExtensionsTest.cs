@@ -164,6 +164,35 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         Assert.True(result);
     }
 
+    [Fact]
+    public static void TryConvertTo_GenericCulture()
+    {
+        var culture = CultureInfo.GetCultureInfo("en-US");
+
+        Assert.True("$ 2".TryConvertTo<double>(culture, out var doubleValue));
+        Assert.Equal(2d, doubleValue);
+
+        Assert.True("$1,234.50".TryConvertTo<decimal>(culture, out var decimalValue));
+        Assert.Equal(1234.50m, decimalValue);
+
+        Assert.True("$12,345,678,901,234,567,890.123456789".TryConvertTo<decimal>(culture, out var preciseDecimalValue));
+        Assert.Equal(12345678901234567890.123456789m, preciseDecimalValue);
+
+        Assert.True("$ 2".TryConvertTo<decimal?>(culture, out var nullableDecimalValue));
+        Assert.Equal(2m, nullableDecimalValue);
+
+        Assert.True("1,234".TryConvertTo<int>(culture, out var integerValue));
+        Assert.Equal(1234, integerValue);
+
+        Assert.True("18,446,744,073,709,551,615".TryConvertTo<ulong>(culture, out var unsignedValue));
+        Assert.Equal(ulong.MaxValue, unsignedValue);
+
+        Assert.True("false".TryConvertTo<bool>(culture, out var booleanValue));
+        Assert.False(booleanValue);
+
+        Assert.False("not-a-number".TryConvertTo<double>(culture, out _));
+    }
+
     [Theory]
     [InlineData(100f, "100 B")]
     [InlineData(1024f, "1.0 KB")]

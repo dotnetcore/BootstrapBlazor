@@ -207,6 +207,63 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// <para lang="zh">使用指定文化尝试将字符串表示的值转换为指定类型</para>
+    /// <para lang="en">Tries to convert the string representation of a value to a specified type using the specified culture</para>
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="source"></param>
+    /// <param name="culture"></param>
+    /// <param name="val"></param>
+    public static bool TryConvertTo<TValue>(this string? source, CultureInfo culture, [MaybeNullWhen(false)] out TValue val)
+    {
+        var type = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        if (type == typeof(string))
+        {
+            val = (TValue)(object)source!;
+            return true;
+        }
+
+        if (source == null)
+        {
+            val = default!;
+            return true;
+        }
+
+        if (source.Length == 0 || !type.IsNumber())
+        {
+            var value = type == typeof(bool)
+                ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase)
+                : source;
+            return BindConverter.TryConvertTo(value, culture, out val);
+        }
+
+        object? converted = Type.GetTypeCode(type) switch
+        {
+            TypeCode.SByte => sbyte.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Byte => byte.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Int16 => short.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.UInt16 => ushort.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Int32 => int.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.UInt32 => uint.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Int64 => long.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.UInt64 => ulong.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Single => float.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Double => double.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            TypeCode.Decimal => decimal.TryParse(source, NumberStyles.Any, culture, out var value) ? value : null,
+            _ => null
+        };
+
+        if (converted != null)
+        {
+            val = (TValue)converted;
+            return true;
+        }
+
+        val = default;
+        return false;
+    }
+
+    /// <summary>
     /// <para lang="zh">将文件大小格式化为带有适当单位的字符串</para>
     /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
