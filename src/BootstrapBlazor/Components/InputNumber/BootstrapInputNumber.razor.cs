@@ -93,6 +93,20 @@ public partial class BootstrapInputNumber<TValue>
     [Parameter]
     public string? PlusIcon { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 数值解析使用的文化信息</para>
+    /// <para lang="en">Gets or sets the culture used to parse numeric values</para>
+    /// </summary>
+    [Parameter]
+    public CultureInfo CultureInfo { get; set; } = CultureInfo.CurrentCulture;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 自定义数值解析回调方法</para>
+    /// <para lang="en">Gets or sets the callback used to parse custom numeric values</para>
+    /// </summary>
+    [Parameter]
+    public Func<string, CultureInfo, (bool Success, TValue? Value)>? Parser { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
@@ -201,9 +215,9 @@ public partial class BootstrapInputNumber<TValue>
         return StepString;
     }
 
-    private static TValue ParseValue(string value)
+    private TValue ParseValue(string value)
     {
-        return value.TryConvertTo<TValue>(out var ret)
+        return value.TryConvertTo<TValue>(CultureInfo, out var ret)
             ? ret
             : throw new InvalidOperationException($"Unsupported type {typeof(TValue)}");
     }
@@ -338,7 +352,18 @@ public partial class BootstrapInputNumber<TValue>
         }
         else
         {
-            ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
+            if (Parser != null)
+            {
+                var parsedValue = Parser(value, CultureInfo);
+                ret = parsedValue.Success;
+                result = ret ? parsedValue.Value! : default;
+            }
+            else
+            {
+                ret = value.TryConvertTo(CultureInfo, out result);
+            }
+
+            validationErrorMessage = ret ? null : FormatParsingErrorMessage();
             if (ret && UseInputEvent)
             {
                 _lastInputValueString = value;

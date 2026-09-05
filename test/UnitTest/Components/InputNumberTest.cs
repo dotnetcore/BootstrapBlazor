@@ -109,6 +109,86 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Formatter_Culture_Ok()
+    {
+        var value = 2m;
+        var culture = CultureInfo.GetCultureInfo("en-US");
+        var cut = Context.Render<BootstrapInputNumber<decimal>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<decimal>(this, v => value = v));
+            pb.Add(a => a.CultureInfo, culture);
+            pb.Add(a => a.Formatter, v => v.ToString("C0", culture));
+        });
+
+        var input = cut.Find("input");
+        Assert.Equal("$2", input.GetAttribute("value"));
+
+        await cut.InvokeAsync(() => input.Change("$ 3"));
+        Assert.Equal(3m, value);
+    }
+
+    [Fact]
+    public async Task Parser_Success_Culture_Ok()
+    {
+        var value = 2;
+        CultureInfo? parserCulture = null;
+        var culture = CultureInfo.GetCultureInfo("fr-FR");
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<int>(this, v => value = v));
+            pb.Add(a => a.CultureInfo, culture);
+            pb.Add(a => a.UseInputEvent, true);
+            pb.Add(a => a.Parser, (text, currentCulture) =>
+            {
+                parserCulture = currentCulture;
+                return (true, text.Length);
+            });
+        });
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Input("custom"));
+
+        Assert.Equal(6, value);
+        Assert.Same(culture, parserCulture);
+        Assert.Equal("custom", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public async Task Parser_Failure_DoesNotFallback_Ok()
+    {
+        var value = 2;
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<int>(this, v => value = v));
+            pb.Add(a => a.Parser, (_, _) => (false, default));
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("3"));
+
+        Assert.Equal(2, value);
+    }
+
+    [Fact]
+    public async Task Parser_Null_UsesDefaultConversion_Ok()
+    {
+        var value = 2m;
+        var cut = Context.Render<BootstrapInputNumber<decimal>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<decimal>(this, v => value = v));
+            pb.Add(a => a.CultureInfo, CultureInfo.GetCultureInfo("en-US"));
+            pb.Add(a => a.Parser, null);
+        });
+
+        await cut.InvokeAsync(() => cut.Find("input").Change("$ 3"));
+
+        Assert.Equal(3m, value);
+    }
+
+    [Fact]
     public void Formatter_Null()
     {
         var cut = Context.Render<BootstrapInputNumber<int?>>(pb =>
