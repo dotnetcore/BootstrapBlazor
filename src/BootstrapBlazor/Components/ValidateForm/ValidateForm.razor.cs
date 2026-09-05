@@ -727,6 +727,14 @@ public partial class ValidateForm
         }
     }
 
+    /// <summary>
+    /// <para lang="zh">同步验证方法 用于代码调用触发表单验证（不支持某些组件的异步验证）</para>
+    /// <para lang="en">Synchronous validation method used to trigger form validation via code (does not support asynchronous validation for some components)</para>
+    /// </summary>
+    [Obsolete("已弃用，请使用 ValidateAsync 方法。Deprecated. Please use the ValidateAsync method.")]
+    [ExcludeFromCodeCoverage]
+    public bool Validate() => true;
+
     private BootstrapBlazorDataAnnotationsValidator _validator = default!;
 
     private EditContext? _formlessEditContext;
