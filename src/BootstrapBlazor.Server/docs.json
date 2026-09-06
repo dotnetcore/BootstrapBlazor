@@ -104,6 +104,7 @@
     "iframe": "IFrames",
     "image-viewer": "ImageViewers",
     "input-number": "InputNumbers",
+    "input-currency": "InputCurrency",
     "input": "Inputs",
     "input-group": "InputGroups",
     "ip": "Ips",

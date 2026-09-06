@@ -1,0 +1,17 @@
+@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits BootstrapInputNumberBase<TValue>
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+@RenderInput
+
+@code {
+    RenderFragment RenderInput =>
+    @<input @attributes="AdditionalAttributes" min="@Min" max="@Max" id="@Id" inputmode="@InputModeString"
+    placeholder="@PlaceHolder" class="@InputClassString"
+    readonly="@ReadonlyString"disabled="@Disabled"
+    @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" />;
+}

@@ -1,0 +1,73 @@
+@page "/input-currency"
+
+@inject IStringLocalizer<InputCurrency> Localizer
+
+<h3>@Localizer["InputCurrencyTitle"]</h3>
+<h4>@Localizer["InputCurrencyDescription"]</h4>
+<h4>@((MarkupString)Localizer["InputCurrencyMemo"].Value)</h4>
+
+<DemoBlock Title="@Localizer["InputCurrencyNormalTitle"]"
+           Introduction="@Localizer["InputCurrencyNormalIntro"]"
+           Name="Normal">
+    <div class="demo-input-currency">
+        <BootstrapInputCurrency Value="@BindValue" IsSelectAllTextOnFocus="true" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyCultureTitle"]"
+           Introduction="@Localizer["InputCurrencyCultureIntro"]"
+           Name="Culture">
+    <div class="row g-2 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@BindValue" ShowLabel="true" DisplayText="double" CultureInfo="@CultureInfo.GetCultureInfo("en-Us")" FormatString="C" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@BindValue"></Display>
+        </div>
+        <section ignore class="my-3">@((MarkupString)Localizer["InputCurrencyCultureIntro2"].Value)</section>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@NullableValue" ShowLabel="true" DisplayText="double?" CultureInfo="@CultureInfo.GetCultureInfo("pt-BR")" FormatString="C" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@NullableValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyPercentTitle"]"
+           Introduction="@Localizer["InputCurrencyPercentIntro"]"
+           Name="Percent">
+    <div class="row g-2 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@BindDecimalValue" IsSelectAllTextOnFocus="true" FormatString="P2" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@BindDecimalValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyCustomizeTitle"]"
+           Introduction="@Localizer["InputCurrencyCustomizeIntro"]"
+           Name="Customize">
+    <div class="row g-2 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@BindDecimalValue" IsSelectAllTextOnFocus="true" Formatter="FormatCustomize" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@BindDecimalValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyRangeTitle"]"
+           Introduction="@Localizer["InputCurrencyRangeIntro"]"
+           Name="Range">
+    <div class="row g-2 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@BindMaxMinValue" Max="10" Min="1" FormatString="N2" IsSelectAllTextOnFocus="true" />
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Type="typeof(BootstrapInputCurrency<>)" />

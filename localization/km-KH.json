@@ -78,6 +78,9 @@
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "ទិន្នន័យ {0} ត្រូវ​តែ​ជា​លេខ។"
   },
+  "BootstrapBlazor.Components.BootstrapInputCurrency": {
+    "ParsingErrorMessage": "ទិន្នន័យ {0} ត្រូវ​តែ​ជា​លេខ។"
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "បាទ/ចាស៎",
     "ButtonNoText": "ទេ",

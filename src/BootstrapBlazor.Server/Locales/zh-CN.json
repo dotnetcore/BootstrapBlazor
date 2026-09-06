@@ -2771,6 +2771,22 @@
     "IntersectionObserverIntro": "通过设置 <code>IsIntersectionObserver=\"true\"</code> 开启懒加载特性，当图片在不可见区域时不加载图片，当图片即将可见时才开始加载图片",
     "IntersectionObserverTitle": "懒加载"
   },
+  "BootstrapBlazor.Server.Components.Samples.InputCurrency": {
+    "InputCurrencyCultureIntro": "自行指定文化信息，例如：en-US、zh-CN",
+    "InputCurrencyCultureIntro2": "指定巴西葡萄牙语，例如：pt-BR",
+    "InputCurrencyCultureTitle": "指文化用法",
+    "InputCurrencyCustomizeIntro": "使用 <code>Formatter</code> 回调来实现自定义格式用法",
+    "InputCurrencyCustomizeTitle": "自定义格式用法",
+    "InputCurrencyDescription": "仅允许输入标准的数字值，并提供格式化功能，例如：输入12345.78，千分位显示：12,345.78；货币显示：¥12,345.78；百分比显示：12,345.78%",
+    "InputCurrencyMemo": "本组件，实际上是 <code>InputNumbers</code> 组件的扩展，以满足有需要在 <code>UI</code> 中显示货币、百分比等格式化数值的需求",
+    "InputCurrencyNormalIntro": "<code>Number</code> 数值类型显示文本框，移动端自动弹出数字键盘",
+    "InputCurrencyNormalTitle": "基础用法",
+    "InputCurrencyPercentIntro": "可使用 <code>Formatter</code> 或 <code>FormatString</code> 来实现百分比显示",
+    "InputCurrencyPercentTitle": "百分比用法",
+    "InputCurrencyRangeIntro": "设置 <code>Max</code> <code>Min</code> 来控制数值区间范围 1-10",
+    "InputCurrencyRangeTitle": "区间限制用法",
+    "InputCurrencyTitle": "InputCurrency 组件"
+  },
   "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsCheckboxIntro": "往 <code>InputGroup</code> 里面增加 <code>Checkbox</code> 或者 <code>CheckboxList</code>",
     "InputGroupsCheckboxTitle": "复选框组合",
@@ -6067,7 +6083,6 @@
     "Picture.Required": "上传文件不能为空"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
-    "AsyncValidationError": "用户名已存在",
     "AsyncValidationUserName": "用户名",
     "ChangeButtonText": "更改组件",
     "CustomValidationFormComment1": "增加邮箱验证规则",

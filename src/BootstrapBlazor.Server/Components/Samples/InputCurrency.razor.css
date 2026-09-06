@@ -1,0 +1,7 @@
+.demo-input-currency {
+    width: 200px;
+}
+
+    .demo-input-currency > ::deep .form-control {
+        width: inherit;
+    }
