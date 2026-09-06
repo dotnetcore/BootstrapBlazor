@@ -17,7 +17,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsHeaderRow, true);
         });
 
-        var input = cut.Find("[inputmode=\"decimal\"]");
+        var input = cut.Find("[type=\"number\"]");
         await cut.InvokeAsync(() => input.Change("1"));
 
         var action = cut.Find(".dropdown-item");
