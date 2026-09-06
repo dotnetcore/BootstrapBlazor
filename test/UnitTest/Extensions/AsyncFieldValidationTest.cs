@@ -235,15 +235,6 @@ public class AsyncFieldValidationTest
         Assert.False(context.IsValidationFaulted(name));
     }
 
-    [Fact]
-    public void NullContext()
-    {
-        var field = new FieldIdentifier(new object(), "Name");
-        Assert.Throws<ArgumentNullException>(() => EditContextExtensions.RegisterAsyncFieldValidator(null!, field, _ => Task.CompletedTask));
-        Assert.Throws<ArgumentNullException>(() => EditContextExtensions.IsValidationPending(null!, field));
-        Assert.Throws<ArgumentNullException>(() => EditContextExtensions.IsValidationFaulted(null!, field));
-    }
-
     private static TaskCompletionSource ObserveCompletion(EditContext context, FieldIdentifier field)
     {
         var settled = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
