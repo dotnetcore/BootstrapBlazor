@@ -156,9 +156,11 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
     [InlineData("1.2.3", 1.23)]
     [InlineData("(1,234.50)", -1234.50)]
     [InlineData("1e+3", 1000)]
+    [InlineData("1E3", 1000)]
     [InlineData("1e-3", 0.001)]
     [InlineData("1e", 1)]
     [InlineData("e1", 1)]
+    [InlineData("1ea", 1)]
     public async Task FormattedInput_Normalizes_Ok(string source, double expected)
     {
         var value = 0d;
@@ -200,6 +202,7 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
         var value = 1;
         var culture = CultureInfo.GetCultureInfo("fr-FR");
         CultureInfo? receivedCulture = null;
+        string? receivedText = null;
         var shouldSucceed = true;
         var cut = Context.Render<BootstrapInputCurrency<int>>(pb =>
         {
@@ -209,17 +212,20 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
             pb.Add(a => a.Parser, (text, currentCulture) =>
             {
                 receivedCulture = currentCulture;
+                receivedText = text;
                 return (shouldSucceed, shouldSucceed ? text.Length : default);
             });
         });
 
-        await cut.InvokeAsync(() => cut.Find("input").Change("custom"));
-        Assert.Equal(6, value);
+        await cut.InvokeAsync(() => cut.Find("input").Change("123custom"));
+        Assert.Equal(3, value);
+        Assert.Equal("123", receivedText);
         Assert.Same(culture, receivedCulture);
 
         shouldSucceed = false;
-        await cut.InvokeAsync(() => cut.Find("input").Change("123"));
-        Assert.Equal(6, value);
+        await cut.InvokeAsync(() => cut.Find("input").Change("456custom"));
+        Assert.Equal("456", receivedText);
+        Assert.Equal(3, value);
     }
 
     [Fact]
@@ -392,18 +398,12 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
         var valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
         Assert.False(valid);
 
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("t2");
-        });
+        await cut.InvokeAsync(() => input.Change("test"));
         Assert.Equal(1, model.Count);
         valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
         Assert.False(valid);
 
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("2");
-        });
+        await cut.InvokeAsync(() => input.Change("t2"));
         Assert.Equal(2, model.Count);
 
         valid = await cut.InvokeAsync(() => cut.Instance.ValidateAsync(CancellationToken.None));
@@ -432,16 +432,10 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
         });
         Assert.Equal(1, model.Count);
 
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("t2");
-        });
+        await cut.InvokeAsync(() => input.Change("test"));
         Assert.Equal(1, model.Count);
 
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("2");
-        });
+        await cut.InvokeAsync(() => input.Change("t2"));
         Assert.Equal(2, model.Count);
     }
 

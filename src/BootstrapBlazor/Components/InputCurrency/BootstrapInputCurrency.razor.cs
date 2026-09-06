@@ -217,13 +217,6 @@ public partial class BootstrapInputCurrency<TValue>
 
     private string NormalizeValue(string value)
     {
-        return Formatter != null || !string.IsNullOrEmpty(FormatString)
-            ? NormalizeNumericValue(value)
-            : value;
-    }
-
-    private string NormalizeNumericValue(string value)
-    {
         var format = CultureInfo.NumberFormat;
         var decimalSeparators = new[] { format.NumberDecimalSeparator, format.CurrencyDecimalSeparator }
             .Where(s => !string.IsNullOrEmpty(s))
