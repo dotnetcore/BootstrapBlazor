@@ -50,12 +50,40 @@ public partial class BootstrapInputCurrency<TValue>
     [Parameter]
     public Func<string, CultureInfo, (bool Success, TValue? Value)>? Parser { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 清空文本框时的回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method when clearing text box. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnClear { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示清空小按钮，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show clear button. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 清空小按钮图标，默认为 null</para>
+    /// <para lang="en">Gets or sets the clear button icon. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public string? ClearIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputCurrency<TValue>>? Localizer { get; set; }
 
     private string? ReadonlyString => Readonly ? "true" : null;
+
+    private string? ClearableIconString => CssBuilder.Default("form-control-clear-icon")
+        .AddClass(ClearIcon)
+        .Build();
 
     /// <summary>
     /// <para lang="zh">获得 文本框样式</para>
@@ -93,6 +121,7 @@ public partial class BootstrapInputCurrency<TValue>
     {
         base.OnParametersSet();
 
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
 
         if (Value is null)
@@ -322,5 +351,14 @@ public partial class BootstrapInputCurrency<TValue>
             _manualInput = true;
         }
         return ret;
+    }
+
+    private async Task OnClickClear()
+    {
+        if (OnClear != null)
+        {
+            await OnClear(Value);
+        }
+        CurrentValueAsString = "";
     }
 }
