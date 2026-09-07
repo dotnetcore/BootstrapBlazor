@@ -37,11 +37,11 @@ public partial class BootstrapInputCurrency<TValue>
     public string? Max { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数值解析及格式字符串使用的文化信息</para>
-    /// <para lang="en">Gets or sets the culture used to parse and format numeric values</para>
+    /// <para lang="zh">获得/设置 数值解析及格式字符串使用的文化信息，默认 null 未设置使用当前 UI 文化信息</para>
+    /// <para lang="en">Gets or sets the culture used to parse and format numeric values. Default is null, which uses the current UI culture</para>
     /// </summary>
     [Parameter]
-    public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
+    public CultureInfo? CultureInfo { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义数值解析回调方法。解析成功后由组件格式化显示值</para>
@@ -108,6 +108,7 @@ public partial class BootstrapInputCurrency<TValue>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         if (UseInputEvent)
         {
             _lastInputValueString ??= Value?.ToString();
@@ -123,6 +124,9 @@ public partial class BootstrapInputCurrency<TValue>
 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
+
+        CultureInfo ??= CultureInfo.CurrentUICulture;
+        FormatString ??= "C";
 
         if (Value is null)
         {
