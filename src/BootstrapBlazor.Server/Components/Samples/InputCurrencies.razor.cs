@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
-public partial class InputCurrency
+public partial class InputCurrencies
 {
     /// <summary>
     /// BindValue

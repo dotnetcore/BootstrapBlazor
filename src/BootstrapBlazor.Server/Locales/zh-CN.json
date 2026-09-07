@@ -2772,7 +2772,7 @@
     "IntersectionObserverIntro": "通过设置 <code>IsIntersectionObserver=\"true\"</code> 开启懒加载特性，当图片在不可见区域时不加载图片，当图片即将可见时才开始加载图片",
     "IntersectionObserverTitle": "懒加载"
   },
-  "BootstrapBlazor.Server.Components.Samples.InputCurrency": {
+  "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
     "InputCurrencyCultureIntro": "自行指定文化信息，例如：en-US、zh-CN",
     "InputCurrencyCultureIntro2": "指定巴西葡萄牙语，例如：pt-BR",
     "InputCurrencyCultureTitle": "指文化用法",

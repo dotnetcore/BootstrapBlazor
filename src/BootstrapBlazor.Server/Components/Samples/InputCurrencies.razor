@@ -1,6 +1,6 @@
 @page "/input-currency"
 
-@inject IStringLocalizer<InputCurrency> Localizer
+@inject IStringLocalizer<InputCurrencies> Localizer
 
 <h3>@Localizer["InputCurrencyTitle"]</h3>
 <h4>@Localizer["InputCurrencyDescription"]</h4>
@@ -10,7 +10,7 @@
            Introduction="@Localizer["InputCurrencyNormalIntro"]"
            Name="Normal">
     <div class="demo-input-currency">
-        <BootstrapInputCurrency @bind-Value="@BindValue" IsSelectAllTextOnFocus="true" />
+        <BootstrapInputCurrency Value="@BindValue" />
     </div>
 </DemoBlock>
 
@@ -39,7 +39,7 @@
            Name="Percent">
     <div class="row g-2 form-inline">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency @bind-Value="@BindPercentValue" IsSelectAllTextOnFocus="true" FormatString="P2" />
+            <BootstrapInputCurrency Value="@BindDecimalValue" FormatString="P2" />
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="@BindPercentValue"></Display>
@@ -52,7 +52,7 @@
            Name="Customize">
     <div class="row g-2 form-inline">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency @bind-Value="@BindDecimalValue" IsSelectAllTextOnFocus="true" Formatter="FormatCustomize" />
+            <BootstrapInputCurrency Value="@BindDecimalValue" Formatter="FormatCustomize" />
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="@BindDecimalValue"></Display>
@@ -65,7 +65,7 @@
            Name="Range">
     <div class="row g-2 form-inline">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency @bind-Value="@BindMaxMinValue" Max="10" Min="1" FormatString="N2" IsSelectAllTextOnFocus="true" />
+            <BootstrapInputCurrency Value="@BindMaxMinValue" Max="10" Min="1" FormatString="N2" />
         </div>
     </div>
 </DemoBlock>

@@ -2772,7 +2772,7 @@
     "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible.",
     "IntersectionObserverTitle": "Intersection Observer"
   },
-  "BootstrapBlazor.Server.Components.Samples.InputCurrency": {
+  "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
     "InputCurrencyCultureIntro": "Specify culture information, for example: en-US, zh-CN",
     "InputCurrencyCultureIntro2": "Specify Brazilian Portuguese, for example: pt-BR",
     "InputCurrencyCultureTitle": "Culture-specific usage",
