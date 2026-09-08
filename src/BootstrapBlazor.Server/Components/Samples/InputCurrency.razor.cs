@@ -22,6 +22,11 @@ public partial class InputCurrency
     /// <summary>
     /// 
     /// </summary>
+    public decimal BindPercentValue { get; set; } = 35.356m;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public double BindMaxMinValue { get; set; } = 9.23;
 
     /// <summary>
