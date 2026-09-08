@@ -1,0 +1,17 @@
+.bb-input-currency {
+    position: relative;
+    --bb-input-currency-padding-x: 0.75rem;
+
+    &::before {
+        content: var(--bb-input-currency-symbol, '');
+        position: absolute;
+        top: 50%;
+        left: var(--bb-input-currency-padding-x);
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .form-control {
+        padding-inline-start: calc(var(--bb-input-currency-symbol-length, 0) * 1em + var(--bb-input-currency-padding-x)) !important;
+    }
+}

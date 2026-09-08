@@ -1,6 +1,5 @@
 @namespace BootstrapBlazor.Components
-@typeparam TValue
-@inherits BootstrapInputNumberBase<TValue>
+@inherits BootstrapInputBase<decimal?>
 
 @if (IsShowLabel)
 {
@@ -24,8 +23,11 @@ else
 
 @code {
     RenderFragment RenderInput =>
-    @<input @attributes="AdditionalAttributes" min="@Min" max="@Max" id="@Id" inputmode="@InputModeString"
-            placeholder="@PlaceHolder" class="@InputClassString"
-            readonly="@ReadonlyString" disabled="@Disabled"
-            @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" />;
+    @<div class="bb-input-currency" style="@InputStyleString">
+        <input @attributes="AdditionalAttributes" min="@Min" max="@Max" id="@Id"
+               type="number" inputmode="decimal"
+               placeholder="@PlaceHolder" class="@InputClassString"
+               readonly="@ReadonlyString" disabled="@Disabled"
+               @bind-value="@CurrentValueAsString" @onblur="@OnBlur" />
+    </div>;
 }
