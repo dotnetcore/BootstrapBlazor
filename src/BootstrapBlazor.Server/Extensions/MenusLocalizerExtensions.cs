@@ -447,6 +447,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["BootstrapInputCurrency"],
+                    Url = "input-currency"
+                },
+                new()
+                {
                     Text = Localizer["BootstrapInputGroup"],
                     Url = "input-group"
                 },
