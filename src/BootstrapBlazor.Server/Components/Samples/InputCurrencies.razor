@@ -9,53 +9,28 @@
 <DemoBlock Title="@Localizer["InputCurrencyNormalTitle"]"
            Introduction="@Localizer["InputCurrencyNormalIntro"]"
            Name="Normal">
+    <section ignore>
+        <div class="form-inline row g-2">
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@_useIsoSymbol" ShowLabel="true" DisplayText="Iso"></Switch>
+            </div>
+        </div>
+    </section>
     <div class="demo-input-currency">
-        <BootstrapInputCurrency Value="@BindValue" />
+        <BootstrapInputCurrency Value="@_value" IsIsoSymbol="@_useIsoSymbol" style="width: 160px;" />
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputCurrencyCultureTitle"]"
            Introduction="@Localizer["InputCurrencyCultureIntro"]"
            Name="Culture">
+    <section ignore>@((MarkupString)Localizer["InputCurrencyCultureIntro2"].Value)</section>
     <div class="row g-2 form-inline">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency @bind-Value="@BindValue" ShowLabel="true" DisplayText="double" CultureInfo="@CultureInfo.GetCultureInfo("en-Us")" FormatString="C" />
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币" CultureName="zh-CN" />
         </div>
         <div class="col-12 col-sm-6">
-            <Display Value="@BindValue"></Display>
-        </div>
-        <section ignore class="my-3">@((MarkupString)Localizer["InputCurrencyCultureIntro2"].Value)</section>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency @bind-Value="@NullableValue" ShowLabel="true" DisplayText="double?" CultureInfo="@CultureInfo.GetCultureInfo("pt-BR")" FormatString="C" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <Display Value="@NullableValue"></Display>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["InputCurrencyPercentTitle"]"
-           Introduction="@Localizer["InputCurrencyPercentIntro"]"
-           Name="Percent">
-    <div class="row g-2 form-inline">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@BindDecimalValue" FormatString="P2" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <Display Value="@BindPercentValue"></Display>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["InputCurrencyCustomizeTitle"]"
-           Introduction="@Localizer["InputCurrencyCustomizeIntro"]"
-           Name="Customize">
-    <div class="row g-2 form-inline">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@BindDecimalValue" Formatter="FormatCustomize" />
-        </div>
-        <div class="col-12 col-sm-6">
-            <Display Value="@BindDecimalValue"></Display>
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="葡萄牙货币" CultureName="pt-BR" />
         </div>
     </div>
 </DemoBlock>
@@ -63,11 +38,7 @@
 <DemoBlock Title="@Localizer["InputCurrencyRangeTitle"]"
            Introduction="@Localizer["InputCurrencyRangeIntro"]"
            Name="Range">
-    <div class="row g-2 form-inline">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@BindMaxMinValue" Max="10" Min="1" FormatString="N2" />
-        </div>
-    </div>
+    <BootstrapInputCurrency Value="@_value2" Max="10" Min="1" style="width: 160px;" />
 </DemoBlock>
 
-<AttributeTable Type="typeof(BootstrapInputCurrency<>)" />
+<AttributeTable Type="typeof(BootstrapInputCurrency)" />
