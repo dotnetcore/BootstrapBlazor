@@ -110,14 +110,17 @@ public partial class ColorPicker
         Swatches
     });
 
+#if NET9_0_OR_GREATER
     private string GetSytleSheet()
     {
-#if NET9_0_OR_GREATER
         return Assets["./_content/BootstrapBlazor/lib/pickr/nano.min.css"];
-#else
-        return "./_content/BootstrapBlazor/lib/pickr/nano.min.css";
-#endif
     }
+#else
+    private static string GetSytleSheet()
+    {
+        return "./_content/BootstrapBlazor/lib/pickr/nano.min.css";
+    }
+#endif
 
     private async Task Setter(string v)
     {
