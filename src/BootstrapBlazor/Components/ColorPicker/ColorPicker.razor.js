@@ -1,15 +1,15 @@
 import { addLink, addScript } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
-export async function init(id, invoke, options) {
+export async function init(id, invoke, styleSheet, options) {
     const obj = { invoke, pickr: null };
     Data.set(id, obj);
-    await getOrCreatePickr(id, obj, options);
+    await getOrCreatePickr(id, obj, styleSheet, options);
 }
 
-export async function update(id, options) {
+export async function update(id, styleSheet, options) {
     const obj = Data.get(id);
-    await getOrCreatePickr(id, obj, options);
+    await getOrCreatePickr(id, obj, styleSheet, options);
 }
 
 export function dispose(id) {
@@ -20,11 +20,11 @@ export function dispose(id) {
     }
 }
 
-const getOrCreatePickr = async (id, picker, options) => {
+const getOrCreatePickr = async (id, picker, styleSheet, options) => {
     const { isSupportOpacity } = options;
 
     if (isSupportOpacity === true) {
-        await addLink("./_content/BootstrapBlazor/lib/pickr/nano.min.css");
+        await addLink(styleSheet);
         await addScript("./_content/BootstrapBlazor/lib/pickr/pickr.min.js");
 
         const { invoke, pickr } = picker;
