@@ -87,14 +87,37 @@ public partial class ColorPicker
         {
             _originalSupportOpacityValue = IsSupportOpacity;
             _originalIsDisabledValue = IsDisabled;
-            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
+            await InvokeVoidAsync("update", Id, GetSytleSheet(), new
+            {
+                Value,
+                IsSupportOpacity,
+                Disabled = IsDisabled,
+                Lang = CultureInfo.CurrentUICulture.Name,
+                Swatches
+            });
         }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, GetSytleSheet(), new
+    {
+        Default = Value,
+        IsSupportOpacity,
+        Disabled = IsDisabled,
+        Lang = CultureInfo.CurrentUICulture.Name,
+        Swatches
+    });
+
+    private string GetSytleSheet()
+    {
+#if NET9_0_OR_GREATER
+        return Assets["./_content/BootstrapBlazor/lib/pickr/nano.min.css"];
+#else
+        return "./_content/BootstrapBlazor/lib/pickr/nano.min.css";
+#endif
+    }
 
     private async Task Setter(string v)
     {
