@@ -18,11 +18,25 @@
 }
 else
 {
-    @RenderInput
+    @if (IsIsoSymbol)
+    {
+        @RenderSymbolInput
+    }
+    else
+    {
+        @RenderInput
+    }    
 }
 
 @code {
     RenderFragment RenderInput =>
+    @<input @attributes="AdditionalAttributes" min="@Min" max="@Max" id="@Id"
+               type="@InputType" inputmode="decimal"
+               placeholder="@PlaceHolder" class="@InputClassString"
+               readonly="@ReadonlyString" disabled="@Disabled"
+               @bind-value="@_cultureValue" @onfocus="@OnFocus" @onblur="@OnBlur" />;
+
+    RenderFragment RenderSymbolInput =>
     @<div @attributes="AdditionalAttributes" class="bb-input-currency" style="@InputStyleString">
         <input min="@Min" max="@Max" id="@Id"
                type="number" inputmode="decimal"

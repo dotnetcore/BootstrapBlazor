@@ -100,6 +100,44 @@ public partial class BootstrapInputCurrency
 
     private CultureInfo? _currentCultureInfo;
 
+    private string? InputType => _isEditing ? "number" : "text";
+    private bool _isEditing;
+
+    private string? _cultureValue
+    {
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                CurrentValue = null;
+            }
+            else if (decimal.TryParse(value, NumberStyles.Any, _currentCultureInfo, out var result))
+            {
+                CurrentValue = result;
+            }
+        }
+        get
+        {
+            if (_isEditing)
+            {
+                return CurrentValue?.ToString();
+            }
+            else
+                return IsIsoSymbol ? CurrentValue?.ToString() : GetFormatString(CurrentValue);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override string? FormatValueAsString(decimal? value) => IsIsoSymbol ? CurrentValue?.ToString() : GetFormatString(value);
+
+    private string? GetFormatString(decimal? value) => Formatter != null
+        ? Formatter.Invoke(value)
+        : (!string.IsNullOrEmpty(FormatString) && value is IFormattable formattable
+            ? formattable.ToString(FormatString, _currentCultureInfo)
+            : value?.ToString());
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -121,6 +159,10 @@ public partial class BootstrapInputCurrency
         }
 
         _currencySymbol = IsIsoSymbol ? GetIsoCurrencySymbol(_currentCultureInfo.Name) : _currentCultureInfo.NumberFormat.CurrencySymbol;
+        if (IsIsoSymbol)
+        {
+            _cultureValue = CurrentValue?.ToString();
+        }
     }
 
     private static string GetIsoCurrencySymbol(string cultureName)
@@ -137,11 +179,22 @@ public partial class BootstrapInputCurrency
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <returns></returns>
+    protected Task OnFocus()
+    {
+        _isEditing = true;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override async Task OnBlur()
     {
         var max = Max ?? decimal.MaxValue;
         var min = Min ?? decimal.MinValue;
         var val = CurrentValue ?? 0;
+        _isEditing = false;
         CurrentValue = Math.Clamp(val, min, max);
 
         if (OnBlurAsync != null)
