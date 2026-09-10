@@ -2773,9 +2773,9 @@
     "IntersectionObserverTitle": "Intersection Observer"
   },
   "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
-    "InputCurrencyCultureIntro": "Specify culture information, for example: en-US, zh-CN",
-    "InputCurrencyCultureIntro2": "Specify Brazilian Portuguese, for example: pt-BR",
-    "InputCurrencyCultureTitle": "Culture-specific usage",
+    "InputCurrencyCultureIntro": "Specify culture information, for example: <code>en-US, zh-CN</code>",
+    "InputCurrencyCultureIntro2": "Specify Brazilian Portuguese, for example: <code>pt-BR</code>",
+    "InputCurrencyCultureTitle": "Specify culture name",
     "InputCurrencyCustomizeIntro": "Use the <code>Formatter</code> callback to achieve custom format usage",
     "InputCurrencyCustomizeTitle": "Custom format usage",
     "InputCurrencyDescription": "Only allows standard numeric values and provides formatting capabilities, for example: entering 12345.78 displays as 12,345.78 with thousand separators; as ¥12,345.78 for currency; and as 12,345.78% for percentage.",

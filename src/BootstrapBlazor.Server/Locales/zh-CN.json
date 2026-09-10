@@ -2773,9 +2773,9 @@
     "IntersectionObserverTitle": "懒加载"
   },
   "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
-    "InputCurrencyCultureIntro": "自行指定文化信息，例如：en-US、zh-CN",
-    "InputCurrencyCultureIntro2": "指定巴西葡萄牙语，例如：pt-BR",
-    "InputCurrencyCultureTitle": "指文化用法",
+    "InputCurrencyCultureIntro": "自行指定文化信息，例如：<code>en-US、zh-CN</code>",
+    "InputCurrencyCultureIntro2": "指定巴西葡萄牙语，例如：<code>pt-BR</code>",
+    "InputCurrencyCultureTitle": "指定文化名称",
     "InputCurrencyCustomizeIntro": "使用 <code>Formatter</code> 回调来实现自定义格式用法",
     "InputCurrencyCustomizeTitle": "自定义格式用法",
     "InputCurrencyDescription": "仅允许输入标准的数字值，并提供格式化功能，例如：输入12345.78，千分位显示：12,345.78；货币显示：¥12,345.78；百分比显示：12,345.78%",
