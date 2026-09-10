@@ -43,11 +43,25 @@ public partial class BootstrapInputCurrency
     public string? CultureName { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置小数位数，默认 null，使用当前货币文化的小数位数。设置 <c>FormatString</c> 或 <c>Formatter</c> 时本参数不生效</para>
+    /// <para lang="en">Gets or sets the number of decimal places. The default is null, which uses the current currency culture. This parameter is ignored when <c>FormatString</c> or <c>Formatter</c> is set</para>
+    /// </summary>
+    [Parameter]
+    public int? Decimals { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否显示 ISO 货币符号，默认 false 不显示</para>
     /// <para lang="en">Gets or sets whether to show ISO currency symbol. Default is false</para>
     /// </summary>
     [Parameter]
-    public bool IsIsoSymbol { get; set; }
+    public bool ShowIsoCurrencySymbol { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 货币符号模板</para>
+    /// <para lang="en">Gets or sets the currency symbol template</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? SymbolTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空文本框时的回调方法，默认为 null</para>
@@ -92,51 +106,7 @@ public partial class BootstrapInputCurrency
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? InputStyleString => string.IsNullOrEmpty(_currencySymbol) ? null : CssBuilder.Default()
-        .AddClass($"--bb-input-currency-symbol-length: {_currencySymbol.Length};")
-        .AddClass($"--bb-input-currency-symbol: '{_currencySymbol}';")
-        .Build();
-
-
-    private CultureInfo? _currentCultureInfo;
-
-    private string? InputType => _isEditing ? "number" : "text";
-    private bool _isEditing;
-
-    private string? _cultureValue
-    {
-        set
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                CurrentValue = null;
-            }
-            else if (decimal.TryParse(value, NumberStyles.Any, _currentCultureInfo, out var result))
-            {
-                CurrentValue = result;
-            }
-        }
-        get
-        {
-            if (_isEditing)
-            {
-                return CurrentValue?.ToString();
-            }
-            else
-                return IsIsoSymbol ? CurrentValue?.ToString() : GetFormatString(CurrentValue);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override string? FormatValueAsString(decimal? value) => IsIsoSymbol ? CurrentValue?.ToString() : GetFormatString(value);
-
-    private string? GetFormatString(decimal? value) => Formatter != null
-        ? Formatter.Invoke(value)
-        : (!string.IsNullOrEmpty(FormatString) && value is IFormattable formattable
-            ? formattable.ToString(FormatString, _currentCultureInfo)
-            : value?.ToString());
+    private CultureInfo _currentCultureInfo = CultureInfo.CurrentUICulture;
 
     /// <summary>
     /// <inheritdoc/>
@@ -148,27 +118,56 @@ public partial class BootstrapInputCurrency
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
 
-        if (string.IsNullOrEmpty(CultureName))
+        if (Decimals is < 0 or > 28)
         {
-            _currentCultureInfo = CultureInfo.CurrentUICulture;
-
-        }
-        else
-        {
-            _currentCultureInfo = CultureInfo.GetCultureInfo(CultureName);
+            throw new ArgumentOutOfRangeException(nameof(Decimals), Decimals, "DecimalPlaces must be between 0 and 28.");
         }
 
-        _currencySymbol = IsIsoSymbol ? GetIsoCurrencySymbol(_currentCultureInfo.Name) : _currentCultureInfo.NumberFormat.CurrencySymbol;
-        if (IsIsoSymbol)
-        {
-            _cultureValue = CurrentValue?.ToString();
-        }
+        _currentCultureInfo = string.IsNullOrEmpty(CultureName) ? CultureInfo.CurrentUICulture : CultureInfo.GetCultureInfo(CultureName);
+        _currencySymbol = ShowIsoCurrencySymbol ? GetIsoCurrencySymbol(_currentCultureInfo) : _currentCultureInfo.NumberFormat.CurrencySymbol;
     }
 
-    private static string GetIsoCurrencySymbol(string cultureName)
+    private static string GetIsoCurrencySymbol(CultureInfo culture)
     {
-        var regionInfo = new RegionInfo(cultureName);
-        return regionInfo.ISOCurrencySymbol;
+        if (string.IsNullOrEmpty(culture.Name))
+        {
+            return culture.NumberFormat.CurrencySymbol;
+        }
+
+        var specificCulture = culture.IsNeutralCulture ? CultureInfo.CreateSpecificCulture(culture.Name) : culture;
+        return new RegionInfo(specificCulture.Name).ISOCurrencySymbol;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out decimal result, out string? validationErrorMessage)
+    {
+        var ret = decimal.TryParse(value, NumberStyles.Currency, _currentCultureInfo, out result);
+        validationErrorMessage = ret ? null : FormatParsingErrorMessage();
+        if (!ret)
+        {
+            result = default;
+        }
+
+        return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected override string? FormatValueAsString(decimal value)
+    {
+        if (Formatter != null)
+        {
+            return Formatter(value);
+        }
+
+        var decimalPlaces = Decimals ?? _currentCultureInfo.NumberFormat.CurrencyDecimalDigits;
+        var format = string.IsNullOrEmpty(FormatString) ? $"N{decimalPlaces}" : FormatString;
+        return value.ToString(format, _currentCultureInfo);
     }
 
     /// <summary>
@@ -179,28 +178,10 @@ public partial class BootstrapInputCurrency
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected Task OnFocus()
-    {
-        _isEditing = true;
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     protected override async Task OnBlur()
     {
-        var max = Max ?? decimal.MaxValue;
-        var min = Min ?? decimal.MinValue;
-        var val = CurrentValue ?? 0;
-        _isEditing = false;
-        CurrentValue = Math.Clamp(val, min, max);
-
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
-        }
+        CurrentValue = Math.Clamp(CurrentValue, Min ?? decimal.MinValue, Max ?? decimal.MaxValue);
+        await base.OnBlur();
     }
 
     private async Task OnClickClear()
@@ -209,6 +190,7 @@ public partial class BootstrapInputCurrency
         {
             await OnClear(Value);
         }
-        CurrentValueAsString = "";
+
+        CurrentValue = default;
     }
 }

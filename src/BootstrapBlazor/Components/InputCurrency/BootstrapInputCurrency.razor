@@ -1,47 +1,39 @@
 @namespace BootstrapBlazor.Components
-@inherits BootstrapInputBase<decimal?>
+@inherits BootstrapInputBase<decimal>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 
-@if (IsClearable)
-{
-    <div class="bb-clearable-input">
-        @RenderInput
-        @if (!IsDisabled && !Readonly)
+<div @attributes="AdditionalAttributes" class="bb-input-currency input-group">
+    <div class="input-group-text">
+        @if (SymbolTemplate != null)
         {
-            <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+            @SymbolTemplate
+        }
+        else
+        {
+            @_currencySymbol
         }
     </div>
-}
-else
-{
-    @if (IsIsoSymbol)
+    @if (IsClearable && !IsDisabled && !Readonly)
     {
-        @RenderSymbolInput
+        <div class="bb-clearable-input">
+            @RenderInput
+            <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+        </div>
     }
     else
     {
         @RenderInput
-    }    
-}
+    }
+</div>
 
 @code {
     RenderFragment RenderInput =>
-    @<input @attributes="AdditionalAttributes" min="@Min" max="@Max" id="@Id"
-               type="@InputType" inputmode="decimal"
-               placeholder="@PlaceHolder" class="@InputClassString"
-               readonly="@ReadonlyString" disabled="@Disabled"
-               @bind-value="@_cultureValue" @onfocus="@OnFocus" @onblur="@OnBlur" />;
-
-    RenderFragment RenderSymbolInput =>
-    @<div @attributes="AdditionalAttributes" class="bb-input-currency" style="@InputStyleString">
-        <input min="@Min" max="@Max" id="@Id"
-               type="number" inputmode="decimal"
-               placeholder="@PlaceHolder" class="@InputClassString"
-               readonly="@ReadonlyString" disabled="@Disabled"
-               @bind-value="@CurrentValueAsString" @onblur="@OnBlur" />
-    </div>;
+    @<input type="text" inputmode="decimal"
+            placeholder="@PlaceHolder" class="@InputClassString"
+            readonly="@ReadonlyString" disabled="@Disabled"
+            @bind="@CurrentValueAsString" @onblur="@OnBlur" />;
 }
