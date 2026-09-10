@@ -12,12 +12,17 @@
     <section ignore>
         <div class="form-inline row g-2">
             <div class="col-12 col-sm-6">
-                <Switch @bind-Value="@_useIsoSymbol" ShowLabel="true" DisplayText="Iso"></Switch>
+                <Switch @bind-Value="@_showIsoCurrencySymbol" ShowLabel="true" DisplayText="Iso"></Switch>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@_showClearIcon" ShowLabel="true" DisplayText="Cleable"></Switch>
             </div>
         </div>
     </section>
     <div class="demo-input-currency">
-        <BootstrapInputCurrency Value="@_value" IsIsoSymbol="@_useIsoSymbol" style="width: 160px;" />
+        <BootstrapInputCurrency @bind-Value="@_value" style="width: 160px;"
+                                ShowIsoCurrencySymbol="@_showIsoCurrencySymbol" IsClearable="@_showClearIcon">
+        </BootstrapInputCurrency>
     </div>
 </DemoBlock>
 
@@ -25,12 +30,12 @@
            Introduction="@Localizer["InputCurrencyCultureIntro"]"
            Name="Culture">
     <section ignore>@((MarkupString)Localizer["InputCurrencyCultureIntro2"].Value)</section>
-    <div class="row g-2 form-inline">
+    <div class="row g-2">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币" CultureName="zh-CN" />
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币（三位小数）" CultureName="zh-CN" Decimals="3" />
         </div>
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="葡萄牙货币" FormatString="C" CultureName="pt-BR" />
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="葡萄牙货币" CultureName="pt-BR" />
         </div>
     </div>
 </DemoBlock>

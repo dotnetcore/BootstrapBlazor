@@ -13,7 +13,8 @@ public partial class InputCurrencies
 {
     private decimal _value = 1234.56m;
 
-    private decimal? _value2 = 2m;
+    private decimal _value2 = 2m;
 
-    private bool _useIsoSymbol;
+    private bool _showIsoCurrencySymbol;
+    private bool _showClearIcon;
 }
