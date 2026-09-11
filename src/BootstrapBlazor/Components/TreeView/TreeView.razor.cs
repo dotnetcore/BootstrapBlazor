@@ -325,6 +325,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 <see cref="GetCheckedItems()"/> 方法返回的集合是否包含半选节点，默认为 false</para>
+    /// <para lang="en">Gets or sets whether the collection returned by <see cref="GetCheckedItems()"/> includes indeterminate nodes. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool IsIncludeIndeterminateWhenGetCheckedItems { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否允许拖放操作，默认为 false</para>
     /// <para lang="en">Gets or sets a value indicating whether drag-and-drop operations are allowed. Default is false</para>
     /// </summary>
@@ -955,7 +962,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         t.Add(item);
         t.AddRange(item.GetAllSubItems().OfType<TreeViewItem<TItem>>());
         return t;
-    }).Where(i => i.CheckedState == CheckboxState.Checked);
+    }).Where(GetCheckedItems);
+
+
+    private bool GetCheckedItems(TreeViewItem<TItem> item) => IsIncludeIndeterminateWhenGetCheckedItems ? item.CheckedState != CheckboxState.UnChecked : item.CheckedState == CheckboxState.Checked;
 
     /// <summary>
     /// <para lang="zh">检查数据是否相同</para>
