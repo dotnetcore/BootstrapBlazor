@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -15,6 +16,8 @@ namespace BootstrapBlazor.Components;
 [BootstrapModuleAutoLoader("InputCurrency/BootstrapInputCurrency.razor.js", JSObjectReference = true)]
 public partial class BootstrapInputCurrency
 {
+    private static readonly ConcurrentDictionary<string, string> _isoCurrencySymbols = [];
+
     /// <summary>
     /// <para lang="zh">获得/设置 是否为只读，默认为 false</para>
     /// <para lang="en">Gets or sets whether readonly. Default is false</para>
@@ -170,7 +173,15 @@ public partial class BootstrapInputCurrency
 
     private static string GetIsoCurrencySymbol(CultureInfo culture)
     {
-        return new RegionInfo(culture.Name).ISOCurrencySymbol;
+        if (string.IsNullOrEmpty(culture.Name))
+        {
+            return culture.NumberFormat.CurrencySymbol;
+        }
+
+        var cultureName = culture.IsNeutralCulture
+            ? CultureInfo.CreateSpecificCulture(culture.Name).Name
+            : culture.Name;
+        return _isoCurrencySymbols.GetOrAdd(cultureName, static name => new RegionInfo(name).ISOCurrencySymbol);
     }
 
     /// <summary>
