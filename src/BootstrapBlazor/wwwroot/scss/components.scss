@@ -1,4 +1,4 @@
-﻿@use "root.scss";
+@use "root.scss";
 @use "../../Components/Affix/Affix.razor.scss";
 @use "../../Components/Alert/Alert.razor.scss";
 @use "../../Components/AnchorLink/AnchorLink.razor.scss";
@@ -57,6 +57,7 @@
 @use "../../Components/Input/BootstrapInputGroup.razor.scss";
 @use "../../Components/Input/FloatingLabel.razor.scss";
 @use "../../Components/Input/OtpInput.razor.scss";
+@use "../../Components/InputCurrency/BootstrapInputCurrency.razor.scss";
 @use "../../Components/IntersectionObserver/LoadMore.razor.scss";
 @use "../../Components/IpAddress/IpAddress.razor.scss";
 @use "../../Components/Layout/Layout.razor.scss";

@@ -78,6 +78,9 @@
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "The {0} field must be a number."
   },
+  "BootstrapBlazor.Components.BootstrapInputCurrency": {
+    "ParsingErrorMessage": "The {0} field must be a number."
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "Yes",
     "ButtonNoText": "No",

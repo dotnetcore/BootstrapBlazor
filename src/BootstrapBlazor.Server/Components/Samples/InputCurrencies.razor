@@ -1,0 +1,59 @@
+@page "/input-currency"
+
+@inject IStringLocalizer<InputCurrencies> Localizer
+
+<h3>@Localizer["InputCurrencyTitle"]</h3>
+<h4>@Localizer["InputCurrencyDescription"]</h4>
+<h4>@((MarkupString)Localizer["InputCurrencyMemo"].Value)</h4>
+
+<DemoBlock Title="@Localizer["InputCurrencyNormalTitle"]"
+           Introduction="@Localizer["InputCurrencyNormalIntro"]"
+           Name="Normal">
+    <section ignore>
+        <div class="form-inline row g-2">
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@_showIsoCurrencySymbol" ShowLabel="true" DisplayText="Iso"></Switch>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@_showClearIcon" ShowLabel="true" DisplayText="Cleable"></Switch>
+            </div>
+        </div>
+    </section>
+    <div class="demo-input-currency">
+        <BootstrapInputCurrency @bind-Value="@_value" style="width: 160px;"
+                                ShowIsoCurrencySymbol="@_showIsoCurrencySymbol" IsClearable="@_showClearIcon">
+        </BootstrapInputCurrency>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyCultureTitle"]"
+           Introduction="@Localizer["InputCurrencyCultureIntro"]"
+           Name="CultureName">
+    <section ignore>@((MarkupString)Localizer["InputCurrencyCultureDesc"].Value)</section>
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币" CultureName="zh-CN" Decimals="3" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="葡萄牙货币" CultureName="pt-BR" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="货币符号模板"
+           Introduction="通过设置 <code>SymbolTemplate</code> 自定义货币显示内容"
+           Name="SymbolTemplate">
+    <BootstrapInputCurrency Value="@_value" style="width: 160px;">
+        <SymbolTemplate>
+            <span class="fa-solid fa-flag"></span>
+        </SymbolTemplate>
+    </BootstrapInputCurrency>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputCurrencyRangeTitle"]"
+           Introduction="@Localizer["InputCurrencyRangeIntro"]"
+           Name="Range">
+    <BootstrapInputCurrency Value="@_value2" Max="10" Min="1" style="width: 160px;" />
+</DemoBlock>
+
+<AttributeTable Type="typeof(BootstrapInputCurrency)" />

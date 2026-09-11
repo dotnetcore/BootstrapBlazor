@@ -78,6 +78,9 @@
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "Поле {0} має бути числом."
   },
+  "BootstrapBlazor.Components.BootstrapInputCurrency": {
+    "ParsingErrorMessage": "Поле {0} має бути числом."
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "Так",
     "ButtonNoText": "Ні",
