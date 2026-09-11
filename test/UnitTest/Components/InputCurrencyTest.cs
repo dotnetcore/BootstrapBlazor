@@ -89,6 +89,26 @@ public class InputCurrencyTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowIsoCurrencySymbol_InvariantCulture_Ok()
+    {
+        var originalCulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+            var cut = Context.Render<BootstrapInputCurrency>(pb =>
+            {
+                pb.Add(a => a.ShowIsoCurrencySymbol, true);
+            });
+
+            Assert.Equal(CultureInfo.InvariantCulture.NumberFormat.CurrencySymbol, cut.Find(".input-group-text").TextContent);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = originalCulture;
+        }
+    }
+
+    [Fact]
     public void SymbolTemplate_Ok()
     {
         var cut = Context.Render<BootstrapInputCurrency>(pb =>
