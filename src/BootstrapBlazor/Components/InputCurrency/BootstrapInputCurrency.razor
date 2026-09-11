@@ -6,7 +6,7 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 
-<div @attributes="AdditionalAttributes" class="bb-input-currency input-group">
+<div @attributes="AdditionalAttributes" class="bb-input-currency input-group" id="@Id">
     <div class="input-group-text">
         @if (SymbolTemplate != null)
         {
@@ -32,7 +32,7 @@
 
 @code {
     RenderFragment RenderInput =>
-    @<input type="text" inputmode="decimal"
+    @<input type="text" inputmode="decimal" id="@InputId"
             placeholder="@PlaceHolder" class="@InputClassString"
             readonly="@ReadonlyString" disabled="@Disabled"
             @bind="@CurrentValueAsString" @onblur="@OnBlur" />;

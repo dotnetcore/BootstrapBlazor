@@ -12,6 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">BootstrapInputCurrency 组件</para>
 /// <para lang="en">BootstrapInputCurrency component</para>
 /// </summary>
+[BootstrapModuleAutoLoader("InputCurrency/BootstrapInputCurrency.razor.js", JSObjectReference = true)]
 public partial class BootstrapInputCurrency
 {
     /// <summary>
@@ -68,7 +69,7 @@ public partial class BootstrapInputCurrency
     /// <para lang="en">Gets or sets the callback method when clearing text box. Default is null</para>
     /// </summary>
     [Parameter]
-    public Func<decimal?, Task>? OnClear { get; set; }
+    public Func<decimal, Task>? OnClear { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空小按钮，默认为 false</para>
@@ -100,13 +101,21 @@ public partial class BootstrapInputCurrency
 
     private string? _currencySymbol;
 
-    private string? InputClassString => CssBuilder.Default("form-control")
+    private string? InputClassString => CssBuilder.Default("bb-input-currencyinput form-control")
         .AddClass(CssClass).AddClass(ValidCss)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private CultureInfo _currentCultureInfo = CultureInfo.CurrentUICulture;
+
+    private string InputId => $"{Id}_input";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override string? GetInputId() => InputId;
 
     /// <summary>
     /// <inheritdoc/>
@@ -125,6 +134,38 @@ public partial class BootstrapInputCurrency
 
         _currentCultureInfo = string.IsNullOrEmpty(CultureName) ? CultureInfo.CurrentUICulture : CultureInfo.GetCultureInfo(CultureName);
         _currencySymbol = ShowIsoCurrencySymbol ? GetIsoCurrencySymbol(_currentCultureInfo) : _currentCultureInfo.NumberFormat.CurrencySymbol;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, GetAllowedInputTokens());
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id, GetAllowedInputTokens());
+        }
+    }
+
+    private string[] GetAllowedInputTokens()
+    {
+        var format = _currentCultureInfo.NumberFormat;
+        return
+        [
+            format.NumberDecimalSeparator,
+            format.NumberGroupSeparator,
+            format.CurrencyDecimalSeparator,
+            format.CurrencyGroupSeparator,
+            format.PositiveSign,
+            format.NegativeSign
+        ];
     }
 
     private static string GetIsoCurrencySymbol(CultureInfo culture)
