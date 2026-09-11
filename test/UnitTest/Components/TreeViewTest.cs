@@ -334,6 +334,35 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetCheckedItems_IncludeIndeterminate_Ok()
+    {
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Node1", Id = "1010" },
+            new() { Text = "Node11", Id = "1011", ParentId = "1010" },
+            new() { Text = "Node12", Id = "1012", ParentId = "1010" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].Items[0].CheckedState = CheckboxState.Checked;
+
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ShowCheckbox, true);
+        });
+
+        Assert.Equal(CheckboxState.Indeterminate, nodes[0].CheckedState);
+        Assert.False(cut.Instance.IsIncludeIndeterminateWhenGetCheckedItems);
+        Assert.Equal([nodes[0].Items[0]], cut.Instance.GetCheckedItems());
+
+        cut.Render(pb => pb.Add(a => a.IsIncludeIndeterminateWhenGetCheckedItems, true));
+
+        Assert.Equal([nodes[0], nodes[0].Items[0]], cut.Instance.GetCheckedItems());
+    }
+
+    [Fact]
     public async Task AutoCheckParent_ToggleNode_Ok()
     {
         // 仅设置 AutoCheckParent 时 展开/折叠已加载子节点的节点不重算勾选状态
