@@ -1,7 +1,7 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .console {
-    --bs-card-color: #{$bb-console-color};
+    --bs-card-body-color: #{$bb-console-body-color};
     --bb-console-body-bg: #{$bb-console-body-bg};
     --bb-console-clear-button-margin-left: #{$bb-console-clear-button-margin-left};
     width: 100%;
