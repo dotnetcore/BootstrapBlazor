@@ -5,8 +5,8 @@
     --bb-card-hover-shadow: #{$bb-card-hover-shadow};
     --bb-card-title-margin-left: #{$bb-card-title-margin-left};
     --bb-card-header-tag-height: #{$bb-card-header-tag-height};
+    --bs-card-body-bg: var(--bs-body-bg);
     --bs-card-title-spacer-y: #{$bb-card-title-spacer-y};
-    overflow: hidden;
 }
 
 .card-header {
