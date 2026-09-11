@@ -170,13 +170,7 @@ public partial class BootstrapInputCurrency
 
     private static string GetIsoCurrencySymbol(CultureInfo culture)
     {
-        if (string.IsNullOrEmpty(culture.Name))
-        {
-            return culture.NumberFormat.CurrencySymbol;
-        }
-
-        var specificCulture = culture.IsNeutralCulture ? CultureInfo.CreateSpecificCulture(culture.Name) : culture;
-        return new RegionInfo(specificCulture.Name).ISOCurrencySymbol;
+        return new RegionInfo(culture.Name).ISOCurrencySymbol;
     }
 
     /// <summary>
