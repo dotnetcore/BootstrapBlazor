@@ -2773,8 +2773,8 @@
     "IntersectionObserverTitle": "懒加载"
   },
   "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
+    "InputCurrencyCultureDesc": "指定巴西葡萄牙语，例如：<code>pt-BR</code>；注意千分符为 <code>点号</code>，小数点符号为 <code>逗号</code>；可以通过 <code>Decimals</code> 指定小数位数",
     "InputCurrencyCultureIntro": "自行指定文化信息，例如：<code>en-US、zh-CN</code>",
-    "InputCurrencyCultureIntro2": "指定巴西葡萄牙语，例如：<code>pt-BR</code>",
     "InputCurrencyCultureTitle": "指定文化名称",
     "InputCurrencyCustomizeIntro": "使用 <code>Formatter</code> 回调来实现自定义格式用法",
     "InputCurrencyCustomizeTitle": "自定义格式用法",

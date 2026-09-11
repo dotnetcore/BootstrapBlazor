@@ -2773,8 +2773,8 @@
     "IntersectionObserverTitle": "Intersection Observer"
   },
   "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
+    "InputCurrencyCultureDesc": "Specify Brazilian Portuguese, for example: <code>pt-BR</code>; note that the thousand separator is a <code>dot</code> and the decimal separator is a <code>comma</code>; you can specify the number of decimal places using the <code>Decimals</code> parameter",
     "InputCurrencyCultureIntro": "Specify culture information, for example: <code>en-US, zh-CN</code>",
-    "InputCurrencyCultureIntro2": "Specify Brazilian Portuguese, for example: <code>pt-BR</code>",
     "InputCurrencyCultureTitle": "Specify culture name",
     "InputCurrencyCustomizeIntro": "Use the <code>Formatter</code> callback to achieve custom format usage",
     "InputCurrencyCustomizeTitle": "Custom format usage",

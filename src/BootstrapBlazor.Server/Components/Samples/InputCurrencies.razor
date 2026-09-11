@@ -28,11 +28,11 @@
 
 <DemoBlock Title="@Localizer["InputCurrencyCultureTitle"]"
            Introduction="@Localizer["InputCurrencyCultureIntro"]"
-           Name="Culture">
-    <section ignore>@((MarkupString)Localizer["InputCurrencyCultureIntro2"].Value)</section>
+           Name="CultureName">
+    <section ignore>@((MarkupString)Localizer["InputCurrencyCultureDesc"].Value)</section>
     <div class="row g-2">
         <div class="col-12 col-sm-6">
-            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币（三位小数）" CultureName="zh-CN" Decimals="3" />
+            <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="人民币" CultureName="zh-CN" Decimals="3" />
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputCurrency Value="@_value" ShowLabel="true" DisplayText="葡萄牙货币" CultureName="pt-BR" />
