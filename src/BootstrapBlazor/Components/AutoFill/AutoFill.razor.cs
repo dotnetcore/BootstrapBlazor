@@ -135,6 +135,17 @@ public partial class AutoFill<TValue>
     [NotNull]
     public Func<VirtualizeQueryOption, Task<QueryData<TValue>>>? OnQueryAsync { get; set; }
 
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">获得/设置虚拟滚动项目比较器。远程数据源返回新实例时，应按唯一标识进行比较</para>
+    /// <para lang="en">Gets or sets the virtualized item comparer. It should compare unique identifiers when the remote data source returns new instances.</para>
+    /// <para>v<version>11.0.0</version></para>
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEqualityComparer<TValue>? ItemComparer { get; set; } = EqualityComparer<TValue>.Default;
+#endif
+
     /// <summary>
     /// <para lang="zh">获得/设置 点击清除按钮回调方法 默认为 null</para>
     /// <para lang="en">Gets or sets the callback method when the clear button is clicked. Default is null</para>
@@ -343,4 +354,10 @@ public partial class AutoFill<TValue>
             await InvokeVoidAsync("setValue", Id, "");
         }
     }
+
+    private RenderFragment RenderVirtualize() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceholderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        ItemComparer,
+#endif
+        element => _virtualizeElement = element);
 }

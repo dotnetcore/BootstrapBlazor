@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SimpleSelectBase<TValue>
@@ -49,9 +49,7 @@
                     }
                     else
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
-                                    Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
-                        </Virtualize>
+                        @RenderVirtualize()
                     }
                 </div>
             }
