@@ -143,7 +143,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEqualityComparer<TValue>? ItemComparer { get; set; } = EqualityComparer<TValue>.Default;
+    public IEqualityComparer<TValue>? ItemComparer { get; set; }
 #endif
 
     /// <summary>
@@ -209,6 +209,10 @@ public partial class AutoFill<TValue>
         _displayText = GetDisplayText(Value);
         _clientValue = _displayText;
         Items ??= [];
+
+#if NET11_0_OR_GREATER
+        ItemComparer ??= EqualityComparer<TValue>.Default;
+#endif
     }
 
     /// <summary>
