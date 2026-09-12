@@ -245,6 +245,12 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<SelectedItem<TValue>> VirtualizeItemComparer => _virtualizeItemComparer ??= new SelectedItemComparer<TValue>(this);
+
+    private IEqualityComparer<SelectedItem<TValue>>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -356,6 +362,12 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
         int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
     }
+
+    private RenderFragment RenderVirtualize() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
 
     /// <summary>
     /// <inheritdoc/>

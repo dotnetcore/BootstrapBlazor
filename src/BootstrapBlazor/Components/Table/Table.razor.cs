@@ -68,6 +68,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private Virtualize<TItem>? _virtualizeElement = null;
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<TItem> VirtualizeItemComparer => _virtualizeItemComparer ??= new ModelHashSetComparer<TItem>(this);
+
+    private IEqualityComparer<TItem>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <para lang="zh">获得 Table 组件样式表</para>
     /// <para lang="en">Get Table Component CSS Class</para>
@@ -1845,6 +1851,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
+
+    private RenderFragment RenderVirtualize() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceholderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
 
     private Func<Task> TriggerDoubleClickCell(ITableColumn col, TItem item) => async () =>
     {

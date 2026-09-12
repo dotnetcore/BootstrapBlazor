@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SelectBase<TValue>
@@ -48,7 +48,7 @@
                     }
                     else
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="VirtualizeElement" />
+                        @RenderVirtualize()
                     }
                 </div>
             }

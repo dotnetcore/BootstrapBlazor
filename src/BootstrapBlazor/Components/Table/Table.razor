@@ -111,10 +111,7 @@
                 {
                     @if (OnQueryAsync != null)
                     {
-                        <Virtualize @ref="_virtualizeElement"
-                                    ItemSize="RowHeight" OverscanCount="@OverscanCount" ItemsProvider="LoadItems"
-                                    ItemContent="RenderRow" Placeholder="RenderPlaceholderRow">
-                        </Virtualize>
+                        @RenderVirtualize()
                     }
                     else
                     {

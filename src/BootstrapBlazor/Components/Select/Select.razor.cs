@@ -270,6 +270,12 @@ public partial class Select<TValue> : ISelect, ILookup
         return _result;
     }
 
+    private RenderFragment RenderVirtualize() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

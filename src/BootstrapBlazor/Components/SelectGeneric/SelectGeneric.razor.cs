@@ -114,6 +114,12 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? VirtualizeElement { get; set; }
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<SelectedItem<TValue>> VirtualizeItemComparer => _virtualizeItemComparer ??= new SelectedItemComparer<TValue>(this);
+
+    private IEqualityComparer<SelectedItem<TValue>>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
     /// <para lang="en">Gets or sets Bound Dataset</para>
@@ -325,6 +331,12 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
+
+    private RenderFragment RenderVirtualize() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        VirtualizeItemComparer,
+#endif
+        element => VirtualizeElement = element);
 
     private async Task RefreshVirtualizeElement()
     {

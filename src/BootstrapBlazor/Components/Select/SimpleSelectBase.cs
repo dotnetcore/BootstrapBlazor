@@ -21,6 +21,14 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     [NotNull]
     protected Virtualize<SelectedItem>? _virtualizeElement = default;
 
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">获得虚拟滚动项目比较器</para>
+    /// <para lang="en">Gets the virtualized item comparer</para>
+    /// </summary>
+    protected static IEqualityComparer<SelectedItem> VirtualizeItemComparer { get; } = new SelectedItemComparer();
+#endif
+
     /// <summary>
     /// <para lang="zh">获得/设置 最后选中的值字符串</para>
     /// <para lang="en">Gets or sets the last selected value string</para>

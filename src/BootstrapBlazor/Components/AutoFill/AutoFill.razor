@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits PopoverCompleteBase<TValue>
@@ -39,9 +39,7 @@
                 }
                 else
                 {
-                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
-                                Placeholder="RenderPlaceholderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
-                    </Virtualize>
+                    @RenderVirtualize()
                 }
             </div>
         }
