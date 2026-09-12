@@ -78,6 +78,9 @@
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "ฟิลด์ {0} ต้องเป็นตัวเลข"
   },
+  "BootstrapBlazor.Components.BootstrapInputCurrency": {
+    "ParsingErrorMessage": "ฟิลด์ {0} ต้องเป็นตัวเลข"
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "ใช่",
     "ButtonNoText": "ไม่ใช่",

@@ -5,7 +5,18 @@
     --bb-card-hover-shadow: #{$bb-card-hover-shadow};
     --bb-card-title-margin-left: #{$bb-card-title-margin-left};
     --bb-card-header-tag-height: #{$bb-card-header-tag-height};
+    --bs-card-body-bg: var(--bs-body-bg);
     --bs-card-title-spacer-y: #{$bb-card-title-spacer-y};
+
+    > .card-body:first-child {
+        border-start-start-radius: var(--bs-card-inner-border-radius);
+        border-start-end-radius: var(--bs-card-inner-border-radius);
+    }
+
+    > .card-body:last-child {
+        border-end-start-radius: var(--bs-card-inner-border-radius);
+        border-end-end-radius: var(--bs-card-inner-border-radius);
+    }
 }
 
 .card-header {
@@ -43,7 +54,6 @@
 
 .card-body {
     background-color: var(--bs-card-body-bg);
-    color: var(--bs-card-body-color);
 }
 
 .card-footer {

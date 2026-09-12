@@ -78,6 +78,9 @@
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "{0}欄位值必須為 Number 類型"
   },
+  "BootstrapBlazor.Components.BootstrapInputCurrency": {
+    "ParsingErrorMessage": "{0}欄位值必須為 Number 類型"
+  },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "確認",
     "ButtonNoText": "取消",

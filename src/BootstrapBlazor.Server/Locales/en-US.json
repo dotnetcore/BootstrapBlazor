@@ -174,6 +174,7 @@
     "BootstrapInput": "BootstrapInput",
     "BootstrapInputGroup": "BootstrapInputGroup",
     "BootstrapInputNumber": "BootstrapInputNumber",
+    "BootstrapInputCurrency": "BootstrapInputCurrency",
     "BootstrapLabel": "Labels",
     "Breadcrumb": "Breadcrumb",
     "Breakpoints": "Breakpoints",
@@ -2770,6 +2771,22 @@
     "ImageViewerTitle": "Image Viewer pictures",
     "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible.",
     "IntersectionObserverTitle": "Intersection Observer"
+  },
+  "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
+    "InputCurrencyCultureDesc": "Specify Brazilian Portuguese, for example: <code>pt-BR</code>; note that the thousand separator is a <code>dot</code> and the decimal separator is a <code>comma</code>; you can specify the number of decimal places using the <code>Decimals</code> parameter",
+    "InputCurrencyCultureIntro": "Specify culture information, for example: <code>en-US, zh-CN</code>",
+    "InputCurrencyCultureTitle": "Specify culture name",
+    "InputCurrencyCustomizeIntro": "Use the <code>Formatter</code> callback to achieve custom format usage",
+    "InputCurrencyCustomizeTitle": "Custom format usage",
+    "InputCurrencyDescription": "Only allows standard numeric values and provides formatting capabilities, for example: entering 12345.78 displays as 12,345.78 with thousand separators; as ¥12,345.78 for currency; and as 12,345.78% for percentage.",
+    "InputCurrencyMemo": "This component is actually an extension of the <code>InputNumbers</code> component, designed to meet the need to display formatted numeric values such as currency and percentages in the <code>UI</code>.",
+    "InputCurrencyNormalIntro": "<code>Number</code> numeric type displays a text box, automatically bringing up the numeric keyboard on mobile devices",
+    "InputCurrencyNormalTitle": "Basic usage",
+    "InputCurrencyPercentIntro": "You can use <code>Formatter</code> or <code>FormatString</code> to achieve percentage display",
+    "InputCurrencyPercentTitle": "Percentage usage",
+    "InputCurrencyRangeIntro": "Set <code>Max</code> and <code>Min</code> to control the numeric range 1-10",
+    "InputCurrencyRangeTitle": "Range limitation usage",
+    "InputCurrencyTitle": "InputCurrency"
   },
   "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsCheckboxIntro": "Add <code>Checkbox</code> or <code>CheckboxList</code> to the <code>InputGroup</code>",
@@ -6067,7 +6084,6 @@
     "Picture.Required": "{0} is required"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
-    "AsyncValidationError": "The user name already exists.",
     "AsyncValidationUserName": "User name",
     "ChangeButtonText": "Change",
     "CustomValidationFormComment1": "Add mailbox validation rules",

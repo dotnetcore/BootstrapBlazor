@@ -1,8 +1,8 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .console {
-    --bs-card-color: #{$bb-console-color};
-    --bb-console-body-bg: #{$bb-console-body-bg};
+    --bs-card-color: #{$bb-console-body-color};
+    --bs-card-body-bg: #{$bb-console-body-bg};
     --bb-console-clear-button-margin-left: #{$bb-console-clear-button-margin-left};
     width: 100%;
 
@@ -17,7 +17,6 @@
     }
 
     .card-body {
-        background-color: var(--bb-console-body-bg);
         overflow: auto;
     }
 

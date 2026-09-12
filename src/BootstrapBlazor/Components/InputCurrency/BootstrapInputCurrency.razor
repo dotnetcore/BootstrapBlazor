@@ -1,0 +1,39 @@
+@namespace BootstrapBlazor.Components
+@inherits BootstrapInputBase<decimal>
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+
+<div @attributes="AdditionalAttributes" class="bb-input-currency input-group" id="@Id">
+    <div class="input-group-text">
+        @if (SymbolTemplate != null)
+        {
+            @SymbolTemplate
+        }
+        else
+        {
+            @_currencySymbol
+        }
+    </div>
+    @if (IsClearable && !IsDisabled && !Readonly)
+    {
+        <div class="bb-clearable-input">
+            @RenderInput
+            <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+        </div>
+    }
+    else
+    {
+        @RenderInput
+    }
+</div>
+
+@code {
+    RenderFragment RenderInput =>
+    @<input type="text" inputmode="decimal" id="@InputId"
+            placeholder="@PlaceHolder" class="@InputClassString"
+            readonly="@ReadonlyString" disabled="@Disabled"
+            @bind="@CurrentValueAsString" @onblur="@OnBlur" />;
+}

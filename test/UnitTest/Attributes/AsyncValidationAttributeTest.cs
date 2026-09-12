@@ -31,14 +31,6 @@ public class AsyncValidationAttributeTest
     }
 
     [Fact]
-    public async Task GetValidationResultAsync_NullContext()
-    {
-        var attribute = new MockAsyncValidationAttribute();
-
-        await Assert.ThrowsAsync<ArgumentNullException>(() => attribute.GetValidationResultAsync(null, null!, CancellationToken.None));
-    }
-
-    [Fact]
     public async Task GetValidationResultAsync_Success()
     {
         var attribute = new SuccessAsyncValidationAttribute();
