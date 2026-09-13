@@ -16,6 +16,8 @@ internal static class VirtualizeHelper
         float itemSize,
         int overscanCount,
 #if NET11_0_OR_GREATER
+        int initialItemIndex,
+        VirtualizeAnchorMode anchorMode,
         IEqualityComparer<TItem> itemComparer,
 #endif
         Action<Virtualize<TItem>> componentRef) => builder =>
@@ -27,7 +29,33 @@ internal static class VirtualizeHelper
         builder.AddAttribute(4, nameof(Virtualize<TItem>.ItemSize), itemSize);
         builder.AddAttribute(5, nameof(Virtualize<TItem>.OverscanCount), overscanCount);
 #if NET11_0_OR_GREATER
-        builder.AddAttribute(6, nameof(Virtualize<TItem>.ItemComparer), itemComparer);
+        builder.AddAttribute(6, nameof(Virtualize<TItem>.InitialItemIndex), initialItemIndex);
+        builder.AddAttribute(7, nameof(Virtualize<TItem>.AnchorMode), anchorMode);
+        builder.AddAttribute(8, nameof(Virtualize<TItem>.ItemComparer), itemComparer);
+#endif
+        builder.AddComponentReferenceCapture(9, component => componentRef((Virtualize<TItem>)component));
+        builder.CloseComponent();
+    };
+
+    public static RenderFragment Render<TItem>(
+        ICollection<TItem> items,
+        RenderFragment<TItem> itemContent,
+        float itemSize,
+        int overscanCount,
+#if NET11_0_OR_GREATER
+        int initialItemIndex,
+        VirtualizeAnchorMode anchorMode,
+#endif
+        Action<Virtualize<TItem>> componentRef) => builder =>
+    {
+        builder.OpenComponent<Virtualize<TItem>>(0);
+        builder.AddAttribute(1, nameof(Virtualize<TItem>.Items), items);
+        builder.AddAttribute(2, nameof(Virtualize<TItem>.ItemContent), itemContent);
+        builder.AddAttribute(3, nameof(Virtualize<TItem>.ItemSize), itemSize);
+        builder.AddAttribute(4, nameof(Virtualize<TItem>.OverscanCount), overscanCount);
+#if NET11_0_OR_GREATER
+        builder.AddAttribute(5, nameof(Virtualize<TItem>.InitialItemIndex), initialItemIndex);
+        builder.AddAttribute(6, nameof(Virtualize<TItem>.AnchorMode), anchorMode);
 #endif
         builder.AddComponentReferenceCapture(7, component => componentRef((Virtualize<TItem>)component));
         builder.CloseComponent();

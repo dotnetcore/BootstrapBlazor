@@ -27,6 +27,20 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <para lang="en">Gets the virtualized item comparer</para>
     /// </summary>
     protected static IEqualityComparer<SelectedItem> VirtualizeItemComparer { get; } = new SelectedItemComparer();
+
+    /// <summary>
+    /// <para lang="zh">滚动到指定索引的虚拟项</para>
+    /// <para lang="en">Scrolls to the virtual item at the specified index.</para>
+    /// </summary>
+    /// <param name="itemIndex"><para lang="zh">从零开始的虚拟项索引</para><para lang="en">The zero-based virtual item index.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">The cancellation token.</para></param>
+    public async Task ScrollToIndexAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (_virtualizeElement != null)
+        {
+            await _virtualizeElement.ScrollToItemAsync(itemIndex, cancellationToken);
+        }
+    }
 #endif
 
     /// <summary>
