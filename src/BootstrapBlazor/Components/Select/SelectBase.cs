@@ -3,6 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+#if NET11_0_OR_GREATER
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -127,6 +131,22 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
     public int OverscanCount { get; set; } = 4;
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">获得/设置首次交互式渲染时滚动到的虚拟项索引，默认为 0</para>
+    /// <para lang="en">Gets or sets the virtual item index to scroll to on first interactive render. Default is 0.</para>
+    /// </summary>
+    [Parameter]
+    public int InitialItemIndex { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置虚拟滚动锚定模式，默认为 <see cref="VirtualizeAnchorMode.Start"/></para>
+    /// <para lang="en">Gets or sets the virtual scrolling anchor mode. Default is <see cref="VirtualizeAnchorMode.Start"/>.</para>
+    /// </summary>
+    [Parameter]
+    public VirtualizeAnchorMode AnchorMode { get; set; } = VirtualizeAnchorMode.Start;
+#endif
 
     /// <summary>
     /// <para lang="zh">获得/设置 当清除按钮被点击时的回调方法，默认值为 null</para>

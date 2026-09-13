@@ -111,13 +111,11 @@
                 {
                     @if (OnQueryAsync != null)
                     {
-                        @RenderVirtualize()
+                        @RenderVirtualizeByProvider()
                     }
                     else
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Rows"
-                                    ChildContent="RenderRow">
-                        </Virtualize>
+                        @RenderVirtualizeByItems()
                     }
                 }
                 else
