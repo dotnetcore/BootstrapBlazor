@@ -347,6 +347,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 <see cref="GetCheckedItems()"/> 方法返回的集合是否包含半选节点，默认为 false</para>
     /// <para lang="en">Gets or sets whether the collection returned by <see cref="GetCheckedItems()"/> includes indeterminate nodes. Default is false</para>
+    /// <para>v<version>10.10.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsIncludeIndeterminateWhenGetCheckedItems { get; set; }
