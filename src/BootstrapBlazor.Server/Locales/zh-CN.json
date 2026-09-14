@@ -5887,6 +5887,7 @@
     "TreeViewCheckboxIntro": "适用于需要选择层级时使用",
     "TreeViewCheckboxTips1": "通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据",
     "TreeViewCheckboxTips2": "<code>Tree</code> 组件数据加载内部将会保持各个节点状态，<b>刷新</b> 按钮将更新数据源 <code>Items</code>，组件重新初始化，点击 <code>追加节点</code> 按钮时，仅更改数据源内部数据未重新赋值，所以各个节点状态保持不变",
+    "TreeViewCheckboxTips3": "组件提供了 <code>IsIncludeIndeterminateWhenGetCheckedItems</code> 参数，用于控制是否在获取选中项时包含半选节点，默认值为 <code>false</code>，适用于角色菜单授权并开启级联选中的场景",
     "TreeViewCheckboxTitle": "多选框",
     "TreeViewCheckedItemsIntro": "通过设置 <code>OnTreeItemChecked</code> 回调委托获取所有节点",
     "TreeViewCheckedItemsTitle": "获取所有选中节点",

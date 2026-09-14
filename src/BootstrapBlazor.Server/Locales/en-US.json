@@ -5887,6 +5887,7 @@
     "TreeViewCheckboxIntro": "Suitable for use when you need to select a level",
     "TreeViewCheckboxTips1": "By setting the <code>OnTreeItemChecked</code> property to monitor the event when the tree control node is checked, when the check box in front of the tree control node is selected, the following log displays the data of the selected node",
     "TreeViewCheckboxTips2": "The <code>Tree</code> component will keep the status of each node when loading data. The <b>Refresh</b> button will update the data source <code>Items</code> and reinitialize the component. When you click the <code>Append Node</code> button, only the data inside the data source will be changed without reassigning values, so the status of each node will remain unchanged.",
+    "TreeViewCheckboxTips3": "The component provides the <code>IsIncludeIndeterminateWhenGetCheckedItems</code> parameter to control whether indeterminate nodes are included when retrieving checked items. The default value is <code>false</code>. This is useful for role-based menu authorization with cascading selection enabled.",
     "TreeViewCheckboxTitle": "Checkbox",
     "TreeViewCheckedItemsIntro": "Get all nodes by setting the <code>OnTreeItemChecked</code> callback delegate",
     "TreeViewCheckedItemsTitle": "Get all selected nodes",
