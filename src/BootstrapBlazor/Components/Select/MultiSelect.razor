@@ -79,14 +79,11 @@
             <div class="dropdown-menu-body dropdown-virtual">
                 @if (OnQueryAsync == null)
                 {
-                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow">
-                    </Virtualize>
+                    @RenderVirtualizeByItems()
                 }
                 else
                 {
-                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
-                                Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
-                    </Virtualize>
+                    @RenderVirtualizeByProvider()
                 }
             </div>
         }

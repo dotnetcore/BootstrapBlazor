@@ -114,6 +114,12 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? VirtualizeElement { get; set; }
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<SelectedItem<TValue>> VirtualizeItemComparer => _virtualizeItemComparer ??= new SelectedItemComparer<TValue>(this);
+
+    private IEqualityComparer<SelectedItem<TValue>>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
     /// <para lang="en">Gets or sets Bound Dataset</para>
@@ -325,6 +331,35 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
+
+    private RenderFragment RenderVirtualizeByProvider() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+        VirtualizeItemComparer,
+#endif
+        element => VirtualizeElement = element);
+
+    private RenderFragment RenderVirtualizeByItems() => VirtualizeHelper.Render(GetVirtualItems(), RenderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+#endif
+        element => VirtualizeElement = element);
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">滚动到指定索引的虚拟项</para>
+    /// <para lang="en">Scrolls to the virtual item at the specified index.</para>
+    /// </summary>
+    /// <param name="itemIndex"><para lang="zh">从零开始的虚拟项索引</para><para lang="en">The zero-based virtual item index.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">The cancellation token.</para></param>
+    public async Task ScrollToIndexAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (VirtualizeElement != null)
+        {
+            await VirtualizeElement.ScrollToItemAsync(itemIndex, cancellationToken);
+        }
+    }
+#endif
 
     private async Task RefreshVirtualizeElement()
     {

@@ -293,6 +293,19 @@ public partial class MultiSelect<TValue>
         return _result;
     }
 
+    private RenderFragment RenderVirtualizeByProvider() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
+
+    private RenderFragment RenderVirtualizeByItems() => VirtualizeHelper.Render(GetVirtualItems(), RenderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+#endif
+        element => _virtualizeElement = element);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

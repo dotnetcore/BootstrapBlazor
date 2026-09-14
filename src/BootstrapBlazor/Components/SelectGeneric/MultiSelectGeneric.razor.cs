@@ -245,6 +245,12 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<SelectedItem<TValue>> VirtualizeItemComparer => _virtualizeItemComparer ??= new SelectedItemComparer<TValue>(this);
+
+    private IEqualityComparer<SelectedItem<TValue>>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -356,6 +362,35 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
         int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
     }
+
+    private RenderFragment RenderVirtualizeByProvider() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceHolderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
+
+    private RenderFragment RenderVirtualizeByItems() => VirtualizeHelper.Render(GetVirtualItems(), RenderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+#endif
+        element => _virtualizeElement = element);
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">滚动到指定索引的虚拟项</para>
+    /// <para lang="en">Scrolls to the virtual item at the specified index.</para>
+    /// </summary>
+    /// <param name="itemIndex"><para lang="zh">从零开始的虚拟项索引</para><para lang="en">The zero-based virtual item index.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">The cancellation token.</para></param>
+    public async Task ScrollToIndexAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (_virtualizeElement != null)
+        {
+            await _virtualizeElement.ScrollToItemAsync(itemIndex, cancellationToken);
+        }
+    }
+#endif
 
     /// <summary>
     /// <inheritdoc/>

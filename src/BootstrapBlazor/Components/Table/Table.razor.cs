@@ -68,6 +68,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private Virtualize<TItem>? _virtualizeElement = null;
 
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<TItem> VirtualizeItemComparer => _virtualizeItemComparer ??= new ModelHashSetComparer<TItem>(this);
+
+    private IEqualityComparer<TItem>? _virtualizeItemComparer;
+#endif
+
     /// <summary>
     /// <para lang="zh">获得 Table 组件样式表</para>
     /// <para lang="en">Get Table Component CSS Class</para>
@@ -509,6 +515,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <remarks>Effective when <see cref="ScrollMode"/> is set to <see cref="ScrollMode.Virtual"/>.</remarks>
     [Parameter]
     public int OverscanCount { get; set; } = 10;
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">获得/设置首次交互式渲染时滚动到的虚拟项索引，默认为 0</para>
+    /// <para lang="en">Gets or sets the virtual item index to scroll to on first interactive render. Default is 0.</para>
+    /// </summary>
+    [Parameter]
+    public int InitialItemIndex { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置虚拟滚动锚定模式，默认为 <see cref="VirtualizeAnchorMode.Start"/></para>
+    /// <para lang="en">Gets or sets the virtual scrolling anchor mode. Default is <see cref="VirtualizeAnchorMode.Start"/>.</para>
+    /// </summary>
+    [Parameter]
+    public VirtualizeAnchorMode AnchorMode { get; set; } = VirtualizeAnchorMode.Start;
+#endif
 
     [Inject]
     [NotNull]
@@ -1845,6 +1867,35 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
+
+    private RenderFragment RenderVirtualizeByProvider() => VirtualizeHelper.Render(LoadItems, RenderRow, RenderPlaceholderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+        VirtualizeItemComparer,
+#endif
+        element => _virtualizeElement = element);
+
+    private RenderFragment RenderVirtualizeByItems() => VirtualizeHelper.Render(Rows, RenderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+#endif
+        element => _virtualizeElement = element);
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">滚动到指定索引的虚拟项</para>
+    /// <para lang="en">Scrolls to the virtual item at the specified index.</para>
+    /// </summary>
+    /// <param name="itemIndex"><para lang="zh">从零开始的虚拟项索引</para><para lang="en">The zero-based virtual item index.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">The cancellation token.</para></param>
+    public async Task ScrollToIndexAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (_virtualizeElement != null)
+        {
+            await _virtualizeElement.ScrollToItemAsync(itemIndex, cancellationToken);
+        }
+    }
+#endif
 
     private Func<Task> TriggerDoubleClickCell(ITableColumn col, TItem item) => async () =>
     {

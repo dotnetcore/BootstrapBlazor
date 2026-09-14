@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -23,6 +24,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .Build();
 
     private TreeViewItem<TItem>? _activeItem;
+
+    [NotNull]
+    private Virtualize<TreeViewItem<TItem>>? _virtualizeElement = default;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示加载动画，默认为 false</para>
@@ -281,6 +285,22 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
     public int OverscanCount { get; set; } = 10;
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">获得/设置首次交互式渲染时滚动到的虚拟项索引，默认为 0</para>
+    /// <para lang="en">Gets or sets the virtual item index to scroll to on first interactive render. Default is 0.</para>
+    /// </summary>
+    [Parameter]
+    public int InitialItemIndex { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置虚拟滚动锚定模式，默认为 <see cref="VirtualizeAnchorMode.Start"/></para>
+    /// <para lang="en">Gets or sets the virtual scrolling anchor mode. Default is <see cref="VirtualizeAnchorMode.Start"/>.</para>
+    /// </summary>
+    [Parameter]
+    public VirtualizeAnchorMode AnchorMode { get; set; } = VirtualizeAnchorMode.Start;
+#endif
 
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏内容模板，默认为 null</para>
@@ -987,6 +1007,28 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
+
+    private RenderFragment RenderVirtualizeByItems() => VirtualizeHelper.Render(Rows, RenderRow, RowHeight, OverscanCount,
+#if NET11_0_OR_GREATER
+        InitialItemIndex, AnchorMode,
+#endif
+        element => _virtualizeElement = element);
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// <para lang="zh">滚动到指定索引的虚拟项</para>
+    /// <para lang="en">Scrolls to the virtual item at the specified index.</para>
+    /// </summary>
+    /// <param name="itemIndex"><para lang="zh">从零开始的虚拟项索引</para><para lang="en">The zero-based virtual item index.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">The cancellation token.</para></param>
+    public async Task ScrollToIndexAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (_virtualizeElement != null)
+        {
+            await _virtualizeElement.ScrollToItemAsync(itemIndex, cancellationToken);
+        }
+    }
+#endif
 
     private bool GetActive(TreeViewItem<TItem> item) => _activeItem == null ? false : this.Equals<TItem>(_activeItem.Value, item.Value);
 
