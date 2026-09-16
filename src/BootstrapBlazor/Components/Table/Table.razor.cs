@@ -215,7 +215,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? GetHeaderStyleString(ITableColumn col, int margin = 0)
     {
         var fixedStyle = GetFixedCellStyleString(col, margin);
-        var widthStyle = col.Width is > 0 ? $"width: {col.Width}px; min-width: {col.Width}px;" : null;
+        var widthStyle = col.Width is > 0
+            ? AllowResizing
+                ? $"width: {col.Width}px;"
+                : $"width: {col.Width}px; min-width: {col.Width}px;"
+            : null;
         if (fixedStyle == null)
         {
             return widthStyle;
