@@ -215,10 +215,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? GetHeaderStyleString(ITableColumn col, int margin = 0)
     {
         var fixedStyle = GetFixedCellStyleString(col, margin);
-        var widthStyle = col.Width is > 0
+        var columnState = _tableColumnStateCache.Columns.FirstOrDefault(x => x.Name == col.GetFieldName());
+        var width = columnState?.Width ?? col.Width;
+        var widthStyle = width is > 0
             ? AllowResizing
-                ? $"width: {col.Width}px;"
-                : $"width: {col.Width}px; min-width: {col.Width}px;"
+                ? $"width: {width}px;"
+                : $"width: {width}px; min-width: {width}px;"
             : null;
         if (fixedStyle == null)
         {
@@ -1609,7 +1611,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 计算实际宽度
-        var width = _tableColumnStateCache.TableWidth;
+        var width = _tableColumnStateCache.Columns.Sum(x => x.Width);
         var tableWidth = hasHeader ? width : width - ActualScrollWidth;
 
         return $"width: {tableWidth}px;";
