@@ -175,11 +175,17 @@ public partial class Table<TItem>
 
     private bool GetFixedLineNoColumn => FixedLineNoColumn && ShowLineNo;
 
-    private string? DetailColumnStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
+    private string? DetailColumnStyleString => GetNonDataColumnStyleString(
+        GetFixedDetailRowHeaderColumn ? "left: 0;" : null,
+        DetailColumnWidth);
 
-    private string? LineNoColumnStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+    private string? LineNoColumnStyleString => GetNonDataColumnStyleString(
+        GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null,
+        LineNoColumnWidth);
 
-    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
+    private string? MultiColumnStyleString => GetNonDataColumnStyleString(
+        GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null,
+        MultiColumnWidth);
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth :
         TableSize == TableSize.Normal

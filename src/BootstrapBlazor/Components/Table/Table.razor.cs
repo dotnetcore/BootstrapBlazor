@@ -230,6 +230,29 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return widthStyle == null ? fixedStyle : $"{fixedStyle} {widthStyle}";
     }
 
+    private string? GetFixedExtendButtonsStyleString(int margin = 0)
+    {
+        var fixedStyle = GetFixedExtendButtonsColumnStyleString(margin);
+        return GetNonDataColumnStyleString(fixedStyle, ExtendButtonColumnWidth);
+    }
+
+    private string? GetNonDataColumnStyleString(string? fixedStyle, int width)
+    {
+        var widthStyle = width > 0
+            ? AllowResizing
+                ? $"width: {width}px;"
+                : $"width: {width}px; min-width: {width}px;"
+            : null;
+        if (fixedStyle == null)
+        {
+            return widthStyle;
+        }
+
+        return widthStyle == null ? fixedStyle : $"{fixedStyle} {widthStyle}";
+    }
+
+    private string? ScrollColumnStyleString => GetNonDataColumnStyleString(null, ActualScrollWidth);
+
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
     /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
@@ -1610,9 +1633,34 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             return null;
         }
 
-        // 计算实际宽度
-        var width = _tableColumnStateCache.Columns.Sum(x => x.Width);
-        var tableWidth = hasHeader ? width : width - ActualScrollWidth;
+        var tableWidth = _tableColumnStateCache.Columns
+            .Where(x => x.Visible)
+            .Sum(x => x.Width ?? 0);
+
+        if (ShowDetails())
+        {
+            tableWidth += DetailColumnWidth;
+        }
+
+        if (IsMultipleSelect)
+        {
+            tableWidth += MultiColumnWidth;
+        }
+
+        if (ShowLineNo)
+        {
+            tableWidth += LineNoColumnWidth;
+        }
+
+        if (ShowExtendButtons)
+        {
+            tableWidth += ExtendButtonColumnWidth;
+        }
+
+        if (IsFixedHeader && hasHeader)
+        {
+            tableWidth += ActualScrollWidth;
+        }
 
         return $"width: {tableWidth}px;";
     }

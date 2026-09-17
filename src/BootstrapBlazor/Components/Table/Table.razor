@@ -380,7 +380,7 @@
                     }
                     @if (hasScroll)
                     {
-                        <th class="fixed-scroll">
+                        <th class="fixed-scroll" style="@ScrollColumnStyleString">
                             <div class="table-cell"><span>&nbsp;</span></div>
                         </th>
                     }
@@ -391,25 +391,25 @@
                 <tr class="filter-header">
                     @if (ShowDetails())
                     {
-                        <th>
+                        <th class="@DetailColumnClassString" style="@DetailColumnStyleString">
                             <div class="table-cell">&nbsp;</div>
                         </th>
                     }
                     @if (IsMultipleSelect)
                     {
-                        <th>
+                        <th class="@MultiColumnClassString" style="@MultiColumnStyleString">
                             <div class="table-cell">&nbsp;</div>
                         </th>
                     }
                     @if (ShowLineNo)
                     {
-                        <th>
+                        <th class="@LineNoColumnClassString" style="@LineNoColumnStyleString">
                             <div class="table-cell">&nbsp;</div>
                         </th>
                     }
                     @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
                     {
-                        <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(CalcMargin())">
+                        <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsStyleString(CalcMargin())">
                             <div class="table-cell">&nbsp;</div>
                         </th>
                     }
@@ -429,13 +429,13 @@
                     }
                     @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                     {
-                        <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ActualScrollWidth)">
+                        <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsStyleString(ActualScrollWidth)">
                             <div class="table-cell">&nbsp;</div>
                         </th>
                     }
                     @if (hasScroll)
                     {
-                        <th class="fixed-scroll">
+                        <th class="fixed-scroll" style="@ScrollColumnStyleString">
                             <div class="table-cell"><span>&nbsp;</span></div>
                         </th>
                     }
@@ -622,7 +622,7 @@
         </Button>;
 
     RenderFragment RenderExtendButtonsHeader =>
-        @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ActualScrollWidth)">
+        @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsStyleString(ActualScrollWidth)">
             <div class="@ExtendButtonsCellClassString">
                 @ColumnButtonTemplateHeaderText
             </div>
@@ -671,7 +671,7 @@
         </div>;
 
     RenderFragment<TItem> RenderRowExtendButtons => item =>
-        @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
+        @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsStyleString()">
             <div class="@ExtendButtonsCellClassString">
                 <div class="@ExtendButtonGroupClassString" @onclick:stopPropagation="true">
                     @{
