@@ -510,7 +510,13 @@ const setResizeListener = table => {
                     const width = parseFloat(col.style.width);
                     return !isNaN(width) ? width : getWidth(headerCells[index]);
                 });
-                tableWidths = table.tables.map(t => getWidth(t));
+                tableWidths = table.tables.map(t => {
+                    const cols = [...t.querySelectorAll('colgroup col')];
+                    return cols.reduce((total, col, index) => {
+                        const width = parseFloat(col.style.width);
+                        return total + (!isNaN(width) ? width : columnWidths[index]);
+                    }, 0);
+                });
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
