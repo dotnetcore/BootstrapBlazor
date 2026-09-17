@@ -467,7 +467,9 @@ const setResizeListener = table => {
     }
 
     let colWidth = 0
-    let tableWidth = 0
+    let colMinWidth = 5
+    let columnWidths = []
+    let tableWidths = []
     let colIndex = 0
     let originalX = 0
 
@@ -489,53 +491,76 @@ const setResizeListener = table => {
                 const tableEl = col.closest('table')
                 const currentCol = tableEl.querySelectorAll('colgroup col')[colIndex]
                 const width = currentCol.style.width
-                if (width) {
-                    colWidth = parseInt(width)
+                const th = getColumnHeader(col);
+                const isFixedLayout = getComputedStyle(tableEl).tableLayout === 'fixed';
+                if (isFixedLayout) {
+                    colWidth = width ? parseInt(width) : getResizableColumnWidth(col);
+                    colMinWidth = Math.max(table.options.columnMinWidth || 0, 5);
                 }
                 else {
                     colWidth = getResizableColumnWidth(col);
+                    colMinWidth = Math.max(
+                        getCellWidth(th) + getHeaderIconsWidth(th),
+                        getColumnMaxCellWidth(table, colIndex),
+                        table.options.columnMinWidth || 0
+                    ) | 0;
                 }
-                tableWidth = getWidth(tableEl);
+                const headerCells = [...th.parentElement.children];
+                columnWidths = [...table.tables[0].querySelectorAll('colgroup col')].map((col, index) => {
+                    const width = parseFloat(col.style.width);
+                    return !isNaN(width) ? width : getWidth(headerCells[index]);
+                });
+                tableWidths = table.tables.map(t => getWidth(t));
                 originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
                 const eventX = e.clientX ?? e.changedTouches[0].clientX
                 const marginX = eventX - originalX
-                table.tables.forEach(t => {
+                const calcColWidth = Math.max(colWidth + marginX, colMinWidth);
+                const actualDelta = calcColWidth - colWidth;
+                columnWidths[colIndex] = calcColWidth;
+                table.tables.forEach((t, index) => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
-                    let calcColWidth = colWidth + marginX;
-                    if (calcColWidth < 5) {
-                        calcColWidth = 5;
-                    }
                     if (group) {
                         const curCol = group.children.item(colIndex)
-                        curCol.style.setProperty('width', `${calcColWidth}px`);
-                        const tableEl = curCol.closest('table')
-                        let width = tableWidth + marginX
-                        if (t.closest('.table-fixed-body')) {
-                            width = width - table.scrollWidth;
-                        }
-                        tableEl.setAttribute('style', `width: ${width}px;`)
-
-                        resetColumnWidthTips(table, col);
-
-                        const header = getColumnHeader(col);
-                        if (header.classList.contains('fixed')) {
-                            resizeNextFixedColumnWidth(header, getWidth(header));
+                        if (curCol) {
+                            curCol.style.setProperty('width', `${calcColWidth}px`);
+                            const tableEl = curCol.closest('table')
+                            const width = tableWidths[index] + actualDelta;
+                            tableEl.style.setProperty('width', `${width}px`);
                         }
                     }
+                });
 
-                    const tbody = [...t.children].find(i => i.nodeName === 'TBODY');
-                    if (tbody) {
+                table.tables.forEach(t => {
+                    t.querySelectorAll('thead > tr').forEach(row => {
+                        const th = row.children.item(colIndex);
+                        if (th) {
+                            th.style.setProperty('width', `${calcColWidth}px`);
+                        }
+                    });
+                });
+
+                resetColumnWidthTips(table, col);
+
+                const header = getColumnHeader(col);
+                if (header.classList.contains('fixed')) {
+                    resizeNextFixedColumnWidth(header, calcColWidth, columnWidths, colIndex);
+                    table.tables.forEach(t => {
+                        const tbody = [...t.children].find(i => i.nodeName === 'TBODY');
+                        if (!tbody) {
+                            return;
+                        }
+
                         const rows = [...tbody.children].filter(i => i.nodeName === 'TR');
                         rows.forEach(row => {
-                            const header = row.children.item(colIndex);
-                            if (header !== null && header.classList.contains('fixed')) {
-                                resizeNextFixedColumnWidth(header, getWidth(header));
+                            const cell = row.children.item(colIndex);
+                            if (cell?.classList.contains('fixed')) {
+                                resizeNextFixedColumnWidth(cell, calcColWidth, columnWidths, colIndex);
                             }
                         });
-                    }
-                })
+                    });
+                }
             },
             () => {
                 eff(col, false)
@@ -550,21 +575,29 @@ const setResizeListener = table => {
     })
 }
 
-const resizeNextFixedColumnWidth = (col, width) => {
+const resizeNextFixedColumnWidth = (col, width, columnWidths, colIndex) => {
     if (col.classList.contains('fixed-right')) {
         const nextColumn = col.previousElementSibling;
-        if (nextColumn.classList.contains('fixed')) {
-            const right = parseFloat(col.style.getPropertyValue('right'));
+        if (nextColumn?.classList.contains('fixed')) {
+            const nextIndex = colIndex - 1;
+            const right = parseFloat(col.style.getPropertyValue('right')) || 0;
             nextColumn.style.setProperty('right', `${right + width}px`);
-            resizeNextFixedColumnWidth(nextColumn, getWidth(nextColumn));
+            const nextWidth = columnWidths[nextIndex];
+            if (nextWidth !== void 0) {
+                resizeNextFixedColumnWidth(nextColumn, nextWidth, columnWidths, nextIndex);
+            }
         }
     }
     else if (col.classList.contains('fixed')) {
         const nextColumn = col.nextElementSibling;
-        if (nextColumn.classList.contains('fixed')) {
-            const left = parseFloat(col.style.getPropertyValue('left'));
+        if (nextColumn?.classList.contains('fixed')) {
+            const nextIndex = colIndex + 1;
+            const left = parseFloat(col.style.getPropertyValue('left')) || 0;
             nextColumn.style.setProperty('left', `${left + width}px`);
-            resizeNextFixedColumnWidth(nextColumn, getWidth(nextColumn));
+            const nextWidth = columnWidths[nextIndex];
+            if (nextWidth !== void 0) {
+                resizeNextFixedColumnWidth(nextColumn, nextWidth, columnWidths, nextIndex);
+            }
         }
     }
 }
@@ -1018,7 +1051,7 @@ const getColumnStateObject = table => {
             cols: cols.map(col => {
                 return {
                     name: col.name,
-                    width: getColumnWidth(col, table.columns),
+                    width: getColumnWidth(table, col, table.columns),
                     visible: col.visible
                 }
             }),
@@ -1030,7 +1063,7 @@ const getColumnStateObject = table => {
         cols: table.columns.map(col => {
             return {
                 name: getColumnName(col),
-                width: getResizableColumnWidth(col),
+                width: getColumnStyleWidth(table, col),
                 visible: true
             }
         }),
@@ -1038,11 +1071,10 @@ const getColumnStateObject = table => {
     };
 }
 
-const getColumnWidth = (col, columns) => {
+const getColumnWidth = (table, col, columns) => {
     const column = columns.find(i => getColumnName(i) === col.name);
     if (column) {
-        const width = getResizableColumnWidth(column);
-        return width > 0 ? width : null;
+        return getColumnStyleWidth(table, column);
     }
     else if (col.width) {
         return col.width;
@@ -1050,6 +1082,13 @@ const getColumnWidth = (col, columns) => {
     else {
         return null;
     }
+}
+
+const getColumnStyleWidth = (table, col) => {
+    const index = indexOfCol(col);
+    const colEl = table.tables[0].querySelectorAll('colgroup col')[index];
+    const width = parseFloat(colEl?.style.width);
+    return !isNaN(width) && width > 0 ? width : getResizableColumnWidth(col);
 }
 
 const getTableWidth = table => {
