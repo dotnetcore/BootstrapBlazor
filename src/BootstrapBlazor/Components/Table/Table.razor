@@ -87,9 +87,8 @@
 
 @code {
     RenderFragment RenderFixTableHeader =>
-        @<div class="table-fixed-header">
+        @<div class="@FixedHeaderClassString">
             <table class="@TableClassName" style="@GetTableStyleString(true)">
-                @RenderColGroup(true)
                 @RenderHeader(true)
             </table>
         </div>;
@@ -101,10 +100,13 @@
 
     RenderFragment<bool> RenderTable => hasHeader =>
         @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)">
-            @RenderColGroup(false)
             @if (hasHeader)
             {
                 @RenderHeader(false)
+            }
+            else
+            {
+                @RenderSizingHeader(false)
             }
             <tbody>
                 @if (ScrollMode == ScrollMode.Virtual)
@@ -226,50 +228,56 @@
             }
         </table>;
 
-    RenderFragment<bool> RenderColGroup => hasScroll =>
-        @<colgroup>
+    RenderFragment<bool> RenderSizingHeader => hasScroll =>
+        @<thead class="table-sizing-header" aria-hidden="true">
+            @RenderSizingRow(hasScroll)
+        </thead>;
+
+    RenderFragment<bool> RenderSizingRow => hasScroll =>
+        @<tr class="table-sizing-row" data-bb-sizing-row="true" aria-hidden="true">
             @if (ShowDetails())
             {
-                <col style="@GetColWidthString(DetailColumnWidth)" />
+                <th style="@GetColumnWidthStyleString(DetailColumnWidth)"></th>
             }
             @if (IsMultipleSelect)
             {
-                <col style="@GetColWidthString(MultiColumnWidth)" />
+                <th style="@GetColumnWidthStyleString(MultiColumnWidth)"></th>
             }
             @if (ShowLineNo)
             {
-                <col style="@GetColWidthString(LineNoColumnWidth)" />
+                <th style="@GetColumnWidthStyleString(LineNoColumnWidth)"></th>
             }
             @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
             {
-                <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
+                <th style="@GetColumnWidthStyleString(ExtendButtonColumnWidth)"></th>
             }
             @foreach (var col in _tableColumnStates)
             {
                 if (col.Visible)
                 {
-                    <col style="@GetColWidthString(col.Width)" />
+                    <th data-bb-field="@col.Name" style="@GetColumnWidthStyleString(col.Width)"></th>
                 }
             }
             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
             {
-                <col style="@GetColWidthString(ExtendButtonColumnWidth)" />
+                <th style="@GetColumnWidthStyleString(ExtendButtonColumnWidth)"></th>
             }
             @if (hasScroll)
             {
-                <col style="@ScrollWidthString" />
+                <th style="@GetColumnWidthStyleString(ActualScrollWidth)"></th>
             }
-        </colgroup>;
+        </tr>;
 
     RenderFragment<bool> RenderHeader => hasScroll =>
         @<thead class="@HeaderClass">
             @if (MultiHeaderTemplate != null)
             {
+                @RenderSizingRow(hasScroll)
                 @MultiHeaderTemplate
             }
             @if (GetShowHeader())
             {
-                <tr>
+                <tr data-bb-header-row="true">
                     @if (ShowDetails())
                     {
                         <th class="@DetailColumnClassString" style="@DetailColumnStyleString">
@@ -380,9 +388,7 @@
                     }
                     @if (hasScroll)
                     {
-                        <th class="fixed-scroll" style="@ScrollColumnStyleString">
-                            <div class="table-cell"><span>&nbsp;</span></div>
-                        </th>
+                        <th class="fixed-scroll" style="@ScrollColumnStyleString"></th>
                     }
                 </tr>
             }
@@ -435,9 +441,7 @@
                     }
                     @if (hasScroll)
                     {
-                        <th class="fixed-scroll" style="@ScrollColumnStyleString">
-                            <div class="table-cell"><span>&nbsp;</span></div>
-                        </th>
+                        <th class="fixed-scroll" style="@ScrollColumnStyleString"></th>
                     }
                 </tr>
             }
@@ -454,7 +458,7 @@
                          OnDoubleClick="() => DoubleClickRow(item)">
             @if (ShowDetails())
             {
-                <td class="@DetailColumnClassString" style="@DetailColumnStyleString">
+                <td class="@DetailColumnClassString" style="@DetailColumnFixedStyleString">
                     <div class="@GetDetailBarClassString(item)">
                         @if (ShowDetailRow == null || ShowDetailRow(item))
                         {
@@ -466,7 +470,7 @@
             }
             @if (IsMultipleSelect)
             {
-                <td class="@MultiColumnClassString" style="@MultiColumnStyleString">
+                <td class="@MultiColumnClassString" style="@MultiColumnFixedStyleString">
                     <div class="table-cell">
                         @if (GetShowRowCheckbox(item))
                         {
@@ -479,7 +483,7 @@
             }
             @if (ShowLineNo)
             {
-                <td class="@LineNoColumnClassString" style="@LineNoColumnStyleString">
+                <td class="@LineNoColumnClassString" style="@LineNoColumnFixedStyleString">
                     <div class="@LineCellClassString">@GetLineNo(item)</div>
                 </td>
             }
@@ -671,7 +675,7 @@
         </div>;
 
     RenderFragment<TItem> RenderRowExtendButtons => item =>
-        @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsStyleString()">
+        @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
             <div class="@ExtendButtonsCellClassString">
                 <div class="@ExtendButtonGroupClassString" @onclick:stopPropagation="true">
                     @{

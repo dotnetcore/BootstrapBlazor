@@ -286,7 +286,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal("地址", labels[1].TextContent);
 
         // 检查宽度设置
-        Assert.Contains("<col style=\"width: 120px;\" />", table.Markup);
+        Assert.Contains("width: 120px;", table.Find("th[data-bb-field='Name']").GetAttribute("style"));
     }
 
     [Fact]
@@ -1610,6 +1610,13 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("table-fixed-header");
         cut.Contains("height: 200px;");
         cut.Contains("table-layout-fixed");
+        cut.Contains("table-fixed-header is-width-syncing");
+        Assert.Equal("width: calc(100% + 5px);", cut.Find(".table-fixed-header > table").GetAttribute("style"));
+        var scrollColumn = cut.Find("th.fixed-scroll");
+        Assert.Equal("width: 5px; min-width: 5px; max-width: 5px;", scrollColumn.GetAttribute("style"));
+        Assert.Empty(scrollColumn.Children);
+        Assert.Empty(cut.FindAll("colgroup"));
+        Assert.Single(cut.FindAll("[data-bb-sizing-row]"));
     }
 
     [Theory]
@@ -1751,6 +1758,44 @@ public class TableTest : BootstrapBlazorTestBase
         cut.DoesNotContain("table-layout-fixed");
     }
 
+    [Fact]
+    public void ColumnWidthStyle_FallbackToColumnWidth_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", nameof(Foo.Name));
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>().Instance;
+        var stateField = typeof(Table<Foo>).GetField("_tableColumnStateCache", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        var state = (TableColumnClientStatus)stateField.GetValue(table)!;
+        state.Columns.Clear();
+
+        var method = typeof(Table<Foo>).GetMethod(
+            "GetColumnWidthStyleString",
+            BindingFlags.Instance | BindingFlags.NonPublic,
+            null,
+            [typeof(ITableColumn)],
+            null)!;
+        var style = method.Invoke(table, [table.GetVisibleColumns()[0]]);
+
+        Assert.Equal("width: 100px;", style);
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData(100)]
@@ -1850,10 +1895,9 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("left: 0px;");
         cut.Contains("left: 200px;");
         var columns = cut.FindAll("th");
-        var col = cut.FindAll("col");
         if (columns[0].ClassName == "fixed")
         {
-            var fixedWidth = cut.FindAll("col")[0].OuterHtml.Contains("width: 200px");
+            var fixedWidth = columns[0].OuterHtml.Contains("width: 200px");
             Assert.Equal("fixedWidth:True", $"fixedWidth:{fixedWidth}");
         }
 
@@ -1887,6 +1931,7 @@ public class TableTest : BootstrapBlazorTestBase
                 cut.Contains("right: 8px;");
             }
         }
+        Assert.Empty(cut.FindAll("td[style*='width']"));
     }
 
     [Fact]
@@ -1946,7 +1991,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("style=\"left: 0px;\"");
-        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("left: 100px;");
         cut.Contains("style=\"right: 200px;\"");
         cut.Contains("style=\"right: 100px;\"");
         cut.Contains("style=\"right: 0px;\"");
@@ -2091,13 +2136,13 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // DetailRow
-        cut.Contains("style=\"left: 0;\"");
+        cut.Contains("left: 0;");
         // MultipleSelect
-        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("left: 100px;");
         // LineNo
-        cut.Contains("style=\"left: 136px;\"");
+        cut.Contains("left: 136px;");
         // Name
-        cut.Contains("style=\"left: 236px;\"");
+        cut.Contains("left: 236px;");
         cut.Contains("width: 180px; min-width: 180px;");
 
         var table = cut.FindComponent<Table<Foo>>();
@@ -2114,27 +2159,27 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.FixedDetailRowHeaderColumn, false);
         });
         // MultipleSelect
-        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("left: 0px;");
         // LineNo
-        cut.Contains("style=\"left: 36px;\"");
+        cut.Contains("left: 36px;");
         // Name
-        cut.Contains("style=\"left: 136px;\"");
+        cut.Contains("left: 136px;");
 
         table.Render(pb =>
         {
             pb.Add(a => a.FixedMultipleColumn, false);
         });
         // LineNo
-        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("left: 0px;");
         // Name
-        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("left: 100px;");
 
         table.Render(pb =>
         {
             pb.Add(a => a.FixedLineNoColumn, false);
         });
         // Name
-        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("left: 0px;");
 
         table.Render(pb =>
         {
@@ -2142,11 +2187,11 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.FixedLineNoColumn, true);
         });
         // Detail
-        cut.Contains("style=\"left: 0;\"");
+        cut.Contains("left: 0;");
         // LineNo
-        cut.Contains("style=\"left: 100px;\"");
+        cut.Contains("left: 100px;");
         // Name
-        cut.Contains("style=\"left: 200px;\"");
+        cut.Contains("left: 200px;");
     }
 
     [Fact]
@@ -2202,7 +2247,7 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        cut.Contains("style=\"left: 0;\"");
+        cut.Contains("left: 0;");
     }
 
     class MockTableColumn : AutoGenerateColumnAttribute
@@ -2425,7 +2470,7 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        cut.Contains("<col style=\"width: 130px;\" />");
+        Assert.Contains("width: 130px;", cut.Find("[data-bb-header-row] > th:last-child").GetAttribute("style"));
     }
 
     [Fact]
@@ -3456,6 +3501,108 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("Test-MultiHeaderTemplate");
+        Assert.Empty(cut.FindAll("colgroup"));
+        Assert.Equal("true", cut.Find("thead > tr:first-child").GetAttribute("data-bb-sizing-row"));
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void SizingHeader_Ok(bool extendButtonsInRowHeader)
+    {
+        var state = new TableColumnClientStatus
+        {
+            TableWidth = 100,
+            Columns =
+            [
+                new() { Name = nameof(Foo.Name), Visible = true, Width = 100 }
+            ]
+        };
+        Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test_sizing_header").SetResult(state);
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_sizing_header");
+                pb.Add(a => a.IsFixedHeader, true);
+                pb.Add(a => a.IsDetails, true);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, extendButtonsInRowHeader);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", nameof(Foo.Name));
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.MultiHeaderTemplate, builder =>
+                {
+                    builder.OpenElement(0, "tr");
+                    builder.OpenElement(1, "th");
+                    builder.AddAttribute(2, "colspan", 5);
+                    builder.AddContent(3, "Test-MultiHeaderTemplate");
+                    builder.CloseElement();
+                    builder.CloseElement();
+                });
+            });
+        });
+
+        var headerSizingRow = cut.Find(".table-fixed-header [data-bb-sizing-row]");
+        var bodySizingRow = cut.Find(".table-fixed-body [data-bb-sizing-row]");
+
+        Assert.Equal(6, headerSizingRow.Children.Length);
+        Assert.Equal(5, bodySizingRow.Children.Length);
+        Assert.Contains(headerSizingRow.Children, cell => cell.GetAttribute("style")?.Contains("width: 100px;") == true);
+        Assert.Single(bodySizingRow.QuerySelectorAll($"th[data-bb-field='{nameof(Foo.Name)}']"));
+        Assert.DoesNotContain("is-width-syncing", cut.Find(".table-fixed-header").ClassList);
+        Assert.Empty(cut.FindAll("td[style*='width']"));
+    }
+
+    [Fact]
+    public void FixedHeader_MixedColumnWidth_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsFixedHeader, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", nameof(Foo.Name));
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(4);
+                    builder.AddAttribute(5, "Field", nameof(Foo.Address));
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var headerName = cut.Find($".table-fixed-header th[data-bb-field='{nameof(Foo.Name)}']");
+        var headerAddress = cut.Find($".table-fixed-header th[data-bb-field='{nameof(Foo.Address)}']");
+        var bodyName = cut.Find($".table-fixed-body th[data-bb-field='{nameof(Foo.Name)}']");
+        var bodyAddress = cut.Find($".table-fixed-body th[data-bb-field='{nameof(Foo.Address)}']");
+
+        Assert.Contains("width: 100px;", headerName.GetAttribute("style"));
+        Assert.Contains("width: 100px;", bodyName.GetAttribute("style"));
+        Assert.Null(headerAddress.GetAttribute("style"));
+        Assert.Null(bodyAddress.GetAttribute("style"));
+        Assert.Contains("is-width-syncing", cut.Find(".table-fixed-header").ClassList);
+        Assert.Equal("width: calc(100% + 5px);", cut.Find(".table-fixed-header > table").GetAttribute("style"));
     }
 
     [Fact]
@@ -9088,6 +9235,51 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ResizeColumnCallback_PersistMeasuredColumns_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsFixedHeader, true);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", nameof(Foo.Name));
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", nameof(Foo.Address));
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var state = new TableColumnClientStatus
+        {
+            TableWidth = 220,
+            Columns =
+            [
+                new() { Name = nameof(Foo.Name), Visible = true, Width = 120 },
+                new() { Name = nameof(Foo.Address), Visible = true, Width = 100 }
+            ]
+        };
+
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Name), state));
+
+        Assert.Contains("width: 120px;", table.Find($"th[data-bb-field='{nameof(Foo.Name)}']").GetAttribute("style"));
+        Assert.Contains("width: 100px;", table.Find($"th[data-bb-field='{nameof(Foo.Address)}']").GetAttribute("style"));
+        Assert.Equal("width: 220px;", table.Find(".table-fixed-body > table").GetAttribute("style"));
+    }
+
+    [Fact]
     public async Task ClearTableColumnClientStatus_Ok()
     {
         var state = new TableColumnClientStatus();
@@ -9126,14 +9318,13 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 由于启用了客户端持久化 Name 列宽使用 100 而非 80
         var table = cut.FindComponent<Table<Foo>>();
-        var colGroup = table.Find("colgroup");
-        Assert.Contains("style=\"width: 100px;\"", colGroup.ToMarkup());
-        Assert.Contains("style=\"width: 120px;\"", colGroup.ToMarkup());
+        Assert.Contains("width: 100px;", table.Find("th[data-bb-field='Name']").GetAttribute("style"));
+        Assert.Contains("width: 120px;", table.Find("th[data-bb-field='Address']").GetAttribute("style"));
 
         // 清除客户端状态
         await cut.InvokeAsync(() => table.Instance.ClearTableColumnClientStatus());
         invoker.VerifyInvoke("clearColumnStates");
-        Assert.Contains("style=\"width: 80px;\"", colGroup.ToMarkup());
+        Assert.Contains("width: 80px;", table.Find("th[data-bb-field='Name']").GetAttribute("style"));
     }
 
     [Fact]
@@ -9303,7 +9494,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("style=\"width: 220px;\"", table.Markup);
         if (fixedHeader)
         {
-            Assert.Contains("style=\"width: 215px;\"", table.Markup);
+            Assert.Contains("style=\"width: 225px;\"", table.Markup);
         }
     }
 

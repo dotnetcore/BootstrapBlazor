@@ -175,17 +175,17 @@ public partial class Table<TItem>
 
     private bool GetFixedLineNoColumn => FixedLineNoColumn && ShowLineNo;
 
-    private string? DetailColumnStyleString => GetNonDataColumnStyleString(
-        GetFixedDetailRowHeaderColumn ? "left: 0;" : null,
-        DetailColumnWidth);
+    private string? DetailColumnFixedStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
 
-    private string? LineNoColumnStyleString => GetNonDataColumnStyleString(
-        GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null,
-        LineNoColumnWidth);
+    private string? DetailColumnStyleString => GetNonDataColumnStyleString(DetailColumnFixedStyleString, DetailColumnWidth);
 
-    private string? MultiColumnStyleString => GetNonDataColumnStyleString(
-        GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null,
-        MultiColumnWidth);
+    private string? LineNoColumnFixedStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+
+    private string? LineNoColumnStyleString => GetNonDataColumnStyleString(LineNoColumnFixedStyleString, LineNoColumnWidth);
+
+    private string? MultiColumnFixedStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
+
+    private string? MultiColumnStyleString => GetNonDataColumnStyleString(MultiColumnFixedStyleString, MultiColumnWidth);
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth :
         TableSize == TableSize.Normal
