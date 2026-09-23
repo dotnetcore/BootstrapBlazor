@@ -2417,6 +2417,134 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("test-button");
     }
 
+    [Theory]
+    [InlineData(true, false, true, "fr")]
+    [InlineData(true, true, true, null)]
+    [InlineData(false, false, true, "fl")]
+    [InlineData(false, true, true, null)]
+    [InlineData(true, false, false, null)]
+    [InlineData(false, false, false, null)]
+    public void FixedExtendButtonsColumn_BoundaryClass_Ok(
+        bool inRowHeader,
+        bool hasAdjacentFixedColumn,
+        bool fixedExtendButtonsColumn,
+        string? expectedClass)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.FixedExtendButtonsColumn, fixedExtendButtonsColumn);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, inRowHeader);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), inRowHeader && hasAdjacentFixedColumn);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(7, nameof(TableColumn<,>.Fixed), !inRowHeader && hasAdjacentFixedColumn);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var selector = inRowHeader
+            ? "[data-bb-header-row] > th:first-child"
+            : "[data-bb-header-row] > th:last-child";
+        var column = cut.Find(selector);
+        Assert.Equal(fixedExtendButtonsColumn, column.ClassList.Contains("fixed"));
+        Assert.Equal(fixedExtendButtonsColumn && !inRowHeader, column.ClassList.Contains("fixed-right"));
+        Assert.Equal(expectedClass == "fr", column.ClassList.Contains("fr"));
+        Assert.Equal(expectedClass == "fl", column.ClassList.Contains("fl"));
+
+        var cellSelector = inRowHeader
+            ? "tbody tr > td:first-child"
+            : "tbody tr > td:last-child";
+        var cell = cut.Find(cellSelector);
+        Assert.Equal(fixedExtendButtonsColumn, cell.ClassList.Contains("fixed"));
+        Assert.Equal(fixedExtendButtonsColumn && !inRowHeader, cell.ClassList.Contains("fixed-right"));
+        Assert.Equal(expectedClass == "fr", cell.ClassList.Contains("fr"));
+        Assert.Equal(expectedClass == "fl", cell.ClassList.Contains("fl"));
+    }
+
+    [Theory]
+    [InlineData(true, "Name", "left: 130px;")]
+    [InlineData(false, "Count", "right: 130px;")]
+    public void FixedExtendButtonsColumn_DataColumnOffset_Ok(bool inRowHeader, string fieldName, string expectedStyle)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, inRowHeader);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), inRowHeader);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(7, nameof(TableColumn<,>.Fixed), !inRowHeader);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        Assert.Contains(expectedStyle, cut.Find($"[data-bb-field='{fieldName}']").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FixedExtendButtonsColumn_LeftMargin_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.IsExtendButtonsInRowHeader, true);
+                pb.Add(a => a.DetailColumnWidth, 70);
+                pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
+                pb.Add(a => a.FixedDetailRowHeaderColumn, false);
+                pb.Add(a => a.FixedMultipleColumn, true);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.FixedLineNoColumn, true);
+                pb.Add(a => a.LineNoColumnWidth, 100);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var columns = cut.FindAll("[data-bb-header-row] > th");
+        Assert.Contains("left: 100px;", columns[2].GetAttribute("style"));
+    }
+
     [Fact]
     public void RowButtonTemplate_Ok()
     {
