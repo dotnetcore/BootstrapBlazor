@@ -2512,6 +2512,33 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void FixedExtendButtonsColumn_ZeroWidth_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.FixedExtendButtonsColumn, true);
+                pb.Add(a => a.ExtendButtonColumnWidth, 0);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        Assert.Equal("right: 0px;", cut.Find("[data-bb-header-row] > th:last-child").GetAttribute("style"));
+        Assert.Equal("right: 0px;", cut.Find("tbody tr > td:last-child").GetAttribute("style"));
+    }
+
+    [Fact]
     public void FixedExtendButtonsColumn_LeftMargin_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -2541,8 +2568,20 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var columns = cut.FindAll("[data-bb-header-row] > th");
-        Assert.Contains("left: 100px;", columns[2].GetAttribute("style"));
+        Assert.Contains("left: 100px;", cut.Find("[data-bb-header-row] > th.fixed.fr").GetAttribute("style"));
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Render(pb =>
+        {
+            pb.Add(a => a.IsMultipleSelect, true);
+        });
+        Assert.Contains("left: 136px;", cut.Find("[data-bb-header-row] > th.fixed.fr").GetAttribute("style"));
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.FixedDetailRowHeaderColumn, true);
+        });
+        Assert.Contains("left: 206px;", cut.Find("[data-bb-header-row] > th.fixed.fr").GetAttribute("style"));
     }
 
     [Fact]
