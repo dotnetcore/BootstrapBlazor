@@ -100,6 +100,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-draggable", AllowDragColumn)
         .Build();
 
+    private string? FixedHeaderClassString => CssBuilder.Default("table-fixed-header")
+        .AddClass("is-width-syncing", HasAutomaticColumnWidth)
+        .Build();
+
+    private bool HasAutomaticColumnWidth => _tableColumnStates.Any(x => x.Visible && x.Width is null);
+
     /// <summary>
     /// <para lang="zh">获得 wrapper 样式表集合</para>
     /// <para lang="en">Get wrapper CSS Class</para>
@@ -210,16 +216,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * _pageItems + Rows.Count, TotalCount];
 
-    private static string? GetColWidthString(int? width) => (width.HasValue && width.Value > 0) ? $"width: {width.Value}px;" : null;
-
     private string? GetHeaderStyleString(ITableColumn col, int margin = 0)
     {
         var fixedStyle = GetFixedCellStyleString(col, margin);
-        var widthStyle = col.Width is > 0
-            ? AllowResizing
-                ? $"width: {col.Width}px;"
-                : $"width: {col.Width}px; min-width: {col.Width}px;"
-            : null;
+        var widthStyle = GetColumnWidthStyleString(col);
         if (fixedStyle == null)
         {
             return widthStyle;
@@ -227,6 +227,41 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         return widthStyle == null ? fixedStyle : $"{fixedStyle} {widthStyle}";
     }
+
+    private string? GetColumnWidthStyleString(ITableColumn col)
+    {
+        var columnState = _tableColumnStateCache.Columns.FirstOrDefault(x => x.Name == col.GetFieldName());
+        var width = columnState?.Width ?? col.Width;
+        return GetColumnWidthStyleString(width);
+    }
+
+    private string? GetColumnWidthStyleString(int? width)
+    {
+        return width is > 0
+            ? AllowResizing
+                ? $"width: {width}px;"
+                : $"width: {width}px; min-width: {width}px;"
+            : null;
+    }
+
+    private string? GetFixedExtendButtonsStyleString(int margin = 0)
+    {
+        var fixedStyle = GetFixedExtendButtonsColumnStyleString(margin);
+        return GetNonDataColumnStyleString(fixedStyle, ExtendButtonColumnWidth);
+    }
+
+    private string? GetNonDataColumnStyleString(string? fixedStyle, int width)
+    {
+        var widthStyle = GetColumnWidthStyleString(width);
+        if (fixedStyle == null)
+        {
+            return widthStyle;
+        }
+
+        return widthStyle == null ? fixedStyle : $"{fixedStyle} {widthStyle}";
+    }
+
+    private string ScrollColumnStyleString => $"width: {ActualScrollWidth}px; min-width: {ActualScrollWidth}px; max-width: {ActualScrollWidth}px;";
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
@@ -262,8 +297,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     //[Parameter]
     //public Func<TItem, object?>? OnGetRowKey { get; set; }
-
-    private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
     private string? GetScrollStyleString(bool condition) => condition
         ? $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;"
@@ -1603,14 +1636,46 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? GetTableStyleString(bool hasHeader)
     {
+        if (HasAutomaticColumnWidth)
+        {
+            return IsFixedHeader && hasHeader
+                ? $"width: calc(100% + {ActualScrollWidth}px);"
+                : null;
+        }
+
         if (_tableColumnStateCache.TableWidth <= 0)
         {
             return null;
         }
 
-        // 计算实际宽度
-        var width = _tableColumnStateCache.TableWidth;
-        var tableWidth = hasHeader ? width : width - ActualScrollWidth;
+        var tableWidth = _tableColumnStateCache.Columns
+            .Where(x => x.Visible)
+            .Sum(x => x.Width ?? 0);
+
+        if (ShowDetails())
+        {
+            tableWidth += DetailColumnWidth;
+        }
+
+        if (IsMultipleSelect)
+        {
+            tableWidth += MultiColumnWidth;
+        }
+
+        if (ShowLineNo)
+        {
+            tableWidth += LineNoColumnWidth;
+        }
+
+        if (ShowExtendButtons)
+        {
+            tableWidth += ExtendButtonColumnWidth;
+        }
+
+        if (IsFixedHeader && hasHeader)
+        {
+            tableWidth += ActualScrollWidth;
+        }
 
         return $"width: {tableWidth}px;";
     }

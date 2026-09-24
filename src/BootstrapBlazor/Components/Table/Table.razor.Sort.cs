@@ -138,7 +138,7 @@ public partial class Table<TItem>
 
     private string? LineNoColumnClassString => CssBuilder.Default()
         .AddClass("fixed", FixedLineNoColumn)
-        .AddClass("fr", IsLastLineNoColumn())
+        .AddClass("fr", FixedLineNoColumn && IsLastLineNoColumn())
         .Build();
 
     private int LineNoColumnLeft()
@@ -175,11 +175,17 @@ public partial class Table<TItem>
 
     private bool GetFixedLineNoColumn => FixedLineNoColumn && ShowLineNo;
 
-    private string? DetailColumnStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
+    private string? DetailColumnFixedStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
 
-    private string? LineNoColumnStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+    private string? DetailColumnStyleString => GetNonDataColumnStyleString(DetailColumnFixedStyleString, DetailColumnWidth);
 
-    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
+    private string? LineNoColumnFixedStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+
+    private string? LineNoColumnStyleString => GetNonDataColumnStyleString(LineNoColumnFixedStyleString, LineNoColumnWidth);
+
+    private string? MultiColumnFixedStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
+
+    private string? MultiColumnStyleString => GetNonDataColumnStyleString(MultiColumnFixedStyleString, MultiColumnWidth);
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth :
         TableSize == TableSize.Normal
@@ -205,7 +211,7 @@ public partial class Table<TItem>
     /// </summary>
     protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
         .AddClass("fixed", FixedExtendButtonsColumn)
-        .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fixed-right", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
         .AddClass("fr", IsLastExtendButtonColumn())
         .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
@@ -216,7 +222,7 @@ public partial class Table<TItem>
     /// </summary>
     protected string? ExtendButtonsColumnClass => CssBuilder.Default()
         .AddClass("fixed", FixedExtendButtonsColumn)
-        .AddClass("fixed-right", !IsExtendButtonsInRowHeader)
+        .AddClass("fixed-right", FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
         .AddClass("fr", IsLastExtendButtonColumn())
         .AddClass("fl", IsFirstExtendButtonColumn())
         .Build();
@@ -252,7 +258,7 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed);
+    private bool IsLastExtendButtonColumn() => FixedExtendButtonsColumn && IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed && !IsFixRight(i));
 
     private ConcurrentDictionary<ITableColumn, bool> FirstFixedColumnCache { get; } = new(ReferenceEqualityComparer.Instance);
 
@@ -271,20 +277,20 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private bool IsFirstExtendButtonColumn() => !IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed);
+    private bool IsFirstExtendButtonColumn() => FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed && IsFixRight(i));
 
     private int GetExtendButtonsColumnLeftMargin()
     {
         var width = 0;
-        if (ShowDetails())
+        if (GetFixedDetailRowHeaderColumn)
         {
             width += DetailColumnWidth;
         }
-        if (ShowLineNo)
+        if (GetFixedLineNoColumn)
         {
             width += LineNoColumnWidth;
         }
-        if (FixedMultipleColumn)
+        if (GetFixedMultipleSelectColumn)
         {
             width += MultiColumnWidth;
         }
@@ -373,6 +379,10 @@ public partial class Table<TItem>
         {
             width += LineNoColumnWidth;
         }
+        if (ShowExtendButtons && FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
+        {
+            width += ExtendButtonColumnWidth;
+        }
         while (index > start)
         {
             var column = columns[start++];
@@ -393,7 +403,7 @@ public partial class Table<TItem>
             var column = columns[i];
             width += GetFixedColumnWidth(column);
         }
-        if (ShowExtendButtons && FixedExtendButtonsColumn)
+        if (ShowExtendButtons && FixedExtendButtonsColumn && !IsExtendButtonsInRowHeader)
         {
             width += ExtendButtonColumnWidth;
         }
