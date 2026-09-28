@@ -16,9 +16,11 @@
 &lt/div&gt;
 
 // add ReconnectorOutlet component
-<b><i>&lt;component type="typeof(ReconnectorOutlet)" param-AutoReconnect="true" render-mode="ServerPrerendered" /&gt;</i></b></Pre>
+<b><i>&lt;ReconnectorOutlet AutoReconnect="true" ReconnectInterval="5000" @@rendermode="new InteractiveServerRenderMode(false)" /&gt;</i></b></Pre>
 
-<p>组件参数 <code>AutoReconnect</code> 用于控制是否开启网络重连，默认 <code>true</code> 已开启，可以通过 <code>param-AutoReconnect="false"</code> 关闭</p>
+<p><code>AutoReconnect</code> 用于控制是否在连接中断后自动检测服务是否恢复。默认 <code>true</code>；检测到服务恢复时，页面会自动重新加载。设置为 <code>false</code> 可关闭此行为。</p>
+
+<p><code>ReconnectInterval</code> 用于设置检测间隔，默认 <code>5000</code> 毫秒，最小值为 <code>1000</code> 毫秒。</p>
 
 <p>@((MarkupString)Localizer["Step2"].Value)</p>
 
@@ -269,3 +271,5 @@
 &lt;/ReconnectRejectedTemplate&gt;</Pre>
 
 <AttributeTable Type="typeof(Reconnector)" />
+
+<AttributeTable Type="typeof(ReconnectorOutlet)" />

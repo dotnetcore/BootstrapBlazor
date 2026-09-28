@@ -67,7 +67,7 @@ public partial class ReconnectorContent
     {
         if (AutoReconnect)
         {
-            await InvokeVoidAsync("reconnect", Math.Max(1000, ReconnectInterval));
+            await InvokeVoidAsync("init", Id, Math.Max(1000, ReconnectInterval));
         }
     }
 
