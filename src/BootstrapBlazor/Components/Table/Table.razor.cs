@@ -2236,6 +2236,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (colState != null)
             {
                 item.Width = colState.Width;
+                var column = _tableColumnStates.Find(i => i.Name == item.Name);
+                if (column != null)
+                {
+                    column.Width = colState.Width;
+                }
             }
         }
         _tableColumnStateCache.TableWidth = columnState.TableWidth;
