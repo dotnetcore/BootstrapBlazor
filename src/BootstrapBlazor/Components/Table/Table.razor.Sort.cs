@@ -138,7 +138,7 @@ public partial class Table<TItem>
 
     private string? LineNoColumnClassString => CssBuilder.Default()
         .AddClass("fixed", FixedLineNoColumn)
-        .AddClass("fr", FixedLineNoColumn && IsLastLineNoColumn())
+        .AddClass("fr", IsLastFixedLineNoColumn())
         .Build();
 
     private int LineNoColumnLeft()
@@ -236,13 +236,13 @@ public partial class Table<TItem>
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
 
-    private bool IsLastDetailColumn() => !GetFixedMultipleSelectColumn && !GetFixedLineNoColumn && IsNotFixedColumn();
+    private bool IsLastDetailColumn() => !GetFixedMultipleSelectColumn && !GetFixedLineNoColumn && HasNoFixedColumnAfterLeadingAuxiliaryColumns();
 
-    private bool IsLastMultiColumn() => !GetFixedLineNoColumn && IsNotFixedColumn();
+    private bool IsLastMultiColumn() => !GetFixedLineNoColumn && HasNoFixedColumnAfterLeadingAuxiliaryColumns();
 
-    private bool IsLastLineNoColumn() => IsNotFixedColumn();
+    private bool IsLastFixedLineNoColumn() => GetFixedLineNoColumn && HasNoFixedColumnAfterLeadingAuxiliaryColumns();
 
-    private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !(GetVisibleColumns().FirstOrDefault()?.Fixed ?? false);
+    private bool HasNoFixedColumnAfterLeadingAuxiliaryColumns() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !(GetVisibleColumns().FirstOrDefault()?.Fixed ?? false);
 
     private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new(ReferenceEqualityComparer.Instance);
 
