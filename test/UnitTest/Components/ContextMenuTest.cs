@@ -88,13 +88,19 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                 return false;
             });
         });
+        var beforeShowCallback = false;
         menu.Render(pb =>
         {
             pb.Add(a => a.OnBeforeShowCallback, v =>
             {
+                beforeShowCallback = true;
+                Assert.Same(foo, v);
                 return Task.CompletedTask;
             });
         });
+        await row.ContextMenuAsync(new MouseEventArgs { Button = 2, Buttons = 2 });
+        Assert.True(beforeShowCallback);
+
         item = menu.Find(".dropdown-item");
         item.Click();
         Assert.True(menuCallback);
