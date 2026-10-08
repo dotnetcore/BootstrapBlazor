@@ -67,8 +67,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// <para lang="zh">从 XML 注释获取 summary（支持多语言）</para>
-    /// <para lang="en">Get the summary from XML comments (supports multiple languages)</para>
+    /// <para lang="zh">从 XML 注释获取 summary（支持多语言和 see cref 引用）</para>
+    /// <para lang="en">Get the summary from XML comments (supports multiple languages and see cref references)</para>
     /// </summary>
     private static string? GetSummary(XDocument? xmlDoc, PropertyInfo property)
     {
@@ -76,7 +76,7 @@ public static class ComponentAttributeCacheService
         var typeName = $"BootstrapBlazor.Components.{type.Name}";
         var memberName = $"P:{typeName}.{property.Name}";
         var summaryElement = FindSummaryElement(xmlDoc, memberName);
-        return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
+        return summaryElement == null ? null : GetLocalizedSummary(summaryElement, typeName);
     }
 
     private static XElement? FindSummaryElement(XDocument? xmlDoc, string memberName)
@@ -97,7 +97,7 @@ public static class ComponentAttributeCacheService
         return v != null ? FindSummaryElement(xmlDoc, v) : summaryElement;
     }
 
-    private static string? GetLocalizedSummary(XElement? summaryElement)
+    private static string? GetLocalizedSummary(XElement? summaryElement, string? typeName)
     {
         if (summaryElement == null)
         {
@@ -109,12 +109,42 @@ public static class ComponentAttributeCacheService
             .FirstOrDefault(p => p.Attribute("lang")?.Value == currentLanguage);
         if (langPara != null)
         {
-            return langPara.Value.Trim();
+            return GetSummaryText(langPara, typeName).Trim();
         }
 
         var firstLangPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang") != null);
-        return firstLangPara != null ? firstLangPara.Value.Trim() : summaryElement.Value.Trim();
+        return GetSummaryText(firstLangPara ?? summaryElement, typeName).Trim();
+    }
+
+    private static string GetSummaryText(XElement element, string? typeName)
+    {
+        if (element.Name == "see" && !element.Nodes().Any() && element.Attribute("cref") is { } cref)
+        {
+            var reference = cref.Value;
+            var lastDotIndex = reference.LastIndexOf('.');
+            if (typeName != null && lastDotIndex > 0 && reference[..lastDotIndex] == $"P:{typeName}")
+            {
+                return reference[(lastDotIndex + 1)..];
+            }
+
+            if (reference.Length > 1 && reference[1] == ':')
+            {
+                reference = reference[2..];
+            }
+
+            const string namespacePrefix = "BootstrapBlazor.Components.";
+            return reference.StartsWith(namespacePrefix, StringComparison.Ordinal)
+                ? reference[namespacePrefix.Length..]
+                : reference;
+        }
+
+        return string.Concat(element.Nodes().Select(node => node switch
+        {
+            XText text => text.Value,
+            XElement child => GetSummaryText(child, typeName),
+            _ => ""
+        }));
     }
 
     /// <summary>
