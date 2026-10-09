@@ -729,18 +729,34 @@ public partial class Layout : ITabHeader
 
     private void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
-
-        if (OnAuthorizing != null)
+        if (OnAuthorizing == null)
         {
-            InvokeAsync(async () =>
-            {
-                var auth = await OnAuthorizing(e.Location);
-                if (!auth && IsAutoNavigateWhenNotAuthorize)
-                {
-                    Navigation.NavigateTo(NotAuthorizeUrl, true);
-                }
-            });
+            return;
         }
+
+        InvokeAsync(async () =>
+        {
+            var auth = await OnAuthorizing(e.Location);
+            if (auth)
+            {
+                // 当前地址已授权时恢复 UI 状态
+                if (!_authenticated)
+                {
+                    _authenticated = true;
+                    StateHasChanged();
+                }
+            }
+            else if (IsAutoNavigateWhenNotAuthorize)
+            {
+                Navigation.NavigateTo(NotAuthorizeUrl, true);
+            }
+            else if (_authenticated)
+            {
+                // 未开启自动跳转时更新 UI 状态显示 NotAuthorized 模板
+                _authenticated = false;
+                StateHasChanged();
+            }
+        });
     }
 
     /// <summary>
