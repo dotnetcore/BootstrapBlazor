@@ -729,6 +729,12 @@ public partial class Layout : ITabHeader
 
     private void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
+        // 如果未开启自动跳转未授权地址则不处理
+        if (!IsAutoNavigateWhenNotAuthorize)
+        {
+            return;
+        }
+
         if (OnAuthorizing != null)
         {
             InvokeAsync(async () =>
