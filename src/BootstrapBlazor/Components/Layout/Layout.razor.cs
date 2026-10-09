@@ -382,6 +382,13 @@ public partial class Layout : ITabHeader
     public string NotAuthorizeUrl { get; set; } = "/Account/Login";
 
     /// <summary>
+    /// <para lang="zh">获得/设置 未授权时是否跳转到 <see cref="NotAuthorizeUrl"/> 默认 true 跳转</para>
+    /// <para lang="en">Gets or sets Whether to navigate to <see cref="NotAuthorizeUrl"/> when unauthorized. Default true navigate</para>
+    /// </summary>
+    [Parameter]
+    public bool IsAutoNavigateWhenNotAuthorize { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否 enable tab context menu. 默认为 false</para>
     /// <para lang="en">Gets or sets whether enable tab context menu. Default is false</para>
     /// </summary>
