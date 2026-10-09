@@ -542,6 +542,21 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_Ok()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(false));
+        });
+        navMan.NavigateTo("/");
+        cut.WaitForAssertion(() => Assert.Equal("http://localhost/", navMan.Uri));
+    }
+
+    [Fact]
     public void Main_Ok()
     {
         var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
