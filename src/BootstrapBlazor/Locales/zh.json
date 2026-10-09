@@ -266,7 +266,9 @@
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存",
     "CloseConfirmTitle": "请注意",
-    "CloseConfirmContent": "表单内容已更改，确定要继续关闭吗？"
+    "CloseConfirmContent": "表单内容已更改，确定要继续关闭吗？",
+    "NextModelInitializationError": "当前数据已保存，但下一条数据初始化失败。请关闭窗口以取消未保存的数据，再重新新增。",
+    "SavePostProcessingError": "本次数据已保存，但后续处理失败。请关闭窗口后重新打开，不要重复保存这条数据。"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "重置",

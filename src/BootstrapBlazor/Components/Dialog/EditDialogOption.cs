@@ -99,6 +99,16 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
 
     /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.KeepOpenAfterSave"/>
+    /// </summary>
+    public bool KeepOpenAfterSave { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.CreateNextModelAsync"/>
+    /// </summary>
+    public Func<Task<TModel>>? CreateNextModelAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowConfirmCloseSwal"/>
     /// </summary>
     public bool? ShowConfirmCloseSwal { get; set; }

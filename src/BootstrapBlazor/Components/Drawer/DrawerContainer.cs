@@ -18,6 +18,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     private DrawerService? DrawerService { get; set; }
 
     private DrawerOption? _option;
+    private object? _presentation;
+    private object? _configuration;
 
     /// <summary>
     /// <para lang="zh">OnInitialized 方法</para>
@@ -46,6 +48,13 @@ public class DrawerContainer : ComponentBase, IDisposable
 
     private async Task Show(DrawerOption option)
     {
+        var configuration = (object?)option.ConfigureParameters ?? option;
+        if (!ReferenceEquals(_configuration, configuration)
+            || option.Drawer?.CloseContext.IsCloseRequested == true)
+        {
+            _presentation = new object();
+        }
+        _configuration = configuration;
         _option = option;
         await InvokeAsync(StateHasChanged);
     }
@@ -53,7 +62,7 @@ public class DrawerContainer : ComponentBase, IDisposable
     private void RenderDrawer(RenderTreeBuilder builder, DrawerOption option)
     {
         builder.OpenComponent<Drawer>(0);
-        builder.SetKey(option);
+        builder.SetKey(_presentation);
 
         if (!string.IsNullOrEmpty(option.Class))
         {
@@ -66,6 +75,8 @@ public class DrawerContainer : ComponentBase, IDisposable
 
     private Dictionary<string, object> GetParameters(DrawerOption option)
     {
+        var presentation = _presentation;
+        var onCloseAsync = option.OnCloseAsync;
         var parameters = new Dictionary<string, object>()
         {
             [nameof(Drawer.IsOpen)] = true,
@@ -75,7 +86,7 @@ public class DrawerContainer : ComponentBase, IDisposable
             [nameof(Drawer.ShowBackdrop)] = option.ShowBackdrop,
             [nameof(Drawer.Placement)] = option.Placement,
             [nameof(Drawer.AllowResize)] = option.AllowResize,
-            [nameof(Drawer.OnCloseAsync)] = new Func<Task>(() => OnCloseAsync(option))
+            [nameof(Drawer.OnCloseAsync)] = new Func<Task>(() => OnCloseAsync(presentation, onCloseAsync))
         };
         if (!string.IsNullOrEmpty(option.Width))
         {
@@ -106,18 +117,29 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             parameters.Add(nameof(Drawer.BodyContext), option.BodyContext);
         }
+        option.ConfigureParameters?.Invoke(parameters);
         return parameters;
     }
 
-    private async Task OnCloseAsync(DrawerOption option)
+    private async Task OnCloseAsync(object? presentation, Func<Task>? onCloseAsync)
     {
-        if (option.OnCloseAsync != null)
+        try
         {
-            await option.OnCloseAsync();
+            if (onCloseAsync != null)
+            {
+                await onCloseAsync();
+            }
         }
-
-        _option = null;
-        StateHasChanged();
+        finally
+        {
+            if (ReferenceEquals(_presentation, presentation))
+            {
+                _option = null;
+                _presentation = null;
+                _configuration = null;
+            }
+            StateHasChanged();
+        }
     }
 
     /// <summary>

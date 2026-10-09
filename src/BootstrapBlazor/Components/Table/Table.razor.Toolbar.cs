@@ -39,6 +39,21 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 新增保存成功后是否保持编辑弹窗或抽屉并继续新增 默认为 false，仅在 Popup 与 Drawer 模式下生效</para>
+    /// <para lang="en">Gets or sets whether to keep the edit dialog or drawer open and continue adding after a successful add. Default is false. Applies to Popup and Drawer modes only</para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">数据实际保存后，后续回调或刷新失败时，显示错误并禁止重复保存当前记录；不会初始化下一条记录。关闭时仍将当前记录视为已保存。</para>
+    /// <para lang="en">If callbacks or refresh fail after the data is actually saved, an error is displayed and resaving the current record is blocked without initializing another record. Closing still treats the current record as saved.</para>
+    /// <para lang="zh">若外部 OnSaveAsync 回调在实际提交后自身抛出异常，则无法推断提交结果，调用方应使用事务或幂等保存。</para>
+    /// <para lang="en">If an external OnSaveAsync callback throws after committing, its commit result cannot be inferred; the caller should use transactions or idempotent saves.</para>
+    /// <para lang="zh">仅使用 Items 时，保存后回调仍先于数据源更新执行；更新前失败可重试，更新后失败则禁止重复保存。</para>
+    /// <para lang="en">With Items alone, post-save callbacks still run before the source update. Failures before the update allow retry; failures after it block resaving.</para>
+    /// </remarks>
+    [Parameter]
+    public bool KeepAdding { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowExtendEditButtonCallback" /></para>
     /// <para lang="en">Gets or sets Whether to show Edit Button. Default true. Use <see cref="ShowExtendEditButton"/> and <see cref="ShowExtendEditButtonCallback" /> for in-row display</para>
     /// </summary>
@@ -742,8 +757,16 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="changedType"></param>
-    protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
+    /// <remarks>
+    /// <para lang="zh">仅使用 Items 时，此方法不更新数据源；调用方在实际更新后记录保存状态。</para>
+    /// <para lang="en">With Items alone, this method does not update the source; the caller records the saved state after the actual update.</para>
+    /// </remarks>
+    protected Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
+        => SaveModelAsync(context, changedType, null);
+
+    private async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType, Action<bool>? onSaved)
     {
+        var itemsOnly = Items != null && OnSaveAsync == null && DynamicContext == null;
         bool valid;
         if (DynamicContext != null)
         {
@@ -754,6 +777,12 @@ public partial class Table<TItem>
         else
         {
             valid = await InternalOnSaveAsync((TItem)context.Model, changedType);
+        }
+
+        if (!itemsOnly || !valid)
+        {
+            EditDialogSaveState.SetSaved(context, valid);
+            onSaved?.Invoke(valid);
         }
 
         // <para lang="zh">回调外部自定义方法</para>
@@ -895,14 +924,15 @@ public partial class Table<TItem>
     [Parameter]
     public Dialog? EditDialog { get; set; }
 
-    private async Task AddItem(EditContext context)
+    private async Task AddItem(EditContext context, Action onSaved)
     {
         var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
         Rows.Insert(index, (TItem)context.Model);
+        onSaved();
         await UpdateRow();
     }
 
-    private async Task EditItem(EditContext context)
+    private async Task EditItem(EditContext context, Action onSaved)
     {
         var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
         if (entity != null)
@@ -910,6 +940,7 @@ public partial class Table<TItem>
             var index = Rows.IndexOf(entity);
             Rows.RemoveAt(index);
             Rows.Insert(index, (TItem)context.Model);
+            onSaved();
             await UpdateRow();
         }
     }
@@ -957,10 +988,8 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task ShowEditDialog(ItemChangedType changedType)
     {
-        var saved = false;
-
         // 用于判断是否未保存数据直接点击关闭取消数据保存操作
-        var triggerFromSave = false;
+        var saved = false;
         var option = new EditDialogOption<TItem>()
         {
             Class = "modal-dialog-table",
@@ -974,21 +1003,19 @@ public partial class Table<TItem>
             ShowConfirmCloseSwal = ShowCloseConfirm,
             CloseConfirmTitle = CloseConfirmTitle,
             CloseConfirmContent = CloseConfirmContent,
-            OnCloseAsync = async () =>
-            {
-                if (triggerFromSave == false && OnAfterCancelSaveAsync != null)
-                {
-                    await OnAfterCancelSaveAsync();
-                }
-                await OnCloseEditDialogCallbackAsync(saved);
-            },
+            KeepOpenAfterSave = changedType == ItemChangedType.Add && KeepAdding,
+            OnCloseAsync = () => CloseEditDialogAsync(saved),
             OnEditAsync = async context =>
             {
-                saved = await OnSaveEditCallbackAsync(context, changedType);
+                var result = await OnSaveEditCallbackAsync(context, changedType, result => saved = result);
 
                 // 已保存数据
-                triggerFromSave = saved;
-                return saved;
+                return result;
+            },
+            CreateNextModelAsync = async () =>
+            {
+                saved = false;
+                return await CreateNextEditModelAsync();
             }
         };
         AppendOptions(option, changedType);
@@ -1007,18 +1034,13 @@ public partial class Table<TItem>
             ShowConfirmCloseSwal = ShowCloseConfirm,
             CloseConfirmTitle = CloseConfirmTitle,
             CloseConfirmContent = CloseConfirmContent,
-            OnCloseAsync = async () =>
+            KeepOpenAfterSave = changedType == ItemChangedType.Add && KeepAdding,
+            OnCloseAsync = () => CloseEditDialogAsync(saved),
+            OnEditAsync = context => OnSaveEditCallbackAsync(context, changedType, result => saved = result),
+            CreateNextModelAsync = async () =>
             {
-                if (OnAfterCancelSaveAsync != null)
-                {
-                    await OnAfterCancelSaveAsync();
-                }
-                await OnCloseEditDialogCallbackAsync(saved);
-            },
-            OnEditAsync = async context =>
-            {
-                saved = await OnSaveEditCallbackAsync(context, changedType);
-                return saved;
+                saved = false;
+                return await CreateNextEditModelAsync();
             }
         };
         AppendOptions(editOption, changedType);
@@ -1038,64 +1060,121 @@ public partial class Table<TItem>
         await DrawerService.ShowEditDrawer(editOption, option);
     }
 
+    private async Task<TItem> CreateNextEditModelAsync()
+    {
+        await InternalOnAddAsync();
+        if (EditModel == null)
+        {
+            throw new InvalidOperationException($"{nameof(OnAddAsync)} must return a non-null model.");
+        }
+        await OnSelectedRowsChanged();
+        return EditModel;
+    }
+
+    private async Task CloseEditDialogAsync(bool saved)
+    {
+        try
+        {
+            if (!saved && OnAfterCancelSaveAsync != null)
+            {
+                await OnAfterCancelSaveAsync();
+            }
+        }
+        finally
+        {
+            await OnCloseEditDialogCallbackAsync(saved);
+        }
+    }
+
     private async Task OnCloseEditDialogCallbackAsync(bool saved)
     {
-        if (EditDialogCloseAsync != null)
+        try
         {
-            await EditDialogCloseAsync(EditModel, saved);
-        }
-
-        if (!saved)
-        {
-            var dataService = DataService ?? InjectDataService;
-            if (dataService is IEntityFrameworkCoreDataService ef)
+            if (EditDialogCloseAsync != null)
             {
-                // EFCore
-                await ToggleLoading(true);
+                await EditDialogCloseAsync(EditModel, saved);
+            }
+        }
+        finally
+        {
+            if (!saved)
+            {
+                await CancelEditModelAsync();
+            }
+        }
+    }
+
+    private async Task CancelEditModelAsync()
+    {
+        var dataService = DataService ?? InjectDataService;
+        if (dataService is IEntityFrameworkCoreDataService ef)
+        {
+            // EFCore
+            await ToggleLoading(true);
+            try
+            {
                 await ef.CancelAsync();
+            }
+            finally
+            {
                 await ToggleLoading(false);
             }
         }
     }
 
-    private async Task<bool> OnSaveEditCallbackAsync(EditContext context, ItemChangedType changedType)
+    private async Task<bool> OnSaveEditCallbackAsync(EditContext context, ItemChangedType changedType, Action<bool> onSaved)
     {
         bool saved;
         await ToggleLoading(true);
-        if (IsTracking)
+        try
         {
-            saved = true;
-            if (changedType == ItemChangedType.Add)
+            if (IsTracking)
             {
-                var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
-                Rows.Insert(index, EditModel);
-            }
-            await InvokeItemsChanged();
-        }
-        else
-        {
-            saved = await SaveModelAsync(context, changedType);
-            if (saved)
-            {
-                if (Items != null)
+                saved = true;
+                if (changedType == ItemChangedType.Add)
                 {
-                    if (changedType == ItemChangedType.Add)
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, EditModel);
+                }
+                EditDialogSaveState.SetSaved(context, true);
+                onSaved(true);
+                await InvokeItemsChanged();
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                void MarkSaved()
+                {
+                    EditDialogSaveState.SetSaved(context, true);
+                    onSaved(true);
+                }
+                saved = await SaveModelAsync(context, changedType, onSaved);
+                if (saved)
+                {
+                    if (Items != null)
                     {
-                        await AddItem(context);
+                        if (changedType == ItemChangedType.Add)
+                        {
+                            await AddItem(context, MarkSaved);
+                        }
+                        else if (changedType == ItemChangedType.Update)
+                        {
+                            await EditItem(context, MarkSaved);
+                        }
+                        await InvokeAsync(StateHasChanged);
                     }
-                    else if (changedType == ItemChangedType.Update)
+                    else
                     {
-                        await EditItem(context);
+                        await QueryAsync();
                     }
                 }
-                else
-                {
-                    await QueryAsync();
-                }
             }
+            return saved;
         }
-        await ToggleLoading(false);
-        return saved;
+        finally
+        {
+            await ToggleLoading(false);
+        }
     }
 
     /// <summary>

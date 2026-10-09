@@ -18,10 +18,9 @@ public partial class Dialog : IDisposable
     [NotNull]
     private Modal? _modal = null;
     private Func<Task>? _onShownAsync = null;
-    private Func<Task>? _onCloseAsync = null;
-    private Func<Task<bool>>? _onClosingAsync = null;
-
-    private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop, Func<Task>? OnCloseCallback)> DialogParameters = [];
+    private readonly Dictionary<Dictionary<string, object>,
+        (bool IsKeyboard, bool IsBackdrop, bool? IsFade, Func<Task>? OnShownCallback,
+        Func<Task>? OnCloseCallback, Func<Task<bool>>? OnClosingCallback)> DialogParameters = [];
     private Dictionary<string, object>? _currentParameter;
     private bool _isKeyboard = false;
     private bool _isBackdrop = false;
@@ -59,37 +58,7 @@ public partial class Dialog : IDisposable
 
     private async Task Show(DialogOption option)
     {
-        _onShownAsync = async () =>
-        {
-            if (option.OnShownAsync != null)
-            {
-                await option.OnShownAsync();
-            }
-        };
-
-        _onCloseAsync = async () =>
-        {
-            // Remove current DialogParameter
-            if (_currentParameter != null)
-            {
-                DialogParameters.Remove(_currentParameter, out var v);
-                if (v.OnCloseCallback != null)
-                {
-                    await v.OnCloseCallback();
-                }
-
-                // Support for multiple dialogs
-                var p = DialogParameters.LastOrDefault();
-                _currentParameter = p.Key;
-                _isKeyboard = p.Value.IsKeyboard;
-                _isBackdrop = p.Value.IsBackdrop;
-
-                StateHasChanged();
-            }
-        };
-
-        _onClosingAsync = option.OnClosingAsync;
-
+        _onShownAsync = option.OnShownAsync;
         _isKeyboard = option.IsKeyboard;
         _isBackdrop = option.IsBackdrop;
         _isFade = option.IsFade;
@@ -159,11 +128,41 @@ public partial class Dialog : IDisposable
         _currentParameter = parameters;
 
         // Add ModalDialog to the container
-        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop, option.OnCloseAsync));
+        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop, _isFade, option.OnShownAsync, option.OnCloseAsync, option.OnClosingAsync));
         await InvokeAsync(StateHasChanged);
     }
 
-    private static RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>
+    private async Task CloseAsync(Dictionary<string, object> parameter)
+    {
+        // Remove current DialogParameter
+        if (!DialogParameters.Remove(parameter, out var settings))
+        {
+            return;
+        }
+        // Support for multiple dialogs
+        if (ReferenceEquals(_currentParameter, parameter))
+        {
+            var current = DialogParameters.LastOrDefault();
+            _currentParameter = current.Key;
+            _isKeyboard = current.Value.IsKeyboard;
+            _isBackdrop = current.Value.IsBackdrop;
+            _isFade = current.Value.IsFade;
+            _onShownAsync = current.Value.OnShownCallback;
+        }
+        try
+        {
+            if (settings.OnCloseCallback != null)
+            {
+                await settings.OnCloseCallback();
+            }
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>
     {
         if (index > 0)
         {
@@ -173,6 +172,12 @@ public partial class Dialog : IDisposable
         builder.OpenComponent<ModalDialog>(100 + index);
         builder.AddMultipleAttributes(101 + index, parameter);
         builder.SetKey(parameter);
+        builder.AddComponentReferenceCapture(102 + index, component =>
+        {
+            var dialog = (ModalDialog)component;
+            dialog.OnClosingCallback = DialogParameters[parameter].OnClosingCallback;
+            dialog.OnCloseCallback = () => CloseAsync(parameter);
+        });
         builder.CloseComponent();
     };
 

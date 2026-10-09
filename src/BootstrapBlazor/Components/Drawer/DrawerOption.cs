@@ -111,6 +111,8 @@ public class DrawerOption : IClosable
     /// </summary>
     internal Drawer? Drawer { get; set; }
 
+    internal Action<Dictionary<string, object>>? ConfigureParameters { get; set; }
+
     /// <summary>
     /// <para lang="zh">关闭抽屉弹窗方法</para>
     /// <para lang="en">Close Drawer Method</para>

@@ -356,6 +356,12 @@ public partial class ModalDialog
     private DialogResult _result = DialogResult.Close;
     private bool _firstRender = true;
 
+    internal DialogCloseContext CloseContext { get; } = new();
+
+    internal Func<Task<bool>>? OnClosingCallback { get; set; }
+
+    internal Func<Task>? OnCloseCallback { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -510,11 +516,12 @@ public partial class ModalDialog
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        await base.DisposeAsync(disposing);
-
         if (disposing)
         {
+            CloseContext.Closed();
             Modal.RemoveDialog(this);
         }
+
+        await base.DisposeAsync(disposing);
     }
 }

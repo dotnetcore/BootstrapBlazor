@@ -16,5 +16,15 @@ public class DrawerService : BootstrapServiceBase<DrawerOption>
     /// <para lang="en">Show Method</para>
     /// </summary>
     /// <param name="option"><para lang="zh">DrawerOption 实例</para><para lang="en">DrawerOption instance</para></param>
-    public Task Show(DrawerOption option) => Invoke(option);
+    public Task Show(DrawerOption option)
+    {
+        option.ConfigureParameters = null;
+        return Invoke(option);
+    }
+
+    internal Task Show(DrawerOption option, Action<Dictionary<string, object>> configureParameters)
+    {
+        option.ConfigureParameters = configureParameters;
+        return Invoke(option);
+    }
 }

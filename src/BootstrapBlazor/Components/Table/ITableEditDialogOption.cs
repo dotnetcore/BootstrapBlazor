@@ -116,6 +116,18 @@ public interface ITableEditDialogOption<TModel>
     Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 保存成功后是否保持编辑弹窗打开，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to keep the edit dialog open after a successful save. Default is false</para>
+    /// </summary>
+    bool KeepOpenAfterSave { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 保存成功后获取下一个编辑模型的异步回调方法。初始化失败时显示错误并阻止重复保存当前模型</para>
+    /// <para lang="en">Gets or sets the async callback that provides the next edit model after a successful save. Initialization failures are displayed and prevent saving the current model again</para>
+    /// </summary>
+    Func<Task<TModel>>? CreateNextModelAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 关闭弹窗回调方法</para>
     /// <para lang="en">Gets or sets close dialog callback method</para>
     /// </summary>

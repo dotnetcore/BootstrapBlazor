@@ -54,6 +54,10 @@ public partial class Drawer : IClosable
     /// <para lang="zh">获得/设置 抽屉是否打开 默认 false 未打开</para>
     /// <para lang="en">Gets or sets Whether Drawer is Open. Default is false</para>
     /// </summary>
+    /// <remarks>
+    /// <para lang="zh">通过参数关闭会使旧编辑提交失效，但不触发关闭回调；需要关闭检查与回调时，请调用 <see cref="Close"/>。</para>
+    /// <para lang="en">Closing through this parameter invalidates old edit submissions without invoking close callbacks. Use <see cref="Close"/> when close checks and callbacks are required.</para>
+    /// </remarks>
     [Parameter]
     public bool IsOpen { get; set; }
 
@@ -167,12 +171,26 @@ public partial class Drawer : IClosable
 
     private bool _firstOpened;
 
+    internal DialogCloseContext CloseContext { get; } = new();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        if (CloseContext.IsClosing && !CloseContext.IsClosed)
+        {
+            IsOpen = false;
+        }
+        else if (IsOpen)
+        {
+            CloseContext.Reopen();
+        }
+        else
+        {
+            CloseContext.Closed();
+        }
 
         // 启用延迟渲染时 首次打开后才渲染 ChildContent 防止不可见状态下子组件脚本测量尺寸失效
         // When lazy load is enabled, render ChildContent after first opened to prevent child component scripts from measuring size incorrectly while hidden
@@ -232,28 +250,59 @@ public partial class Drawer : IClosable
     [JSInvokable]
     public async Task Close()
     {
-        if (OnClosingAsync != null && !await OnClosingAsync())
+        var onClosingAsync = OnClosingAsync;
+        var onCloseAsync = OnCloseAsync;
+        var isOpenChanged = IsOpenChanged;
+        if (!await CloseContext.TryCloseAsync(onClosingAsync))
         {
             return;
         }
 
         IsOpen = false;
-        var animation = await InvokeAsync<bool>("execute", Id, false);
-        if (animation)
+        try
         {
-            await Task.Delay(300);
+            var animation = await InvokeAsync<bool>("execute", Id, false);
+            if (animation)
+            {
+                await Task.Delay(300);
+            }
         }
-        if (OnCloseAsync != null)
+        finally
         {
-            await OnCloseAsync();
+            await CompleteCloseAsync(onCloseAsync, isOpenChanged);
         }
-        if (IsOpenChanged.HasDelegate)
+    }
+
+    private async Task CompleteCloseAsync(Func<Task>? onCloseAsync, EventCallback<bool> isOpenChanged)
+    {
+        try
         {
-            await IsOpenChanged.InvokeAsync(IsOpen);
+            if (onCloseAsync != null)
+            {
+                await onCloseAsync();
+            }
         }
-        else
+        finally
         {
-            StateHasChanged();
+            CloseContext.Closed();
+            if (isOpenChanged.HasDelegate)
+            {
+                await isOpenChanged.InvokeAsync(false);
+            }
+            else
+            {
+                StateHasChanged();
+            }
         }
+    }
+
+    /// <inheritdoc/>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            CloseContext.Closed();
+        }
+        await base.DisposeAsync(disposing);
     }
 }

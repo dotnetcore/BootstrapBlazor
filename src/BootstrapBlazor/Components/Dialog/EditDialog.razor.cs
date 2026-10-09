@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
 
@@ -67,12 +68,26 @@ public partial class EditDialog<TModel>
     public string? CloseConfirmContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗</para>
-    /// <para lang="en">Gets or sets Save Callback Delegate. Return false to keep edit dialog, true to close it</para>
+    /// <para lang="zh">获得/设置 保存回调委托 返回 false 时保持编辑弹窗，返回 true 时根据 <see cref="KeepOpenAfterSave"/> 决定是否关闭编辑弹窗。开始关闭或组件释放后忽略延迟完成验证的提交</para>
+    /// <para lang="en">Gets or sets Save Callback Delegate. Return false to keep the edit dialog, or true to determine whether to close it based on <see cref="KeepOpenAfterSave"/>. Submissions whose validation completes after closing starts or component disposal are ignored</para>
     /// </summary>
     [Parameter]
     [EditorRequired]
     public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 保存成功后是否保持编辑弹窗打开，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to keep the edit dialog open after a successful save. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool KeepOpenAfterSave { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 保存成功后获取下一个编辑模型的异步回调方法。初始化失败时显示错误并阻止重复保存当前模型</para>
+    /// <para lang="en">Gets or sets the async callback that provides the next edit model after a successful save. Initialization failures are displayed and prevent saving the current model again</para>
+    /// </summary>
+    [Parameter]
+    public Func<Task<TModel>>? CreateNextModelAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标</para>
@@ -130,6 +145,12 @@ public partial class EditDialog<TModel>
     [CascadingParameter]
     private Modal? Modal { get; set; }
 
+    [CascadingParameter]
+    private ModalDialog? ModalDialog { get; set; }
+
+    [CascadingParameter]
+    private Drawer? Drawer { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
@@ -145,7 +166,21 @@ public partial class EditDialog<TModel>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject, NotNull]
+    private ILogger<EditDialog<TModel>>? Logger { get; set; }
+
     private bool _hasFieldValueChanged;
+    private bool _isBusy;
+    private bool _isDisposed;
+    private string? _saveError;
+    private TModel? _parameterModel;
+    private object? _parameterPresentation;
+    private TModel _currentModel = default!;
+    private ValidateForm _validateForm = default!;
+
+    internal bool IsBusy => _isBusy;
+
+    private DialogCloseContext? CloseContext => Drawer?.CloseContext ?? ModalDialog?.CloseContext ?? Modal?.CloseContext;
 
     /// <summary>
     /// <inheritdoc/>
@@ -154,7 +189,7 @@ public partial class EditDialog<TModel>
     {
         base.OnInitialized();
 
-        Modal?.RegisterOnClosingCallback(OnClosingCallback);
+        CloseContext?.Register(this, OnClosingCallback, () => _isBusy);
     }
 
     /// <summary>
@@ -168,6 +203,17 @@ public partial class EditDialog<TModel>
         if (Model == null)
         {
             throw new InvalidOperationException($"参数 {nameof(Model)} 未赋值; {nameof(Model)} can not be null.");
+        }
+
+        var modelChanged = !IsSameModel(_parameterModel, Model);
+        var presentation = CloseContext?.Presentation;
+        if (modelChanged || !ReferenceEquals(_parameterPresentation, presentation))
+        {
+            _parameterModel = Model;
+            _parameterPresentation = presentation;
+            _currentModel = Model;
+            _hasFieldValueChanged = false;
+            _saveError = null;
         }
 
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
@@ -187,6 +233,11 @@ public partial class EditDialog<TModel>
 
     private async Task<bool> OnClosingCallback()
     {
+        if (_isBusy)
+        {
+            return false;
+        }
+
         var ret = true;
         if (BootstrapBlazorOptions.Value.GetEditDialogShowConfirmSwal(ShowCloseConfirm, _hasFieldValueChanged))
         {
@@ -199,25 +250,152 @@ public partial class EditDialog<TModel>
             ret = await SwalService.ShowModal(op);
         }
 
-        return ret;
+        return ret && !_isBusy;
     }
 
-    private async Task OnValidSubmitAsync(EditContext context)
-    {
-        if (OnSaveAsync != null)
-        {
-            await ToggleLoading(true);
-            var save = await OnSaveAsync(context);
-            await ToggleLoading(false);
+    /// <summary>
+    /// <para lang="zh">检查编辑弹窗是否允许关闭，保存或切换模型期间不允许关闭</para>
+    /// <para lang="en">Checks whether the edit dialog can close. Closing is blocked while saving or switching models</para>
+    /// </summary>
+    public Task<bool> CanCloseAsync() => OnClosingCallback();
 
-            if (save)
+    private static bool IsSameModel(TModel? first, TModel? second) => typeof(TModel).IsValueType
+        ? EqualityComparer<TModel>.Default.Equals(first, second)
+        : ReferenceEquals(first, second);
+
+    private Func<EditContext, Task> GetSubmitCallback()
+    {
+        var presentation = CloseContext?.Presentation;
+        return context => OnValidSubmitAsync(context, presentation);
+    }
+
+    private async Task OnValidSubmitAsync(EditContext context, object? presentation)
+    {
+        if (_isDisposed || CloseContext?.IsClosing == true
+            || !ReferenceEquals(presentation, CloseContext?.Presentation))
+        {
+            Logger.LogWarning("Ignoring a submission from a closing or disposed edit dialog.");
+            return;
+        }
+
+        var onSaveAsync = OnSaveAsync;
+        if (_isBusy || _saveError != null || onSaveAsync == null)
+        {
+            return;
+        }
+
+        if (!ReferenceEquals(context.Model, _validateForm.Model))
+        {
+            Logger.LogWarning("Ignoring a submission from an obsolete edit model.");
+            return;
+        }
+
+        var close = false;
+        var parameterModel = _parameterModel;
+        bool IsCurrent() => !_isDisposed && CloseContext?.IsClosing != true
+            && ReferenceEquals(presentation, CloseContext?.Presentation)
+            && IsSameModel(parameterModel, _parameterModel);
+        var saveState = new EditDialogSaveState();
+        context.Properties[typeof(EditDialogSaveState)] = saveState;
+        _isBusy = true;
+        try
+        {
+            await InvokeAsync(StateHasChanged);
+            close = await SaveAsync(context, saveState, onSaveAsync, IsCurrent);
+        }
+        catch (Exception exception) when (saveState.IsSaved)
+        {
+            if (IsCurrent())
             {
                 _hasFieldValueChanged = false;
+                _saveError = Localizer["SavePostProcessingError"];
             }
+            Logger.LogError(exception, "The current item was saved, but completing the edit operation failed.");
+            throw;
+        }
+        finally
+        {
+            context.Properties.Remove(typeof(EditDialogSaveState));
+            _isBusy = false;
+            await InvokeAsync(StateHasChanged);
+        }
 
-            if (save && CloseAsync != null)
+        if (close && CloseAsync != null)
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task<bool> SaveAsync(EditContext context, EditDialogSaveState saveState,
+        Func<EditContext, Task<bool>> onSaveAsync, Func<bool> isCurrent)
+    {
+        if (!CheckCurrentSave(isCurrent))
+        {
+            return false;
+        }
+        var close = false;
+        try
+        {
+            await ToggleLoading(true);
+            if (!CheckCurrentSave(isCurrent))
             {
-                await CloseAsync();
+                return false;
+            }
+            if (await onSaveAsync(context))
+            {
+                saveState.IsSaved = true;
+                if (!CheckCurrentSave(isCurrent))
+                {
+                    return false;
+                }
+                _hasFieldValueChanged = false;
+                if (KeepOpenAfterSave && CreateNextModelAsync != null)
+                {
+                    await InitializeNextModelAsync(CreateNextModelAsync, isCurrent);
+                }
+                else
+                {
+                    close = !KeepOpenAfterSave;
+                }
+            }
+        }
+        finally
+        {
+            await ToggleLoading(false);
+        }
+        return close;
+    }
+
+    private bool CheckCurrentSave(Func<bool> isCurrent)
+    {
+        var current = isCurrent();
+        if (!current)
+        {
+            Logger.LogWarning("Ignoring the continuation of an obsolete or disposed edit operation.");
+        }
+        return current;
+    }
+
+    private async Task InitializeNextModelAsync(Func<Task<TModel>> createModelAsync, Func<bool> isCurrent)
+    {
+        try
+        {
+            var model = await createModelAsync();
+            if (model == null)
+            {
+                throw new InvalidOperationException($"{nameof(CreateNextModelAsync)} must return a non-null model.");
+            }
+            if (CheckCurrentSave(isCurrent))
+            {
+                _currentModel = model;
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "The current item was saved, but initializing the next edit model failed.");
+            if (isCurrent())
+            {
+                _saveError = Localizer["NextModelInitializationError"];
             }
         }
     }
@@ -244,7 +422,7 @@ public partial class EditDialog<TModel>
     {
         if (FooterTemplate != null)
         {
-            builder.AddContent(1, FooterTemplate(Model));
+            builder.AddContent(1, FooterTemplate(_currentModel));
         }
         else
         {
@@ -254,6 +432,7 @@ public partial class EditDialog<TModel>
                 builder.AddAttribute(21, nameof(Button.Icon), CloseButtonIcon);
                 builder.AddAttribute(22, nameof(Button.Text), CloseButtonText);
                 builder.AddAttribute(23, nameof(Button.OnClickWithoutRender), OnCloseAsync);
+                builder.AddAttribute(24, nameof(Button.IsDisabled), _isBusy);
                 builder.CloseComponent();
             }
             builder.OpenComponent<Button>(30);
@@ -262,6 +441,7 @@ public partial class EditDialog<TModel>
             builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
             builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
             builder.AddAttribute(35, nameof(Button.IsAsync), true);
+            builder.AddAttribute(36, nameof(Button.IsDisabled), _isBusy || _saveError != null);
             builder.CloseComponent();
         }
     };
@@ -274,9 +454,24 @@ public partial class EditDialog<TModel>
     {
         if (disposing)
         {
-            Modal?.UnRegisterOnClosingCallback(OnClosingCallback);
+            _isDisposed = true;
+            CloseContext?.UnRegister(this);
         }
 
         await base.DisposeAsync(disposing);
+    }
+}
+
+internal sealed class EditDialogSaveState
+{
+    internal bool IsSaved { get; set; }
+
+    internal static void SetSaved(EditContext context, bool saved)
+    {
+        if (context.Properties.TryGetValue(typeof(EditDialogSaveState), out var value)
+            && value is EditDialogSaveState state)
+        {
+            state.IsSaved = saved;
+        }
     }
 }
