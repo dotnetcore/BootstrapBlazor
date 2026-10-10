@@ -266,9 +266,7 @@
     "CloseButtonText": "Close",
     "SaveButtonText": "Save",
     "CloseConfirmTitle": "Warning",
-    "CloseConfirmContent": "The form has been changed. Are you sure you continue to close it?",
-    "NextModelInitializationError": "The current item was saved, but initializing the next item failed. Close this window to cancel the unsaved item, then add a new item again.",
-    "SavePostProcessingError": "The current item was saved, but subsequent processing failed. Close and reopen this window; do not save the current item again."
+    "CloseConfirmContent": "The form has been changed. Are you sure you continue to close it?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Clear",

@@ -33,11 +33,6 @@ public partial class Modal : IClosable
     protected List<ModalDialog> Dialogs { get; } = new(8);
 
     private readonly ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
-    private Func<Task<bool>>? _registeredClosingCallbacks;
-    private (ModalDialog? Dialog, DialogCloseContext Context, object Presentation, string Request)? _closingWindow;
-    private ModalDialog? _closedDialog;
-
-    internal DialogCloseContext CloseContext { get; } = new();
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否在后台关闭弹出窗口，默认为 false</para>
@@ -93,8 +88,6 @@ public partial class Modal : IClosable
     [Parameter]
     public Func<Task<bool>>? OnClosingAsync { get; set; }
 
-    internal bool IsClosing => (_closingWindow?.Context ?? CloseContext).IsClosing;
-
     /// <summary>
     /// <para lang="zh">获得后台关闭弹出窗口的设置</para>
     /// <para lang="en">Gets the background close popup setting</para>
@@ -142,10 +135,6 @@ public partial class Modal : IClosable
     {
         // Remove the current popup
         Dialogs.Remove(dialog);
-        if (ReferenceEquals(_closedDialog, dialog))
-        {
-            _closedDialog = null;
-        }
 
         if (Dialogs.Count > 0)
         {
@@ -188,20 +177,10 @@ public partial class Modal : IClosable
     public async Task CloseCallback()
     {
         // Remove the current popup
-        var closingWindow = _closingWindow;
-        var dialog = closingWindow.HasValue ? closingWindow.Value.Dialog : Dialogs.FirstOrDefault(d => d.IsShown);
-        var closeContext = closingWindow?.Context ?? dialog?.CloseContext ?? CloseContext;
-        _closingWindow = null;
-        if (closeContext.IsClosed)
-        {
-            return;
-        }
-        var onCloseAsync = dialog?.OnCloseCallback ?? OnCloseAsync;
-        closeContext.Closed();
+        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
         if (dialog != null)
         {
             Dialogs.Remove(dialog);
-            _closedDialog = dialog;
         }
 
         // Support for multi-level popups
@@ -210,9 +189,9 @@ public partial class Modal : IClosable
             ResetShownDialog(Dialogs.Last());
         }
 
-        if (onCloseAsync != null)
+        if (OnCloseAsync != null)
         {
-            await onCloseAsync();
+            await OnCloseAsync();
         }
     }
 
@@ -221,52 +200,14 @@ public partial class Modal : IClosable
     /// <para lang="en">Callback method when the popup before close, called by JSInvoke</para>
     /// </summary>
     [JSInvokable]
-    public Task<bool> BeforeCloseCallback() => BeforeCloseAsync(null);
-
-    /// <summary>
-    /// <para lang="zh">检查浏览器关闭请求并记录请求标识</para>
-    /// <para lang="en">Checks a browser close request and records its identity</para>
-    /// </summary>
-    [JSInvokable]
-    public Task<bool> BeforeCloseWithRequestCallback(string request) => BeforeCloseAsync(request);
-
-    private async Task<bool> BeforeCloseAsync(string? request)
+    public async Task<bool> BeforeCloseCallback()
     {
-        if (_closingWindow.HasValue)
+        var result = true;
+        if (OnClosingAsync != null)
         {
-            return false;
-        }
-
-        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
-        var closeContext = dialog?.CloseContext ?? CloseContext;
-        var callbacks = OnClosingAsync + dialog?.OnClosingCallback + _registeredClosingCallbacks;
-        var result = await closeContext.TryCloseAsync(callbacks,
-            () => !_closingWindow.HasValue && ReferenceEquals(dialog, Dialogs.FirstOrDefault(d => d.IsShown)));
-        if (result)
-        {
-            _closingWindow = (dialog, closeContext, closeContext.Presentation, request ?? Guid.NewGuid().ToString("N"));
+            result = await OnClosingAsync();
         }
         return result;
-    }
-
-    /// <summary>
-    /// <para lang="zh">恢复未完成的浏览器关闭请求</para>
-    /// <para lang="en">Recovers a browser close request that failed before closing</para>
-    /// </summary>
-    [JSInvokable]
-    public Task CloseFailedCallback(string request)
-    {
-        RecoverClose(request);
-        return Task.CompletedTask;
-    }
-
-    private void RecoverClose(string request)
-    {
-        if (_closingWindow is { } window && window.Request == request)
-        {
-            window.Context.CancelClose(window.Presentation);
-            _closingWindow = null;
-        }
     }
 
     /// <summary>
@@ -283,33 +224,9 @@ public partial class Modal : IClosable
     /// <para lang="zh">显示弹出窗口的方法</para>
     /// <para lang="en">Method to show the popup</para>
     /// </summary>
-    /// <remarks>
-    /// <para lang="zh">显示新窗口前等待旧窗口的关闭动画结束，但不等待新窗口的显示动画完成。</para>
-    /// <para lang="en">Waits for the previous hide animation before showing a new window, but does not await the new show animation.</para>
-    /// </remarks>
     public async Task Show()
     {
         await ModuleInitTask.Task;
-        var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
-        if (dialog?.CloseContext.IsClosing == true && !dialog.CloseContext.IsClosed
-            || dialog == null && CloseContext.IsClosing && !CloseContext.IsClosed
-            || _closingWindow.HasValue && ReferenceEquals(dialog, _closingWindow.Value.Dialog))
-        {
-            return;
-        }
-        if (dialog == null && _closedDialog != null)
-        {
-            AddDialog(_closedDialog);
-            dialog = _closedDialog;
-            _closedDialog = null;
-        }
-        var reopening = dialog?.CloseContext.IsClosed == true || CloseContext.IsClosed;
-        dialog?.CloseContext.Reopen();
-        CloseContext.Reopen();
-        if (reopening)
-        {
-            await InvokeAsync(StateHasChanged);
-        }
         await InvokeVoidAsync("execute", Id, "show");
     }
 
@@ -317,33 +234,12 @@ public partial class Modal : IClosable
     /// <para lang="zh">关闭当前弹出窗口的方法</para>
     /// <para lang="en">Method to close the current popup</para>
     /// </summary>
-    /// <remarks>
-    /// <para lang="zh">隐藏调用失败时释放本次未完成的关闭请求，并继续向上传播异常。</para>
-    /// <para lang="en">If hiding fails, releases the unfinished close request and propagates the exception.</para>
-    /// </remarks>
     public async Task Close()
     {
-        if (Dialogs.Count == 0 && !await InvokeAsync<bool>("isShown", Id))
-        {
-            if (!_closingWindow.HasValue && !CloseContext.IsCloseRequested)
-            {
-                await DialogCloseContext.InvokeClosingAsync(OnClosingAsync + _registeredClosingCallbacks);
-            }
-            return;
-        }
         var result = await BeforeCloseCallback();
         if (result)
         {
-            var window = _closingWindow!.Value;
-            try
-            {
-                await InvokeVoidAsync("execute", Id, "hide");
-            }
-            catch
-            {
-                RecoverClose(window.Request);
-                throw;
-            }
+            await InvokeVoidAsync("execute", Id, "hide");
         }
     }
 
@@ -391,7 +287,7 @@ public partial class Modal : IClosable
     /// </param>
     public void RegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
     {
-        _registeredClosingCallbacks += onClosingCallback;
+        OnClosingAsync += onClosingCallback;
     }
 
     /// <summary>
@@ -405,6 +301,6 @@ public partial class Modal : IClosable
     /// </param>
     public void UnRegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
     {
-        _registeredClosingCallbacks -= onClosingCallback;
+        OnClosingAsync -= onClosingCallback;
     }
 }

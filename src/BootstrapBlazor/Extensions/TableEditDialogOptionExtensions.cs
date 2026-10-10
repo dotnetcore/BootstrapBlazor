@@ -42,8 +42,6 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.LabelWidth)] = option.LabelWidth,
         [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
         [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate,
-        [nameof(EditDialog<TModel>.KeepOpenAfterSave)] = option.KeepOpenAfterSave,
-        [nameof(EditDialog<TModel>.CreateNextModelAsync)] = option.CreateNextModelAsync,
         [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
         {
             var ret = false;

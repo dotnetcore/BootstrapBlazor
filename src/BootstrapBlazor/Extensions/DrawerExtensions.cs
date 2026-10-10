@@ -24,40 +24,14 @@ public static class DrawerExtensions
     ///   <para lang="en"><see cref="ITableEditDialogOption{TModel}"/> option instance</para>
     /// </param>
     /// <param name="option">
-    ///   <para lang="zh"><see cref="DrawerOption"/> 配置类实例，编辑内容与关闭回调在当前展示的组件参数中组合，不改写原配置</para>
-    ///   <para lang="en"><see cref="DrawerOption"/> option instance. Edit content and close callbacks are composed in the current display's component parameters without modifying the original configuration</para>
+    ///   <para lang="zh"><see cref="DrawerOption"/> 配置类实例</para>
+    ///   <para lang="en"><see cref="DrawerOption"/> option instance</para>
     /// </param>
     public static async Task ShowEditDrawer<TModel>(this DrawerService service, TableEditDrawerOption<TModel> editDialogOption, DrawerOption option)
     {
         var parameters = editDialogOption.ToParameter();
-        RenderFragment content = builder =>
-        {
-            builder.OpenComponent<EditDialog<TModel>>(0);
-            foreach (var parameter in parameters)
-            {
-                builder.AddAttribute(1, parameter.Key, parameter.Value);
-            }
-            builder.CloseComponent();
-        };
-        await service.Show(option, drawerParameters =>
-        {
-            var containerCloseAsync = (Func<Task>)drawerParameters[nameof(Drawer.OnCloseAsync)];
-            var editCloseAsync = editDialogOption.OnCloseAsync;
-            drawerParameters[nameof(Drawer.ChildContent)] = content;
-            drawerParameters[nameof(Drawer.OnCloseAsync)] = new Func<Task>(async () =>
-            {
-                try
-                {
-                    if (editCloseAsync != null)
-                    {
-                        await editCloseAsync();
-                    }
-                }
-                finally
-                {
-                    await containerCloseAsync();
-                }
-            });
-        });
+        parameters.Add(nameof(EditDialog<TModel>.OnCloseAsync), editDialogOption.OnCloseAsync);
+        option.ChildContent = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters).Render();
+        await service.Show(option);
     }
 }
