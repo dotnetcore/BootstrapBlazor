@@ -92,6 +92,41 @@ public interface ITableEditDialogOption<TModel>
     string? SaveButtonIcon { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否在 Footer 中显示「保存并新增」按钮 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the "Save and Add" button in the Footer. Default is false</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    bool ShowKeepAddingButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮文本</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button text</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    string? KeepAddingButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button icon. Default is null, using the current theme icon</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    string? KeepAddingButtonIcon { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
+    /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    Color KeepAddingButtonColor { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 点击「保存并新增」按钮保存成功后创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例</para>
+    /// <para lang="en">Gets or sets the callback which creates the next edit model after the "Save and Add" button saved successfully. The parameter is the model saved just now</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    Func<TModel, Task<TModel>>? OnKeepAddingAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮文本</para>
     /// <para lang="en">Gets or sets close button text</para>
     /// </summary>

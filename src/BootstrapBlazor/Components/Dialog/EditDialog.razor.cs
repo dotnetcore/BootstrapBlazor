@@ -75,6 +75,60 @@ public partial class EditDialog<TModel>
     public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否在 Footer 中显示「保存并新增」按钮 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the "Save and Add" button in the Footer. Default is false</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗保持打开状态以便连续录入</para>
+    /// <para lang="en">Clicking the "Save and Add" button saves the current edit model first, then calls <see cref="OnKeepAddingAsync"/> to create the next model and rebinds the form while keeping the dialog open for continuous input</para>
+    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时点击该按钮等同于点击主保存按钮 保存成功后直接关闭弹窗</para>
+    /// <para lang="en">When <see cref="OnKeepAddingAsync"/> is not set, clicking this button behaves the same as the main save button and the dialog is closed after saving successfully</para>
+    /// <para lang="zh">「保存并新增」按钮位于主保存按钮之前 并作为表单默认按钮 因此在未禁用回车提交（<see cref="DisableAutoSubmitFormByEnter"/>）时 输入框内回车提交等价于点击「保存并新增」</para>
+    /// <para lang="en">The "Save and Add" button is rendered before the main save button as the form default button, so pressing Enter inside an input equals clicking "Save and Add" unless Enter submission is disabled by <see cref="DisableAutoSubmitFormByEnter"/></para>
+    /// </remarks>
+    [Parameter]
+    public bool ShowKeepAddingButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮文本 默认 null 读取资源文件设置文本</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button text. Default is null (Read from resource file)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button icon. Default is null (Use current theme icon)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonIcon { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
+    /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Color KeepAddingButtonColor { get; set; } = Color.Info;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 点击「保存并新增」按钮保存成功后创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例</para>
+    /// <para lang="en">Gets or sets the callback which creates the next edit model after the "Save and Add" button saved successfully. The parameter is the model saved just now</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
+    /// <para lang="en">The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
+    /// <para lang="zh">回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
+    /// <para lang="en">The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// </remarks>
+    [Parameter]
+    public Func<TModel, Task<TModel>>? OnKeepAddingAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标</para>
     /// <para lang="en">Gets or sets Close Button Icon</para>
     /// </summary>

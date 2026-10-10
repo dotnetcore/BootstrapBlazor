@@ -39,6 +39,60 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示「保存并新增」按钮 默认为 false 仅在 <see cref="EditMode.Popup"/> 模式下的新建弹窗中生效</para>
+    /// <para lang="en">Gets or sets whether to show the "Save and Add" button. Default false. Only works for the add dialog in <see cref="EditMode.Popup"/> mode</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">开启后新建编辑弹窗的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持弹窗打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
+    /// <para lang="en">When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog. Clicking it saves the current item, keeps the dialog open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
+    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时使用 <see cref="OnAddAsync"/> 创建下一条数据</para>
+    /// <para lang="en">Use <see cref="OnAddAsync"/> to create the next item when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// </remarks>
+    [Parameter]
+    public bool ShowKeepAddingButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮文本 默认 null 读取资源文件设置文本</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button text. Default null (Read from resource file)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button icon. Default null (Use current theme icon)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonIcon { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
+    /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Color KeepAddingButtonColor { get; set; } = Color.Info;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 连续新增时创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例 默认 null 未设置时使用 <see cref="OnAddAsync"/> 创建</para>
+    /// <para lang="en">Gets or sets the callback which creates the next edit model when keep adding. The parameter is the model saved just now. Default null, use <see cref="OnAddAsync"/> when it is not set</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">仅在 <see cref="ShowKeepAddingButton"/> 为 true 时生效，可基于上一条已保存数据预填下一条数据，例如数量递增、沿用上一次的类别等</para>
+    /// <para lang="en">Only works when <see cref="ShowKeepAddingButton"/> is true. It can prefill the next item from the saved one, such as increasing the count or reusing the previous category</para>
+    /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
+    /// <para lang="en">The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
+    /// <para lang="zh">回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
+    /// <para lang="en">The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// </remarks>
+    [Parameter]
+    public Func<TItem, Task<TItem>>? OnKeepAddingAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowExtendEditButtonCallback" /></para>
     /// <para lang="en">Gets or sets Whether to show Edit Button. Default true. Use <see cref="ShowExtendEditButton"/> and <see cref="ShowExtendEditButtonCallback" /> for in-row display</para>
     /// </summary>
