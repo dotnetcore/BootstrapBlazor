@@ -107,6 +107,43 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TablesKeepAddingTitle"]" Introduction="@Localizer["TablesKeepAddingIntro"]" Name="KeepAdding">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesKeepAddingDescription"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesKeepAddingTips"].Value)</p>
+    </section>
+    <Table TItem="Foo" @bind-Items="KeepAddingItems" ShowKeepAddingButton="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           OnAddAsync="OnKeepAddAsync"
+           OnKeepAddingAsync="@OnKeepAddingAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesKeepAddingDrawerDescription"].Value)</p>
+    </section>
+    <Table TItem="Foo" @bind-Items="KeepAddingDrawerItems" ShowKeepAddingButton="true" EditMode="EditMode.Drawer"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           OnAddAsync="OnKeepAddAsync"
+           OnKeepAddingAsync="@OnKeepAddingAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TablesColumnEditTemplateTitle"]" Introduction="@Localizer["TablesColumnEditTemplateIntro"]" Name="ColumnEditTemplate">
     <section ignore>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateDescription1"].Value)</div>

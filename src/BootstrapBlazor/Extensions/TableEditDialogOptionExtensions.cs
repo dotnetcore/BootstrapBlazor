@@ -19,7 +19,7 @@ public static class TableEditDialogOptionExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="option"></param>
-    public static Dictionary<string, object?> ToParameter<TModel>(this ITableEditDialogOption<TModel> option) => new()
+    public static Dictionary<string, object?> ToParameter<TModel>(this ITableEditDialogOption<TModel> option) where TModel : class => new()
     {
         [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
         [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
@@ -34,6 +34,11 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.CloseButtonIcon)] = option.CloseButtonIcon,
         [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
         [nameof(EditDialog<TModel>.SaveButtonIcon)] = option.SaveButtonIcon,
+        [nameof(EditDialog<TModel>.ShowKeepAddingButton)] = option.ShowKeepAddingButton,
+        [nameof(EditDialog<TModel>.KeepAddingButtonText)] = option.KeepAddingButtonText,
+        [nameof(EditDialog<TModel>.KeepAddingButtonIcon)] = option.KeepAddingButtonIcon,
+        [nameof(EditDialog<TModel>.KeepAddingButtonColor)] = option.KeepAddingButtonColor,
+        [nameof(EditDialog<TModel>.OnKeepAddingAsync)] = option.OnKeepAddingAsync,
         [nameof(EditDialog<TModel>.ShowCloseConfirm)] = option.ShowConfirmCloseSwal,
         [nameof(EditDialog<TModel>.CloseConfirmTitle)] = option.CloseConfirmTitle,
         [nameof(EditDialog<TModel>.CloseConfirmContent)] = option.CloseConfirmContent,

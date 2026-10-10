@@ -43,6 +43,7 @@ internal static class MaterialDesignIcons
 
         { ComponentIcons.DialogCloseButtonIcon, "mdi mdi-close" },
         { ComponentIcons.DialogSaveButtonIcon, "mdi mdi-content-save" },
+        { ComponentIcons.DialogKeepAddingButtonIcon, "mdi mdi-plus" },
         { ComponentIcons.DialogMaximizeWindowIcon, "mdi mdi-window-maximize" },
         { ComponentIcons.DialogRestoreWindowIcon, "mdi mdi-window-restore" },
 
