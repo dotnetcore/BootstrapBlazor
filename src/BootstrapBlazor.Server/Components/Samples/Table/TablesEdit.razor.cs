@@ -35,6 +35,9 @@ public partial class TablesEdit
     [NotNull]
     private IEnumerable<Foo>? KeepAddingItems { get; set; }
 
+    [NotNull]
+    private IEnumerable<Foo>? KeepAddingDrawerItems { get; set; }
+
     private InsertRowMode InsertMode { get; set; } = InsertRowMode.Last;
 
     private string? PlaceHolderString { get; set; }
@@ -67,6 +70,10 @@ public partial class TablesEdit
         // 数量列从 0 开始 便于观察连续新增时数量递增的效果
         keepAddingItems.ForEach(i => i.Count = 0);
         KeepAddingItems = keepAddingItems;
+
+        var keepAddingDrawerItems = Foo.GenerateFoo(FooLocalizer, 4);
+        keepAddingDrawerItems.ForEach(i => i.Count = 0);
+        KeepAddingDrawerItems = keepAddingDrawerItems;
     }
 
     private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
