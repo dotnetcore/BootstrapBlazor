@@ -1047,7 +1047,6 @@ public partial class Table<TItem>
         };
         AppendOptions(option, changedType);
 
-        // 已保存当前数据 弹窗保持打开时下一条数据尚未保存
         AppendKeepAddingOptions(option, changedType, () =>
         {
             saved = false;
@@ -1139,7 +1138,6 @@ public partial class Table<TItem>
         };
         AppendOptions(editOption, changedType);
 
-        // 已保存当前数据 抽屉保持打开时下一条数据尚未保存
         AppendKeepAddingOptions(editOption, changedType, () => saved = false);
 
         var option = new DrawerOption()
