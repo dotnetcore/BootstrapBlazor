@@ -39,6 +39,60 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示「保存并新增」按钮 默认为 false 仅在 <see cref="EditMode.Popup"/> 弹窗与 <see cref="EditMode.Drawer"/> 抽屉模式下的新建界面中生效</para>
+    /// <para lang="en">Gets or sets whether to show the "Save and Add" button. Default false. Only works for the add dialog/drawer in <see cref="EditMode.Popup"/> and <see cref="EditMode.Drawer"/> modes</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">开启后新建编辑弹窗/抽屉的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持编辑界面打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
+    /// <para lang="en">When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog/drawer. Clicking it saves the current item, keeps the edit UI open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
+    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时使用 <see cref="OnAddAsync"/> 创建下一条数据</para>
+    /// <para lang="en">Use <see cref="OnAddAsync"/> to create the next item when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// </remarks>
+    [Parameter]
+    public bool ShowKeepAddingButton { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮文本 默认 null 读取资源文件设置文本</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button text. Default null (Read from resource file)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonText { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
+    /// <para lang="en">Gets or sets the "Save and Add" button icon. Default null (Use current theme icon)</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public string? KeepAddingButtonIcon { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
+    /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Color KeepAddingButtonColor { get; set; } = Color.Info;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 连续新增时创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例 默认 null 未设置时使用 <see cref="OnAddAsync"/> 创建</para>
+    /// <para lang="en">Gets or sets the callback which creates the next edit model when keep adding. The parameter is the model saved just now. Default null, use <see cref="OnAddAsync"/> when it is not set</para>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">仅在 <see cref="ShowKeepAddingButton"/> 为 true 时生效，可基于上一条已保存数据预填下一条数据，例如数量递增、沿用上一次的类别等</para>
+    /// <para lang="en">Only works when <see cref="ShowKeepAddingButton"/> is true. It can prefill the next item from the saved one, such as increasing the count or reusing the previous category</para>
+    /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
+    /// <para lang="en">The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
+    /// <para lang="zh">回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
+    /// <para lang="en">The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// </remarks>
+    [Parameter]
+    public Func<TItem, Task<TItem>>? OnKeepAddingAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowExtendEditButtonCallback" /></para>
     /// <para lang="en">Gets or sets Whether to show Edit Button. Default true. Use <see cref="ShowExtendEditButton"/> and <see cref="ShowExtendEditButtonCallback" /> for in-row display</para>
     /// </summary>
@@ -992,7 +1046,69 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(option, changedType);
+
+        // 已保存当前数据 弹窗保持打开时下一条数据尚未保存
+        AppendKeepAddingOptions(option, changedType, () =>
+        {
+            saved = false;
+            triggerFromSave = false;
+        });
         await DialogService.ShowEditDialog(option, EditDialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">追加「保存并新增」相关配置 仅在新建弹窗/抽屉中生效</para>
+    /// <para lang="en">Appends the "Save and Add" related options. Only works for the add dialog/drawer</para>
+    /// </summary>
+    /// <param name="option">
+    ///   <para lang="zh">编辑配置类实例</para>
+    ///   <para lang="en">Edit option instance</para>
+    /// </param>
+    /// <param name="changedType">
+    ///   <para lang="zh">编辑类型</para>
+    ///   <para lang="en">Item changed type</para>
+    /// </param>
+    /// <param name="notifyKeepAdding">
+    ///   <para lang="zh">创建下一条数据之前的回调方法 用于复位是否已保存标记</para>
+    ///   <para lang="en">Callback invoked before the next item is created, used to reset the saved flag</para>
+    /// </param>
+    private void AppendKeepAddingOptions(ITableEditDialogOption<TItem> option, ItemChangedType changedType, Action notifyKeepAdding)
+    {
+        option.ShowKeepAddingButton = ShowKeepAddingButton && changedType == ItemChangedType.Add;
+        if (option.ShowKeepAddingButton)
+        {
+            option.KeepAddingButtonText = KeepAddingButtonText;
+            option.KeepAddingButtonIcon = KeepAddingButtonIcon;
+            option.KeepAddingButtonColor = KeepAddingButtonColor;
+            option.OnKeepAddingAsync = async lastModel =>
+            {
+                notifyKeepAdding();
+                return await CreateNextEditModelAsync(lastModel);
+            };
+        }
+    }
+
+    /// <summary>
+    /// <para lang="zh">连续新增时创建下一条编辑模型 未设置 <see cref="OnKeepAddingAsync"/> 时回退使用 <see cref="OnAddAsync"/> 回调创建</para>
+    /// <para lang="en">Creates the next edit model for keep adding. Falls back to the <see cref="OnAddAsync"/> callback when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// </summary>
+    /// <param name="lastModel">上一条已保存成功的模型实例</param>
+    private async Task<TItem> CreateNextEditModelAsync(TItem lastModel)
+    {
+        var model = default(TItem);
+        if (OnKeepAddingAsync != null)
+        {
+            SelectedRows.Clear();
+            model = await OnKeepAddingAsync(lastModel);
+        }
+        else
+        {
+            await InternalOnAddAsync();
+            model = EditModel ?? throw new InvalidOperationException($"{nameof(OnAddAsync)} must return a non-null model.");
+        }
+
+        await OnSelectedRowsChanged();
+        return model;
     }
 
     /// <summary>
@@ -1022,6 +1138,9 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(editOption, changedType);
+
+        // 已保存当前数据 抽屉保持打开时下一条数据尚未保存
+        AppendKeepAddingOptions(editOption, changedType, () => saved = false);
 
         var option = new DrawerOption()
         {

@@ -265,6 +265,8 @@
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存",
+    "SaveAndCloseButtonText": "保存并关闭",
+    "KeepAddingButtonText": "保存并新增",
     "CloseConfirmTitle": "请注意",
     "CloseConfirmContent": "表单内容已更改，确定要继续关闭吗？"
   },
