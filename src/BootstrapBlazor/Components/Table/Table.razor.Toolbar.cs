@@ -39,13 +39,13 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示「保存并新增」按钮 默认为 false 仅在 <see cref="EditMode.Popup"/> 模式下的新建弹窗中生效</para>
-    /// <para lang="en">Gets or sets whether to show the "Save and Add" button. Default false. Only works for the add dialog in <see cref="EditMode.Popup"/> mode</para>
+    /// <para lang="zh">获得/设置 是否显示「保存并新增」按钮 默认为 false 仅在 <see cref="EditMode.Popup"/> 弹窗与 <see cref="EditMode.Drawer"/> 抽屉模式下的新建界面中生效</para>
+    /// <para lang="en">Gets or sets whether to show the "Save and Add" button. Default false. Only works for the add dialog/drawer in <see cref="EditMode.Popup"/> and <see cref="EditMode.Drawer"/> modes</para>
     /// <para>v<version>11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">开启后新建编辑弹窗的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持弹窗打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
-    /// <para lang="en">When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog. Clicking it saves the current item, keeps the dialog open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
+    /// <para lang="zh">开启后新建编辑弹窗/抽屉的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持编辑界面打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
+    /// <para lang="en">When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog/drawer. Clicking it saves the current item, keeps the edit UI open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
     /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时使用 <see cref="OnAddAsync"/> 创建下一条数据</para>
     /// <para lang="en">Use <see cref="OnAddAsync"/> to create the next item when <see cref="OnKeepAddingAsync"/> is not set</para>
     /// </remarks>

@@ -84,10 +84,10 @@ public partial class EditDialog<TModel>
     /// <para>v<version>11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗保持打开状态以便连续录入</para>
-    /// <para lang="en">Clicking the "Save and Add" button saves the current edit model first, then calls <see cref="OnKeepAddingAsync"/> to create the next model and rebinds the form while keeping the dialog open for continuous input</para>
-    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时点击该按钮等同于点击主保存按钮 保存成功后直接关闭弹窗</para>
-    /// <para lang="en">When <see cref="OnKeepAddingAsync"/> is not set, clicking this button behaves the same as the main save button and the dialog is closed after saving successfully</para>
+    /// <para lang="zh">点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗/抽屉保持打开状态以便连续录入</para>
+    /// <para lang="en">Clicking the "Save and Add" button saves the current edit model first, then calls <see cref="OnKeepAddingAsync"/> to create the next model and rebinds the form while keeping the dialog/drawer open for continuous input</para>
+    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时点击该按钮等同于点击主保存按钮 保存成功后直接关闭弹窗/抽屉</para>
+    /// <para lang="en">When <see cref="OnKeepAddingAsync"/> is not set, clicking this button behaves the same as the main save button and the dialog/drawer is closed after saving successfully</para>
     /// <para lang="zh">「保存并新增」按钮位于主保存按钮之前 并作为表单默认按钮 因此在未禁用回车提交（<see cref="DisableAutoSubmitFormByEnter"/>）时 输入框内回车提交等价于点击「保存并新增」</para>
     /// <para lang="en">The "Save and Add" button is rendered before the main save button as the form default button, so pressing Enter inside an input equals clicking "Save and Add" unless Enter submission is disabled by <see cref="DisableAutoSubmitFormByEnter"/></para>
     /// </remarks>
