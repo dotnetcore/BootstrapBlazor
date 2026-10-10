@@ -265,6 +265,8 @@
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
     "SaveButtonText": "Save",
+    "SaveAndCloseButtonText": "Save and Close",
+    "KeepAddingButtonText": "Save and Add",
     "CloseConfirmTitle": "Warning",
     "CloseConfirmContent": "The form has been changed. Are you sure you continue to close it?"
   },
