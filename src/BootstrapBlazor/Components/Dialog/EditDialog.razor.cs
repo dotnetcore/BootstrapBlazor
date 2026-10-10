@@ -315,7 +315,6 @@ public partial class EditDialog<TModel>
             if (keepAdding && OnKeepAddingAsync != null)
             {
                 _currentModel = await OnKeepAddingAsync(_currentModel);
-                _hasFieldValueChanged = false;
                 return;
             }
 
