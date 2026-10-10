@@ -47,6 +47,10 @@ public partial class EditDialog<TModel>
     /// <para lang="en">Gets or sets Save Button Text</para>
     /// <para><version>10.3.3</version></para>
     /// </summary>
+    /// <remarks>
+    /// <para lang="zh">未赋值时读取资源文件 默认文本为「保存」 <see cref="ShowKeepAddingButton"/> 为 true 时默认为「保存并关闭」</para>
+    /// <para lang="en">Read from resource file when not set. The default text is "Save", or "Save and Close" when <see cref="ShowKeepAddingButton"/> is true</para>
+    /// </remarks>
     [Parameter]
     public string? SaveButtonText { get; set; }
 
@@ -201,6 +205,16 @@ public partial class EditDialog<TModel>
 
     private bool _hasFieldValueChanged;
 
+    private bool _isSubmitting;
+
+    private bool _isDisposed;
+
+    private bool _keepAddingRequested;
+
+    private TModel? _parameterModel;
+
+    private TModel _currentModel = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -224,11 +238,25 @@ public partial class EditDialog<TModel>
             throw new InvalidOperationException($"参数 {nameof(Model)} 未赋值; {nameof(Model)} can not be null.");
         }
 
+        if (!IsSameModel(_parameterModel, Model))
+        {
+            // 父层重渲染会反复下发 Model 参数 仅在 Model 真正变化时重新绑定
+            // 避免把「保存并新增」已经切换的下一条模型打回旧值
+            _parameterModel = Model;
+            _currentModel = Model;
+            _hasFieldValueChanged = false;
+        }
+
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+        KeepAddingButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogKeepAddingButtonIcon);
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
-        SaveButtonText ??= Localizer[nameof(SaveButtonText)];
+
+        // 连续新增模式下主保存按钮语义为「保存并关闭」 其它情况保持原有「保存」文本
+        SaveButtonText ??= ShowKeepAddingButton ? Localizer["SaveAndCloseButtonText"] : Localizer[nameof(SaveButtonText)];
+
+        KeepAddingButtonText ??= Localizer[nameof(KeepAddingButtonText)];
 
         CloseConfirmTitle ??= Localizer[nameof(CloseConfirmTitle)];
         CloseConfirmContent ??= Localizer[nameof(CloseConfirmContent)];
@@ -238,6 +266,10 @@ public partial class EditDialog<TModel>
             Items ??= GetItemsByColumns();
         }
     }
+
+    private static bool IsSameModel(TModel? first, TModel? second) => typeof(TModel).IsValueType
+        ? EqualityComparer<TModel>.Default.Equals(first!, second!)
+        : ReferenceEquals(first, second);
 
     private async Task<bool> OnClosingCallback()
     {
@@ -258,23 +290,75 @@ public partial class EditDialog<TModel>
 
     private async Task OnValidSubmitAsync(EditContext context)
     {
-        if (OnSaveAsync != null)
+        if (_isDisposed || _isSubmitting || OnSaveAsync == null)
+        {
+            return;
+        }
+
+        // 记录本次提交是否为「保存并新增」 并立即复位防止下次提交沿用
+        var keepAdding = _keepAddingRequested;
+        _keepAddingRequested = false;
+        _isSubmitting = true;
+        try
         {
             await ToggleLoading(true);
             var save = await OnSaveAsync(context);
             await ToggleLoading(false);
 
-            if (save)
+            if (!save)
             {
-                _hasFieldValueChanged = false;
+                // 保存失败时保持弹窗打开状态
+                return;
             }
 
-            if (save && CloseAsync != null)
+            _hasFieldValueChanged = false;
+            if (keepAdding && OnKeepAddingAsync != null)
+            {
+                _currentModel = await OnKeepAddingAsync(_currentModel);
+                _hasFieldValueChanged = false;
+                return;
+            }
+
+            // 非「保存并新增」提交 保存成功后关闭弹窗
+            if (CloseAsync != null)
             {
                 await CloseAsync();
             }
         }
+        finally
+        {
+            _isSubmitting = false;
+            if (!_isDisposed)
+            {
+                await InvokeAsync(StateHasChanged);
+            }
+        }
     }
+
+    private Task OnInvalidSubmitAsync(EditContext context)
+    {
+        // 验证失败时复位「保存并新增」标记
+        _keepAddingRequested = false;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// <para lang="zh">点击「保存并新增」按钮时置位「保存并新增」标记 本次提交保存成功后将保持弹窗打开并创建下一条数据模型</para>
+    /// <para lang="en">Sets the "Save and Add" flag when the "Save and Add" button is clicked. After this submission is saved successfully the dialog stays open and the next data model is created</para>
+    /// </summary>
+    private void OnKeepAddingClick() => _keepAddingRequested = true;
+
+    /// <summary>
+    /// <para lang="zh">点击主保存按钮时复位「保存并新增」标记 确保主保存按钮始终按「保存并关闭」处理 不受上一次点击残留标记的影响</para>
+    /// <para lang="en">Resets the "Save and Add" flag when the main save button is clicked so that the main save button always behaves as "Save and Close", unaffected by a leftover flag from the previous click</para>
+    /// </summary>
+    private void OnSaveClick() => _keepAddingRequested = false;
+
+    /// <summary>
+    /// <para lang="zh">获得 是否显示「保存并新增」按钮 <see cref="ShowKeepAddingButton"/> 为 true 且非 Tracking 模式时为 true</para>
+    /// <para lang="en">Gets whether to show the "Save and Add" button. It is true when <see cref="ShowKeepAddingButton"/> is true and <see cref="IsTracking"/> is false</para>
+    /// </summary>
+    private bool IsKeepAdding => ShowKeepAddingButton && !IsTracking;
 
     private void OnFieldValueChanged(string fieldName, object? value)
     {
@@ -294,32 +378,6 @@ public partial class EditDialog<TModel>
         }
     }
 
-    private RenderFragment RenderFooter => builder =>
-    {
-        if (FooterTemplate != null)
-        {
-            builder.AddContent(1, FooterTemplate(Model));
-        }
-        else
-        {
-            if (!IsTracking)
-            {
-                builder.OpenComponent<DialogCloseButton>(20);
-                builder.AddAttribute(21, nameof(Button.Icon), CloseButtonIcon);
-                builder.AddAttribute(22, nameof(Button.Text), CloseButtonText);
-                builder.AddAttribute(23, nameof(Button.OnClickWithoutRender), OnCloseAsync);
-                builder.CloseComponent();
-            }
-            builder.OpenComponent<Button>(30);
-            builder.AddAttribute(31, nameof(Button.Color), Color.Primary);
-            builder.AddAttribute(32, nameof(Button.Icon), SaveButtonIcon);
-            builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
-            builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
-            builder.AddAttribute(35, nameof(Button.IsAsync), true);
-            builder.CloseComponent();
-        }
-    };
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -328,6 +386,7 @@ public partial class EditDialog<TModel>
     {
         if (disposing)
         {
+            _isDisposed = true;
             Modal?.UnRegisterOnClosingCallback(OnClosingCallback);
         }
 

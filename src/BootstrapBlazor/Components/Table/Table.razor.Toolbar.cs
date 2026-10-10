@@ -1046,7 +1046,45 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(option, changedType);
+
+        option.ShowKeepAddingButton = ShowKeepAddingButton && changedType == ItemChangedType.Add;
+        if (option.ShowKeepAddingButton)
+        {
+            option.KeepAddingButtonText = KeepAddingButtonText;
+            option.KeepAddingButtonIcon = KeepAddingButtonIcon;
+            option.KeepAddingButtonColor = KeepAddingButtonColor;
+            option.OnKeepAddingAsync = async lastModel =>
+            {
+                // 已保存当前数据 弹窗保持打开时下一条数据尚未保存
+                saved = false;
+                triggerFromSave = false;
+                return await CreateNextEditModelAsync(lastModel);
+            };
+        }
         await DialogService.ShowEditDialog(option, EditDialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">连续新增时创建下一条编辑模型 未设置 <see cref="OnKeepAddingAsync"/> 时回退使用 <see cref="OnAddAsync"/> 回调创建</para>
+    /// <para lang="en">Creates the next edit model for keep adding. Falls back to the <see cref="OnAddAsync"/> callback when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// </summary>
+    /// <param name="lastModel">上一条已保存成功的模型实例</param>
+    private async Task<TItem> CreateNextEditModelAsync(TItem lastModel)
+    {
+        var model = default(TItem);
+        if (OnKeepAddingAsync != null)
+        {
+            SelectedRows.Clear();
+            model = await OnKeepAddingAsync(lastModel);
+        }
+        else
+        {
+            await InternalOnAddAsync();
+            model = EditModel ?? throw new InvalidOperationException($"{nameof(OnAddAsync)} must return a non-null model.");
+        }
+
+        await OnSelectedRowsChanged();
+        return model;
     }
 
     /// <summary>
