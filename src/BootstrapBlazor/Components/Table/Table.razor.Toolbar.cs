@@ -1047,6 +1047,33 @@ public partial class Table<TItem>
         };
         AppendOptions(option, changedType);
 
+        // 已保存当前数据 弹窗保持打开时下一条数据尚未保存
+        AppendKeepAddingOptions(option, changedType, () =>
+        {
+            saved = false;
+            triggerFromSave = false;
+        });
+        await DialogService.ShowEditDialog(option, EditDialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">追加「保存并新增」相关配置 仅在新建弹窗/抽屉中生效</para>
+    /// <para lang="en">Appends the "Save and Add" related options. Only works for the add dialog/drawer</para>
+    /// </summary>
+    /// <param name="option">
+    ///   <para lang="zh">编辑配置类实例</para>
+    ///   <para lang="en">Edit option instance</para>
+    /// </param>
+    /// <param name="changedType">
+    ///   <para lang="zh">编辑类型</para>
+    ///   <para lang="en">Item changed type</para>
+    /// </param>
+    /// <param name="notifyKeepAdding">
+    ///   <para lang="zh">创建下一条数据之前的回调方法 用于复位是否已保存标记</para>
+    ///   <para lang="en">Callback invoked before the next item is created, used to reset the saved flag</para>
+    /// </param>
+    private void AppendKeepAddingOptions(ITableEditDialogOption<TItem> option, ItemChangedType changedType, Action notifyKeepAdding)
+    {
         option.ShowKeepAddingButton = ShowKeepAddingButton && changedType == ItemChangedType.Add;
         if (option.ShowKeepAddingButton)
         {
@@ -1055,13 +1082,10 @@ public partial class Table<TItem>
             option.KeepAddingButtonColor = KeepAddingButtonColor;
             option.OnKeepAddingAsync = async lastModel =>
             {
-                // 已保存当前数据 弹窗保持打开时下一条数据尚未保存
-                saved = false;
-                triggerFromSave = false;
+                notifyKeepAdding();
                 return await CreateNextEditModelAsync(lastModel);
             };
         }
-        await DialogService.ShowEditDialog(option, EditDialog);
     }
 
     /// <summary>
@@ -1114,6 +1138,9 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(editOption, changedType);
+
+        // 已保存当前数据 抽屉保持打开时下一条数据尚未保存
+        AppendKeepAddingOptions(editOption, changedType, () => saved = false);
 
         var option = new DrawerOption()
         {
