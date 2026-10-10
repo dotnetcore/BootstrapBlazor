@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">编辑弹窗组件</para>
 /// <para lang="en">Edit Dialog Component</para>
 /// </summary>
-public partial class EditDialog<TModel>
+public partial class EditDialog<TModel> where TModel : class
 {
     /// <summary>
     /// <para lang="zh">获得/设置 查询时是否显示正在加载中动画 默认为 false</para>
@@ -238,7 +238,7 @@ public partial class EditDialog<TModel>
             throw new InvalidOperationException($"参数 {nameof(Model)} 未赋值; {nameof(Model)} can not be null.");
         }
 
-        if (!IsSameModel(_parameterModel, Model))
+        if (_parameterModel != Model)
         {
             // 父层重渲染会反复下发 Model 参数 仅在 Model 真正变化时重新绑定
             // 避免把「保存并新增」已经切换的下一条模型打回旧值
@@ -266,10 +266,6 @@ public partial class EditDialog<TModel>
             Items ??= GetItemsByColumns();
         }
     }
-
-    private static bool IsSameModel(TModel? first, TModel? second) => typeof(TModel).IsValueType
-        ? EqualityComparer<TModel>.Default.Equals(first!, second!)
-        : ReferenceEquals(first, second);
 
     private async Task<bool> OnClosingCallback()
     {

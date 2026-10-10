@@ -19,7 +19,7 @@ public static class TableEditDialogOptionExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="option"></param>
-    public static Dictionary<string, object?> ToParameter<TModel>(this ITableEditDialogOption<TModel> option) => new()
+    public static Dictionary<string, object?> ToParameter<TModel>(this ITableEditDialogOption<TModel> option) where TModel : class => new()
     {
         [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
         [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,

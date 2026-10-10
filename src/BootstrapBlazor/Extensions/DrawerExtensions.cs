@@ -27,7 +27,7 @@ public static class DrawerExtensions
     ///   <para lang="zh"><see cref="DrawerOption"/> 配置类实例</para>
     ///   <para lang="en"><see cref="DrawerOption"/> option instance</para>
     /// </param>
-    public static async Task ShowEditDrawer<TModel>(this DrawerService service, TableEditDrawerOption<TModel> editDialogOption, DrawerOption option)
+    public static async Task ShowEditDrawer<TModel>(this DrawerService service, TableEditDrawerOption<TModel> editDialogOption, DrawerOption option) where TModel : class
     {
         var parameters = editDialogOption.ToParameter();
         parameters.Add(nameof(EditDialog<TModel>.OnCloseAsync), editDialogOption.OnCloseAsync);
