@@ -1171,7 +1171,7 @@ public class TabTest : BootstrapBlazorTestBase
             });
         });
 
-        var button = cut.FindAll(".dropdown-menu > .dropdown-item")[cut.FindAll(".dropdown-menu > .dropdown-item").Count - 1].Children.First();
+        var button = cut.FindAll(".dropdown-menu > .dropdown-item")[cut.FindAll(".dropdown-menu > .dropdown-item").Count - 1].Children[0];
         cut.InvokeAsync(() => button.Click());
         cut.Contains("Text2");
         cut.DoesNotContain("Text3");
