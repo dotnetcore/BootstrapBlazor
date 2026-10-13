@@ -30,17 +30,19 @@
                 <Template Context="v">
                     @if (v.Row.DescriptionParts is { Count: > 0 })
                     {
-                        @foreach (var part in v.Row.DescriptionParts)
-                        {
-                            @if (part.Target is { } target && _items.Any(item => item.Name == target))
+                        <div>
+                            @foreach (var part in v.Row.DescriptionParts)
                             {
-                                <a class="table-attr-link" href="@GetPropertyAnchorUrl(target)">@part.Text</a>
+                                @if (part.Target is { } target && _items.Any(item => item.Name == target))
+                                {
+                                    <a class="table-attr-link" href="@GetPropertyAnchorUrl(target)">@part.Text</a>
+                                }
+                                else
+                                {
+                                    @part.Text
+                                }
                             }
-                            else
-                            {
-                                @part.Text
-                            }
-                        }
+                        </div>
                     }
                     else
                     {
