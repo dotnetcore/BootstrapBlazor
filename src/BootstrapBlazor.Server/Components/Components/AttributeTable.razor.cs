@@ -10,9 +10,15 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public sealed partial class AttributeTable
 {
+    private readonly string _anchorPrefix = $"attribute-table";
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AttributeTable>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
 
     /// <summary>
     /// 获得/设置 表格标题
@@ -61,5 +67,13 @@ public sealed partial class AttributeTable
         var typeName = type.Name[..index];
         var genericArgs = string.Join(", ", type.GetGenericArguments().Select(i => i.Name));
         return $"{typeName}<{genericArgs}>";
+    }
+
+    private string GetPropertyAnchor(string? name) => $"{_anchorPrefix}-{name}";
+
+    private string GetPropertyAnchorUrl(string? name)
+    {
+        var url = NavigationManager.ToBaseRelativePathWithoutQueryAndFragment();
+        return $"{url}#{GetPropertyAnchor(name)}";
     }
 }

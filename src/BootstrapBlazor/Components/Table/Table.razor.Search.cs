@@ -101,8 +101,8 @@ public partial class Table<TItem>
     public bool ShowAdvancedSearch { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式</para>
-    /// <para lang="en">Gets or sets Search Keyword. Automatically generate search lambda expression based on Searchable set on columns</para>
+    /// <para lang="zh">获得/设置 搜索关键字 通过列设置的 <see cref="TableColumn{TItem, TType}.Searchable"/>Searchable 自动生成搜索拉姆达表达式</para>
+    /// <para lang="en">Gets or sets Search Keyword. Automatically generate search lambda expression based on <see cref="TableColumn{TItem, TType}.Searchable"/> set on columns</para>
     /// </summary>
     [Parameter]
     public string? SearchText { get; set; }
@@ -115,8 +115,8 @@ public partial class Table<TItem>
     public SearchMode SearchMode { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false 开启本功能后 CustomerSearchTemplate 与 SearchTemplate 均不生效</para>
-    /// <para lang="en">Gets or sets Whether to use search form. Default false. When enabled, both CustomerSearchTemplate and SearchTemplate are disabled</para>
+    /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false 开启本功能后 <see cref="CustomerSearchTemplate"/> 与 <see cref="SearchTemplate"/> 均不生效</para>
+    /// <para lang="en">Gets or sets Whether to use Search Form. Default false. When enabled, <see cref="CustomerSearchTemplate"/> and <see cref="SearchTemplate"/> will not take effect</para>
     /// <para>v<version>10.5.0</version></para>
     /// </summary>
     [Parameter]
