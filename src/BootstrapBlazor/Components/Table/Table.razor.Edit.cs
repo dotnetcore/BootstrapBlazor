@@ -243,8 +243,8 @@ public partial class Table<TItem>
     private string? DataServiceInvalidOperationText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数据服务参数 组件采用就近原则 如果提供了 Items > OnQueryAsync > DataService > 全局注入的数据服务 IDataService</para>
-    /// <para lang="en">Gets or sets Data Service. Use nearby principle. Items > OnQueryAsync > DataService > Global Data Service</para>
+    /// <para lang="zh">获得/设置 数据服务参数 组件采用就近原则 如果提供了 <see cref="Items"/> > <see cref="OnQueryAsync"/> > <see cref="DataService"/> > 全局注入的数据服务 <see cref="IDataService{TItem}"/></para>
+    /// <para lang="en">Gets or sets Data Service. Use nearby principle. <see cref="Items"/> > <see cref="OnQueryAsync"/> > <see cref="DataService"/> > Global Data Service <see cref="IDataService{TItem}"/></para>
     /// </summary>
     [Parameter]
     public IDataService<TItem>? DataService { get; set; }

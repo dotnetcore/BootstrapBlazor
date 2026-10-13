@@ -14,7 +14,6 @@
 
 .table-attr-link {
     text-decoration: underline;
-    margin: 0 6px;
     color: var(--bs-info);
     cursor: pointer;
 }

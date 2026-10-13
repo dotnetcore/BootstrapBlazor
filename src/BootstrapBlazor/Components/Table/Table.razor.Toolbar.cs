@@ -27,7 +27,10 @@ public partial class Table<TItem>
     /// <para lang="zh">获得/设置 是否显示按钮列 默认为 true</para>
     /// <para lang="en">Gets or sets Whether to show Button Column. Default true</para>
     /// </summary>
-    /// <remarks>本属性设置为 true 新建编辑删除按钮设置为 false 可单独控制每个按钮是否显示</remarks>
+    /// <remarks>
+    /// <para lang="zh">本属性设置为 true，<see cref="ShowAddButton"/>、<see cref="ShowEditButton"/>、<see cref="ShowDeleteButton"/> 等按钮设置为 false 可单独控制每个按钮是否显示</para>
+    /// <para lang="en">When this property is true, buttons like <see cref="ShowAddButton"/>, <see cref="ShowEditButton"/>, <see cref="ShowDeleteButton"/> set to false can individually control button visibility</para>
+    /// </remarks>
     [Parameter]
     public bool ShowDefaultButtons { get; set; } = true;
 

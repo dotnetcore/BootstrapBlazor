@@ -94,14 +94,14 @@ public partial class Table<TItem>
     public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示高级搜索按钮，默认值为 true 设置 <see cref="SearchMode.Popup" /> 时生效</para>
-    /// <para lang="en">Gets or sets Whether to show advanced search button. Default true. Effective when <see cref="SearchMode"/> is set to Popup</para>
+    /// <para lang="zh">获得/设置 是否显示高级搜索按钮，默认值为 true 设置 <see cref="SearchMode"/> 为 <see cref="SearchMode.Popup" /> 时生效</para>
+    /// <para lang="en">Gets or sets Whether to show advanced search button. Default true. Effective when <see cref="SearchMode"/> is set to <see cref="SearchMode.Popup"/></para>
     /// </summary>
     [Parameter]
     public bool ShowAdvancedSearch { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索关键字 通过列设置的 <see cref="TableColumn{TItem, TType}.Searchable"/>Searchable 自动生成搜索拉姆达表达式</para>
+    /// <para lang="zh">获得/设置 搜索关键字 通过列设置的 <see cref="TableColumn{TItem, TType}.Searchable"/> 自动生成搜索拉姆达表达式</para>
     /// <para lang="en">Gets or sets Search Keyword. Automatically generate search lambda expression based on <see cref="TableColumn{TItem, TType}.Searchable"/> set on columns</para>
     /// </summary>
     [Parameter]
