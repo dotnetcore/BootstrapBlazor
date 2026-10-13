@@ -11,12 +11,36 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.Name">
                 <Template Context="v">
-                    @if (v.Row.IsObsolete)
+                    <span id="@GetPropertyAnchor(v.Row.Name)">
+                        @if (v.Row.IsObsolete)
+                        {
+                            <span class="text-decoration-line-through text-danger me-2">@v.Value</span>
+                            <Badge Color="Color.Danger" IsPill="true">
+                                @Localizer["Obsolete"]
+                            </Badge>
+                        }
+                        else
+                        {
+                            @v.Value
+                        }
+                    </span>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Description" TextWrap="true">
+                <Template Context="v">
+                    @if (v.Row.DescriptionParts is { Count: > 0 })
                     {
-                        <span class="text-decoration-line-through text-danger me-2">@v.Value</span>
-                        <Badge Color="Color.Danger" IsPill="true">
-                            @Localizer["Obsolete"]
-                        </Badge>
+                        @foreach (var part in v.Row.DescriptionParts)
+                        {
+                            @if (part.Target is { } target && _items.Any(item => item.Name == target))
+                            {
+                                <a class="table-attr-link" href="@GetPropertyAnchorUrl(target)">@part.Text</a>
+                            }
+                            else
+                            {
+                                @part.Text
+                            }
+                        }
                     }
                     else
                     {
@@ -24,7 +48,6 @@
                     }
                 </Template>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Description" TextWrap="true" />
             <TableColumn @bind-Field="@context.Type" TextWrap="true" Width="180"></TableColumn>
             <TableColumn @bind-Field="@context.Version" />
         </TableColumns>
