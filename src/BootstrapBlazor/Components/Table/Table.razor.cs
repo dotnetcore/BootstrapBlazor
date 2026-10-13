@@ -745,8 +745,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效</para>
-    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when fixed header)</para>
+    /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 设置 <see cref="IsFixedHeader"/> 时此属性生效</para>
+    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when <see cref="IsFixedHeader"/> is true)</para>
     /// </summary>
     [Parameter]
     public bool AllowResizing { get; set; }
