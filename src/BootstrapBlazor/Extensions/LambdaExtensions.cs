@@ -156,7 +156,7 @@ public static class LambdaExtensions
     {
         Expression<Func<TItem, bool>> ret = t => true;
         var type = typeof(TItem);
-        if (!string.IsNullOrEmpty(filter.FieldKey) && filter.FieldValue != null)
+        if (!string.IsNullOrEmpty(filter.FieldKey) && (filter.FieldValue != null || filter.FilterAction is FilterAction.IsNull or FilterAction.IsNotNull))
         {
             ret = filter.FieldKey.Contains('.') ? GetComplexFilterExpression() : GetSimpleFilterExpression();
         }
@@ -204,6 +204,26 @@ public static class LambdaExtensions
 
     private static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter, PropertyInfo? prop, Expression fieldExpression, ParameterExpression parameter, StringComparison? comparison = null)
     {
+        if (filter.FilterAction is FilterAction.IsNull or FilterAction.IsNotNull)
+        {
+            var propertyType = prop?.PropertyType ?? fieldExpression.Type;
+            var isNonNullableValueType = propertyType.IsValueType && Nullable.GetUnderlyingType(propertyType) == null;
+            Expression result;
+            if (isNonNullableValueType)
+            {
+                result = Expression.Constant(filter.FilterAction == FilterAction.IsNotNull);
+            }
+            else if (filter.FilterAction == FilterAction.IsNull)
+            {
+                result = Expression.Equal(fieldExpression, Expression.Constant(null, fieldExpression.Type));
+            }
+            else
+            {
+                result = Expression.NotEqual(fieldExpression, Expression.Constant(null, fieldExpression.Type));
+            }
+            return Expression.Lambda<Func<TItem, bool>>(result, parameter);
+        }
+
         var isNullable = false;
         var eq = fieldExpression;
 
