@@ -20,6 +20,7 @@ public partial class StringFilter
 
     private string? _value1;
     private FilterAction _action1 = FilterAction.Contains;
+
     private string? _value2;
     private FilterAction _action2 = FilterAction.Contains;
 
@@ -51,6 +52,8 @@ public partial class StringFilter
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value),
             new SelectedItem("NotContains", Localizer["NotContains"].Value)
         ];
+
+        Items = AddNullFilterActions(Items);
     }
 
     /// <summary>
@@ -73,24 +76,14 @@ public partial class StringFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (!string.IsNullOrEmpty(_value1))
+        if (IsNullFilterAction(_action1) || !string.IsNullOrEmpty(_value1))
         {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = _value1,
-                FilterAction = _action1
-            });
+            filter.Filters.Add(CreateCondition(_value1, _action1));
         }
 
-        if (Count > 0 && !string.IsNullOrEmpty(_value2))
+        if (Count > 0 && (IsNullFilterAction(_action2) || !string.IsNullOrEmpty(_value2)))
         {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = _value2,
-                FilterAction = _action2,
-            });
+            filter.Filters.Add(CreateCondition(_value2, _action2));
             filter.FilterLogic = Logic;
         }
         return filter;

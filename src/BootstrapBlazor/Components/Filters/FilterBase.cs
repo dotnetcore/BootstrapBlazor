@@ -13,6 +13,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
+    private protected const string NullFilterValue = "__bb_filter_is_null__";
+    private protected const string NotNullFilterValue = "__bb_filter_is_not_null__";
+
     /// <summary>
     /// <para lang="zh">获得/设置 <see cref="IStringLocalizer{TableFilter}"/> 实例</para>
     /// <para lang="en">Gets or sets the <see cref="IStringLocalizer{TableFilter}"/> instance</para>
@@ -62,6 +65,65 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// <para lang="en">Gets or sets the logical operator for multiple conditions</para>
     /// </summary>
     protected FilterLogic Logic { get; set; }
+
+    private protected bool CanFilterNull
+    {
+        get
+        {
+            var type = TableColumnFilter?.Column.PropertyType;
+            return type == null || !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
+        }
+    }
+
+    private protected IEnumerable<SelectedItem> AddNullFilterActions(IEnumerable<SelectedItem> items)
+    {
+        var result = items.ToList();
+        if (CanFilterNull)
+        {
+            if (!result.Any(item => item.Value == nameof(FilterAction.IsNull)))
+            {
+                result.Add(new SelectedItem(nameof(FilterAction.IsNull), Localizer["IsNull"].Value));
+            }
+            if (!result.Any(item => item.Value == nameof(FilterAction.IsNotNull)))
+            {
+                result.Add(new SelectedItem(nameof(FilterAction.IsNotNull), Localizer["IsNotNull"].Value));
+            }
+        }
+        return result;
+    }
+
+    private protected IEnumerable<SelectedItem> AddNullFilterValues(IEnumerable<SelectedItem> items)
+    {
+        var result = items.ToList();
+        if (CanFilterNull)
+        {
+            if (!result.Any(item => item.Value == NullFilterValue))
+            {
+                result.Add(new SelectedItem(NullFilterValue, Localizer["IsNull"].Value));
+            }
+            if (!result.Any(item => item.Value == NotNullFilterValue))
+            {
+                result.Add(new SelectedItem(NotNullFilterValue, Localizer["IsNotNull"].Value));
+            }
+        }
+        return result;
+    }
+
+    private protected static bool IsNullFilterAction(FilterAction action) => action is FilterAction.IsNull or FilterAction.IsNotNull;
+
+    private protected static FilterAction? GetNullFilterAction(string? value) => value switch
+    {
+        NullFilterValue => FilterAction.IsNull,
+        NotNullFilterValue => FilterAction.IsNotNull,
+        _ => null
+    };
+
+    private protected FilterKeyValueAction CreateCondition(object? value, FilterAction action) => new()
+    {
+        FieldKey = FieldKey,
+        FieldValue = value,
+        FilterAction = action
+    };
 
     /// <summary>
     /// <inheritdoc/>

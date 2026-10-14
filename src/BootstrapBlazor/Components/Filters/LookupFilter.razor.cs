@@ -11,10 +11,15 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class LookupFilter
 {
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
+
     private Type _type = null!;
     private string? _value;
     private bool _isShowSearch;
     private ILookup _lookup = null!;
+    private IEnumerable<SelectedItem>? _items;
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,17 +35,12 @@ public partial class LookupFilter
             _type = column.PropertyType;
             _lookup = column;
 
+            var service = _lookup.GetLookupService(InjectLookupService);
+            var items = await _lookup.GetItemsAsync(service, _lookup.LookupServiceKey, _lookup.LookupServiceData);
+            _items = AddNullFilterValues(items ?? []);
             if (string.IsNullOrEmpty(_value))
             {
-                var service = _lookup.LookupService;
-                if (service != null)
-                {
-                    var items = await _lookup.GetItemsAsync(service, _lookup.LookupServiceKey, _lookup.LookupServiceData);
-                    if (items != null)
-                    {
-                        _value = items.FirstOrDefault()?.Value;
-                    }
-                }
+                _value = _items.FirstOrDefault(item => item.Value != NullFilterValue && item.Value != NotNullFilterValue)?.Value;
             }
         }
     }
@@ -60,16 +60,15 @@ public partial class LookupFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (!string.IsNullOrEmpty(_value))
+        if (GetNullFilterAction(_value) is { } nullAction)
+        {
+            filter.Filters.Add(CreateCondition(null, nullAction));
+        }
+        else if (!string.IsNullOrEmpty(_value))
         {
             var type = Nullable.GetUnderlyingType(_type) ?? _type;
             var val = Convert.ChangeType(_value, type);
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = val,
-                FilterAction = FilterAction.Equal
-            });
+            filter.Filters.Add(CreateCondition(val, FilterAction.Equal));
         }
         return filter;
     }
@@ -81,7 +80,11 @@ public partial class LookupFilter
     {
         var first = filter.Filters.FirstOrDefault() ?? filter;
         var type = Nullable.GetUnderlyingType(_type) ?? _type;
-        if (first.FieldValue != null && first.FieldValue.GetType() == type)
+        if (IsNullFilterAction(first.FilterAction))
+        {
+            _value = first.FilterAction == FilterAction.IsNull ? NullFilterValue : NotNullFilterValue;
+        }
+        else if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
             _value = first.FieldValue.ToString();
         }
