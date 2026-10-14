@@ -44,6 +44,7 @@ public partial class NumberFilter<TType>
             new SelectedItem("Equal", Localizer["Equal"].Value),
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
         ];
+        Items = AddNullFilterActions(Items);
         _step = TableColumnFilter?.Column.Step;
     }
 
@@ -67,24 +68,14 @@ public partial class NumberFilter<TType>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (_value1 != null)
+        if (IsNullFilterAction(_action1) || _value1 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = _value1,
-                FilterAction = _action1
-            });
+            filter.Filters.Add(CreateCondition(_value1, _action1));
         }
 
-        if (Count > 0 && _value2 != null)
+        if (Count > 0 && (IsNullFilterAction(_action2) || _value2 != null))
         {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = _value2,
-                FilterAction = _action2,
-            });
+            filter.Filters.Add(CreateCondition(_value2, _action2));
             filter.FilterLogic = Logic;
         }
         return filter;

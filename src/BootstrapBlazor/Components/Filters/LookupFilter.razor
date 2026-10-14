@@ -3,16 +3,14 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@_lookup.Lookup" ShowLabel="false" SkipValidate="true"
-            LookupService="@_lookup.LookupService" StringComparison="@_lookup.LookupStringComparison"
-            LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+    <Select Items="@_items" ShowLabel="false" SkipValidate="true"
+            StringComparison="@_lookup.LookupStringComparison"
             @bind-Value="@_value" ShowSearch="@_isShowSearch"
             OnSelectedItemChanged="_ => OnFilterAsync()" IsPopover="true"></Select>
 }
 else
 {
-    <Select Items="@_lookup.Lookup" ShowLabel="false" SkipValidate="true"
-            LookupService="@_lookup.LookupService" StringComparison="@_lookup.LookupStringComparison"
-            LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+    <Select Items="@_items" ShowLabel="false" SkipValidate="true"
+            StringComparison="@_lookup.LookupStringComparison"
             @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
 }

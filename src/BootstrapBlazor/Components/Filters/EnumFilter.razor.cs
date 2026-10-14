@@ -44,6 +44,7 @@ public partial class EnumFilter
 
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
         Items ??= EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
+        Items = AddNullFilterValues(Items);
     }
 
     /// <summary>
@@ -63,24 +64,23 @@ public partial class EnumFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (!string.IsNullOrEmpty(_value1) && Enum.TryParse(EnumType, _value1, out var val))
+        if (GetNullFilterAction(_value1) is { } nullAction1)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
-            {
-                FieldKey = FieldKey,
-                FieldValue = val,
-                FilterAction = FilterAction.Equal
-            });
+            filter.Filters.Add(CreateCondition(null, nullAction1));
+        }
+        else if (!string.IsNullOrEmpty(_value1) && Enum.TryParse(EnumType, _value1, out var val))
+        {
+            filter.Filters.Add(CreateCondition(val, FilterAction.Equal));
         }
 
-        if (Count > 0 && Enum.TryParse(EnumType, _value2, out var val2))
+        if (Count > 0 && GetNullFilterAction(_value2) is { } nullAction2)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
-            {
-                FieldKey = FieldKey,
-                FieldValue = val2,
-                FilterAction = FilterAction.Equal
-            });
+            filter.Filters.Add(CreateCondition(null, nullAction2));
+            filter.FilterLogic = Logic;
+        }
+        else if (Count > 0 && Enum.TryParse(EnumType, _value2, out var val2))
+        {
+            filter.Filters.Add(CreateCondition(val2, FilterAction.Equal));
             filter.FilterLogic = Logic;
         }
         return filter;
@@ -93,7 +93,11 @@ public partial class EnumFilter
     {
         var first = filter.Filters.FirstOrDefault() ?? filter;
         var type = Nullable.GetUnderlyingType(Type) ?? Type;
-        if (first.FieldValue != null && first.FieldValue.GetType() == type)
+        if (IsNullFilterAction(first.FilterAction))
+        {
+            _value1 = first.FilterAction == FilterAction.IsNull ? NullFilterValue : NotNullFilterValue;
+        }
+        else if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
             _value1 = first.FieldValue.ToString();
         }
@@ -106,7 +110,11 @@ public partial class EnumFilter
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
-            if (second.FieldValue != null && second.FieldValue.GetType() == type)
+            if (IsNullFilterAction(second.FilterAction))
+            {
+                _value2 = second.FilterAction == FilterAction.IsNull ? NullFilterValue : NotNullFilterValue;
+            }
+            else if (second.FieldValue != null && second.FieldValue.GetType() == type)
             {
                 _value2 = second.FieldValue.ToString();
             }

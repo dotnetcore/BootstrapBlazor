@@ -145,14 +145,16 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
         Operations ??=
         [
-            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
-            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
-            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
-            new SelectedItem("LessThan", Localizer["LessThan"].Value),
-            new SelectedItem("Equal", Localizer["Equal"].Value),
-            new SelectedItem("NotEqual", Localizer["NotEqual"].Value ),
-            new SelectedItem("Contains", Localizer["Contains"].Value ),
-            new SelectedItem("NotContains", Localizer["NotContains"].Value )
+            new SelectedItem(nameof(FilterAction.GreaterThanOrEqual), Localizer[nameof(FilterAction.GreaterThanOrEqual)].Value),
+            new SelectedItem(nameof(FilterAction.LessThanOrEqual), Localizer[nameof(FilterAction.LessThanOrEqual)].Value),
+            new SelectedItem(nameof(FilterAction.GreaterThan), Localizer[nameof(FilterAction.GreaterThan)].Value),
+            new SelectedItem(nameof(FilterAction.LessThan), Localizer[nameof(FilterAction.LessThan)].Value),
+            new SelectedItem(nameof(FilterAction.Equal), Localizer[nameof(FilterAction.Equal)].Value),
+            new SelectedItem(nameof(FilterAction.NotEqual), Localizer[nameof(FilterAction.NotEqual)].Value ),
+            new SelectedItem(nameof(FilterAction.Contains), Localizer[nameof(FilterAction.Contains)].Value ),
+            new SelectedItem(nameof(FilterAction.NotContains), Localizer[nameof(FilterAction.NotContains)].Value ),
+            new SelectedItem(nameof(FilterAction.IsNull), Localizer[nameof(FilterAction.IsNull)].Value),
+            new SelectedItem(nameof(FilterAction.IsNotNull), Localizer[nameof(FilterAction.IsNotNull)].Value)
         ];
     }
 

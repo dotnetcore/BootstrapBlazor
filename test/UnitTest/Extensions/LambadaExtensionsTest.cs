@@ -242,6 +242,63 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         Assert.True(invoker.Invoke(new Foo() { Count = 2 }));
     }
 
+    [Theory]
+    [InlineData(FilterAction.IsNull, true)]
+    [InlineData(FilterAction.IsNotNull, false)]
+    public void GetExpression_NullActions_String(FilterAction action, bool expectNull)
+    {
+        var filter = new FilterKeyValueAction() { FieldKey = "Name", FilterAction = action };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+
+        Assert.Equal(expectNull, invoker.Invoke(new Foo() { Name = null }));
+        Assert.NotEqual(expectNull, invoker.Invoke(new Foo() { Name = "Test" }));
+    }
+
+    [Theory]
+    [InlineData(FilterAction.IsNull, true)]
+    [InlineData(FilterAction.IsNotNull, false)]
+    public void GetExpression_NullActions_NullableValue(FilterAction action, bool expectNull)
+    {
+        var filter = new FilterKeyValueAction() { FieldKey = "DateTime", FilterAction = action };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+
+        Assert.Equal(expectNull, invoker.Invoke(new Foo() { DateTime = null }));
+        Assert.NotEqual(expectNull, invoker.Invoke(new Foo() { DateTime = DateTime.Now }));
+    }
+
+    [Theory]
+    [InlineData(FilterAction.IsNull, false)]
+    [InlineData(FilterAction.IsNotNull, true)]
+    public void GetExpression_NullActions_NonNullableValue(FilterAction action, bool expected)
+    {
+        var filter = new FilterKeyValueAction() { FieldKey = "Count", FilterAction = action };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+
+        Assert.Equal(expected, invoker.Invoke(new Foo() { Count = 0 }));
+        Assert.Equal(expected, invoker.Invoke(new Foo() { Count = 1 }));
+    }
+
+    [Theory]
+    [InlineData(FilterAction.IsNull, true)]
+    [InlineData(FilterAction.IsNotNull, false)]
+    public void GetExpression_NullActions_NullPropertyInfo(FilterAction action, bool expectNull)
+    {
+        var filter = new FilterKeyValueAction() { FilterAction = action };
+        var parameter = Expression.Parameter(typeof(Foo));
+        var fieldExpression = Expression.Property(parameter, nameof(Foo.Name));
+        var method = typeof(LambdaExtensions).GetMethod(
+            "GetFilterExpression",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+
+        Assert.NotNull(method);
+        var expression = (Expression<Func<Foo, bool>>)method.MakeGenericMethod(typeof(Foo))
+            .Invoke(null, [filter, null, fieldExpression, parameter, null])!;
+        var invoker = expression.Compile();
+
+        Assert.Equal(expectNull, invoker.Invoke(new Foo() { Name = null }));
+        Assert.NotEqual(expectNull, invoker.Invoke(new Foo() { Name = "Test" }));
+    }
+
     [Fact]
     public void GetExpression_GreaterThanOrEqual()
     {
