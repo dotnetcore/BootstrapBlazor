@@ -63,6 +63,22 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions.Filters);
 
+        foreach (var action in new[] { FilterAction.IsNull, FilterAction.IsNotNull })
+        {
+            newConditions = new FilterKeyValueAction()
+            {
+                Filters =
+                [
+                    new FilterKeyValueAction() { FilterAction = action }
+                ]
+            };
+            await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+            conditions = filter.GetFilterConditions();
+            Assert.Single(conditions.Filters);
+            Assert.Equal(action, conditions.Filters[0].FilterAction);
+            Assert.Null(conditions.Filters[0].FieldValue);
+        }
+
         newConditions = new FilterKeyValueAction() { FieldValue = "1" };
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();

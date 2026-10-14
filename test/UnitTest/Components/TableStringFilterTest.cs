@@ -94,4 +94,25 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         conditions = filter.GetFilterConditions();
         Assert.Single(conditions.Filters);
     }
+
+    [Fact]
+    public async Task FilterAction_NullCondition()
+    {
+        var cut = Context.Render<StringFilter>();
+        var filter = cut.Instance;
+        var conditions = new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new FilterKeyValueAction() { FilterAction = FilterAction.IsNull }
+            ]
+        };
+
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(conditions));
+
+        var result = filter.GetFilterConditions();
+        Assert.Single(result.Filters);
+        Assert.Equal(FilterAction.IsNull, result.Filters[0].FilterAction);
+        Assert.Null(result.Filters[0].FieldValue);
+    }
 }
