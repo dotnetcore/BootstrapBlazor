@@ -96,6 +96,26 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             Assert.Null(conditions.Filters[0].FieldValue);
         }
 
+        foreach (var action in new[] { FilterAction.IsNull, FilterAction.IsNotNull })
+        {
+            newConditions = new FilterKeyValueAction()
+            {
+                FilterLogic = FilterLogic.Or,
+                Filters =
+                [
+                    new FilterKeyValueAction() { FieldValue = 0.1d },
+                    new FilterKeyValueAction() { FilterAction = action }
+                ]
+            };
+            await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+            conditions = filter.GetFilterConditions();
+            Assert.Equal(2, conditions.Filters.Count);
+            Assert.Equal(FilterAction.Equal, conditions.Filters[0].FilterAction);
+            Assert.Equal(action, conditions.Filters[1].FilterAction);
+            Assert.Null(conditions.Filters[1].FieldValue);
+            Assert.Equal(FilterLogic.Or, conditions.FilterLogic);
+        }
+
         newConditions = new FilterKeyValueAction()
         {
             Filters =

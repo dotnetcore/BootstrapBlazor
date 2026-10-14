@@ -95,7 +95,7 @@ public class TableRegexFilterTest : BootstrapBlazorTestBase
             {
                 Filters =
                 [
-                    new FilterKeyValueAction() { FilterAction = action }
+                    new FilterKeyValueAction() { FilterAction = action, FilterLogic = FilterLogic.Or }
                 ]
             };
             await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
@@ -103,6 +103,26 @@ public class TableRegexFilterTest : BootstrapBlazorTestBase
             Assert.Single(conditions.Filters);
             Assert.Equal(action, conditions.Filters[0].FilterAction);
             Assert.Null(conditions.Filters[0].FieldValue);
+        }
+
+        foreach (var action in new[] { FilterAction.IsNull, FilterAction.IsNotNull })
+        {
+            newConditions = new FilterKeyValueAction()
+            {
+                FilterLogic = FilterLogic.Or,
+                Filters =
+                [
+                    new FilterKeyValueAction() { FieldValue = "test", FilterAction = FilterAction.Match },
+                    new FilterKeyValueAction() { FilterAction = action, FilterLogic = FilterLogic.Or }
+                ]
+            };
+            await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+            conditions = filter.GetFilterConditions();
+            Assert.Equal(2, conditions.Filters.Count);
+            Assert.Equal(FilterAction.Match, conditions.Filters[0].FilterAction);
+            Assert.Equal(action, conditions.Filters[1].FilterAction);
+            Assert.Null(conditions.Filters[1].FieldValue);
+            Assert.Equal(FilterLogic.Or, conditions.FilterLogic);
         }
 
         newConditions = new FilterKeyValueAction()

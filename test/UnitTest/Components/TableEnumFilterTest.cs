@@ -88,19 +88,25 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
             Assert.Null(conditions.Filters[0].FieldValue);
         }
 
-        newConditions = new FilterKeyValueAction()
+        foreach (var action in new[] { FilterAction.IsNull, FilterAction.IsNotNull })
         {
-            Filters =
-            [
-                new FilterKeyValueAction() { FilterAction = FilterAction.IsNull },
-                new FilterKeyValueAction() { FilterAction = FilterAction.IsNotNull }
-            ]
-        };
-        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
-        conditions = filter.GetFilterConditions();
-        Assert.Equal(2, conditions.Filters.Count);
-        Assert.Equal(FilterAction.IsNull, conditions.Filters[0].FilterAction);
-        Assert.Equal(FilterAction.IsNotNull, conditions.Filters[1].FilterAction);
+            newConditions = new FilterKeyValueAction()
+            {
+                FilterLogic = FilterLogic.Or,
+                Filters =
+                [
+                    new FilterKeyValueAction() { FieldValue = EnumEducation.Primary },
+                    new FilterKeyValueAction() { FilterAction = action }
+                ]
+            };
+            await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+            conditions = filter.GetFilterConditions();
+            Assert.Equal(2, conditions.Filters.Count);
+            Assert.Equal(FilterAction.Equal, conditions.Filters[0].FilterAction);
+            Assert.Equal(action, conditions.Filters[1].FilterAction);
+            Assert.Null(conditions.Filters[1].FieldValue);
+            Assert.Equal(FilterLogic.Or, conditions.FilterLogic);
+        }
 
         newConditions = new FilterKeyValueAction()
         {

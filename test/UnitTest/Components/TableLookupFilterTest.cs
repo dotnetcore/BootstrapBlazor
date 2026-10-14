@@ -124,6 +124,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         var filter = lookup.Instance;
 
         await column.Task;
+        Assert.Empty(filter.GetFilterConditions().Filters);
     }
 
     class MockTable : ITable
@@ -199,7 +200,6 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             }
             else if (key == "LookupEmptyKey")
             {
-                ret = [];
                 _taskCompletionSource.TrySetResult();
             }
             return ret;

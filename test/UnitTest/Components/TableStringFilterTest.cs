@@ -114,5 +114,25 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         Assert.Single(result.Filters);
         Assert.Equal(FilterAction.IsNull, result.Filters[0].FilterAction);
         Assert.Null(result.Filters[0].FieldValue);
+
+        foreach (var action in new[] { FilterAction.IsNull, FilterAction.IsNotNull })
+        {
+            conditions = new FilterKeyValueAction()
+            {
+                FilterLogic = FilterLogic.Or,
+                Filters =
+                [
+                    new FilterKeyValueAction() { FieldValue = "test", FilterAction = FilterAction.Contains },
+                    new FilterKeyValueAction() { FilterAction = action, FilterLogic = FilterLogic.Or }
+                ]
+            };
+            await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(conditions));
+            result = filter.GetFilterConditions();
+            Assert.Equal(2, result.Filters.Count);
+            Assert.Equal(FilterAction.Contains, result.Filters[0].FilterAction);
+            Assert.Equal(action, result.Filters[1].FilterAction);
+            Assert.Null(result.Filters[1].FieldValue);
+            Assert.Equal(FilterLogic.Or, result.FilterLogic);
+        }
     }
 }
