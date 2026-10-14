@@ -44,7 +44,10 @@
     @<div class="qb-row">
         <Select Items="_fields" @bind-Value="@filter.FieldKey" />
         <Select Items="Operations" @bind-Value="@filter.FilterAction" />
-        <BootstrapInput @bind-Value="@filter.FieldValue" />
+        @if (filter.FilterAction is not FilterAction.IsNull and not FilterAction.IsNotNull)
+        {
+            <BootstrapInput @bind-Value="@filter.FieldValue" />
+        }
         @if (ShowHeader)
         {
             <Button Icon="@MinusIcon" class="btn-minus" OnClick="() => OnClickRemoveFilter(parent, filter)"></Button>
