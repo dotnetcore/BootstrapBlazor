@@ -156,7 +156,6 @@ public partial class TablesDynamic
             }
             table.AcceptChanges();
             _dataTableDynamicContext3 = CreateContext(table);
-            StateHasChanged();
         }
 
         return Task.CompletedTask;
@@ -170,7 +169,6 @@ public partial class TablesDynamic
             table.Columns.Remove(nameof(Foo.Complete));
             table.AcceptChanges();
             _dataTableDynamicContext3 = CreateContext(table);
-            StateHasChanged();
         }
 
         return Task.CompletedTask;
