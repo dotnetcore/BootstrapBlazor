@@ -542,6 +542,144 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_Ok()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(false));
+        });
+        navMan.NavigateTo("/");
+        cut.WaitForAssertion(() => Assert.Equal("http://localhost/", navMan.Uri));
+    }
+
+    [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_RenderNotAuthorized()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            pb.Add(a => a.NotAuthorized, builder => builder.AddContent(0, "NotAuth"));
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(false));
+        });
+
+        // 初始状态已授权 渲染 Main 内容
+        Assert.Contains("Main", cut.Markup);
+        Assert.DoesNotContain("NotAuth", cut.Markup);
+
+        // 导航到未授权地址 不跳转 显示 NotAuthorized 模板
+        navMan.NavigateTo("/unauthorized");
+        cut.WaitForAssertion(() => Assert.Contains("NotAuth", cut.Markup));
+        Assert.Equal("http://localhost/unauthorized", navMan.Uri);
+        Assert.DoesNotContain("Main", cut.Markup);
+    }
+
+    [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_RestoreAuthorized()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var authenticated = false;
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            pb.Add(a => a.NotAuthorized, builder => builder.AddContent(0, "NotAuth"));
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(authenticated));
+        });
+
+        // 导航到未授权地址 显示 NotAuthorized 模板
+        navMan.NavigateTo("/unauthorized");
+        cut.WaitForAssertion(() => Assert.Contains("NotAuth", cut.Markup));
+
+        // 导航到已授权地址 恢复 Layout 内容
+        authenticated = true;
+        navMan.NavigateTo("/authorized");
+        cut.WaitForAssertion(() => Assert.Contains("Main", cut.Markup));
+        Assert.DoesNotContain("NotAuth", cut.Markup);
+        Assert.Equal("http://localhost/authorized", navMan.Uri);
+    }
+
+    [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_DefaultNavigateToLogin()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            pb.Add(a => a.NotAuthorized, builder => builder.AddContent(0, "NotAuth"));
+            pb.Add(a => a.OnAuthorizing, url => Task.FromResult(url == "http://localhost/Test"));
+        });
+
+        // 默认 IsAutoNavigateWhenNotAuthorize = true 跳转到 NotAuthorizeUrl 不显示 NotAuthorized 模板
+        navMan.NavigateTo("/unauthorized");
+        cut.WaitForAssertion(() => Assert.Equal("http://localhost/Test", navMan.Uri));
+        Assert.DoesNotContain("NotAuth", cut.Markup);
+        Assert.Contains("Main", cut.Markup);
+    }
+
+    [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_OnAuthorizingNull()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            pb.Add(a => a.NotAuthorized, builder => builder.AddContent(0, "NotAuth"));
+        });
+
+        // 未设置 OnAuthorizing 时不订阅 LocationChanged 事件 导航不执行任何授权逻辑
+        navMan.NavigateTo("/unauthorized");
+        Assert.Equal("http://localhost/unauthorized", navMan.Uri);
+        Assert.Contains("Main", cut.Markup);
+        Assert.DoesNotContain("NotAuth", cut.Markup);
+    }
+
+    [Fact]
+    public void IsAutoNavigateWhenNotAuthorize_OnAuthorizingSetToNull()
+    {
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
+        var invoked = 0;
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Resource, null);
+            pb.Add(a => a.NotAuthorizeUrl, "/Test");
+            pb.Add(a => a.IsAutoNavigateWhenNotAuthorize, false);
+            pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            pb.Add(a => a.NotAuthorized, builder => builder.AddContent(0, "NotAuth"));
+            pb.Add(a => a.OnAuthorizing, url =>
+            {
+                invoked++;
+                return Task.FromResult(false);
+            });
+        });
+
+        navMan.NavigateTo("/unauthorized");
+        cut.WaitForAssertion(() => Assert.Contains("NotAuth", cut.Markup));
+        Assert.Equal(1, invoked);
+
+        // 将 OnAuthorizing 置为 null 后续导航直接返回不再执行授权逻辑
+        cut.Render(pb => pb.Add(a => a.OnAuthorizing, (Func<string, Task<bool>>?)null));
+        navMan.NavigateTo("/home");
+        Assert.Equal("http://localhost/home", navMan.Uri);
+        Assert.Equal(1, invoked);
+        Assert.Contains("NotAuth", cut.Markup);
+    }
+
+    [Fact]
     public void Main_Ok()
     {
         var nav = Context.Services.GetRequiredService<BunitNavigationManager>();

@@ -2103,6 +2103,14 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
         {
+            pb.Add(a => a.AllowResizing, true);
+        });
+        cut.Contains("left: 236px; width: 180px;");
+        cut.DoesNotContain("width: 180px; min-width: 180px;");
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.AllowResizing, false);
             pb.Add(a => a.FixedDetailRowHeaderColumn, false);
         });
         // MultipleSelect

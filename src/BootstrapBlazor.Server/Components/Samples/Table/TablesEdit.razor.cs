@@ -32,6 +32,12 @@ public partial class TablesEdit
     [NotNull]
     private IEnumerable<Foo>? BindItems { get; set; }
 
+    [NotNull]
+    private IEnumerable<Foo>? KeepAddingItems { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? KeepAddingDrawerItems { get; set; }
+
     private InsertRowMode InsertMode { get; set; } = InsertRowMode.Last;
 
     private string? PlaceHolderString { get; set; }
@@ -58,9 +64,43 @@ public partial class TablesEdit
         CustomerDataService = new FooDataService<Foo>(FooLocalizer);
         BindItems = Foo.GenerateFoo(FooLocalizer).Take(5).ToList();
         PlaceHolderString ??= Localizer["TablesEditShowSearchPlaceHolderString"];
+
+        var keepAddingItems = Foo.GenerateFoo(FooLocalizer, 4);
+
+        // 数量列从 0 开始 便于观察连续新增时数量递增的效果
+        keepAddingItems.ForEach(i => i.Count = 0);
+        KeepAddingItems = keepAddingItems;
+
+        var keepAddingDrawerItems = Foo.GenerateFoo(FooLocalizer, 4);
+        keepAddingDrawerItems.ForEach(i => i.Count = 0);
+        KeepAddingDrawerItems = keepAddingDrawerItems;
     }
 
     private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
+
+    private Task<Foo> OnKeepAddAsync() => Task.FromResult(Foo.Generate(FooLocalizer));
+
+    /// <summary>
+    /// 点击「保存并新增」按钮时基于上一条已保存数据创建下一条模型 数量 +10
+    /// </summary>
+    /// <param name="lastModel">刚刚保存成功的模型实例</param>
+    private static async Task<Foo> OnKeepAddingAsync(Foo lastModel)
+    {
+        // 模拟延时
+        await Task.Delay(10);
+
+        return new Foo()
+        {
+            Id = lastModel.Id + 1,
+            DateTime = lastModel.DateTime,
+            Name = lastModel.Name,
+            Address = lastModel.Address,
+            Complete = lastModel.Complete,
+            Education = lastModel.Education,
+            Hobby = lastModel.Hobby,
+            Count = lastModel.Count + 10
+        };
+    }
 
     private int GenerateId()
     {

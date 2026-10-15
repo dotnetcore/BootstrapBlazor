@@ -88,5 +88,19 @@ public enum FilterAction
     /// <para lang="en">Regex Not Match</para>
     /// </summary>
     [Description("正则不匹配")]
-    NotMatch
+    NotMatch,
+
+    /// <summary>
+    /// <para lang="zh">为空</para>
+    /// <para lang="en">Is null</para>
+    /// </summary>
+    [Description("为空")]
+    IsNull,
+
+    /// <summary>
+    /// <para lang="zh">不为空</para>
+    /// <para lang="en">Is not null</para>
+    /// </summary>
+    [Description("不为空")]
+    IsNotNull
 }

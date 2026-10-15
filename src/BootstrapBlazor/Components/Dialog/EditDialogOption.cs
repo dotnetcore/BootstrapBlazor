@@ -99,6 +99,36 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
 
     /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowKeepAddingButton"/>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    public bool ShowKeepAddingButton { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.KeepAddingButtonText"/>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    public string? KeepAddingButtonText { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.KeepAddingButtonIcon"/>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    public string? KeepAddingButtonIcon { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.KeepAddingButtonColor"/>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    public Color KeepAddingButtonColor { get; set; } = Color.Info;
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.OnKeepAddingAsync"/>
+    /// <para>v<version>11.0.1</version></para>
+    /// </summary>
+    public Func<TModel, Task<TModel>>? OnKeepAddingAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowConfirmCloseSwal"/>
     /// </summary>
     public bool? ShowConfirmCloseSwal { get; set; }

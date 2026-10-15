@@ -43,6 +43,7 @@ internal static class BootstrapIcons
 
         { ComponentIcons.DialogCloseButtonIcon, "bi bi-x" },
         { ComponentIcons.DialogSaveButtonIcon, "bi bi-check" },
+        { ComponentIcons.DialogKeepAddingButtonIcon, "bi bi-plus-lg" },
         { ComponentIcons.DialogMaximizeWindowIcon, "bi bi-window" },
         { ComponentIcons.DialogRestoreWindowIcon, "bi bi-window-stack" },
 

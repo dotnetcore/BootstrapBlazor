@@ -56,27 +56,32 @@ public static class ComponentAttributeCacheService
             xmlDoc = GetXmlDocumentation(type.Assembly);
         }
 
-        return properties.Select(property => new AttributeItem
+        return properties.Select(property =>
         {
-            Name = property.Name,
-            Type = GetFriendlyTypeName(property.PropertyType),
-            Description = GetSummary(xmlDoc, property) ?? "",
-            Version = GetVersion(xmlDoc, property),
-            IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
+            var descriptionParts = GetSummary(xmlDoc, property);
+            return new AttributeItem
+            {
+                Name = property.Name,
+                Type = GetFriendlyTypeName(property.PropertyType),
+                Description = descriptionParts == null ? "" : string.Concat(descriptionParts.Select(part => part.Text)),
+                DescriptionParts = descriptionParts,
+                Version = GetVersion(xmlDoc, property),
+                IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
+            };
         }).OrderBy(i => i.Name).ToList();
     }
 
     /// <summary>
-    /// <para lang="zh">从 XML 注释获取 summary（支持多语言）</para>
-    /// <para lang="en">Get the summary from XML comments (supports multiple languages)</para>
+    /// <para lang="zh">从 XML 注释获取 summary（支持多语言和 see cref 引用）</para>
+    /// <para lang="en">Get the summary from XML comments (supports multiple languages and see cref references)</para>
     /// </summary>
-    private static string? GetSummary(XDocument? xmlDoc, PropertyInfo property)
+    private static List<(string Text, string? Target)>? GetSummary(XDocument? xmlDoc, PropertyInfo property)
     {
         var type = property.DeclaringType ?? property.PropertyType;
         var typeName = $"BootstrapBlazor.Components.{type.Name}";
         var memberName = $"P:{typeName}.{property.Name}";
         var summaryElement = FindSummaryElement(xmlDoc, memberName);
-        return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
+        return summaryElement == null ? null : GetLocalizedSummary(summaryElement, typeName);
     }
 
     private static XElement? FindSummaryElement(XDocument? xmlDoc, string memberName)
@@ -97,7 +102,7 @@ public static class ComponentAttributeCacheService
         return v != null ? FindSummaryElement(xmlDoc, v) : summaryElement;
     }
 
-    private static string? GetLocalizedSummary(XElement? summaryElement)
+    private static List<(string Text, string? Target)>? GetLocalizedSummary(XElement? summaryElement, string? typeName)
     {
         if (summaryElement == null)
         {
@@ -109,12 +114,83 @@ public static class ComponentAttributeCacheService
             .FirstOrDefault(p => p.Attribute("lang")?.Value == currentLanguage);
         if (langPara != null)
         {
-            return langPara.Value.Trim();
+            return GetSummaryParts(langPara, typeName);
         }
 
         var firstLangPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang") != null);
-        return firstLangPara != null ? firstLangPara.Value.Trim() : summaryElement.Value.Trim();
+        return GetSummaryParts(firstLangPara ?? summaryElement, typeName);
+    }
+
+    private static List<(string Text, string? Target)> GetSummaryParts(XElement element, string? typeName)
+    {
+        var parts = new List<(string Text, string? Target)>();
+        AppendSummaryParts(element, typeName, parts);
+
+        for (var i = 0; i < parts.Count; i++)
+        {
+            var text = parts[i].Text.TrimStart();
+            parts[i] = (text, parts[i].Target);
+            if (text.Length > 0)
+            {
+                break;
+            }
+        }
+
+        for (var i = parts.Count - 1; i >= 0; i--)
+        {
+            var text = parts[i].Text.TrimEnd();
+            parts[i] = (text, parts[i].Target);
+            if (text.Length > 0)
+            {
+                break;
+            }
+        }
+
+        parts.RemoveAll(part => part.Text.Length == 0);
+        return parts;
+    }
+
+    private static void AppendSummaryParts(XElement element, string? typeName, List<(string Text, string? Target)> parts)
+    {
+        if (element.Name == "see" && !element.Nodes().Any() && element.Attribute("cref") is { } cref)
+        {
+            var reference = cref.Value;
+            var prefix = typeName == null ? null : $"P:{typeName}.";
+            if (prefix != null && reference.StartsWith(prefix, StringComparison.Ordinal))
+            {
+                var propertyName = reference[prefix.Length..];
+                if (propertyName.Length > 0 && !propertyName.Contains('.'))
+                {
+                    parts.Add((propertyName, propertyName));
+                    return;
+                }
+            }
+
+            if (reference.Length > 1 && reference[1] == ':')
+            {
+                reference = reference[2..];
+            }
+
+            const string namespacePrefix = "BootstrapBlazor.Components.";
+            var text = reference.StartsWith(namespacePrefix, StringComparison.Ordinal)
+                ? reference[namespacePrefix.Length..]
+                : reference;
+            parts.Add((text, null));
+            return;
+        }
+
+        foreach (var node in element.Nodes())
+        {
+            if (node is XText text)
+            {
+                parts.Add((text.Value, null));
+            }
+            else if (node is XElement child)
+            {
+                AppendSummaryParts(child, typeName, parts);
+            }
+        }
     }
 
     /// <summary>

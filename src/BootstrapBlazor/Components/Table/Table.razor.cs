@@ -215,7 +215,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? GetHeaderStyleString(ITableColumn col, int margin = 0)
     {
         var fixedStyle = GetFixedCellStyleString(col, margin);
-        var widthStyle = col.Width is > 0 ? $"width: {col.Width}px; min-width: {col.Width}px;" : null;
+        var widthStyle = col.Width is > 0
+            ? AllowResizing
+                ? $"width: {col.Width}px;"
+                : $"width: {col.Width}px; min-width: {col.Width}px;"
+            : null;
         if (fixedStyle == null)
         {
             return widthStyle;
@@ -741,8 +745,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效</para>
-    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when fixed header)</para>
+    /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 设置 <see cref="IsFixedHeader"/> 时此属性生效</para>
+    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when <see cref="IsFixedHeader"/> is true)</para>
     /// </summary>
     [Parameter]
     public bool AllowResizing { get; set; }

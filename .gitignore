@@ -388,3 +388,6 @@ src/**/wwwroot/**/uploader
 
 # Kiro
 .kiro
+
+# AI
+.workbuddy

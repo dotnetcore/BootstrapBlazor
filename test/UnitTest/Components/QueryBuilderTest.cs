@@ -23,6 +23,24 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         cut.Contains("query-builder test");
     }
 
+    [Theory]
+    [InlineData(FilterAction.IsNull, 0)]
+    [InlineData(FilterAction.IsNotNull, 0)]
+    [InlineData(FilterAction.Equal, 1)]
+    public void NullOperators_HideValueInput(FilterAction action, int expectedInputCount)
+    {
+        var filter = new FilterKeyValueAction();
+        filter.Filters.Add(new FilterKeyValueAction()
+        {
+            FieldKey = nameof(Foo.Name),
+            FilterAction = action
+        });
+
+        var cut = Context.Render<QueryBuilder<Foo>>(pb => pb.Add(a => a.Value, filter));
+
+        cut.WaitForAssertion(() => Assert.Equal(expectedInputCount, cut.FindAll(".qb-row > input").Count));
+    }
+
     [Fact]
     public void HeaderTemplate_Ok()
     {

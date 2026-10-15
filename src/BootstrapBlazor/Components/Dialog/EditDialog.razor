@@ -3,14 +3,15 @@
 @inherits DialogBase<TModel>
 @attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
-<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" LabelWidth="@LabelWidth"
+<ValidateForm Model="@_currentModel" OnValidSubmit="@OnValidSubmitAsync"
+              OnInvalidSubmit="@OnInvalidSubmitAsync" LabelWidth="@LabelWidth"
               OnFieldValueChanged="OnFieldValueChanged"
               DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     <CascadingValue Value="ItemChangedType" IsFixed="true">
         @if (BodyTemplate != null)
         {
             <div class="form-body">
-                @BodyTemplate(Model)
+                @BodyTemplate(_currentModel)
             </div>
             <div class="form-footer">
                 @RenderFooter
@@ -32,3 +33,34 @@
         </div>
     </CascadingValue>
 </ValidateForm>
+
+@code {
+    /// <summary>
+    /// <para lang="zh">获得 编辑弹窗 Footer 内容</para>
+    /// <para lang="en">Gets the Footer content of the edit dialog</para>
+    /// </summary>
+    private RenderFragment RenderFooter => @<text>
+        @if (FooterTemplate != null)
+        {
+            @FooterTemplate(_currentModel)
+        }
+        else
+        {
+            @if (!IsTracking)
+            {
+                <DialogCloseButton Icon="@CloseButtonIcon" Text="@CloseButtonText" OnClickWithoutRender="OnCloseAsync" />
+            }
+
+            @* 「保存并新增」先于主保存按钮渲染 作为表单默认按钮 未禁用回车提交时按「保存并新增」处理 *@
+            @if (IsKeepAdding)
+            {
+                <Button Color="@KeepAddingButtonColor" Icon="@KeepAddingButtonIcon" Text="@KeepAddingButtonText"
+                        ButtonType="ButtonType.Submit" IsAsync="true" OnClick="OnKeepAddingClick" />
+            }
+
+            @* 主保存按钮 逻辑与原有保存按钮一致 保存成功后关闭弹窗 *@
+            <Button Color="Color.Primary" Icon="@SaveButtonIcon" Text="@SaveButtonText"
+                    ButtonType="ButtonType.Submit" IsAsync="true" OnClick="@OnSaveClick" />
+        }
+    </text>;
+}

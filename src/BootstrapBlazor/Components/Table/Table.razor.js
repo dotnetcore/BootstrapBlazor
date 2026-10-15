@@ -521,7 +521,7 @@ const setResizeListener = table => {
 
                         const header = getColumnHeader(col);
                         if (header.classList.contains('fixed')) {
-                            resizeNextFixedColumnWidth(header, calcColWidth);
+                            resizeNextFixedColumnWidth(header, getWidth(header));
                         }
                     }
 
@@ -531,7 +531,7 @@ const setResizeListener = table => {
                         rows.forEach(row => {
                             const header = row.children.item(colIndex);
                             if (header !== null && header.classList.contains('fixed')) {
-                                resizeNextFixedColumnWidth(header, calcColWidth);
+                                resizeNextFixedColumnWidth(header, getWidth(header));
                             }
                         });
                     }

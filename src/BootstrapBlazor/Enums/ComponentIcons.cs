@@ -252,6 +252,12 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
+    /// <para lang="zh">Dialog 组件 KeepAddingButtonIcon 属性图标</para>
+    /// <para lang="en">Dialog Component Keep Adding Button Icon</para>
+    /// </summary>
+    DialogKeepAddingButtonIcon,
+
+    /// <summary>
     /// <para lang="zh">Dialog 组件 MaximizeIcon 属性图标</para>
     /// <para lang="en">Dialog Component Maximize Icon</para>
     /// </summary>

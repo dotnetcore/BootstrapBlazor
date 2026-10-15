@@ -265,6 +265,8 @@
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存",
+    "SaveAndCloseButtonText": "保存并关闭",
+    "KeepAddingButtonText": "保存并新增",
     "CloseConfirmTitle": "请注意",
     "CloseConfirmContent": "表单内容已更改，确定要继续关闭吗？"
   },
@@ -280,6 +282,8 @@
     "LessThan": "小于",
     "Equal": "等于",
     "NotEqual": "不等于",
+    "IsNull": "为空",
+    "IsNotNull": "不为空",
     "Contains": "包含",
     "NotContains": "不包含",
     "Match": "匹配",
@@ -380,6 +384,8 @@
     "LessThan": "小于",
     "Equal": "等于",
     "NotEqual": "不等于",
+    "IsNull": "为空",
+    "IsNotNull": "不为空",
     "Contains": "包含",
     "NotContains": "不包含",
     "GroupText": "组合条件",

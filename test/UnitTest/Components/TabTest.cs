@@ -1628,7 +1628,10 @@ public class TabTest : BootstrapBlazorTestBase
         changedItems.Clear();
 
         // 尝试激活不在集合中的 Tab，应该失败
-        var externalTab = new TabItem { Text = "External" };
+        var externalTab = TabItem.Create(new Dictionary<string, object?>()
+        {
+            [nameof(TabItem.Text)] = "External"
+        });
         await cut.InvokeAsync(() => cut.Instance.ActiveTab(externalTab));
         Assert.Equal("Tab1", cut.Instance.GetActiveTab()?.Text);
         Assert.Empty(changedItems);

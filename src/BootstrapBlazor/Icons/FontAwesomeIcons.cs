@@ -43,6 +43,7 @@ internal static class FontAwesomeIcons
 
         { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
+        { ComponentIcons.DialogKeepAddingButtonIcon, "fa-solid fa-plus" },
         { ComponentIcons.DialogMaximizeWindowIcon, "fa-regular fa-window-maximize" },
         { ComponentIcons.DialogRestoreWindowIcon, "fa-regular fa-window-restore" },
 

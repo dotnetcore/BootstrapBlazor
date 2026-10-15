@@ -114,7 +114,7 @@ public static class DialogServiceExtensions
     ///   <para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para>
     ///   <para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para>
     /// </param>
-    public static async Task ShowEditDialog<TModel>(this DialogService service, EditDialogOption<TModel> option, Dialog? dialog = null)
+    public static async Task ShowEditDialog<TModel>(this DialogService service, EditDialogOption<TModel> option, Dialog? dialog = null) where TModel : class
     {
         option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(option.ToParameter());
         await service.Show(option, dialog);

@@ -21,6 +21,11 @@ public class AttributeItem
     public string? Description { get; set; }
 
     /// <summary>
+    /// 获得/设置 说明文本片段及其关联属性
+    /// </summary>
+    public List<(string Text, string? Target)>? DescriptionParts { get; set; }
+
+    /// <summary>
     /// 获得/设置 类型
     /// </summary>
     public string? Type { get; set; }

@@ -33,6 +33,7 @@ public partial class BoolFilter
             new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
             new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
         ];
+        Items = AddNullFilterValues(Items);
     }
 
     /// <summary>
@@ -50,14 +51,13 @@ public partial class BoolFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (!string.IsNullOrEmpty(_value))
+        if (GetNullFilterAction(_value) is { } nullAction)
         {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = _value == "true",
-                FilterAction = FilterAction.Equal
-            });
+            filter.Filters.Add(CreateCondition(null, nullAction));
+        }
+        else if (!string.IsNullOrEmpty(_value))
+        {
+            filter.Filters.Add(CreateCondition(_value == "true", FilterAction.Equal));
         }
         return filter;
     }
@@ -68,9 +68,17 @@ public partial class BoolFilter
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         var first = filter.Filters.FirstOrDefault() ?? filter;
-        if (first.FieldValue is bool value)
+        if (IsNullFilterAction(first.FilterAction))
+        {
+            _value = first.FilterAction == FilterAction.IsNull ? NullFilterValue : NotNullFilterValue;
+        }
+        else if (first.FieldValue is bool value)
         {
             _value = value ? "true" : "false";
+        }
+        else
+        {
+            _value = "";
         }
         await base.SetFilterConditionsAsync(filter);
     }
