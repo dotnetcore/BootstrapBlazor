@@ -28,7 +28,6 @@ public sealed partial class Buttons
     private void ClickButton1()
     {
         IsDisable = !IsDisable;
-        StateHasChanged();
     }
 
     private Task ClickButton2()
