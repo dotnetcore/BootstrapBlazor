@@ -84,7 +84,7 @@ public partial class Chats
                 Content = "Thinking ..."
             };
             Messages.Add(msg);
-            StateHasChanged();
+            await Task.Yield();
 
             bool first = true;
             await foreach (var chatMessage in OpenAIService.GetChatCompletionsStreamingAsync(context))
