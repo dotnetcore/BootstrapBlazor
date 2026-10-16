@@ -1,3 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+@layout BaseLayout
+
+<section class="section">
+    <aside class="sidebar">
+        <div class="sidebar-title">
+            <a href="/" class="brand-link">
+                <span class="brand-mark" aria-hidden="true">BB</span>
+            </a>
+            <span class="sidebar-text">Bootstrap Blazor</span>
+        </div>
+        <NavMenu />
+        <LayoutSplitBar Min="250" Max="380" ContainerSelector=".section" />
+    </aside>
+
+    <section class="main">
+        @Body
+    </section>
+</section>

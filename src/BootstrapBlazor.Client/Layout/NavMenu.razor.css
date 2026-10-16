@@ -1,0 +1,49 @@
+.sidebar-switch {
+    align-items: center;
+    border-bottom: 1px solid var(--bs-border-color);
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar-switch ::deep .form-label {
+    margin: 0 0.5rem 0 0;
+}
+
+.sidebar-switch ::deep .switch {
+    width: auto;
+}
+
+.navbar {
+    background-color: var(--bb-sidebar-navbar-bg, var(--bs-primary));
+}
+
+.sidebar-content {
+    position: relative;
+}
+
+::deep .badge-menu {
+    background-color: var(--bb-primary-color, var(--bs-primary));
+}
+
+::deep .icon-summary {
+    color: var(--bb-primary-color, var(--bs-primary));
+}
+
+@media (min-width: 768px) {
+    .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - var(--bs-header-height, 0px) - 64px);
+    }
+
+    ::deep .scroll {
+        max-height: calc(100% - 36px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 5px 0;
+    }
+
+    ::deep .scroll .menu {
+        width: var(--bb-sidebar-width);
+    }
+}

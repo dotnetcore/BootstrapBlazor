@@ -1,0 +1,19 @@
+@namespace BootstrapBlazor.Server.Components.Layout
+
+<nav class="navbar navbar-dark d-flex d-md-none px-3">
+    <a class="navbar-brand" href="/">Bootstrap Blazor</a>
+    <button class="navbar-toggler" type="button" aria-label="Toggle navigation" @onclick="ToggleMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<nav class="@SidebarMenuClass">
+    <div class="sidebar-switch">
+        <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
+        <div style="width:1rem;"></div>
+        <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
+    </div>
+    <div class="scroll">
+        <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
+    </div>
+</nav>

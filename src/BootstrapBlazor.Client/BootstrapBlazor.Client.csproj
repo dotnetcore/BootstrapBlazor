@@ -17,4 +17,24 @@
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\BootstrapBlazor.Server\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
+    <EmbeddedResource Include="..\BootstrapBlazor.Server\Locales\en-US.json" Link="Locales\en-US.json">
+      <LogicalName>BootstrapBlazor.Client.Locales.en-US.json</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\BootstrapBlazor.Server\Locales\zh-CN.json" Link="Locales\zh-CN.json">
+      <LogicalName>BootstrapBlazor.Client.Locales.zh-CN.json</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Client.Services" />
+    <Using Include="BootstrapBlazor.Server.Components.Components" />
+    <Using Include="BootstrapBlazor.Server.Components.Layout" />
+    <Using Include="BootstrapBlazor.Server.Extensions" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+  </ItemGroup>
+
 </Project>

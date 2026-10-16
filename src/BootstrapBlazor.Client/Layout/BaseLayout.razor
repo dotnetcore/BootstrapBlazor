@@ -1,0 +1,26 @@
+@inherits LayoutComponentBase
+
+<BootstrapBlazorRoot>
+    <header class="site-header">
+        <a class="site-brand" href="/">
+            <span class="brand-mark" aria-hidden="true">BB</span>
+            <span>Bootstrap Blazor</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="https://www.blazor.zone/introduction" target="_blank" rel="noopener noreferrer">Introduction</a>
+            <a href="https://github.com/dotnetcore/BootstrapBlazor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+        <ThemeProvider class="site-theme" />
+    </header>
+
+    <main class="site-main">
+        @Body
+    </main>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">Dismiss</a>
+    </div>
+</BootstrapBlazorRoot>
