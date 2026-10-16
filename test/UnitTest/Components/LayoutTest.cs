@@ -351,18 +351,18 @@ public class LayoutTest : BootstrapBlazorTestBase
         var cut = Context.Render<Layout>(pb =>
         {
             pb.Add(a => a.IsCollapsed, false);
-            pb.Add(a => a.SideCollapsedWidth, "80");
+            pb.Add(a => a.SideCollapsedWidth, "80px");
         });
-        Assert.DoesNotContain("--bb-layout-sidebar-collapse-width", cut.Markup);
+        cut.DoesNotContain("--bb-layout-sidebar-collapse-width");
 
         cut.Render(pb => pb.Add(a => a.IsCollapsed, true));
-        cut.WaitForAssertion(() => Assert.Contains("--bb-layout-sidebar-collapse-width: 80px", cut.Markup));
+        cut.Contains("--bb-layout-sidebar-collapse-width: 80px;");
 
-        cut.Render(pb => pb.Add(a => a.SideCollapsedWidth, "100"));
-        cut.WaitForAssertion(() => Assert.Contains("--bb-layout-sidebar-collapse-width: 100px", cut.Markup));
+        cut.Render(pb => pb.Add(a => a.SideCollapsedWidth, "20%"));
+        cut.Contains("--bb-layout-sidebar-collapse-width: 20%;");
 
         cut.Render(pb => pb.Add(a => a.SideCollapsedWidth, null));
-        cut.WaitForAssertion(() => Assert.DoesNotContain("--bb-layout-sidebar-collapse-width", cut.Markup));
+        cut.DoesNotContain("--bb-layout-sidebar-collapse-width");
     }
 
     [Fact]
