@@ -391,3 +391,4 @@ src/**/wwwroot/**/uploader
 
 # AI
 .workbuddy
+docs
