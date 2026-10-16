@@ -500,7 +500,7 @@ public partial class Layout : ITabHeader
     private string? StyleString => CssBuilder.Default()
         .AddClass("--bb-layout-header-height: 0px;", Header == null)
         .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
-        .AddClass($"--bb-layout-sidebar-collapse-width: {SideCollapsedWidth}px", IsCollapsed && SideCollapsedWidth != null)
+        .AddClass($"--bb-layout-sidebar-collapse-width: {SideCollapsedWidth};", IsCollapsed && SideCollapsedWidth != null)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
