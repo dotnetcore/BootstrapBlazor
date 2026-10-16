@@ -230,6 +230,14 @@ public partial class Layout : ITabHeader
     public string? SideWidth { get; set; }
 
     /// <summary>
+    /// <para lang="zh">指定侧边栏折叠时的宽度，使用 CSS 长度字符串。</para>
+    /// <para lang="en">Specifies the width of the sidebar when collapsed, using a CSS length string.</para>
+    /// </summary>
+    /// <remarks>接受任何有效的 CSS 长度值。为 null 时使用组件默认值。</remarks>
+    [Parameter]
+    public string? SideCollapsedWidth { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Main 模板</para>
     /// <para lang="en">Gets or sets Main Template</para>
     /// </summary>
@@ -491,6 +499,7 @@ public partial class Layout : ITabHeader
     private string? StyleString => CssBuilder.Default()
         .AddClass("--bb-layout-header-height: 0px;", Header == null)
         .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
+        .AddClass($"--bb-layout-sidebar-collapse-width: {SideCollapsedWidth}px", IsCollapsed && SideCollapsedWidth != null)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
