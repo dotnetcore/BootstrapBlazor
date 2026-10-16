@@ -10,7 +10,7 @@
       "rollForward": false
     },
     "bootstrapblazor.llmsdocsgenerator": {
-      "version": "10.0.3",
+      "version": "10.0.4",
       "commands": [
         "llms-docs"
       ],
