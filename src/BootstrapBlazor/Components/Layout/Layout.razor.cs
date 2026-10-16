@@ -232,6 +232,7 @@ public partial class Layout : ITabHeader
     /// <summary>
     /// <para lang="zh">指定侧边栏折叠时的宽度，使用 CSS 长度字符串。</para>
     /// <para lang="en">Specifies the width of the sidebar when collapsed, using a CSS length string.</para>
+    /// <para>v<version>11.0.1</version></para>
     /// </summary>
     /// <remarks>接受任何有效的 CSS 长度值。为 null 时使用组件默认值。</remarks>
     [Parameter]
