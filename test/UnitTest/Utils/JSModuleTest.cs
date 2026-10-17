@@ -132,7 +132,10 @@ public class JSModuleTest
 
         public async ValueTask DisposeAsync()
         {
+            // TODO: NET 11 误报警告
+#pragma warning disable BL0016 // Unguarded JS interop call
             await DisposeAsyncCore(true);
+#pragma warning restore BL0016 // Unguarded JS interop call
             GC.SuppressFinalize(this);
         }
 
