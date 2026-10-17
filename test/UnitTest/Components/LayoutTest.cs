@@ -346,6 +346,26 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SideCollapsedWidth_OK()
+    {
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.IsCollapsed, false);
+            pb.Add(a => a.SideCollapsedWidth, "80px");
+        });
+        cut.DoesNotContain("--bb-layout-sidebar-collapse-width");
+
+        cut.Render(pb => pb.Add(a => a.IsCollapsed, true));
+        cut.Contains("--bb-layout-sidebar-collapse-width: 80px;");
+
+        cut.Render(pb => pb.Add(a => a.SideCollapsedWidth, "20%"));
+        cut.Contains("--bb-layout-sidebar-collapse-width: 20%;");
+
+        cut.Render(pb => pb.Add(a => a.SideCollapsedWidth, null));
+        cut.DoesNotContain("--bb-layout-sidebar-collapse-width");
+    }
+
+    [Fact]
     public void UseTabSet_OK()
     {
         var cut = Context.Render<Layout>(pb =>
