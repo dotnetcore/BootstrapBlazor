@@ -3,14 +3,14 @@
   "isRoot": true,
   "tools": {
     "bootstrapblazor.cssbundler": {
-      "version": "10.0.0",
+      "version": "10.0.1",
       "commands": [
         "css-bundler"
       ],
       "rollForward": false
     },
     "bootstrapblazor.llmsdocsgenerator": {
-      "version": "10.0.3",
+      "version": "10.0.4",
       "commands": [
         "llms-docs"
       ],
