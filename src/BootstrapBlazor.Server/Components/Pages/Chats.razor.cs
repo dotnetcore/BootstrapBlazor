@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -99,7 +99,10 @@ public partial class Chats
                 if (!string.IsNullOrEmpty(chatMessage.Content))
                 {
                     msg.Content += chatMessage.Content;
+                    // TODO: NET 11 误报警告
+#pragma warning disable BL0012 // Unnecessary StateHasChanged call
                     StateHasChanged();
+#pragma warning restore BL0012 // Unnecessary StateHasChanged call
                 }
             }
 
