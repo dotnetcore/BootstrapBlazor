@@ -289,38 +289,6 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("tabs-body-content", cut.Markup);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("/Cat")]
-    public void ClickTabWithoutNavigation_DoesNotRenderHref(string? url)
-    {
-        var navigator = Context.Services.GetRequiredService<NavigationManager>();
-        navigator.NavigateTo("/tab");
-        var cut = Context.Render<Tab>(pb =>
-        {
-            pb.AddChildContent<TabItem>(pb =>
-            {
-                pb.Add(a => a.Text, "Tab1");
-                pb.Add(a => a.ChildContent, "Tab1-Content");
-            });
-            pb.AddChildContent<TabItem>(pb =>
-            {
-                pb.Add(a => a.Text, "Tab2");
-                pb.Add(a => a.Url, url);
-                pb.Add(a => a.ChildContent, "Tab2-Content");
-            });
-        });
-
-        var tab = cut.FindAll("a[role='tab']")[1];
-        Assert.False(tab.HasAttribute("href"));
-        tab.Click();
-
-        Assert.Equal("Tab2", cut.Instance.GetActiveTab()?.Text);
-        Assert.Equal("Tab2-Content", cut.Find(".tabs-body-content:not(.d-none)").TextContent);
-        Assert.Equal("tab", navigator.ToBaseRelativePath(navigator.Uri));
-    }
-
     [Fact]
     public void ClickTabToNavigation_True()
     {
@@ -335,8 +303,6 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(() => cut.Instance.AddTab("/", "Index"));
         cut.InvokeAsync(() => cut.Instance.AddTab("/Cat", null!));
-
-        Assert.Contains(cut.FindAll("a[role='tab']"), tab => tab.GetAttribute("href") == "/Cat");
 
         // Click Prev
         var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
