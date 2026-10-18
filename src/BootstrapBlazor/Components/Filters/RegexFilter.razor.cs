@@ -64,7 +64,7 @@ public partial class RegexFilter
         _action1 = FilterAction.Match;
         _action2 = FilterAction.Match;
         Logic = FilterLogic.Or;
-        Count = 0;
+        SetCount(0);
         StateHasChanged();
     }
 
@@ -105,7 +105,6 @@ public partial class RegexFilter
 
         if (filter.Filters.Count > 1)
         {
-            Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is string value2)
             {
@@ -116,7 +115,7 @@ public partial class RegexFilter
                 _value2 = null;
             }
             _action2 = second.FilterAction;
-            Logic = second.FilterLogic;
+            Logic = filter.FilterLogic;
         }
         await base.SetFilterConditionsAsync(filter);
     }
