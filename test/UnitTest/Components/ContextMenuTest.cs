@@ -12,6 +12,46 @@ namespace UnitTest.Components;
 
 public class ContextMenuTest : BootstrapBlazorTestBase
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Show_Ok(bool hasCallback)
+    {
+        var contextItem = new object();
+        var callbackCompleted = false;
+        var cut = Context.Render<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<ContextMenu>(builder =>
+            {
+                if (hasCallback)
+                {
+                    builder.Add(a => a.OnBeforeShowCallback, async value =>
+                    {
+                        Assert.Same(contextItem, value);
+                        await Task.Yield();
+                        callbackCompleted = true;
+                    });
+                }
+            });
+        });
+        var menu = cut.FindComponent<ContextMenu>();
+        var renderCount = menu.RenderCount;
+        var method = typeof(ContextMenu).GetMethod("Show", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        await cut.InvokeAsync(async () =>
+        {
+            var task = Assert.IsAssignableFrom<Task>(method.Invoke(menu.Instance, [new MouseEventArgs(), contextItem]));
+            await task;
+        });
+
+        Assert.Equal(hasCallback, callbackCompleted);
+        var field = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(field);
+        Assert.Same(contextItem, field.GetValue(menu.Instance));
+        Assert.True(menu.RenderCount > renderCount);
+    }
+
     [Fact]
     public async Task ContextMenu_Ok()
     {
