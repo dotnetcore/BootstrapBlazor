@@ -28,4 +28,6 @@ public class FilterContext
     /// <para lang="en">Gets or sets the filter counter. Default is 0</para>
     /// </summary>
     public int Count { get; set; }
+
+    internal Action<int>? CountChanged { get; set; }
 }

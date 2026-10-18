@@ -66,7 +66,7 @@ public partial class StringFilter
         _action1 = FilterAction.Contains;
         _action2 = FilterAction.Contains;
         Logic = FilterLogic.Or;
-        Count = 0;
+        SetCount(0);
         StateHasChanged();
     }
 
@@ -107,7 +107,6 @@ public partial class StringFilter
 
         if (filter.Filters.Count > 1)
         {
-            Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is string value2)
             {
@@ -118,7 +117,7 @@ public partial class StringFilter
                 _value2 = null;
             }
             _action2 = second.FilterAction;
-            Logic = second.FilterLogic;
+            Logic = filter.FilterLogic;
         }
         await base.SetFilterConditionsAsync(filter);
     }

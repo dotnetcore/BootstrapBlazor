@@ -54,7 +54,7 @@ public partial class EnumFilter
     {
         _value1 = "";
         _value2 = "";
-        Count = 0;
+        SetCount(0);
         StateHasChanged();
     }
 
@@ -108,7 +108,6 @@ public partial class EnumFilter
 
         if (filter.Filters.Count > 1)
         {
-            Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (IsNullFilterAction(second.FilterAction))
             {
