@@ -6,20 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="docs.json" />
     <Content Remove="Locales\en-US.json" />
     <Content Remove="Locales\zh-CN.json" />
     <Content Remove="topology.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="docs.json" />
     <EmbeddedResource Include="Locales\en-US.json" />
     <EmbeddedResource Include="Locales\zh-CN.json" />
     <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-rc.2.26504.105" />
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Authenticator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="11.0.0-rc.2" />
@@ -95,6 +94,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor.Client\BootstrapBlazor.Client.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
@@ -105,6 +106,11 @@
     <Using Include="BootstrapBlazor.Server.Data" />
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
+    <Using Include="BootstrapBlazor.Shared.Components.Components" />
+    <Using Include="BootstrapBlazor.Shared.Components.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
+    <Using Include="BootstrapBlazor.Shared.Extensions" />
     <Using Include="Longbow.Sockets.DataAdapters" />
     <Using Include="Longbow.Sockets.DataConverters" />
     <Using Include="Longbow.Sockets.DataHandlers" />

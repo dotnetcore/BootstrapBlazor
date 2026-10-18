@@ -1,0 +1,3 @@
+@inject IOptions<WebsiteOptions> WebsiteOption
+
+<img alt="logo" class="bb-icon" src="@WebsiteOption.Value.GetAssetUrl("images/logo.png")" />

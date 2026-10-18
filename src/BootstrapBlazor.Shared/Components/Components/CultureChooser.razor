@@ -1,0 +1,13 @@
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <span>@Label</span>
+    <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture" DisableItemChangedWhenFirstRender="true">
+        <Options>
+            @foreach (var kv in BootstrapOptions.Value.GetSupportedCultures())
+            {
+                <SelectOption Text="@GetDisplayName(kv)" Value="@kv.Name" />
+            }
+        </Options>
+    </Select>
+</div>

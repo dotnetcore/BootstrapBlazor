@@ -20,31 +20,23 @@ public static class ServiceCollectionSharedExtensions
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
         services.AddSingleton<WeatherForecastService>();
-        services.AddSingleton<PackageVersionService>();
         services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<DashboardService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton<ILookupService, DemoLookupService>();
         services.AddSingleton<MockDataTableDynamicService>();
 
-        services.AddSingleton<MenuService>();
         services.AddScoped<FanControllerDataService>();
 
         // 增加 ITotpService 服务
         services.AddBootstrapBlazorTotpService();
 
         // 增加示例网站配置
-        services.AddOptionsMonitor<WebsiteOptions>();
+        services.AddBootstrapBlazorLayoutServices(configureOptions);
 
         // 增加模拟登录服务
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
-
-        // 增加 MeiliSearch 服务
-        services.AddBootstrapBlazorMeiliSearch();
-
-        // 增加 BootstrapBlazor 组件
-        services.AddBootstrapBlazor(configureOptions);
 
         // 增加 Azure 语音服务
         //services.AddBootstrapBlazorAzureSpeech();

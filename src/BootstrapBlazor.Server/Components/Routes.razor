@@ -1,6 +1,25 @@
 <Router AppAssembly="@typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h3" />
+        <LayoutView Layout="@GetShellLayout(routeData.PageType)">
+            <ServerPage PageTypeName="@(routeData.PageType.FullName!)"
+                        RouteValues="@routeData.RouteValues.ToDictionary(p => p.Key, p => (string?)p.Value)"
+                        @rendermode="new InteractiveServerRenderMode(false)" />
+        </LayoutView>
     </Found>
 </Router>
+
+@code {
+    private static Type? GetShellLayout(Type pageType)
+    {
+        var layout = pageType.GetCustomAttribute<LayoutAttribute>()?.LayoutType ?? typeof(MainLayout);
+        while (layout != null)
+        {
+            if (layout == typeof(MainLayout) || layout == typeof(BaseLayout))
+            {
+                return layout;
+            }
+            layout = layout.GetCustomAttribute<LayoutAttribute>()?.LayoutType;
+        }
+        return null;
+    }
+}

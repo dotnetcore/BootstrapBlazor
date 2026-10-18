@@ -1,0 +1,14 @@
+@inject IJSRuntime JSRuntime
+
+<Header />
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await using var module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Shared/Components/Layout/BaseLayout.razor.js");
+            await module.InvokeVoidAsync("initTheme");
+        }
+    }
+}

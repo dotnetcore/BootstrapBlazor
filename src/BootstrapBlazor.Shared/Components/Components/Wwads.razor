@@ -1,0 +1,5 @@
+@inherits SharedModuleComponentBase
+@attribute [JSModuleAutoLoader("Components/Wwads.razor.js", AutoInvokeDispose = false)]
+@inject IOptions<WebsiteOptions> WebsiteOption
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString"></div>

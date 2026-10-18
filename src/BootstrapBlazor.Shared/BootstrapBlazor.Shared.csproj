@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <Import Project="..\..\Framework.props" />
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+    <Content Remove="Locales\*.json;docs.json" />
+    <EmbeddedResource Include="Locales\*.json;docs.json" />
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Components.Components" />
+    <Using Include="BootstrapBlazor.Shared.Components.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="BootstrapBlazor.Shared.Extensions" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Configuration" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="System.Net.Http.Json" />
+  </ItemGroup>
+</Project>

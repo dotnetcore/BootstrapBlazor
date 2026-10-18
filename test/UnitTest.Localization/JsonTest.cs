@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components;
+using BootstrapBlazor.Shared.Components.Layout;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
@@ -16,8 +17,16 @@ public class JsonTest
     [InlineData("en-US.json")]
     public void Update_Localizer_Ok(string localeFileName)
     {
+        foreach (var projectName in new[] { "BootstrapBlazor.Server", "BootstrapBlazor.Shared" })
+        {
+            UpdateLocalizer(projectName, localeFileName);
+        }
+    }
+
+    private static void UpdateLocalizer(string projectName, string localeFileName)
+    {
         // 拼接资源文件
-        var localizerFile = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Locales/", localeFileName);
+        var localizerFile = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src", projectName, "Locales", localeFileName);
 
         if (!File.Exists(localizerFile))
         {
@@ -25,10 +34,10 @@ public class JsonTest
         }
 
         var configuration = CreateConfiguration(localizerFile);
-        var components = GetComponents();
+        var components = GetComponents(projectName);
 
         // 设置根路径
-        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Components/");
+        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src", projectName, "Components");
         foreach (var router in components)
         {
             var sectionName = router.FullName;
@@ -43,7 +52,7 @@ public class JsonTest
                 continue;
             }
 
-            var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.", "").Replace(".", "/");
+            var typeName = router.FullName?.Replace($"{projectName}.Components.", "").Replace(".", Path.DirectorySeparatorChar.ToString());
             if (string.IsNullOrEmpty(typeName))
             {
                 continue;
@@ -69,13 +78,23 @@ public class JsonTest
                         continue;
                     }
 
-                    if (sectionName == "BootstrapBlazor.Server.Components.Layout.NavMenu")
+                    if (router == typeof(NavMenu))
                     {
                         found = FindLocalizerByContent(GetNavMenuLocalizerContent(rootPath), key);
                         if (found)
                         {
                             continue;
                         }
+                    }
+
+                    if (router == typeof(MainLayout) && FindLocalizerByKey(Path.Combine(rootPath, "Components", "LayoutTools.razor"), key))
+                    {
+                        continue;
+                    }
+
+                    if (router == typeof(BaseLayout) && FindLocalizerByKey(Path.Combine(rootPath, "..", "..", "BootstrapBlazor.Server", "Components", "Layout", "TutorialsNavMenu.razor.cs"), key))
+                    {
+                        continue;
                     }
 
                     c.Value = null;
@@ -108,11 +127,11 @@ public class JsonTest
         outputStream.Write(new byte[] { 0x0D, 0x0A });
     }
 
-    private static List<Type> GetComponents()
+    private static List<Type> GetComponents(string projectName)
     {
-        var assembly = typeof(App).Assembly;
+        var assembly = projectName == "BootstrapBlazor.Shared" ? typeof(NavMenu).Assembly : typeof(App).Assembly;
         return assembly.GetExportedTypes()
-                       .Where(t => (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.") ?? false))
+                       .Where(t => (t.FullName?.StartsWith($"{projectName}.Components.") ?? false))
                        .ToList();
     }
 

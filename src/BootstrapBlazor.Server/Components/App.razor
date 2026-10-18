@@ -2,7 +2,7 @@
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme='light'>
+<html lang="@CultureInfo.CurrentUICulture.Name" data-bs-theme='light'>
 
 <head>
     <meta charset="utf-8" />
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" />
     <link rel="stylesheet" href="@Assets["BootstrapBlazor.Server.styles.css"]" />
     <link rel="stylesheet" href="@Assets["css/site.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.Shared/css/wwads.css"]" />
 
     <ImportMap></ImportMap>
 
@@ -35,7 +36,7 @@
 </head>
 
 <body>
-    <Routes @rendermode="new InteractiveServerRenderMode(false)" />
+    <Routes />
 
     <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveServerRenderMode(false)" />
 
@@ -45,6 +46,7 @@
 
     <script src="@Assets["_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"]"></script>
     <script src="@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"></script>
+    <script src="@Assets["_content/BootstrapBlazor.Shared/js/culture.js"]"></script>
     <script src="@Assets["_framework/blazor.web.js"]"></script>
     @if (Env.IsProduction())
     {

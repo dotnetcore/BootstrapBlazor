@@ -14,7 +14,8 @@ Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddBootstrapBlazorServerService();
 
@@ -56,7 +57,19 @@ if (cors?.Length > 0)
 }
 
 app.MapDefaultControllerRoute();
+app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<BootstrapBlazorOptions> bootstrap, IOptions<MeiliSearchOptions> search) =>
+    new LayoutSettings
+    {
+        SupportedCultures = bootstrap.Value.GetSupportedCultures().Select(c => c.Name).ToList(),
+        GithubRepositoryUrl = website.Value.GithubRepositoryUrl,
+        GiteeRepositoryUrl = website.Value.GiteeRepositoryUrl,
+        WikiUrl = website.Value.WikiUrl,
+        Themes = website.Value.Themes,
+        SearchIndex = search.Value.Index
+    });
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(BootstrapBlazor.Shared.Components.Layout.MainLayout).Assembly);
 
 app.Run();

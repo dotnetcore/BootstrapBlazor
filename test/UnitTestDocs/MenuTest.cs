@@ -33,7 +33,7 @@ public partial class MenuTest
     [Fact]
     public void Route_Ok()
     {
-        var stream = typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Server.docs.json");
+        var stream = typeof(BootstrapBlazor.Shared.Data.WebsiteOptions).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.docs.json");
         Assert.NotNull(stream);
 
         var builder = new ConfigurationBuilder();
@@ -115,9 +115,11 @@ public partial class MenuTest
     {
         using var configZh = new ConfigurationManager();
         configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Server.Locales.{sourceLanguage}.json")!);
+        configZh.AddJsonStream(typeof(NavMenu).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{sourceLanguage}.json")!);
 
         using var configEn = new ConfigurationManager();
         configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Server.Locales.{targetLanguage}.json")!);
+        configEn.AddJsonStream(typeof(NavMenu).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{targetLanguage}.json")!);
 
         var source = configZh.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
         var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();

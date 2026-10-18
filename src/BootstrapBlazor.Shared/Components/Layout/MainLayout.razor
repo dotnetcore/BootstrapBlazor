@@ -1,0 +1,28 @@
+@inherits LayoutComponentBase
+@layout BaseLayout
+
+@if (ServerPageContent)
+{
+    @Body
+}
+else
+{
+    <section class="section">
+        <aside class="sidebar">
+            <div class="sidebar-title">
+                <a href="/">
+                    <BBLogo />
+                </a>
+                <span class="sidebar-text">Bootstrap Blazor</span>
+            </div>
+            <MenuOutlet @rendermode="new InteractiveAutoRenderMode(false)" />
+        </aside>
+
+        <section class="main">
+            <Wwads @rendermode="new InteractiveAutoRenderMode(false)" />
+            @Body
+        </section>
+
+        <LayoutTools @rendermode="new InteractiveAutoRenderMode(false)" />
+    </section>
+}

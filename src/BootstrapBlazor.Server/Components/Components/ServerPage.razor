@@ -1,0 +1,24 @@
+<BootstrapBlazorRoot>
+    <ServerNotifications />
+    <CascadingValue Name="ServerPageContent" Value="true" IsFixed="true">
+        <RouteView RouteData="@_routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@_routeData" Selector="h3" />
+    </CascadingValue>
+</BootstrapBlazorRoot>
+
+@code {
+    [Parameter, EditorRequired]
+    public string PageTypeName { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public Dictionary<string, string?> RouteValues { get; set; } = [];
+
+    private RouteData _routeData = default!;
+
+    protected override void OnParametersSet()
+    {
+        // RouteData and Type cannot cross the static/interactive serialization boundary.
+        var pageType = typeof(ServerPage).Assembly.GetType(PageTypeName, throwOnError: true)!;
+        _routeData = new RouteData(pageType, RouteValues.ToDictionary(p => p.Key, p => (object?)p.Value));
+    }
+}

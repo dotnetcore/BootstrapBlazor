@@ -1,0 +1,13 @@
+@inject IStringLocalizer<GlobalSearch> Localizer
+
+<MeiliSearchBox SearchBoxPlaceHolder="@Localizer["SearchPlaceHolder"]"
+                SearchingText="@Localizer["SearchingText"]" SearchResultText="@Localizer["SearchResultText"]"
+                LogoText="@Localizer["LogoText"]"
+                EnterKeyText="@Localizer["EnterKeyText"]" ArrowKeyText="@Localizer["ArrowKeyText"]" EscKeyText="@Localizer["EscKeyText"]"
+                SearchResultPlaceHolder="@Localizer["SearchResultPlaceHolder"]"
+                EmptySearchResultPlaceHolder="@Localizer["EmptySearchResultPlaceHolder"]"
+                SearchableColumns="SearchableColumns"></MeiliSearchBox>
+
+@code {
+    private List<string> SearchableColumns { get; set; } = new List<string> { "menu", "title", "introlText", "demos.title", "demos.detail" };
+}
