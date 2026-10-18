@@ -57,7 +57,7 @@ public partial class NumberFilter<TType>
         _value2 = default;
         _action1 = FilterAction.GreaterThanOrEqual;
         _action2 = FilterAction.LessThanOrEqual;
-        Count = 0;
+        SetCount(0);
         Logic = FilterLogic.And;
         StateHasChanged();
     }
@@ -99,7 +99,6 @@ public partial class NumberFilter<TType>
 
         if (filter.Filters.Count > 1)
         {
-            Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is TType value2)
             {

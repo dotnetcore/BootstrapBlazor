@@ -55,7 +55,7 @@ public partial class DateTimeFilter
         _value2 = null;
         _action1 = FilterAction.GreaterThanOrEqual;
         _action2 = FilterAction.LessThanOrEqual;
-        Count = 0;
+        SetCount(0);
         Logic = FilterLogic.And;
         StateHasChanged();
     }
@@ -97,7 +97,6 @@ public partial class DateTimeFilter
 
         if (filter.Filters.Count > 1)
         {
-            Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is DateTime value2)
             {

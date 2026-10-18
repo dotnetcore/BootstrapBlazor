@@ -152,9 +152,19 @@ public partial class FilterProvider
         }
     }
 
+    private void OnCountChanged(int count)
+    {
+        if (Count != count)
+        {
+            Count = count;
+            StateHasChanged();
+        }
+    }
+
     private FilterContext FilterContext => new()
     {
         Count = Count,
+        CountChanged = OnCountChanged,
         FieldKey = FieldKey,
         IsHeaderRow = IsHeaderRow
     };

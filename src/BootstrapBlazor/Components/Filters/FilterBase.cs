@@ -125,6 +125,12 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
         FilterAction = action
     };
 
+    private protected void SetCount(int count)
+    {
+        Count = count;
+        FilterContext?.CountChanged?.Invoke(count);
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -195,5 +201,9 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     /// <param name="filter"></param>
-    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter)
+    {
+        SetCount(filter.Filters.Count > 1 ? 1 : 0);
+        return OnFilterAsync();
+    }
 }
