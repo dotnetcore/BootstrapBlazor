@@ -34,5 +34,10 @@ internal static class TabItemExtensions
                 content.Render();
             }
         }
+
+        public string? GetUrl(Tab tab)
+        {
+            return tab.ClickTabToNavigation ? item.Url : null;
+        }
     }
 }
