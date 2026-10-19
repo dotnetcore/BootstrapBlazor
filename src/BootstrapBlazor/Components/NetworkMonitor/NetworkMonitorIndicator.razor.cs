@@ -56,11 +56,14 @@ public partial class NetworkMonitorIndicator : IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        await base.OnAfterRenderAsync(firstRender);
 
-        await NetworkMonitorService.RegisterStateChangedCallback(this, OnNetworkStateChanged);
+        if (firstRender)
+        {
+            await NetworkMonitorService.RegisterStateChangedCallback(this, OnNetworkStateChanged);
+        }
     }
 
     /// <summary>
