@@ -52,8 +52,8 @@ public static class BootstrapBlazorOptionsExtensions
     /// <para lang="zh">获得 Table EnableComplexProperty 值</para>
     /// <para lang="en">Gets the Table EnableComplexProperty value</para>
     /// </summary>
-    /// <param name="options"></param>
-    /// <param name="value"></param>
+    /// <param name="options">The BootstrapBlazorOptions instance</param>
+    /// <param name="value">The default value</param>
     /// <returns></returns>
-    public static bool GetEnableComplexProperty(this BootstrapBlazorOptions options, bool? value) => value ?? options.TableSettings.EnableComplexProperty ?? true;
+    internal static bool GetEnableComplexProperty(this BootstrapBlazorOptions options, bool? value) => value ?? options.TableSettings.EnableComplexProperty ?? true;
 }
