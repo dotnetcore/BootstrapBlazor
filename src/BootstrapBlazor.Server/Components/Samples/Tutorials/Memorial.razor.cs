@@ -15,7 +15,7 @@ public partial class Memorial
     [Inject, NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
-    private static bool _isMemorial = false;
+    private bool _isMemorial = false;
 
     private async Task OnToggle()
     {
