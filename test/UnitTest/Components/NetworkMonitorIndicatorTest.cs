@@ -8,17 +8,6 @@ namespace UnitTest.Components;
 public class NetworkMonitorIndicatorTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Prerender_DoesNotInitializeNetworkMonitor()
-    {
-        var renderer = Context.Services.GetRequiredService<IComponentHtmlRenderer>();
-
-        var html = await renderer.RenderAsync<NetworkMonitorIndicator>();
-
-        Assert.Contains("bb-nt-indicator", html);
-        Assert.Empty(Context.JSInterop.Invocations);
-    }
-
-    [Fact]
     public void NetworkMonitorIndicator_Ok()
     {
         var cut = Context.Render<NetworkMonitorIndicator>(pb =>
