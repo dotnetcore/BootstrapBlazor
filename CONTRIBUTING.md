@@ -14,6 +14,7 @@ BootstrapBlazor accepts fixes and features. Here is what you should do when writ
 
 - Follow the coding conventions used throughout the bUnit project. In general, they align with the AspNetCore teams [coding guidelines](https://github.com/dotnet/aspnetcore/wiki/Engineering-guidelines#coding-guidelines).
 - Add, remove, or delete unit tests to cover your changes. Make sure tests are specific to the changes you are making. Tests need to be provided for every bug/feature that is completed.
+- When adding a property to a class, include an XML documentation version marker in its documentation: `<para>v<version>{version}</version></para>`. Use the next planned stable release version; when the project version has a prerelease suffix (for example, `11.0.2-beta01`), use its stable version (`11.0.2`).
 - This repository follows the truck-based development approach, meaning changes should be based on the `main` branch.
 - Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) style commit messages.
 - Any code or documentation you share with the bUnit projects should fall under the project's license agreement.

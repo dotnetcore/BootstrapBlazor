@@ -1789,7 +1789,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             : col.Template(item);
 
         RenderFragment RenderEditTemplate() => col.EditTemplate == null
-            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: false))
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: false, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression))
             : col.EditTemplate(item);
     }
 
@@ -1831,7 +1831,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression);
             };
         }
 

@@ -222,6 +222,10 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     [NotNull]
     private ILookupService? LookupService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     /// <summary>
     /// <para lang="zh">获得/设置 配置编辑项目集合</para>
     /// <para lang="en">Gets or sets Editor Items Cache</para>
@@ -357,7 +361,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService));
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService), skipValidate: null, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression);
         }
     };
 

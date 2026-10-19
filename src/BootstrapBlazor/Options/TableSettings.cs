@@ -58,4 +58,11 @@ public class TableSettings
     /// <para lang="en">Gets or sets TableExportExcelOptions configuration default not null</para>
     /// </summary>
     public TableExportOptions TableExportOptions { get; set; } = new();
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否启用编辑组件对包含点号的复杂属性名的支持。默认为 true</para>
+    /// <para lang="en">Gets or sets whether editor components support complex property names containing dots. Default is true</para>
+    /// <para>v<version>11.0.2</version></para>
+    /// </summary>
+    public bool EnableComplexProperty { get; set; } = true;
 }

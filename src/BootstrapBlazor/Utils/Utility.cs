@@ -724,6 +724,9 @@ public static class Utility
     ///  <para lang="en">Whether to skip validation, higher priority than IEditorItem.SkipValidate and isSearch parameter</para>
     /// </param>
     public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookupService = null, bool? skipValidate = null)
+        => CreateComponentByFieldType(builder, component, item, model, changedType, isSearch, lookupService, skipValidate, true);
+
+    internal static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType, bool isSearch, ILookupService? lookupService, bool? skipValidate, bool enableComplexPropertyValueExpression)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -731,7 +734,7 @@ public static class Utility
 
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
-        var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
+        var valueExpression = GenerateValueExpression(model, fieldName, fieldType, enableComplexPropertyValueExpression);
         var componentType = item.ComponentType ?? GenerateComponentType(item);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
@@ -858,9 +861,23 @@ public static class Utility
     ///  <para lang="en">Field type</para>
     /// </param>
     public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
+        => GenerateValueExpression(model, fieldName, fieldType, true);
+
+    /// <summary>
+    /// <para lang="zh">通过指定类型实例获取属性 Lambda 表达式</para>
+    /// <para lang="en">Get property Lambda expression by specified type instance</para>
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="fieldName"></param>
+    /// <param name="fieldType"></param>
+    /// <param name="enableComplexPropertyValueExpression">
+    ///  <para lang="zh">是否启用包含点号的复杂属性名支持</para>
+    ///  <para lang="en">Whether to support complex property names containing dots</para>
+    /// </param>
+    public static object GenerateValueExpression(object model, string fieldName, Type fieldType, bool enableComplexPropertyValueExpression)
     {
         var type = model.GetType();
-        return fieldName.Contains('.') ? ComplexPropertyValueExpression() : SimplePropertyValueExpression();
+        return enableComplexPropertyValueExpression && fieldName.Contains('.') ? ComplexPropertyValueExpression() : SimplePropertyValueExpression();
 
         object SimplePropertyValueExpression()
         {
