@@ -64,5 +64,5 @@ public class TableSettings
     /// <para lang="en">Gets or sets whether editor components support complex property names containing dots. Default is true</para>
     /// <para>v<version>11.0.2</version></para>
     /// </summary>
-    public bool EnableComplexProperty { get; set; } = true;
+    public bool? EnableComplexProperty { get; set; }
 }

@@ -47,4 +47,13 @@ public static class BootstrapBlazorOptionsExtensions
     /// <param name="value">The default value</param>
     /// <param name="modified">Indicates whether the value has been modified</param>
     public static bool GetEditDialogShowConfirmSwal(this BootstrapBlazorOptions options, bool? value, bool modified) => (value ?? options.EditDialogSettings.ShowCloseConfirm ?? false) && modified;
+
+    /// <summary>
+    /// <para lang="zh">获得 Table EnableComplexProperty 值</para>
+    /// <para lang="en">Gets the Table EnableComplexProperty value</para>
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool GetEnableComplexProperty(this BootstrapBlazorOptions options, bool? value) => value ?? options.TableSettings.EnableComplexProperty ?? true;
 }

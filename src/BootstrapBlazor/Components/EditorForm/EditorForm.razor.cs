@@ -201,6 +201,13 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     public EditorFormGroupType GroupType { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否启用复杂属性值表达式 默认 true</para>
+    /// <para lang="en">Gets or sets whether to enable complex property value expression. Default is true</para>
+    /// </summary>
+    [Parameter]
+    public bool EnableComplexProperty { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值</para>
     /// <para lang="en">Gets or sets Cascading EditContext Instance. Available when inside EditForm or ValidateForm</para>
     /// </summary>
@@ -361,7 +368,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService), skipValidate: null, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression);
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService), skipValidate: null, EnableComplexProperty);
         }
     };
 

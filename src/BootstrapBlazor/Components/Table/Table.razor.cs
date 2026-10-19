@@ -62,6 +62,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool IsGroupExtendButtons { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否启用复杂属性值表达式 默认 null 未设置 优先使用 BootstrapBlazorOptions.TableSettings.EnableComplexProperty</para>
+    /// <para lang="en">Gets or sets whether to enable complex property value expression. Default is null (use BootstrapBlazorOptions.TableSettings.EnableComplexProperty if not set)</para>
+    /// </summary>
+    [Parameter]
+    public bool? EnableComplexProperty { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 内置虚拟化组件实例</para>
     /// <para lang="en">Gets or sets Internal Virtualize Component Instance</para>
     /// </summary>
@@ -1789,7 +1796,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             : col.Template(item);
 
         RenderFragment RenderEditTemplate() => col.EditTemplate == null
-            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: false, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression))
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: false, Options.CurrentValue.GetEnableComplexProperty(EnableComplexProperty)))
             : col.EditTemplate(item);
     }
 
@@ -1831,7 +1838,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true, enableComplexPropertyValueExpression: Options.CurrentValue.EnableComplexPropertyValueExpression);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true, Options.CurrentValue.GetEnableComplexProperty(EnableComplexProperty));
             };
         }
 
