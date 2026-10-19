@@ -1,5 +1,5 @@
-﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getTheme, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
-import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getTheme, registerBootstrapBlazorModule } from "../../../BootstrapBlazor/modules/utility.js"
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title, assetRoot) {
     const el = document.getElementById(id);

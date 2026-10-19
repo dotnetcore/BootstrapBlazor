@@ -21,8 +21,12 @@ class CodeSnippetService(
     ICacheManager cacheManager,
     IOptions<WebsiteOptions> options,
     IConfiguration configuration,
-    IOptions<JsonLocalizationOptions> localizerOptions)
+    IOptions<JsonLocalizationOptions> localizerOptions) : ISampleDocumentationService
 {
+    /// <inheritdoc />
+    public Task<List<AttributeItem>> GetAttributesAsync(Type componentType) =>
+        Task.FromResult(ComponentAttributeCacheService.GetAttributes(componentType));
+
     /// <summary>
     /// 获得示例源码方法
     /// </summary>
@@ -42,8 +46,9 @@ class CodeSnippetService(
                 content = await GetFileContentAsync(fileName);
 
                 // 源码修正
-                var type = typeName.Replace('\\', '.');
-                Utility.GetJsonStringByTypeName(localizerOptions.Value, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Server.Components.Samples.{type}").ToList()
+                var type = GetSampleType(typeName);
+                Utility.GetJsonStringByTypeName(localizerOptions.Value, type?.Assembly ?? typeof(CodeSnippetService).Assembly,
+                    type?.FullName ?? $"BootstrapBlazor.Server.Components.Samples.{typeName.Replace('\\', '.')}").ToList()
                     .ForEach(l => content = ReplacePayload(content, l));
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
@@ -88,9 +93,10 @@ class CodeSnippetService(
     private async Task<string> ReadFileAsync(string fileName)
     {
         string? payload;
+        var projectName = GetSampleType(fileName.Split('.')[0])?.Assembly.GetName().Name ?? "BootstrapBlazor.Server";
         var file = options.Value.IsDevelopment
-            ? $"{options.Value.ContentRootPath}\\..\\BootstrapBlazor.Server\\Components\\Samples\\{fileName}"
-            : $"{GetSourceCodePath()}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
+            ? $"{options.Value.ContentRootPath}\\..\\{projectName}\\Components\\Samples\\{fileName}"
+            : $"{GetSourceCodePath()}{projectName}\\Components\\Samples\\{fileName}";
         if (!OperatingSystem.IsWindows())
         {
             file = file.Replace('\\', '/');
@@ -107,6 +113,13 @@ class CodeSnippetService(
     }
 
     private string GetSourceCodePath() => $"{configuration.GetValue<string>("SourceCodePath") ?? options.Value.SourceCodePath}";
+
+    private static Type? GetSampleType(string typeName)
+    {
+        var name = typeName.Replace('\\', '.').Replace('/', '.');
+        return typeof(SamplePage).Assembly.GetType($"BootstrapBlazor.Shared.Components.Samples.{name}")
+            ?? typeof(CodeSnippetService).Assembly.GetType($"BootstrapBlazor.Server.Components.Samples.{name}");
+    }
 
     private static string ReplaceSymbols(string payload) => payload
         .Replace("@@", "@")

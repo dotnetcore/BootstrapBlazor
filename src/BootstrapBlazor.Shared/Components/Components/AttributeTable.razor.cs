@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// 组件参数表格组件
@@ -19,6 +19,10 @@ public sealed partial class AttributeTable
     [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ISampleDocumentationService? DocumentationService { get; set; }
 
     /// <summary>
     /// 获得/设置 表格标题
@@ -44,13 +48,13 @@ public sealed partial class AttributeTable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
         if (Type != null)
         {
-            _items = ComponentAttributeCacheService.GetAttributes(Type);
+            _items = await DocumentationService.GetAttributesAsync(Type);
 
             Title ??= FormatTypeName(Type);
         }

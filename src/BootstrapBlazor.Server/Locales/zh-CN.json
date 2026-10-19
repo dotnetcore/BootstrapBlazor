@@ -19,10 +19,6 @@
     "Title": "Methods 方法",
     "Type": "类型"
   },
-  "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "Obsolete": "已弃用",
-    "Total": "合计"
-  },
   "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
     "BarcodeGeneratorGroupBoxText": "条码设置"
   },
@@ -52,10 +48,6 @@
     "CustomPopConfirmContentButtonText": "审批",
     "CustomPopConfirmContentText": "自定义弹窗内容"
   },
-  "BootstrapBlazor.Server.Components.Components.DemoBlock": {
-    "Title": "未设置",
-    "TooltipText": "已拷贝到剪贴板"
-  },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "ButtonText": "更改标题",
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒"
@@ -66,20 +58,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
     "Tips": "<p class=\"code-label\">注意事项 ：</p><p>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</p><p class=\"code-label\">Nuget 包安装</p><p>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</p>"
-  },
-  "BootstrapBlazor.Server.Components.Components.Pre": {
-    "CopiedText": "复制代码成功",
-    "LoadingText": "正在加载 ...",
-    "MinusTooltipTitle": "点击减少显示行数",
-    "PlusTooltipTitle": "点击增加显示行数",
-    "TooltipTitle": "点击复制代码"
-  },
-  "BootstrapBlazor.Server.Components.Components.QQGroup": {
-    "Group": "QQ群",
-    "Welcome": "欢迎加群讨论"
-  },
-  "BootstrapBlazor.Server.Components.Components.Tips": {
-    "Title": "小提示"
   },
   "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "B1": "首先感谢您对本套组件的关注，目前本套组件已经拥有将近 200 个组件，本组件是基于",
@@ -92,16 +70,6 @@
     "P2": "更新日志",
     "P3": "传送门",
     "P4": "如果组件给您带来了方便，请您帮忙给项目点亮"
-  },
-  "BootstrapBlazor.Server.Components.Components.Video": {
-    "H1": "B 站相关视频链接",
-    "L1": "[传送门]",
-    "L2": "暂无"
-  },
-  "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "IconTheme": "图标主题",
-    "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
-    "Video": "相关视频"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "社区",
@@ -539,17 +507,6 @@
     "IconTitle": "展示类型",
     "SubTitle": "用图标、图片或者字符的形式展示用户或事物信息。",
     "Title": "Avatar 头像"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Badges": {
-    "BasicusageIntro": "提供各种颜色的徽章小挂件组件",
-    "BasicusageTitle": "基础用法",
-    "ButtonIntro": "按钮内部徽章",
-    "ButtonSpan": "主要按钮",
-    "ButtonTitle": "按钮内徽章",
-    "PillIntro": "通过属性 <code>IsPill='true'</code> 设置圆角的徽章挂件",
-    "PillTitle": "胶囊徽章",
-    "SubTitle": "出现在按钮、图标旁的数字或状态标记",
-    "Title": "Badge 徽章组件"
   },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "价税合计",
@@ -1629,41 +1586,6 @@
     "SubTitle": "显示静态文本数据",
     "Title": "Display 显示组件"
   },
-  "BootstrapBlazor.Server.Components.Samples.Dividers": {
-    "AlignmentContent1": "头上一片晴天，心中一个想念",
-    "AlignmentContent2": "骑士归来之时，断剑重铸之日",
-    "AlignmentContent3": "一只萌萌哒图标",
-    "AlignmentContent4": "学习使我快乐",
-    "AlignmentDivider1": "少年包青天",
-    "AlignmentDivider2": "英雄联盟",
-    "AlignmentDivider3": "学习语录",
-    "AlignmentIntro": "可以在分割线上自定义文案内容。",
-    "AlignmentTitle": "设置文案",
-    "ChildContent1": "头上一片晴天，心中一个想念",
-    "ChildContent2": "骑士归来之时，断剑重铸之日",
-    "ChildContentIntro": "通过设置 <code>ChildContent</code> 内容可以自定义任意内容",
-    "ChildContentTitle": "自定义内容",
-    "Description": "区隔内容的分割线。",
-    "DividerChildContent": "我是自定义内容 <code>div</code> 元素",
-    "IconBookmark": "书签",
-    "IconContent1": "头上一片晴天，心中一个想念",
-    "IconContent2": "骑士归来之时，断剑重铸之日",
-    "IconContent3": "一只萌萌哒图标",
-    "IconContent4": "学习使我快乐",
-    "IconIntro": "可以在分割线上自定义文案内容。",
-    "IconTitle": "设置图标",
-    "NormalContent1": "青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪",
-    "NormalContent2": "少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉",
-    "NormalIntro": "对不同章节的文本段落进行分割。",
-    "NormalTitle": "基础用法",
-    "Title": "Divider 分割线",
-    "VerticalContent1": "雨纷纷",
-    "VerticalContent2": "旧故里",
-    "VerticalContent3": "草木深",
-    "VerticalDivider": "分割线",
-    "VerticalIntro": "进行垂直显示分割线",
-    "VerticalTitle": "垂直分割"
-  },
   "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
     "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Column\"</code> 使 <code>DockView</code> 垂直布局",
     "DockViewColTitle": "DockView 列布局"
@@ -2019,19 +1941,6 @@
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址",
     "PdfReaderNormalText": "基础用法",
     "PdfTitle": "EmbedPDF PDF 文档阅读器"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Empties": {
-    "ImageIntro": "设置 <code>Image</code> 属性即可",
-    "ImageText": "暂无数据",
-    "ImageTitle": "设置空状态图片路径",
-    "NormalIntro": "添加 <code>Empty</code> 标签即可",
-    "NormalTitle": "基础用法",
-    "SubTitle": "空状态时的展示占位图",
-    "TemplateIButtonText": "返回上一页",
-    "TemplateIntro": "内套 <code>Template</code> 标签渲染自定义组件",
-    "TemplateText": "自定义空状态模板",
-    "TemplateTitle": "自定义空状态模板",
-    "Title": "Empty 空状态"
   },
   "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
     "ExportPdfButtonsDescription": "将 <code>Html</code> 片段或者网页元素导出为 <code>Pdf</code>",
@@ -3494,26 +3403,6 @@
     "PrintsTips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
     "PrintsTitle": "Print 打印按钮"
   },
-  "BootstrapBlazor.Server.Components.Samples.Progress": {
-    "ProgressBindingIntro": "绑定数据",
-    "ProgressBindingTitle": "双向绑定数据",
-    "ProgressColorIntro": "设置进度条颜色",
-    "ProgressColorTitle": "带颜色进度条",
-    "ProgressDecimalsIntro": "通过设置 <code>Round</code> 参数调整保留小数点位数，默认为 <code>0</code>，通过设置 <code>MidpointRounding</code> 参数调整四舍五入模式，默认为 <code>MidpointRounding.AwayFromZero</code> 四舍五入",
-    "ProgressDecimalsTitle": "小数",
-    "ProgressDescription": "用于展示操作进度，告知用户当前状态和预期",
-    "ProgressDisplayValueIntro": "通过 <code>IsShowValue</code> 设置进度条值显示",
-    "ProgressDisplayValueTitle": "显示值",
-    "ProgressDynamicIntro": "通过 <code>IsAnimated</code> 设置进度条的动态显示",
-    "ProgressDynamicTitle": "是否动态显示",
-    "ProgressHeightIntro": "通过 <code>Height</code> 进度条高度设置",
-    "ProgressHeightTitle": "设置进度条高度",
-    "ProgressNormalIntro": "常用的进度条",
-    "ProgressNormalTitle": "进度条组件",
-    "ProgressStripeIntro": "通过 <code>IsStriped</code> 设置进度条的条纹设置",
-    "ProgressStripeTitle": "是否显示条纹",
-    "ProgressTitle": "Progress 进度条"
-  },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Intro": "基础的按钮用法。",
     "Block1Title": "基础用法",
@@ -4142,29 +4031,6 @@
     "WebSpeechText": "开始朗读一段文字",
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API"
   },
-  "BootstrapBlazor.Server.Components.Samples.Spinners": {
-    "SpinnersColorIntro": "提供基本颜色的旋转图标",
-    "SpinnersColorTitle": "Spinner 带有颜色的旋转图标",
-    "SpinnersCustomIntro": "带有文字的自定义布局",
-    "SpinnersCustomLoading": "Loading...",
-    "SpinnersCustomTitle": "自定义标题",
-    "SpinnersDescription": "加载数据时显示动效",
-    "SpinnersFlexIntro": "自定义布局",
-    "SpinnersFlexTitle": "Flex 布局",
-    "SpinnersFloatIntro": "使用 Float 布局",
-    "SpinnersFloatTitle": "悬浮",
-    "SpinnersGrowingColorIntro": "提供基本颜色的旋转图标",
-    "SpinnersGrowingColorTitle": "Growing Spinner 带有颜色的旋转图标",
-    "SpinnersGrowingIntro": "生长式旋转图标",
-    "SpinnersGrowingTitle": "Growing Spinner 旋转图标",
-    "SpinnersNormalIntro": "默认旋转图标",
-    "SpinnersNormalTitle": "基础用法",
-    "SpinnersSizeIntro": "图标样式大小",
-    "SpinnersSizeTitle": "Spinner 旋转图标大小",
-    "SpinnersTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
-    "SpinnersTipsTitle": "何时使用",
-    "SpinnersTitle": "Spinner 旋转图标"
-  },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsBarHandleHide": "隐藏拖动栏",
     "SplitsBarHandleShow": "显示拖动栏",
@@ -4211,27 +4077,6 @@
     "SplittingTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
     "SplittingTipsTitle": "何时使用",
     "SplittingTitle": "Loader 加载动画"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Stacks": {
-    "AlignItems": "垂直对齐方式",
-    "AlignSelf": "子项对齐方式",
-    "AttrAlignItems": "垂直布局模式",
-    "AttrChildContent": "内容模板",
-    "AttrIsReverse": "是否反向布局",
-    "AttrIsRow": "是否为行布局",
-    "AttrIsWrap": "是否允许折行",
-    "AttrJustify": "水平布局调整",
-    "BasicIntro": "可用于在水平或垂直堆栈中排列其子组件",
-    "BasicTitle": "普通用法",
-    "ColumnMode": "列布局",
-    "IsReverse": "是否反转",
-    "IsWrap": "是否折行",
-    "Justify": "水平对齐方式",
-    "Mode": "布局类型",
-    "RowMode": "行布局",
-    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
-    "StackItemGrowShrinkLi": "<li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li><li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>",
-    "Title": "Stack 布局"
   },
   "BootstrapBlazor.Server.Components.Samples.Steps": {
     "Step1Text": "第一步",
@@ -5903,13 +5748,6 @@
     "ZipArchiveInjectText": "注入服务",
     "ZipArchivesSubTitle": "组件内置服务，可将文件或者文件夹压缩为指定名称的归档文件",
     "ZipArchivesTitle": "IZipArchive 压缩归档服务"
-  },
-  "BootstrapBlazor.Server.Data.AttributeItem": {
-    "DefaultValue": "默认值",
-    "Description": "说明",
-    "Name": "参数",
-    "Type": "类型",
-    "ValueList": "可选值"
   },
   "BootstrapBlazor.Server.Data.CustomValidataModel": {
     "CanNotBeTheSame": "联系电话1 和 联系电话2 不能相同",

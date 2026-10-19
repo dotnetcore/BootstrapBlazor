@@ -64,7 +64,7 @@ public static class ComponentAttributeCacheService
                 Name = property.Name,
                 Type = GetFriendlyTypeName(property.PropertyType),
                 Description = descriptionParts == null ? "" : string.Concat(descriptionParts.Select(part => part.Text)),
-                DescriptionParts = descriptionParts,
+                DescriptionParts = descriptionParts?.Select(part => new AttributeDescriptionPart(part.Text, part.Target)).ToList(),
                 Version = GetVersion(xmlDoc, property),
                 IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
             };

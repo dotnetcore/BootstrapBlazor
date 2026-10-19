@@ -5,7 +5,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// Pre 组件
@@ -27,7 +27,7 @@ public partial class Pre
 
     [Inject]
     [NotNull]
-    private CodeSnippetService? CodeSnippetService { get; set; }
+    private ISampleDocumentationService? CodeSnippetService { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件 CodeFile 为空时生效

@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Shared.Data;
+using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using System.Globalization;
@@ -14,6 +15,8 @@ using var client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironmen
 var settings = await client.GetFromJsonAsync<LayoutSettings>("api/layout-settings")
     ?? throw new InvalidOperationException("Layout settings are unavailable.");
 builder.Services.AddBootstrapBlazorLayoutServices();
+builder.Services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>(options =>
+    options.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 builder.Services.Configure<BootstrapBlazor.Components.BootstrapBlazorOptions>(options =>
 {
     options.SupportedCultures = settings.SupportedCultures;

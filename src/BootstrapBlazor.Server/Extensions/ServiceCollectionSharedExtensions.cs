@@ -21,6 +21,7 @@ public static class ServiceCollectionSharedExtensions
     {
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<CodeSnippetService>();
+        services.AddSingleton<ISampleDocumentationService>(provider => provider.GetRequiredService<CodeSnippetService>());
         services.AddSingleton<DashboardService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton<ILookupService, DemoLookupService>();

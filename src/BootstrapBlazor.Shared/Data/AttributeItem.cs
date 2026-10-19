@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Data;
+namespace BootstrapBlazor.Shared.Data;
 
 /// <summary>
 /// 属性说明类
@@ -23,7 +23,7 @@ public class AttributeItem
     /// <summary>
     /// 获得/设置 说明文本片段及其关联属性
     /// </summary>
-    public List<(string Text, string? Target)>? DescriptionParts { get; set; }
+    public List<AttributeDescriptionPart>? DescriptionParts { get; set; }
 
     /// <summary>
     /// 获得/设置 类型

@@ -15,14 +15,14 @@ else
                 </a>
                 <span class="sidebar-text">Bootstrap Blazor</span>
             </div>
-            <MenuOutlet @rendermode="new InteractiveAutoRenderMode(false)" />
+            <MenuOutlet @rendermode="new InteractiveAutoRenderMode()" />
         </aside>
 
         <section class="main">
-            <Wwads @rendermode="new InteractiveAutoRenderMode(false)" />
+            <Wwads @rendermode="new InteractiveAutoRenderMode()" />
             @Body
         </section>
 
-        <LayoutTools @rendermode="new InteractiveAutoRenderMode(false)" />
+        <LayoutTools @rendermode="new InteractiveAutoRenderMode()" />
     </section>
 }

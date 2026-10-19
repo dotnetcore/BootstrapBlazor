@@ -19,10 +19,6 @@
     "Title": "Methods",
     "Type": "Type"
   },
-  "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "Obsolete": "Obsolete",
-    "Total": "Total"
-  },
   "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
     "BarcodeGeneratorGroupBoxText": "Settings"
   },
@@ -52,10 +48,6 @@
     "CustomPopConfirmContentButtonText": "Approval",
     "CustomPopConfirmContentText": "Custom content"
   },
-  "BootstrapBlazor.Server.Components.Components.DemoBlock": {
-    "Title": "Not set",
-    "TooltipText": "Copied"
-  },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "ButtonText": "SetTitle",
     "Info": "Reset the title of this <code>TabItem</code> by click the button"
@@ -66,20 +58,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
     "Tips": "<p class=\"code-label\">Precautions</p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p class=\"code-label\">Nuget Install</p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
-  },
-  "BootstrapBlazor.Server.Components.Components.Pre": {
-    "CopiedText": "Copied",
-    "LoadingText": "Loading ...",
-    "MinusTooltipTitle": "Minus lines",
-    "PlusTooltipTitle": "Plus lines",
-    "TooltipTitle": "Copy"
-  },
-  "BootstrapBlazor.Server.Components.Components.QQGroup": {
-    "Group": "QQ Group",
-    "Welcome": "Welcome to join the group discussion"
-  },
-  "BootstrapBlazor.Server.Components.Components.Tips": {
-    "Title": "Tips"
   },
   "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "B1": "Bootstrap Blazor at present has nearly 200 components. This component is based on",
@@ -92,16 +70,6 @@
     "P2": "Change log",
     "P3": "portal",
     "P4": "If the component brings you convenience, please help to light up the project"
-  },
-  "BootstrapBlazor.Server.Components.Components.Video": {
-    "H1": "B station related video link",
-    "L1": "[portal]",
-    "L2": "No"
-  },
-  "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "IconTheme": "Icon",
-    "Title": "Enterprise-level component library based on Bootstrap and Blazor",
-    "Video": "Video"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "Community",
@@ -539,17 +507,6 @@
     "IconTitle": "The type of presentation",
     "SubTitle": "Present user or thing information as icons, pictures, or characters.",
     "Title": "Avatar"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Badges": {
-    "BasicusageIntro": "Small badge assembly in a variety of colors is available",
-    "BasicusageTitle": "Basic usage",
-    "ButtonIntro": "Button internal badge",
-    "ButtonSpan": "The primary button",
-    "ButtonTitle": "The badge inside the button",
-    "PillIntro": "Set the badge pendant with the  of the property <code>IsPill='true'</code> to set the fillet",
-    "PillTitle": "Capsule badge",
-    "SubTitle": "A number or status tag that appears next to a button, icon, or icon",
-    "Title": "Badge"
   },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "Amount incl. tax",
@@ -1629,41 +1586,6 @@
     "SubTitle": "Displays static text data",
     "Title": "Display"
   },
-  "BootstrapBlazor.Server.Components.Samples.Dividers": {
-    "AlignmentContent1": "Just a Content Test 1",
-    "AlignmentContent2": "Just a Content Test 2",
-    "AlignmentContent3": "A cute icon",
-    "AlignmentContent4": "Learning makes me happy",
-    "AlignmentDivider1": "Young Bao Qingtian",
-    "AlignmentDivider2": "League of Legends",
-    "AlignmentDivider3": "Learning Quotations",
-    "AlignmentIntro": "You can customize the content of the copy on the dividing line.",
-    "AlignmentTitle": "Set copy",
-    "ChildContent1": "A sunny day above my head, I missed one in my heart",
-    "ChildContent2": "When the knight returns, the day the broken sword is reforged",
-    "ChildContentIntro": "Any content can be customized by setting the content of <code>ChildContent</code>",
-    "ChildContentTitle": "Custom content",
-    "Description": "The dividing line that separates the content.",
-    "DividerChildContent": "I am a custom content <code>div</code> element",
-    "IconBookmark": "Bookmarks",
-    "IconContent1": "A sunny day above my head, I missed one in my heart",
-    "IconContent2": "When the knight returns, the day the broken sword is reforged",
-    "IconContent3": "A cute icon",
-    "IconContent4": "Learning makes me happy",
-    "IconIntro": "You can customize the content of the copy on the dividing line.",
-    "IconTitle": "Settings icon",
-    "NormalContent1": "Youth is a short dream, when you wake up, it has long since disappeared.",
-    "NormalContent2": "A small amount of evil is enough to cancel out all the noble qualities, causing people to be infamous.",
-    "NormalIntro": "Split text paragraphs in different chapters.",
-    "NormalTitle": "Basic usage",
-    "Title": "Dividing line",
-    "VerticalContent1": "Rain",
-    "VerticalContent2": "Old hometown",
-    "VerticalContent3": "Deep vegetation",
-    "VerticalDivider": "Dividing line",
-    "VerticalIntro": "Display dividing line vertically",
-    "VerticalTitle": "Vertical split"
-  },
   "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
     "DockViewColIntro": "Make the <code>DockView</code> vertical by setting <code>Type=\"DockContentType.Column\"</code>",
     "DockViewColTitle": "DockView - Column"
@@ -2019,19 +1941,6 @@
     "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter.",
     "PdfReaderNormalText": "Basic usage",
     "PdfTitle": "EmbedPDF PDF"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Empties": {
-    "ImageIntro": "Just set the <code>Image</code> property",
-    "ImageText": "No data at this time",
-    "ImageTitle": "Set the path to the empty state picture",
-    "NormalIntro": "Just add <code>Empty</code> tag",
-    "NormalTitle": "Basic usage",
-    "SubTitle": "Sub Title PlaceHolder",
-    "TemplateIButtonText": "Go back to the previous page",
-    "TemplateIntro": "The inner set renders custom components <code>Template</code> labels",
-    "TemplateText": "Customize the empty state template",
-    "TemplateTitle": "Customize the empty state template",
-    "Title": "Empty"
   },
   "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
     "ExportPdfButtonsDescription": "Export <code>HTML</code> fragments or web page elements as <code>Pdf</code>",
@@ -3494,26 +3403,6 @@
     "PrintsTips2": "If you are printing a button in the <code>Dialog</code> component when you do not set the <code>PreviewUrl</code>, the pop-up contents are printed",
     "PrintsTitle": "Print"
   },
-  "BootstrapBlazor.Server.Components.Samples.Progress": {
-    "ProgressBindingIntro": "Bind data",
-    "ProgressBindingTitle": "Two-way binding data",
-    "ProgressColorIntro": "Set the progress bar color",
-    "ProgressColorTitle": "Progress bar with color",
-    "ProgressDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding",
-    "ProgressDecimalsTitle": "Decimals",
-    "ProgressDescription": "Used to display the progress of the operation, inform the user of the current status and expectations",
-    "ProgressDisplayValueIntro": "Set the progress bar value display through <code>IsShowValue</code>",
-    "ProgressDisplayValueTitle": "Display value",
-    "ProgressDynamicIntro": "Set the dynamic display of the progress bar through <code>IsAnimated</code>",
-    "ProgressDynamicTitle": "Whether to display dynamically",
-    "ProgressHeightIntro": "Set the progress bar height via <code>Height</code>",
-    "ProgressHeightTitle": "Set the progress bar height",
-    "ProgressNormalIntro": "Common progress bar",
-    "ProgressNormalTitle": "Progress bar component",
-    "ProgressStripeIntro": "Set the stripe setting of the progress bar via <code>IsStriped</code>",
-    "ProgressStripeTitle": "Whether to show stripes",
-    "ProgressTitle": "Progress progress bar"
-  },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Intro": "The underlying button usage.",
     "Block1Title": "Basic usage",
@@ -4142,29 +4031,6 @@
     "WebSpeechText": "Welcome blazor",
     "WebSpeechTitle": "Web Speech Api"
   },
-  "BootstrapBlazor.Server.Components.Samples.Spinners": {
-    "SpinnersColorIntro": "Provides a spin icon in base color",
-    "SpinnersColorTitle": "Spinner Spinner icon with color",
-    "SpinnersCustomIntro": "Custom layout with text",
-    "SpinnersCustomLoading": "Loading...",
-    "SpinnersCustomTitle": "Custom Title",
-    "SpinnersDescription": "Show animation when loading data",
-    "SpinnersFlexIntro": "Custom layout",
-    "SpinnersFlexTitle": "Spinner Flex",
-    "SpinnersFloatIntro": "Use Float layout",
-    "SpinnersFloatTitle": "Spinner Floats",
-    "SpinnersGrowingColorIntro": "Provides a spin icon in base color",
-    "SpinnersGrowingColorTitle": "Growing Spinner Spinning icon with color",
-    "SpinnersGrowingIntro": "Growing Rotation Icon",
-    "SpinnersGrowingTitle": "Growing Spinner spin icon",
-    "SpinnersNormalIntro": "Default rotate icon",
-    "SpinnersNormalTitle": "Basic usage",
-    "SpinnersSizeIntro": "Icon style size",
-    "SpinnersSizeTitle": "Spinner spin icon size",
-    "SpinnersTips": "When the page is partially waiting for asynchronous data or is being rendered, appropriate loading animations can effectively relieve the user's anxiety.",
-    "SpinnersTipsTitle": "when to use",
-    "SpinnersTitle": "Spinner icon"
-  },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsBarHandleHide": "Bar handle hidden",
     "SplitsBarHandleShow": "Bar handle shown",
@@ -4211,27 +4077,6 @@
     "SplittingTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
     "SplittingTipsTitle": "When to use",
     "SplittingTitle": "Loader"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Stacks": {
-    "AlignItems": "align-items",
-    "AlignSelf": "align-self",
-    "AttrAlignItems": "Change the alignment of flex items on the cross axis",
-    "AttrChildContent": "Child content render fragment",
-    "AttrIsReverse": "Start the horizontal or vertical direction from the opposite side.",
-    "AttrIsRow": "Flex direction",
-    "AttrIsWrap": "Change how flex items wrap in a flex container",
-    "AttrJustify": "Change the alignment of flex items on the main axis",
-    "BasicIntro": "Lets you arrange its subcomponents in a horizontal or vertical stack",
-    "BasicTitle": "Basic",
-    "ColumnMode": "Column",
-    "IsReverse": "reverse",
-    "IsWrap": "wrap",
-    "Justify": "justify-content",
-    "Mode": "mode",
-    "RowMode": "Row",
-    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
-    "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
-    "Title": "Stack Layout"
   },
   "BootstrapBlazor.Server.Components.Samples.Steps": {
     "Step1Text": "First",
@@ -5903,13 +5748,6 @@
     "ZipArchiveInjectText": "Inject service",
     "ZipArchivesSubTitle": "Component built-in service that can compress files or folders into archive files with specified names",
     "ZipArchivesTitle": "IZipArchive"
-  },
-  "BootstrapBlazor.Server.Data.AttributeItem": {
-    "DefaultValue": "DefaultValue",
-    "Description": "Description",
-    "Name": "Name",
-    "Type": "Type",
-    "ValueList": "ValueList"
   },
   "BootstrapBlazor.Server.Data.CustomValidataModel": {
     "CanNotBeTheSame": "Telephone 1 and Telephone 2 can not be the same",
