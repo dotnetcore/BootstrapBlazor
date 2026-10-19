@@ -26,8 +26,10 @@ public partial class MenuTest
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
         _serviceProvider.GetRequiredService<ICacheManager>();
-        _routerTable = assembly.GetExportedTypes()
-            .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.IsComponentLayout() && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
+        _routerTable = new[] { assembly, typeof(ComponentLayout).Assembly }
+            .SelectMany(a => a.GetExportedTypes())
+            .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.IsComponentLayout()
+                && (t.Namespace?.Contains(".Components.Samples", StringComparison.Ordinal) ?? false));
     }
 
     [Fact]
@@ -68,31 +70,33 @@ public partial class MenuTest
         var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
 
-        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server.Components/Samples/");
         foreach (var router in _routerTable)
         {
-            var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.Samples.", "").Replace(".", "/");
+            var projectName = router.Assembly.GetName().Name!;
+            var typeName = router.FullName?.Replace($"{projectName}.Components.Samples.", "")
+                .Replace('.', Path.DirectorySeparatorChar);
             if (!string.IsNullOrEmpty(typeName))
             {
+                var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src", projectName, "Components", "Samples");
                 var file = Path.Combine(rootPath, typeName);
 
                 // razor file
                 var razorFile = $"{file}.razor";
-                ReplaceContent(razorFile, typeName, RazorRegex());
+                ReplaceContent(razorFile, router, RazorRegex());
 
                 var srcFile = $"{file}.razor.cs";
-                ReplaceContent(srcFile, typeName, SourceCodeRegex());
+                ReplaceContent(srcFile, router, SourceCodeRegex());
             }
         }
         Assert.Empty(result);
 
-        void ReplaceContent(string fileName, string typeName, Regex regex)
+        void ReplaceContent(string fileName, Type componentType, Regex regex)
         {
             if (File.Exists(fileName))
             {
-                var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Server.Components.Samples.{type}", cultureName).ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, componentType.Assembly, componentType.FullName!, cultureName)
+                    .ToList().ForEach(l => content = ReplacePayload(content, l));
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 

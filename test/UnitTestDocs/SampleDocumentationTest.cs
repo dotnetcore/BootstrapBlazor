@@ -1,0 +1,103 @@
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+using BootstrapBlazor.Controllers.Api;
+using BootstrapBlazor.Shared.Data;
+using BootstrapBlazor.Shared.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Net;
+using System.Net.Http.Json;
+
+namespace UnitTestDocs;
+
+public class SampleDocumentationTest
+{
+    [Theory]
+    [InlineData("../badge.razor")]
+    [InlineData("badge.razor/../../Program.cs")]
+    [InlineData("badge.json")]
+    [InlineData("missing.razor")]
+    public async Task Code_RejectsUnconfiguredFiles(string codeFile)
+    {
+        var service = new DocumentationService();
+        var controller = new SampleDocumentationController(service, Options.Create(new WebsiteOptions()));
+
+        Assert.IsType<NotFoundResult>(await controller.Code(codeFile));
+        Assert.Null(service.CodeFile);
+    }
+
+    [Theory]
+    [InlineData("badge.razor")]
+    [InlineData("badge.razor.cs")]
+    public async Task Code_ReturnsConfiguredSample(string codeFile)
+    {
+        var service = new DocumentationService();
+        var controller = new SampleDocumentationController(service, Options.Create(new WebsiteOptions()));
+
+        var result = Assert.IsType<ContentResult>(await controller.Code(codeFile));
+
+        Assert.Equal(codeFile, service.CodeFile);
+        Assert.Equal("sample source", result.Content);
+    }
+
+    [Theory]
+    [InlineData("System.String")]
+    [InlineData("BootstrapBlazor.Components.Color")]
+    [InlineData("BootstrapBlazor.Server.Components.Samples.Tabs")]
+    public async Task Attributes_RejectsNonLibraryComponents(string typeName)
+    {
+        var controller = new SampleDocumentationController(new DocumentationService(), Options.Create(new WebsiteOptions()));
+
+        Assert.IsType<NotFoundResult>(await controller.Attributes(typeName));
+    }
+
+    [Fact]
+    public async Task Attributes_PreservesDescriptionLinksOverHttp()
+    {
+        using var handler = new DocumentationHandler(request =>
+        {
+            Assert.Contains("typeName=BootstrapBlazor.Components.Badge", request.RequestUri!.Query);
+            Assert.Contains("culture=", request.RequestUri.Query);
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = JsonContent.Create(new[]
+                {
+                    new AttributeItem
+                    {
+                        Name = "Color",
+                        DescriptionParts = [new AttributeDescriptionPart("IsPill", "IsPill")]
+                    }
+                })
+            };
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://example.test/") };
+        var service = new HttpSampleDocumentationService(client);
+
+        var items = await service.GetAttributesAsync(typeof(Badge));
+
+        var item = Assert.Single(items);
+        Assert.Equal(new AttributeDescriptionPart("IsPill", "IsPill"), Assert.Single(item.DescriptionParts!));
+    }
+
+    private sealed class DocumentationService : ISampleDocumentationService
+    {
+        public string? CodeFile { get; private set; }
+
+        public Task<string> GetCodeAsync(string codeFile)
+        {
+            CodeFile = codeFile;
+            return Task.FromResult("sample source");
+        }
+
+        public Task<List<AttributeItem>> GetAttributesAsync(Type componentType) => Task.FromResult(new List<AttributeItem>());
+    }
+
+    private sealed class DocumentationHandler(Func<HttpRequestMessage, HttpResponseMessage> send) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+            Task.FromResult(send(request));
+    }
+}
