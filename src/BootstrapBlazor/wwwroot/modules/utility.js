@@ -891,12 +891,17 @@ export function setMemorialMode(memorial) {
     }
     else {
         const theme = el.getAttribute('data-bs-original-theme');
+        el.removeAttribute('data-bs-original-theme');
         el.removeAttribute('data-bs-theme');
         el.removeAttribute('data-bb-theme');
         if (theme) {
             el.setAttribute('data-bs-theme', theme);
         }
     }
+}
+
+export function toggleMemorialMode() {
+    setMemorialMode(document.documentElement.getAttribute('data-bb-theme') !== 'memorial');
 }
 
 export function drawImage(canvas, image, offsetWidth, offsetHeight) {
