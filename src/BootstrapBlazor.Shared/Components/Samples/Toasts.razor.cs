@@ -1,11 +1,11 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Toasts
@@ -28,8 +28,7 @@ public sealed partial class Toasts
     [NotNull]
     private BootstrapBlazorRoot? Root { get; set; }
 
-    [NotNull]
-    private ToastContainer? ToastContainer { get; set; }
+    private ToastContainer ToastContainer => Root.ToastContainer;
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
@@ -52,8 +51,6 @@ public sealed partial class Toasts
         Options2 = new ToastOption { Category = ToastCategory.Error, Title = "Save data", IsAutoHide = false, Content = $"Save data successfully, automatically close after {DelayTs} seconds" };
         Options3 = new ToastOption { Category = ToastCategory.Information, Title = "Prompt information", IsAutoHide = false, Content = $"Information prompt pop-up window, automatically closes after {DelayTs} seconds" };
         Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = $"Information prompt pop-up window, automatically closes after {DelayTs} seconds" };
-
-        ToastContainer = Root.ToastContainer;
     }
 
     private async Task OnPreventClick()

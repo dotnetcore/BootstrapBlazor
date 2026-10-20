@@ -31,13 +31,16 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
     }
 
     /// <summary>
-    /// Gets localized parameter documentation for a library component.
+    /// Gets localized parameter documentation for a library component or supported sample options.
     /// </summary>
     [HttpGet("api/sample-documentation/attributes")]
     public async Task<IActionResult> Attributes(string typeName)
     {
         var type = typeof(BootstrapBlazorRoot).Assembly.GetType(typeName);
-        if (type == null || !type.IsPublic || !typeof(IComponent).IsAssignableFrom(type))
+        if (type == null || !type.IsPublic
+            || (!typeof(IComponent).IsAssignableFrom(type)
+                && type != typeof(CountUpOption)
+                && type != typeof(NotificationItem)))
         {
             return NotFound();
         }

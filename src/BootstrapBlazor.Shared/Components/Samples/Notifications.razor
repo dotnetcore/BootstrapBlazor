@@ -17,15 +17,15 @@
 
 private async Task Dispatch()
 {
-    Interop ??= new JSInterop&lt;Notifications&gt;(JSRuntime);
-    await BrowserNotification.Dispatch(Interop, this, Model, nameof(ShowNotificationCallback));
+    Model.OnClick = OnClickNotificationCallback;
+    await BrowserNotification.Dispatch(Model);
 }
 
-[JSInvokable]
-public void ShowNotificationCallback(bool result)
+private Task OnClickNotificationCallback()
 {
     // callback
     StateHasChanged();
+    return Task.CompletedTask;
 }</Pre>
     </div>
     <div class="form-inline row g-3">

@@ -3,14 +3,14 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// CountUps
 /// </summary>
 public partial class CountUps
 {
-    private static readonly CountUpOption _option = new() { DecimalPlaces = 2 };
+    private readonly CountUpOption _option = new() { DecimalPlaces = 2 };
 
     private double Value2 { get; set; }
 

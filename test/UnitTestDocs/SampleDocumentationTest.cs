@@ -46,12 +46,25 @@ public class SampleDocumentationTest
     [Theory]
     [InlineData("System.String")]
     [InlineData("BootstrapBlazor.Components.Color")]
+    [InlineData("BootstrapBlazor.Components.ClientInfo")]
     [InlineData("BootstrapBlazor.Server.Components.Samples.Tabs")]
     public async Task Attributes_RejectsNonLibraryComponents(string typeName)
     {
         var controller = new SampleDocumentationController(new DocumentationService(), Options.Create(new WebsiteOptions()));
 
         Assert.IsType<NotFoundResult>(await controller.Attributes(typeName));
+    }
+
+    [Theory]
+    [InlineData(typeof(CountUpOption))]
+    [InlineData(typeof(NotificationItem))]
+    public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
+    {
+        var service = new DocumentationService();
+        var controller = new SampleDocumentationController(service, Options.Create(new WebsiteOptions()));
+
+        Assert.IsType<OkObjectResult>(await controller.Attributes(type.FullName!));
+        Assert.Equal(type, service.AttributeType);
     }
 
     [Fact]
@@ -86,13 +99,19 @@ public class SampleDocumentationTest
     {
         public string? CodeFile { get; private set; }
 
+        public Type? AttributeType { get; private set; }
+
         public Task<string> GetCodeAsync(string codeFile)
         {
             CodeFile = codeFile;
             return Task.FromResult("sample source");
         }
 
-        public Task<List<AttributeItem>> GetAttributesAsync(Type componentType) => Task.FromResult(new List<AttributeItem>());
+        public Task<List<AttributeItem>> GetAttributesAsync(Type componentType)
+        {
+            AttributeType = componentType;
+            return Task.FromResult(new List<AttributeItem>());
+        }
     }
 
     private sealed class DocumentationHandler(Func<HttpRequestMessage, HttpResponseMessage> send) : HttpMessageHandler

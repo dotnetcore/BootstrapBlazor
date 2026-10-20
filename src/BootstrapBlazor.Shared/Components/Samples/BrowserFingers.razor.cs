@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 浏览器指纹服务示例
@@ -20,13 +20,18 @@ public partial class BrowserFingers
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        await base.OnAfterRenderAsync(firstRender);
 
-        _code = await GetFingerCodeAsync();
-        _clientHubId = await GetClientHubIdAsync();
+        if (firstRender)
+        {
+            _code = await GetFingerCodeAsync();
+            _clientHubId = await GetClientHubIdAsync();
+            StateHasChanged();
+        }
     }
 
     private Task<string?> GetFingerCodeAsync() => BrowserFingerService.GetFingerCodeAsync();
