@@ -5,7 +5,7 @@
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 

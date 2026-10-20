@@ -441,6 +441,12 @@
     "SubTitle": "用于跳转到页面指定位置",
     "Title": "Anchor 锚点"
   },
+  "BootstrapBlazor.Shared.Components.Samples.AutoRedirects": {
+    "Description": "通过设置的地址，当页面无鼠标或者键盘动作时自动跳转到指定页面",
+    "NormalIntro": "通过设置 <code>Interval</code> 间隔，当无鼠标或者键盘动作时自动跳转到 <code>RedirectUrl</code> 设置的地址",
+    "NormalTitle": "普通用法",
+    "Title": "AutoRedirect 自动跳转组件"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Avatars": {
     "BasicUsageDivider": "分割线",
     "BasicUsageIntro": "通过 <code>IsCircle</code> 和 <code>Size</code> 设置头像的形状和大小。",
@@ -531,6 +537,15 @@
     "TooltipText": "按钮",
     "TooltipTitle": "按钮提示栏",
     "WarningButton": "警告按钮"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Captchas": {
+    "BasicUsageIntro": "进行简单的人机识别",
+    "BasicUsageTitle": "基础功能",
+    "ImageCallbackIntro": "通过 <code>GetImageName</code> 设置自定义方法拼接随机图片全路径名称",
+    "ImageCallbackTitle": "指定图床委托方法",
+    "ImageTitle": "指定图床路径与名称",
+    "SubTitle": "通过拖动滑块进行人机识别",
+    "Title": "Captchas 滑块验证码"
   },
   "BootstrapBlazor.Shared.Components.Samples.Carousels": {
     "BasicUsageIntro": "适用广泛的基础用法，通过设置 <code>Items</code> 属性值对组件进行图片的绑定，值为图片路径数组",
@@ -677,6 +692,31 @@
     "VerticalIntro": "进行垂直显示分割线",
     "VerticalTitle": "垂直分割"
   },
+  "BootstrapBlazor.Shared.Components.Samples.DragDrops": {
+    "AcceptsIntro": "使用<code>Accepts</code>只允许左侧拖入10并且使用<code>AllowsDrag</code>限制2不能被拖动，使用<code>MaxItems</code>限制右侧最多拥有6个节点",
+    "AcceptsTitle": "限制拖入的内容",
+    "CopyItemIntro": "使用<code>CopyItem</code>复制一份新的到新位置",
+    "CopyItemTitle": "复制到新容器",
+    "Description": "用于拖拽使用",
+    "EventIntro": "当拖入数量超限时<code>OnItemDropRejectedByMaxItemLimit</code>，当拖拽被禁止时<code>OnItemDropRejected</code>，返回底下的Item<code>OnReplacedItemDrop</code>,返回放下的Item<code>OnItemDrop</code>",
+    "EventTitle": "各种事件",
+    "NormalIntro": "简单拖拽",
+    "NormalTitle": "基本用法",
+    "Title": "DragDrop 拖拽"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.DropdownWidgets": {
+    "AttributeTitle": "DropdownWidgetItem 组件",
+    "BasicUsageIntro": "直接在页面上通过 <code>ChildContent</code> 编写挂件内容",
+    "BasicUsageMessage": "您有 4 个未读消息",
+    "BasicUsageNotify": "您有 10 个未读通知",
+    "BasicUsageTasks": "您有 3 个任务",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageViewMessage": "查看所有消息",
+    "BasicUsageViewNotify": "查看所有通知",
+    "BasicUsageViewTasks": "查看所有任务",
+    "SubTitle": "多用于头部信息汇总展示",
+    "Title": "DropdownWidget 下拉挂件"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Empties": {
     "ImageIntro": "设置 <code>Image</code> 属性即可",
     "ImageText": "暂无数据",
@@ -689,6 +729,31 @@
     "TemplateText": "自定义空状态模板",
     "TemplateTitle": "自定义空状态模板",
     "Title": "Empty 空状态"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.EyeDroppers": {
+    "EyeDropperDescription": "用户可以从屏幕上采样颜色，包括在浏览器窗口之外",
+    "EyeDropperNormalButtonText": "取色",
+    "EyeDropperNormalIntro": "使用 <code>EyeDropperService</code>，可以启动吸管模式。启动后，光标会发生变化以向用户指示该模式处于活动状态。然后用户可以从屏幕上的任何位置选择一种颜色，通过按 <kbd>Escape</kbd> 关闭吸管模式",
+    "EyeDropperNormalTitle": "基础用法",
+    "EyeDropperTips1": "这是一项实验性技术，在生产中使用之前请仔细检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
+    "EyeDropperTips2": "为防止恶意网站在用户不知情的情况下从用户屏幕获取像素数据，必须由用户操作（如单击按钮）时调用",
+    "EyeDropperTips3": "为了帮助用户更容易注意到吸管模式，浏览器将其设置为显而易见。短暂延迟后，正常的鼠标光标消失，取而代之的是一个放大镜。在滴管模式启动和用户可以选择像素以确保用户有时间查看放大镜之间也存在延迟",
+    "EyeDropperTips4": "用户也可以随时取消吸管模式（按键 <kbd>Escape</kbd>）",
+    "EyeDropperTitle": "屏幕取色 EyeDropperService"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.FileIcons": {
+    "BackgroundTemplateIntro": "通过设置 <code>BackgroundTemplate</code> 通过模板自定义背景模板",
+    "BackgroundTemplateTitle": "自定义背景图",
+    "BaseUsageIntro": "通过设置 <code>Type</code> 设置图标扩展名",
+    "BaseUsageTitle": "基本用法",
+    "ColorIntro": "通过设置 <code>IconColor</code> 设置图标颜色",
+    "ColorTitle": "颜色",
+    "CustomCssIntro": "通过设置 <code>class</code> 自定义样式调整图标大小",
+    "CustomCssTitle": "自定义样式",
+    "Intro": "通过文件扩展名自定义显示图标",
+    "SizeIntro": "通过设置 <code>Size</code> 设置图标大小",
+    "SizeTitle": "大小",
+    "Title": "File Icon 文件图标"
   },
   "BootstrapBlazor.Shared.Components.Samples.FlipClocks": {
     "CardGroupMargin": "卡片组边距",
@@ -753,6 +818,11 @@
     "SubTitle": "模拟 WinForm 的 GroupBox 组件",
     "Title": "GroupBox 集合组件"
   },
+  "BootstrapBlazor.Shared.Components.Samples.Handwrittens": {
+    "SubTitle": "用于移动终端签名保存为 Base64 编码字符串",
+    "Tips": "已弃用，请使用 <a href=\"signature-pad\">BootstrapBlazor.SignaturePad</a> 组件，已知问题在弹窗中无法签名",
+    "Title": "Handwritten 手写签名"
+  },
   "BootstrapBlazor.Shared.Components.Samples.IFrames": {
     "IFrameDescription": "允许在页面中嵌入文档、视频和交互式媒体。 通过这样做可以在主页上显示一个辅助页面。 iFrame 元素允许包含来自其他源的内容，它可以在页面的任何地方集成内容。",
     "IFrameNormalIntro": "通过 <code>Src</code>参数设置其他网站页面地址，内联其内容到本页面中",
@@ -793,6 +863,30 @@
     "ImageViewerTitle": "ImageViewer 图片",
     "IntersectionObserverIntro": "通过设置 <code>IsIntersectionObserver=\"true\"</code> 开启懒加载特性，当图片在不可见区域时不加载图片，当图片即将可见时才开始加载图片",
     "IntersectionObserverTitle": "懒加载"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.InputCurrencies": {
+    "InputCurrencyCultureDesc": "指定巴西葡萄牙语，例如：<code>pt-BR</code>；注意千分符为 <code>点号</code>，小数点符号为 <code>逗号</code>；可以通过 <code>Decimals</code> 指定小数位数",
+    "InputCurrencyCultureIntro": "自行指定文化信息，例如：<code>en-US、zh-CN</code>",
+    "InputCurrencyCultureTitle": "指定文化名称",
+    "InputCurrencyCustomizeIntro": "使用 <code>Formatter</code> 回调来实现自定义格式用法",
+    "InputCurrencyCustomizeTitle": "自定义格式用法",
+    "InputCurrencyDescription": "仅允许输入标准的数字值，并提供格式化功能，例如：输入12345.78，千分位显示：12,345.78；货币显示：¥12,345.78；百分比显示：12,345.78%",
+    "InputCurrencyMemo": "本组件，实际上是 <code>InputNumbers</code> 组件的扩展，以满足有需要在 <code>UI</code> 中显示货币、百分比等格式化数值的需求",
+    "InputCurrencyNormalIntro": "<code>Number</code> 数值类型显示文本框，移动端自动弹出数字键盘",
+    "InputCurrencyNormalTitle": "基础用法",
+    "InputCurrencyPercentIntro": "可使用 <code>Formatter</code> 或 <code>FormatString</code> 来实现百分比显示",
+    "InputCurrencyPercentTitle": "百分比用法",
+    "InputCurrencyRangeIntro": "设置 <code>Max</code> <code>Min</code> 来控制数值区间范围 1-10",
+    "InputCurrencyRangeTitle": "区间限制用法",
+    "InputCurrencyTitle": "InputCurrency 组件"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Ips": {
+    "IpNormalIntro": "分段录入并显示 <code>ip</code> 地址，例如：<code>192.168.1.1</code>",
+    "IpNormalTitle": "基础用法",
+    "IpSubTitle": "IP 地址组件是一个用于输入和验证 IP 地址的可重用组件",
+    "IpTitle": "IpAddress 地址组件",
+    "IsDisabledIntro": "通过设置 <code>IsDisabled</code> 使组件处于不可用状态",
+    "IsDisabledTitle": "禁用"
   },
   "BootstrapBlazor.Shared.Components.Samples.Lights": {
     "LightsColorIntro": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
@@ -1172,6 +1266,22 @@
     "TextAreaUseShiftEnterPlaceHolder": "请输入一些文字，Enter 发送 Shift + Enter 换行",
     "TextAreaUseShiftEnterTitle": "Shift Enter"
   },
+  "BootstrapBlazor.Shared.Components.Samples.TimePickers": {
+    "Description": "用于选择或输入时刻",
+    "HasSecondsIntro": "控制是否显示秒数控件",
+    "HasSecondsTitle": "隐藏秒数",
+    "OnConfirmIntro": "可以选择任意时间",
+    "OnConfirmTitle": "选择任意时间点",
+    "Title": "TimePicker 时间选择器"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Timers": {
+    "TimersColorIntro": "通过设置 <code>Color</code> 属性设定圆形进度条颜色",
+    "TimersColorTitle": "颜色",
+    "TimersDescription": "用于时间倒计时",
+    "TimersNormalIntro": "通过设置 <code>Value</code> 属性设定倒计时时间",
+    "TimersNormalTitle": "基本用法",
+    "TimersTitle": "Timer 计时器"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Toggles": {
     "BasicUsageP": "点击第一个开关有值输出日志",
     "BindToWayDisplayText1": "双向绑定示例",
@@ -1194,6 +1304,11 @@
     "TogglesOnText": "开启",
     "TogglesSubTitle": "提供最普通的开关应用，值为 <code>true</code> <code>false</code>",
     "TogglesTitle": "Toggle 开关"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Toolbars": {
+    "NormalTitle": "基本用法",
+    "ToolbarsTitle": "Toolbar 工具栏",
+    "ToolbarSubTitle": "是按钮或其他应用程序特定工具的容器"
   },
   "BootstrapBlazor.Shared.Components.Samples.Tooltips": {
     "BootstrapTooltipIntro": "尝试新做一个用起来比较舒服的组件，可尝鲜使用，后期组件名字可能会更改",

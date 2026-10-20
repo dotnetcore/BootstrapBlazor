@@ -435,12 +435,6 @@
     "ShowDropdownListOnFocusTitle": "Turn off auto-expand dropdown",
     "Title": "AutoFill components"
   },
-  "BootstrapBlazor.Server.Components.Samples.AutoRedirects": {
-    "Description": "Through the set address, automatically jump to the specified page when there is no mouse or keyboard action on the page",
-    "NormalIntro": "By setting the <code>Interval</code> interval, when there is no mouse or keyboard action, it will automatically jump to the address set by <code>RedirectUrl</code>",
-    "NormalTitle": "Common usage",
-    "Title": "AutoRedirect automatic jump component"
-  },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "Amount incl. tax",
     "AmountLabel": "Amount",
@@ -632,15 +626,6 @@
     "StopText": "Close",
     "SubTitle": "This component takes pictures by calling the camera",
     "Title": "Camera"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Captchas": {
-    "BasicUsageIntro": "Simple human-machine identification",
-    "BasicUsageTitle": "Basic usage",
-    "ImageCallbackIntro": "Set a custom method to stitch the full path name of a random picture by <code>GetImageName</code>",
-    "ImageCallbackTitle": "Specify the graph bed delegate method",
-    "ImageTitle": "Specify the path and name of the graph bed",
-    "SubTitle": "Human-machine recognition by dragging the slider",
-    "Title": "Captchas"
   },
   "BootstrapBlazor.Server.Components.Samples.Cards": {
     "BasicUsageIntro": "Card is a simple example",
@@ -1460,18 +1445,6 @@
     "DownloadsTips2": "<code>Download</code> use the <code>DotNetStreamReference</code> object which allows streaming file data to the client. This approach loads the entire file into the client's' memory, which can impair performance. To download relatively large files (<code>&gt;=250 MB</code>), it is recommended to follow the <code>MVC</code> download from <code>Url</code>.",
     "DownloadsTitle": "Download file download"
   },
-  "BootstrapBlazor.Server.Components.Samples.DragDrops": {
-    "AcceptsIntro": "Use <code>Accepts</code> to only allow 10 drags on the left and use <code>AllowsDrag</code> to limit 2 to not be dragged, use <code>MaxItems</code> to limit the right to have a maximum of 6 nodes",
-    "AcceptsTitle": "Limit what can be dragged in",
-    "CopyItemIntro": "Use <code>CopyItem</code> to copy a new copy to a new location",
-    "CopyItemTitle": "Copy to new container",
-    "Description": "For drag and drop",
-    "EventIntro": "When the dragging quantity exceeds the limit <code>OnItemDropRejectedByMaxItemLimit</code>, when dragging is prohibited <code>OnItemDropRejected</code>, return to the bottom Item<code>OnReplacedItemDrop</code>, return the dropped Item<code> OnItemDrop</code>",
-    "EventTitle": "Various events",
-    "NormalIntro": "simple drag and drop",
-    "NormalTitle": "Basic usage",
-    "Title": "DragDrop"
-  },
   "BootstrapBlazor.Server.Components.Samples.Drawers": {
     "BodyScrollIntro": "By setting <code>BodyScroll</code>, you can control whether scrolling is allowed when the drawer pop-up window is displayed. <code>Body</code> is false by default, scrolling is not allowed",
     "BodyScrollTitle": "Body Scroll",
@@ -1567,19 +1540,6 @@
     "SplitIntro": "You can create a split drop-down menu with tags similar to a single button drop-down menu, and add ShowSplit='true' when you use a split component. Insert this symbol as a drop-down The options are handled at appropriate intervals (distance).",
     "SplitTitle": "Split button drop-down menu",
     "Title": "Dropdown"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DropdownWidgets": {
-    "AttributeTitle": "DropdownWidgetItem",
-    "BasicUsageIntro": "Write pendant content directly on the page through <code>ChildContent</code>",
-    "BasicUsageMessage": "You have 4 unread messages",
-    "BasicUsageNotify": "You have 10 unread notifications",
-    "BasicUsageTasks": "You have 3 tasks",
-    "BasicUsageTitle": "Basic usage",
-    "BasicUsageViewMessage": "View all messages",
-    "BasicUsageViewNotify": "View all notifications",
-    "BasicUsageViewTasks": "View all tasks",
-    "SubTitle": "More for head information summary presentation",
-    "Title": "DropdownWidget"
   },
   "BootstrapBlazor.Server.Components.Samples.EditDialogs": {
     "Description": "Automatic rendering of edit popups by binding the data model",
@@ -1713,31 +1673,6 @@
     "ToastDownloadTitle": "Download Pdf",
     "ToastTitle": "Export Pdf"
   },
-  "BootstrapBlazor.Server.Components.Samples.EyeDroppers": {
-    "EyeDropperDescription": "The <code>EyeDropperService</code> provides a mechanism for creating an eyedropper tool. Using this tool, users can sample colors from their screens, including outside of the browser window.",
-    "EyeDropperNormalButtonText": "Pick",
-    "EyeDropperNormalIntro": "Using the <code>EyeDropperService</code> application can start the eyedropper mode. Once started, the cursor changes to indicate to the user that the mode is active. The user can then either select a color from anywhere on the screen, or dismiss the eyedropper mode by pressing <kbd>Escape</kbd>",
-    "EyeDropperNormalTitle": "Basic usage",
-    "EyeDropperTips1": "This is an experimental technology Check the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API#browser_compatibility\" target=\"_blank\">Browser compatibility table</a> carefully before using this in production. ",
-    "EyeDropperTips2": "To prevent malicious websites from getting pixel data from a user's screen without them realizing, the EyeDropper API implements the following measures. Only be called in response to a user action (like a button click)",
-    "EyeDropperTips3": "To help users notice the eyedropper mode more easily, it is made obvious by browsers. The normal mouse cursor disappears after a short delay and a magnifying glass appears instead. There is also a delay between when the eyedropper mode starts and when the user can select a pixel to ensure the user has had time to see the magnifying glass",
-    "EyeDropperTips4": "Users are also able to cancel the eyedropper mode at any time (by pressing the <kbd>Escape</kbd> key)",
-    "EyeDropperTitle": "EyeDropper Service"
-  },
-  "BootstrapBlazor.Server.Components.Samples.FileIcons": {
-    "BackgroundTemplateIntro": "Set <code>BackgroundTemplate</code> custom the file icon",
-    "BackgroundTemplateTitle": "Background Template",
-    "BaseUsageIntro": "Set the <code>Extension</code> parameter for the file type",
-    "BaseUsageTitle": "Base Usage",
-    "ColorIntro": "Set <code>IconColor</code> for the file extension badge background color",
-    "ColorTitle": "Color",
-    "CustomCssIntro": "Set <code>class</code> parameter set the style for the file icon component",
-    "CustomCssTitle": "Custom css",
-    "Intro": "The icon show the file extension",
-    "SizeIntro": "Set the icon size by setting <code>Size</code>",
-    "SizeTitle": "Size",
-    "Title": "File Icon"
-  },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageIntro2": "Using the Reload method",
@@ -1832,11 +1767,6 @@
     "Step5": "5. Controls whether error details are displayed",
     "Step5Intro": "Through the configuration file <code>appsettings.json</code>, which is <code>appsettings.Development.json</code> in the development environment, if not set, it defaults to <code>false</code> and is not displayed. The default behavior is only a pop-up prompt to prevent the exposure of sensitive information",
     "Title": "Global exception"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Handwrittens": {
-    "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
-    "Tips": "Deprecated, please use the <a href=\"signature-pad\">BootstrapBlazor.SignaturePad</a> component",
-    "Title": "Handwritten"
   },
   "BootstrapBlazor.Server.Components.Samples.HikVisions": {
     "BasicUsageIntro": "Operations are performed by calling the <code>HikVision</code> component instance method.",
@@ -1976,22 +1906,6 @@
     "ImageCropperRoundIntro": "Set the cropping mode to circular by setting the <code>IsRound</code> parameter",
     "ImageCropperRoundText": "Round",
     "Title": "Image cropper"
-  },
-  "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
-    "InputCurrencyCultureDesc": "Specify Brazilian Portuguese, for example: <code>pt-BR</code>; note that the thousand separator is a <code>dot</code> and the decimal separator is a <code>comma</code>; you can specify the number of decimal places using the <code>Decimals</code> parameter",
-    "InputCurrencyCultureIntro": "Specify culture information, for example: <code>en-US, zh-CN</code>",
-    "InputCurrencyCultureTitle": "Specify culture name",
-    "InputCurrencyCustomizeIntro": "Use the <code>Formatter</code> callback to achieve custom format usage",
-    "InputCurrencyCustomizeTitle": "Custom format usage",
-    "InputCurrencyDescription": "Only allows standard numeric values and provides formatting capabilities, for example: entering 12345.78 displays as 12,345.78 with thousand separators; as ¥12,345.78 for currency; and as 12,345.78% for percentage.",
-    "InputCurrencyMemo": "This component is actually an extension of the <code>InputNumbers</code> component, designed to meet the need to display formatted numeric values such as currency and percentages in the <code>UI</code>.",
-    "InputCurrencyNormalIntro": "<code>Number</code> numeric type displays a text box, automatically bringing up the numeric keyboard on mobile devices",
-    "InputCurrencyNormalTitle": "Basic usage",
-    "InputCurrencyPercentIntro": "You can use <code>Formatter</code> or <code>FormatString</code> to achieve percentage display",
-    "InputCurrencyPercentTitle": "Percentage usage",
-    "InputCurrencyRangeIntro": "Set <code>Max</code> and <code>Min</code> to control the numeric range 1-10",
-    "InputCurrencyRangeTitle": "Range limitation usage",
-    "InputCurrencyTitle": "InputCurrency"
   },
   "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsCheckboxIntro": "Add <code>Checkbox</code> or <code>CheckboxList</code> to the <code>InputGroup</code>",
@@ -2142,14 +2056,6 @@
     "LoadMoreDesc": "<p>In this example, the loading indicator is displayed by setting <code>CanLoading</code> to <code>true</code>, and the <b>No More Data</b> prompt text is displayed when loading is complete.</p><ul class=\"ul-demo\"><li>Customize the UI for loading more through <code>LoadingTemplate</code></li><li>Customize the UI displayed when there is no more data through <code>NoMoreTemplate</code></li><li>Set the indicator text displayed when there are no more add-ons through the <code>NoMoreText</code> parameter</li></ui>",
     "LoadMoreIntro": "By setting the <code>LoadMore</code> component parameter <code>IsLoading</code> to control the loading state, the <code>OnLoadMoreAsync</code> callback method loads more data",
     "LoadMoreTitle": "LoadMore Component"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Ips": {
-    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>",
-    "IpNormalTitle": "Basic usage",
-    "IpSubTitle": "The IP Address component is a reusable component for entering and validating IP addresses.",
-    "IpTitle": "IpAddress",
-    "IsDisabledIntro": "Make the component disabled by setting <code>IsDisabled</code>",
-    "IsDisabledTitle": "IsDisabled"
   },
   "BootstrapBlazor.Server.Components.Samples.JitViewers": {
     "JitViewerDescription": "Supports online preview of Office documents, PDF, OFD, images, text, code, videos, and other file formats.",
@@ -4516,22 +4422,6 @@
     "TimelinesSubTitle": "Visualize time flow information",
     "TimelinesTitle": "Timeline"
   },
-  "BootstrapBlazor.Server.Components.Samples.TimePickers": {
-    "Description": "Used to select or enter a timespan",
-    "HasSecondsIntro": "Whether to display or hide the seconds control",
-    "HasSecondsTitle": "Hide seconds",
-    "OnConfirmIntro": "You can choose any time",
-    "OnConfirmTitle": "Select any point in time",
-    "Title": "TimePicker"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Timers": {
-    "TimersColorIntro": "Set the circular progress bar color by setting the <code>Color</code> property",
-    "TimersColorTitle": "Color",
-    "TimersDescription": "For time countdown",
-    "TimersNormalIntro": "Set the countdown time by setting the <code>Value</code> attribute",
-    "TimersNormalTitle": "Basic usage",
-    "TimersTitle": "Timer"
-  },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "AdvanceB": "Pay attention:",
     "AdvanceIntro": "There is no need to add the <code>Title</code> component to the webpage, and the injection service <code>TitleService</code> is called",
@@ -4602,11 +4492,6 @@
     "ToastsTips2": "2. Call its instance <code>api</code>",
     "ToastsTitle": "Toast Lightweight Popup",
     "ToastsWarning": "Warning notice"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Toolbars": {
-    "NormalTitle": "Normal",
-    "ToolbarsTitle": "Toolbar",
-    "ToolbarSubTitle": "ToolBar component is a container for buttons or other application-specific tools"
   },
   "BootstrapBlazor.Server.Components.Samples.Topologies": {
     "TopologiesDescription": "Rendering of human-computer interface through <code>Topology</code> open source components",

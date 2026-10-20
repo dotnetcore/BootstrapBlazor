@@ -1,4 +1,4 @@
-﻿.widget-demo {
+.widget-demo {
     background-color: rgba(var(--bs-body-color-rgb), .12);
     border-radius: var(--bs-border-radius);
 }

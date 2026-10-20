@@ -1,4 +1,4 @@
-﻿::deep .custom-icon .icon-svg {
+::deep .custom-icon .icon-svg {
     --bb-icon-width: 56px;
     --bb-icon-badge-bottom: 10px;
     --bb-icon-path-fill-color: var(--bs-purple);
