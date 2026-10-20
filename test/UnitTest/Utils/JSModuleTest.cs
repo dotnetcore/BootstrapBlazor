@@ -111,6 +111,14 @@ public class JSModuleTest
     }
 
     [Fact]
+    public async Task JSModule_GetMemorial()
+    {
+        var js = new MockTaskCanceledObjectReference();
+        var module = new JSModule(js);
+        await module.GetMemorialModeAsync();
+    }
+
+    [Fact]
     public async Task JSModule_ToggleMemorial()
     {
         var js = new MockTaskCanceledObjectReference();
