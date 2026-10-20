@@ -933,6 +933,22 @@
     "LinkButtonVerticalText": "测试按钮",
     "LinkButtonVerticalTitle": "垂直布局"
   },
+  "BootstrapBlazor.Shared.Components.Samples.ListViews": {
+    "BasicUsageIntro": "适用于大量重复的数据实现规则排列",
+    "BasicUsageP1": "点击图片时触发 <code>OnListViewItemClick</code> 事件",
+    "BasicUsageTitle": "普通用法",
+    "CollapseIntro": "设置 <code>Collapsible=\"true\"</code> 使分组信息可折叠",
+    "CollapseTitle": "分组折叠",
+    "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示，通过设置 <code>GroupOrderCallback</code> 参数细化分组排序规则",
+    "GroupTitle": "分组显示",
+    "IsAccordionIntro": "设置 <code>IsAccordion=\"true\"</code> 使分组信息折叠手风琴效果",
+    "IsAccordionTitle": "分组手风琴",
+    "ListViewsSubTitle": "提供规则排列控件",
+    "ListViewsTitle": "ListView 列表视图",
+    "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
+    "PaginationTitle": "分页显示",
+    "ProductListText": "产品列表"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Logouts": {
     "LogoutsChildContentCustomDisplay": "自定义显示内容",
     "LogoutsChildContentIntro": "设置 <code>ChildContent</code> 或者在组件内部直接写其他组件即可",
@@ -1149,6 +1165,19 @@
     "SizeTitle": "大小",
     "SubTitle": "展示多个选项并允许用户选择其中单个选项",
     "Title": "Segmented 分段控制器"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.SelectObjects": {
+    "CustomComponentIntro": "任意组件均可放入下拉框内，需要有一个回调进行赋值或者关窗即可",
+    "CustomComponentTitle": "自定义组件",
+    "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度",
+    "HeightTitle": "设置高度",
+    "Intro": "下拉框为任意组件用于展示复杂类型的选择需求",
+    "MinWidthIntro": "通过设置 <code>DropdownMinWidth</code> 值，来改变下拉框最小宽度",
+    "MinWidthTitle": "设置最小宽度",
+    "NormalDesc": "可通过 <code>IsClearable</code> 控制是否显示清除小按钮，默认值 <code>false</code>",
+    "NormalIntro": "内置 <code>ListView</code> 组件选择图片",
+    "NormalTitle": "基本功能",
+    "Title": "TableObject 任意选择器"
   },
   "BootstrapBlazor.Shared.Components.Samples.ShieldBadges": {
     "ShieldBadgeNormalIntro": "通过 <code>Icon</code> 设置图标，通过 <code>Label</code> 设置左侧文本，通过 <code>Text</code> 设置右侧文本",

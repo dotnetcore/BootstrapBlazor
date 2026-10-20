@@ -2217,22 +2217,6 @@
     "ListGroupsTips": "<li>Set the list box to display the dataset through <code>Items</code></li><li>Set the list box data item display text by <code>GetItemDisplayText</code></li><li>Due to the internal height of the component being set to <code>100%</code>, the parent container will be automatically filled when used. When the parent container is set to a height, a scroll bar will automatically appear on the list items. In this example, set the height of the external container element code>list-group-demo</code> to <code>280px</code></li>",
     "ListGroupsTitle": "ListGroup"
   },
-  "BootstrapBlazor.Server.Components.Samples.ListViews": {
-    "BasicUsageIntro": "Apply to a large number of duplicate data implementation rule arrangements",
-    "BasicUsageP1": "The <code>OnListViewItemClick</code> event is triggered when you click on the image",
-    "BasicUsageTitle": "Basic usage",
-    "CollapseIntro": "Set up grouping can collapable via <code>Collapsible=\"true\"</code>",
-    "CollapseTitle": "Collapsable",
-    "GroupIntro": "Set up grouping <code>GroupName</code> data. set the group order by <code>GroupOrderCallback</code>",
-    "GroupTitle": "Group display",
-    "IsAccordionIntro": "Set up grouping can accordion via <code>IsAccordion=\"true\"</code>",
-    "IsAccordionTitle": "Group accordion",
-    "ListViewsSubTitle": "Provides rule arrangement controls",
-    "ListViewsTitle": "ListView",
-    "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
-    "PaginationTitle": "Paginated display",
-    "ProductListText": "The list of products"
-  },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
     "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
@@ -2993,19 +2977,6 @@
     "CityNormalIntro": "Select a city from the drop-down box",
     "CityNormalTitle": "Basic usage",
     "CityTitle": "City Selector"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SelectObjects": {
-    "CustomComponentIntro": "Any component can be placed in a dropdown box, and a callback is required for assignment or window closure",
-    "CustomComponentTitle": "Custom Components",
-    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value",
-    "HeightTitle": "Height",
-    "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
-    "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
-    "MinWidthTitle": "Min-Width",
-    "NormalDesc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
-    "NormalIntro": "Use built in <code>ListView</code> component to select images",
-    "NormalTitle": "Basic usage",
-    "Title": "Table-Object"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
     "ProvinceDescription": "Provide a drop-down box to select the province",

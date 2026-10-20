@@ -2217,22 +2217,6 @@
     "ListGroupsTips": "<li>通过 <code>Items</code> 设置列表框显示数据集合</li><li>通过 <code>GetItemDisplayText</code> 设置列表框数据项显示文本</li><li>由于组件内部高度设置为 <code>100%</code> 使用时自动充满父容器，当父容器设置高度时，列表项自动出现滚动条，本例中设置外部容器元素 <code>list-group-demo</code> 高度为 <code>280px</code></li>",
     "ListGroupsTitle": "ListGroup 列表框"
   },
-  "BootstrapBlazor.Server.Components.Samples.ListViews": {
-    "BasicUsageIntro": "适用于大量重复的数据实现规则排列",
-    "BasicUsageP1": "点击图片时触发 <code>OnListViewItemClick</code> 事件",
-    "BasicUsageTitle": "普通用法",
-    "CollapseIntro": "设置 <code>Collapsible=\"true\"</code> 使分组信息可折叠",
-    "CollapseTitle": "分组折叠",
-    "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示，通过设置 <code>GroupOrderCallback</code> 参数细化分组排序规则",
-    "GroupTitle": "分组显示",
-    "IsAccordionIntro": "设置 <code>IsAccordion=\"true\"</code> 使分组信息折叠手风琴效果",
-    "IsAccordionTitle": "分组手风琴",
-    "ListViewsSubTitle": "提供规则排列控件",
-    "ListViewsTitle": "ListView 列表视图",
-    "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
-    "PaginationTitle": "分页显示",
-    "ProductListText": "产品列表"
-  },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
     "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
@@ -2993,19 +2977,6 @@
     "CityNormalIntro": "通过下拉框的形式选择城市",
     "CityNormalTitle": "基本用法",
     "CityTitle": "SelectCity 城市选择器"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SelectObjects": {
-    "CustomComponentIntro": "任意组件均可放入下拉框内，需要有一个回调进行赋值或者关窗即可",
-    "CustomComponentTitle": "自定义组件",
-    "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度",
-    "HeightTitle": "设置高度",
-    "Intro": "下拉框为任意组件用于展示复杂类型的选择需求",
-    "MinWidthIntro": "通过设置 <code>DropdownMinWidth</code> 值，来改变下拉框最小宽度",
-    "MinWidthTitle": "设置最小宽度",
-    "NormalDesc": "可通过 <code>IsClearable</code> 控制是否显示清除小按钮，默认值 <code>false</code>",
-    "NormalIntro": "内置 <code>ListView</code> 组件选择图片",
-    "NormalTitle": "基本功能",
-    "Title": "TableObject 任意选择器"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
     "ProvinceDescription": "提供下拉框选择省/直辖市/特别行政区",

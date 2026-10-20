@@ -933,6 +933,22 @@
     "LinkButtonVerticalText": "TestButton",
     "LinkButtonVerticalTitle": "Vertical"
   },
+  "BootstrapBlazor.Shared.Components.Samples.ListViews": {
+    "BasicUsageIntro": "Apply to a large number of duplicate data implementation rule arrangements",
+    "BasicUsageP1": "The <code>OnListViewItemClick</code> event is triggered when you click on the image",
+    "BasicUsageTitle": "Basic usage",
+    "CollapseIntro": "Set up grouping can collapable via <code>Collapsible=\"true\"</code>",
+    "CollapseTitle": "Collapsable",
+    "GroupIntro": "Set up grouping <code>GroupName</code> data. set the group order by <code>GroupOrderCallback</code>",
+    "GroupTitle": "Group display",
+    "IsAccordionIntro": "Set up grouping can accordion via <code>IsAccordion=\"true\"</code>",
+    "IsAccordionTitle": "Group accordion",
+    "ListViewsSubTitle": "Provides rule arrangement controls",
+    "ListViewsTitle": "ListView",
+    "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
+    "PaginationTitle": "Paginated display",
+    "ProductListText": "The list of products"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Logouts": {
     "LogoutsChildContentCustomDisplay": "Customize display content",
     "LogoutsChildContentIntro": "Set <code>ChildContent</code> or write other components directly inside the component",
@@ -1149,6 +1165,19 @@
     "SizeTitle": "Size",
     "SubTitle": "displaying multiple options and user can select a single option",
     "Title": "Segmented"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.SelectObjects": {
+    "CustomComponentIntro": "Any component can be placed in a dropdown box, and a callback is required for assignment or window closure",
+    "CustomComponentTitle": "Custom Components",
+    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value",
+    "HeightTitle": "Height",
+    "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
+    "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
+    "MinWidthTitle": "Min-Width",
+    "NormalDesc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
+    "NormalIntro": "Use built in <code>ListView</code> component to select images",
+    "NormalTitle": "Basic usage",
+    "Title": "Table-Object"
   },
   "BootstrapBlazor.Shared.Components.Samples.ShieldBadges": {
     "ShieldBadgeNormalIntro": "Use <code>Icon</code> to set the icon, <code>Label</code> to set the left text, and <code>Text</code> to set the right text",
