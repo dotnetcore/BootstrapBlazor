@@ -358,14 +358,6 @@
     "ThemeSwitchTitle": "主题切换",
     "Title": "组件主题"
   },
-  "BootstrapBlazor.Server.Components.Samples.Affixs": {
-    "AffixIntro": "将页面元素钉在可视范围",
-    "AffixNormalIntro": "固钉默认固定在页面顶部",
-    "AffixNormalTitle": "基础用法",
-    "AffixPositionIntro": "通过参数 <code>Position</code> 控制固定顶端还是底端，通过 <code>Offset</code> 值设置到顶端或者底端距离偏移量",
-    "AffixPositionTitle": "位置与距离",
-    "AffixTitle": "Affix 固钉组件"
-  },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxDescribe": "用于直接在浏览器使用 fetch 方法与服务器交互，目前只支持输入输出皆为 json，返回值为 json 字符串，可以自行转换处理。",
     "AjaxTitle": "Ajax调用",
@@ -379,27 +371,6 @@
     "NormalDiv": "这里只是进行了登录模拟，并没有真正的调用 <code>HttpContext.SignInAsync</code>，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。",
     "NormalIntro": "模拟登录",
     "NormalTitle": "基础用法"
-  },
-  "BootstrapBlazor.Server.Components.Samples.AnchorLinks": {
-    "AnchorLinkDemoIntroduction": "放置标签后点击拷贝锚点链接到粘贴板",
-    "AnchorLinkDemoTitle": "普通用法",
-    "AnchorLinkDescribe1": "应用于标题带",
-    "AnchorLinkDescribe2": "的锚点链接，点击拷贝方便分享",
-    "AnchorLinkText": "我是一个可以点击的锚点链接",
-    "AnchorLinkTips1": "锚点链接组件属性",
-    "AnchorLinkTips2": "为必填项，不填写时不提供拷贝锚点链接功能",
-    "AnchorLinkTips3": "组件锚点图标可通过",
-    "AnchorLinkTips4": "参数进行自定义默认为",
-    "AnchorLinkTips5": "参数 <code>TooltipText</code> 用于设置拷贝地址后提示信息 默认 <code>null</code> 不弹出提示信息",
-    "AnchorLinkTitle": "AnchorLink 锚点链接"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Anchors": {
-    "BaseUsageText": "基础用法",
-    "ContentText1": "<p>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</p><p>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</p><p>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</p><p>简化流程：设计简洁直观的操作流程；</p><p>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</p><p>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>",
-    "IntroText1": "需要展现当前页面上可供跳转的锚点链接，以及快速在锚点之间跳转",
-    "IntroText2": "点击下面 <code>Anchor</code> 项目，页面滚动到相对应的章节",
-    "SubTitle": "用于跳转到页面指定位置",
-    "Title": "Anchor 锚点"
   },
   "BootstrapBlazor.Server.Components.Samples.AudioDevices": {
     "AudioDeviceCloseText": "停止",
@@ -697,33 +668,6 @@
     "SubTitle": "将信息聚合在卡片容器中展示",
     "Title": "Card 卡片"
   },
-  "BootstrapBlazor.Server.Components.Samples.Carousels": {
-    "BasicUsageIntro": "适用广泛的基础用法，通过设置 <code>Items</code> 属性值对组件进行图片的绑定，值为图片路径数组",
-    "BasicUsageTitle": "基础用法",
-    "CaptionClassIntro": "通过设置 <code>CarouselItem</code> 的 <code>CaptionClass</code> 属性，自定义标题部分样式",
-    "CaptionClassP1": "本例设置 <code>d-none d-md-block</code> 使小屏幕下不显示 <code>Caption</code>",
-    "CaptionClassTitle": "标题样式",
-    "CaptionIntro": "通过设置 <code>CarouselItem</code> 的 <code>Caption</code> 属性，开启标题功能",
-    "CaptionTemplateIntro": "通过设置 <code>CarouselItem</code> 的 <code>CaptionTemplate</code> 属性，自定义标题内容",
-    "CaptionTemplateTitle": "标题模板",
-    "CaptionTitle": "标题",
-    "ChildContentIntro": "使用 <code>ChildContent</code> 渲染自定义组件",
-    "ChildContentTitle": "子组件",
-    "FadeIntro": "通过设置 <code>IsFade</code> 属性，图片切换时采用淡入淡出效果",
-    "FadeTitle": "淡入淡出",
-    "IntervalIntro": "通过设置 <code>CarouselItem</code> 的 <code>Interval</code> 属性，可以单独设置幻灯片单独切换时间间隔，间隔默认值 5000 毫秒",
-    "IntervalTitle": "切换间隔",
-    "OnClickIntro": "通过设置 <code>OnClick</code> 属性后，点击 <code>Image</code> 后触发 <code>OnClick</code> 回调委托",
-    "OnClickTitle": "点击图片回调事件",
-    "ShowControlsIntro": "通过设置 <code>ShowControls</code> 属性，设置是否显示控制按钮 默认是 <code>true</code>",
-    "ShowControlsTitle": "控制按钮",
-    "ShowIndicatorsIntro": "通过设置 <code>ShowIndicators</code> 属性，设置是否显示指示标识 默认是 <code>true</code>",
-    "ShowIndicatorsTitle": "指示器",
-    "SubTitle": "在有限空间内，循环播放同一类型的图片、文字等内容",
-    "Title": "Carousel 走马灯",
-    "TouchSwipingIntro": "通过设置 <code>DisableTouchSwiping</code> 属性，禁用移动端手势滑动功能",
-    "TouchSwipingTitle": "禁用手势滑动"
-  },
   "BootstrapBlazor.Server.Components.Samples.Cascaders": {
     "Block1Intro": "提供各种颜色的下拉选择框",
     "Block1Title": "Cascader 级联选择",
@@ -972,24 +916,6 @@
     "ViewIntro": "纯浏览模式，没有编辑器",
     "ViewTitle": "浏览模式"
   },
-  "BootstrapBlazor.Server.Components.Samples.Circles": {
-    "BasicUsageIntro": "通过设置 <code>Value</code> 属性设定圆形进度",
-    "BasicUsageTitle": "基础用法",
-    "ChildContentIntro": "通过自定义子组件自定义显示内容",
-    "ChildContentP1": "消费人群规模",
-    "ChildContentSpan": "总占人数",
-    "ChildContentTitle": "自定义显示内容",
-    "CircleTips1": "显示某项任务进度的百分比",
-    "CircleTips2": "统计某些指标的占比。",
-    "ColorIntro": "通过设置 <code>Color</code> 属性设定圆形进度条颜色",
-    "ColorTitle": "颜色",
-    "DecreaseSpan": "减少",
-    "IncreaseSpan": "增加",
-    "StrokeWidthIntro": "通过设置 <code>StrokeWidth</code> 属性设定圆形进度条宽度",
-    "StrokeWidthTitle": "进度条宽度",
-    "SubTitle": "图表类组件。一般有两种用途：",
-    "Title": "Circle 进度环"
-  },
   "BootstrapBlazor.Server.Components.Samples.Client": {
     "BasicUsageIntro": "注入服务显示客户端信息",
     "BasicUsageP1": "用法介绍",
@@ -1019,19 +945,6 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
     "ClipboardTitle": "ClipboardService"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ClockPickers": {
-    "AutoSwitchText": "是否自动切换表盘",
-    "BindValueIntro": "通过设置 <code>IsAutoSwitch=\"false\"</code> 禁止小时、分钟、秒表盘自动切换功能",
-    "BindValueTitle": "数据双向绑定",
-    "Description": "通过拖动表针选择时间",
-    "HasSecondsIntro": "通过设置 <code>ShowSecond=\"false\"</code> 不显示秒针表盘",
-    "HasSecondsTitle": "不设置秒数",
-    "ShowClockScaleIntro": "通过设置 <code>ShowClockScale=\"true\"</code> 显示表盘刻度",
-    "ShowClockScaleTitle": "显示表盘刻度",
-    "ShowMinuteIntro": "通过设置 <code>ShowMinute=\"false\"</code> 不显示分针表盘",
-    "ShowMinuteTitle": "不设置分钟",
-    "Title": "ClockPicker 时间选择器"
   },
   "BootstrapBlazor.Server.Components.Samples.CodeEditors": {
     "BasicIntro": "基础用法",
@@ -1099,15 +1012,6 @@
     "ContextMenuTitle": "ContextMenu 右键菜单",
     "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件"
-  },
-  "BootstrapBlazor.Server.Components.Samples.CountButtons": {
-    "BaseUsageIntro": "通过 <code>Count</code> 参数值设置倒计时时间，默认 <b>5</b> 秒",
-    "BaseUsageText": "基本用法",
-    "Description": "多用于强制一段执行时间逻辑，如发送验证码后 60 秒等待输入",
-    "Text": "发送验证码",
-    "TextIntro": "通过 <code>CountText</code> 参数值设置倒计时文本",
-    "TextTitle": "计时文本",
-    "Title": "CountButton 倒计时按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.CountUps": {
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值",
@@ -1211,12 +1115,6 @@
     "ValidateFormTitle": "表单中使用",
     "ViewModeIntro": "通过设置 <code>ViewMode=\"DatePickerViewMode.Year\"</code> 使组件视图为年视图，设置 <code>ViewMode=\"DatePickerViewMode.Month\"</code> 使组件视图为年视图",
     "ViewModeTitle": "显示模式"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DialButtons": {
-    "BaseUsageIntro": "通过设置 <code>Placement</code> 枚举值设置弹窗与按钮位置关系",
-    "BaseUsageText": "基本用法",
-    "DialButtonIntro": "点击按钮后弹出功能菜单等信息，多用于二级功能展示",
-    "DialButtonTitle": "DialButton 拨号按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.Dialogs": {
     "ApplyDisplayText": "主键参数",
@@ -1848,23 +1746,6 @@
     "Tips": "目前仅支持 Excel(.xlsx) 和 Word(.docx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:",
     "Title": "FileViewer 文件预览器"
   },
-  "BootstrapBlazor.Server.Components.Samples.FlipClocks": {
-    "CardGroupMargin": "卡片组边距",
-    "CardHeight": "卡片高度",
-    "CardMargin": "卡片边距",
-    "CardWidth": "卡片宽度",
-    "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
-    "CountText": "计时器",
-    "Custom": "参数设置",
-    "CustomIntro": "通过设置参数自定义显示内容",
-    "CustomText": "自定义参数",
-    "FlipClocksDescription": "用于网站计时，或者倒计时使用",
-    "FlipClocksTitle": "FlipClock 卡片翻转时钟",
-    "FontSize": "字体大小",
-    "Height": "高度",
-    "IsCountDownIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置，倒计时结束时触发 <code>OnCompletedAsync</code> 回调方法",
-    "IsCountDownText": "倒计时"
-  },
   "BootstrapBlazor.Server.Components.Samples.FloatingLabels": {
     "FloatingLabelBindValueDisplayText": "客户端验证",
     "FloatingLabelBindValueIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
@@ -1891,35 +1772,6 @@
     "FloatingLabelsSubtitle": "通过鼠标或键盘输入字符",
     "FloatingLabelsTestName": "张三",
     "FloatingLabelsTitle": "FloatingLabel 输入框"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Footers": {
-    "FooterChildContentIntro": "通过设置 <code>ChildContent</code> 参数自定义组件内部显示内容",
-    "FooterChildContentTitle": "自定义内容",
-    "FooterNormalIntro": "传递滚动条组件的 ID 给页脚组件",
-    "FooterNormalTitle": "基础用法",
-    "FootersContent1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
-    "FootersContent2": "本示例传递的是组件客户端 ID",
-    "FootersDescription": "显示在网页的最下方，提供返回顶端按钮",
-    "FooterShowGotoIntro": "通过设置 <code>ShowGoto</code> 参数，关闭 <code>Footer</code> 右侧导航小组件",
-    "FooterShowGotoTitle": "是否显示 Goto 导航",
-    "FootersTips": "<code>Footer</code> 组件使用时注意样式表 <code>position</code> 属性的设置",
-    "FootersTitle": "Footer 页脚组件"
-  },
-  "BootstrapBlazor.Server.Components.Samples.FullScreenButtons": {
-    "FullScreenButtonIntro": "通过 <code>FullScreenButton</code> 组件将整个网页或者指定元素进行全屏化",
-    "FullScreenButtonNormalIntro": "可通过 <code>Icon</code> 设置按钮默认图标，通过 <code>FullScreenExitIcon</code> 属性设置退出全屏时图标",
-    "FullScreenButtonNormalTitle": "基础用法",
-    "FullScreenButtonTitle": "FullScreenButton 全屏按钮",
-    "FullScreenTitleLi1": "通过 <code>TargetId</code> 参数设置全屏元素 Id",
-    "FullScreenTitleLi2": "通过 <code>Text</code> 属性设置当前页标题文字"
-  },
-  "BootstrapBlazor.Server.Components.Samples.FullScreens": {
-    "FullScreenNormalButtonText1": "全屏",
-    "FullScreenNormalIntro": "通过调用<code>FullScreenService</code> 服务实例的 <code>Show</code> 方法将整个网页进行全屏化",
-    "FullScreenNormalTitle": "基础用法",
-    "FullScreenOptionDesc": "通过设置 <code>FullScreenOption</code> 对全屏化的窗口进行设置，可通过 <code>ElementReference</code> <code>Id</code> <code>Selector</code> 指定页面元素",
-    "FullScreensDescription": "通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互",
-    "FullScreensTitle": "FullScreen 全屏"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "AttrItems": "数据源",
@@ -1980,23 +1832,6 @@
     "Step5": "5. 控制是否显示错误明细信息",
     "Step5Intro": "通过配置文件 <code>appsettings.json</code>，开发环境下为 <code>appsettings.Development.json</code>，未设置时默认为 <code>false</code> 不显示，默认行为仅做弹窗提示防止敏感信息暴露",
     "Title": "全局异常"
-  },
-  "BootstrapBlazor.Server.Components.Samples.GoTops": {
-    "Description": "点击后返回指定容器的顶端",
-    "Description1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
-    "Description2": "本示例传递的是组件客户端 ID",
-    "NormalIntro": "点击后返回顶端",
-    "NormalTitle": "基础用法",
-    "Title": "GoTop 返回顶端组件"
-  },
-  "BootstrapBlazor.Server.Components.Samples.GroupBoxes": {
-    "BasicUsageIntro": "将自己的组件放到 <code>GroupBox</code> 内部即可",
-    "BasicUsageTitle": "基础用法",
-    "GroupP1": "我是 <code>GroupBox</code> 示例",
-    "GroupP2": "更多示例请参考 <code>EditorForms</code> 表单示例 <a href='editor-form' target='_blank'>[传送门]</a>",
-    "GroupTitle": "表单示例",
-    "SubTitle": "模拟 WinForm 的 GroupBox 组件",
-    "Title": "GroupBox 集合组件"
   },
   "BootstrapBlazor.Server.Components.Samples.Handwrittens": {
     "SubTitle": "用于移动终端签名保存为 Base64 编码字符串",
@@ -2129,12 +1964,6 @@
     "UniverIconDescription": "Icons used by Univer",
     "UniverIconTitle": "Univer Icon 图标库"
   },
-  "BootstrapBlazor.Server.Components.Samples.IFrames": {
-    "IFrameDescription": "允许在页面中嵌入文档、视频和交互式媒体。 通过这样做可以在主页上显示一个辅助页面。 iFrame 元素允许包含来自其他源的内容，它可以在页面的任何地方集成内容。",
-    "IFrameNormalIntro": "通过 <code>Src</code>参数设置其他网站页面地址，内联其内容到本页面中",
-    "IFrameNormalTitle": "基础用法",
-    "IFrameTitle": "IFrame 内联框架"
-  },
   "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
     "ImageCropperClearText": "清除",
     "ImageCropperDisabledText": "禁用",
@@ -2147,41 +1976,6 @@
     "ImageCropperRoundIntro": "通过设置 <code>IsRound</code> 参数设置裁剪方式为圆形",
     "ImageCropperRoundText": "圆角",
     "Title": "ImageCropper 图像裁剪"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ImageViewers": {
-    "ImagePreviewerButton": "显示 Previewer",
-    "ImagePreviewerIntro": "配合 <code>Button</code> 等其他组件，直接弹出 <code>ImagePreviewer</code>",
-    "ImagePreviewerTitle": "单独使用 ImagePreviewer",
-    "ImageViewerDescription": "图片容器，在保留原生 img 的特性下，支持懒加载，自定义占位、加载失败等",
-    "ImageViewerErrorTemplateCustom": "自定义",
-    "ImageViewerErrorTemplateIntro": "可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容",
-    "ImageViewerErrorTemplateLoadFailed": "加载失败",
-    "ImageViewerErrorTemplateTitle": "加载失败",
-    "ImageViewerErrorTemplateUrlError": "Url 路径错误",
-    "ImageViewerNormalIntro": "加载并显示图片文件",
-    "ImageViewerNormalTips1": "<code>object-fit: fill</code> 填充 默认值 使图片拉伸填满整个容器, 不保证保持原有的比例",
-    "ImageViewerNormalTips2": "<code>object-fit: contain</code> 包含 保持原有尺寸比例缩放 保证整个图片都可以出现在容器中，因此此参数可能会在容器内留下空白",
-    "ImageViewerNormalTips3": "<code>object-fit: cover</code> 覆盖 保持原有尺寸比例缩放，宽度和高度至少有一个和容器一致（尺寸小的一致）因此此参数可能会让图片部分区域不可见",
-    "ImageViewerNormalTips4": "<code>object-fit: none</code> 无 保持原有尺寸比例，同时保持图片原始尺寸大小，多出的部分隐藏",
-    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> 降低 就好像依次设置了 <b>none</b> 或 <b>contain</b> 最终呈现的是尺寸比较小的那个",
-    "ImageViewerNormalTitle": "基本用法",
-    "ImageViewerPlaceHolderCustom": "自定义",
-    "ImageViewerPlaceHolderDefault": "默认",
-    "ImageViewerPlaceHolderIntro": "可通过设置 <code>ShowPlaceHolder</code> 开启占位符功能，通过设置 <code>PlaceHolderTemplate</code> 自定义占位内容",
-    "ImageViewerPlaceHolderLoading": "加载中 ...",
-    "ImageViewerPlaceHolderTemplateIntro": "可通过设置 <code>PlaceHolderTemplate</code> 开启占位模板功能，未设置 <code>Url</code> 或者正在加载时显示此模板内容",
-    "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示",
-    "ImageViewerPlaceHolderTemplatePlaceholder": "占位模板",
-    "ImageViewerPlaceHolderTemplateTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
-    "ImageViewerPlaceHolderTemplateTitle": "占位模板",
-    "ImageViewerPlaceHolderTemplateUrl": "未设置 Url",
-    "ImageViewerPlaceHolderTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
-    "ImageViewerPlaceHolderTitle": "占位内容",
-    "ImageViewerPreviewListIntro": "可通过设置 <code>PreviewList</code> 开启预览大图的功能，设置 <code>ZoomSpeed</code> 控制滚动缩放时的速度",
-    "ImageViewerPreviewListTitle": "大图预览",
-    "ImageViewerTitle": "ImageViewer 图片",
-    "IntersectionObserverIntro": "通过设置 <code>IsIntersectionObserver=\"true\"</code> 开启懒加载特性，当图片在不可见区域时不加载图片，当图片即将可见时才开始加载图片",
-    "IntersectionObserverTitle": "懒加载"
   },
   "BootstrapBlazor.Server.Components.Samples.InputCurrencies": {
     "InputCurrencyCultureDesc": "指定巴西葡萄牙语，例如：<code>pt-BR</code>；注意千分符为 <code>点号</code>，小数点符号为 <code>逗号</code>；可以通过 <code>Decimals</code> 指定小数位数",
@@ -2505,21 +2299,6 @@
     "LayoutsUpAndDownIntro": "常见于互联网网站布局",
     "LayoutsUpAndDownTitle": "上中下布局"
   },
-  "BootstrapBlazor.Server.Components.Samples.Lights": {
-    "LightsColorIntro": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
-    "LightsColorTitle": "变色",
-    "LightsDescription": "提供各种状态的指示灯",
-    "LightsFlashingIntro": "通过设置属性 <code>IsFlash</code> 使指示灯进行闪烁",
-    "LightsFlashingTitle": "闪烁",
-    "LightsFlatIntro": "通过设置属性 <code>IsFlat</code> 使指示灯扁平化",
-    "LightsFlatTitle": "扁平化",
-    "LightsNormalIntro": "用于状态指示",
-    "LightsNormalTitle": "普通用法",
-    "LightsTitle": "Light 指示灯",
-    "LightsTooltipTextIntro": "通过设置属性 <code>TooltipText</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字",
-    "LightsTooltipTextTitle": "提示文字",
-    "TooltipText": "我是提示文字信息"
-  },
   "BootstrapBlazor.Server.Components.Samples.LinkButtons": {
     "LinkButtonChildIntro": "通过 <code>ChildContent</code> 模板自定义显示内容",
     "LinkButtonChildTitle": "模板",
@@ -2609,25 +2388,6 @@
     "LocatorsSubTitle": "多用于系统日志跟踪与分析",
     "LocatorsTitle": "获取 IP 地理位置"
   },
-  "BootstrapBlazor.Server.Components.Samples.Logouts": {
-    "LogoutsChildContentCustomDisplay": "自定义显示内容",
-    "LogoutsChildContentIntro": "设置 <code>ChildContent</code> 或者在组件内部直接写其他组件即可",
-    "LogoutsChildContentTitle": "自定义显示模板",
-    "LogoutsDescription": "用于网站登出操作",
-    "LogoutsHeaderTemplateIntro": "设置 <code>HeaderTemplate</code>",
-    "LogoutsHeaderTemplateTitle": "自定义登录信息模板",
-    "LogoutsHeaderTemplateUser1": "总经理",
-    "LogoutsHeaderTemplateUser2": "Admin",
-    "LogoutsLinkTemplateIntro": "设置 <code>LinkTemplate</code>",
-    "LogoutsLinkTemplatePersonalCenter": "个人中心",
-    "LogoutsLinkTemplateSetup": "设置",
-    "LogoutsLinkTemplateTitle": "自定义链接模板",
-    "LogoutsNormalIntro": "直接使用内置模板使用",
-    "LogoutsNormalTitle": "普通用法",
-    "LogoutsShowUserNameIntro": "设置 <code>ShowUserName</code> 值为 <code>false</code>",
-    "LogoutsShowUserNameTitle": "仅显示头像",
-    "LogoutsTitle": "Logout 登出组件"
-  },
   "BootstrapBlazor.Server.Components.Samples.Markdowns": {
     "MarkdownsAsyncButtonText": "加载",
     "MarkdownsAsyncIntro": "通过 <code>Webapi</code> 获得 <code>Markdown</code> 显示内容",
@@ -2664,12 +2424,6 @@
     "MarkdownsValidateIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
     "MarkdownsValidateSubmitText": "提交",
     "MarkdownsValidateTitle": "客户端验证"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeBase": "基本用法",
-    "MarqueeBaseIntro": "通过参数调节文字滚动效果",
-    "MarqueeDescription": "组件多用于创建滚动文本，通常用于新闻滚动、广告滚动等效果",
-    "MarqueeTitle": "循环滚动组件"
   },
   "BootstrapBlazor.Server.Components.Samples.Masks": {
     "MaskCloseIntro": "通过使用 <code>DialogCloseButton</code> 组件或者级联参数关闭弹窗",
@@ -2986,12 +2740,6 @@
     "MultiSelectVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
     "MultiSelectVirtualizeTitle": "虚拟滚动"
   },
-  "BootstrapBlazor.Server.Components.Samples.Navbars": {
-    "NavbarDescription": "是网站开发中用于定义顶部导航区域或主页快速启动区域的结构化组件",
-    "NavbarTitle": "Navbar 导航栏",
-    "NormalIntro": "通过设置 <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> 对其内部元素布局",
-    "NormalTitle": "基本用法"
-  },
   "BootstrapBlazor.Server.Components.Samples.Navigation": {
     "NavsAlignIntro": "通过设置 <code>Alignment</code> 属性来控制组件对齐方式",
     "NavsAlignTitle": "对齐",
@@ -3223,13 +2971,6 @@
     "PrintsTips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
     "PrintsTitle": "Print 打印按钮"
   },
-  "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
-    "Block1Intro": "基础的按钮用法。",
-    "Block1Title": "基础用法",
-    "PulseButtonHeader": "PulseButton 心跳按钮",
-    "PulseButtonPara": "适用于突出显示功能吸引使用者关注，按钮默认为圆形",
-    "PulseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮"
-  },
   "BootstrapBlazor.Server.Components.Samples.QRCodes": {
     "ClearText": "二维码清除成功",
     "QRCodesColorIntro": "通过 <code>DarkColor</code> 参数指定二维码黑色部分颜色，<code>LightColor</code> 参数指定二维码白色部分颜色",
@@ -3331,13 +3072,6 @@
     "RepeaterNormalTitle": "基础用法",
     "RepeaterTitle": "Repeat 组件"
   },
-  "BootstrapBlazor.Server.Components.Samples.Responsives": {
-    "ResponsiveDescription": "根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局",
-    "ResponsiveNormalIntro": "调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化",
-    "ResponsiveNormalIntroCurrentText": "当前",
-    "ResponsiveNormalTitle": "基础用法",
-    "ResponsiveTitle": "Responsive 断点监听"
-  },
   "BootstrapBlazor.Server.Components.Samples.RibbonTabs": {
     "ItemsGroupName1": "操作组一",
     "ItemsGroupName2": "操作组三",
@@ -3392,16 +3126,6 @@
     "RowSpanTips6": "行显示一个组件",
     "RowSpanTitle": "跨列功能",
     "RowsTitle": "Row 布局组件"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Scrolls": {
-    "ScrollDescription": "给高度或者宽度超标的组件增加滚动条",
-    "ScrollNormalBottom": "我是最底端",
-    "ScrollNormalDescription": "请滚动右侧滚动条",
-    "ScrollNormalIntro": "给组件增加滚动条，通过设置 <code>Height</code> 高度值为 200px 使内部子元素高度为 500px 时出现滚动条",
-    "ScrollNormalTitle": "普通用法",
-    "ScrollTips": "其元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 属性",
-    "ScrollTitle": "Scroll 滚动条",
-    "ScrollToBottom": "滚动到底部"
   },
   "BootstrapBlazor.Server.Components.Samples.SearchDialogs": {
     "SearchDialogOptionAttr": "SearchDialogOption 属性",
@@ -3623,12 +3347,6 @@
     "SelectTreesNormalIntro": "选中节点",
     "SelectTreesNormalTitle": "普通用法",
     "SelectTreesTitle": "树状选择器 SelectTree"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ShieldBadges": {
-    "ShieldBadgeNormalIntro": "通过 <code>Icon</code> 设置图标，通过 <code>Label</code> 设置左侧文本，通过 <code>Text</code> 设置右侧文本",
-    "ShieldBadgeNormalTitle": "基础用法",
-    "SubTitle": "带图标标签文本的徽章组件高仿 Shields Badge",
-    "Title": "ShieldBadge 徽章组件"
   },
   "BootstrapBlazor.Server.Components.Samples.SignaturePadPageResponsive": {
     "BackText": "返回前页",
@@ -3936,54 +3654,6 @@
     "SweetAlertsTips2": "2. 调用其实例 <code>api</code>",
     "SweetAlertsTipsTitle": "组件使用介绍",
     "SweetAlertsTitle": "SweetAlert 弹窗组件"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
-    "SwitchButtonsDescription": "点击按钮后切换状态",
-    "SwitchButtonsNormalIntro": "点击组件自动切换状态",
-    "SwitchButtonsNormalTitle": "基础用法",
-    "SwitchButtonsOnClickDescription": "<code>OnClick</code> 回调是 <code>EventCallback</code> 会自动刷新当前组件或者页面，若不需要刷新组件或者页面可使用 <code>ToggleStateChanged</code>",
-    "SwitchButtonsOnClickIntro": "通过设置 <code>ToggleState</code> 初始化组件状态",
-    "SwitchButtonsOnClickTitle": "点击回调方法",
-    "SwitchButtonsTitle": "Switch Button 状态切换按钮",
-    "SwitchButtonsToggleStateDescription": "可通过设置 <code>ToggleStateChanged</code> 回调方法获得当前组件状态",
-    "SwitchButtonsToggleStateIntro": "通过设置 <code>ToggleState</code> 初始化组件状态",
-    "SwitchButtonsToggleStateTitle": "初始化状态"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Switches": {
-    "SwitchesBindingDescription1": "<code>Switch</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示",
-    "SwitchesBindingDescription2": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='input'>[传送门]</a>",
-    "SwitchesBindingDisplayText1": "双向绑定示例",
-    "SwitchesBindingDisplayText2": "自定义标签",
-    "SwitchesBindingDisplayText3": "不显示",
-    "SwitchesBindingDividerText1": "自定义标签",
-    "SwitchesBindingDividerText2": "占位",
-    "SwitchesBindingDividerText3": "不占位",
-    "SwitchesBindingDivText1": "绑定数值",
-    "SwitchesBindingIntro": "绑定组件内变量，数据自动同步",
-    "SwitchesBindingTips1": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
-    "SwitchesBindingTips2": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
-    "SwitchesBindingTips3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
-    "SwitchesBindingTitle": "双向绑定",
-    "SwitchesColorIntro": "通过设置 <code>OnColor</code> <code>OffColor</code> 属性值，设置开关状态颜色",
-    "SwitchesColorTitle": "开关颜色",
-    "SwitchesDescription": "提供最普通的开关应用",
-    "SwitchesDisableIntro": "通过设置 <code>IsDisabled</code> 属性控制组件不可用状态",
-    "SwitchesDisableTitle": "禁用状态",
-    "SwitchesInnerTextDescription": "通过设置 <code>OnInnerText</code> <code>OffInnerText</code> 属性更改内置文字，默认情况下建议使用一个汉字，可自定义组件宽度来增加内置文字数量",
-    "SwitchesInnerTextIntro": "通过设置 <code>ShowInnerText</code> 属性控制组件显示内置文字",
-    "SwitchesInnerTextLabelText1": "默认文字：",
-    "SwitchesInnerTextLabelText2": "自定义文字：",
-    "SwitchesInnerTextOffInnerText": "否",
-    "SwitchesInnerTextOnInnerText": "是",
-    "SwitchesInnerTextTitle": "显示内置文字",
-    "SwitchesNormalDescription": "点击第一个开关有值输出日志",
-    "SwitchesNormalIntro": "点击按钮切换状态",
-    "SwitchesNormalTitle": "基础用法",
-    "SwitchesNullableIntro": "通过设置 <code>DefaultValueWhenNull</code> 属性控制 <code>Null</code> 值的默认值，未设置时为 <code>false</code>",
-    "SwitchesNullableTitle": "可为空类型的开关",
-    "SwitchesOffText": "关闭",
-    "SwitchesOnText": "开启",
-    "SwitchesTitle": "Switch 开关"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.Tables": {
     "TableBaseBorderedIntro": "通过设置 <code>IsBordered</code> 属性，增加表格表框效果",
@@ -4992,29 +4662,6 @@
     "ToastsTitle": "Toast 轻量弹窗",
     "ToastsWarning": "警告通知"
   },
-  "BootstrapBlazor.Server.Components.Samples.Toggles": {
-    "BasicUsageP": "点击第一个开关有值输出日志",
-    "BindToWayDisplayText1": "双向绑定示例",
-    "BindToWayDiv": "绑定数值:",
-    "BindToWayP1": "<code>Switch</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示",
-    "BindToWayP2": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
-    "BindToWayP3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
-    "BindToWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
-    "CustomLabelText": "自定义标签",
-    "NotDisplayText": "不显示",
-    "NotOccupantsText": "不占位",
-    "OccupantsText": "占位",
-    "TogglesBindToWayIntro": "绑定组件内变量，数据自动同步",
-    "TogglesBindToWayTitle": "双向绑定数据",
-    "TogglesDisableIntro": "开关不可用状态。",
-    "TogglesDisableTitle": "禁用状态",
-    "TogglesNormalIntro": "点击按钮切换状态",
-    "TogglesNormalTitle": "基础用法",
-    "TogglesOffText": "关闭",
-    "TogglesOnText": "开启",
-    "TogglesSubTitle": "提供最普通的开关应用，值为 <code>true</code> <code>false</code>",
-    "TogglesTitle": "Toggle 开关"
-  },
   "BootstrapBlazor.Server.Components.Samples.Toolbars": {
     "NormalTitle": "基本用法",
     "ToolbarsTitle": "Toolbar 工具栏",
@@ -5057,16 +4704,6 @@
     "TransfersTitle": "Transfer 穿梭框",
     "TransferValidateIntro": "组件数据发生变化时，双向绑定 <code>bind-Value</code> 值同步变化",
     "TransferValidateTitle": "客户端验证"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Transitions": {
-    "TransitionsDescription": "BootstarpBlazor 应用在部分组件的过渡动画，你也可以直接使用。",
-    "TransitionsDurationIntro": "通过设置 <code>Duration</code> 参数控制动画时长单位为毫秒",
-    "TransitionsDurationTitle": "设置动画时长",
-    "TransitionsEndCallbackIntro": "动画执行完成后执行回调函数",
-    "TransitionsEndCallbackTitle": "动画执行完成回调",
-    "TransitionsNormalIntro": "基础动画效果演示",
-    "TransitionsNormalTitle": "基础用法",
-    "TransitionsTitle": "Transition 过渡效果"
   },
   "BootstrapBlazor.Server.Components.Samples.Translators": {
     "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
@@ -5191,14 +4828,6 @@
     "Show": "显示",
     "ToolboxCardTitle": "工具栏",
     "Translate": "机翻"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Typeds": {
-    "NormalIntro": "通过设置 <code>Text</code> 参数设置要显示的文本",
-    "NormalTitle": "基础用法",
-    "TypedIntro": "输入任意字符串，它会按照你设置的速度输入，输入的内容会退格，然后根据你设置的字符串数量开始一个新句子。",
-    "TypedOptionsIntro": "通过设置 <code>TypedOptions</code> 参数的属性自定义打字速度、延时等设定",
-    "TypedOptionsTitle": "TypedOptions",
-    "TypedTitle": "Typed 打字机效果"
   },
   "BootstrapBlazor.Server.Components.Samples.UniverSheets": {
     "NormalDesc1": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>保存数据</b> 按钮获得表格数据序列化的数据",
@@ -5404,13 +5033,6 @@
     "VideoPlayersNormalTitle": "基础用法",
     "VideoPlayersTips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准.",
     "VideoPlayersTitle": "VideoPlayer 视频播放器"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Watermarks": {
-    "WatermarkDescription": "<p>全局增加水印实现方法</p><p>可以在模板页 <code>MainLayout</code> 中加水印组件并设置 <code>IsPage=\"true\"</code> 即可</p>",
-    "WatermarkIntro": "在页面上添加文本或图片等水印信息",
-    "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容",
-    "WatermarkNormalTitle": "基础用法",
-    "WatermarkTitle": "Watermark 水印组件"
   },
   "BootstrapBlazor.Server.Components.Samples.WebSerials": {
     "BaudRateText": "波特率",

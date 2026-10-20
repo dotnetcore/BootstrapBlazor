@@ -389,6 +389,14 @@
     "ZIndex": "Layout",
     "ZipArchive": "IZipArchiveService"
   },
+  "BootstrapBlazor.Shared.Components.Samples.Affixs": {
+    "AffixIntro": "Fix the element to a specific visible area",
+    "AffixNormalIntro": "Affix is fixed at the top of the page by default",
+    "AffixNormalTitle": "Basic usage",
+    "AffixPositionIntro": "The parameter <code>Position</code> controls whether the top or bottom is fixed, and the <code>Offset</code> value sets the offset to the top or bottom",
+    "AffixPositionTitle": "Position",
+    "AffixTitle": "Affix"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Alerts": {
     "AlertDangerText": "A simple danger alert—check it out!",
     "AlertDarkText": "A simple dark alert—check it out!",
@@ -411,6 +419,27 @@
     "SubTitle": "Displays important alert messages.",
     "Title": "Alert",
     "WithIconUsageText": "With Icon"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.AnchorLinks": {
+    "AnchorLinkDemoIntroduction": "After placing the label click on the copy anchor link to the pasteboard",
+    "AnchorLinkDemoTitle": "Common usage",
+    "AnchorLinkDescribe1": "Apply to title strip",
+    "AnchorLinkDescribe2": "Anchor link, click to copy for easy sharing",
+    "AnchorLinkText": "I am a clickable anchor link",
+    "AnchorLinkTips1": "Anchor Link Component Properties",
+    "AnchorLinkTips2": "It is a required item, and the function of copying the anchor link will not be provided if it is not filled in",
+    "AnchorLinkTips3": "Component anchor icons are available via",
+    "AnchorLinkTips4": "The parameter is customized and the default is",
+    "AnchorLinkTips5": "<code>TooltipText</code> Used to set the prompt message after copying the address",
+    "AnchorLinkTitle": "AnchorLink"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Anchors": {
+    "BaseUsageText": "Basic usage",
+    "ContentText1": "<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>",
+    "IntroText1": "For displaying anchor hyperlinks on page and jumping between them.",
+    "IntroText2": "Click <code>Anchor</code> item try it",
+    "SubTitle": "Hyperlinks to scroll on one page.",
+    "Title": "Anchor"
   },
   "BootstrapBlazor.Shared.Components.Samples.Avatars": {
     "BasicUsageDivider": "Split the line",
@@ -503,6 +532,64 @@
     "TooltipTitle": "Tooltip",
     "WarningButton": "Warning"
   },
+  "BootstrapBlazor.Shared.Components.Samples.Carousels": {
+    "BasicUsageIntro": "A wide range of basic usages are used to bind components to an array of picture paths by setting the <code>Items</code> property values",
+    "BasicUsageTitle": "Basic usage",
+    "CaptionClassIntro": "Set <code>CarouselItem</code> 的 <code>CaptionClass</code> custome the class of caption",
+    "CaptionClassP1": "Set the <code>CaptionClass</code> to <code>d-none d-md-block</code> do not show the <code>Caption</code> in the small screen",
+    "CaptionClassTitle": "Caption Class",
+    "CaptionIntro": "Set <code>CarouselItem</code> parameter <code>Caption</code> for the content of caption",
+    "CaptionTemplateIntro": "Set <code>CarouselItem</code> 的 <code>CaptionTemplate</code> custom the caption of item",
+    "CaptionTemplateTitle": "Caption Template",
+    "CaptionTitle": "Caption",
+    "ChildContentIntro": "Use <code>ChildContent</code> render the customer content",
+    "ChildContentTitle": "ChildContent",
+    "FadeIntro": "By setting the <code>IsFade</code> property, the picture switches with a fade-in and fade-out effect",
+    "FadeTitle": "Fade in and out",
+    "IntervalIntro": "Set <code>Interval</code> to a <code>CarouselItem</code> to change the amount of time to delay between automatically cycling to the next item. the default value is <b>5000</b> ms",
+    "IntervalTitle": "Individual interval",
+    "OnClickIntro": "After you set the <code>OnClick</code> property by setting, click <code>Image</code> to trigger the <code>OnClick</code> callback delegate",
+    "OnClickTitle": "Click on the image to call back the event",
+    "ShowControlsIntro": "Set <code>ShowControls</code> to <code>true</code> for show/hide the controls of Carousel",
+    "ShowControlsTitle": "Show Controls",
+    "ShowIndicatorsIntro": "Set <code>ShowIndicators</code> to <code>true</code> for show/hide the indicator of Carousel",
+    "ShowIndicatorsTitle": "Indicator",
+    "SubTitle": "In limited space, loop through the same type of pictures, text, and more",
+    "Title": "Carousel",
+    "TouchSwipingIntro": "Set <code>DisableTouchSwiping</code> disable the swiping function on mobile",
+    "TouchSwipingTitle": "Disable touch swiping"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Circles": {
+    "BasicUsageIntro": "Set the circular progress by setting the <code>Value</code> property",
+    "BasicUsageTitle": "Basic usage",
+    "ChildContentIntro": "Customize the display content with custom subcomponents",
+    "ChildContentP1": "The size of the consumer population",
+    "ChildContentSpan": "Total number of people",
+    "ChildContentTitle": "Customize the display",
+    "CircleTips1": "Displays the percentage of progress for a task",
+    "CircleTips2": "Count the proportion of certain indicators.",
+    "ColorIntro": "Set the color of the circular progress bar by setting the <code>Color</code> property",
+    "ColorTitle": "Color",
+    "DecreaseSpan": "Decrease",
+    "IncreaseSpan": "Increase",
+    "StrokeWidthIntro": "Set the width of the circular progress bar by setting the <code>StrokeWidth</code> property",
+    "StrokeWidthTitle": "The width of the progress bar",
+    "SubTitle": "Chart class components. There are generally two uses:",
+    "Title": "Circle"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ClockPickers": {
+    "AutoSwitchText": "Whether to automatically switch the dial",
+    "BindValueIntro": "By setting<code>IsAutoSwitch=\"false\"</code> to disable automatic switching of hour, minute, and stopwatch dial functions",
+    "BindValueTitle": "bind",
+    "Description": "Select a time by dragging the watch needle",
+    "HasSecondsIntro": "By setting<code>ShowSecond=\"false\"</code> to not display the second hand dial",
+    "HasSecondsTitle": "Do not set the number of seconds",
+    "ShowClockScaleIntro": "By setting<code>ShowClockScale=\"true\"</code> to display the dial scale",
+    "ShowClockScaleTitle": "Display dial scale",
+    "ShowMinuteIntro": "By setting<code>ShowMinute=\"false\"</code>to not display the minute dial",
+    "ShowMinuteTitle": "Do not set minutes",
+    "Title": "ClockPicker"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Collapses": {
     "AccordionIntro": "Only one panel can be expanded at a time",
     "AccordionTitle": "Accordion effect",
@@ -539,6 +626,21 @@
     "ItemsTitle": "Dynamic updates",
     "SubTitle": "The content area is contained by the collapsed panel",
     "Title": "Collapse"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.CountButtons": {
+    "BaseUsageIntro": "Set the countdown time through the <code>Count</code> parameter value, which defaults to <b>5</b> seconds",
+    "BaseUsageText": "Basic usage",
+    "Description": "It is often used to force a period of execution time logic, such as waiting for input 60 seconds after sending a verification code",
+    "Text": "Send code",
+    "TextIntro": "Set countdown text through <code>CountText</code> parameter values",
+    "TextTitle": "Timing Text",
+    "Title": "CountButton"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.DialButtons": {
+    "BaseUsageIntro": "By setting <code>Placement</code> value for set the dial button popup direction",
+    "BaseUsageText": "Basic usage",
+    "DialButtonIntro": "After clicking the button, a function menu and other information will pop up, mostly used for displaying secondary functions",
+    "DialButtonTitle": "DialButton"
   },
   "BootstrapBlazor.Shared.Components.Samples.Dividers": {
     "AlignmentContent1": "Just a Content Test 1",
@@ -587,6 +689,156 @@
     "TemplateText": "Customize the empty state template",
     "TemplateTitle": "Customize the empty state template",
     "Title": "Empty"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.FlipClocks": {
+    "CardGroupMargin": "Card Group Margin",
+    "CardHeight": "Card Height",
+    "CardMargin": "Card Margin",
+    "CardWidth": "Card Width",
+    "CountIntro": "By setting <code>ViewMode=\"FlipClockViewMode.Count\"</code> to enable the timer function, the start time can be set using <code>StartValue</code>",
+    "CountText": "Counter",
+    "Custom": "Parameter Settings",
+    "CustomIntro": "Customize the display content by setting parameters",
+    "CustomText": "Custom Text",
+    "FlipClocksDescription": "Used for website timing or countdown",
+    "FlipClocksTitle": "FlipClock",
+    "FontSize": "Font Size",
+    "Height": "Height",
+    "IsCountDownIntro": "By setting <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> for the countdown function, the start time can be set using <code>StartValue</code>. Trigger the <code>OnCompletedAsync</code> callback method when the countdown ends",
+    "IsCountDownText": "CountDown"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Footers": {
+    "FooterChildContentIntro": "Set <code>ChildContent</code> for custom the child content",
+    "FooterChildContentTitle": "ChildContent",
+    "FooterNormalIntro": "Pass the ID of the scroll bar component to the footer component",
+    "FooterNormalTitle": "Basic usage",
+    "FootersContent1": "The Footer component is displayed at the bottom, and the page will automatically scroll back to the top when you click to return to the top",
+    "FootersContent2": "This example passes the component client ID",
+    "FootersDescription": "Displayed at the bottom of the page, with a back to top button",
+    "FooterShowGotoIntro": "Set <code>ShowGoto</code> to <code>false</code> for hide the <code>Goto</code> navigator on the right of footer",
+    "FooterShowGotoTitle": "Show Goto",
+    "FootersTips": "When using <code>Footer</code> components, pay attention to the setting of the style sheet <code>position</code> attribute",
+    "FootersTitle": "Footer"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.FullScreenButtons": {
+    "FullScreenButtonIntro": "Use the <code>FullScreenButton</code> component to make the entire web page or a specified element full screen",
+    "FullScreenButtonNormalIntro": "You can set the default icon of the button through <code>Icon</code>, and set the icon when exiting full screen through the <code>FullScreenExitIcon</code> property",
+    "FullScreenButtonNormalTitle": "Basic usage",
+    "FullScreenButtonTitle": "FullScreenButton",
+    "FullScreenTitleLi1": "Set the fullscreen element ID through the <code>TargetId</code> parameter",
+    "FullScreenTitleLi2": "Set the current page title text through the <code>Text</code> property"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.FullScreens": {
+    "FullScreenNormalButtonText1": "FullScreen",
+    "FullScreenNormalIntro": "The entire page is fully screened by calling the <code>Show</code> method that <code>FullScreenService</code> service instance",
+    "FullScreenNormalTitle": "Basic usage",
+    "FullScreenOptionDesc": "You can set the full-screen window by setting <code>FullScreenOption</code>, and specify the page element by <code>ElementReference</code> <code>Id</code> <code>Selector</code>",
+    "FullScreensDescription": "Human-computer interaction by injecting service calls <code>Show</code> method pop-ups",
+    "FullScreensTitle": "FullScreen"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.GoTops": {
+    "Description": "Click to return to the top of the specified container",
+    "Description1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
+    "Description2": "This example passes the component client ID",
+    "NormalIntro": "Click to return to the top usage",
+    "NormalTitle": "Basic usage",
+    "Title": "GoTop"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.GroupBoxes": {
+    "BasicUsageIntro": "Put your own components inside the <code>GroupBox</code>",
+    "BasicUsageTitle": "Basic usage",
+    "GroupP1": "I'm an example of <code>GroupBox</code>",
+    "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editor-form' target='_blank'>[the portal]</a>",
+    "GroupTitle": "An example of a form",
+    "SubTitle": "Simulate WinForm's GroupBox components",
+    "Title": "GroupBox"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.IFrames": {
+    "IFrameDescription": "Allows embedding documents, videos and interactive media in a page. By doing so, a secondary page can be displayed on the main page. The iFrame element allows including content from other sources, it can integrate content anywhere on the page.",
+    "IFrameNormalIntro": "Use the <code>Src</code> parameter to set the URL of other website pages and inline their content into this page",
+    "IFrameNormalTitle": "Basic usage",
+    "IFrameTitle": "IFrame"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ImageViewers": {
+    "ImagePreviewerButton": "Show Previewer",
+    "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
+    "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
+    "ImageViewerDescription": "In container, and retain the native characteristics of the img, to support lazy loading, custom placeholder, load, failure, etc",
+    "ImageViewerErrorTemplateCustom": "The custom",
+    "ImageViewerErrorTemplateIntro": "Can be set up by the <code>Error Template</code> open Error Template function, Url parameter <code>Url</code> unable to load images displayed when the content of the Template",
+    "ImageViewerErrorTemplateLoadFailed": "Load failed",
+    "ImageViewerErrorTemplateTitle": "Load failed",
+    "ImageViewerErrorTemplateUrlError": "Url The path error",
+    "ImageViewerNormalIntro": "Load and display the image files",
+    "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
+    "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
+    "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
+    "ImageViewerNormalTips4": "<code>object-fit: none</code> No keep original size proportion, while maintaining the original size, hidden extra parts",
+    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> To reduce as if, in turn, set the <b>none</b> or <b>contain the</b> is the relatively small size of the ultimate",
+    "ImageViewerNormalTitle": "Basic usage",
+    "ImageViewerPlaceHolderCustom": "Custom",
+    "ImageViewerPlaceHolderDefault": "Default",
+    "ImageViewerPlaceHolderIntro": "Can be set up by the <code>Show Place Holder</code> open placeholder function, by setting the <code>Place Holder Template</code> define placeholder content",
+    "ImageViewerPlaceHolderLoading": "Loading ...",
+    "ImageViewerPlaceHolderTemplateIntro": "Can be set up by the <code>Place Holder Template</code> open placeholder Template function, not set <code>Url</code>  or being loaded displayed when the content of the Template",
+    "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show",
+    "ImageViewerPlaceHolderTemplatePlaceholder": "The placeholder template",
+    "ImageViewerPlaceHolderTemplateTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
+    "ImageViewerPlaceHolderTemplateTitle": "The placeholder template",
+    "ImageViewerPlaceHolderTemplateUrl": "Is not set Url",
+    "ImageViewerPlaceHolderTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
+    "ImageViewerPlaceHolderTitle": "The placeholder content",
+    "ImageViewerPreviewListIntro": "Can be set up by the <code>Preview List</code> opens a larger Preview of the function, set <code>ZoomSpeed</code> to control the speed of scrolling and scaling",
+    "ImageViewerPreviewListTitle": "A larger preview",
+    "ImageViewerTitle": "Image Viewer pictures",
+    "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible.",
+    "IntersectionObserverTitle": "Intersection Observer"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Lights": {
+    "LightsColorIntro": "Color the light by setting the value of the parameter <code>Color</code>",
+    "LightsColorTitle": "discoloration",
+    "LightsDescription": "Provides various status indicators",
+    "LightsFlashingIntro": "Flash the light by setting the parameter <code>IsFlash</code>",
+    "LightsFlashingTitle": "flicker",
+    "LightsFlatIntro": "Make the indicator light flat by setting the parameter <code>IsFlat</code>",
+    "LightsFlatTitle": "Flat",
+    "LightsNormalIntro": "for status indication",
+    "LightsNormalTitle": "common usage",
+    "LightsTitle": "Light indicator",
+    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
+    "LightsTooltipTextTitle": "prompt text",
+    "TooltipText": "I am prompt text message"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Logouts": {
+    "LogoutsChildContentCustomDisplay": "Customize display content",
+    "LogoutsChildContentIntro": "Set <code>ChildContent</code> or write other components directly inside the component",
+    "LogoutsChildContentTitle": "Custom display template",
+    "LogoutsDescription": "Used for site logout action",
+    "LogoutsHeaderTemplateIntro": "set up <code>HeaderTemplate</code>",
+    "LogoutsHeaderTemplateTitle": "Custom Login Information Template",
+    "LogoutsHeaderTemplateUser1": "General manager",
+    "LogoutsHeaderTemplateUser2": "Admin",
+    "LogoutsLinkTemplateIntro": "set up <code>LinkTemplate</code>",
+    "LogoutsLinkTemplatePersonalCenter": "personal center",
+    "LogoutsLinkTemplateSetup": "set up",
+    "LogoutsLinkTemplateTitle": "Custom link template",
+    "LogoutsNormalIntro": "Use the built-in template directly",
+    "LogoutsNormalTitle": "Common usage",
+    "LogoutsShowUserNameIntro": "Set <code>ShowUserName</code> to <code>false</code>",
+    "LogoutsShowUserNameTitle": "Only show avatars",
+    "LogoutsTitle": "Logout component"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Marquees": {
+    "MarqueeBase": "Usage",
+    "MarqueeBaseIntro": "Adjusting the text scrolling effect through parameters",
+    "MarqueeDescription": "The component is mostly used to create scrolling text, usually for news scrolling, advertising scrolling, etc.",
+    "MarqueeTitle": "Marquee component"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Navbars": {
+    "NavbarDescription": "A powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more",
+    "NavbarTitle": "Navbar",
+    "NormalIntro": "By setting <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> to layout its internal elements",
+    "NormalTitle": "Basic usage"
   },
   "BootstrapBlazor.Shared.Components.Samples.Paginations": {
     "PaginationsAlignmentIntro": "Set <code>Alignment</code> contorl the pagination alginment",
@@ -648,6 +900,13 @@
     "ProgressStripeTitle": "Whether to show stripes",
     "ProgressTitle": "Progress progress bar"
   },
+  "BootstrapBlazor.Shared.Components.Samples.PulseButtons": {
+    "Block1Intro": "The underlying button usage.",
+    "Block1Title": "Basic usage",
+    "PulseButtonHeader": "PulseButton (heartbeat) button",
+    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
+    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
+  },
   "BootstrapBlazor.Shared.Components.Samples.Rates": {
     "RatesCry": "Cry",
     "RatesDescription": "Scoring components",
@@ -671,6 +930,29 @@
     "RatesSwitchOn": "Disable",
     "RatesTear": "Tear",
     "RatesTitle": "Rate"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Responsives": {
+    "ResponsiveDescription": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
+    "ResponsiveNormalIntro": "Resize the browser window and observe the change of <code>Breakpoint</code>",
+    "ResponsiveNormalIntroCurrentText": "current",
+    "ResponsiveNormalTitle": "Basic usage",
+    "ResponsiveTitle": "Responsive breakpoint monitoring"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Scrolls": {
+    "ScrollDescription": "Add scroll bars to components whose height or width exceeds the standard",
+    "ScrollNormalBottom": "bottom",
+    "ScrollNormalDescription": "Please scroll the scroll bar on the right",
+    "ScrollNormalIntro": "Add a scroll bar to the component. By setting the height of <code>Height</code> to 200px, the scroll bar appears when the height of the inner child element is 500px",
+    "ScrollNormalTitle": "Common usage",
+    "ScrollTips": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
+    "ScrollTitle": "Scroll",
+    "ScrollToBottom": "Scroll to bottom"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ShieldBadges": {
+    "ShieldBadgeNormalIntro": "Use <code>Icon</code> to set the icon, <code>Label</code> to set the left text, and <code>Text</code> to set the right text",
+    "ShieldBadgeNormalTitle": "Basic usage",
+    "SubTitle": "Badge component with icon label text like Shields Badge",
+    "Title": "ShieldBadge"
   },
   "BootstrapBlazor.Shared.Components.Samples.Skeletons": {
     "SkeletonsDescription": "Provide a placeholder graphic combination where you need to wait for content to load",
@@ -737,6 +1019,54 @@
     "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
     "Title": "Stack Layout"
   },
+  "BootstrapBlazor.Shared.Components.Samples.SwitchButtons": {
+    "SwitchButtonsDescription": "Toggle state after button click",
+    "SwitchButtonsNormalIntro": "Click the component to automatically switch the state",
+    "SwitchButtonsNormalTitle": "Basic usage",
+    "SwitchButtonsOnClickDescription": "<code>OnClick</code> callback is <code>EventCallback</code> will automatically refresh the current component or page, if you don't need to refresh the component or page, you can use <code>ToggleStateChanged</code>",
+    "SwitchButtonsOnClickIntro": "Initialize component state by setting <code>ToggleState</code>",
+    "SwitchButtonsOnClickTitle": "click callback method",
+    "SwitchButtonsTitle": "Switch Button state switch button",
+    "SwitchButtonsToggleStateDescription": "The current component state can be obtained by setting the <code>ToggleStateChanged</code> callback method",
+    "SwitchButtonsToggleStateIntro": "Initialize component state by setting <code>ToggleState</code>",
+    "SwitchButtonsToggleStateTitle": "initialized state"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Switches": {
+    "SwitchesBindingDescription1": "when the <code>Switch</code> component turns on bidirectional binding, the <code>DisplayName</code> label value is automatically obtained based on the bound <code>Model</code> property value and appears as a pre-<code>Label</code>, which can be customized to display the pre-label through the <code>DisplayText</code> property, or through the <code>ShowLabel</code> property turns off the display of the prelabel",
+    "SwitchesBindingDescription2": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component  of the <a href='input'>[The portal]</a>",
+    "SwitchesBindingDisplayText1": "An example of a two-way binding",
+    "SwitchesBindingDisplayText2": "Custom labels",
+    "SwitchesBindingDisplayText3": "Do not display",
+    "SwitchesBindingDividerText1": "Custom labels",
+    "SwitchesBindingDividerText2": "Occupants",
+    "SwitchesBindingDividerText3": "Do not occupy seats",
+    "SwitchesBindingDivText1": "The binding value",
+    "SwitchesBindingIntro": "Binding variables within a component, data is automatically synchronized",
+    "SwitchesBindingTips1": "Set the <code>DisplayText</code> value to <b>custom label </b>",
+    "SwitchesBindingTips2": "The value of <code>DisplayText</code> is displayed when <code>ShowLabel</code> is <code>true</code>, regardless of whether the value is set",
+    "SwitchesBindingTips3": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
+    "SwitchesBindingTitle": "Two-way binding",
+    "SwitchesColorIntro": "Set the switch status color by setting the <code>OnColor</code> <code>OffColor</code> property values",
+    "SwitchesColorTitle": "Switch color",
+    "SwitchesDescription": "The most common switching applications are available",
+    "SwitchesDisableIntro": "Control the unavailable state of the component by setting the <code>IsDisabled</code> property",
+    "SwitchesDisableTitle": "Disable the state",
+    "SwitchesInnerTextDescription": "By setting the <code>onInnerText</code> <code>OffInnerText</code> property to change the built-in text, a Chinese character is recommended by default to customize the component width to increase the amount of built-in text",
+    "SwitchesInnerTextIntro": "By setting <code>ShowInnerText</code> property control component displays built-in text",
+    "SwitchesInnerTextLabelText1": "Default text:",
+    "SwitchesInnerTextLabelText2": "Custom text:",
+    "SwitchesInnerTextOffInnerText": "Not",
+    "SwitchesInnerTextOnInnerText": "Be",
+    "SwitchesInnerTextTitle": "Displays built-in text",
+    "SwitchesNormalDescription": "Click the first switch to output the log with value",
+    "SwitchesNormalIntro": "Click the button to switch statuses",
+    "SwitchesNormalTitle": "Basic usage",
+    "SwitchesNullableIntro": "Control the default value of the <code>Null</code> value by setting the <code>DefaultValueWhenNull</code> property, which is <code>false</code> when not set",
+    "SwitchesNullableTitle": "Can be an empty type switch",
+    "SwitchesOffText": "Off",
+    "SwitchesOnText": "On",
+    "SwitchesTitle": "Switch"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Tags": {
     "Tag1": "Label I",
     "Tag2": "Label II",
@@ -783,6 +1113,29 @@
     "TextAreaUseShiftEnterPlaceHolder": "Please enter some text, Enter sends Shift + Enter line break",
     "TextAreaUseShiftEnterTitle": "Shift Enter"
   },
+  "BootstrapBlazor.Shared.Components.Samples.Toggles": {
+    "BasicUsageP": "Click the first switch to output the log with value",
+    "BindToWayDisplayText1": "An example of a two-way binding",
+    "BindToWayDiv": "The binding value:",
+    "BindToWayP1": "when the <code>Switch</code> component turns on bidirectional binding, the <code>DisplayName</code> label value is automatically obtained based on the bound <code>Model</code> property value and appears as a <code>pre-Label</code>, which can be customized to display the pre-label through the <code>DisplayText</code> property, or through the <code>ShowLabel</code> property turns off the display of the prelabel",
+    "BindToWayP2": "Set the <code>DisplayText</code> value to <b>custom label </b>",
+    "BindToWayP3": "The value of <code>DisplayText</code> is displayed when <code>ShowLabel</code> is <code>true</code>, regardless of whether the value is set",
+    "BindToWayP4": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
+    "CustomLabelText": "Custom labels",
+    "NotDisplayText": "Do not display",
+    "NotOccupantsText": "Not Occupants",
+    "OccupantsText": "Occupants",
+    "TogglesBindToWayIntro": "Binding variables within a component, data is automatically synchronized",
+    "TogglesBindToWayTitle": "Bind data in both directions",
+    "TogglesDisableIntro": "The switch is not available.",
+    "TogglesDisableTitle": "Disable the state",
+    "TogglesNormalIntro": "Click the button to switch statuses",
+    "TogglesNormalTitle": "Basic usage",
+    "TogglesOffText": "Off",
+    "TogglesOnText": "On",
+    "TogglesSubTitle": "The most common switching application is available with a value of <code>true</code> <code>false</code>",
+    "TogglesTitle": "Toggle"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Tooltips": {
     "BootstrapTooltipIntro": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
     "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
@@ -802,6 +1155,31 @@
     "TooltipsSelectorIntro": "Precisely locate trigger prompt box elements by setting <code>Selector</code> parameters",
     "TooltipsSelectorTitle": "Prompt host settings",
     "TooltipsTitle": "Tooltip"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Transitions": {
+    "TransitionsDescription": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
+    "TransitionsDurationIntro": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter",
+    "TransitionsDurationTitle": "Set animation duration",
+    "TransitionsEndCallbackIntro": "Execute the callback function after the animation is completed",
+    "TransitionsEndCallbackTitle": "Animation execution complete callback",
+    "TransitionsNormalIntro": "Demonstration of basic animation effects",
+    "TransitionsNormalTitle": "Basic usage",
+    "TransitionsTitle": "Transition effect"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Typeds": {
+    "NormalIntro": "Set the text to be displayed by setting the <code>Text</code> parameter",
+    "NormalTitle": "Text",
+    "TypedIntro": "Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.",
+    "TypedOptionsIntro": "Customize typing speed, delay, and other settings by setting the properties of the <code>TypedOptions</code> parameter",
+    "TypedOptionsTitle": "TypedOptions",
+    "TypedTitle": "Typed"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Watermarks": {
+    "WatermarkDescription": "<p>How to add a watermark globally</p><p>You can add a watermark component to the template page <code>MainLayout</code> and set <code>IsPage=\"true\"</code></p>",
+    "WatermarkIntro": "Add specific text or patterns to the page",
+    "WatermarkNormalIntro": "Use the <code>Text</code> property to set a string to specify the watermark text",
+    "WatermarkNormalTitle": "Basic usage",
+    "WatermarkTitle": "Watermark"
   },
   "BootstrapBlazor.Shared.Data.AttributeItem": {
     "DefaultValue": "DefaultValue",

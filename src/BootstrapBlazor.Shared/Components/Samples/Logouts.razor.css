@@ -1,0 +1,3 @@
+.logout-custom ::deep .dropdown-logout {
+    background-color: rgba(var(--bs-body-color-rgb), .12);
+}
