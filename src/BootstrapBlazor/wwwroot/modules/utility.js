@@ -900,6 +900,10 @@ export function setMemorialMode(memorial) {
     }
 }
 
+export function getMemorialMode() {
+    return document.documentElement.getAttribute('data-bb-theme') === 'memorial';
+}
+
 export function toggleMemorialMode() {
     setMemorialMode(document.documentElement.getAttribute('data-bb-theme') !== 'memorial');
 }
