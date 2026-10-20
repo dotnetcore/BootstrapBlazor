@@ -81,7 +81,7 @@ public partial class EditDialog<TModel> where TModel : class
     /// <summary>
     /// <para lang="zh">获得/设置 是否在 Footer 中显示「保存并新增」按钮 默认为 false</para>
     /// <para lang="en">Gets or sets whether to show the "Save and Add" button in the Footer. Default is false</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗/抽屉保持打开状态以便连续录入</para>
@@ -97,7 +97,7 @@ public partial class EditDialog<TModel> where TModel : class
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮文本 默认 null 读取资源文件设置文本</para>
     /// <para lang="en">Gets or sets the "Save and Add" button text. Default is null (Read from resource file)</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public string? KeepAddingButtonText { get; set; }
@@ -105,7 +105,7 @@ public partial class EditDialog<TModel> where TModel : class
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
     /// <para lang="en">Gets or sets the "Save and Add" button icon. Default is null (Use current theme icon)</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public string? KeepAddingButtonIcon { get; set; }
@@ -113,7 +113,7 @@ public partial class EditDialog<TModel> where TModel : class
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
     /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public Color KeepAddingButtonColor { get; set; } = Color.Info;
@@ -121,7 +121,7 @@ public partial class EditDialog<TModel> where TModel : class
     /// <summary>
     /// <para lang="zh">获得/设置 点击「保存并新增」按钮保存成功后创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例</para>
     /// <para lang="en">Gets or sets the callback which creates the next edit model after the "Save and Add" button saved successfully. The parameter is the model saved just now</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>

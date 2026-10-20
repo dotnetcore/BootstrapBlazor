@@ -44,7 +44,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示「保存并新增」按钮 默认为 false 仅在 <see cref="EditMode.Popup"/> 弹窗与 <see cref="EditMode.Drawer"/> 抽屉模式下的新建界面中生效</para>
     /// <para lang="en">Gets or sets whether to show the "Save and Add" button. Default false. Only works for the add dialog/drawer in <see cref="EditMode.Popup"/> and <see cref="EditMode.Drawer"/> modes</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">开启后新建编辑弹窗/抽屉的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持编辑界面打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
@@ -58,7 +58,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮文本 默认 null 读取资源文件设置文本</para>
     /// <para lang="en">Gets or sets the "Save and Add" button text. Default null (Read from resource file)</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public string? KeepAddingButtonText { get; set; }
@@ -66,7 +66,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮图标 默认 null 使用当前主题图标</para>
     /// <para lang="en">Gets or sets the "Save and Add" button icon. Default null (Use current theme icon)</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public string? KeepAddingButtonIcon { get; set; }
@@ -74,7 +74,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 「保存并新增」按钮颜色 默认 <see cref="Color.Info"/></para>
     /// <para lang="en">Gets or sets the "Save and Add" button color. Default is <see cref="Color.Info"/></para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     [Parameter]
     public Color KeepAddingButtonColor { get; set; } = Color.Info;
@@ -82,7 +82,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 连续新增时创建下一个编辑模型的回调方法 参数为刚刚保存成功的模型实例 默认 null 未设置时使用 <see cref="OnAddAsync"/> 创建</para>
     /// <para lang="en">Gets or sets the callback which creates the next edit model when keep adding. The parameter is the model saved just now. Default null, use <see cref="OnAddAsync"/> when it is not set</para>
-    /// <para>v<version>11.0.1</version></para>
+    /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">仅在 <see cref="ShowKeepAddingButton"/> 为 true 时生效，可基于上一条已保存数据预填下一条数据，例如数量递增、沿用上一次的类别等</para>

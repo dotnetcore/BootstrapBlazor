@@ -64,7 +64,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用复杂属性值表达式 默认 null 未设置 优先使用 BootstrapBlazorOptions.TableSettings.EnableComplexProperty</para>
     /// <para lang="en">Gets or sets whether to enable complex property value expression. Default is null (use BootstrapBlazorOptions.TableSettings.EnableComplexProperty if not set)</para>
-    /// <para>v<version>11.0.2</version></para>
+    /// <para><version>v11.0.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableComplexProperty { get; set; }
@@ -476,7 +476,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动行为，默认值为 <see cref="ScrollIntoViewBehavior.Smooth"/></para>
     /// <para lang="en">Gets or sets the scroll behavior. The default is <see cref="ScrollIntoViewBehavior.Smooth"/></para>
-    /// <para>v<version>10.6.1</version></para>
+    /// <para><version>v10.6.1</version></para>
     /// </summary>
     [Parameter]
     public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
@@ -2049,7 +2049,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 表格客户端状态调整回调方法</para>
     /// <para lang="en">Gets or sets Table Column Client Status Changed Callback</para>
-    /// <para>v<version>10.6.1</version></para>
+    /// <para><version>v10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, TableColumnClientStatus, Task>? OnTableColumnClientStatusChanged { get; set; }
@@ -2057,7 +2057,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 加载表格客户端状态回调方法，组件会在首次渲染时调用该方法获取列状态用于初始化表格显示状态</para>
     /// <para lang="en">Gets or sets Load Table Column Client Status Callback. The component will call this method on the first render to get the column status for initializing the table display state.</para>
-    /// <para>v<version>10.6.1</version></para>
+    /// <para><version>v10.6.1</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<TableColumnClientStatus>>? OnLoadTableColumnClientStatus { get; set; }
@@ -2081,7 +2081,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">清除表格列客户端状态实例方法</para>
     /// <para lang="en">clear table column client status instance method</para>
-    /// <para>v<version>10.6.1</version></para>
+    /// <para><version>v10.6.1</version></para>
     /// </summary>
     public async Task ClearTableColumnClientStatus()
     {

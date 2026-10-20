@@ -156,7 +156,7 @@ public partial class Drawer : IClosable
     /// <summary>
     /// <para lang="zh">获得/设置 是否延迟渲染子组件 默认 false 立即渲染 设置为 true 时首次打开抽屉后才渲染子组件 防止子组件脚本在不可见状态下测量尺寸失效 关闭后子组件保持渲染状态不销毁</para>
     /// <para lang="en">Gets or sets Whether to lazy render child content. Default is false. When true, child content is rendered after the drawer is opened for the first time, preventing child component scripts from measuring size incorrectly while hidden. Content stays rendered after closing</para>
-    /// <para>v<version>10.8.1</version></para>
+    /// <para><version>v10.8.1</version></para>
     /// </summary>
     [Parameter]
     public bool IsLazyLoadChildContent { get; set; }
