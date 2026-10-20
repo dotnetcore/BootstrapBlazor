@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Tabs
@@ -84,14 +84,16 @@ public sealed partial class Tabs
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
             var menuItem = TabMenu.Items.FirstOrDefault();
             if (menuItem != null && TabMenu.OnClick is not null)
             {
-                TabMenu.OnClick(menuItem);
+                await TabMenu.OnClick(menuItem);
             }
         }
     }
@@ -122,15 +124,15 @@ public sealed partial class Tabs
     {
         if (TabSetApp.Items.Count() > 4)
         {
-            var item = TabSet.Items.Last();
-            await TabSet.RemoveTab(item);
+            var item = TabSetApp.Items.Last();
+            await TabSetApp.RemoveTab(item);
         }
     }
 
     private Task AddTab()
     {
         var text = $"Tab {TabSetApp.Items.Count() + 1}";
-        TabSet.AddTab(new Dictionary<string, object?>
+        TabSetApp.AddTab(new Dictionary<string, object?>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,

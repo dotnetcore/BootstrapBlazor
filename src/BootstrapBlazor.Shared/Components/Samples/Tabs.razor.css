@@ -1,4 +1,4 @@
-﻿.dynamic-tab ::deep .header {
+.dynamic-tab ::deep .header {
     background-color: var(--bb-layout-header-backgound);
     height: var(--bb-layout-header-height);
     color: #fff;

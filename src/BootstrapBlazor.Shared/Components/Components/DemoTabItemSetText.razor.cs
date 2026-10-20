@@ -3,28 +3,23 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// DemoTabItem 组件
 /// </summary>
-public partial class DemoTabItem
+public partial class DemoTabItemSetText
 {
+    [CascadingParameter]
+    [NotNull]
+    private TabItem? TabItem { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoTabItem>? Localizer { get; set; }
 
-    /// <summary>
-    /// OnSetTitle 回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task>? OnSetTitle { get; set; }
-
-    private async Task OnClick()
+    private void OnClick()
     {
-        if (OnSetTitle != null)
-        {
-            await OnSetTitle(DateTime.Now.ToString("mm:ss"));
-        }
+        TabItem.SetHeader(DateTime.Now.ToString("mm:ss"));
     }
 }
