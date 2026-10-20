@@ -544,6 +544,17 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GenerateValueExpression_ComplexPropertyConfiguration()
+    {
+        var model = new NestedModel { Child = new NestedValue { Name = "Test" } };
+        var expression = Assert.IsAssignableFrom<System.Linq.Expressions.LambdaExpression>(
+            Utility.GenerateValueExpression(model, "Child.Name", typeof(string), true));
+
+        Assert.Equal("Test", expression.Compile().DynamicInvoke());
+        Assert.Throws<InvalidOperationException>(() => Utility.GenerateValueExpression(model, "Child.Name", typeof(string), false));
+    }
+
+    [Fact]
     public void ConvertValueToString_Ok()
     {
         var v = new List<int>() { 1, 2, 3 };
@@ -789,6 +800,16 @@ public class UtilityTest : BootstrapBlazorTestBase
         public int Id { get; set; }
 
         public override string ToString() => Name ?? "";
+    }
+
+    private class NestedModel
+    {
+        public NestedValue Child { get; set; } = new();
+    }
+
+    private class NestedValue
+    {
+        public string Name { get; set; } = "";
     }
 
     private enum TestEnum

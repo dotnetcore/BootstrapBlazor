@@ -201,6 +201,14 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     public EditorFormGroupType GroupType { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否启用复杂属性值表达式 默认 null 未设置 优先使用 BootstrapBlazorOptions.TableSettings.EnableComplexProperty</para>
+    /// <para lang="en">Gets or sets whether to enable complex property value expression. Default is null (use BootstrapBlazorOptions.TableSettings.EnableComplexProperty if not set)</para>
+    /// <para>v<version>11.0.2</version></para>
+    /// </summary>
+    [Parameter]
+    public bool? EnableComplexProperty { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值</para>
     /// <para lang="en">Gets or sets Cascading EditContext Instance. Available when inside EditForm or ValidateForm</para>
     /// </summary>
@@ -221,6 +229,10 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     [Inject]
     [NotNull]
     private ILookupService? LookupService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 配置编辑项目集合</para>
@@ -357,7 +369,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService));
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService), skipValidate: null, Options.CurrentValue.GetEnableComplexProperty(EnableComplexProperty));
         }
     };
 

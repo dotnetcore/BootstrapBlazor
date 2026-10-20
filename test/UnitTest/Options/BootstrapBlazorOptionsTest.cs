@@ -186,4 +186,20 @@ public class BootstrapBlazorOptionsTest
         Assert.False(options.GetEditDialogShowConfirmSwal(false, false));
         Assert.False(options.GetEditDialogShowConfirmSwal(false, true));
     }
+
+    [Fact]
+    public void GetEnableComplexProperty_Ok()
+    {
+        var options = new BootstrapBlazorOptions();
+
+        Assert.True(options.GetEnableComplexProperty(null));
+
+        options.TableSettings.EnableComplexProperty = false;
+        Assert.False(options.GetEnableComplexProperty(null));
+        Assert.True(options.GetEnableComplexProperty(true));
+
+        options.TableSettings.EnableComplexProperty = true;
+        Assert.True(options.GetEnableComplexProperty(null));
+        Assert.False(options.GetEnableComplexProperty(false));
+    }
 }
