@@ -16,6 +16,16 @@ public sealed class LayoutSettings
     public string AssetRootPath { get; set; } = "/";
 
     /// <summary>
+    /// Gets or sets the public website link.
+    /// </summary>
+    public string ServerUrl { get; set; } = "";
+
+    /// <summary>
+    /// Gets or sets the administration demo link.
+    /// </summary>
+    public string AdminUrl { get; set; } = "";
+
+    /// <summary>
     /// Gets or sets the available UI cultures.
     /// </summary>
     public List<string> SupportedCultures { get; set; } = [];

@@ -61,6 +61,8 @@ app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<B
     new LayoutSettings
     {
         AssetRootPath = website.Value.AssetRootPath,
+        ServerUrl = website.Value.ServerUrl,
+        AdminUrl = website.Value.AdminUrl,
         SupportedCultures = bootstrap.Value.GetSupportedCultures().Select(c => c.Name).ToList(),
         GithubRepositoryUrl = website.Value.GithubRepositoryUrl,
         GiteeRepositoryUrl = website.Value.GiteeRepositoryUrl,
