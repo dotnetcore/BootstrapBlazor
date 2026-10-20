@@ -58,6 +58,7 @@ public class SampleDocumentationTest
     [Theory]
     [InlineData(typeof(CountUpOption))]
     [InlineData(typeof(NotificationItem))]
+    [InlineData(typeof(MessageOption))]
     [InlineData(typeof(ConsoleMessageItem))]
     [InlineData(typeof(TimelineItem))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)

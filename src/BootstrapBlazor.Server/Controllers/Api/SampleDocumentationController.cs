@@ -41,6 +41,7 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
             || (!typeof(IComponent).IsAssignableFrom(type)
                 && type != typeof(CountUpOption)
                 && type != typeof(NotificationItem)
+                && type != typeof(MessageOption)
                 && type != typeof(ConsoleMessageItem)
                 && type != typeof(TimelineItem)))
         {
