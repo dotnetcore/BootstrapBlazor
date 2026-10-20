@@ -64,6 +64,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用复杂属性值表达式 默认 null 未设置 优先使用 BootstrapBlazorOptions.TableSettings.EnableComplexProperty</para>
     /// <para lang="en">Gets or sets whether to enable complex property value expression. Default is null (use BootstrapBlazorOptions.TableSettings.EnableComplexProperty if not set)</para>
+    /// <para>v<version>11.0.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableComplexProperty { get; set; }
