@@ -7,9 +7,22 @@
         @RenderSubMenu
     </div>
 }
+else if (HrefString == null)
+{
+    <a @attributes="@AdditionalAttributes" @onclick:preventDefault class="@ClassString" target="@TargetString" style="@StyleClassString" aria-expanded="@AriaExpandedString">
+        @RenderLinkContent
+    </a>
+}
 else
 {
     <NavLink @attributes="@AdditionalAttributes" @onclick:preventDefault="@PreventDefault" class="@ClassString" href="@HrefString" target="@TargetString" Match="@Item.Match" style="@StyleClassString" aria-expanded="@AriaExpandedString">
+        @RenderLinkContent
+    </NavLink>
+}
+
+@code {
+    RenderFragment RenderLinkContent =>
+    @<text>
         @RenderSubMenu
         @if (Item.Template != null)
         {
@@ -18,10 +31,8 @@ else
             </div>
         }
         <i class="@MenuArrowClassString" />
-    </NavLink>
-}
+    </text>;
 
-@code {
     RenderFragment RenderSubMenu =>
     @<div class="submenu-link">
         <i class="@IconString"></i>

@@ -24,11 +24,11 @@ public sealed partial class MenuLink
         .AddClass(ArrowIcon, Item.Items.Any())
         .Build();
 
-    private string? HrefString => (Parent.DisableNavigation || Item.IsDisabled || Item.Items.Any() || string.IsNullOrEmpty(Item.Url)) ? "#" : Item.Url.TrimStart('/');
+    private string? HrefString => (Parent.DisableNavigation || Item.IsDisabled || Item.Items.Any() || string.IsNullOrEmpty(Item.Url)) ? null : Item.Url.TrimStart('/');
 
     private string? TargetString => string.IsNullOrEmpty(Item.Target) ? null : Item.Target;
 
-    private bool PreventDefault => HrefString == "#";
+    private bool PreventDefault => HrefString is null or "#";
 
     private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
