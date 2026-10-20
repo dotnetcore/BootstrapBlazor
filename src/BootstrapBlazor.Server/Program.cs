@@ -60,6 +60,7 @@ app.MapDefaultControllerRoute();
 app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<BootstrapBlazorOptions> bootstrap, IOptions<MeiliSearchOptions> search) =>
     new LayoutSettings
     {
+        AssetRootPath = website.Value.AssetRootPath,
         SupportedCultures = bootstrap.Value.GetSupportedCultures().Select(c => c.Name).ToList(),
         GithubRepositoryUrl = website.Value.GithubRepositoryUrl,
         GiteeRepositoryUrl = website.Value.GiteeRepositoryUrl,

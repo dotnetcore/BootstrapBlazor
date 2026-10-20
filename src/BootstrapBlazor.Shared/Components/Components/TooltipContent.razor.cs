@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// TooltipContent 组件用于显示 Tooltip 的内容

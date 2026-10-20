@@ -24,6 +24,7 @@ builder.Services.Configure<BootstrapBlazor.Components.BootstrapBlazorOptions>(op
 });
 builder.Services.Configure<BootstrapBlazor.Shared.Data.WebsiteOptions>(options =>
 {
+    options.AssetRootPath = settings.AssetRootPath;
     options.GithubRepositoryUrl = settings.GithubRepositoryUrl;
     options.GiteeRepositoryUrl = settings.GiteeRepositoryUrl;
     options.WikiUrl = settings.WikiUrl;

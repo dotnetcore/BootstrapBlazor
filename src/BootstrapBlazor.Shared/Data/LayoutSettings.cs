@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Shared.Data;
 public sealed class LayoutSettings
 {
     /// <summary>
+    /// Gets or sets the public asset root path.
+    /// </summary>
+    public string AssetRootPath { get; set; } = "/";
+
+    /// <summary>
     /// Gets or sets the available UI cultures.
     /// </summary>
     public List<string> SupportedCultures { get; set; } = [];
