@@ -1,4 +1,4 @@
-﻿.bb-list-main {
+.bb-list-main {
     display: flex;
     flex-wrap: wrap;
     border: var(--bs-border-width) solid var(--bs-border-color);
@@ -49,4 +49,14 @@
     height: 600px;
     text-align: center;
     margin-top: 160px;
+}
+
+.bb-video ::deep video {
+    width: 256px;
+}
+
+@media (min-width: 767.99px) {
+    .bb-video ::deep video {
+        width: 350px;
+    }
 }
