@@ -26,6 +26,11 @@ public sealed class LayoutSettings
     public string AdminUrl { get; set; } = "";
 
     /// <summary>
+    /// Gets or sets the administration repository link.
+    /// </summary>
+    public string BootstrapAdminLink { get; set; } = "";
+
+    /// <summary>
     /// Gets or sets the available UI cultures.
     /// </summary>
     public List<string> SupportedCultures { get; set; } = [];

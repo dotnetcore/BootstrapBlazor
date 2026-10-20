@@ -3,14 +3,14 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Data;
+namespace BootstrapBlazor.Shared.Data;
 
 /// <summary>
-/// 
+/// Generates local menu data for documentation samples.
 /// </summary>
-internal static class MenusDataGenerator
+public static class MenusDataGenerator
 {
-    public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
 
@@ -59,7 +59,7 @@ internal static class MenusDataGenerator
         };
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
 
@@ -80,7 +80,7 @@ internal static class MenusDataGenerator
         };
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
         return new List<MenuItem>
@@ -100,7 +100,7 @@ internal static class MenusDataGenerator
         };
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
 
@@ -149,7 +149,7 @@ internal static class MenusDataGenerator
         };
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
         return new List<MenuItem>
@@ -190,6 +190,9 @@ internal static class MenusDataGenerator
         })
     });
 
+    /// <summary>
+    /// Creates localized sidebar items shared by the menu and layout samples.
+    /// </summary>
     public static async Task<List<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -227,7 +230,7 @@ internal static class MenusDataGenerator
         ];
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
         return new List<MenuItem>
@@ -266,7 +269,7 @@ internal static class MenusDataGenerator
         };
     }
 
-    public static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
+    internal static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
         return new List<MenuItem>
