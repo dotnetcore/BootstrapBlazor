@@ -1,4 +1,4 @@
-﻿.step-demo ::deep .step {
+.step-demo ::deep .step {
     padding: 0 1rem;
     border-radius: var(--bs-border-radius);
     border: var(--bs-border-width) solid var(--bs-border-color);

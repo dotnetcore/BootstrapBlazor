@@ -20,6 +20,7 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddOptionsMonitor<WebsiteOptions>();
         services.AddScoped<MenuService>();
         services.AddSingleton<PackageVersionService>();
+        services.AddSingleton<WeatherForecastService>();
         return services;
     }
 }

@@ -19,7 +19,6 @@ public static class ServiceCollectionSharedExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<ISampleDocumentationService>(provider => provider.GetRequiredService<CodeSnippetService>());
         services.AddSingleton<DashboardService>();
