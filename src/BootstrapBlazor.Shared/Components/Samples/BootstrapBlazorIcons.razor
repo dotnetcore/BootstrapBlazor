@@ -1,0 +1,23 @@
+@page "/icon"
+@inject IStringLocalizer<BootstrapBlazorIcons> Localizer
+@inject IOptions<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["IconsTitle"]</h3>
+
+<h4>@Localizer["IconsDescription"]</h4>
+
+<div class="icon-demo">
+    <DemoBlock Title="@Localizer["FATitle"]" Introduction="@Localizer["FAIntro"]" Name="Font">
+        <BootstrapBlazorIcon Name="fa-solid fa-home"></BootstrapBlazorIcon>
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["SvgTitle"]" Introduction="@Localizer["SvgIntro"]" Name="Svg">
+        <BootstrapBlazorIcon Name="config" IsSvgSprites="true" Url="./_content/BootstrapBlazor.IconPark/icon-park.svg"></BootstrapBlazorIcon>
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
+        <BootstrapBlazorIcon>
+            <img src="@WebsiteOption.Value.GetAssetUrl("favicon.png")" alt="img" />
+        </BootstrapBlazorIcon>
+    </DemoBlock>
+</div>

@@ -1,0 +1,4 @@
+.icon-demo ::deep .bb-icon {
+    --bb-icon-width: 24px;
+    --bb-icon-color: var(--bs-body-color);
+}
