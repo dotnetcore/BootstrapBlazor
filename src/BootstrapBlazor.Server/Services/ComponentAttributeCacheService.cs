@@ -194,8 +194,8 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// <para lang="zh">从 XML 注释的 para version 节点获取版本信息</para>
-    /// <para lang="en">Get the version information from the para version node in XML comments</para>
+    /// <para lang="zh">从 XML 注释的 para version 节点获取版本信息，包含 v 前缀</para>
+    /// <para lang="en">Get the version from the para version node in XML comments, including the v prefix</para>
     /// </summary>
     private static string? GetVersion(XDocument? xmlDoc, PropertyInfo property)
     {
@@ -205,16 +205,14 @@ public static class ComponentAttributeCacheService
             ?? _xmlDoc?.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
-        // 在 summary 节点下查找包含 version 的 para 节点
-        // XML 格式: <summary><para><version>10.2.2</version></para></summary>
+        // 在 summary 节点下查找包含 version 的 para 节点，保留 version 节点中的 v 前缀
+        // XML 格式: <summary><para><version>v10.2.2</version></para></summary>
         var summaryElement = memberElement?.Element("summary");
 
         // 查找第一个包含 version 元素的 para
-        // 直接在循环中返回，避免创建中间变量
         return summaryElement?.Elements("para")
-            .Select(p => p.Element("version"))
-            .FirstOrDefault(v => v != null)
-            ?.Value.Trim();
+            .Select(p => p.Element("version")?.Value.Trim())
+            .FirstOrDefault(v => !string.IsNullOrEmpty(v));
     }
 
     /// <summary>
