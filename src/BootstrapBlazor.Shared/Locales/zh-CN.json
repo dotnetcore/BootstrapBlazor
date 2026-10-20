@@ -938,6 +938,18 @@
     "IsDisabledIntro": "通过设置 <code>IsDisabled</code> 使组件处于不可用状态",
     "IsDisabledTitle": "禁用"
   },
+  "BootstrapBlazor.Shared.Components.Samples.JSRuntimeExtensions": {
+    "EvalIntro": "通过 <code>Eval</code> 函数，在当前作用域内动态运行 <code>JavaScript</code> 代码。",
+    "EvalTitle": "Eval",
+    "FunctionIntro": "通过 <code>Function</code> 函数，在全局作用域内动态运行 <code>JavaScript</code> 代码。",
+    "FunctionTitle": "Function",
+    "IsMobileIntro": "通过正则表达式判断 <code>userAgent</code>，表示当前设备是否为移动设备",
+    "IsMobileTitle": "IsMobile",
+    "JSTips": "使用前，先按照以下代码导入模块。",
+    "OpenUrlIntro": "在特定窗口打开连接",
+    "OpenUrlTips": "默认为:",
+    "OpenUrlTitle": "OpenUrl"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Lights": {
     "LightsColorIntro": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
     "LightsColorTitle": "变色",

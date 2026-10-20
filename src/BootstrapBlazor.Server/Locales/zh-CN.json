@@ -2014,18 +2014,6 @@
     "JitViewerSubTitle": "通用文件预览组件，可用于在页面中直接浏览多种类型文件。",
     "JitViewerTitle": "JitViewer 文件预览器"
   },
-  "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
-    "EvalIntro": "通过 <code>Eval</code> 函数，在当前作用域内动态运行 <code>JavaScript</code> 代码。",
-    "EvalTitle": "Eval",
-    "FunctionIntro": "通过 <code>Function</code> 函数，在全局作用域内动态运行 <code>JavaScript</code> 代码。",
-    "FunctionTitle": "Function",
-    "IsMobileIntro": "通过正则表达式判断 <code>userAgent</code>，表示当前设备是否为移动设备",
-    "IsMobileTitle": "IsMobile",
-    "JSTips": "使用前，先按照以下代码导入模块。",
-    "OpenUrlIntro": "在特定窗口打开连接",
-    "OpenUrlTips": "默认为:",
-    "OpenUrlTitle": "OpenUrl"
-  },
   "BootstrapBlazor.Server.Components.Samples.Labels": {
     "EditorFormLabelAlignCenter": "<p><b>居中对齐</b></p><div>通过 <code>LabelAlign=\"Alignment.Center\"</code> 设置标签居中对齐</div>",
     "EditorFormLabelAlignRight": "<p><b>右对齐</b></p><div>通过 <code>LabelAlign=\"Alignment.Right\"</code> 设置标签右对齐</div>",

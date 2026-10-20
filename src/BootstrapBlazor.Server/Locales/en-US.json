@@ -2014,18 +2014,6 @@
     "JitViewerSubTitle": "A universal file preview component for viewing multiple file types directly on the page.",
     "JitViewerTitle": "JitViewer File Viewer"
   },
-  "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
-    "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",
-    "EvalTitle": "JS Eval",
-    "FunctionIntro": "Dynamically run Java Script code within the global scope through the Function function.",
-    "FunctionTitle": "JS Function",
-    "IsMobileIntro": "Determine userAgent through regular expressions, indicating whether the current device is a mobile device",
-    "IsMobileTitle": "GetIsMobileDevice",
-    "JSTips": "Before use, import the module according to the following code",
-    "OpenUrlIntro": "Open url in a Window",
-    "OpenUrlTips": "Default to:",
-    "OpenUrlTitle": "OpenUrl"
-  },
   "BootstrapBlazor.Server.Components.Samples.Labels": {
     "EditorFormLabelAlignCenter": "<p><b>Alignment</b></p><div><code>LabelAlign=\"Alignment.Center\"</code> set the label alignment is center</div>",
     "EditorFormLabelAlignRight": "<p><b>Alignment</b></p><div><code>LabelAlign=\"Alignment.Right\"</code> set the label alignment is right</div>",
