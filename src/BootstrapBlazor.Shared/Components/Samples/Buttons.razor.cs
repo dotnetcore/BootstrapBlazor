@@ -5,7 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 
