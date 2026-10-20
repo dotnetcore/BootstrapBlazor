@@ -1,24 +1,6 @@
 @page "/card"
 @inject IStringLocalizer<Cards> Localizer
 
-<HeadContent>
-    <style>
-        .custom-header {
-            --bs-card-header-bg: #198754;
-            --bs-card-header-color: #fff;
-        }
-
-        .custom-body {
-            --bs-card-body-bg: #f7eed0;
-            --bs-card-color: #000;
-        }
-
-        .custom-footer {
-            --bs-card-footer-bg: #b5b5c3;
-        }
-    </style>
-</HeadContent>
-
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
@@ -226,18 +208,20 @@
 }</Pre>
     <p>@((MarkupString)Localizer["CustomClassStep2"].Value)</p>
     </section>
-    <Card HeaderCustomClass="custom-header" BodyCustomClass="custom-body" FooterCustomClass="custom-footer">
-        <HeaderTemplate>
-            Featured
-        </HeaderTemplate>
-        <BodyTemplate>
-            <h5>Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        </BodyTemplate>
-        <FooterTemplate>
-            2 days ago
-        </FooterTemplate>
-    </Card>
+    <div class="card-custom-demo">
+        <Card HeaderCustomClass="custom-header" BodyCustomClass="custom-body" FooterCustomClass="custom-footer">
+            <HeaderTemplate>
+                Featured
+            </HeaderTemplate>
+            <BodyTemplate>
+                <h5>Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </BodyTemplate>
+            <FooterTemplate>
+                2 days ago
+            </FooterTemplate>
+        </Card>
+    </div>
 </DemoBlock>
 
 <AttributeTable Type="typeof(Card)" />
