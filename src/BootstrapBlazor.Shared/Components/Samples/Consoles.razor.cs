@@ -1,9 +1,9 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Consoles
@@ -14,7 +14,9 @@ public sealed partial class Consoles
 
     private ConsoleMessageCollection ColorMessages { get; set; } = new(12);
 
-    private CancellationTokenSource? CancelTokenSource { get; set; }
+    private PeriodicTimer? _timer;
+
+    private bool _disposed;
 
     /// <summary>
     /// OnClear
@@ -41,32 +43,30 @@ public sealed partial class Consoles
     }
 
     /// <summary>
-    /// OnAfterRender
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
-            Task.Run(async () =>
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+            _timer = timer;
+            do
             {
-                CancelTokenSource ??= new();
-                while (CancelTokenSource is { IsCancellationRequested: false })
+                await InvokeAsync(() =>
                 {
-                    Messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
-                    ColorMessages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
-                    await InvokeAsync(StateHasChanged);
-
-                    try
+                    if (!_disposed)
                     {
-                        if (CancelTokenSource != null)
-                        {
-                            await Task.Delay(2000, CancelTokenSource.Token);
-                        }
+                        Messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+                        ColorMessages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+                        StateHasChanged();
                     }
-                    catch { }
-                }
-            });
+                });
+            }
+            while (await timer.WaitForNextTickAsync());
         }
     }
 
@@ -78,15 +78,10 @@ public sealed partial class Consoles
     {
         if (disposing)
         {
+            _disposed = true;
+            _timer?.Dispose();
             Messages.Dispose();
             ColorMessages.Dispose();
-
-            if (CancelTokenSource != null)
-            {
-                CancelTokenSource.Cancel();
-                CancelTokenSource.Dispose();
-                CancelTokenSource = null;
-            }
         }
     }
 

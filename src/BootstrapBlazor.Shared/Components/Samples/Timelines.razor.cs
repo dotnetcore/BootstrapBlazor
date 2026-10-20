@@ -1,11 +1,11 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Timelines
@@ -16,13 +16,11 @@ public sealed partial class Timelines
 
     private IEnumerable<SelectedItem> Items1 { get; set; } = Enumerable.Empty<SelectedItem>();
 
-    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
-
     private readonly ConcurrentQueue<ConsoleMessageItem> _messages = new();
 
-    private readonly CancellationTokenSource _cancelTokenSource = new();
+    private PeriodicTimer? _timer;
 
-    private readonly AutoResetEvent _locker = new(true);
+    private bool _disposed;
 
     private IEnumerable<ConsoleMessageItem> Messages => _messages;
 
@@ -156,30 +154,41 @@ public sealed partial class Timelines
             new("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
             new("2", Localizer["TimelinesSelectedItem2"])
         };
+    }
 
-        var _ = Task.Run(async () =>
+    /// <inheritdoc/>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
         {
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+            _timer = timer;
             do
             {
-                _locker.WaitOne();
-                _messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
-
-                if (_messages.Count > 8)
+                await InvokeAsync(() =>
                 {
-                    _messages.TryDequeue(out var _);
-                }
-                await InvokeAsync(StateHasChanged);
-                _locker.Set();
-                await Task.Delay(2000, _cancelTokenSource.Token);
+                    if (!_disposed)
+                    {
+                        _messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+                        if (_messages.Count > 8)
+                        {
+                            _messages.TryDequeue(out _);
+                        }
+                        StateHasChanged();
+                    }
+                });
             }
-            while (!_cancelTokenSource.IsCancellationRequested);
-        });
+            while (await timer.WaitForNextTickAsync());
+        }
+    }
 
-        Items = new SelectedItem[]
-        {
-            new("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
-            new("2", Localizer["TimelinesSelectedItem2"])
-        };
+    /// <inheritdoc/>
+    public void Dispose()
+    {
+        _disposed = true;
+        _timer?.Dispose();
     }
 
     /// <summary>

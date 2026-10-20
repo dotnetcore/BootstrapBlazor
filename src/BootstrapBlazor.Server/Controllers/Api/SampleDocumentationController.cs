@@ -40,7 +40,9 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         if (type == null || !type.IsPublic
             || (!typeof(IComponent).IsAssignableFrom(type)
                 && type != typeof(CountUpOption)
-                && type != typeof(NotificationItem)))
+                && type != typeof(NotificationItem)
+                && type != typeof(ConsoleMessageItem)
+                && type != typeof(TimelineItem)))
         {
             return NotFound();
         }

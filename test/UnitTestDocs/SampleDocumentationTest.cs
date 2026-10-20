@@ -58,6 +58,8 @@ public class SampleDocumentationTest
     [Theory]
     [InlineData(typeof(CountUpOption))]
     [InlineData(typeof(NotificationItem))]
+    [InlineData(typeof(ConsoleMessageItem))]
+    [InlineData(typeof(TimelineItem))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();
