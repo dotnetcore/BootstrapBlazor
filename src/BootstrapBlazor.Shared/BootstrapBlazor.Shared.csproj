@@ -10,6 +10,9 @@
     <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="11.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

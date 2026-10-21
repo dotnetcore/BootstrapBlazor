@@ -20,7 +20,12 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(SortableOption),
         typeof(SortableEvent),
         typeof(SortableListItem),
-        typeof(Splitting)
+        typeof(Splitting),
+        typeof(BarcodeGenerator),
+        typeof(BarcodeGeneratorOption),
+        typeof(OnScreenKeyboard),
+        typeof(KeyboardOption),
+        typeof(QRCode)
     ];
 
     /// <summary>

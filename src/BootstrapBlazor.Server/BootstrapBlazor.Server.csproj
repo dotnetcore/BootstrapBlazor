@@ -25,8 +25,6 @@
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.BarCode" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
@@ -61,7 +59,6 @@
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="11.0.0-rc.2" />

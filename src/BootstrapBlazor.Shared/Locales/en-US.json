@@ -3,6 +3,9 @@
     "Obsolete": "Obsolete",
     "Total": "Total"
   },
+  "BootstrapBlazor.Shared.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "Settings"
+  },
   "BootstrapBlazor.Shared.Components.Components.BlazorReconnector": {
     "ReconnectButton": "Reconnect",
     "ReconnectFailedDescription": "Please confirm that your network is working properly, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
@@ -564,6 +567,11 @@
     "PillTitle": "Capsule badge",
     "SubTitle": "A number or status tag that appears next to a button, icon, or icon",
     "Title": "Badge"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.BarcodeGenerators": {
+    "BarcodeGeneratorNormalIntro": "Renders a one-dimensional barcode in the corresponding format by giving the <code>Value</code> value",
+    "BarcodeGeneratorNormalText": "Barcode Generator",
+    "Title": "Barcode generator"
   },
   "BootstrapBlazor.Shared.Components.Samples.BootstrapBlazorIcons": {
     "FAIntro": "You can specify the icon style by setting <code>Name</code>",
@@ -2059,6 +2067,21 @@
     "NotificationsSoundText": "The audio URL to play when the notification",
     "NotificationsTitle": "Notifications"
   },
+  "BootstrapBlazor.Shared.Components.Samples.OnScreenKeyboards": {
+    "OnScreenKeyboardsAppDescription": "Bind",
+    "OnScreenKeyboardsAppTitle": "BootstrapBlazor component",
+    "OnScreenKeyboardsBasicTitle": "Basic",
+    "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
+    "OnScreenKeyboardsNormalIntro": "Full Keyboard",
+    "OnScreenKeyboardsNormalText": "Basic usage",
+    "OnScreenKeyboardsSpecialcharactersCustomerTitle": "Special characters in customer",
+    "OnScreenKeyboardsSpecialcharactersTitle": "Special characters europe",
+    "OnScreenKeyboardsThemeDarkTitle": "Theme dark",
+    "OnScreenKeyboardsTips": "If the performance is not normal, you can add this css to debug",
+    "OnScreenKeyboardsTitle": "On-Screen keyboard",
+    "OnScreenKeyboardsTypekeyboardTitle": "Keyboard",
+    "OnScreenKeyboardsTypeNumpadTitle": "Numpad"
+  },
   "BootstrapBlazor.Shared.Components.Samples.OtpInputs": {
     "OtpInputsDescription": "A secure verification password box based on OTP (One-Time Password) that is limited to one-time use and has a time limit",
     "OtpInputsNormalIntro": "Control the password type or length by setting parameters such as <code>Type</code>",
@@ -2134,6 +2157,20 @@
     "PulseButtonHeader": "PulseButton (heartbeat) button",
     "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
     "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
+  },
+  "BootstrapBlazor.Shared.Components.Samples.QRCodes": {
+    "ClearText": "QR code clear successfully",
+    "QRCodesColorIntro": "<code>DarkColor</code> set the black color，<code>LightColor</code> set the white color",
+    "QRCodesColorTitle": "Color",
+    "QRCodesContentIntro": "Specify the contents of the QR code with the <code>Content</code> parameter",
+    "QRCodesContentTitle": "Direct build",
+    "QRCodesNormalIntro": "Click the Generate button to generate a <code>QRCode</code>",
+    "QRCodesNormalTitle": "Basic usage",
+    "QRCodesSubTitle": "Generate QR code",
+    "QRCodesTitle": "QRCode",
+    "QRCodesWidthIntro": "<code>Width</code> of the QRCode",
+    "QRCodesWidthTitle": "Size",
+    "SuccessText": "QR code generated successfully"
   },
   "BootstrapBlazor.Shared.Components.Samples.Radios": {
     "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>",
@@ -2298,6 +2335,34 @@
     "ScrollTips": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
     "ScrollTitle": "Scroll",
     "ScrollToBottom": "Scroll to bottom"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Searches": {
+    "SearchesButtonTemplateDesc": "Customize the buttons displayed in front of the component by setting <code>PrefixButtonTemplate</code>",
+    "SearchesButtonTemplateDesc2": "In a custom template, you can call the <code>OnClear</code> <code>OnSearch</code> method inside the <code>Search</code> component with the context.",
+    "SearchesButtonTemplateIntro": "Customize the buttons displayed by the component by setting <code>ButtonTemplate</code>",
+    "SearchesButtonTemplateTitle": "Button Template",
+    "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
+    "SearchesDisplayButtonTitle": "The Empty button is displayed",
+    "SearchesIconTemplateDesc": "The search component context <code>SearchContext&lt;string&gt;</code> provides the <code>OnClear</code> <code>OnSearch</code> methods within the component",
+    "SearchesIconTemplateIntro": "Customize the icon displayed by the component by setting <code>IconTemplate</code>",
+    "SearchesIconTemplateTitle": "Icon Template",
+    "SearchesIsClearableIntro": "Display the clear icon by setting <code>IsClearable=\"true\"</code>",
+    "SearchesIsClearableTitle": "IsClearable",
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method",
+    "SearchesItemTemplateTitle": "Item Template",
+    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>IsTriggerSearchByInput</code> parameter",
+    "SearchesKeyboardsTitle": "Keyboard input instant search",
+    "SearchesNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
+    "SearchesNormalIntro": "Enter some of the data to search",
+    "SearchesNormalTitle": "Basic usage",
+    "SearchesPlaceHolder": "Search for examples",
+    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template.",
+    "SearchesShowPrefixIconIntro": "Control whether to show the prefix icon by setting the <code>ShowPrefixIcon</code> parameter",
+    "SearchesShowPrefixIconTitle": "ShowPrefixIcon",
+    "SearchesSubTitle": "Used for data search",
+    "SearchesTitle": "Search box",
+    "SearchesValidateFormIntro": "Inside <code>ValidateForm</code>",
+    "SearchesValidateFormTitle": "ValidateForm"
   },
   "BootstrapBlazor.Shared.Components.Samples.Segmenteds": {
     "BasicIntro": "select a single option",

@@ -67,6 +67,11 @@ public class SampleDocumentationTest
     [InlineData(typeof(SortableEvent))]
     [InlineData(typeof(SortableListItem))]
     [InlineData(typeof(Splitting))]
+    [InlineData(typeof(BarcodeGenerator))]
+    [InlineData(typeof(BarcodeGeneratorOption))]
+    [InlineData(typeof(OnScreenKeyboard))]
+    [InlineData(typeof(KeyboardOption))]
+    [InlineData(typeof(QRCode))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();

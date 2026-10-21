@@ -19,9 +19,6 @@
     "Title": "Methods",
     "Type": "Type"
   },
-  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
-    "BarcodeGeneratorGroupBoxText": "Settings"
-  },
   "BootstrapBlazor.Server.Components.Components.CustomerFilter": {
     "CustomerFilterItem1": "All",
     "CustomerFilterItem2": "Greater than 10",
@@ -402,11 +399,6 @@
     "VerifyVatInvoiceIntro": "Call the invoice verification method <code>VerifyInvoiceAsync</code> on the <code>IBaiduOcr</code> service. When the returned <code>InvoiceVerifyResult</code> has <code>Valid</code> set to <code>true</code>, the invoice is valid.",
     "VerifyVatInvoiceTitle": "VAT Invoice Verification",
     "VerifyVatToastTitle": "VAT Verification"
-  },
-  "BootstrapBlazor.Server.Components.Samples.BarcodeGenerators": {
-    "BarcodeGeneratorNormalIntro": "Renders a one-dimensional barcode in the corresponding format by giving the <code>Value</code> value",
-    "BarcodeGeneratorNormalText": "Barcode Generator",
-    "Title": "Barcode generator"
   },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Attention": "Pay special attention to:",
@@ -1580,21 +1572,6 @@
     "OfficeViewerTitle": "Office Document Viewer",
     "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
   },
-  "BootstrapBlazor.Server.Components.Samples.OnScreenKeyboards": {
-    "OnScreenKeyboardsAppDescription": "Bind",
-    "OnScreenKeyboardsAppTitle": "BootstrapBlazor component",
-    "OnScreenKeyboardsBasicTitle": "Basic",
-    "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
-    "OnScreenKeyboardsNormalIntro": "Full Keyboard",
-    "OnScreenKeyboardsNormalText": "Basic usage",
-    "OnScreenKeyboardsSpecialcharactersCustomerTitle": "Special characters in customer",
-    "OnScreenKeyboardsSpecialcharactersTitle": "Special characters europe",
-    "OnScreenKeyboardsThemeDarkTitle": "Theme dark",
-    "OnScreenKeyboardsTips": "If the performance is not normal, you can add this css to debug",
-    "OnScreenKeyboardsTitle": "On-Screen keyboard",
-    "OnScreenKeyboardsTypekeyboardTitle": "Keyboard",
-    "OnScreenKeyboardsTypeNumpadTitle": "Numpad"
-  },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
     "BrowseButtonText": "Browse",
     "CancelButtonText": "Cancel",
@@ -1748,20 +1725,6 @@
     "PrintsTips2": "If you are printing a button in the <code>Dialog</code> component when you do not set the <code>PreviewUrl</code>, the pop-up contents are printed",
     "PrintsTitle": "Print"
   },
-  "BootstrapBlazor.Server.Components.Samples.QRCodes": {
-    "ClearText": "QR code clear successfully",
-    "QRCodesColorIntro": "<code>DarkColor</code> set the black color，<code>LightColor</code> set the white color",
-    "QRCodesColorTitle": "Color",
-    "QRCodesContentIntro": "Specify the contents of the QR code with the <code>Content</code> parameter",
-    "QRCodesContentTitle": "Direct build",
-    "QRCodesNormalIntro": "Click the Generate button to generate a <code>QRCode</code>",
-    "QRCodesNormalTitle": "Basic usage",
-    "QRCodesSubTitle": "Generate QR code",
-    "QRCodesTitle": "QRCode",
-    "QRCodesWidthIntro": "<code>Width</code> of the QRCode",
-    "QRCodesWidthTitle": "Size",
-    "SuccessText": "QR code generated successfully"
-  },
   "BootstrapBlazor.Server.Components.Samples.QueryBuilders": {
     "QueryBuilderHeaderIntro": "Turn off the control button by setting <code>ShowHeader=\"false\"</code>",
     "QueryBuilderHeaderTitle": "Display control buttons",
@@ -1797,34 +1760,6 @@
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",
     "SearchDialogsTips": "Inject the service by calling <code>DialogService</code> of <code>ShowSearchDialog</code> The method directly pops up the search criteria pop-up window, which greatly reduces the amount of code. <code>SearchDialogOption</code> Configuration class inheritance <code>DialogOption</code> , for more parameter settings, please click <a href=\"dialog\" target=\"_blank\">[portal]</a>",
     "SearchDialogsTitle": "SearchDialog search popup"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Searches": {
-    "SearchesButtonTemplateDesc": "Customize the buttons displayed in front of the component by setting <code>PrefixButtonTemplate</code>",
-    "SearchesButtonTemplateDesc2": "In a custom template, you can call the <code>OnClear</code> <code>OnSearch</code> method inside the <code>Search</code> component with the context.",
-    "SearchesButtonTemplateIntro": "Customize the buttons displayed by the component by setting <code>ButtonTemplate</code>",
-    "SearchesButtonTemplateTitle": "Button Template",
-    "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
-    "SearchesDisplayButtonTitle": "The Empty button is displayed",
-    "SearchesIconTemplateDesc": "The search component context <code>SearchContext&lt;string&gt;</code> provides the <code>OnClear</code> <code>OnSearch</code> methods within the component",
-    "SearchesIconTemplateIntro": "Customize the icon displayed by the component by setting <code>IconTemplate</code>",
-    "SearchesIconTemplateTitle": "Icon Template",
-    "SearchesIsClearableIntro": "Display the clear icon by setting <code>IsClearable=\"true\"</code>",
-    "SearchesIsClearableTitle": "IsClearable",
-    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method",
-    "SearchesItemTemplateTitle": "Item Template",
-    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>IsTriggerSearchByInput</code> parameter",
-    "SearchesKeyboardsTitle": "Keyboard input instant search",
-    "SearchesNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
-    "SearchesNormalIntro": "Enter some of the data to search",
-    "SearchesNormalTitle": "Basic usage",
-    "SearchesPlaceHolder": "Search for examples",
-    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template.",
-    "SearchesShowPrefixIconIntro": "Control whether to show the prefix icon by setting the <code>ShowPrefixIcon</code> parameter",
-    "SearchesShowPrefixIconTitle": "ShowPrefixIcon",
-    "SearchesSubTitle": "Used for data search",
-    "SearchesTitle": "Search box",
-    "SearchesValidateFormIntro": "Inside <code>ValidateForm</code>",
-    "SearchesValidateFormTitle": "ValidateForm"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectCities": {
     "CityDescription": "Provides a city selector classified by province",
