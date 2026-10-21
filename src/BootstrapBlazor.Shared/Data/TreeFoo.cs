@@ -5,24 +5,45 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace BootstrapBlazor.Server.Data;
+namespace BootstrapBlazor.Shared.Data;
 
-class TreeFoo
+/// <summary>
+/// Tree sample data.
+/// </summary>
+public class TreeFoo
 {
+    /// <summary>
+    /// Gets or sets the node identifier.
+    /// </summary>
     [Key]
     [NotNull]
     public string? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the parent identifier.
+    /// </summary>
     public string? ParentId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the node text.
+    /// </summary>
     [Required]
     [NotNull]
     public string? Text { get; set; }
 
+    /// <summary>
+    /// Gets or sets the node icon.
+    /// </summary>
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
 
+    /// <summary>
+    /// Gets or sets whether the node is active.
+    /// </summary>
     public bool IsActive { get; set; }
 
+    /// <summary>
+    /// Gets the flat sample nodes.
+    /// </summary>
     public static List<TreeFoo> GetItems() =>
     [
         new() { Text = "Navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
@@ -59,6 +80,9 @@ class TreeFoo
         return CascadingTree(items);
     }
 
+    /// <summary>
+    /// Gets the accordion sample nodes.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetAccordionItems()
     {
         List<TreeFoo> items =
@@ -75,6 +99,9 @@ class TreeFoo
         return tree;
     }
 
+    /// <summary>
+    /// Gets the lazy-loading sample nodes.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetLazyItems()
     {
         List<TreeFoo> items =
@@ -90,6 +117,9 @@ class TreeFoo
         return tree;
     }
 
+    /// <summary>
+    /// Gets the custom-template sample nodes.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetTemplateItems()
     {
         var ret = TreeFoo.GetTreeItems();
@@ -97,6 +127,9 @@ class TreeFoo
         return ret;
     }
 
+    /// <summary>
+    /// Loads the children of an accordion node.
+    /// </summary>
     public static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandAccordionNodeAsync(TreeViewItem<TreeFoo> node)
     {
         await Task.Delay(200);
@@ -107,6 +140,9 @@ class TreeFoo
         };
     }
 
+    /// <summary>
+    /// Gets the colored sample nodes.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetColorItems()
     {
         var ret = TreeFoo.GetTreeItems();
@@ -116,6 +152,9 @@ class TreeFoo
         return ret;
     }
 
+    /// <summary>
+    /// Gets the virtualized sample nodes.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()
     {
         var ret = new List<TreeViewItem<TreeFoo>>();
@@ -130,6 +169,9 @@ class TreeFoo
         return ret;
     }
 
+    /// <summary>
+    /// Gets the flat tree-item samples.
+    /// </summary>
     public static List<TreeViewItem<TreeFoo>> GetFlatItems()
     {
         var items = new List<TreeViewItem<TreeFoo>>();

@@ -18,6 +18,9 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazor(configureOptions);
         services.AddBootstrapBlazorMeiliSearch();
         services.AddBootstrapHolidayService();
+        services.AddBootstrapBlazorRegionService();
+        services.AddBootstrapBlazorHtml2ImageService();
+        services.AddBootstrapBlazorDom2ImageService();
         services.AddOptionsMonitor<WebsiteOptions>();
         services.AddScoped<MenuService>();
         services.AddSingleton<PackageVersionService>();

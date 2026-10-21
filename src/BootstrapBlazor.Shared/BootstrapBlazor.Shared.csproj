@@ -13,6 +13,19 @@
     <PackageReference Include="BootstrapBlazor.BarCode" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Region" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Mermaid" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.DriverJs" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.ImageCropper" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.CodeEditor" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Html2Image" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Vditor" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Gantt" Version="11.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

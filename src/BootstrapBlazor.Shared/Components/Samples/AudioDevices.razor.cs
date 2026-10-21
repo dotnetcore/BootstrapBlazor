@@ -3,15 +3,15 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// VideoDevice Component
+/// AudioDevice Component
 /// </summary>
-public partial class VideoDevices : IAsyncDisposable
+public partial class AudioDevices : IAsyncDisposable
 {
     [Inject, NotNull]
-    private IVideoDevice? VideoDeviceService { get; set; }
+    private IAudioDevice? AudioDeviceService { get; set; }
 
     [Inject, NotNull]
     private DownloadService? DownloadService { get; set; }
@@ -22,13 +22,13 @@ public partial class VideoDevices : IAsyncDisposable
 
     private string? _deviceId;
 
-    private string? _previewUrl;
-
     private bool _isOpen = false;
+
+    private bool _isDownload = false;
 
     private async Task OnRequestDevice()
     {
-        var devices = await VideoDeviceService.GetDevices();
+        var devices = await AudioDeviceService.GetDevices();
         if (devices != null)
         {
             _devices.Clear();
@@ -39,47 +39,40 @@ public partial class VideoDevices : IAsyncDisposable
         }
     }
 
-    private async Task OnOpenVideo()
+    private async Task OnOpen()
     {
         if (!string.IsNullOrEmpty(_deviceId))
         {
             var constraints = new MediaTrackConstraints
             {
                 DeviceId = _deviceId,
-                Selector = ".bb-video"
+                Selector = ".bb-audio"
             };
-            _isOpen = await VideoDeviceService.Open(constraints);
+            _isOpen = await AudioDeviceService.Open(constraints);
         }
     }
 
-    private async Task OnCloseVideo()
+    private async Task OnClose()
     {
+        await AudioDeviceService.Close(".bb-audio");
         _isOpen = false;
-        _previewUrl = "";
-        await VideoDeviceService.Close(".bb-video");
-    }
-
-    private async Task OnCapture()
-    {
-        _previewUrl = await VideoDeviceService.GetPreviewUrl();
+        _isDownload = true;
     }
 
     private async Task OnDownload()
     {
-        var stream = await VideoDeviceService.GetPreviewData();
+        var stream = await AudioDeviceService.GetData();
         if (stream != null)
         {
-            await DownloadService.DownloadFromStreamAsync($"preview_{DateTime.Now:HHmmss}.png", stream);
+            await DownloadService.DownloadFromStreamAsync($"data_{DateTime.Now:HHmmss}.wav", stream);
         }
     }
-
-    private async Task OnApply(int width, int height) => await VideoDeviceService.Apply(new MediaTrackConstraints() { Width = width, Height = height });
 
     private async Task DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            await OnCloseVideo();
+            await OnClose();
         }
     }
 

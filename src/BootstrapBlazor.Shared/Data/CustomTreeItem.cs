@@ -6,7 +6,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace BootstrapBlazor.Server.Data;
+namespace BootstrapBlazor.Shared.Data;
 
 /// <summary>
 /// CustomTreeItem 组件

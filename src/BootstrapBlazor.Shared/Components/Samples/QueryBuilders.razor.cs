@@ -3,15 +3,16 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// 省选择器示例
+/// QueryBuilders 示例
 /// </summary>
-public partial class SelectProvinces
+public partial class QueryBuilders
 {
-    private string? _value = null;
+    private FilterKeyValueAction _filter1 = new();
 
-    private string? _multipleValues = null;
+    private FilterKeyValueAction _filter2 = new();
+
+    private FilterKeyValueAction _filter3 = new();
 }
-

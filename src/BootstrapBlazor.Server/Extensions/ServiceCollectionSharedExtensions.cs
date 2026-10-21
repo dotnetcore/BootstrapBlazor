@@ -57,12 +57,6 @@ public static class ServiceCollectionSharedExtensions
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        // 增加 Html2Image 导出服务
-        services.AddBootstrapBlazorHtml2ImageService();
-
-        // 增加 Dom2Image 导出服务
-        services.AddBootstrapBlazorDom2ImageService();
-
         // 增加 WinBox 弹窗服务
         services.AddBootstrapBlazorWinBoxService();
 
@@ -85,9 +79,6 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 JuHe 定位服务
         services.AddBootstrapBlazorJuHeIpLocatorService();
-
-        // 增加 IRegionService
-        services.AddBootstrapBlazorRegionService();
 
         // 增加密钥存储配置
         services.AddDataProtection();

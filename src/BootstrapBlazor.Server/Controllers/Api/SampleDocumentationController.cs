@@ -25,7 +25,25 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(BarcodeGeneratorOption),
         typeof(OnScreenKeyboard),
         typeof(KeyboardOption),
-        typeof(QRCode)
+        typeof(QRCode),
+        typeof(SelectProvince),
+        typeof(SelectCity),
+        typeof(SelectRegion),
+        typeof(Mermaid),
+        typeof(MouseFollower),
+        typeof(BarcodeReader),
+        typeof(DriverJs),
+        typeof(SmilesDrawer),
+        typeof(TreeViewItem<TreeFoo>),
+        typeof(ImageCropper),
+        typeof(CodeEditor),
+        typeof(BootstrapBlazor.Components.Markdown),
+        typeof(MindMap),
+        typeof(Vditor),
+        typeof(VditorOptions),
+        typeof(VditorMode),
+        typeof(VditorIconStyle),
+        typeof(Gantt)
     ];
 
     /// <summary>

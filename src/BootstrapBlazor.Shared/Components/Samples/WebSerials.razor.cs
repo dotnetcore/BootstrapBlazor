@@ -5,7 +5,7 @@
 
 using System.Text;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// WebSerials 组件
