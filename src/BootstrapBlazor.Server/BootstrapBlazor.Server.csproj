@@ -38,7 +38,6 @@
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
@@ -53,7 +52,6 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />

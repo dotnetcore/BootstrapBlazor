@@ -5,7 +5,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Checkboxs

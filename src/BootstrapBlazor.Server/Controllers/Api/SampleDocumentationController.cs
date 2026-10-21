@@ -52,7 +52,10 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(Player),
         typeof(WinBoxOption),
         typeof(PdfReader),
-        typeof(UniverSheet)
+        typeof(UniverSheet),
+        typeof(Term),
+        typeof(TermOptions),
+        typeof(Meet)
     ];
 
     /// <summary>

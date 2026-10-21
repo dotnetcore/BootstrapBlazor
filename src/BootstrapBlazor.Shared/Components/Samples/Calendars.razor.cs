@@ -5,7 +5,7 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 

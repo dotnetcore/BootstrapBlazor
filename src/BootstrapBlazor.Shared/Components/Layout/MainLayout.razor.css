@@ -5,7 +5,6 @@
 .main {
     padding: var(--bb-main-pading);
     position: relative;
-    z-index: 5;
 }
 
 .sidebar-title {

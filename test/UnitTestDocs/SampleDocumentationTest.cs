@@ -99,6 +99,9 @@ public class SampleDocumentationTest
     [InlineData(typeof(WinBoxOption))]
     [InlineData(typeof(PdfReader))]
     [InlineData(typeof(UniverSheet))]
+    [InlineData(typeof(Term))]
+    [InlineData(typeof(TermOptions))]
+    [InlineData(typeof(Meet))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();
