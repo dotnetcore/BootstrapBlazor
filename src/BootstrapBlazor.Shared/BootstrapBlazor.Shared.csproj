@@ -5,6 +5,8 @@
     <SupportedPlatform Include="browser" />
     <Content Remove="Locales\*.json;docs.json" />
     <EmbeddedResource Include="Locales\*.json;docs.json" />
+    <Content Remove="topology.json" />
+    <EmbeddedResource Include="topology.json" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
@@ -38,6 +40,15 @@
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.RDKit" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

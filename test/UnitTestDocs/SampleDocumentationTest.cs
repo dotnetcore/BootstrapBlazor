@@ -16,6 +16,47 @@ namespace UnitTestDocs;
 public class SampleDocumentationTest
 {
     [Theory]
+    [InlineData("../../appsettings.json")]
+    [InlineData("../Layout/HomeLayout.razor")]
+    [InlineData("Tutorials/../../../appsettings.json")]
+    public async Task Source_RejectsFilesOutsideTutorialBundles(string fileName)
+    {
+        var service = new DocumentationService();
+        var controller = new SampleDocumentationController(service, Options.Create(new WebsiteOptions()));
+
+        Assert.IsType<NotFoundResult>(await controller.Source(fileName));
+        Assert.Null(service.SourceFile);
+    }
+
+    [Theory]
+    [InlineData("Tutorials/Dashboard.razor")]
+    [InlineData("../Layout/TutorialsLayout.razor.css")]
+    [InlineData("../../Services/DashboardService.cs")]
+    public async Task Source_ReturnsTutorialBundleFiles(string fileName)
+    {
+        var service = new DocumentationService();
+        var controller = new SampleDocumentationController(service, Options.Create(new WebsiteOptions()));
+
+        var result = Assert.IsType<ContentResult>(await controller.Source(fileName));
+
+        Assert.Equal(fileName, service.SourceFile);
+        Assert.Equal("source file", result.Content);
+    }
+
+    [Fact]
+    public async Task Source_ClientEncodesBundleFileName()
+    {
+        using var handler = new DocumentationHandler(request =>
+        {
+            Assert.Contains("fileName=..%2FLayout%2FTutorialsLayout.razor.css", request.RequestUri!.Query);
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("source file") };
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://example.test/") };
+
+        Assert.Equal("source file", await new HttpSampleDocumentationService(client).GetFileContentAsync("../Layout/TutorialsLayout.razor.css"));
+    }
+
+    [Theory]
     [InlineData("../badge.razor")]
     [InlineData("badge.razor/../../Program.cs")]
     [InlineData("badge.json")]
@@ -62,6 +103,7 @@ public class SampleDocumentationTest
     [InlineData(typeof(MessageOption))]
     [InlineData(typeof(ConsoleMessageItem))]
     [InlineData(typeof(TimelineItem))]
+    [InlineData(typeof(TableCellArgs))]
     [InlineData(typeof(SortableList))]
     [InlineData(typeof(SortableOption))]
     [InlineData(typeof(SortableEvent))]
@@ -102,6 +144,14 @@ public class SampleDocumentationTest
     [InlineData(typeof(Term))]
     [InlineData(typeof(TermOptions))]
     [InlineData(typeof(Meet))]
+    [InlineData(typeof(Topology))]
+    [InlineData(typeof(EditDialogOption<>))]
+    [InlineData(typeof(SearchDialogOption<>))]
+    [InlineData(typeof(RDKit))]
+    [InlineData(typeof(Chart))]
+    [InlineData(typeof(DockView))]
+    [InlineData(typeof(DockContent))]
+    [InlineData(typeof(DockComponent))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();
@@ -143,7 +193,15 @@ public class SampleDocumentationTest
     {
         public string? CodeFile { get; private set; }
 
+        public string? SourceFile { get; private set; }
+
         public Type? AttributeType { get; private set; }
+
+        public Task<string> GetFileContentAsync(string fileName)
+        {
+            SourceFile = fileName;
+            return Task.FromResult("source file");
+        }
 
         public Task<string> GetCodeAsync(string codeFile)
         {

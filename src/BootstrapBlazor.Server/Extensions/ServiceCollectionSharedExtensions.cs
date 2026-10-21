@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Authorization;
-
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
@@ -23,18 +21,10 @@ public static class ServiceCollectionSharedExtensions
         services.AddSingleton<SiteNotificationService>();
         services.AddHostedService(provider => provider.GetRequiredService<SiteNotificationService>());
         services.AddSingleton<ISampleDocumentationService>(provider => provider.GetRequiredService<CodeSnippetService>());
-        services.AddSingleton<DashboardService>();
-        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton<MockDataTableDynamicService>();
-
-        services.AddScoped<FanControllerDataService>();
 
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);
-
-        // 增加模拟登录服务
-        services.AddCascadingAuthenticationState();
-        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Azure 语音服务
         //services.AddBootstrapBlazorAzureSpeech();

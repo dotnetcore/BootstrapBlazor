@@ -11,6 +11,10 @@ export async function init(id, title, assetRoot) {
     await addScript(`${assetRoot}lib/highlight/cshtml-razor.min.js`)
     await switchTheme(getTheme(), assetRoot);
 
+    if (!el.isConnected) {
+        return
+    }
+
     const preElement = el.querySelector('pre')
     const code = el.querySelector('pre > code')
 
@@ -83,7 +87,9 @@ export async function highlight(id) {
         })
 
         await check();
-        invoke();
+        if (el.isConnected) {
+            invoke();
+        }
     }
 }
 

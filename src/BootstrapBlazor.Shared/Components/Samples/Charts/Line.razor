@@ -1,0 +1,130 @@
+@page "/chart/line"
+@inject IStringLocalizer<Line> Localizer
+@inject System.Net.Http.HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inherits BootstrapModuleComponentBase
+
+<DemoBlock Title="@Localizer["LineOnInitTitle"]"
+           Introduction="@Localizer["LineOnInitIntro"]"
+           Name="LineOnInit">
+    <Chart @ref="_lineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(_lineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["LineOnInitReload"]</span></button>
+            <button class="btn btn-primary" @onclick="AddDataset"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["LineOnInitAddDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="RemoveDataset"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["LineOnInitRemoveDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["LineOnInitAddingData"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["LineOnInitRemoveData"]</span></button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="_logger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineContinueTitle"]"
+           Introduction="@Localizer["LineContinueIntro"]"
+           Name="IsAnimation">
+    <Chart @ref="_continueChart" IsAnimation="false" OnInitAsync="OnInitContinue" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineTensionTitle"]"
+           Introduction="@Localizer["LineTensionIntro"]"
+           Name="LineTension">
+    <Chart OnInitAsync="() => OnInitTension(0f, false)" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineNullableTitle"]"
+           Introduction="@Localizer["LineNullableIntro"]"
+           Name="LineNullable">
+    <Chart OnInitAsync="() => OnInitNullable(0f, true)" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineTwoYAxesTitle"]"
+           Introduction="@Localizer["LineTwoYAxesIntro"]"
+           Name="TwoYAxes">
+    <Chart OnInitAsync="() => OnInitTwoAxes(0f, false)" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineBarAspectRatioTitle"]"
+           Introduction="@Localizer["LineBarAspectRatioIntro"]"
+           Name="BarAspectRatio">
+    <Chart OnInitAsync="() => OnInitAspectRatio(0f, false)" Height="500px" Width="500px" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LineChartJSTitle"]"
+           Introduction="@Localizer["LineChartJSIntro"]"
+           Name="LineChartJS" ShowCode="false">
+    <div style="height:370px; width:740px;">
+        <canvas id="@Id"></canvas>
+    </div>
+
+    <Button class="mt-3" Text="Randomize" OnClick="Randomize" />
+
+    <h4 class="mt-2">JavaScript Code</h4>
+    <Pre ShowToolbar="true">@_code</Pre>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AppendDataTitle"]"
+           Introduction="@Localizer["AppendDataIntro"]"
+           Name="AppendData">
+    <Chart OnInitAsync="GetData" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomTooltipTitle"]"
+           Introduction="@Localizer["CustomTooltipIntro"]"
+           Name="CustomTooltip">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi1"].Value)</p>
+                <Pre class="mb-3">&lt;Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@@CustomTooltipId" /&gt;</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
+                <Pre class="mb-3">export function customTooltip(id, invoke, method) {
+    // chart.js documentation: https://www.chartjs.org/docs/master/samples/tooltip/content.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        footer: (tooltipItems) => {
+                            let sum = 0;
+
+                            tooltipItems.forEach(function (tooltipItem) {
+                                sum += tooltipItem.parsed.y;
+                            });
+                            invoke.invokeMethodAsync(method, sum);
+                            return 'Sum: ' + sum;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi3"].Value)</p>
+                <Pre>protected override async Task InvokeInitAsync()
+{
+    await InvokeVoidAsync("customTooltip", CustomTooltipId, Interop, nameof(TooltipLog));
+}
+
+[JSInvokable]
+public Task TooltipLog(long sum)
+{
+    _loggerTooltip.Log($"Tooltip sum callback: {sum}");
+    return Task.CompletedTask;
+}</Pre>
+            </li>
+        </ul>
+    </section>
+    <Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@CustomTooltipId" />
+    <ConsoleLogger @ref="_loggerTooltip" />
+</DemoBlock>

@@ -16,6 +16,11 @@ public interface ISampleDocumentationService
     Task<string> GetCodeAsync(string codeFile);
 
     /// <summary>
+    /// Gets an unmodified source file for a tutorial download bundle.
+    /// </summary>
+    Task<string> GetFileContentAsync(string fileName);
+
+    /// <summary>
     /// Gets component parameter documentation.
     /// </summary>
     Task<List<AttributeItem>> GetAttributesAsync(Type componentType);

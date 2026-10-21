@@ -8,53 +8,42 @@
   <ItemGroup>
     <Content Remove="Locales\en-US.json" />
     <Content Remove="Locales\zh-CN.json" />
-    <Content Remove="topology.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Locales\en-US.json" />
     <EmbeddedResource Include="Locales\zh-CN.json" />
-    <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-rc.2.26504.105" />
-    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.RDKit" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="Longbow.Logging" Version="10.0.1" />
     <PackageReference Include="Longbow.Modbus" Version="10.0.5" />
     <PackageReference Include="Longbow.Sockets" Version="10.0.0" />

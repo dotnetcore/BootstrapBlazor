@@ -17,6 +17,9 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
     {
         services.AddBootstrapBlazor(configureOptions);
         services.AddHttpClient();
+        services.AddAuthorizationCore();
+        services.AddCascadingAuthenticationState();
+        services.AddScoped<Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider, MockAuthenticationStateProvider>();
         services.AddBootstrapBlazorMeiliSearch();
         services.AddBootstrapHolidayService();
         services.AddBootstrapBlazorRegionService();
@@ -33,6 +36,9 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         });
         services.AddOptionsMonitor<WebsiteOptions>();
         services.AddScoped<MenuService>();
+        services.AddScoped<FanControllerDataService>();
+        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        services.AddSingleton<DashboardService>();
         services.AddSingleton<PackageVersionService>();
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<ILookupService, DemoLookupService>();

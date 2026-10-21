@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -92,24 +92,22 @@ class CodeSnippetService(
 
     private async Task<string> ReadFileAsync(string fileName)
     {
-        string? payload;
         var projectName = GetSampleType(fileName.Split('.')[0])?.Assembly.GetName().Name ?? "BootstrapBlazor.Server";
-        var file = options.Value.IsDevelopment
-            ? $"{options.Value.ContentRootPath}\\..\\{projectName}\\Components\\Samples\\{fileName}"
-            : $"{GetSourceCodePath()}{projectName}\\Components\\Samples\\{fileName}";
-        if (!OperatingSystem.IsWindows())
+        foreach (var project in new[] { projectName, "BootstrapBlazor.Shared" }.Distinct())
         {
-            file = file.Replace('\\', '/');
+            var file = options.Value.IsDevelopment
+                ? $"{options.Value.ContentRootPath}\\..\\{project}\\Components\\Samples\\{fileName}"
+                : $"{GetSourceCodePath()}{project}\\Components\\Samples\\{fileName}";
+            if (!OperatingSystem.IsWindows())
+            {
+                file = file.Replace('\\', '/');
+            }
+            if (File.Exists(file))
+            {
+                return await File.ReadAllTextAsync(file);
+            }
         }
-        if (File.Exists(file))
-        {
-            payload = await File.ReadAllTextAsync(file);
-        }
-        else
-        {
-            payload = "Error: File not found";
-        }
-        return payload;
+        throw new FileNotFoundException("Sample source file was not found.", fileName);
     }
 
     private string GetSourceCodePath() => $"{configuration.GetValue<string>("SourceCodePath") ?? options.Value.SourceCodePath}";

@@ -17,6 +17,10 @@ public sealed class HttpSampleDocumentationService(HttpClient client) : ISampleD
         client.GetStringAsync($"api/sample-documentation/code?codeFile={Uri.EscapeDataString(codeFile)}&culture={CultureInfo.CurrentUICulture.Name}");
 
     /// <inheritdoc />
+    public Task<string> GetFileContentAsync(string fileName) =>
+        client.GetStringAsync($"api/sample-documentation/source?fileName={Uri.EscapeDataString(fileName)}");
+
+    /// <inheritdoc />
     public async Task<List<AttributeItem>> GetAttributesAsync(Type componentType) =>
         await client.GetFromJsonAsync<List<AttributeItem>>($"api/sample-documentation/attributes?typeName={Uri.EscapeDataString(componentType.FullName!)}&culture={CultureInfo.CurrentUICulture.Name}")
         ?? throw new InvalidOperationException("Component documentation is unavailable.");

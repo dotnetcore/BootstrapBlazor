@@ -55,7 +55,15 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(UniverSheet),
         typeof(Term),
         typeof(TermOptions),
-        typeof(Meet)
+        typeof(Meet),
+        typeof(Topology),
+        typeof(EditDialogOption<>),
+        typeof(SearchDialogOption<>),
+        typeof(RDKit),
+        typeof(Chart),
+        typeof(DockView),
+        typeof(DockContent),
+        typeof(DockComponent)
     ];
 
     /// <summary>
@@ -75,6 +83,27 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
     }
 
     /// <summary>
+    /// Gets an allowlisted source file for a tutorial download bundle.
+    /// </summary>
+    [HttpGet("api/sample-documentation/source")]
+    public async Task<IActionResult> Source(string fileName)
+    {
+        if (!TutorialSourceFiles.Contains(fileName))
+        {
+            return NotFound();
+        }
+
+        try
+        {
+            return Content(await documentation.GetFileContentAsync(fileName), "text/plain");
+        }
+        catch (FileNotFoundException)
+        {
+            return NotFound();
+        }
+    }
+
+    /// <summary>
     /// Gets localized parameter documentation for a library component or supported sample options.
     /// </summary>
     [HttpGet("api/sample-documentation/attributes")]
@@ -89,6 +118,7 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
                 && type != typeof(MessageOption)
                 && type != typeof(ConsoleMessageItem)
                 && type != typeof(TimelineItem)
+                && type != typeof(TableCellArgs)
                 && !ExtensionDocumentationTypes.Contains(type)))
         {
             return NotFound();
