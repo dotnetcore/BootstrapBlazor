@@ -14,6 +14,15 @@ namespace BootstrapBlazor.Controllers.Api;
 [ApiController]
 public class SampleDocumentationController(ISampleDocumentationService documentation, IOptions<WebsiteOptions> options) : ControllerBase
 {
+    private static readonly Type[] ExtensionDocumentationTypes =
+    [
+        typeof(SortableList),
+        typeof(SortableOption),
+        typeof(SortableEvent),
+        typeof(SortableListItem),
+        typeof(Splitting)
+    ];
+
     /// <summary>
     /// Gets localized source for a configured sample.
     /// </summary>
@@ -36,14 +45,16 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
     [HttpGet("api/sample-documentation/attributes")]
     public async Task<IActionResult> Attributes(string typeName)
     {
-        var type = typeof(BootstrapBlazorRoot).Assembly.GetType(typeName);
+        var type = typeof(BootstrapBlazorRoot).Assembly.GetType(typeName)
+            ?? ExtensionDocumentationTypes.FirstOrDefault(t => t.FullName == typeName);
         if (type == null || !type.IsPublic
             || (!typeof(IComponent).IsAssignableFrom(type)
                 && type != typeof(CountUpOption)
                 && type != typeof(NotificationItem)
                 && type != typeof(MessageOption)
                 && type != typeof(ConsoleMessageItem)
-                && type != typeof(TimelineItem)))
+                && type != typeof(TimelineItem)
+                && !ExtensionDocumentationTypes.Contains(type)))
         {
             return NotFound();
         }

@@ -47,6 +47,7 @@ public class SampleDocumentationTest
     [InlineData("System.String")]
     [InlineData("BootstrapBlazor.Components.Color")]
     [InlineData("BootstrapBlazor.Components.ClientInfo")]
+    [InlineData("BootstrapBlazor.Components.SortableList, BootstrapBlazor.Sortable")]
     [InlineData("BootstrapBlazor.Server.Components.Samples.Tabs")]
     public async Task Attributes_RejectsNonLibraryComponents(string typeName)
     {
@@ -61,6 +62,11 @@ public class SampleDocumentationTest
     [InlineData(typeof(MessageOption))]
     [InlineData(typeof(ConsoleMessageItem))]
     [InlineData(typeof(TimelineItem))]
+    [InlineData(typeof(SortableList))]
+    [InlineData(typeof(SortableOption))]
+    [InlineData(typeof(SortableEvent))]
+    [InlineData(typeof(SortableListItem))]
+    [InlineData(typeof(Splitting))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();
