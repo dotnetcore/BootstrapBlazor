@@ -117,7 +117,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="zh">选择所有文本方法</para>
     /// <para lang="en">Method to select all text</para>
     /// </summary>
-    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
+    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", GetInputId());
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否跳过 Enter/Esc 键处理的 JS 脚本注册，默认值为 false</para>

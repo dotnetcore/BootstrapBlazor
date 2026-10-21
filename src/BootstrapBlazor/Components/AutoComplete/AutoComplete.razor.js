@@ -1,5 +1,5 @@
 import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
-import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
+import { focus, handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
@@ -234,11 +234,9 @@ export function dispose(id) {
         const { el, popover, input, menu } = ac;
         if (popover) {
             Popover.dispose(popover)
-            if (input) {
-                EventHandler.off(input, 'focus')
-            }
         }
         EventHandler.off(menu, 'click');
+        EventHandler.off(input, 'focus');
         EventHandler.off(input, 'pointerdown');
         EventHandler.off(input, 'keydown');
         Input.dispose(input);
@@ -258,4 +256,4 @@ const scrollIntoView = (el, item) => {
     item.scrollIntoView({ behavior: behavior, block: "nearest", inline: "start" });
 }
 
-export { handleKeyUp, select, selectAllByFocus, selectAllByEnter }
+export { focus, handleKeyUp, select, selectAllByFocus, selectAllByEnter }
