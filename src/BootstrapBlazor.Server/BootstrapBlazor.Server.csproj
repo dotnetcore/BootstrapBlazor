@@ -49,7 +49,6 @@
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Player" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="11.0.0-rc.2" />

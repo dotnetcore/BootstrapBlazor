@@ -31,6 +31,7 @@
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Player" Version="11.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

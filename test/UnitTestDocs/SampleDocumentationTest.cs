@@ -95,6 +95,7 @@ public class SampleDocumentationTest
     [InlineData(typeof(PdfViewer))]
     [InlineData(typeof(Live2DDisplay))]
     [InlineData(typeof(VideoPlayer))]
+    [InlineData(typeof(Player))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();

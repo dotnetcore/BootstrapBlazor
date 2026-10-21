@@ -48,7 +48,8 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(JitViewer),
         typeof(PdfViewer),
         typeof(Live2DDisplay),
-        typeof(VideoPlayer)
+        typeof(VideoPlayer),
+        typeof(Player)
     ];
 
     /// <summary>
