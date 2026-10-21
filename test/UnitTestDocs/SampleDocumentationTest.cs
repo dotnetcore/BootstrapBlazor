@@ -90,6 +90,11 @@ public class SampleDocumentationTest
     [InlineData(typeof(VditorMode))]
     [InlineData(typeof(VditorIconStyle))]
     [InlineData(typeof(Gantt))]
+    [InlineData(typeof(EmbedPDF))]
+    [InlineData(typeof(JitViewer))]
+    [InlineData(typeof(PdfViewer))]
+    [InlineData(typeof(Live2DDisplay))]
+    [InlineData(typeof(VideoPlayer))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();

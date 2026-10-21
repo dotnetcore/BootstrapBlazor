@@ -26,6 +26,11 @@
     <PackageReference Include="BootstrapBlazor.MindMap" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Vditor" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.JitViewer" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.PdfViewer" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="11.0.0-rc.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -998,12 +998,6 @@
     "ToolTip1": "This is the tip of plugin1",
     "ToolTip2": "This is the tip of plugin2"
   },
-  "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
-    "PdfDescription": "EmbedPDF is an open-source JavaScript PDF reader based on PDFium, which renders directly in the browser without requiring backend support.",
-    "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter.",
-    "PdfReaderNormalText": "Basic usage",
-    "PdfTitle": "EmbedPDF PDF"
-  },
   "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
     "ExportPdfButtonsDescription": "Export <code>HTML</code> fragments or web page elements as <code>Pdf</code>",
     "ExportPdfButtonsTitle": "Convert specified webpage content to Pdf",
@@ -1140,13 +1134,6 @@
     "UniverIconDescription": "Icons used by Univer",
     "UniverIconTitle": "Univer Svg Icon Lib"
   },
-  "BootstrapBlazor.Server.Components.Samples.JitViewers": {
-    "JitViewerDescription": "Supports online preview of Office documents, PDF, OFD, images, text, code, videos, and other file formats.",
-    "JitViewerKnownIssue": "Known issue: Images in <code>xlsx</code> files cannot be previewed, and some <code>ofd</code> files cannot be previewed. Waiting for the author of the underlying dependency component to fix this.",
-    "JitViewerNormalTitle": "Basic usage",
-    "JitViewerSubTitle": "A universal file preview component for viewing multiple file types directly on the page.",
-    "JitViewerTitle": "JitViewer File Viewer"
-  },
   "BootstrapBlazor.Server.Components.Samples.LayoutPages": {
     "H1": "full page level components",
     "P1": "via built-in components",
@@ -1184,13 +1171,6 @@
     "P7": "portal",
     "P8": "pay attention",
     "P9": "component on"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
-    "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
-    "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
-    "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
-    "Live2DDisplayNormalTitle": "Usage",
-    "Live2DDisplayTitle": "Live2D Widget"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsNormalButtonText": "Locating",
@@ -1395,14 +1375,6 @@
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderSetPdfStreamDesc": "Rendering can be performed by calling the instance method <code>SetPdfStreamAsync</code> or <code>SetPdfBase64DataAsync</code>.",
     "PdfTitle": "PDF Reader"
-  },
-  "BootstrapBlazor.Server.Components.Samples.PdfViewers": {
-    "PdfViewerDescription": "Open the PDF file in the component to read its contents",
-    "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter. Set <code>UseGoogleDocs</code> to use docs.google.com preview",
-    "PdfViewerNormalTitle": "Basic usage",
-    "PdfViewerTitle": "PDFViewer",
-    "PdfViewerToastNotSupportContent": "The browser does not support inline viewing of PDF files.",
-    "PdfViewerToastSuccessfulContent": "PDF document loaded successfully."
   },
   "BootstrapBlazor.Server.Components.Samples.Players": {
     "PlayersAudioIntro": "Play audio files by setting <code>Mode=\"PlayerMode.Audio\"</code>",
@@ -2776,14 +2748,6 @@
   "BootstrapBlazor.Server.Components.Samples.ValidateForms.Dummy2": {
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
-  },
-  "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
-    "MineType": "MineType",
-    "VideoPlayersChangeURLIntro": "Use the Reload method to switch playback resources",
-    "VideoPlayersChangeURLTitle": "Switch playback resources",
-    "VideoPlayersNormalTitle": "Basic usage",
-    "VideoPlayersTips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards.",
-    "VideoPlayersTitle": "VideoPlayer"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxDescription": "Components that emulate Windows window styles",

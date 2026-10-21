@@ -1375,6 +1375,12 @@
     "SplitTitle": "Split button drop-down menu",
     "Title": "Dropdown"
   },
+  "BootstrapBlazor.Shared.Components.Samples.EmbedPdfs": {
+    "PdfDescription": "EmbedPDF is an open-source JavaScript PDF reader based on PDFium, which renders directly in the browser without requiring backend support.",
+    "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter.",
+    "PdfReaderNormalText": "Basic usage",
+    "PdfTitle": "EmbedPDF PDF"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Empties": {
     "ImageIntro": "Just set the <code>Image</code> property",
     "ImageText": "No data at this time",
@@ -1819,6 +1825,13 @@
     "OpenUrlTips": "Default to:",
     "OpenUrlTitle": "OpenUrl"
   },
+  "BootstrapBlazor.Shared.Components.Samples.JitViewers": {
+    "JitViewerDescription": "Supports online preview of Office documents, PDF, OFD, images, text, code, videos, and other file formats.",
+    "JitViewerKnownIssue": "Known issue: Images in <code>xlsx</code> files cannot be previewed, and some <code>ofd</code> files cannot be previewed. Waiting for the author of the underlying dependency component to fix this.",
+    "JitViewerNormalTitle": "Basic usage",
+    "JitViewerSubTitle": "A universal file preview component for viewing multiple file types directly on the page.",
+    "JitViewerTitle": "JitViewer File Viewer"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Labels": {
     "LongDisplayDescription": "In this example, set the <code>ShowLabelTooltip</code> in the <code>form-inline</code> style to <code>true</code> to make the mouse hover over the cropped label to display the complete information",
     "LongDisplayText": "I am very long display text",
@@ -1985,6 +1998,13 @@
     "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
     "PaginationTitle": "Paginated display",
     "ProductListText": "The list of products"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Live2DDisplays": {
+    "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
+    "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
+    "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
+    "Live2DDisplayNormalTitle": "Usage",
+    "Live2DDisplayTitle": "Live2D Widget"
   },
   "BootstrapBlazor.Shared.Components.Samples.Logouts": {
     "LogoutsChildContentCustomDisplay": "Customize display content",
@@ -2356,6 +2376,14 @@
     "PaginationsPageInfoTextIntro": "Set <code>ShowInfo</code> show/hide the pager info",
     "PaginationsPageInfoTextTitle": "Pager info",
     "PaginationsTitle": "Pagination"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.PdfViewers": {
+    "PdfViewerDescription": "Open the PDF file in the component to read its contents",
+    "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter. Set <code>UseGoogleDocs</code> to use docs.google.com preview",
+    "PdfViewerNormalTitle": "Basic usage",
+    "PdfViewerTitle": "PDFViewer",
+    "PdfViewerToastNotSupportContent": "The browser does not support inline viewing of PDF files.",
+    "PdfViewerToastSuccessfulContent": "PDF document loaded successfully."
   },
   "BootstrapBlazor.Shared.Components.Samples.Popovers": {
     "PopoversButtonButtonText": "Click to activate/deactivate",
@@ -3427,6 +3455,14 @@
     "VideoDeviceOpenText": "Open",
     "VideoDeviceRequestText": "List",
     "VideoDeviceTitle": "IVideoDevice"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.VideoPlayers": {
+    "MineType": "MineType",
+    "VideoPlayersChangeURLIntro": "Use the Reload method to switch playback resources",
+    "VideoPlayersChangeURLTitle": "Switch playback resources",
+    "VideoPlayersNormalTitle": "Basic usage",
+    "VideoPlayersTips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards.",
+    "VideoPlayersTitle": "VideoPlayer"
   },
   "BootstrapBlazor.Shared.Components.Samples.Watermarks": {
     "WatermarkDescription": "<p>How to add a watermark globally</p><p>You can add a watermark component to the template page <code>MainLayout</code> and set <code>IsPage=\"true\"</code></p>",

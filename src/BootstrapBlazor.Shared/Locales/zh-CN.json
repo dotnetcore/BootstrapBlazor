@@ -1375,6 +1375,12 @@
     "SplitTitle": "分裂式按钮下拉菜单",
     "Title": "Dropdown 下拉菜单"
   },
+  "BootstrapBlazor.Shared.Components.Samples.EmbedPdfs": {
+    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持，难易度：难",
+    "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址",
+    "PdfReaderNormalText": "基础用法",
+    "PdfTitle": "EmbedPDF PDF 文档阅读器"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Empties": {
     "ImageIntro": "设置 <code>Image</code> 属性即可",
     "ImageText": "暂无数据",
@@ -1819,6 +1825,13 @@
     "OpenUrlTips": "默认为:",
     "OpenUrlTitle": "OpenUrl"
   },
+  "BootstrapBlazor.Shared.Components.Samples.JitViewers": {
+    "JitViewerDescription": "支持在线预览 Office 文档、PDF、OFD、图片、文本、代码、视频等多种文件格式。",
+    "JitViewerKnownIssue": "已知问题：<code>xlsx</code> 文件中有图片无法预览，部分 <code>ofd</code> 文件无法预览，等待底层依赖组件作者修复",
+    "JitViewerNormalTitle": "基础用法",
+    "JitViewerSubTitle": "通用文件预览组件，可用于在页面中直接浏览多种类型文件。",
+    "JitViewerTitle": "JitViewer 文件预览器"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Labels": {
     "LongDisplayDescription": "本例中通过设置 <code>form-inline</code> 样式内的 <code>BootstrapInput</code> 组件 <code>ShowLabelTooltip</code> 为 <code>true</code> 使鼠标悬停在被裁剪的 <code>label</code> 时显示完整信息",
     "LongDisplayText": "我是特别长的显示标签",
@@ -1985,6 +1998,13 @@
     "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
     "PaginationTitle": "分页显示",
     "ProductListText": "产品列表"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Live2DDisplays": {
+    "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
+    "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
+    "Live2DDisplayNormalTips": "添加以下代码到Program.cs中。",
+    "Live2DDisplayNormalTitle": "基本用法",
+    "Live2DDisplayTitle": "Live2D 插件"
   },
   "BootstrapBlazor.Shared.Components.Samples.Logouts": {
     "LogoutsChildContentCustomDisplay": "自定义显示内容",
@@ -2356,6 +2376,14 @@
     "PaginationsPageInfoTextIntro": "通过设置 <code>ShowInfo</code> 参数控制是否显示分页信息",
     "PaginationsPageInfoTextTitle": "分页信息",
     "PaginationsTitle": "Pagination 分页"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.PdfViewers": {
+    "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容，难易度：容易",
+    "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件，设置 <code>UseGoogleDocs</code> 使用 docs.google.com 预览",
+    "PdfViewerNormalTitle": "基础用法",
+    "PdfViewerTitle": "PDFViewer PDF 阅读器",
+    "PdfViewerToastNotSupportContent": "当前浏览器不支持 Pdf 文档预览功能",
+    "PdfViewerToastSuccessfulContent": "PDF 文档加载成功"
   },
   "BootstrapBlazor.Shared.Components.Samples.Popovers": {
     "PopoversButtonButtonText": "Click 激活/关闭",
@@ -3427,6 +3455,14 @@
     "VideoDeviceOpenText": "打开设备",
     "VideoDeviceRequestText": "枚举设备",
     "VideoDeviceTitle": "IVideoDevice 视频设备服务"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.VideoPlayers": {
+    "MineType": "MineType 类型",
+    "VideoPlayersChangeURLIntro": "使用 Reload 方法切换播放资源",
+    "VideoPlayersChangeURLTitle": "切换播放资源",
+    "VideoPlayersNormalTitle": "基础用法",
+    "VideoPlayersTips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准.",
+    "VideoPlayersTitle": "VideoPlayer 视频播放器"
   },
   "BootstrapBlazor.Shared.Components.Samples.Watermarks": {
     "WatermarkDescription": "<p>全局增加水印实现方法</p><p>可以在模板页 <code>MainLayout</code> 中加水印组件并设置 <code>IsPage=\"true\"</code> 即可</p>",

@@ -43,7 +43,12 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(VditorOptions),
         typeof(VditorMode),
         typeof(VditorIconStyle),
-        typeof(Gantt)
+        typeof(Gantt),
+        typeof(EmbedPDF),
+        typeof(JitViewer),
+        typeof(PdfViewer),
+        typeof(Live2DDisplay),
+        typeof(VideoPlayer)
     ];
 
     /// <summary>

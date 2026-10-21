@@ -998,12 +998,6 @@
     "ToolTip1": "这是 plugin1 的提示",
     "ToolTip2": "这是 plugin2 提示"
   },
-  "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
-    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持，难易度：难",
-    "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址",
-    "PdfReaderNormalText": "基础用法",
-    "PdfTitle": "EmbedPDF PDF 文档阅读器"
-  },
   "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
     "ExportPdfButtonsDescription": "将 <code>Html</code> 片段或者网页元素导出为 <code>Pdf</code>",
     "ExportPdfButtonsTitle": "将指定网页内容转成 Pdf",
@@ -1140,13 +1134,6 @@
     "UniverIconDescription": "Icons used by Univer",
     "UniverIconTitle": "Univer Icon 图标库"
   },
-  "BootstrapBlazor.Server.Components.Samples.JitViewers": {
-    "JitViewerDescription": "支持在线预览 Office 文档、PDF、OFD、图片、文本、代码、视频等多种文件格式。",
-    "JitViewerKnownIssue": "已知问题：<code>xlsx</code> 文件中有图片无法预览，部分 <code>ofd</code> 文件无法预览，等待底层依赖组件作者修复",
-    "JitViewerNormalTitle": "基础用法",
-    "JitViewerSubTitle": "通用文件预览组件，可用于在页面中直接浏览多种类型文件。",
-    "JitViewerTitle": "JitViewer 文件预览器"
-  },
   "BootstrapBlazor.Server.Components.Samples.LayoutPages": {
     "H1": "整页面级别组件",
     "P1": "通过内置组件",
@@ -1184,13 +1171,6 @@
     "P7": "传送门",
     "P8": "特别注意",
     "P9": "组件开启"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
-    "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
-    "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
-    "Live2DDisplayNormalTips": "添加以下代码到Program.cs中。",
-    "Live2DDisplayNormalTitle": "基本用法",
-    "Live2DDisplayTitle": "Live2D 插件"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsNormalButtonText": "定位",
@@ -1395,14 +1375,6 @@
     "PdfReaderNormalText": "基础用法",
     "PdfReaderSetPdfStreamDesc": "可以通过调用实例方法 <code>SetPdfStreamAsync</code> 或者 <code>SetPdfBase64DataAsync</code> 推流进行渲染",
     "PdfTitle": "PDF Reader PDF 文档阅读器"
-  },
-  "BootstrapBlazor.Server.Components.Samples.PdfViewers": {
-    "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容，难易度：容易",
-    "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件，设置 <code>UseGoogleDocs</code> 使用 docs.google.com 预览",
-    "PdfViewerNormalTitle": "基础用法",
-    "PdfViewerTitle": "PDFViewer PDF 阅读器",
-    "PdfViewerToastNotSupportContent": "当前浏览器不支持 Pdf 文档预览功能",
-    "PdfViewerToastSuccessfulContent": "PDF 文档加载成功"
   },
   "BootstrapBlazor.Server.Components.Samples.Players": {
     "PlayersAudioIntro": "通过设置 <code>Mode=\"PlayerMode.Audio\"</code> 播放音频文件",
@@ -2776,14 +2748,6 @@
   "BootstrapBlazor.Server.Components.Samples.ValidateForms.Dummy2": {
     "Name": "姓名",
     "Name.Required": "Dummy2 {0} 值是必填项"
-  },
-  "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
-    "MineType": "MineType 类型",
-    "VideoPlayersChangeURLIntro": "使用 Reload 方法切换播放资源",
-    "VideoPlayersChangeURLTitle": "切换播放资源",
-    "VideoPlayersNormalTitle": "基础用法",
-    "VideoPlayersTips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准.",
-    "VideoPlayersTitle": "VideoPlayer 视频播放器"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxDescription": "模拟 Windows 窗口风格的组件",
