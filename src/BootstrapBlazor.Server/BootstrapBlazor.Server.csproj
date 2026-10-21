@@ -62,7 +62,7 @@
     <PackageReference Include="BootstrapBlazor.MindMap" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
