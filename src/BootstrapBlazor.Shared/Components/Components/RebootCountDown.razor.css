@@ -1,4 +1,4 @@
-﻿::deep .bb-flip-clock {
+::deep .bb-flip-clock {
     --bb-flip-clock-height: 100px;
     --bb-flip-clock-bg: radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%);
     --bb-flip-clock-font-size: 46px;

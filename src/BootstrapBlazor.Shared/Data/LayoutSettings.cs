@@ -36,6 +36,11 @@ public sealed class LayoutSettings
     public List<string> SupportedCultures { get; set; } = [];
 
     /// <summary>
+    /// Gets or sets the supported framework names displayed by the reconnect template.
+    /// </summary>
+    public List<string> TargetFrameworks { get; set; } = [];
+
+    /// <summary>
     /// Gets or sets the GitHub repository link.
     /// </summary>
     public string GithubRepositoryUrl { get; set; } = "";

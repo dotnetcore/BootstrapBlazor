@@ -1,5 +1,5 @@
-﻿import Data from "../../_content/BootstrapBlazor/modules/data.js"
-import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+import Data from "../../../BootstrapBlazor/modules/data.js"
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export function init(id, version) {
     const el = document.getElementById(id)
@@ -20,11 +20,10 @@ export function init(id, version) {
 }
 
 export function dispose(id) {
-    Data.remove(id)
-
     const data = Data.get(id)
     if (data) {
         EventHandler.off(data.el, 'click', '.blazor-intro-button');
+        Data.remove(id);
     }
 }
 

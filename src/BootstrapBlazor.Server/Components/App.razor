@@ -32,17 +32,17 @@
 
     <ImportMap></ImportMap>
 
-    <HeadOutlet @rendermode="new InteractiveServerRenderMode()" />
+    <HeadOutlet @rendermode="new InteractiveAutoRenderMode()" />
 </head>
 
 <body>
     <Routes />
 
-    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveServerRenderMode()" />
+    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveAutoRenderMode()" />
 
-    <UpdateIntro @rendermode="new InteractiveServerRenderMode()" />
+    <UpdateIntro @rendermode="new InteractiveAutoRenderMode()" />
 
-    <BlazorReconnector @rendermode="new InteractiveServerRenderMode()" />
+    <BlazorReconnector @rendermode="new InteractiveAutoRenderMode()" />
 
     <script src="@Assets["_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"]"></script>
     <script src="@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"></script>

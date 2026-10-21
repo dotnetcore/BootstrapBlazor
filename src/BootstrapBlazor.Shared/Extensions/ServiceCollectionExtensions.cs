@@ -17,10 +17,12 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
     {
         services.AddBootstrapBlazor(configureOptions);
         services.AddBootstrapBlazorMeiliSearch();
+        services.AddBootstrapHolidayService();
         services.AddOptionsMonitor<WebsiteOptions>();
         services.AddScoped<MenuService>();
         services.AddSingleton<PackageVersionService>();
         services.AddSingleton<WeatherForecastService>();
+        services.AddSingleton<ILookupService, DemoLookupService>();
         return services;
     }
 }

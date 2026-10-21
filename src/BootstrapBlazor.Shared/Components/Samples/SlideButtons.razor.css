@@ -1,4 +1,4 @@
-﻿.slide-placement {
+.slide-placement {
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
     padding: 0.25rem;

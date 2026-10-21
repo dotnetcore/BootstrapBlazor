@@ -2,7 +2,6 @@
 @layout ComponentLayout
 @inject IStringLocalizer<Labels> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
-@inject IStringLocalizer<ValidateForms> FormLocalizer
 
 <h3>@Localizer["LabelsTitle"]</h3>
 
@@ -205,8 +204,8 @@
 
 <DemoBlock Title="@Localizer["LabelsRowLabelWidthTitle"]" Introduction="@Localizer["LabelsRowLabelWidthIntro"]" Name="RowLabelWidth">
     <section ignore>
-        <p>@((MarkupString)FormLocalizer["ValidateFormNormalFormLabelWidth"].Value)</p>
-        <p>@((MarkupString)FormLocalizer["LongDisplayDescription"].Value)</p>
+        <p>@((MarkupString)Localizer["ValidateFormNormalFormLabelWidth"].Value)</p>
+        <p>@((MarkupString)Localizer["LongDisplayDescription"].Value)</p>
         <Pre>:root {
     --bb-row-label-width: 120px;
 }</Pre>
@@ -215,12 +214,12 @@
     <ValidateForm Model="@Dummy4">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy4.Name" DisplayText="@FormLocalizer["LongDisplayText"]" />
+                <BootstrapInput @bind-Value="@Dummy4.Name" DisplayText="@Localizer["LongDisplayText"]" />
             </div>
         </div>
         <div class="row g-3 form-inline mt-0">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy4.Address" DisplayText="@FormLocalizer["LongDisplayText"]" ShowLabelTooltip="true" />
+                <BootstrapInput @bind-Value="@Dummy4.Address" DisplayText="@Localizer["LongDisplayText"]" ShowLabelTooltip="true" />
             </div>
         </div>
     </ValidateForm>
@@ -267,7 +266,7 @@
         <BootstrapLabelSetting LabelWidth="220">
             <div class="row form-inline g-3 mt-0">
                 <div class="col-12 col-sm-6">
-                    <BootstrapLabel LabelWidth="180" Value="@FormLocalizer["LongDisplayText"]"></BootstrapLabel>
+                    <BootstrapLabel LabelWidth="180" Value="@Localizer["LongDisplayText"]"></BootstrapLabel>
                     <BootstrapInput @bind-Value="Dummy4.Name" ShowLabel="false" />
                 </div>
             </div>

@@ -32,6 +32,7 @@ builder.Services.Configure<BootstrapBlazor.Shared.Data.WebsiteOptions>(options =
     options.GiteeRepositoryUrl = settings.GiteeRepositoryUrl;
     options.WikiUrl = settings.WikiUrl;
     options.Themes = settings.Themes;
+    options.TargetFrameworks = settings.TargetFrameworks;
 });
 builder.Services.Configure<BootstrapBlazor.Components.MeiliSearchOptions>(options =>
 {

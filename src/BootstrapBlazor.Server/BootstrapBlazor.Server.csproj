@@ -43,7 +43,6 @@
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />

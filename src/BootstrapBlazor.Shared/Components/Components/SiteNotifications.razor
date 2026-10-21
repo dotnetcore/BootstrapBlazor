@@ -1,0 +1,64 @@
+@inherits SharedModuleComponentBase
+@attribute [JSModuleAutoLoader("Components/SiteNotifications.razor.js", JSObjectReference = true)]
+@inject ToastService Toast
+
+@code {
+    private ToastOption? _updateToast;
+
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    [JSInvokable]
+    public Task Receive(SiteNotification notification) => InvokeAsync(async () =>
+    {
+        if (notification.Kind == "reboot")
+        {
+            if (notification.IsUpdating && _updateToast == null)
+            {
+                _updateToast = new ToastOption
+                {
+                    Category = ToastCategory.Information,
+                    Title = "网站更新中 ...",
+                    IsAutoHide = false,
+                    PreventDuplicates = true,
+                    ChildContent = BootstrapDynamicComponent.CreateComponent<RebootCountDown>().Render()
+                };
+                await Toast.Show(_updateToast);
+            }
+            else if (!notification.IsUpdating && _updateToast != null)
+            {
+                await _updateToast.Close();
+                _updateToast = null;
+            }
+        }
+        else if (notification.Kind == "commit")
+        {
+            await Toast.Show(new ToastOption
+            {
+                Category = ToastCategory.Information,
+                Title = "代码提交推送通知",
+                Delay = 120 * 1000,
+                ForceDelay = true,
+                ChildContent = @<div>
+                    <div class="d-flex fw-bold mb-1">
+                        <span class="text-success flex-fill">@notification.Timestamp</span>
+                        <span>共 @notification.TotalCount 个提交</span>
+                    </div>
+                    <div>提交作者: <span class="text-info fw-bold">@notification.Author</span></div>
+                    <div>分支名称: <span class="text-info fw-bold">@notification.Branch</span></div>
+                    <div>提交信息: <a href="@notification.Url" target="_blank" rel="noopener noreferrer">@notification.Message</a></div>
+                </div>
+            });
+        }
+        else if (notification.Kind == "message")
+        {
+            await Toast.Show(new ToastOption
+            {
+                Category = ToastCategory.Information,
+                Title = "Dispatch 服务测试",
+                ChildContent = @<span>@notification.Message</span>,
+                Delay = 30 * 1000,
+                ForceDelay = true
+            });
+        }
+    });
+}

@@ -20,10 +20,11 @@ public static class ServiceCollectionSharedExtensions
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
         services.AddSingleton<CodeSnippetService>();
+        services.AddSingleton<SiteNotificationService>();
+        services.AddHostedService(provider => provider.GetRequiredService<SiteNotificationService>());
         services.AddSingleton<ISampleDocumentationService>(provider => provider.GetRequiredService<CodeSnippetService>());
         services.AddSingleton<DashboardService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
-        services.AddSingleton<ILookupService, DemoLookupService>();
         services.AddSingleton<MockDataTableDynamicService>();
 
         services.AddScoped<FanControllerDataService>();
@@ -75,7 +76,6 @@ public static class ServiceCollectionSharedExtensions
         });
 
         // 增加 BootstrapBlazor 假日服务
-        services.AddBootstrapHolidayService();
 
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExportService();
