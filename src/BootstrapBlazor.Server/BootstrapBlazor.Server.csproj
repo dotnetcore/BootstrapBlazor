@@ -20,7 +20,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-rc.2.26504.105" />
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Authenticator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="11.0.0-rc.2" />
@@ -48,7 +47,6 @@
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.PdfReader" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="11.0.0-rc.2" />
@@ -59,8 +57,6 @@
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.UniverSheet" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.WinBox" Version="11.0.0-rc.2" />
     <PackageReference Include="Longbow.Logging" Version="10.0.1" />
     <PackageReference Include="Longbow.Modbus" Version="10.0.5" />
     <PackageReference Include="Longbow.Sockets" Version="10.0.0" />

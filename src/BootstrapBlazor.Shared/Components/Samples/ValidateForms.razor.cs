@@ -5,9 +5,10 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Concurrent;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// ValidateForms

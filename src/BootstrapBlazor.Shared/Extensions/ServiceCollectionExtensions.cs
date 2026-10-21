@@ -16,11 +16,14 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
     public static IServiceCollection AddBootstrapBlazorLayoutServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
         services.AddBootstrapBlazor(configureOptions);
+        services.AddHttpClient();
         services.AddBootstrapBlazorMeiliSearch();
         services.AddBootstrapHolidayService();
         services.AddBootstrapBlazorRegionService();
         services.AddBootstrapBlazorHtml2ImageService();
         services.AddBootstrapBlazorDom2ImageService();
+        services.AddBootstrapBlazorWinBoxService();
+        services.AddBootstrapBlazorTotpService();
         services.ConfigureTabItemMenuBindOptions(options =>
         {
             options.Binders.Add("layout-demo/text=Parameter1", new() { Text = "示例网页" });

@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// UniverSheet 组件示例代码
@@ -11,7 +11,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class UniverSheets
 {
     [Inject, NotNull]
-    private IWebHostEnvironment? WebHost { get; set; }
+    private HttpClient? HttpClient { get; set; }
+
+    [Inject, NotNull]
+    private NavigationManager? NavigationManager { get; set; }
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
@@ -30,7 +33,7 @@ public partial class UniverSheets
     [NotNull]
     private UniverSheet? _sheetPlugin = null;
 
-    private static string? _reportData = null;
+    private string? _reportData = null;
 
     private string? _jsonData = null;
 
@@ -39,11 +42,7 @@ public partial class UniverSheets
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        var reportFile = Path.Combine(WebHost.WebRootPath, "univer-sheet", "report.json");
-        if (File.Exists(reportFile))
-        {
-            _reportData = await File.ReadAllTextAsync(reportFile);
-        }
+        _reportData = await HttpClient.GetStringAsync(NavigationManager.ToAbsoluteUri("univer-sheet/report.json"));
     }
 
     private Task OnReadyAsync() => ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);

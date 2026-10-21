@@ -29,9 +29,6 @@ public static class ServiceCollectionSharedExtensions
 
         services.AddScoped<FanControllerDataService>();
 
-        // 增加 ITotpService 服务
-        services.AddBootstrapBlazorTotpService();
-
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);
 
@@ -56,9 +53,6 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
-
-        // 增加 WinBox 弹窗服务
-        services.AddBootstrapBlazorWinBoxService();
 
         // 增加 BootstrapBlazor 假日服务
 

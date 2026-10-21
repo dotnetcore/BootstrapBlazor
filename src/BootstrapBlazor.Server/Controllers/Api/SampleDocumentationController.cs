@@ -49,7 +49,10 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(PdfViewer),
         typeof(Live2DDisplay),
         typeof(VideoPlayer),
-        typeof(Player)
+        typeof(Player),
+        typeof(WinBoxOption),
+        typeof(PdfReader),
+        typeof(UniverSheet)
     ];
 
     /// <summary>

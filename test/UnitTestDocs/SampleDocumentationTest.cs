@@ -96,6 +96,9 @@ public class SampleDocumentationTest
     [InlineData(typeof(Live2DDisplay))]
     [InlineData(typeof(VideoPlayer))]
     [InlineData(typeof(Player))]
+    [InlineData(typeof(WinBoxOption))]
+    [InlineData(typeof(PdfReader))]
+    [InlineData(typeof(UniverSheet))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();

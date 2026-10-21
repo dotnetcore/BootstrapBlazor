@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// PdfReaders
@@ -11,10 +11,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class PdfReaders
 {
     [Inject, NotNull]
-    private IWebHostEnvironment? WebHostEnvironment { get; set; }
+    private HttpClient? HttpClient { get; set; }
 
     [Inject, NotNull]
-    private DownloadService? DownloadService { get; set; }
+    private NavigationManager? NavigationManager { get; set; }
 
     private bool _showTwoPagesOneView = true;
     private bool _showPrint = true;
@@ -27,14 +27,12 @@ public partial class PdfReaders
 
     private async Task<Stream> OnGetStreamAsync()
     {
-        await Task.Yield();
         if (string.IsNullOrEmpty(_streamFileName))
         {
             return Stream.Null;
         }
 
-        var stream = File.OpenRead(Path.Combine(WebHostEnvironment.WebRootPath, "samples", _streamFileName));
-        return stream;
+        return await HttpClient.GetStreamAsync(NavigationManager.ToAbsoluteUri($"samples/{_streamFileName}"));
     }
 
     private void GetTestStream()
