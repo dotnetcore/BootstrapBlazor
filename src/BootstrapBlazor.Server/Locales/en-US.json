@@ -759,13 +759,6 @@
     "ModalsVerticallyCenteredPopup": "Vertically centered popup",
     "ModalsVeryLongContent": "Pop-up window with very long content"
   },
-  "BootstrapBlazor.Server.Components.Samples.OfficeViewers": {
-    "OfficeViewerDescription": "This component previews Office documents using Microsoft's online document preview feature",
-    "OfficeViewerNormalIntro": "Set the document URL for preview by configuring the <code>Url</code> value",
-    "OfficeViewerNormalTitle": "Basic Usage",
-    "OfficeViewerTitle": "Office Document Viewer",
-    "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
-  },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
     "BrowseButtonText": "Browse",
     "CancelButtonText": "Cancel",

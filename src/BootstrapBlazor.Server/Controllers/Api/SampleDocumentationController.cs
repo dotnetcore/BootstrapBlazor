@@ -63,7 +63,8 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(Chart),
         typeof(DockView),
         typeof(DockContent),
-        typeof(DockComponent)
+        typeof(DockComponent),
+        typeof(OfficeViewer)
     ];
 
     /// <summary>

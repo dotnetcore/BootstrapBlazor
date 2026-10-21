@@ -2873,6 +2873,13 @@
     "NotificationsSoundText": "通知触发时要播放的音频文件的 URL",
     "NotificationsTitle": "通知"
   },
+  "BootstrapBlazor.Shared.Components.Samples.OfficeViewers": {
+    "OfficeViewerDescription": "本组件通过使用微软在线文档预览功能预览 Office 文档内容",
+    "OfficeViewerNormalIntro": "通过设置 <code>Url</code> 值设置预览文档地址",
+    "OfficeViewerNormalTitle": "基本用法",
+    "OfficeViewerTitle": "Office 文档预览器",
+    "OfficeViewerToastSuccessfulContent": "Office 文档加载成功"
+  },
   "BootstrapBlazor.Shared.Components.Samples.OnScreenKeyboards": {
     "OnScreenKeyboardsAppDescription": "双绑",
     "OnScreenKeyboardsAppTitle": "BootstrapBlazor 组件",

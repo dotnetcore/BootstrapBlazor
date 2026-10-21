@@ -35,7 +35,6 @@
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.0-rc.2" />

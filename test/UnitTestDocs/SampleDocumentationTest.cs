@@ -152,6 +152,7 @@ public class SampleDocumentationTest
     [InlineData(typeof(DockView))]
     [InlineData(typeof(DockContent))]
     [InlineData(typeof(DockComponent))]
+    [InlineData(typeof(OfficeViewer))]
     public async Task Attributes_ReturnsSupportedSampleOptions(Type type)
     {
         var service = new DocumentationService();

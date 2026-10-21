@@ -759,13 +759,6 @@
     "ModalsVerticallyCenteredPopup": "垂直居中的弹窗",
     "ModalsVeryLongContent": "内容超长的弹窗"
   },
-  "BootstrapBlazor.Server.Components.Samples.OfficeViewers": {
-    "OfficeViewerDescription": "本组件通过使用微软在线文档预览功能预览 Office 文档内容",
-    "OfficeViewerNormalIntro": "通过设置 <code>Url</code> 值设置预览文档地址",
-    "OfficeViewerNormalTitle": "基本用法",
-    "OfficeViewerTitle": "Office 文档预览器",
-    "OfficeViewerToastSuccessfulContent": "Office 文档加载成功"
-  },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
     "BrowseButtonText": "浏览",
     "CancelButtonText": "取消",

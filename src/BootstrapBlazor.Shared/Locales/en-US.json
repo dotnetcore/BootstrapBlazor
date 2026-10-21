@@ -2873,6 +2873,13 @@
     "NotificationsSoundText": "The audio URL to play when the notification",
     "NotificationsTitle": "Notifications"
   },
+  "BootstrapBlazor.Shared.Components.Samples.OfficeViewers": {
+    "OfficeViewerDescription": "This component previews Office documents using Microsoft's online document preview feature",
+    "OfficeViewerNormalIntro": "Set the document URL for preview by configuring the <code>Url</code> value",
+    "OfficeViewerNormalTitle": "Basic Usage",
+    "OfficeViewerTitle": "Office Document Viewer",
+    "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
+  },
   "BootstrapBlazor.Shared.Components.Samples.OnScreenKeyboards": {
     "OnScreenKeyboardsAppDescription": "Bind",
     "OnScreenKeyboardsAppTitle": "BootstrapBlazor component",
