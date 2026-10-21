@@ -7,6 +7,35 @@ namespace UnitTest.Components;
 
 public class AutoCompleteTest : BootstrapBlazorTestBase
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FocusAsync_Ok(bool isAutoFocus)
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/AutoComplete/AutoComplete.razor.js");
+        var cut = Context.Render<AutoComplete>(pb => pb.Add(a => a.IsAutoFocus, isAutoFocus));
+
+        if (!isAutoFocus)
+        {
+            await cut.InvokeAsync(cut.Instance.FocusAsync);
+        }
+
+        var invocation = module.VerifyInvoke("focus");
+        Assert.Equal(cut.Find("input").Id, Assert.Single(invocation.Arguments));
+    }
+
+    [Fact]
+    public async Task SelectAllTextAsync_Ok()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/AutoComplete/AutoComplete.razor.js");
+        var cut = Context.Render<AutoComplete>();
+
+        await cut.InvokeAsync(async () => await cut.Instance.SelectAllTextAsync());
+
+        var invocation = module.VerifyInvoke("select");
+        Assert.Equal(cut.Find("input").Id, Assert.Single(invocation.Arguments));
+    }
+
     [Fact]
     public void SkipMatch_Ok()
     {
