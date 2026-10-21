@@ -1,22 +1,32 @@
-﻿@page "/dock-view/row"
+@page "/dock-view/lock"
 @inherits BaseDockView
+@layout DockLayout
 
-<h3>@Localizer["DockViewRowTitle"]</h3>
+<h3>@Localizer["DockViewLockTitle"]</h3>
 
-<h4>@((MarkupString)Localizer["DockViewRowIntro"].Value)</h4>
+<h4>@((MarkupString)Localizer["DockViewLockIntro"].Value)</h4>
 
-<DockView Name="DockViewRow" class="dock-demo">
+<Button OnClick="OnToggleLock" Text="@LockText"></Button>
+
+<DockView Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock" class="dock-lock-demo">
     <DockContent Type="DockContentType.Row">
         <DockComponent Title="标签一">
-            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
-                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
-                   ShowDefaultButtons="false" IsFixedHeader="true">
+            <Table TItem="Foo" Items="@Items"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="true"
+                   ShowDefaultButtons="false" IsFixedHeader="false">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Count" />
+                </TableColumns>
                 <DetailRowTemplate>
-                    @{
-                        var detailContext = GetDetailDataTableDynamicContext(context);
-                    }
                     <div class="p-2 w-100">
-                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        <Table TItem="Foo" Items="@GetDetailItems(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                            <TableColumns Context="detail">
+                                <TableColumn @bind-Field="@detail.DateTime" Width="180" />
+                                <TableColumn @bind-Field="@detail.Name" />
+                                <TableColumn @bind-Field="@detail.Count" />
+                            </TableColumns>
                         </Table>
                     </div>
                 </DetailRowTemplate>
@@ -38,12 +48,12 @@
             </Table>
         </DockComponent>
         <DockComponent Title="标签三">
-            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>
                     <TableColumn @bind-Field="@context.Name" Width="140" />
                     <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Address" TextEllipsis="true" ShowTips="true" />
                     <TableColumn @bind-Field="@context.Count" Width="80" />
                 </TableColumns>
             </Table>

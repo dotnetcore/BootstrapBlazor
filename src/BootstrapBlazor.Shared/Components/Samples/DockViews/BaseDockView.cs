@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.DockViews;
+namespace BootstrapBlazor.Shared.Components.Samples.DockViews;
 
 /// <summary>
 /// 
@@ -21,12 +21,7 @@ public abstract class BaseDockView : ComponentBase
     [NotNull]
     private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private MockDataTableDynamicService? DataTableDynamicService { get; set; }
+    private readonly Dictionary<int, List<Foo>> _detailItems = [];
 
     /// <summary>
     /// 
@@ -41,16 +36,19 @@ public abstract class BaseDockView : ComponentBase
     protected List<TreeFoo>? TreeItems { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets the detail rows for a sample item.
     /// </summary>
-    protected DataTableDynamicContext? DataTableDynamicContext { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="context"></param>
+    /// <param name="item"></param>
     /// <returns></returns>
-    protected DynamicObjectContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
+    protected IEnumerable<Foo> GetDetailItems(Foo item)
+    {
+        if (!_detailItems.TryGetValue(item.Id, out var items))
+        {
+            items = Foo.GenerateFoo(FooLocalizer, 10);
+            _detailItems.Add(item.Id, items);
+        }
+        return items;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -67,8 +65,6 @@ public abstract class BaseDockView : ComponentBase
 
         // 插入 Id 为 101 的子项
         TreeItems.AddRange(TreeFoo.GenerateFoos(FooLocalizer, 3, 101, 1010));
-
-        DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
 
     /// <summary>

@@ -504,38 +504,6 @@
     "Tips": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
     "Title": "Dispatch message distribution"
   },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
-    "DockViewColIntro": "Make the <code>DockView</code> vertical by setting <code>Type=\"DockContentType.Column\"</code>",
-    "DockViewColTitle": "DockView - Column"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewComplex": {
-    "DockViewComplexIntro": "Complex layouts can be achieved by combining and nesting <code>DockContentType</code> values",
-    "DockViewComplexTitle": "DockView - Complex"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLayout": {
-    "DockViewLayoutIntro": "Initialize the display layout of the control panel by setting the <code>LayoutConfig</code> property of <code>DockView</code>, and get the display layout of the panel by using the <code>GetLayoutConfig</code> method",
-    "DockViewLayoutTitle": "DockView - Custom Layout"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLock": {
-    "DockViewLockIntro": "By setting the <code>IsLock</code> property of <code>DockView</code>, you can control whether all panels can be dragged.",
-    "DockViewLockTitle": "DockView - Lock"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewNest": {
-    "DockViewNestIntro": "<code>DockView</code> can be nested inside <code>DockComponent</code> and its label can be made invisible by setting <code>ShowHeader=\"false\"</code>",
-    "DockViewNestTitle": "DockView - Nested Layouts"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewRow": {
-    "DockViewRowIntro": "Make the <code>DockView</code> horizontal by setting <code>Type=\"DockContentType.Row\"</code>",
-    "DockViewRowTitle": "DockView - Row"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewStack": {
-    "DockViewStackIntro": "Make the <code>DockView</code> group layout by setting <code>Type=\"DockContentType.Stack\"</code>",
-    "DockViewStackTitle": "DockView - Stack"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewVisible": {
-    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method",
-    "DockViewVisibleTitle": "DockView - Visible"
-  },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
     "DockViewColIntro": "Make the <code>DockViewV2</code> layout vertically by setting <code>Type=\"DockContentType.Column\"</code> and initialize its panel height by setting <code>Height=\"240\"</code>",
     "DockViewColTitle": "DockViewV2 - Column"
