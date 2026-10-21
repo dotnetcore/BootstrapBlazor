@@ -5,7 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// PopoverConfirms

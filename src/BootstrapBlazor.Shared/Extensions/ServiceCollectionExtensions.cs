@@ -21,6 +21,13 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorRegionService();
         services.AddBootstrapBlazorHtml2ImageService();
         services.AddBootstrapBlazorDom2ImageService();
+        services.ConfigureTabItemMenuBindOptions(options =>
+        {
+            options.Binders.Add("layout-demo/text=Parameter1", new() { Text = "示例网页" });
+            options.Binders.Add("layout-demo", new() { Text = "Text 1" });
+            options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
+            options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
+        });
         services.AddOptionsMonitor<WebsiteOptions>();
         services.AddScoped<MenuService>();
         services.AddSingleton<PackageVersionService>();
