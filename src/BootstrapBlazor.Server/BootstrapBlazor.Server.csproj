@@ -79,7 +79,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
