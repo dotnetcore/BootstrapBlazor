@@ -35,7 +35,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<ILookupService, NullLookupService>();
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
-        services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
+
+        if (OperatingSystem.IsBrowser())
+        {
+            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveWebAssemblyService<>));
+        }
+        else
+        {
+            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveServerService<>));
+        }
 
         // <para lang="zh">增加 OtpOptions 配置支持</para>
         // <para lang="en">Add OtpOptions support</para>

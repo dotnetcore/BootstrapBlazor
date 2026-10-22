@@ -5,23 +5,32 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
+sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<TEntry>
 {
-    public Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
+    public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        Func<DispatchEntry<TEntry>, Task>[] callbacks;
         lock (_locker)
         {
-            Cache.ForEach(cb =>
-            {
-                cb(entry);
-            });
+            callbacks = Cache.ToArray();
         }
 
-        return Task.CompletedTask;
+        foreach (var callback in callbacks)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            await callback(entry);
+        }
     }
 
     public Task SubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default)
     {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return Task.FromCanceled(cancellationToken);
+        }
+
         lock (_locker)
         {
             Cache.Add(callback);
@@ -32,6 +41,11 @@ internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 
     public Task UnSubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default)
     {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return Task.FromCanceled(cancellationToken);
+        }
+
         lock (_locker)
         {
             Cache.Remove(callback);
