@@ -119,6 +119,7 @@
     "mind-map": "MindMaps",
     "mermaid": "Mermaids",
     "modal": "Modals",
+    "modal/pdf": "ModalPdf",
     "mouse-follower": "MouseFollowers",
     "multi-select": "MultiSelects",
     "navigation": "Navigation",
