@@ -6,7 +6,7 @@
 using System.Collections.Concurrent;
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Server.Components.Samples.Table;
+namespace BootstrapBlazor.Shared.Components.Samples.Table;
 
 /// <summary>
 /// 明细行示例代码
@@ -19,7 +19,7 @@ public partial class TablesDetailRow
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
-    private DataTableDynamicContext? DataTableDynamicContext { get; set; }
+    private readonly Dictionary<int, List<Foo>> _excelDetailItems = [];
 
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -37,8 +37,6 @@ public partial class TablesDetailRow
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
-
-        DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
 
     private static List<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
@@ -90,7 +88,15 @@ public partial class TablesDetailRow
 
     private static bool ShowDetailRow(Foo item) => item.Complete;
 
-    private DataTableDynamicContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
+    private List<Foo> GetExcelDetailItems(Foo item)
+    {
+        if (!_excelDetailItems.TryGetValue(item.Id, out var items))
+        {
+            items = Foo.GenerateFoo(FooLocalizer, 10);
+            _excelDetailItems.Add(item.Id, items);
+        }
+        return items;
+    }
 
     private class DetailRow
     {

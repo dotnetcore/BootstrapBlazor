@@ -42,6 +42,7 @@
     "datetime-picker": "DateTimePickers",
     "datetime-range": "DateTimeRanges",
     "dialog": "Dialogs",
+    "dialog/pdf": "DialogPdf",
     "dial-button": "DialButtons",
     "dispatch": "Dispatches",
     "display": "Displays",

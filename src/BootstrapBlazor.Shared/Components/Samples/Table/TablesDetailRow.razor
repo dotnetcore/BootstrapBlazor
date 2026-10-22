@@ -3,7 +3,6 @@
 @inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesDetailRow> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
-@inject MockDataTableDynamicService DataTableDynamicService
 
 <h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableDetail"]</h3>
 
@@ -120,18 +119,25 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DynamicTitle"]"
-           Introduction="@Localizer["DynamicIntro"]"
+<DemoBlock Title="@Localizer["ExcelTitle"]"
+           Introduction="@Localizer["ExcelIntro"]"
            Name="Excel">
-    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+    <Table TItem="Foo" Items="@Items"
            IsStriped="true" IsBordered="true" IsExcel="true"
            ShowToolbar="true" ShowDefaultButtons="false">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
         <DetailRowTemplate>
-            @{
-                var detailContext = GetDetailDataTableDynamicContext(context);
-            }
             <div class="p-2 w-100">
-                <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                <Table TItem="Foo" Items="@GetExcelDetailItems(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                    <TableColumns Context="detail">
+                        <TableColumn @bind-Field="@detail.DateTime" Width="180" />
+                        <TableColumn @bind-Field="@detail.Name" Width="100" />
+                        <TableColumn @bind-Field="@detail.Count" />
+                    </TableColumns>
                 </Table>
             </div>
         </DetailRowTemplate>

@@ -174,8 +174,8 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ExportPdfDialogTitle"]" Introduction="@Localizer["ExportPdfDialogIntro"]" Name="ExportPdf">
-    <section ignore>@((MarkupString)Localizer["ExportPdfDialogTip"].Value)</section>
-    <Button OnClick="@OnExportPdfDialogClick">@Localizer["ExportPdfButton"]</Button>
+    <p>@Localizer["ExportPdfServerNote"]</p>
+    <a class="btn btn-primary" href="dialog/pdf" data-enhance-nav="false">@Localizer["OpenPdfSample"]</a>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowMaximizeButtonTitle"]" Introduction="@Localizer["ShowMaximizeButtonIntro"]" Name="ShowMaximizeButton">

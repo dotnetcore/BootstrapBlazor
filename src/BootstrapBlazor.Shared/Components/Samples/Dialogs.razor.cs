@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 弹窗组件示例代码
@@ -239,21 +239,6 @@ public sealed partial class Dialogs
             Title = "Data query window",
             ShowPrintButton = true,
             ShowPrintButtonInHeader = true,
-            ShowFooter = false,
-            BodyContext = DataPrimaryId,
-            Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>()
-        };
-
-        await DialogService.Show(op);
-    }
-
-    private async Task OnExportPdfDialogClick()
-    {
-        var op = new DialogOption
-        {
-            Title = "Export Pdf Demo",
-            ShowExportPdfButton = true,
-            ShowExportPdfButtonInHeader = true,
             ShowFooter = false,
             BodyContext = DataPrimaryId,
             Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>()

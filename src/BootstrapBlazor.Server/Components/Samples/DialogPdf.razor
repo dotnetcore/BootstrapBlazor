@@ -1,0 +1,13 @@
+@page "/dialog/pdf"
+@inject IStringLocalizer<DialogPdf> Localizer
+
+<h3>@Localizer["ExportPdfDialogTitle"]</h3>
+
+<p><a href="dialog#ExportPdf" data-enhance-nav="false">@Localizer["BackToDialogs"]</a></p>
+
+<DemoBlock Title="@Localizer["ExportPdfDialogTitle"]"
+           Introduction="@Localizer["ExportPdfDialogIntro"]"
+           Name="ExportPdf">
+    <section ignore>@((MarkupString)Localizer["ExportPdfDialogTip"].Value)</section>
+    <Button OnClick="OnExportPdfDialogClick">@Localizer["ExportPdfButton"]</Button>
+</DemoBlock>
