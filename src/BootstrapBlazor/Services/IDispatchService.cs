@@ -19,11 +19,23 @@ public interface IDispatchService<TEntry>
     void Dispatch(DispatchEntry<TEntry> entry);
 
     /// <summary>
+    /// <para lang="zh">异步分发消息并等待处理完成</para>
+    /// <para lang="en">Dispatch a message and await completion.</para>
+    /// </summary>
+    Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// <para lang="zh">订阅分发</para>
     /// <para lang="en">Subscribe Dispatch</para>
     /// </summary>
     /// <param name="callback"></param>
     void Subscribe(Func<DispatchEntry<TEntry>, Task> callback);
+
+    /// <summary>
+    /// <para lang="zh">订阅消息并等待远程订阅就绪</para>
+    /// <para lang="en">Subscribe and wait until the remote subscription is ready.</para>
+    /// </summary>
+    Task SubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// <para lang="zh">取消订阅分发</para>
