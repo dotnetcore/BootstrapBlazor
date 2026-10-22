@@ -76,7 +76,7 @@
     <PackageReference Include="BootstrapBlazor.Sortable" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0-rc.2.1" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.1-beta01" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0-rc.2.1" />
