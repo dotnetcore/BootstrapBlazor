@@ -17,7 +17,11 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
     {
         services.AddBootstrapBlazor(configureOptions);
         services.AddHttpClient();
-        services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>((provider, client) => client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+        if (OperatingSystem.IsBrowser())
+        {
+            services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+        }
         services.AddAuthorizationCore();
         services.AddCascadingAuthenticationState();
         services.AddScoped<Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider, MockAuthenticationStateProvider>();

@@ -5,6 +5,7 @@
 
 using BootstrapBlazor.Server.Data;
 using BootstrapBlazor.Server.Services;
+using BootstrapBlazor.Shared.Data;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Text.Json;
 

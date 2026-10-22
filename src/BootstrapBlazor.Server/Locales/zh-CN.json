@@ -379,24 +379,6 @@
     "ExportPdfDialogTitle": "带导出 Pdf 功能的弹窗",
     "BackToDialogs": "返回弹窗示例"
   },
-  "BootstrapBlazor.Server.Components.Samples.Dispatches": {
-    "Description": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
-    "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
-    "DispatchNoticeButtonText": "通知",
-    "DispatchNoticeMessage": "测试通知消息",
-    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致",
-    "DispatchTitle": "实战应用",
-    "NormalTip": "本站通过此组件功能实现了代码仓库有提交时全站提示功能",
-    "NormalTips1": "1. 获得 <b>注入服务</b> 指定消息实体类",
-    "NormalTips2": "2. <b>订阅</b> 消息通知",
-    "NormalTips3": "3. 页面或者组件销毁时 <b>取消订阅</b>",
-    "NormalTips4": "4. 通知实现方法 <code>Notify</code>",
-    "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
-    "NormalTipsContent": "通知内容",
-    "NormalTipsTitle": "通知标题",
-    "Tips": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
-    "Title": "Dispatch 消息分发"
-  },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",
     "DoMethodAsyncButton2": "将段落修改为 H2",

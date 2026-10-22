@@ -379,24 +379,6 @@
     "ExportPdfDialogTitle": "Pop up window with export Pdf function",
     "BackToDialogs": "Back to dialog samples"
   },
-  "BootstrapBlazor.Server.Components.Samples.Dispatches": {
-    "Description": "By injecting the service to call the instance method, the site-wide pop-up window is used for message notification",
-    "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
-    "DispatchNoticeButtonText": "Notice",
-    "DispatchNoticeMessage": "Test dispatch message",
-    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
-    "DispatchTitle": "Practical application",
-    "NormalTip": "Through this component function, this site realizes the function of prompting the whole site when the code warehouse is submitted.",
-    "NormalTips1": "1. Get the <b>Injection Service</b> specified message entity class",
-    "NormalTips2": "2. <b>Subscribe</b> notifications",
-    "NormalTips3": "3. <b>Unsubscribe</b> when the page or component is destroyed",
-    "NormalTips4": "4. Notification implementation method <code>Notify</code>",
-    "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
-    "NormalTipsContent": "Notification content",
-    "NormalTipsTitle": "notification title",
-    "Tips": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
-    "Title": "Dispatch message distribution"
-  },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "Insert Html",
     "DoMethodAsyncButton2": "Update to  H2",
