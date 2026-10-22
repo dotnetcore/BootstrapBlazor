@@ -7,31 +7,37 @@ namespace BootstrapBlazor.Components;
 
 internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 {
-    public void Dispatch(DispatchEntry<TEntry> payload)
+    public Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
     {
         lock (_locker)
         {
             Cache.ForEach(cb =>
             {
-                cb(payload);
+                cb(entry);
             });
         }
+
+        return Task.CompletedTask;
     }
 
-    public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback)
+    public Task SubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default)
     {
         lock (_locker)
         {
             Cache.Add(callback);
         }
+
+        return Task.CompletedTask;
     }
 
-    public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback)
+    public Task UnSubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default)
     {
         lock (_locker)
         {
             Cache.Remove(callback);
         }
+
+        return Task.CompletedTask;
     }
 
     private List<Func<DispatchEntry<TEntry>, Task>> Cache { get; } = new(50);

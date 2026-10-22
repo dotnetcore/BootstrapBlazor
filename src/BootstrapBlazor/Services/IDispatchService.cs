@@ -12,24 +12,10 @@ namespace BootstrapBlazor.Components;
 public interface IDispatchService<TEntry>
 {
     /// <summary>
-    /// <para lang="zh">分发方法</para>
-    /// <para lang="en">Dispatch Method</para>
-    /// </summary>
-    /// <param name="entry"></param>
-    void Dispatch(DispatchEntry<TEntry> entry);
-
-    /// <summary>
     /// <para lang="zh">异步分发消息并等待处理完成</para>
     /// <para lang="en">Dispatch a message and await completion.</para>
     /// </summary>
     Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// <para lang="zh">订阅分发</para>
-    /// <para lang="en">Subscribe Dispatch</para>
-    /// </summary>
-    /// <param name="callback"></param>
-    void Subscribe(Func<DispatchEntry<TEntry>, Task> callback);
 
     /// <summary>
     /// <para lang="zh">订阅消息并等待远程订阅就绪</para>
@@ -41,7 +27,5 @@ public interface IDispatchService<TEntry>
     /// <para lang="zh">取消订阅分发</para>
     /// <para lang="en">Unsubscribe Dispatch</para>
     /// </summary>
-    /// <param name="callback"></param>
-    /// <exception cref="NotImplementedException"></exception>
-    void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback);
+    Task UnSubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default);
 }
