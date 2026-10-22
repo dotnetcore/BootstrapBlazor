@@ -7,6 +7,14 @@ namespace BootstrapBlazor.Components;
 
 sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<TEntry>
 {
+    private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
+
+#if NET9_0_OR_GREATER
+    private readonly Lock _locker = new();
+#else
+    private readonly object _locker = new();
+#endif
+
     public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -14,7 +22,7 @@ sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<
         Func<DispatchEntry<TEntry>, Task>[] callbacks;
         lock (_locker)
         {
-            callbacks = Cache.ToArray();
+            callbacks = _cache.ToArray();
         }
 
         foreach (var callback in callbacks)
@@ -33,7 +41,7 @@ sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<
 
         lock (_locker)
         {
-            Cache.Add(callback);
+            _cache.Add(callback);
         }
 
         return Task.CompletedTask;
@@ -48,17 +56,9 @@ sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<
 
         lock (_locker)
         {
-            Cache.Remove(callback);
+            _cache.Remove(callback);
         }
 
         return Task.CompletedTask;
     }
-
-    private List<Func<DispatchEntry<TEntry>, Task>> Cache { get; } = new(50);
-
-#if NET9_0_OR_GREATER
-    private readonly Lock _locker = new();
-#else
-    private readonly object _locker = new();
-#endif
 }
