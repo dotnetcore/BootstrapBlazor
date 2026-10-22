@@ -7,26 +7,23 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
 
 static class MockOnlineContributor
 {
-    public static void Trigger(IDispatchService<Contributor> dispatchService)
+    public static Task Trigger(IDispatchService<Contributor> dispatchService) => dispatchService.DispatchAsync(new DispatchEntry<Contributor>()
     {
-        dispatchService.Dispatch(new DispatchEntry<Contributor>()
+        Name = "OnlineSheet-Demo",
+        Entry = new Contributor()
         {
-            Name = "OnlineSheet-Demo",
-            Entry = new Contributor()
+            Name = "Argo Zhang",
+            Avatar = "/images/Argo-C.png",
+            Description = "正在更新单元格 A8",
+            Data = new UniverSheetData()
             {
-                Name = "Argo Zhang",
-                Avatar = "/images/Argo-C.png",
-                Description = "正在更新单元格 A8",
-                Data = new UniverSheetData()
+                CommandName = "UpdateRange",
+                Data = new
                 {
-                    CommandName = "UpdateRange",
-                    Data = new
-                    {
-                        Range = "A8",
-                        Value = $"{DateTime.Now: yyyy-MM-dd HH:mm:ss} Argo 更新此单元格"
-                    }
+                    Range = "A8",
+                    Value = $"{DateTime.Now: yyyy-MM-dd HH:mm:ss} Argo 更新此单元格"
                 }
             }
-        });
-    }
+        }
+    });
 }

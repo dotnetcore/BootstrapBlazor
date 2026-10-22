@@ -15,18 +15,15 @@
 [NotNull]
 private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
 <p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
-<Pre class="mb-3">protected override void OnInitialized()
+<Pre class="mb-3">protected override async Task OnInitializedAsync()
 {
-    // ...
-    DispatchService.Subscribe(Notify);
+    await base.OnInitializedAsync();
+    await DispatchService.SubscribeAsync(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips3"].Value)</p>
-<Pre class="mb-3">private void Dispose(bool disposing)
+<Pre class="mb-3">public async ValueTask DisposeAsync()
 {
-    if (disposing)
-    {
-        DispatchService.UnSubscribe(Notify);
-    }
+    await DispatchService.UnSubscribeAsync(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
 <Pre class="mb-3">private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)

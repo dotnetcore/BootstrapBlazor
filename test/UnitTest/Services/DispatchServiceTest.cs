@@ -8,27 +8,27 @@ namespace UnitTest.Services;
 public class DispatchServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Dispatch_Ok()
+    public async Task Dispatch_Ok()
     {
         var receiveName = "";
         var category = "";
         var dispatchService = Context.Services.GetRequiredService<IDispatchService<MockDispatchItem>>();
-        var invoker = new Func<DispatchEntry<MockDispatchItem>, Task>(item =>
+        var invoker = new Func<DispatchEntry<MockDispatchItem>, Task>(async item =>
         {
+            await Task.Yield();
             category = item.Name;
             receiveName = item.Entry?.Name;
-            return Task.CompletedTask;
         });
-        dispatchService.Subscribe(invoker);
-        dispatchService.Dispatch(new DispatchEntry<MockDispatchItem>()
+        await dispatchService.SubscribeAsync(invoker, Xunit.TestContext.Current.CancellationToken);
+        await dispatchService.DispatchAsync(new DispatchEntry<MockDispatchItem>()
         {
             Entry = new MockDispatchItem() { Name = "test-dispatch" },
             Name = "test-category"
-        });
+        }, Xunit.TestContext.Current.CancellationToken);
 
         Assert.Equal("test-dispatch", receiveName);
         Assert.Equal("test-category", category);
-        dispatchService.UnSubscribe(invoker);
+        await dispatchService.UnSubscribeAsync(invoker, Xunit.TestContext.Current.CancellationToken);
     }
 
     private class MockDispatchItem
