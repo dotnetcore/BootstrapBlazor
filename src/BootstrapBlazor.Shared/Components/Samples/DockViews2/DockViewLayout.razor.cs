@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
+namespace BootstrapBlazor.Shared.Components.Samples.DockViews2;
 
 /// <summary>
 /// DockViewLayout 组件

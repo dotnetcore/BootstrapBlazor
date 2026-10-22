@@ -504,42 +504,6 @@
     "Tips": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
     "Title": "Dispatch 消息分发"
   },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
-    "DockViewColIntro": "通过设置 <code>Type=\"DockViewContentType.Column\"</code> 使 <code>DockViewV2</code> 垂直布局，通过设置 <code>Height=\"240\"</code> 初始化其面板高度",
-    "DockViewColTitle": "DockViewV2 列布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewComplex": {
-    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockViewContentType</code> 值可以得到复杂布局",
-    "DockViewComplexTitle": "DockViewV2 复杂布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewGroup": {
-    "DockViewGroupIntro": "通过设置 <code>Type=\"DockViewContentType.Group\"</code> 使 <code>DockViewV2</code> 组布局",
-    "DockViewGroupTitle": "DockViewV2 组布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLayout": {
-    "DockViewLayoutIntro": "通过设置 <code>DockViewV2</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局",
-    "DockViewLayoutTitle": "DockViewV2 自定义布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLock": {
-    "DockViewLockIntro": "通过设置 <code>DockViewV2</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动，通过设置 <code>ShowLock</code> 控制是否显示锁定按钮",
-    "DockViewLockTitle": "DockViewV2 锁定面板"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
-    "DockViewNestIntro": "组件 <code>DockViewComponent</code> 内可嵌套放置 <code>DockViewV2</code> 通过设置 <code>ShowHeader=\"false\"</code> 可使其标签不可见",
-    "DockViewNestTitle": "DockViewV2 嵌套布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewRow": {
-    "DockViewRowIntro": "通过设置 <code>Type=\"DockViewContentType.Row\"</code> 使 <code>DockViewV2</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度",
-    "DockViewRowTitle": "DockViewV2 行布局"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewTitle": {
-    "DockViewTitleIntro": "通过设置 <code>ShowTitleBar</code> 控制是否显示标题前功能按钮，使用 <code>OnClickTitleBarCallback</code> 设置回调委托方法，复杂功能使用 <code>TitleTemplate</code> 自定义",
-    "DockViewTitleTitle": "DockViewV2 设置标题"
-  },
-  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
-    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnVisibleStateChangedAsync</code> 设置面板关闭回调委托方法",
-    "DockViewVisibleTitle": "DockViewV2 可见性设置"
-  },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",
     "DoMethodAsyncButton2": "将段落修改为 H2",

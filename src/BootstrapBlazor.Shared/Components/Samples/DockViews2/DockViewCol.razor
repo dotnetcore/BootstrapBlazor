@@ -1,22 +1,30 @@
-﻿@page "/dock-view2/row"
+@page "/dock-view2/col"
 @inherits BaseDockView
+@layout DockLayout
 
-<h3>@Localizer["DockViewRowTitle"]</h3>
+<h3>@Localizer["DockViewColTitle"]</h3>
 
-<h4>@((MarkupString)Localizer["DockViewRowIntro"].Value)</h4>
+<h4>@((MarkupString)Localizer["DockViewColIntro"].Value)</h4>
 
-<DockViewV2 Name="DockViewV2LayoutRow" class="dockview-demo">
-    <DockViewContent Type="DockViewContentType.Row">
-        <DockViewComponent Key="tab1" Title="标签一" ShowClose="false" Width="14">
-            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+<DockViewV2 Name="DockViewV2LayoutColumn" class="dockview-demo">
+    <DockViewContent Type="DockViewContentType.Column">
+        <DockViewComponent Key="tab1" Title="标签一" Height="33">
+            <Table TItem="Foo" Items="@Items"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false" IsFixedHeader="true">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Count" />
+                </TableColumns>
                 <DetailRowTemplate>
-                    @{
-                        var detailContext = GetDetailDataTableDynamicContext(context);
-                    }
                     <div class="p-2 w-100">
-                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        <Table TItem="Foo" Items="@GetDetailItems(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                            <TableColumns Context="detail">
+                                <TableColumn @bind-Field="@detail.DateTime" Width="180" />
+                                <TableColumn @bind-Field="@detail.Name" />
+                                <TableColumn @bind-Field="@detail.Count" />
+                            </TableColumns>
                         </Table>
                     </div>
                 </DetailRowTemplate>
@@ -37,12 +45,12 @@
                 </TableColumns>
             </Table>
         </DockViewComponent>
-        <DockViewComponent Key="tab3" Title="标签三" Width="14">
+        <DockViewComponent Key="tab3" Title="标签三" Height="33">
             <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>
                     <TableColumn @bind-Field="@context.Name" Width="140" />
-                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.DateTime" />
                     <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" ShowTips="true" />
                     <TableColumn @bind-Field="@context.Count" Width="80" />
                 </TableColumns>

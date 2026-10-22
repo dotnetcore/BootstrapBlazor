@@ -24,7 +24,6 @@
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />

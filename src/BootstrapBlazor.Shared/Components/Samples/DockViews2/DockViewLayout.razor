@@ -1,5 +1,6 @@
-﻿@page "/dock-view2/layout"
+@page "/dock-view2/layout"
 @inherits BaseDockView
+@layout DockLayout
 
 <h3>@Localizer["DockViewLayoutTitle"]</h3>
 
@@ -15,12 +16,22 @@
 <DockViewV2 @ref="@_dockView" Name="DockViewLayout" LayoutConfig="@_layoutConfig" class="dock-layout-demo">
     <DockViewContent Type="DockViewContentType.Column">
         <DockViewComponent Key="tab1" Title="标签一">
-            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+            <Table TItem="Foo" Items="@Items"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Count" />
+                </TableColumns>
                 <DetailRowTemplate>
                     <div class="p-2 w-100">
-                        <Table TItem="DynamicObject" DynamicContext="GetDetailDataTableDynamicContext(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                        <Table TItem="Foo" Items="@GetDetailItems(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                            <TableColumns Context="detail">
+                                <TableColumn @bind-Field="@detail.DateTime" Width="180" />
+                                <TableColumn @bind-Field="@detail.Name" />
+                                <TableColumn @bind-Field="@detail.Count" />
+                            </TableColumns>
                         </Table>
                     </div>
                 </DetailRowTemplate>

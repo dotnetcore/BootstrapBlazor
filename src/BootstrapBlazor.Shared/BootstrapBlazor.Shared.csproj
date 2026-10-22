@@ -45,6 +45,7 @@
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
