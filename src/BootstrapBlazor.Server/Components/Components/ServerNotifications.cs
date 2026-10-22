@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// <summary>
 /// Server-side notifications shared by the existing demo pages.
 /// </summary>
-public class ServerNotifications : ComponentBase, IDisposable
+public class ServerNotifications : ComponentBase, IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -29,13 +29,13 @@ public class ServerNotifications : ComponentBase, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
-        CommitDispatchService.Subscribe(NotifyCommit);
-        RebootDispatchService.Subscribe(NotifyReboot);
-        MessageDispatchService.Subscribe(NotifyMessage);
+        await CommitDispatchService.SubscribeAsync(NotifyCommit);
+        await RebootDispatchService.SubscribeAsync(NotifyReboot);
+        await MessageDispatchService.SubscribeAsync(NotifyMessage);
     }
 
     private async Task NotifyMessage(DispatchEntry<MessageItem> entry)
@@ -95,25 +95,12 @@ public class ServerNotifications : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 释放资源
+    /// Releases the notification subscriptions.
     /// </summary>
-    /// <param name="disposing"></param>
-    private void Dispose(bool disposing)
+    public async ValueTask DisposeAsync()
     {
-        if (disposing)
-        {
-            CommitDispatchService.UnSubscribe(NotifyCommit);
-            RebootDispatchService.UnSubscribe(NotifyReboot);
-            MessageDispatchService.UnSubscribe(NotifyMessage);
-        }
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await CommitDispatchService.UnSubscribeAsync(NotifyCommit);
+        await RebootDispatchService.UnSubscribeAsync(NotifyReboot);
+        await MessageDispatchService.UnSubscribeAsync(NotifyMessage);
     }
 }

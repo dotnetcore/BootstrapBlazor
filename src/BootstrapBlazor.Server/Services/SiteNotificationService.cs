@@ -22,20 +22,19 @@ public sealed class SiteNotificationService(
     private bool _isUpdating;
 
     /// <inheritdoc/>
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        commits.Subscribe(OnCommit);
-        reboots.Subscribe(OnReboot);
-        messages.Subscribe(OnMessage);
-        return Task.CompletedTask;
+        await commits.SubscribeAsync(OnCommit, cancellationToken);
+        await reboots.SubscribeAsync(OnReboot, cancellationToken);
+        await messages.SubscribeAsync(OnMessage, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task StopAsync(CancellationToken cancellationToken)
+    public async Task StopAsync(CancellationToken cancellationToken)
     {
-        commits.UnSubscribe(OnCommit);
-        reboots.UnSubscribe(OnReboot);
-        messages.UnSubscribe(OnMessage);
+        await commits.UnSubscribeAsync(OnCommit, cancellationToken);
+        await reboots.UnSubscribeAsync(OnReboot, cancellationToken);
+        await messages.UnSubscribeAsync(OnMessage, cancellationToken);
         lock (_gate)
         {
             foreach (var subscriber in _subscribers)
@@ -44,7 +43,6 @@ public sealed class SiteNotificationService(
             }
             _subscribers.Clear();
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>

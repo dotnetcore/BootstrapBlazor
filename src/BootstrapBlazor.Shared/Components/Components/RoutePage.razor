@@ -1,0 +1,26 @@
+<BootstrapBlazorRoot>
+    <RouteView RouteData="@_routeData" DefaultLayout="@typeof(MainLayout)" />
+    <FocusOnNavigate RouteData="@_routeData" Selector="h3" />
+</BootstrapBlazorRoot>
+
+@code {
+    [Parameter, EditorRequired]
+    public string PageTypeName { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public string PageAssemblyName { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public Dictionary<string, string?> RouteValues { get; set; } = [];
+
+    private RouteData _routeData = default!;
+
+    protected override void OnParametersSet()
+    {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies()
+            .FirstOrDefault(assembly => assembly.GetName().Name == PageAssemblyName)
+            ?? throw new InvalidOperationException($"Page assembly '{PageAssemblyName}' is not loaded.");
+        var pageType = assembly.GetType(PageTypeName, throwOnError: true)!;
+        _routeData = new RouteData(pageType, RouteValues.ToDictionary(p => p.Key, p => (object?)p.Value));
+    }
+}

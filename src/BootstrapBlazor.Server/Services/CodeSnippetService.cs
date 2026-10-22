@@ -115,7 +115,7 @@ class CodeSnippetService(
     private static Type? GetSampleType(string typeName)
     {
         var name = typeName.Replace('\\', '.').Replace('/', '.');
-        return typeof(SamplePage).Assembly.GetType($"BootstrapBlazor.Shared.Components.Samples.{name}")
+        return typeof(RoutePage).Assembly.GetType($"BootstrapBlazor.Shared.Components.Samples.{name}")
             ?? typeof(CodeSnippetService).Assembly.GetType($"BootstrapBlazor.Server.Components.Samples.{name}");
     }
 

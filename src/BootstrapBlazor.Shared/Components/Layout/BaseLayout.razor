@@ -1,19 +1,12 @@
 @inherits LayoutComponentBase
 
-@if (ServerPageContent)
-{
+<HeaderOutlet @rendermode="new InteractiveAutoRenderMode()" />
+<main>
     @Body
-}
-else
-{
-    <HeaderOutlet @rendermode="new InteractiveAutoRenderMode()" />
-    <main>
-        @Body
-    </main>
+</main>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-}
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

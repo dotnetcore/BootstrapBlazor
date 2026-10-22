@@ -1,36 +1,20 @@
 <Router AppAssembly="@typeof(Program).Assembly"
-        AdditionalAssemblies="new[] { typeof(SamplePage).Assembly }"
+        AdditionalAssemblies="new[] { typeof(RoutePage).Assembly }"
         NotFoundPage="typeof(Pages.NotFound)">
     <Found Context="routeData">
-        <LayoutView Layout="@GetShellLayout(routeData.PageType)">
-            @if (routeData.PageType.Assembly == typeof(SamplePage).Assembly)
-            {
-                <SamplePage PageTypeName="@(routeData.PageType.FullName!)"
-                            RouteValues="@routeData.RouteValues.ToDictionary(p => p.Key, p => (string?)p.Value)"
-                            @rendermode="new InteractiveAutoRenderMode()" />
-            }
-            else
-            {
-                <ServerPage PageTypeName="@(routeData.PageType.FullName!)"
-                            RouteValues="@routeData.RouteValues.ToDictionary(p => p.Key, p => (string?)p.Value)"
-                            @rendermode="new InteractiveServerRenderMode()" />
-            }
-        </LayoutView>
+        @{
+            var pageType = routeData.PageType;
+            var pageTypeName = pageType.FullName!;
+            var pageAssemblyName = pageType.Assembly.GetName().Name!;
+            var routeValues = routeData.RouteValues.ToDictionary(p => p.Key, p => (string?)p.Value);
+            IComponentRenderMode renderMode = pageType.Assembly == typeof(RoutePage).Assembly
+                ? new InteractiveAutoRenderMode()
+                : new InteractiveServerRenderMode();
+        }
+        @* Only shared pages are available to the WebAssembly client. *@
+        <RoutePage PageTypeName="@pageTypeName"
+                   PageAssemblyName="@pageAssemblyName"
+                   RouteValues="@routeValues"
+                   @rendermode="renderMode" />
     </Found>
 </Router>
-
-@code {
-    private static Type? GetShellLayout(Type pageType)
-    {
-        var layout = pageType.GetCustomAttribute<LayoutAttribute>()?.LayoutType ?? typeof(MainLayout);
-        while (layout != null)
-        {
-            if (layout == typeof(MainLayout) || layout == typeof(BaseLayout))
-            {
-                return layout;
-            }
-            layout = layout.GetCustomAttribute<LayoutAttribute>()?.LayoutType;
-        }
-        return null;
-    }
-}

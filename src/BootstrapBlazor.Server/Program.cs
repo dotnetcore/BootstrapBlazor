@@ -57,12 +57,6 @@ if (cors?.Length > 0)
 }
 
 app.MapDefaultControllerRoute();
-app.MapGet("/api/site-notifications", (BootstrapBlazor.Server.Services.SiteNotificationService notifications, HttpContext context) =>
-{
-    context.Response.Headers.CacheControl = "no-cache, no-store";
-    context.Response.Headers["X-Accel-Buffering"] = "no";
-    return TypedResults.ServerSentEvents(notifications.ListenAsync(context.RequestAborted));
-});
 app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<BootstrapBlazorOptions> bootstrap, IOptions<MeiliSearchOptions> search) =>
     new LayoutSettings
     {

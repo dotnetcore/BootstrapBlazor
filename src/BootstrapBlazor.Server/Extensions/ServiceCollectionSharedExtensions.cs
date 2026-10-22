@@ -17,10 +17,13 @@ public static class ServiceCollectionSharedExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<SiteNotificationService>();
         services.AddHostedService(provider => provider.GetRequiredService<SiteNotificationService>());
-        services.AddSingleton<ISampleDocumentationService>(provider => provider.GetRequiredService<CodeSnippetService>());
+
+        // 增加示例文档源码服务
+        services.AddSingleton<ISampleDocumentationService, CodeSnippetService>();
+
+        // 增加示例数据服务
         services.AddSingleton<MockDataTableDynamicService>();
 
         // 增加示例网站配置
