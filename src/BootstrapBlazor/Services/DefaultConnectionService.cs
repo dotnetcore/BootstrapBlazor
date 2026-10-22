@@ -25,18 +25,21 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
         if (_options.Enable)
         {
+            var token = _cancellationTokenSource.Token;
             Task.Run(async () =>
             {
-                while (!_cancellationTokenSource.IsCancellationRequested)
+                try
                 {
-                    try
+                    while (!token.IsCancellationRequested)
                     {
-                        await Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
+                        await Task.Delay(_options.ExpirationScanFrequency, token);
 
                         var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
                         keys.ForEach(i => _connectionCache.TryRemove(i, out _));
                     }
-                    catch { }
+                }
+                catch (OperationCanceledException) when (token.IsCancellationRequested)
+                {
                 }
             });
         }
