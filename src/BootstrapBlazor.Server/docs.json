@@ -230,7 +230,7 @@
     "sortable-list": "SortableLists",
     "win-box": "WinBoxes",
     "player": "Players",
-    "rdkit": "Rdkits",
+    "rdkit": "RDKits",
     "smiles-drawer": "SmilesDrawers",
     "affix": "Affixs",
     "watermark": "Watermarks",
@@ -263,7 +263,7 @@
     "select-city": "SelectCities",
     "select-province": "SelectProvinces",
     "hik-vision": "HikVisions",
-    "embed-pdf": "EmbedPDFs",
+    "embed-pdf": "EmbedPdfs",
     "term": "Terms"
   },
   "video": {
