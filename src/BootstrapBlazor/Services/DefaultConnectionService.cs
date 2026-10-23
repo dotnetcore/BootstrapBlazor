@@ -4,13 +4,15 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
+using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">当前链接服务</para>
-/// <para lang="en">Current Connection Service</para>
+/// <para lang="zh">服务器端在线连接服务的默认实现，不支持在 WebAssembly 中查询服务器连接信息</para>
+/// <para lang="en">Default server-side online connection service. Querying server connections from WebAssembly is not supported.</para>
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
