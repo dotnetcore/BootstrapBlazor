@@ -20,10 +20,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
-    private IConnectionService? ConnectionService { get; set; }
-
-    [Inject]
-    [NotNull]
     private NavigationManager? NavigationManager { get; set; }
 
     [Inject]
@@ -119,7 +115,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
                         client.UserName = identity.Name;
                     }
                 }
-                ConnectionService.AddOrUpdate(client);
+                Provider.GetRequiredService<IConnectionService>().AddOrUpdate(client);
             });
         }
     }
