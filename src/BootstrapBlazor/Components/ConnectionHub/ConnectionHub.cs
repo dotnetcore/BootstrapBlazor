@@ -5,6 +5,9 @@
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -39,10 +42,19 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [NotNull]
     private IServiceProvider? Provider { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IHttpClientFactory? HttpClientFactory { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ILogger<ConnectionHub>? Logger { get; set; }
 
     private IIpLocatorProvider? _ipLocatorProvider;
 
     private ThrottleOptions? _throttleOptions;
+
+    private bool _heartbeatDisabled;
 
     /// <summary>
     /// <inheritdoc/>
@@ -59,7 +71,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 Method = nameof(Callback),
                 ConnectionId = Guid.NewGuid(),
                 Interval = options.BeatInterval.TotalMilliseconds,
-                Url = "ip.axd"
+                Url = new Uri(new Uri(NavigationManager.BaseUri), "ip.axd").AbsoluteUri
             });
         }
     }
@@ -72,6 +84,11 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [JSInvokable]
     public async Task Callback(ClientInfo client)
     {
+        if (_heartbeatDisabled)
+        {
+            return;
+        }
+
         var code = client.Id;
         if (!string.IsNullOrEmpty(code))
         {
@@ -79,6 +96,12 @@ public class ConnectionHub : BootstrapModuleComponentBase
             await dispatch.ThrottleAsync(async () =>
             {
                 client.RequestUrl = NavigationManager.Uri;
+
+                if (OperatingSystem.IsBrowser())
+                {
+                    await PostHeartbeatAsync(client);
+                    return;
+                }
 
                 if (BootstrapBlazorOptions.Value.ConnectionHubOptions.EnableIpLocator)
                 {
@@ -98,6 +121,31 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 }
                 ConnectionService.AddOrUpdate(client);
             });
+        }
+    }
+
+    private async Task PostHeartbeatAsync(ClientInfo client)
+    {
+        using var httpClient = HttpClientFactory.CreateClient();
+        var url = new Uri(new Uri(NavigationManager.BaseUri), "connection.axd");
+        try
+        {
+            using var response = await httpClient.PostAsJsonAsync(url, client);
+            if (!response.IsSuccessStatusCode)
+            {
+                // A disabled server endpoint should not receive further heartbeats until the component is recreated.
+                _heartbeatDisabled = response.StatusCode == HttpStatusCode.Forbidden;
+                var error = await response.Content.ReadAsStringAsync();
+                Logger.LogError("Connection heartbeat to {Url} failed with HTTP {StatusCode}: {Error}", url, (int)response.StatusCode, error);
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Logger.LogError(ex, "Unable to send connection heartbeat to {Url}.", url);
+        }
+        catch (TaskCanceledException ex)
+        {
+            Logger.LogError(ex, "Connection heartbeat to {Url} timed out.", url);
         }
     }
 }
