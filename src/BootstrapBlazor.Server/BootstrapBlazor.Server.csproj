@@ -53,7 +53,7 @@
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JitViewer" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
