@@ -92,7 +92,10 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         // <para lang="zh">在线连接服务</para>
         // <para lang="en">Connection Service</para>
-        services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+        if (!OperatingSystem.IsBrowser())
+        {
+            services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+        }
 
         // <para lang="zh">限流器服务</para>
         // <para lang="en">Throttle Dispatcher Service</para>
