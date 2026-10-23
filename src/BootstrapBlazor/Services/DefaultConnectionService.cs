@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
-using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,7 +11,6 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">服务器端在线连接服务的默认实现，不支持在 WebAssembly 中查询服务器连接信息</para>
 /// <para lang="en">Default server-side online connection service. Querying server connections from WebAssembly is not supported.</para>
 /// </summary>
-[UnsupportedOSPlatform("browser")]
 class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
@@ -84,7 +82,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    public bool TryGetValue(string key, [MaybeNullWhen(false)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
+    public bool TryGetValue(string key, [NotNullWhen(true)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
 
     /// <summary>
     /// <inheritdoc/>

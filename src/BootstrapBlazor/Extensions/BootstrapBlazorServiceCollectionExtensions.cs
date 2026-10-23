@@ -36,15 +36,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
 
-        if (OperatingSystem.IsBrowser())
-        {
-            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveWebAssemblyService<>));
-        }
-        else
-        {
-            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveServerService<>));
-        }
-
         // <para lang="zh">增加 OtpOptions 配置支持</para>
         // <para lang="en">Add OtpOptions support</para>
         services.AddOptionsMonitor<OtpOptions>();
@@ -90,13 +81,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // <para lang="en">Holiday Service</para>
         services.TryAddSingleton<ICalendarHolidays, DefaultCalendarHolidays>();
 
-        // <para lang="zh">在线连接服务</para>
-        // <para lang="en">Connection Service</para>
-        if (!OperatingSystem.IsBrowser())
-        {
-            services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
-        }
-
         // <para lang="zh">限流器服务</para>
         // <para lang="en">Throttle Dispatcher Service</para>
         services.TryAddSingleton<IThrottleDispatcherFactory, DefaultThrottleDispatcherFactory>();
@@ -139,6 +123,18 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.AddTabItemBindOptions();
         services.AddIconTheme();
+
+        if (OperatingSystem.IsBrowser())
+        {
+            services.TryAddSingleton<IConnectionService, DefaultConnectionWebAssemblyService>();
+            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveWebAssemblyService<>));
+        }
+        else
+        {
+            services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+            services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveServerService<>));
+        }
+
         return services;
     }
 

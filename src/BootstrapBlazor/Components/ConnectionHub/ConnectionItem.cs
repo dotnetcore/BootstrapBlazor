@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -16,6 +18,7 @@ public class ConnectionItem
     /// <para lang="en">Gets or sets Connection Id</para>
     /// </summary>
     [NotNull]
+    [JsonInclude]
     public string? Id { get; internal set; }
 
     /// <summary>
@@ -28,11 +31,13 @@ public class ConnectionItem
     /// <para lang="zh">获得/设置 开始连接时间</para>
     /// <para lang="en">Gets or sets Connection start time</para>
     /// </summary>
+    [JsonInclude]
     public DateTimeOffset ConnectionTime { get; internal set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 上次心跳时间</para>
     /// <para lang="en">Gets or sets Last beat time</para>
     /// </summary>
+    [JsonInclude]
     public DateTimeOffset LastBeatTime { get; internal set; }
 }
