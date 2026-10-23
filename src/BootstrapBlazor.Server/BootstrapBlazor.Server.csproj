@@ -31,7 +31,7 @@
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.2.1" />
