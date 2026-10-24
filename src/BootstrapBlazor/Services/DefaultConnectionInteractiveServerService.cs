@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">服务器端在线连接服务的默认实现，不支持在 WebAssembly 中查询服务器连接信息</para>
 /// <para lang="en">Default server-side online connection service. Querying server connections from WebAssembly is not supported.</para>
 /// </summary>
-class DefaultConnectionService : IConnectionService, IDisposable
+class DefaultConnectionInteractiveServerService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
 
@@ -19,7 +19,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options)
+    public DefaultConnectionInteractiveServerService(IOptions<BootstrapBlazorOptions> options)
     {
         _options = options.Value.ConnectionHubOptions;
 

@@ -126,12 +126,12 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         if (OperatingSystem.IsBrowser())
         {
-            services.TryAddSingleton<IConnectionService, DefaultConnectionWebAssemblyService>();
+            services.TryAddSingleton<IConnectionService, DefaultConnectionInteractiveWebAssemblyService>();
             services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveWebAssemblyService<>));
         }
         else
         {
-            services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+            services.TryAddSingleton<IConnectionService, DefaultConnectionInteractiveServerService>();
             services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveServerService<>));
         }
 

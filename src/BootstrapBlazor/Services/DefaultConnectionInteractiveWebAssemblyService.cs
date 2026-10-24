@@ -10,18 +10,18 @@ using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
-class DefaultConnectionWebAssemblyService : IConnectionService, IAsyncDisposable
+class DefaultConnectionInteractiveWebAssemblyService : IConnectionService, IAsyncDisposable
 {
-    private readonly ILogger<DefaultConnectionWebAssemblyService> _logger;
+    private readonly ILogger<DefaultConnectionInteractiveWebAssemblyService> _logger;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly Uri _url;
     private readonly CancellationTokenSource _pollingCancellation = new();
     private readonly Task _pollingTask;
     private ConnectionSnapshot _snapshot = new();
 
-    public DefaultConnectionWebAssemblyService(NavigationManager navigationManager,
+    public DefaultConnectionInteractiveWebAssemblyService(NavigationManager navigationManager,
         IHttpClientFactory httpClientFactory,
-        ILogger<DefaultConnectionWebAssemblyService> logger)
+        ILogger<DefaultConnectionInteractiveWebAssemblyService> logger)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
