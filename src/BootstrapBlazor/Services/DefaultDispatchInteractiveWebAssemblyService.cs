@@ -15,6 +15,10 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
 
     private static readonly TimeSpan _pollingInterval = TimeSpan.FromSeconds(3);
 
+    private const string DispatchIdHeaderName = "X-Dispatch-Id";
+
+    private string? _lastDispatchId;
+
     private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
 
 #if NET9_0_OR_GREATER
@@ -54,10 +58,18 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
                 try
                 {
                     using var response = await client.GetAsync($"dispatch.axd/fetch?type={_entryType}", cancellationToken);
-                    if (!response.IsSuccessStatusCode)
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        // No cached entry on the server.
+                    }
+                    else if (!response.IsSuccessStatusCode)
                     {
                         var error = await response.Content.ReadAsStringAsync(cancellationToken);
                         _logger.LogError("Dispatch fetch request failed with HTTP {StatusCode}: {Error}", (int)response.StatusCode, error);
+                    }
+                    else if (IsDispatched(response))
+                    {
+                        // The cached entry was already handled by a previous fetch.
                     }
                     else
                     {
@@ -82,6 +94,28 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
         }
+    }
+
+    private bool IsDispatched(HttpResponseMessage response)
+    {
+        if (!response.Headers.TryGetValues(DispatchIdHeaderName, out var values))
+        {
+            return false;
+        }
+
+        var id = values.FirstOrDefault();
+        if (string.IsNullOrEmpty(id))
+        {
+            return false;
+        }
+
+        if (id == _lastDispatchId)
+        {
+            return true;
+        }
+
+        _lastDispatchId = id;
+        return false;
     }
 
     public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
