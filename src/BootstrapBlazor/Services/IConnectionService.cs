@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">在线连接服务，WebAssembly 同步读取定期从服务器获取的缓存快照</para>
-/// <para lang="en">Online connection service. WebAssembly reads cached snapshots periodically fetched from the server.</para>
+/// <para lang="zh">在线连接服务，WebAssembly 同步读取通过 SignalR 获取的缓存快照</para>
+/// <para lang="en">Online connection service. WebAssembly reads cached snapshots fetched through SignalR.</para>
 /// </summary>
 /// <remarks>
-/// <para lang="zh">WebAssembly 首次获取数据前缓存为空，每次请求完成后间隔 3 秒刷新；每个标签页独立轮询。缓存变更不会自动触发组件重渲染。查询失败保留上次数据并记录错误。</para>
-/// <para lang="en">WebAssembly caches are empty until the first fetch and refresh three seconds after each request. Each tab polls independently. Cache changes do not trigger component rendering. Failed queries retain the previous snapshot and log errors.</para>
-/// <para lang="zh">服务器实现保存当前进程内的连接信息。WebAssembly 通过服务器中间件上报心跳及查询数据，需要服务器引用支持查询的 BootstrapBlazor.Middleware 包并调用 UseBootstrapBlazor。</para>
-/// <para lang="en">The server implementation stores connections in the current process. WebAssembly reports heartbeats and queries data through server middleware. Reference a query-capable BootstrapBlazor.Middleware package on the server and call UseBootstrapBlazor.</para>
+/// <para lang="zh">WebAssembly 默认提供空查询实现，关闭连接功能时无需扩展包。启用心跳或查询需引用 BootstrapBlazor.SignalR，并在 AddBootstrapBlazor 后调用 AddBootstrapBlazorConnectionClient。扩展每次快照请求完成间隔 3 秒刷新，首次获取前缓存为空，查询失败保留上次数据并记录错误。缓存变更不会自动触发组件重渲染。</para>
+/// <para lang="en">WebAssembly provides empty queries by default; no extension is required when connections are disabled. Heartbeats and queries require BootstrapBlazor.SignalR and AddBootstrapBlazorConnectionClient after AddBootstrapBlazor. The extension refreshes snapshots three seconds after each request. The cache is initially empty; failed queries retain the previous snapshot and log errors. Cache changes do not trigger rendering.</para>
+/// <para lang="zh">服务器实现保存当前进程内的连接信息。WebAssembly 心跳及查询使用同一个 SignalR Hub，服务器需引用 BootstrapBlazor.Middleware，注册 SignalR 服务并调用 MapBootstrapBlazorHub。快照查询需单独启用，可配置独立授权策略。</para>
+/// <para lang="en">The server implementation stores connections in the current process. WebAssembly heartbeats and queries share the SignalR Hub. The server requires BootstrapBlazor.Middleware, SignalR service registration, and MapBootstrapBlazorHub. Snapshot queries require explicit opt-in and support a separate authorization policy.</para>
 /// </remarks>
 public interface IConnectionService
 {
@@ -25,7 +25,18 @@ public interface IConnectionService
     /// <para lang="zh">仅支持服务器端；WebAssembly 请通过 ConnectionHub 上报心跳。</para>
     /// <para lang="en">Server-only. Use ConnectionHub to report WebAssembly heartbeats.</para>
     /// </remarks>
-    void AddOrUpdate(ClientInfo client);
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 AddOrUpdateAsync 方法; Deprecated. Use AddOrUpdateAsync instead")]
+    public void AddOrUpdate(ClientInfo client) { }
+
+    /// <summary>
+    /// <para lang="zh">异步更新连接信息，WebAssembly 扩展通过 SignalR 上报心跳</para>
+    /// <para lang="en">Updates connection information asynchronously. The WebAssembly extension reports a heartbeat through SignalR.</para>
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task AddOrUpdateAsync(ClientInfo client, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// <para lang="zh">获得指定 key 的连接信息</para>

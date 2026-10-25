@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">服务器在线连接快照</para>
 /// <para lang="en">Server online connection snapshot.</para>
 /// </summary>
-class ConnectionSnapshot
+public class ConnectionSnapshot
 {
     /// <summary>
     /// <para lang="zh">获得/设置在线连接数，不包含已超时的连接</para>

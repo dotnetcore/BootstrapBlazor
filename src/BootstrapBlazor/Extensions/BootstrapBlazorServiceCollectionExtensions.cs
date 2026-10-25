@@ -124,13 +124,10 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddTabItemBindOptions();
         services.AddIconTheme();
 
-        if (OperatingSystem.IsBrowser())
+        services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+
+        if (!OperatingSystem.IsBrowser())
         {
-            services.TryAddSingleton<IConnectionService, DefaultConnectionInteractiveWebAssemblyService>();
-        }
-        else
-        {
-            services.TryAddSingleton<IConnectionService, DefaultConnectionInteractiveServerService>();
             services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
         }
 

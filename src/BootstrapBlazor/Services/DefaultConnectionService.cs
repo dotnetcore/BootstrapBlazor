@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">服务器端在线连接服务的默认实现，不支持在 WebAssembly 中查询服务器连接信息</para>
 /// <para lang="en">Default server-side online connection service. Querying server connections from WebAssembly is not supported.</para>
 /// </summary>
-class DefaultConnectionInteractiveServerService : IConnectionService, IDisposable
+class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
 
@@ -19,9 +20,14 @@ class DefaultConnectionInteractiveServerService : IConnectionService, IDisposabl
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    public DefaultConnectionInteractiveServerService(IOptions<BootstrapBlazorOptions> options)
+    public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options, ILogger<DefaultConnectionService> logger)
     {
         _options = options.Value.ConnectionHubOptions;
+        if (OperatingSystem.IsBrowser())
+        {
+            // WebAssembly does not support querying server connection information
+            return;
+        }
 
         if (_options.Enable)
         {
@@ -41,6 +47,10 @@ class DefaultConnectionInteractiveServerService : IConnectionService, IDisposabl
                 catch (OperationCanceledException) when (token.IsCancellationRequested)
                 {
                 }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "The expired connection cleanup task stopped unexpectedly.");
+                }
             });
         }
     }
@@ -54,12 +64,20 @@ class DefaultConnectionInteractiveServerService : IConnectionService, IDisposabl
     /// <inheritdoc/>
     /// </summary>
     /// <param name="client"></param>
-    public void AddOrUpdate(ClientInfo client)
+    /// <param name="cancellationToken"></param>
+    public Task AddOrUpdateAsync(ClientInfo client, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (OperatingSystem.IsBrowser())
+        {
+            throw new PlatformNotSupportedException("Connection updates in WebAssembly require BootstrapBlazor.SignalR. Call AddBootstrapBlazorConnectionClient after AddBootstrapBlazor and await IConnectionService.AddOrUpdateAsync.");
+        }
+
         if (!string.IsNullOrEmpty(client.Id))
         {
             _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
         }
+        return Task.CompletedTask;
     }
 
     private static ConnectionItem CreateItem(string key, ClientInfo client) => new()
