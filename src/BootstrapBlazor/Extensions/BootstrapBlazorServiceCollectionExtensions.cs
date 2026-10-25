@@ -131,6 +131,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         }
         else
         {
+            services.TryAddSingleton<DispatchServiceCache>();
             services.TryAddSingleton<IConnectionService, DefaultConnectionInteractiveServerService>();
             services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchInteractiveServerService<>));
         }

@@ -19,6 +19,8 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
 
     private string? _lastDispatchId;
 
+    private readonly SemaphoreSlim _requestLocker = new(1, 1);
+
     private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
 
 #if NET9_0_OR_GREATER
@@ -57,31 +59,46 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
             {
                 try
                 {
-                    using var response = await client.GetAsync($"dispatch.axd/fetch?type={_entryType}", cancellationToken);
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    DispatchEntry<TEntry>? dispatchEntry = null;
+                    await _requestLocker.WaitAsync(cancellationToken);
+                    try
                     {
-                        // No cached entry on the server.
-                    }
-                    else if (!response.IsSuccessStatusCode)
-                    {
-                        var error = await response.Content.ReadAsStringAsync(cancellationToken);
-                        _logger.LogError("Dispatch fetch request failed with HTTP {StatusCode}: {Error}", (int)response.StatusCode, error);
-                    }
-                    else if (IsDispatched(response))
-                    {
-                        // The cached entry was already handled by a previous fetch.
-                    }
-                    else
-                    {
-                        var dispatchEntry = await response.Content.ReadFromJsonAsync<DispatchEntry<TEntry>>(cancellationToken: cancellationToken);
-                        if (dispatchEntry == null)
+                        using var response = await client.GetAsync($"dispatch.axd/fetch?type={_entryType}", cancellationToken);
+                        var dispatchId = GetDispatchId(response);
+                        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                         {
-                            _logger.LogError("Dispatch fetch request returned null.");
+                            // No cached entry on the server.
+                        }
+                        else if (!response.IsSuccessStatusCode)
+                        {
+                            var error = await response.Content.ReadAsStringAsync(cancellationToken);
+                            _logger.LogError("Dispatch fetch request failed with HTTP {StatusCode}: {Error}", (int)response.StatusCode, error);
+                        }
+                        else if (!string.IsNullOrEmpty(dispatchId) && dispatchId == _lastDispatchId)
+                        {
+                            // The cached entry was already handled locally or by a previous fetch.
                         }
                         else
                         {
-                            await DispatchCoreAsync(dispatchEntry);
+                            dispatchEntry = await response.Content.ReadFromJsonAsync<DispatchEntry<TEntry>>(cancellationToken: cancellationToken);
+                            if (dispatchEntry == null)
+                            {
+                                _logger.LogError("Dispatch fetch request returned null.");
+                            }
+                            else
+                            {
+                                _lastDispatchId = dispatchId;
+                            }
                         }
+                    }
+                    finally
+                    {
+                        _requestLocker.Release();
+                    }
+
+                    if (dispatchEntry != null)
+                    {
+                        await DispatchCoreAsync(dispatchEntry);
                     }
                 }
                 catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
@@ -96,26 +113,14 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
         }
     }
 
-    private bool IsDispatched(HttpResponseMessage response)
+    private static string? GetDispatchId(HttpResponseMessage response)
     {
         if (!response.Headers.TryGetValues(DispatchIdHeaderName, out var values))
         {
-            return false;
+            return null;
         }
 
-        var id = values.FirstOrDefault();
-        if (string.IsNullOrEmpty(id))
-        {
-            return false;
-        }
-
-        if (id == _lastDispatchId)
-        {
-            return true;
-        }
-
-        _lastDispatchId = id;
-        return false;
+        return values.FirstOrDefault();
     }
 
     public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
@@ -125,12 +130,25 @@ sealed class DefaultDispatchInteractiveWebAssemblyService<TEntry> : IDispatchSer
             using var client = _httpClientFactory.CreateClient();
             client.Timeout = _requestTimeout;
             client.BaseAddress = new Uri(_navigationManager.BaseUri);
-            using var response = await client.PostAsJsonAsync($"dispatch.axd?type={_entryType}", entry, cancellationToken);
-            if (!response.IsSuccessStatusCode)
+            await _requestLocker.WaitAsync(cancellationToken);
+            try
             {
-                var error = await response.Content.ReadAsStringAsync(cancellationToken);
-                throw new HttpRequestException($"Dispatch request failed with HTTP {(int)response.StatusCode}: {error}", null, response.StatusCode);
+                using var response = await client.PostAsJsonAsync($"dispatch.axd?type={_entryType}", entry, cancellationToken);
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsStringAsync(cancellationToken);
+                    throw new HttpRequestException($"Dispatch request failed with HTTP {(int)response.StatusCode}: {error}", null, response.StatusCode);
+                }
+
+                _lastDispatchId = GetDispatchId(response)
+                    ?? throw new HttpRequestException("Dispatch response did not include a dispatch identifier.");
             }
+            finally
+            {
+                _requestLocker.Release();
+            }
+
+            await DispatchCoreAsync(entry);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
