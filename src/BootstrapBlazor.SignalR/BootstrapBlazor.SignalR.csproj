@@ -3,7 +3,7 @@
   <Import Project="..\..\Framework.props" />
 
   <PropertyGroup>
-    <Description>Optional SignalR client transport for BootstrapBlazor dispatch services.</Description>
+    <Description>Optional SignalR client transport for BootstrapBlazor dispatch and connection services.</Description>
   </PropertyGroup>
 
   <ItemGroup>

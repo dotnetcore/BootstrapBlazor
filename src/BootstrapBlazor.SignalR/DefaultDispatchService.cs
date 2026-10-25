@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace BootstrapBlazor.Components;
 
 sealed class DefaultDispatchService<TEntry>(
-    SignalRDispatchConnection connection,
+    SignalRConnection connection,
     ILogger<DefaultDispatchService<TEntry>> logger) : IDispatchService<TEntry>, IAsyncDisposable
 {
     private static readonly string _entryType = typeof(TEntry).FullName ?? typeof(TEntry).Name;

@@ -11,21 +11,22 @@ using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
-sealed class SignalRDispatchConnection : IAsyncDisposable
+sealed class SignalRConnection : IAsyncDisposable
 {
     private readonly HubConnection _connection;
-    private readonly ILogger<SignalRDispatchConnection> _logger;
+    private readonly ILogger<SignalRConnection> _logger;
     private readonly ConcurrentDictionary<string, Func<JsonElement, Task>> _subscriptions = new(StringComparer.Ordinal);
     private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly CancellationTokenSource _lifetime = new();
     private readonly IDisposable _receiver;
+    private int _connectionUsers;
 
-    public SignalRDispatchConnection(NavigationManager navigation, ILogger<SignalRDispatchConnection> logger, string hubPath)
+    public SignalRConnection(NavigationManager navigation, ILogger<SignalRConnection> logger, string hubPath)
     {
         _logger = logger;
         _connection = new HubConnectionBuilder()
             .WithUrl(navigation.ToAbsoluteUri(hubPath))
-            .WithAutomaticReconnect(new DispatchRetryPolicy())
+            .WithAutomaticReconnect(new ConnectionRetryPolicy())
             .Build();
         _receiver = _connection.On<string, JsonElement>("Receive", ReceiveAsync);
         _connection.Reconnected += RestoreSubscriptionsAsync;
@@ -65,10 +66,45 @@ sealed class SignalRDispatchConnection : IAsyncDisposable
             {
                 await _connection.InvokeAsync("Unsubscribe", entryType, token);
             }
-            if (_subscriptions.IsEmpty)
+            if (_subscriptions.IsEmpty && Volatile.Read(ref _connectionUsers) == 0)
             {
                 await _connection.StopAsync(token);
             }
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public void Retain() => Interlocked.Increment(ref _connectionUsers);
+
+    public async Task ReleaseAsync()
+    {
+        await _gate.WaitAsync(_lifetime.Token);
+        try
+        {
+            if (Interlocked.Decrement(ref _connectionUsers) == 0 && _subscriptions.IsEmpty)
+            {
+                await _connection.StopAsync(_lifetime.Token);
+            }
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    public async Task<TResult> InvokeAsync<TResult>(string method, object? argument, CancellationToken cancellationToken)
+    {
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
+        cancellation.CancelAfter(TimeSpan.FromSeconds(30));
+        var token = cancellation.Token;
+        await _gate.WaitAsync(token);
+        try
+        {
+            await EnsureConnectedAsync(token);
+            return await _connection.InvokeCoreAsync<TResult>(method, argument == null ? [] : [argument], token);
         }
         finally
         {
@@ -105,7 +141,7 @@ sealed class SignalRDispatchConnection : IAsyncDisposable
                 }
                 catch (Exception ex) when (attempt < 2 && !cancellationToken.IsCancellationRequested)
                 {
-                    _logger.LogWarning(ex, "Unable to connect to the dispatch Hub; retrying.");
+                    _logger.LogWarning(ex, "Unable to connect to the BootstrapBlazor Hub; retrying.");
                     await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
                 }
             }
@@ -118,7 +154,7 @@ sealed class SignalRDispatchConnection : IAsyncDisposable
 
         if (_connection.State != HubConnectionState.Connected)
         {
-            throw new InvalidOperationException("The dispatch connection is reconnecting. Retry when it is connected.");
+            throw new InvalidOperationException("The BootstrapBlazor connection is reconnecting. Retry when it is connected.");
         }
     }
 
@@ -172,7 +208,7 @@ sealed class SignalRDispatchConnection : IAsyncDisposable
         _lifetime.Dispose();
     }
 
-    private sealed class DispatchRetryPolicy : IRetryPolicy
+    private sealed class ConnectionRetryPolicy : IRetryPolicy
     {
         public TimeSpan? NextRetryDelay(RetryContext retryContext)
             => TimeSpan.FromSeconds(Math.Min(30, retryContext.PreviousRetryCount * 3));
