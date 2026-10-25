@@ -3,16 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Text.Json;
-
 namespace BootstrapBlazor.Components;
 
-sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<TEntry>, IAsyncDisposable
+sealed class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 {
-    private static readonly JsonSerializerOptions _serializerOptions = new(JsonSerializerDefaults.Web);
-
-    private static readonly string _entryType = typeof(TEntry).FullName ?? typeof(TEntry).Name;
-
     private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
 
 #if NET9_0_OR_GREATER
@@ -21,38 +15,10 @@ sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<
     private readonly object _locker = new();
 #endif
 
-    private readonly DispatchServiceCache _dispatchCache;
-
-    public DefaultDispatchInteractiveServerService(DispatchServiceCache dispatchCache)
-    {
-        _dispatchCache = dispatchCache;
-        _dispatchCache.OnDispatchAsync += OnDispatchAsync;
-    }
-
-    private Task OnDispatchAsync(string entryType, JsonElement entry)
-    {
-        if (!string.Equals(entryType, _entryType, StringComparison.Ordinal))
-        {
-            return Task.CompletedTask;
-        }
-
-        var dispatchEntry = entry.Deserialize<DispatchEntry<TEntry>>(_serializerOptions)
-            ?? throw new JsonException("The dispatch entry must not be null.");
-        return DispatchCoreAsync(dispatchEntry, CancellationToken.None);
-    }
-
     public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        // 增加到缓存中，供 WebAssembly 客户端拉取
-        _dispatchCache.Set(entry, triggerDispatch: false);
-
-        await DispatchCoreAsync(entry, cancellationToken);
-    }
-
-    private async Task DispatchCoreAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken)
-    {
         Func<DispatchEntry<TEntry>, Task>[] callbacks;
         lock (_locker)
         {
@@ -94,11 +60,5 @@ sealed class DefaultDispatchInteractiveServerService<TEntry> : IDispatchService<
         }
 
         return Task.CompletedTask;
-    }
-
-    public ValueTask DisposeAsync()
-    {
-        _dispatchCache.OnDispatchAsync -= OnDispatchAsync;
-        return ValueTask.CompletedTask;
     }
 }

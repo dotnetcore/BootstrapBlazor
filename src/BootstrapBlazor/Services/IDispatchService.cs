@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">分发服务接口</para>
 /// <para lang="en">Dispatcher Service Interface</para>
 /// </summary>
+/// <remarks>
+/// <para lang="zh">Server 默认提供进程内分发。WebAssembly/Auto 的 Client 工程需引用 BootstrapBlazor.SignalR 并调用 AddBootstrapBlazorSignalRClient；Server 工程需注册 SignalR 分发并映射 Hub。</para>
+/// <para lang="en">Server provides in-process dispatch by default. WebAssembly/Auto clients must reference BootstrapBlazor.SignalR and call AddBootstrapBlazorSignalRClient; the server must register SignalR dispatch and map its Hub.</para>
+/// </remarks>
 public interface IDispatchService<TEntry>
 {
     /// <summary>
