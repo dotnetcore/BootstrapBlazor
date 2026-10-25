@@ -3,9 +3,11 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Logging;
+
 namespace BootstrapBlazor.Components;
 
-sealed class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
+sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntry>> logger) : IDispatchService<TEntry>
 {
     private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
 
@@ -28,7 +30,14 @@ sealed class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
         foreach (var callback in callbacks)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await callback(entry);
+            try
+            {
+                await callback(entry);
+            }
+            catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
+            {
+                logger.LogError(ex, "A dispatch subscriber failed for entry type {EntryType}.", typeof(TEntry).FullName ?? typeof(TEntry).Name);
+            }
         }
     }
 
