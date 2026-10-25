@@ -41,10 +41,10 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
 
         // 测试 IConnectionService AddOrUpdate
-        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
 
-        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
 
         // 触发 Beat 时间
@@ -98,7 +98,7 @@ public class ConnectionHubTest
         };
 
         var service = provider.GetRequiredService<IConnectionService>();
-        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
         Assert.Single(service.Connections);
 
@@ -132,26 +132,26 @@ public class ConnectionHubTest
     }
 
     [Fact]
-    public void ConnectionHubOptions_Ok()
+    public async Task ConnectionHubOptions_Ok()
     {
         var services = new ServiceCollection();
         services.AddBootstrapBlazor();
 
         var provider = services.BuildServiceProvider();
         var service = provider.GetRequiredService<IConnectionService>();
-        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
     }
 
     [Fact]
-    public void ConnectionService_Ok()
+    public async Task ConnectionService_Ok()
     {
         var services = new ServiceCollection();
         services.AddBootstrapBlazor();
 
         var provider = services.BuildServiceProvider();
         var service = provider.GetRequiredService<IConnectionService>();
-        service.AddOrUpdate(new ClientInfo() { Id = "test_dispose" });
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_dispose" });
 
         var d = service as IDisposable;
         d?.Dispose();

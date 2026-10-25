@@ -9,11 +9,29 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
+<p>@Localizer["SignalRRegistration"]</p>
+<Pre class="mb-3">// Client: BootstrapBlazor.SignalR
+builder.Services.AddBootstrapBlazor();
+builder.Services.AddBootstrapBlazorDispatchClient();
+
+// Server: BootstrapBlazor.Middleware
+builder.Services.AddBootstrapBlazor();
+builder.Services.AddBootstrapBlazorSignalRDispatchService(options =>
+{
+    options.Allow&lt;MessageItem&gt;(allowClientPublish: true);
+    options.Allow&lt;CommitNotification&gt;();
+    options.Allow&lt;bool&gt;();
+});
+
+// After builder.Build()
+app.MapBootstrapBlazorHub();</Pre>
+<p>@Localizer["SignalRDelivery"]</p>
+
 <p>@Localizer["NormalTip"]</p>
 <p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
 <Pre class="mb-3">[Inject]
 [NotNull]
-private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
+private IDispatchService&lt;CommitNotification&gt;? DispatchService { get; set; }</Pre>
 <p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
 <Pre class="mb-3">protected override async Task OnInitializedAsync()
 {
@@ -26,7 +44,7 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
     await DispatchService.UnSubscribeAsync(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
-<Pre class="mb-3">private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
+<Pre class="mb-3">private async Task Notify(DispatchEntry&lt;CommitNotification&gt; payload)
 {
     if (payload.Entry != null)
     {

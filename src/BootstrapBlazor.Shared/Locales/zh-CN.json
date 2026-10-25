@@ -453,6 +453,8 @@
     "WaterfallSummary": "瀑布流图片 Waterfall"
   },
   "BootstrapBlazor.Shared.Components.Samples.Dispatches": {
+    "SignalRRegistration": "纯 Server 模式默认使用进程内分发。WebAssembly/Auto 模式的 Client 工程必须引用 BootstrapBlazor.SignalR 扩展包并注册客户端服务；Server 工程必须引用 BootstrapBlazor.Middleware，注册 SignalR 分发并映射 Hub。以下注册应在 AddBootstrapBlazor 之后调用，客户端与服务端的 Hub 路径需一致。",
+    "SignalRDelivery": "所有消息类型共用一条 SignalR 连接，支持 Server 与 WASM 双向分发。Allow 默认只允许客户端订阅，allowClientPublish 为 true 时允许客户端发送。发送者调用成功后本地显示，不重复接收推送；断线期间不排队或补发。宿主应按需对 Hub 配置授权。",
     "Description": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
     "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
     "DispatchNoticeButtonText": "通知",

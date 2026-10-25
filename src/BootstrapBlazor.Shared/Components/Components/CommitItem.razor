@@ -1,0 +1,16 @@
+<div class="d-flex fw-bold mb-1">
+    <span class="text-success flex-fill">@Item.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</span>
+    <span>共 @Item.TotalCount 个提交</span>
+</div>
+<div>提交作者: <span class="text-info fw-bold">@Item.Author</span></div>
+<div>分支名称: <span class="text-info fw-bold">@Item.Branch</span></div>
+<div>提交信息: <a href="@CommitUrl" target="_blank" rel="noopener noreferrer">@Item.Message</a></div>
+
+@code {
+    [Parameter, EditorRequired]
+    public CommitNotification Item { get; set; } = default!;
+
+    private string? CommitUrl => Uri.TryCreate(Item.Url, UriKind.Absolute, out var uri)
+        && (uri.Scheme == Uri.UriSchemeHttps || uri.Scheme == Uri.UriSchemeHttp)
+        ? uri.AbsoluteUri : null;
+}

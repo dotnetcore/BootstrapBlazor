@@ -64,4 +64,14 @@ public sealed class LayoutSettings
     /// Gets or sets the public search index name.
     /// </summary>
     public string? SearchIndex { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether client connection heartbeats are enabled.
+    /// </summary>
+    public bool EnableConnectionHub { get; set; }
+
+    /// <summary>
+    /// Gets or sets the client connection heartbeat interval.
+    /// </summary>
+    public TimeSpan ConnectionHubBeatInterval { get; set; }
 }

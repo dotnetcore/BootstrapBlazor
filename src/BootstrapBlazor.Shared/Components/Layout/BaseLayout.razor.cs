@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Layout;
 
 /// <summary>
-/// Server-side notifications shared by the existing demo pages.
+/// Base layout dispatch subscriptions.
 /// </summary>
-public class ServerNotifications : ComponentBase, IAsyncDisposable
+public partial class BaseLayout : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -16,48 +16,28 @@ public class ServerNotifications : ComponentBase, IAsyncDisposable
 
     [Inject]
     [NotNull]
-    private IDispatchService<GiteePostBody>? CommitDispatchService { get; set; }
+    private IDispatchService<CommitNotification>? CommitDispatchService { get; set; }
 
     [Inject]
     [NotNull]
     private IDispatchService<bool>? RebootDispatchService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IDispatchService<MessageItem>? MessageDispatchService { get; set; }
+    private ToastOption? _updateToast;
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
         await CommitDispatchService.SubscribeAsync(NotifyCommit);
         await RebootDispatchService.SubscribeAsync(NotifyReboot);
-        await MessageDispatchService.SubscribeAsync(NotifyMessage);
     }
 
-    private async Task NotifyMessage(DispatchEntry<MessageItem> entry)
+    private Task NotifyCommit(DispatchEntry<CommitNotification> entry) => InvokeAsync(async () =>
     {
         if (entry.Entry != null)
         {
             await Toast.Show(new ToastOption
-            {
-                Title = "Dispatch 服务测试",
-                Content = entry.Entry.Message,
-                Category = ToastCategory.Information,
-                Delay = 30 * 1000,
-                ForceDelay = true
-            });
-        }
-    }
-
-    private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
-    {
-        if (payload.CanDispatch())
-        {
-            var option = new ToastOption()
             {
                 Category = ToastCategory.Information,
                 Title = "代码提交推送通知",
@@ -65,20 +45,17 @@ public class ServerNotifications : ComponentBase, IAsyncDisposable
                 ForceDelay = true,
                 ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
                 {
-                    [nameof(CommitItem.Item)] = payload.Entry
+                    [nameof(CommitItem.Item)] = entry.Entry
                 }).Render()
-            };
-            await Toast.Show(option);
+            });
         }
-    }
+    });
 
-    private ToastOption? _option;
-
-    private async Task NotifyReboot(DispatchEntry<bool> payload)
+    private Task NotifyReboot(DispatchEntry<bool> entry) => InvokeAsync(async () =>
     {
-        if (payload.Entry)
+        if (entry.Entry && _updateToast == null)
         {
-            _option = new ToastOption()
+            _updateToast = new ToastOption
             {
                 Category = ToastCategory.Information,
                 Title = "网站更新中 ...",
@@ -86,21 +63,20 @@ public class ServerNotifications : ComponentBase, IAsyncDisposable
                 ChildContent = BootstrapDynamicComponent.CreateComponent<RebootCountDown>().Render(),
                 PreventDuplicates = true
             };
-            await Toast.Show(_option);
+            await Toast.Show(_updateToast);
         }
-        else if (_option != null)
+        else if (!entry.Entry && _updateToast != null)
         {
-            await InvokeAsync(_option.Close);
+            await _updateToast.Close();
+            _updateToast = null;
         }
-    }
+    });
 
-    /// <summary>
-    /// Releases the notification subscriptions.
-    /// </summary>
+    /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
         await CommitDispatchService.UnSubscribeAsync(NotifyCommit);
         await RebootDispatchService.UnSubscribeAsync(NotifyReboot);
-        await MessageDispatchService.UnSubscribeAsync(NotifyMessage);
+        GC.SuppressFinalize(this);
     }
 }

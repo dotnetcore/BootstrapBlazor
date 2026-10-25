@@ -17,9 +17,6 @@ public static class ServiceCollectionSharedExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        services.AddSingleton<SiteNotificationService>();
-        services.AddHostedService(provider => provider.GetRequiredService<SiteNotificationService>());
-
         // 增加示例文档源码服务
         services.AddSingleton<ISampleDocumentationService, CodeSnippetService>();
 

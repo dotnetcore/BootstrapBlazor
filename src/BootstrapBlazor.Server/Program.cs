@@ -18,6 +18,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddBootstrapBlazorServerService();
+builder.Services.AddBootstrapBlazorSignalRDispatchService(options =>
+{
+    options.Allow<MessageItem>(allowClientPublish: true);
+    options.Allow<CommitNotification>();
+    options.Allow<bool>();
+});
 
 var app = builder.Build();
 
@@ -57,6 +63,7 @@ if (cors?.Length > 0)
 }
 
 app.MapDefaultControllerRoute();
+app.MapBootstrapBlazorHub();
 app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<BootstrapBlazorOptions> bootstrap, IOptions<MeiliSearchOptions> search) =>
     new LayoutSettings
     {
@@ -70,7 +77,9 @@ app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<B
         GiteeRepositoryUrl = website.Value.GiteeRepositoryUrl,
         WikiUrl = website.Value.WikiUrl,
         Themes = website.Value.Themes,
-        SearchIndex = search.Value.Index
+        SearchIndex = search.Value.Index,
+        EnableConnectionHub = bootstrap.Value.ConnectionHubOptions.Enable,
+        ConnectionHubBeatInterval = bootstrap.Value.ConnectionHubOptions.BeatInterval
     });
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
