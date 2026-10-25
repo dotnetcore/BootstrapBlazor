@@ -21,6 +21,8 @@ sealed class SignalRConnection : IAsyncDisposable
     private readonly IDisposable _receiver;
     private int _connectionUsers;
 
+    public bool IsReconnecting => _connection.State == HubConnectionState.Reconnecting;
+
     public SignalRConnection(NavigationManager navigation, ILogger<SignalRConnection> logger, string hubPath)
     {
         _logger = logger;

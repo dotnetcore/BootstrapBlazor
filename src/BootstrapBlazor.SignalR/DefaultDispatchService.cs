@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Logging;
+using System.Net.WebSockets;
 using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
@@ -17,6 +18,7 @@ sealed class DefaultDispatchService<TEntry>(
     private readonly List<Func<DispatchEntry<TEntry>, Task>> _callbacks = [];
     private readonly object _locker = new();
     private readonly SemaphoreSlim _subscriptions = new(1, 1);
+    private readonly CancellationTokenSource _lifetime = new();
 
     public async Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default)
     {
@@ -26,7 +28,9 @@ sealed class DefaultDispatchService<TEntry>(
 
     public async Task SubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default)
     {
-        await _subscriptions.WaitAsync(cancellationToken);
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
+        var token = cancellation.Token;
+        await _subscriptions.WaitAsync(token);
         try
         {
             bool first;
@@ -39,7 +43,22 @@ sealed class DefaultDispatchService<TEntry>(
             {
                 try
                 {
-                    await connection.SubscribeAsync(_entryType, ReceiveAsync, cancellationToken);
+                    while (true)
+                    {
+                        token.ThrowIfCancellationRequested();
+                        try
+                        {
+                            await connection.SubscribeAsync(_entryType, ReceiveAsync, token);
+                            break;
+                        }
+                        catch (Exception ex) when (!token.IsCancellationRequested &&
+                            (ex is HttpRequestException or IOException or WebSocketException or TimeoutException or OperationCanceledException ||
+                             ex is InvalidOperationException && connection.IsReconnecting))
+                        {
+                            logger.LogWarning(ex, "Unable to subscribe to dispatch entry type {EntryType}; retrying.", _entryType);
+                            await Task.Delay(TimeSpan.FromSeconds(3), token);
+                        }
+                    }
                 }
                 catch
                 {
@@ -107,6 +126,7 @@ sealed class DefaultDispatchService<TEntry>(
 
     public async ValueTask DisposeAsync()
     {
+        _lifetime.Cancel();
         await _subscriptions.WaitAsync();
         try
         {
