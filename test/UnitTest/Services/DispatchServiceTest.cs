@@ -103,6 +103,91 @@ public class DispatchServiceTest : BootstrapBlazorTestBase
         await dispatchService.UnSubscribeAsync(failed, token);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DispatchAsync_UnSubscribeDuringDispatch(bool resubscribe)
+    {
+        var token = TestContext.Current.CancellationToken;
+        var dispatchService = Context.Services.GetRequiredService<IDispatchService<MockDispatchItem>>();
+        var pending = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var first = new Func<DispatchEntry<MockDispatchItem>, Task>(_ => pending.Task);
+        var invoked = 0;
+        var next = new Func<DispatchEntry<MockDispatchItem>, Task>(_ =>
+        {
+            invoked++;
+            return Task.CompletedTask;
+        });
+        await dispatchService.SubscribeAsync(first, token);
+        await dispatchService.SubscribeAsync(next, token);
+
+        var dispatch = dispatchService.DispatchAsync(new DispatchEntry<MockDispatchItem>(), token);
+        try
+        {
+            await dispatchService.UnSubscribeAsync(next, token);
+            if (resubscribe)
+            {
+                await dispatchService.SubscribeAsync(next, token);
+            }
+        }
+        finally
+        {
+            pending.TrySetResult();
+        }
+
+        await dispatch.WaitAsync(TimeSpan.FromSeconds(5), token);
+        Assert.Equal(0, invoked);
+
+        await dispatchService.UnSubscribeAsync(first, token);
+        await dispatchService.DispatchAsync(new DispatchEntry<MockDispatchItem>(), token);
+        Assert.Equal(resubscribe ? 1 : 0, invoked);
+        await dispatchService.UnSubscribeAsync(next, token);
+    }
+
+    [Fact]
+    public async Task DispatchAsync_CancelPendingCallback()
+    {
+        var token = TestContext.Current.CancellationToken;
+        var dispatchService = Context.Services.GetRequiredService<IDispatchService<MockCancelItem>>();
+        var pending = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        await dispatchService.SubscribeAsync(_ => pending.Task, token);
+
+        using var cts = new CancellationTokenSource();
+        var dispatch = dispatchService.DispatchAsync(new DispatchEntry<MockCancelItem>(), cts.Token);
+        try
+        {
+            await cts.CancelAsync();
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => dispatch.WaitAsync(TimeSpan.FromSeconds(5), token));
+            Assert.False(pending.Task.IsCompleted);
+        }
+        finally
+        {
+            pending.TrySetResult();
+        }
+    }
+
+    [Fact]
+    public void LegacyMethods_Ok()
+    {
+        var dispatchService = Context.Services.GetRequiredService<IDispatchService<MockDispatchItem>>();
+        var serviceType = typeof(IDispatchService<MockDispatchItem>);
+        var invoked = 0;
+        var callback = new Func<DispatchEntry<MockDispatchItem>, Task>(_ =>
+        {
+            invoked++;
+            return Task.CompletedTask;
+        });
+        var entry = new DispatchEntry<MockDispatchItem>();
+
+        serviceType.GetMethod("Subscribe")!.Invoke(dispatchService, [callback]);
+        serviceType.GetMethod("Dispatch")!.Invoke(dispatchService, [entry]);
+        Assert.Equal(1, invoked);
+
+        serviceType.GetMethod("UnSubscribe")!.Invoke(dispatchService, [callback]);
+        serviceType.GetMethod("Dispatch")!.Invoke(dispatchService, [entry]);
+        Assert.Equal(1, invoked);
+    }
+
     private class MockDispatchItem
     {
         public string? Name { get; set; }
