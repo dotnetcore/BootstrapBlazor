@@ -9,8 +9,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">服务器端在线连接服务的默认实现，不支持在 WebAssembly 中查询服务器连接信息</para>
-/// <para lang="en">Default server-side online connection service. Querying server connections from WebAssembly is not supported.</para>
+/// <para lang="zh">服务器端在线连接服务的默认实现</para>
+/// <para lang="en">Default server-side online connection service.</para>
 /// </summary>
 class DefaultConnectionService : IConnectionService, IDisposable
 {
@@ -40,16 +40,19 @@ class DefaultConnectionService : IConnectionService, IDisposable
                     {
                         await Task.Delay(_options.ExpirationScanFrequency, token);
 
-                        var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
-                        keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                        try
+                        {
+                            var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                            keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, "Unable to remove expired connections.");
+                        }
                     }
                 }
                 catch (OperationCanceledException) when (token.IsCancellationRequested)
                 {
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "The expired connection cleanup task stopped unexpectedly.");
                 }
             });
         }
@@ -68,11 +71,6 @@ class DefaultConnectionService : IConnectionService, IDisposable
     public Task AddOrUpdateAsync(ClientInfo client, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (OperatingSystem.IsBrowser())
-        {
-            throw new PlatformNotSupportedException("Connection updates in WebAssembly require BootstrapBlazor.SignalR. Call AddBootstrapBlazorConnectionClient after AddBootstrapBlazor and await IConnectionService.AddOrUpdateAsync.");
-        }
-
         if (!string.IsNullOrEmpty(client.Id))
         {
             _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));

@@ -339,7 +339,7 @@ public partial class DateTimePicker<TValue>
     /// <summary>
     /// <para lang="zh">自定义解析日期时间的方法</para>
     /// <para lang="en">Custom method to parse date and time</para>
-    /// <para>v<version>10.9.1</version></para>
+    /// <para><version>v10.9.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, DateTime>? ParseDateTimeCallback { get; set; }
@@ -347,7 +347,7 @@ public partial class DateTimePicker<TValue>
     /// <summary>
     /// <para lang="zh">自定义解析日期时间偏移的方法</para>
     /// <para lang="en">Custom method to parse date and time offset</para>
-    /// <para>v<version>10.9.1</version></para>
+    /// <para><version>v10.9.1</version></para>
     /// </summary>
     [Parameter]
     public Func<string, DateTimeOffset>? ParseDateTimeOffsetCallback { get; set; }

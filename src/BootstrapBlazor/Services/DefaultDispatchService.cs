@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntry>> logger) : IDispatchService<TEntry>
 {
-    private readonly List<Func<DispatchEntry<TEntry>, Task>> _cache = new(50);
+    private readonly List<Subscription> _cache = new(50);
 
 #if NET9_0_OR_GREATER
     private readonly Lock _locker = new();
@@ -21,22 +21,36 @@ sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntr
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        Func<DispatchEntry<TEntry>, Task>[] callbacks;
+        Subscription[] subscriptions;
         lock (_locker)
         {
-            callbacks = _cache.ToArray();
+            subscriptions = _cache.ToArray();
         }
 
-        foreach (var callback in callbacks)
+        foreach (var subscription in subscriptions)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                await callback(entry);
+                Task callbackTask;
+                lock (_locker)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    if (!_cache.Contains(subscription))
+                    {
+                        continue;
+                    }
+
+                    // Coordinate callback startup with unsubscription.
+                    callbackTask = subscription.Callback(entry);
+                }
+
+                await callbackTask.WaitAsync(cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
             }
             catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
             {
-                logger.LogError(ex, "A dispatch subscriber failed for entry type {EntryType}.", typeof(TEntry).FullName ?? typeof(TEntry).Name);
+                logger.LogError(ex, "A dispatch subscriber failed for entry type {EntryType}.", typeof(TEntry));
             }
         }
     }
@@ -50,7 +64,7 @@ sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntr
 
         lock (_locker)
         {
-            _cache.Add(callback);
+            _cache.Add(new Subscription(callback));
         }
 
         return Task.CompletedTask;
@@ -65,9 +79,18 @@ sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntr
 
         lock (_locker)
         {
-            _cache.Remove(callback);
+            var index = _cache.FindIndex(subscription => subscription.Callback == callback);
+            if (index >= 0)
+            {
+                _cache.RemoveAt(index);
+            }
         }
 
         return Task.CompletedTask;
+    }
+
+    private sealed class Subscription(Func<DispatchEntry<TEntry>, Task> callback)
+    {
+        public Func<DispatchEntry<TEntry>, Task> Callback { get; } = callback;
     }
 }

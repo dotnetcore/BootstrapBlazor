@@ -3,7 +3,7 @@ import EventHandler from "./event-handler.js"
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
         window.navigator.vibrate([200, 100, 200])
-        const handler = window.setTimeout(function() {
+        const handler = window.setTimeout(function () {
             window.clearTimeout(handler)
             window.navigator.vibrate([])
         }, 1000)
@@ -191,7 +191,7 @@ const addScript = content => {
     const scripts = [...document.getElementsByTagName('script')]
     const source = resolveAssetUrl(content)
     const url = normalizeLink(source)
-    let link = scripts.filter(function(link) {
+    let link = scripts.filter(function (link) {
         return link.src.indexOf(url) > -1
     })
     let created = false
@@ -233,7 +233,7 @@ const addScript = content => {
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
     const url = normalizeLink(resolveAssetUrl(content))
-    const nodes = links.filter(function(link) {
+    const nodes = links.filter(function (link) {
         return link.src.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
@@ -264,7 +264,7 @@ const removeLinkBatch = (href) => {
 const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
-    let link = links.filter(function(link) {
+    let link = links.filter(function (link) {
         return link.href.indexOf(url) > -1
     })
     let created = false
@@ -308,7 +308,7 @@ const addLink = (href, rel = "stylesheet") => {
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
-    const nodes = links.filter(function(link) {
+    const nodes = links.filter(function (link) {
         return link.href.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
@@ -599,10 +599,10 @@ const hackPopover = (popover, css) => {
     }
 }
 
-const hackTooltip = function() {
+const hackTooltip = function () {
     const mock = () => {
         const originalDispose = bootstrap.Tooltip.prototype.dispose;
-        bootstrap.Tooltip.prototype.dispose = function() {
+        bootstrap.Tooltip.prototype.dispose = function () {
             originalDispose.call(this);
             // fix https://github.com/twbs/bootstrap/issues/37474
             this._activeTrigger = {};
@@ -635,9 +635,9 @@ const getOverflowParent = element => {
     return parent
 }
 
-const debounce = function(fn, duration = 200, callback = null) {
+const debounce = function (fn, duration = 200, callback = null) {
     let handler = null
-    return function() {
+    return function () {
         if (handler) {
             clearTimeout(handler)
         }
@@ -839,7 +839,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
     window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
         _init: false,
         _items: [],
-        register: function(id, cb) {
+        register: function (id, cb) {
             if (id) {
                 this._items.push(id);
             }
@@ -851,7 +851,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             return this;
         },
-        dispose: function(id, cb) {
+        dispose: function (id, cb) {
             if (id) {
                 this._items = this._items.filter(item => item !== id);
             }
@@ -891,12 +891,21 @@ export function setMemorialMode(memorial) {
     }
     else {
         const theme = el.getAttribute('data-bs-original-theme');
+        el.removeAttribute('data-bs-original-theme');
         el.removeAttribute('data-bs-theme');
         el.removeAttribute('data-bb-theme');
         if (theme) {
             el.setAttribute('data-bs-theme', theme);
         }
     }
+}
+
+export function getMemorialMode() {
+    return document.documentElement.getAttribute('data-bb-theme') === 'memorial';
+}
+
+export function toggleMemorialMode() {
+    setMemorialMode(document.documentElement.getAttribute('data-bb-theme') !== 'memorial');
 }
 
 export function drawImage(canvas, image, offsetWidth, offsetHeight) {

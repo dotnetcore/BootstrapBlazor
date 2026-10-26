@@ -115,6 +115,13 @@ public class TabTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("Tab1-Content", cut.Markup);
+        var links = cut.FindAll("a");
+        Assert.Single(links);
+
+        var link = links[0];
+        Assert.NotNull(link);
+
+        Assert.False(link.HasAttribute("href"));
     }
 
     [Fact]
@@ -301,6 +308,15 @@ public class TabTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowClose, true);
             pb.Add(a => a.DefaultUrl, "/");
         });
+
+        var links = cut.FindAll("a");
+        Assert.Single(links);
+
+        var link = links[0];
+        Assert.NotNull(link);
+
+        Assert.True(link.HasAttribute("href"));
+
         cut.InvokeAsync(() => cut.Instance.AddTab("/", "Index"));
         cut.InvokeAsync(() => cut.Instance.AddTab("/Cat", null!));
 

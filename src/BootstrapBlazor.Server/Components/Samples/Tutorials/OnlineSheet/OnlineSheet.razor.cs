@@ -61,7 +61,7 @@ public partial class OnlineSheet : IAsyncDisposable
         if (firstRender)
         {
             await Task.Delay(5000);
-            await MockOnlineContributor.Trigger(DispatchService);
+            await MockOnlineContributor.Trigger(DispatchService, Localizer);
         }
     }
 
@@ -83,7 +83,7 @@ public partial class OnlineSheet : IAsyncDisposable
         {
             await ToastService.Show(new ToastOption()
             {
-                Title = "Dispatch 服务测试",
+                Title = Localizer["DispatchToastTitle"],
                 ChildContent = BootstrapDynamicComponent.CreateComponent<OnlineContributor>(new Dictionary<string, object?>()
                 {
                     { "Contributor", entry.Entry }

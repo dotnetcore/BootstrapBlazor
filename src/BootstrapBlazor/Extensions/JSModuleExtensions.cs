@@ -179,4 +179,18 @@ public static class JSModuleExtensions
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="isMemorial">Whether it is memorial mode</param>
     public static ValueTask SetMemorialModeAsync(this JSModule module, bool isMemorial) => module.InvokeVoidAsync("setMemorialMode", isMemorial);
+
+    /// <summary>
+    /// <para lang="zh">获得纪念日模式</para>
+    /// <para lang="en">Get memorial mode</para>
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    public static ValueTask<bool> GetMemorialModeAsync(this JSModule module) => module.InvokeAsync<bool>("getMemorialMode");
+
+    /// <summary>
+    /// <para lang="zh">切换纪念日模式</para>
+    /// <para lang="en">Toggle memorial mode</para>
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    public static ValueTask ToggleMemorialModeAsync(this JSModule module) => module.InvokeVoidAsync("toggleMemorialMode");
 }

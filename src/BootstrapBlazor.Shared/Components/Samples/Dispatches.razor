@@ -9,29 +9,14 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<p>@Localizer["SignalRRegistration"]</p>
-<Pre class="mb-3">// Client: BootstrapBlazor.SignalR
-builder.Services.AddBootstrapBlazor();
-builder.Services.AddBootstrapBlazorDispatchClient();
-
-// Server: BootstrapBlazor.Middleware
-builder.Services.AddBootstrapBlazor();
-builder.Services.AddBootstrapBlazorSignalRDispatchService(options =>
-{
-    options.Allow&lt;MessageItem&gt;(allowClientPublish: true);
-    options.Allow&lt;CommitNotification&gt;();
-    options.Allow&lt;bool&gt;();
-});
-
-// After builder.Build()
-app.MapBootstrapBlazorHub();</Pre>
-<p>@Localizer["SignalRDelivery"]</p>
+<p>@((MarkupString)Localizer["AsyncTip"].Value)</p>
+<p>@((MarkupString)Localizer["DeliveryTip"].Value)</p>
 
 <p>@Localizer["NormalTip"]</p>
 <p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
 <Pre class="mb-3">[Inject]
 [NotNull]
-private IDispatchService&lt;CommitNotification&gt;? DispatchService { get; set; }</Pre>
+private IDispatchService&lt;MessageItem&gt;? DispatchService { get; set; }</Pre>
 <p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
 <Pre class="mb-3">protected override async Task OnInitializedAsync()
 {
@@ -39,12 +24,13 @@ private IDispatchService&lt;CommitNotification&gt;? DispatchService { get; set; 
     await DispatchService.SubscribeAsync(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips3"].Value)</p>
-<Pre class="mb-3">public async ValueTask DisposeAsync()
+<Pre class="mb-3">// Component implements IAsyncDisposable
+public async ValueTask DisposeAsync()
 {
     await DispatchService.UnSubscribeAsync(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
-<Pre class="mb-3">private async Task Notify(DispatchEntry&lt;CommitNotification&gt; payload)
+<Pre class="mb-3">private Task Notify(DispatchEntry&lt;MessageItem&gt; payload) => InvokeAsync(async () =>
 {
     if (payload.Entry != null)
     {
@@ -56,8 +42,15 @@ private IDispatchService&lt;CommitNotification&gt;? DispatchService { get; set; 
         };
         await Toast.Show(option);
     }
-}</Pre>
+});</Pre>
 <div>@((MarkupString)Localizer["NormalTips5"].Value)</div>
+
+<p>@((MarkupString)Localizer["PublishTip"].Value)</p>
+<Pre class="mb-3">await DispatchService.DispatchAsync(new DispatchEntry&lt;MessageItem&gt;
+{
+    Name = nameof(MessageItem),
+    Entry = new MessageItem { Message = "Hello BootstrapBlazor" }
+});</Pre>
 
 <DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch">
     <section ignore>

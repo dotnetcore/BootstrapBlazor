@@ -15,13 +15,10 @@ public partial class Memorial
     [Inject, NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
-    private bool _isMemorial = false;
-
     private async Task OnToggle()
     {
         var module = await JSRuntime.LoadUtility();
 
-        _isMemorial = !_isMemorial;
-        await module.SetMemorialModeAsync(_isMemorial);
+        await module.ToggleMemorialModeAsync();
     }
 }

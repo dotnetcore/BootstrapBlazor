@@ -139,7 +139,7 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置虚拟滚动项目比较器。远程数据源返回新实例时，应按唯一标识进行比较</para>
     /// <para lang="en">Gets or sets the virtualized item comparer. It should compare unique identifiers when the remote data source returns new instances.</para>
-    /// <para>v<version>11.0.0</version></para>
+    /// <para><version>v11.0.0</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

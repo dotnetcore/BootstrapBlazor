@@ -188,7 +188,7 @@ public partial class Transfer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 候选项是否被禁用回调方法，默认为 null</para>
     /// <para lang="en">Gets or sets the callback method for whether the transfer item is disabled. Default is null</para>
-    /// <para>v<version>10.7.3</version></para>
+    /// <para><version>v10.7.3</version></para>
     /// </summary>
     [Parameter]
     public Func<string, SelectedItem?, bool>? OnDisabledCallback { get; set; }

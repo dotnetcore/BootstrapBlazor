@@ -53,6 +53,7 @@
     <Using Include="Bunit" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="UnitTest.Core" />
+    <Using Include="Xunit.TestContext" Alias="TestContext" />
   </ItemGroup>
   
 </Project>

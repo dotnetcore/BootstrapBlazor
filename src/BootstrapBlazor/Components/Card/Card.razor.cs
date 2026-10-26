@@ -100,7 +100,7 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 Header 自定义样式</para>
     /// <para lang="en">Gets or sets the custom style for the Header</para>
-    /// <para>v<version>10.8.1</version></para>
+    /// <para><version>v10.8.1</version></para>
     /// </summary>
     [Parameter]
     public string? HeaderCustomClass { get; set; }
@@ -108,7 +108,7 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 Body 自定义样式</para>
     /// <para lang="en">Gets or sets the custom style for the Body</para>
-    /// <para>v<version>10.8.1</version></para>
+    /// <para><version>v10.8.1</version></para>
     /// </summary>
     [Parameter]
     public string? BodyCustomClass { get; set; }
@@ -116,7 +116,7 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 自定义样式</para>
     /// <para lang="en">Gets or sets the custom style for the Footer</para>
-    /// <para>v<version>10.8.1</version></para>
+    /// <para><version>v10.8.1</version></para>
     /// </summary>
     [Parameter]
     public string? FooterCustomClass { get; set; }

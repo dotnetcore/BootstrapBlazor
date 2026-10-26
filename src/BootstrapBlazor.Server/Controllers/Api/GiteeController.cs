@@ -20,7 +20,7 @@ public class GiteeController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<CommitNotification> dispatch, [FromBody] GiteePostBody payload)
+    public async Task<IActionResult> Webhook([FromQuery] string? id, [FromServices] IConfiguration config, [FromServices] IDispatchService<GiteePostBody> dispatch, [FromBody] GiteePostBody payload)
     {
         bool ret = false;
         if (Check())
@@ -28,12 +28,10 @@ public class GiteeController : ControllerBase
             // 全局推送
             if (payload.HeadCommit != null || payload.Commits?.Count > 0)
             {
-                var commit = payload.HeadCommit ?? payload.Commits!.First();
-                await dispatch.DispatchAsync(new DispatchEntry<CommitNotification>()
+                await dispatch.DispatchAsync(new DispatchEntry<GiteePostBody>()
                 {
                     Name = "Gitee",
-                    Entry = new CommitNotification(commit.Author.Name, commit.Timestamp, commit.Message,
-                        commit.Url, payload.GetBranchName(), payload.Commits?.Count ?? 1)
+                    Entry = payload
                 }, HttpContext.RequestAborted);
             }
             ret = true;

@@ -1,41 +1,26 @@
 @page "/connection-service"
 @layout MainLayout
+@inject IStringLocalizer<ConnectionServices> Localizer
 
-<h3>链接服务 <code>IConnectionService</code></h3>
-<h4>组件库内置了链接服务</h4>
+<h3>@Localizer["Title"] <code>IConnectionService</code></h3>
+<h4>@Localizer["SubTitle"]</h4>
 
 
-<p class="code-label">本组件依赖 <code>UseBootstrapBlazor</code> 中间件，请正确配置中间件</p>
+<p class="code-label">@((MarkupString)Localizer["MiddlewareDescription"].Value)</p>
 
 <Pre>public void Configure(IApplicationBuilder app)
 {
-    // 增加下面这一行
+    // @Localizer["AddMiddlewareComment"]
     app.UseBootstrapBlazor();
 }</Pre>
 
-<p>WebAssembly/Auto 关闭连接功能时无需扩展包，默认查询返回空集合。启用后，Client 工程需引用 <code>BootstrapBlazor.SignalR</code>，Server 工程引用 <code>BootstrapBlazor.Middleware</code> 并映射共享 Hub。纯 Server 模式继续使用内置连接存储。</p>
-
-<Pre>// Client
-builder.Services.AddBootstrapBlazor();
-builder.Services.AddBootstrapBlazorConnectionClient();
-// Optional dispatch; both registrations share one Hub connection.
-builder.Services.AddBootstrapBlazorDispatchClient();
-
-// Server
-builder.Services.AddBootstrapBlazor();
-builder.Services.AddBootstrapBlazorSignalRDispatchService(options =>
-{
-    // Heartbeats do not require enabling connection snapshot queries.
-});
-app.MapBootstrapBlazorHub();</Pre>
-
-<p class="code-label">1. 服务注入</p>
+<p class="code-label">@Localizer["InjectServiceTitle"]</p>
 
 <Pre>[Inject]
 [NotNull]
 private IConnectionService? ConnectionService { get; set; }</Pre>
 
-<p class="code-label">2. 配置</p>
+<p class="code-label">@Localizer["ConfigurationTitle"]</p>
 
 <Pre>{
   "BootstrapBlazorOptions": {
@@ -46,159 +31,161 @@ private IConnectionService? ConnectionService { get; set; }</Pre>
       "TimeoutInterval": "00:03:00",
       "BeatInterval": "00:00:30"
     }
+  }
 }</Pre>
 
 <ul class="ul-demo">
-    <li>通过 <code>Enable</code> 开启此功能</li>
-    <li>通过 <code>EnableIpLocator</code> 开启 <code>Ip</code> 地址定位功能</li>
-    <li>通过 <code>ExpirationScanFrequency</code> 设置扫描周期，扫描后移除已经断开的链接</li>
-    <li>通过 <code>TimeoutInterval</code> 设置超时时间间隔，到达指定时间间隔时未接收到心跳视为已断开</li>
-    <li>通过 <code>BeatInterval</code> 设置心跳间隔</li>
+    <li>@((MarkupString)Localizer["EnableDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["EnableIpLocatorDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["ExpirationScanFrequencyDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["TimeoutIntervalDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["BeatIntervalDescription"].Value)</li>
 </ul>
 
-<p class="code-label">3. 使用服务</p>
-<p>调用 <code>IConnectionService</code> 实例属性 <code>Connections</code> 即可，集合内为 <code>CollectionItem</code> 类型，属性 <code>ClientInfo</code> 包含客户端链接信息</p>
+<p>@((MarkupString)Localizer["HeartbeatDescription"].Value)</p>
 
-<p class="code-label">ConnectionItem 实体类</p>
+<Pre>&lt;ConnectionHub /&gt;</Pre>
+
+<p class="code-label">@Localizer["UsageTitle"]</p>
+<p>@((MarkupString)Localizer["UsageDescription"].Value)</p>
+
+<Pre>var count = ConnectionService.Count;
+var connections = ConnectionService.Connections;
+
+if (ConnectionService.TryGetValue(connectionId, out var connection))
+{
+    var clientInfo = connection.ClientInfo;
+}</Pre>
+
+<p class="code-label">@Localizer["AsyncUpdateTitle"]</p>
+
+<p>@((MarkupString)Localizer["AsyncUpdateDescription"].Value)</p>
+
+<Pre>await ConnectionService.AddOrUpdateAsync(client, cancellationToken);</Pre>
+
+<p>@((MarkupString)Localizer["DeprecatedMethodDescription"].Value)</p>
+
+<p class="code-label">@Localizer["HostingModelTitle"]</p>
+
+<p>@((MarkupString)Localizer["HostingModelDescription"].Value)</p>
+
+<p>@((MarkupString)Localizer["SignalRSetupDescription"].Value)</p>
+
+<p>@((MarkupString)Localizer["SnapshotDescription"].Value)</p>
+
+<p>@Localizer["SnapshotPollingDescription"]</p>
+
+<p class="code-label">@Localizer["EntityTitle", "ConnectionItem"]</p>
 
 <Pre>public class ConnectionItem
 {
     /// &lt;summary&gt;
-    /// 获得/设置 连接 Id
+    /// @Localizer["ConnectionIdComment"]
     /// &lt;/summary&gt;
     [NotNull]
     public string? Id { get; internal set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 连接 Ip 地址
+    /// @Localizer["ClientInfoComment"]
     /// &lt;/summary&gt;
     public ClientInfo? ClientInfo { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 开始连接时间
+    /// @Localizer["ConnectionTimeComment"]
     /// &lt;/summary&gt;
     public DateTimeOffset ConnectionTime { get; internal set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 上次心跳时间
+    /// @Localizer["LastBeatTimeComment"]
     /// &lt;/summary&gt;
     public DateTimeOffset LastBeatTime { get; internal set; }
 }
 </Pre>
 
-<p class="code-label">ClientInfo 实体类</p>
+<p class="code-label">@Localizer["EntityTitle", "ClientInfo"]</p>
 
 <Pre>/// &lt;summary&gt;
-/// 客户端请求信息实体类
+/// @Localizer["ClientInfoSummary"]
 /// &lt;/summary&gt;
 public class ClientInfo
 {
     /// &lt;summary&gt;
-    /// 获得/设置 操作日志主键ID
+    /// @Localizer["ClientIdComment"]
     /// &lt;/summary&gt;
     public string? Id { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端IP
+    /// @Localizer["ClientIpComment"]
     /// &lt;/summary&gt;
     public string? Ip { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端地点
+    /// @Localizer["ClientCityComment"]
     /// &lt;/summary&gt;
     public string? City { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端浏览器
+    /// @Localizer["ClientBrowserComment"]
     /// &lt;/summary&gt;
     public string? Browser { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端操作系统
+    /// @Localizer["ClientOSComment"]
     /// &lt;/summary&gt;
     public string? OS { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端设备类型
+    /// @Localizer["ClientDeviceComment"]
     /// &lt;/summary&gt;
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public WebClientDeviceType Device { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端浏览器语言
+    /// @Localizer["ClientLanguageComment"]
     /// &lt;/summary&gt;
     public string? Language { get; set; }
 
     /// &lt;summary&gt;
-    /// 获取/设置 请求网址
+    /// @Localizer["ClientRequestUrlComment"]
     /// &lt;/summary&gt;
     public string? RequestUrl { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 客户端 UserAgent
+    /// @Localizer["ClientUserAgentComment"]
     /// &lt;/summary&gt;
     public string? UserAgent { get; set; }
 
     /// &lt;summary&gt;
-    /// 获得/设置 浏览器引擎信息
+    /// @Localizer["ClientEngineComment"]
     /// &lt;/summary&gt;
     public string? Engine { get; set; }
 }</Pre>
 
-<p class="code-label">4. 功能说明</p>
+<p class="code-label">@Localizer["FeatureTitle"]</p>
 
-<p><code>ConnectionHub</code> 注入 <code>IConnectionService</code> 并调用 <code>AddOrUpdateAsync</code>。Server 模式下，组件补全身份和地理位置后更新本地连接存储；WebAssembly 模式下，扩展实现调用共享 SignalR Hub 上报心跳。缺少客户端扩展注册时，上报会明确记录配置错误。旧的 HTTP 心跳和快照接口已移除。</p>
+<p>@((MarkupString)Localizer["FeatureDescription"].Value)</p>
 
-<p>客户端与服务器均需启用 <code>ConnectionHubOptions.Enable</code>，并配置一致的 <code>BeatInterval</code>。服务器使用连接确认的 IP 和认证身份覆盖客户端上报值，并按配置查询地理位置。转发头和认证中间件应放在 Hub 端点执行之前。</p>
+<p>@((MarkupString)Localizer["BrowserThrottlingDescription"].Value)</p>
 
-<p><code>IConnectionService</code> 查询接口保持同步。Server 实例直接查询内存；WebAssembly 扩展初始化时尝试获取快照，服务端需显式开启快照查询并允许当前用户访问。</p>
+<p class="code-label">@Localizer["FaqTitle"]</p>
 
-<Pre>// Client: register once for heartbeats and connection queries.
-builder.Services.AddBootstrapBlazorConnectionClient();
+<p class="code-quest">@Localizer["MultipleTabsQuestion"]</p>
 
-// Server: configure the existing shared Hub registration.
-options.EnableConnectionSnapshots = true;
-options.ConnectionSnapshotAuthorizationPolicy = "OnlineConnections";
+<p class="code-answer">@Localizer["MultipleTabsAnswer"]</p>
 
-// Register the policy in the server host.
-builder.Services.AddAuthorization(options =>
-    options.AddPolicy("OnlineConnections", policy => policy.RequireAuthenticatedUser()));</Pre>
+<p class="code-quest">@((MarkupString)Localizer["SameEngineQuestion"].Value)</p>
 
-<Pre>var count = ConnectionService.Count;
-var connections = ConnectionService.Connections;
-var found = ConnectionService.TryGetValue("connection-id", out var connection);</Pre>
+<p class="code-answer">@((MarkupString)Localizer["SameEngineAnswer"].Value)</p>
 
-<p>启用查询后，WebAssembly 服务初始化时立即尝试通过 Hub 获取快照，每次请求结束后间隔 3 秒再次获取，属性及查询方法直接读取本地缓存。每个标签页拥有独立的 WASM 实例，各自轮询和维护缓存；后台标签页降频可能增加数据延迟。</p>
+<p class="code-quest">@((MarkupString)Localizer["IpLocatorQuestion"].Value)</p>
 
-<p>首次获取完成前缓存为空；临时查询失败时保留最后一次成功快照并记录错误。服务端禁用查询、拒绝查询权限或 Hub 请求发生永久 HTTP 错误时，客户端清空快照并停止轮询，重新加载页面后再次尝试。因此空缓存不代表服务器一定无人在线。缓存刷新不会自动触发组件重渲染，页面需自行刷新。临时断线恢复后继续获取快照，Dispatch 取消全部订阅不会关闭仍供心跳使用的连接。</p>
-
-<p>快照包含 IP、用户名及访问地址，默认禁止查询，且只返回给请求方，不向消息订阅者广播。可通过 <code>ConnectionSnapshotAuthorizationPolicy</code> 独立控制查询权限；未配置策略而显式启用查询时，所有能够连接 Hub 的客户端均可查询。宿主也可对 Hub 调用 <code>RequireAuthorization()</code>。</p>
-
-<p>快照一次返回在线数和连接集合，在线数不包含超时连接，集合包括尚未被清理的记录。<code>AddOrUpdate</code> 仅支持 Server，WebAssembly 请使用 <code>ConnectionHub</code> 上报。服务器关闭心跳功能时，组件停止当前实例的心跳上报。SignalR 传输保活不代替业务心跳，原有心跳周期和超时清理规则保持不变。</p>
-
-<p>为了节约服务器资源，此功能默认为 <b>关闭</b> 需要通过配置开启此功能。此功能通过客户端脚本与服务器建立一个心跳机制，到达超时时间后，服务器端判定为断线，此时 <code>Connections</code> 中不进行统计，但是服务器内存中还保持这个数据，当到达指定 <code>ExpirationScanFrequency</code> 时，服务器抛弃这个数据。</p>
-
-<p>现在大多数浏览器切换标签页后默认都开启了休眠机制，当设置心跳间隔为 <code>10s</code> 标签页休眠后会降频为 <code>1 分钟</code> 一次，所以建议 <code>TimeoutInterval</code> 超时时间间隔至少设置为 <b>2 分钟</b></p>
-
-<p class="code-label">5. 常见问题</p>
-
-<p class="code-quest">同一个浏览器多个标签视为一个链接吗？</p>
-
-<p class="code-answer">对！不管同时打开多少个标签，服务器端均视为一个链接，在底层为了优化性能，只有一个标签与服务器进行心跳链接，其余标签均处于静默状态，当心跳链接标签被关闭时，其余标签会有一个自动跳跃成为心跳标签与服务器继续保持链接</p>
-
-<p class="code-quest">不同浏览器相同内核视为一个链接吗？如相同内核版本的 <code>Chrome</code> 与 <code>Edge</code></p>
-
-<p class="code-answer">不对！由于浏览器不同他们被视为不同 <code>Client</code> 服务器获得的链路信息中 <code>IP</code> 地址等信息是相同的，但是浏览器 <code>UserAgent</code> 是不同的</p>
-
-<p class="code-quest">地理位置定位器 <code>IpLocatorFactory</code> 如何配置</p>
-
-<p class="code-answer">本套组件库内置了一些免费的 IP 地理位置定位器，可通过如下配置文件开启</p>
+<p class="code-answer">@Localizer["IpLocatorAnswer"]</p>
 
 <ul class="ul-demo">
-    <li><code>EnableCache</code> 是否开启缓存，可避免相同 IP 地址多次请求定位接口，有效减少请求次数</li>
-    <li><code>SlidingExpiration</code> 缓存滑动过期时间</li>
-    <li><code>ProviderName</code> 定位器名称，内置定位器名称为 <code>BaiduIpLocatorProvider</code> (国内比较准确) <code>BaiduIpLocatorProviderV2</code> (国际比较准确)</li>
-    <li>更多定位器相关文档请参阅 <a href="locator" target="_blank"><code>IpLocatorFactory</code></a> 服务</li>
+    <li>@((MarkupString)Localizer["EnableCacheDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["SlidingExpirationDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["ProviderNameDescription"].Value)</li>
+    <li>@((MarkupString)Localizer["IpLocatorLinkDescription"].Value)</li>
 </ul>
 
 <Pre>"BootstrapBlazorOptions": {
@@ -209,6 +196,6 @@ var found = ConnectionService.TryGetValue("connection-id", out var connection);<
   }
 }</Pre>
 
-<p class="code-quest">地理位置定位器 <code>BaiduIpLocatorProviderV2</code> 为何本地调试能精确到区县，发布后只能到省份</p>
+<p class="code-quest">@((MarkupString)Localizer["BaiduLocatorQuestion"].Value)</p>
 
-<p class="code-answer">这个定位器使用的是 <b>百度智能云</b> 的免费服务，目前使用的作者的免费额度，发布后 <code>api</code> 提供商会根据请求地址做动态调整，所以会出现开发模式时能精确到区县，发布到服务器上后只能精确到省份的现象，这也是一种销售广告的方法</p>
+<p class="code-answer">@((MarkupString)Localizer["BaiduLocatorAnswer"].Value)</p>
