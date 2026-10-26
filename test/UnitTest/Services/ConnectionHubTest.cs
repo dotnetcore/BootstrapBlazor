@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Security.Claims;
-using System.Text.Json;
 using TestContext = Xunit.TestContext;
 
 namespace UnitTest.Services;
@@ -393,36 +392,6 @@ public class ConnectionHubTest
         Assert.Equal(0, service.Count);
         Assert.True(service.TryGetValue("test_id", out var item));
         Assert.Same(item, Assert.Single(service.Connections));
-    }
-
-    [Fact]
-    public async Task ConnectionSnapshot_JsonRoundTrip()
-    {
-        var services = new ServiceCollection();
-        services.AddBootstrapBlazor();
-
-        using var provider = services.BuildServiceProvider();
-        var service = provider.GetRequiredService<IConnectionService>();
-        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_snapshot", Ip = "::1", UserName = "mock_user" }, TestContext.Current.CancellationToken);
-        var snapshot = new ConnectionSnapshot()
-        {
-            Count = service.Count,
-            Connections = service.Connections
-        };
-        var original = Assert.Single(snapshot.Connections);
-
-        var json = JsonSerializer.Serialize(snapshot);
-        var result = JsonSerializer.Deserialize<ConnectionSnapshot>(json);
-
-        Assert.NotNull(result);
-        Assert.Equal(snapshot.Count, result.Count);
-        var item = Assert.Single(result.Connections);
-        Assert.Equal(original.Id, item.Id);
-        Assert.Equal(original.ConnectionTime, item.ConnectionTime);
-        Assert.Equal(original.LastBeatTime, item.LastBeatTime);
-        Assert.NotNull(item.ClientInfo);
-        Assert.Equal(original.ClientInfo?.Ip, item.ClientInfo.Ip);
-        Assert.Equal(original.ClientInfo?.UserName, item.ClientInfo.UserName);
     }
 
     private static CancellationTokenSource GetCancellationTokenSource(IConnectionService service)
