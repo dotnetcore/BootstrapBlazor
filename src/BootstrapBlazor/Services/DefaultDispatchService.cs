@@ -36,7 +36,7 @@ sealed class DefaultDispatchService<TEntry>(ILogger<DefaultDispatchService<TEntr
             }
             catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
             {
-                logger.LogError(ex, "A dispatch subscriber failed for entry type {EntryType}.", typeof(TEntry).FullName ?? typeof(TEntry).Name);
+                logger.LogError(ex, "A dispatch subscriber failed for entry type {EntryType}.", typeof(TEntry));
             }
         }
     }
