@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">组件全局配置类</para>
 /// <para lang="en">Global configuration class for components</para>
 /// </summary>
-public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
+public class BootstrapBlazorOptions
 {
     /// <summary>
     /// <para lang="zh">获得/设置 Toast 组件默认延时。默认为 0</para>
@@ -196,8 +196,6 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// <para><version>v10.9.1</version></para>
     /// </summary>
     public DateTimeSettings DateTimeSettings { get; set; } = new();
-
-    BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>
     /// <para lang="zh">获取支持的语言集合</para>
