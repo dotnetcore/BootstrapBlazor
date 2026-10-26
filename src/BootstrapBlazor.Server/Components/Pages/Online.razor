@@ -82,7 +82,15 @@
                 <Template Context="v">
                     @if (!string.IsNullOrEmpty(v.Row.ClientInfo?.RequestUrl))
                     {
-                        <a href="@v.Row.ClientInfo.RequestUrl" target="_blank">@v.Row.ClientInfo.RequestUrl</a>
+                        @if (Uri.TryCreate(v.Row.ClientInfo.RequestUrl, UriKind.Absolute, out var requestUri)
+                            && (requestUri.Scheme == Uri.UriSchemeHttp || requestUri.Scheme == Uri.UriSchemeHttps))
+                        {
+                            <a href="@requestUri.AbsoluteUri" target="_blank" rel="noopener noreferrer">@v.Row.ClientInfo.RequestUrl</a>
+                        }
+                        else
+                        {
+                            @v.Row.ClientInfo.RequestUrl
+                        }
                     }
                 </Template>
             </TableTemplateColumn>
