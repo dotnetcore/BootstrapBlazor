@@ -252,14 +252,25 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMilliseconds(-2)
+            ExpirationScanFrequency = TimeSpan.FromMilliseconds(20),
+            TimeoutInterval = TimeSpan.MaxValue
         };
-        provider.GetRequiredService<IConnectionService>();
+        var service = provider.GetRequiredService<IConnectionService>();
+        await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" }, TestContext.Current.CancellationToken);
 
         var entry = await logger.Logged.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
         Assert.Equal(LogLevel.Error, entry.Level);
         Assert.IsType<ArgumentOutOfRangeException>(entry.Exception);
-        Assert.Equal("The expired connection cleanup task stopped unexpectedly.", entry.Message);
+        Assert.Equal("Unable to remove expired connections.", entry.Message);
+
+        // 异常后清理任务继续运行
+        options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.Zero;
+        var deadline = DateTime.UtcNow.AddSeconds(5);
+        while (service.Connections.Count > 0 && DateTime.UtcNow < deadline)
+        {
+            await Task.Delay(20, TestContext.Current.CancellationToken);
+        }
+        Assert.Empty(service.Connections);
     }
 
     [Fact]
