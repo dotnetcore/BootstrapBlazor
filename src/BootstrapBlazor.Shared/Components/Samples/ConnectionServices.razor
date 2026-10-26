@@ -151,9 +151,9 @@ public class ClientInfo
 
 <p>客户端与服务器均需启用 <code>ConnectionHubOptions.Enable</code>，并配置一致的 <code>BeatInterval</code>。服务器使用连接确认的 IP 和认证身份覆盖客户端上报值，并按配置查询地理位置。转发头和认证中间件应放在 Hub 端点执行之前。</p>
 
-<p><code>IConnectionService</code> 接口保持同步。Server 实例直接查询内存；WebAssembly 默认仅上报心跳，快照缓存为空。需要查询时，客户端与服务器须分别显式开启快照功能。</p>
+<p><code>IConnectionService</code> 查询接口保持同步。Server 实例直接查询内存；WebAssembly 扩展初始化时尝试获取快照，服务端需显式开启快照查询并允许当前用户访问。</p>
 
-<Pre>// Client: replace the heartbeat-only registration.
+<Pre>// Client: register once for heartbeats and connection queries.
 builder.Services.AddBootstrapBlazorConnectionClient();
 
 // Server: configure the existing shared Hub registration.
@@ -170,7 +170,7 @@ var found = ConnectionService.TryGetValue("connection-id", out var connection);<
 
 <p>启用查询后，WebAssembly 服务初始化时立即尝试通过 Hub 获取快照，每次请求结束后间隔 3 秒再次获取，属性及查询方法直接读取本地缓存。每个标签页拥有独立的 WASM 实例，各自轮询和维护缓存；后台标签页降频可能增加数据延迟。</p>
 
-<p>首次获取完成前缓存为空；查询失败时保留最后一次成功快照并记录错误，因此空缓存不代表服务器一定无人在线。缓存刷新不会自动触发组件重渲染，页面需自行刷新。连接重连后继续获取快照，Dispatch 取消全部订阅不会关闭仍供心跳和快照使用的连接。</p>
+<p>首次获取完成前缓存为空；临时查询失败时保留最后一次成功快照并记录错误。服务端禁用查询、拒绝查询权限或 Hub 请求发生永久 HTTP 错误时，客户端清空快照并停止轮询，重新加载页面后再次尝试。因此空缓存不代表服务器一定无人在线。缓存刷新不会自动触发组件重渲染，页面需自行刷新。临时断线恢复后继续获取快照，Dispatch 取消全部订阅不会关闭仍供心跳使用的连接。</p>
 
 <p>快照包含 IP、用户名及访问地址，默认禁止查询，且只返回给请求方，不向消息订阅者广播。可通过 <code>ConnectionSnapshotAuthorizationPolicy</code> 独立控制查询权限；未配置策略而显式启用查询时，所有能够连接 Hub 的客户端均可查询。宿主也可对 Hub 调用 <code>RequireAuthorization()</code>。</p>
 
