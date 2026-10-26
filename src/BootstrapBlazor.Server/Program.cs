@@ -18,7 +18,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddBootstrapBlazorServerService();
-builder.Services.AddBootstrapBlazorSignalRDispatchService(options =>
+builder.Services.AddBootstrapBlazorHub(options =>
 {
     options.Allow<MessageItem>(allowClientPublish: true);
     options.Allow<CommitNotification>();
