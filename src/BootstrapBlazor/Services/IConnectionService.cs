@@ -12,6 +12,8 @@ namespace BootstrapBlazor.Components;
 /// <remarks>
 /// <para lang="zh">WebAssembly 默认提供空查询实现，关闭连接功能时无需扩展包。启用心跳或查询需引用 BootstrapBlazor.SignalR，并在 AddBootstrapBlazor 后调用 AddBootstrapBlazorConnectionClient。扩展每次快照请求完成间隔 3 秒刷新，首次获取前缓存为空，查询失败保留上次数据并记录错误。缓存变更不会自动触发组件重渲染。</para>
 /// <para lang="en">WebAssembly provides empty queries by default; no extension is required when connections are disabled. Heartbeats and queries require BootstrapBlazor.SignalR and AddBootstrapBlazorConnectionClient after AddBootstrapBlazor. The extension refreshes snapshots three seconds after each request. The cache is initially empty; failed queries retain the previous snapshot and log errors. Cache changes do not trigger rendering.</para>
+/// <para lang="zh">查询被禁用、未授权或 Hub 请求发生永久 HTTP 错误时，扩展清空快照并停止轮询，重新加载页面后再次尝试；心跳上报不受快照轮询停止影响。</para>
+/// <para lang="en">Disabled or unauthorized queries and permanent Hub HTTP errors clear the snapshot and stop polling until the page reloads. Heartbeat reporting remains available independently of snapshot polling.</para>
 /// <para lang="zh">服务器实现保存当前进程内的连接信息。WebAssembly 心跳及查询使用同一个 SignalR Hub，服务器需引用 BootstrapBlazor.Middleware，注册 SignalR 服务并调用 MapBootstrapBlazorHub。快照查询需单独启用，可配置独立授权策略。</para>
 /// <para lang="en">The server implementation stores connections in the current process. WebAssembly heartbeats and queries share the SignalR Hub. The server requires BootstrapBlazor.Middleware, SignalR service registration, and MapBootstrapBlazorHub. Snapshot queries require explicit opt-in and support a separate authorization policy.</para>
 /// </remarks>
