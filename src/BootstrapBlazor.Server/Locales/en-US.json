@@ -146,6 +146,7 @@
   },
   "BootstrapBlazor.Server.Components.Layout.MainLayout": {
     "ChatTooltip": "Azure OpenAI",
+    "DispatchToastTitle": "Dispatch service test",
     "UpdateTooltip": "View update log"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
@@ -1937,8 +1938,10 @@
     "ValidateFormTip": "Example: use <code>ValidateForm</code> parameter <code>OnFieldValueChanged</code> to know if the model was changed."
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
+    "AsyncTip": "Starting with <b>11.0.0</b>, use and await <code>SubscribeAsync</code>, <code>DispatchAsync</code>, and <code>UnSubscribeAsync</code>. The obsolete synchronous methods no longer subscribe, dispatch, or unsubscribe. Components should implement <code>IAsyncDisposable</code> to release subscriptions.",
+    "DeliveryTip": "<code>AddBootstrapBlazor</code> registers a singleton in-process dispatcher by default. It notifies subscribers of the same generic type within the same runtime instance, without cross-process or Server/WebAssembly network delivery. Callbacks run sequentially; failures are logged and remaining callbacks continue. Cancellation stops subsequent processing. Use <code>InvokeAsync</code> for component UI updates.",
     "Description": "By injecting the service to call the instance method, the site-wide pop-up window is used for message notification",
-    "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
+    "DispatchIntro": "Click the button to notify subscribed users connected to the same server process.",
     "DispatchNoticeButtonText": "Notice",
     "DispatchNoticeMessage": "Test dispatch message",
     "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
@@ -1951,6 +1954,7 @@
     "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
     "NormalTipsContent": "Notification content",
     "NormalTipsTitle": "notification title",
+    "PublishTip": "5. Publish with <code>DispatchAsync</code>. <code>MessageItem</code> matches the subscription in <code>MainLayout</code>. Publishers and subscribers must use the same generic type. Awaiting completion waits for the current dispatch implementation to finish; offline messages are not stored or replayed.",
     "Tips": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
     "Title": "Dispatch message distribution"
   },
@@ -5977,8 +5981,15 @@
     "Step3Title": "3. Enable memorial mode site-wide by default",
     "ToggleButtonText": "Toggle Memorial Mode"
   },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineContributor": {
+    "DescriptionLabel": "Description:",
+    "NameLabel": "Name:"
+  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
-    "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
+    "ContributorCellValue": "{0:yyyy-MM-dd HH:mm:ss} {1} updated this cell",
+    "ContributorDescription": "Updating cell {0}",
+    "DispatchToastTitle": "Dispatch service test",
+    "ToastOnReadyContent": "The spreadsheet is ready. Updates from another collaborator will appear shortly.",
     "ToastOnReadyTitle": "Collaboration Notification"
   },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {

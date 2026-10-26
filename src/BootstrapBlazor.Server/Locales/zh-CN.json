@@ -146,6 +146,7 @@
   },
   "BootstrapBlazor.Server.Components.Layout.MainLayout": {
     "ChatTooltip": "Azure OpenAI",
+    "DispatchToastTitle": "Dispatch 服务测试",
     "UpdateTooltip": "点击查看更新日志"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
@@ -1937,8 +1938,10 @@
     "ValidateFormTip": "自定义组件示例代码，通过 <code>ValidateForm</code> 参数 <code>OnFieldValueChanged</code> 获得模型是否被更改"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
+    "AsyncTip": "自 <b>11.0.0</b> 起，请使用并等待 <code>SubscribeAsync</code>、<code>DispatchAsync</code> 和 <code>UnSubscribeAsync</code>。旧同步方法已弃用，不再执行订阅、分发或退订；组件应实现 <code>IAsyncDisposable</code> 释放订阅。",
+    "DeliveryTip": "<code>AddBootstrapBlazor</code> 默认注册单例进程内分发服务，仅通知同一运行实例内、相同泛型类型的订阅者，不提供跨进程或 Server/WebAssembly 网络推送。回调按顺序执行，单个回调异常会记录日志并继续，取消令牌用于停止后续处理；UI 更新应通过 <code>InvokeAsync</code> 切换到组件上下文。",
     "Description": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
-    "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
+    "DispatchIntro": "点击按钮进行消息分发，连接到同一服务端进程并已订阅消息的用户均可收到通知",
     "DispatchNoticeButtonText": "通知",
     "DispatchNoticeMessage": "测试通知消息",
     "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致",
@@ -1951,6 +1954,7 @@
     "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
     "NormalTipsContent": "通知内容",
     "NormalTipsTitle": "通知标题",
+    "PublishTip": "5. 使用 <code>DispatchAsync</code> 分发消息；此处 <code>MessageItem</code> 对应 <code>MainLayout</code> 中的订阅。分发和订阅必须使用相同的泛型类型，等待完成表示当前实现的分发处理结束，不代表离线消息会被保存或补发。",
     "Tips": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
     "Title": "Dispatch 消息分发"
   },
@@ -5977,8 +5981,15 @@
     "Step3Title": "3. 全站默认设置追悼模式方法",
     "ToggleButtonText": "切换哀悼模式"
   },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineContributor": {
+    "DescriptionLabel": "描述：",
+    "NameLabel": "姓名："
+  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
-    "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容",
+    "ContributorCellValue": "{0:yyyy-MM-dd HH:mm:ss} {1} 更新此单元格",
+    "ContributorDescription": "正在更新单元格 {0}",
+    "DispatchToastTitle": "Dispatch 服务测试",
+    "ToastOnReadyContent": "表格加载完成，稍后将展示其他协作人员的更新。",
     "ToastOnReadyTitle": "在线表格协作通知"
   },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {

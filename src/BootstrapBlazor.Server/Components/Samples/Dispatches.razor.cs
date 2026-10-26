@@ -42,7 +42,7 @@ public partial class Dispatches
         }
 
         item.Entry = new MessageItem() { Message = message };
-        DispatchService.Dispatch(item);
+        await DispatchService.DispatchAsync(item);
         await Task.Delay(30 * 1000);
     }
 }
