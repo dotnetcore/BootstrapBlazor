@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Net;
+using System.Net.WebSockets;
 using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
@@ -22,6 +24,15 @@ sealed class SignalRConnection : IAsyncDisposable
     private int _connectionUsers;
 
     public bool IsReconnecting => _connection.State == HubConnectionState.Reconnecting;
+
+    internal static bool IsTransientFailure(Exception exception) => exception switch
+    {
+        HttpRequestException ex => ex.StatusCode is null or HttpStatusCode.RequestTimeout or
+            HttpStatusCode.TooManyRequests or HttpStatusCode.InternalServerError or
+            HttpStatusCode.BadGateway or HttpStatusCode.ServiceUnavailable or HttpStatusCode.GatewayTimeout,
+        IOException or WebSocketException or TimeoutException or OperationCanceledException => true,
+        _ => false
+    };
 
     public SignalRConnection(NavigationManager navigation, ILogger<SignalRConnection> logger, string hubPath)
     {
@@ -141,7 +152,7 @@ sealed class SignalRConnection : IAsyncDisposable
                     await _connection.StartAsync(cancellationToken);
                     break;
                 }
-                catch (Exception ex) when (attempt < 2 && !cancellationToken.IsCancellationRequested)
+                catch (Exception ex) when (attempt < 2 && !cancellationToken.IsCancellationRequested && IsTransientFailure(ex))
                 {
                     _logger.LogWarning(ex, "Unable to connect to the BootstrapBlazor Hub; retrying.");
                     await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);

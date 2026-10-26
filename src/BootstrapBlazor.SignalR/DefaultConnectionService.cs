@@ -51,8 +51,20 @@ sealed class DefaultConnectionService : IConnectionService, IAsyncDisposable
             {
                 try
                 {
-                    _snapshot = await _connection.InvokeAsync<ConnectionSnapshot>("GetConnectionSnapshot", null, cancellationToken)
-                        ?? throw new InvalidOperationException("The connection snapshot must not be null.");
+                    var snapshot = await _connection.InvokeAsync<ConnectionSnapshot?>("GetConnectionSnapshot", null, cancellationToken);
+                    if (snapshot == null)
+                    {
+                        _snapshot = new();
+                        _logger.LogInformation("Connection snapshot polling stopped because queries are disabled or not authorized.");
+                        return;
+                    }
+                    _snapshot = snapshot;
+                }
+                catch (HttpRequestException ex) when (!cancellationToken.IsCancellationRequested && !SignalRConnection.IsTransientFailure(ex))
+                {
+                    _snapshot = new();
+                    _logger.LogWarning(ex, "Connection snapshot polling stopped because the Hub request was rejected.");
+                    return;
                 }
                 catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
                 {

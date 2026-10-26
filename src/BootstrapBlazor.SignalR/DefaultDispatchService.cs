@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Logging;
-using System.Net.WebSockets;
 using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
@@ -52,7 +51,7 @@ sealed class DefaultDispatchService<TEntry>(
                             break;
                         }
                         catch (Exception ex) when (!token.IsCancellationRequested &&
-                            (ex is HttpRequestException or IOException or WebSocketException or TimeoutException or OperationCanceledException ||
+                            (SignalRConnection.IsTransientFailure(ex) ||
                              ex is InvalidOperationException && connection.IsReconnecting))
                         {
                             logger.LogWarning(ex, "Unable to subscribe to dispatch entry type {EntryType}; retrying.", _entryType);
