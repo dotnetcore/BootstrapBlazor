@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
 
@@ -39,6 +40,9 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [NotNull]
     private IServiceProvider? Provider { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ILogger<ConnectionHub>? Logger { get; set; }
 
     private IIpLocatorProvider? _ipLocatorProvider;
 
@@ -72,32 +76,47 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [JSInvokable]
     public async Task Callback(ClientInfo client)
     {
-        var code = client.Id;
-        if (!string.IsNullOrEmpty(code))
+        try
         {
-            var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
-            await dispatch.ThrottleAsync(async () =>
+            var code = client.Id;
+            if (!string.IsNullOrEmpty(code))
             {
-                client.RequestUrl = NavigationManager.Uri;
-
-                if (BootstrapBlazorOptions.Value.ConnectionHubOptions.EnableIpLocator)
+                var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
+                await dispatch.ThrottleAsync(async () =>
                 {
-                    _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
-                    client.City = await _ipLocatorProvider.Locate(client.Ip);
-                }
-
-                var authenticationStateProvider = Provider.GetService<AuthenticationStateProvider>();
-                if (authenticationStateProvider != null)
-                {
-                    var state = await authenticationStateProvider.GetAuthenticationStateAsync();
-                    var identity = state.User.Identity;
-                    if (identity is { IsAuthenticated: true })
+                    try
                     {
-                        client.UserName = identity.Name;
+                        client.RequestUrl = NavigationManager.Uri;
+
+                        if (BootstrapBlazorOptions.Value.ConnectionHubOptions.EnableIpLocator)
+                        {
+                            _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
+                            client.City = await _ipLocatorProvider.Locate(client.Ip);
+                        }
+
+                        client.UserName = null;
+                        var authenticationStateProvider = Provider.GetService<AuthenticationStateProvider>();
+                        if (authenticationStateProvider != null)
+                        {
+                            var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+                            var identity = state.User.Identity;
+                            if (identity is { IsAuthenticated: true })
+                            {
+                                client.UserName = identity.Name;
+                            }
+                        }
+                        await ConnectionService.AddOrUpdateAsync(client);
                     }
-                }
-                ConnectionService.AddOrUpdate(client);
-            });
+                    catch (Exception ex)
+                    {
+                        Logger.LogError(ex, "Unable to process the connection heartbeat.");
+                    }
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Unable to process the connection heartbeat.");
         }
     }
 }
