@@ -23,7 +23,7 @@ public interface IDispatchService<TEntry>
     /// <param name="entry"></param>
     [ExcludeFromCodeCoverage]
     [Obsolete("已弃用，请使用 DispatchAsync 方法; Deprecated. Use DispatchAsync instead")]
-    public void Dispatch(DispatchEntry<TEntry> entry) { }
+    public void Dispatch(DispatchEntry<TEntry> entry) => _ = DispatchAsync(entry);
 
     /// <summary>
     /// <para lang="zh">订阅分发</para>
@@ -33,7 +33,7 @@ public interface IDispatchService<TEntry>
     /// <param name="callback"></param>
     [ExcludeFromCodeCoverage]
     [Obsolete("已弃用，请使用 SubscribeAsync 方法; Deprecated. Use SubscribeAsync instead")]
-    public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback) { }
+    public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = SubscribeAsync(callback);
 
     /// <summary>
     /// <para lang="zh">取消订阅分发</para>
@@ -44,13 +44,17 @@ public interface IDispatchService<TEntry>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
     [Obsolete("已弃用，请使用 UnSubscribeAsync 方法; Deprecated. Use UnSubscribeAsync instead")]
-    public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback) { }
+    public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = UnSubscribeAsync(callback);
 
     /// <summary>
     /// <para lang="zh">异步分发消息并等待处理完成</para>
     /// <para lang="en">Dispatch a message and await completion.</para>
     /// <para><version>11.0.0</version></para>
     /// </summary>
+    /// <remarks>
+    /// <para lang="zh">默认进程内实现记录订阅者异常并继续分发。取消会停止等待和后续分发，但不会终止已启动的回调或回滚已完成的处理；重试可能重复投递。</para>
+    /// <para lang="en">The default in-process implementation logs subscriber failures and continues delivery. Cancellation stops waiting and further delivery, but does not terminate callbacks already started or roll back completed processing; retries may deliver duplicates.</para>
+    /// </remarks>
     Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default);
 
     /// <summary>
