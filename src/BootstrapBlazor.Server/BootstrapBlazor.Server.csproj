@@ -6,13 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Locales\en-US.json" />
-    <Content Remove="Locales\zh-CN.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Locales\en-US.json" />
-    <EmbeddedResource Include="Locales\zh-CN.json" />
+    <Content Remove="Locales\*.json" />
+    <EmbeddedResource Include="Locales\*.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +28,7 @@
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.2" />
+    <!--<PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.2.1" />-->
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.0-rc.2" />
@@ -50,9 +45,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\middleware\BootstrapBlazor.Middleware\BootstrapBlazor.Middleware.csproj" />
     <ProjectReference Include="..\BootstrapBlazor.Client\BootstrapBlazor.Client.csproj" />
-    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

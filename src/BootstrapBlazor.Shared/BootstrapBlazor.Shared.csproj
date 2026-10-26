@@ -2,12 +2,11 @@
   <Import Project="..\..\Framework.props" />
 
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
-    <Content Remove="Locales\*.json;docs.json" />
-    <EmbeddedResource Include="Locales\*.json;docs.json" />
-    <Content Remove="topology.json" />
-    <EmbeddedResource Include="topology.json" />
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <Content Remove="Locales\*.json;docs.json;topology.json" />
+    <EmbeddedResource Include="Locales\*.json;docs.json;topology.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="11.0.0-rc.2" />
@@ -51,6 +50,10 @@
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

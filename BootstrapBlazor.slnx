@@ -12,9 +12,11 @@
     <File Path="localization/zh-TW.json" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="../BootstrapBlazor.Extensions/src/middleware/BootstrapBlazor.Middleware/BootstrapBlazor.Middleware.csproj" />
     <Project Path="src/BootstrapBlazor.Client/BootstrapBlazor.Client.csproj" />
     <Project Path="src/BootstrapBlazor.Server/BootstrapBlazor.Server.csproj" />
     <Project Path="src/BootstrapBlazor.Shared/BootstrapBlazor.Shared.csproj" />
+    <Project Path="src/BootstrapBlazor.SignalR/BootstrapBlazor.SignalR.csproj" />
     <Project Path="src/BootstrapBlazor/BootstrapBlazor.csproj" />
   </Folder>
   <Folder Name="/test/">
