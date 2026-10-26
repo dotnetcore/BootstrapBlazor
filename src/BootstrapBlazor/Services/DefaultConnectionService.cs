@@ -35,16 +35,19 @@ class DefaultConnectionService : IConnectionService, IDisposable
                     {
                         await Task.Delay(_options.ExpirationScanFrequency, token);
 
-                        var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
-                        keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                        try
+                        {
+                            var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                            keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogError(ex, "Unable to remove expired connections.");
+                        }
                     }
                 }
                 catch (OperationCanceledException) when (token.IsCancellationRequested)
                 {
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "The expired connection cleanup task stopped unexpectedly.");
                 }
             });
         }
