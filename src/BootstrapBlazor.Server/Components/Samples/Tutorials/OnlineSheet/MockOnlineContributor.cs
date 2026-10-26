@@ -7,23 +7,23 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
 
 static class MockOnlineContributor
 {
-    public static void Trigger(IDispatchService<Contributor> dispatchService)
+    public static Task Trigger(IDispatchService<Contributor> dispatchService, IStringLocalizer<OnlineSheet> localizer)
     {
-        dispatchService.Dispatch(new DispatchEntry<Contributor>()
+        return dispatchService.DispatchAsync(new DispatchEntry<Contributor>()
         {
             Name = "OnlineSheet-Demo",
             Entry = new Contributor()
             {
                 Name = "Argo Zhang",
                 Avatar = "/images/Argo-C.png",
-                Description = "正在更新单元格 A8",
+                Description = localizer["ContributorDescription", "A8"],
                 Data = new UniverSheetData()
                 {
                     CommandName = "UpdateRange",
                     Data = new
                     {
                         Range = "A8",
-                        Value = $"{DateTime.Now: yyyy-MM-dd HH:mm:ss} Argo 更新此单元格"
+                        Value = localizer["ContributorCellValue", DateTime.Now, "Argo"].Value
                     }
                 }
             }

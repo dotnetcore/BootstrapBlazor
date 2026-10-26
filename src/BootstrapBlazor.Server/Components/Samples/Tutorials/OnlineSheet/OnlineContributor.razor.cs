@@ -10,6 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
 /// </summary>
 public partial class OnlineContributor
 {
+    [Inject, NotNull]
+    private IStringLocalizer<OnlineContributor>? Localizer { get; set; }
+
     /// <summary>
     /// Gets or sets Contributor
     /// </summary>
