@@ -32,17 +32,17 @@
 
     <ImportMap></ImportMap>
 
-    <HeadOutlet @rendermode="new InteractiveAutoRenderMode()" />
+    <HeadOutlet @rendermode="RenderMode" />
 </head>
 
 <body>
     <Routes />
 
-    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveAutoRenderMode()" />
+    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="RenderMode" />
 
-    <UpdateIntro @rendermode="new InteractiveAutoRenderMode()" />
+    <UpdateIntro @rendermode="RenderMode" />
 
-    <BlazorReconnector @rendermode="new InteractiveAutoRenderMode()" />
+    <BlazorReconnector @rendermode="RenderMode" />
 
     <script src="@Assets["_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"]"></script>
     <script src="@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"></script>
@@ -65,3 +65,7 @@
 </body>
 
 </html>
+
+@code {
+    private static readonly IComponentRenderMode RenderMode = new InteractiveAutoRenderMode();
+}
