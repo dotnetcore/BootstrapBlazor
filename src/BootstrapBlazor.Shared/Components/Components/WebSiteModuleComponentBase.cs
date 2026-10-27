@@ -5,7 +5,7 @@
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// WebSiteModuleComponentBase 组件
