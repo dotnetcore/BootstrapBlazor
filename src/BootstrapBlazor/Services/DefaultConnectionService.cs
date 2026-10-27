@@ -81,12 +81,11 @@ class DefaultConnectionService : IConnectionService, IDisposable
         ClientInfo = client
     };
 
-    private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val)
+    private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val) => item with
     {
-        item.LastBeatTime = DateTimeOffset.Now;
-        item.ClientInfo = val;
-        return item;
-    }
+        LastBeatTime = DateTimeOffset.Now,
+        ClientInfo = val
+    };
 
     /// <summary>
     /// <inheritdoc/>
