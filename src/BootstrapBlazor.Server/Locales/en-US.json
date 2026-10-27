@@ -29,18 +29,6 @@
     "FooterLi1": "Slider verification code",
     "FriendLink": "Links"
   },
-  "BootstrapBlazor.Server.Components.Pages.CacheList": {
-    "CacheListAction": "Action",
-    "CacheListCount": "Total {0} Entry",
-    "CacheListDelete": "Delete",
-    "CacheListDeleteAll": "Clear",
-    "CacheListExpiration": "Expiration",
-    "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
-    "CacheListKey": "Key",
-    "CacheListRefresh": "Refresh",
-    "CacheListTitle": "CacheManager",
-    "CacheListValue": "Value"
-  },
   "BootstrapBlazor.Server.Components.Pages.Chats": {
     "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>",
     "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",

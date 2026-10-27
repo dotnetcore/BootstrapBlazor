@@ -5,7 +5,7 @@
 
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BootstrapBlazor.Server.Extensions;
+namespace BootstrapBlazor.Shared.Extensions;
 
 /// <summary>
 /// <see cref="ICacheEntry"/> 扩展方法

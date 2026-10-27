@@ -4,9 +4,10 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using System.Collections;
 
-namespace BootstrapBlazor.Server.Components.Pages;
+namespace BootstrapBlazor.Shared.Components.Pages;
 
 /// <summary>
 /// CacheManager 管理组件
@@ -20,7 +21,7 @@ public partial class CacheList
     private IStringLocalizer<CacheList>? Localizer { get; set; }
 
     [Inject, NotNull]
-    private IWebHostEnvironment? WebHost { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     private List<object?> _cacheList = [];
 

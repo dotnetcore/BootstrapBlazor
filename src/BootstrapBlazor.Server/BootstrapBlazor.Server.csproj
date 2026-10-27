@@ -54,7 +54,6 @@
     <Using Include="BootstrapBlazor.Server.Components.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Layout" />
     <Using Include="BootstrapBlazor.Server.Data" />
-    <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
     <Using Include="BootstrapBlazor.Shared.Components.Components" />
     <Using Include="BootstrapBlazor.Shared.Components.Layout" />

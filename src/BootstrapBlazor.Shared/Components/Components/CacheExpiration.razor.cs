@@ -5,7 +5,7 @@
 
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BootstrapBlazor.Server.Components.Components;
+namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
 /// CacheExpiration 组件

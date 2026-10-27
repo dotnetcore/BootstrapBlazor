@@ -5830,5 +5830,17 @@
     "OS": "OS",
     "RequestUrl": "RequestUrl",
     "SubTitle": "Online population statistics"
+  },
+  "BootstrapBlazor.Shared.Components.Pages.CacheList": {
+    "CacheListAction": "Action",
+    "CacheListCount": "Total {0} Entry",
+    "CacheListDelete": "Delete",
+    "CacheListDeleteAll": "Clear",
+    "CacheListExpiration": "Expiration",
+    "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
+    "CacheListKey": "Key",
+    "CacheListRefresh": "Refresh",
+    "CacheListTitle": "CacheManager",
+    "CacheListValue": "Value"
   }
 }
