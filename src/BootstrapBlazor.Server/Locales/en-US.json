@@ -749,10 +749,6 @@
     "TranslatorsTitle": "Azure Translator",
     "TranslatorsTranslate": "Translate"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
-    "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
-    "ToastOnReadyTitle": "Collaboration Notification"
-  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "File",
     "Hide": "Hide",

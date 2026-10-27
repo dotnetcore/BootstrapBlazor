@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
+namespace BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet;
 
 /// <summary>
 /// Online sheet sample code
@@ -11,7 +11,10 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
 public partial class OnlineSheet : IAsyncDisposable
 {
     [Inject, NotNull]
-    private IWebHostEnvironment? WebHost { get; set; }
+    private HttpClient? HttpClient { get; set; }
+
+    [Inject, NotNull]
+    private NavigationManager? NavigationManager { get; set; }
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
@@ -30,49 +33,43 @@ public partial class OnlineSheet : IAsyncDisposable
 
     private bool _inited = false;
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        var reportFile = Path.Combine(WebHost.WebRootPath, "univer-sheet", "report.json");
-        if (File.Exists(reportFile))
-        {
-            var sheetData = File.ReadAllText(reportFile);
-
-            _data = new UniverSheetData()
-            {
-                WorkbookData = sheetData
-            };
-        }
-    }
+    private readonly CancellationTokenSource _lifetime = new();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
 
-        if (firstRender)
+        _data = new UniverSheetData()
         {
-            await Task.Delay(5000);
-            await MockOnlineContributor.Trigger(DispatchService, Localizer);
-        }
+            WorkbookData = await HttpClient.GetStringAsync(NavigationManager.ToAbsoluteUri("univer-sheet/report.json"))
+        };
     }
 
     private async Task OnReadyAsync()
     {
+        if (_inited)
+        {
+            return;
+        }
+
         _inited = true;
-        await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
-        await DispatchService.SubscribeAsync(Dispatch);
+        var token = _lifetime.Token;
+        try
+        {
+            await DispatchService.SubscribeAsync(Dispatch, token);
+            await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
+            await Task.Delay(5000, token);
+            await MockOnlineContributor.Trigger(DispatchService, Localizer, token);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+        }
     }
 
-    private async Task Dispatch(DispatchEntry<Contributor> entry)
+    private Task Dispatch(DispatchEntry<Contributor> entry) => InvokeAsync(async () =>
     {
         if (!_inited)
         {
@@ -95,14 +92,23 @@ public partial class OnlineSheet : IAsyncDisposable
 
             await _sheetExcel.PushDataAsync(entry.Entry.Data);
         }
-    }
+    });
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        await DispatchService.UnSubscribeAsync(Dispatch);
+        _inited = false;
+        _lifetime.Cancel();
+        try
+        {
+            await DispatchService.UnSubscribeAsync(Dispatch);
+        }
+        finally
+        {
+            _lifetime.Dispose();
+        }
         GC.SuppressFinalize(this);
     }
 }

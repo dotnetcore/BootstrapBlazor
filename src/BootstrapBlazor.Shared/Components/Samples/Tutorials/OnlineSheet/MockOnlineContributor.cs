@@ -3,11 +3,11 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
+namespace BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet;
 
 static class MockOnlineContributor
 {
-    public static Task Trigger(IDispatchService<Contributor> dispatchService, IStringLocalizer<OnlineSheet> localizer)
+    public static Task Trigger(IDispatchService<Contributor> dispatchService, IStringLocalizer<OnlineSheet> localizer, CancellationToken cancellationToken = default)
     {
         return dispatchService.DispatchAsync(new DispatchEntry<Contributor>()
         {
@@ -27,6 +27,6 @@ static class MockOnlineContributor
                     }
                 }
             }
-        });
+        }, cancellationToken);
     }
 }

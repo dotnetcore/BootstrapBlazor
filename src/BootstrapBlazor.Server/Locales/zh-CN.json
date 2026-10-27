@@ -749,10 +749,6 @@
     "TranslatorsTitle": "AzureTranslator 翻译服务",
     "TranslatorsTranslate": "翻译"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
-    "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容",
-    "ToastOnReadyTitle": "在线表格协作通知"
-  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "文件",
     "Hide": "隐藏",

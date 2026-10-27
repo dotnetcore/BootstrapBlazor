@@ -5581,5 +5581,16 @@
     "NullItemText": "Not Set",
     "ReadonlyColumn": "Readonly Column",
     "True": "Pass"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
+    "ToastOnReadyContent": "After 5 seconds another contributor updates cell A8.",
+    "ContributorDescription": "Updating cell {0}",
+    "ContributorCellValue": "{0:HH:mm:ss} Updated by {1}",
+    "DispatchToastTitle": "Collaboration update",
+    "ToastOnReadyTitle": "Collaboration Notification"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet.OnlineContributor": {
+    "NameLabel": "Name",
+    "DescriptionLabel": "Activity"
   }
 }

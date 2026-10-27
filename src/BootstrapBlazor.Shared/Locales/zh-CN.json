@@ -5581,5 +5581,16 @@
     "NullItemText": "未设置",
     "ReadonlyColumn": "只读列",
     "True": "通过"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
+    "ToastOnReadyContent": "5 秒后其他协作者将更新单元格 A8。",
+    "ContributorDescription": "正在更新单元格 {0}",
+    "ContributorCellValue": "{0:HH:mm:ss} 由 {1} 更新",
+    "DispatchToastTitle": "协作更新",
+    "ToastOnReadyTitle": "在线表格协作通知"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet.OnlineContributor": {
+    "NameLabel": "姓名",
+    "DescriptionLabel": "操作"
   }
 }

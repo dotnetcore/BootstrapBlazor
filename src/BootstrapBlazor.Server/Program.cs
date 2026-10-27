@@ -23,6 +23,7 @@ builder.Services.AddBootstrapBlazorHub(options =>
     options.Allow<MessageItem>(allowClientPublish: true);
     options.Allow<CommitNotification>();
     options.Allow<bool>();
+    options.Allow<BootstrapBlazor.Shared.Components.Samples.Tutorials.OnlineSheet.Contributor>(allowClientPublish: true);
 });
 
 var app = builder.Build();
