@@ -12,6 +12,18 @@
 <p>@((MarkupString)Localizer["AsyncTip"].Value)</p>
 <p>@((MarkupString)Localizer["DeliveryTip"].Value)</p>
 
+<p>@Localizer["SignalRRegistration"]</p>
+<Pre>// Client
+builder.Services.AddBootstrapBlazorHub();
+
+// Server
+builder.Services.AddBootstrapBlazorHub(options =>
+{
+    options.Allow&lt;MessageItem&gt;(allowClientPublish: true);
+});
+app.MapBootstrapBlazorHub();</Pre>
+<p>@Localizer["SignalRDelivery"]</p>
+
 <p>@Localizer["NormalTip"]</p>
 <p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
 <Pre class="mb-3">[Inject]
