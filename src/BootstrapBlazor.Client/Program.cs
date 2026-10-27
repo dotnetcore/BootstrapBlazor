@@ -13,8 +13,7 @@ using var client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironmen
 var settings = await client.GetFromJsonAsync<LayoutSettings>("api/layout-settings")
     ?? throw new InvalidOperationException("Layout settings are unavailable.");
 builder.Services.AddBootstrapBlazorLayoutServices();
-builder.Services.AddBootstrapBlazorDispatchClient();
-builder.Services.AddBootstrapBlazorConnectionClient();
+builder.Services.AddBootstrapBlazorHub();
 builder.Services.Configure<BootstrapBlazor.Components.BootstrapBlazorOptions>(options =>
 {
     options.SupportedCultures = settings.SupportedCultures;
