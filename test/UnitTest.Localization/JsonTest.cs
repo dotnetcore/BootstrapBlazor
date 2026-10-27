@@ -41,7 +41,7 @@ public class JsonTest
         foreach (var router in components)
         {
             var sectionName = router.FullName;
-            if (string.IsNullOrEmpty(sectionName) || sectionName == "BootstrapBlazor.Server.Components.Pages.Online")
+            if (string.IsNullOrEmpty(sectionName) || sectionName == "BootstrapBlazor.Shared.Components.Pages.Online")
             {
                 continue;
             }

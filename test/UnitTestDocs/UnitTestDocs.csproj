@@ -5,7 +5,7 @@
     <Using Include="BootstrapBlazor.Server.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Layout" />
-    <Using Include="BootstrapBlazor.Server.Extensions" />
+    <Using Include="BootstrapBlazor.Shared.Extensions" />
     <Using Include="BootstrapBlazor.Shared.Components.Layout" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
