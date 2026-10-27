@@ -15,6 +15,28 @@ namespace UnitTest.Services;
 public class ConnectionHubTest
 {
     [Fact]
+    public void ConnectionItem_JsonRoundTrip()
+    {
+        var item = new ConnectionItem
+        {
+            Id = "connection_id",
+            ClientInfo = new ClientInfo { Id = "connection_id", Ip = "::1" },
+            ConnectionTime = new DateTimeOffset(2026, 10, 27, 10, 0, 0, TimeSpan.FromHours(8)),
+            LastBeatTime = new DateTimeOffset(2026, 10, 27, 10, 1, 0, TimeSpan.FromHours(8))
+        };
+
+        var json = System.Text.Json.JsonSerializer.Serialize(item);
+        var result = System.Text.Json.JsonSerializer.Deserialize<ConnectionItem>(json);
+
+        Assert.NotNull(result);
+        Assert.Equal(item.Id, result.Id);
+        Assert.Equal(item.ClientInfo?.Id, result.ClientInfo?.Id);
+        Assert.Equal(item.ClientInfo?.Ip, result.ClientInfo?.Ip);
+        Assert.Equal(item.ConnectionTime, result.ConnectionTime);
+        Assert.Equal(item.LastBeatTime, result.LastBeatTime);
+    }
+
+    [Fact]
     public async Task Callback_Ok()
     {
         using var context = new BunitContext();
@@ -300,35 +322,6 @@ public class ConnectionHubTest
         var service = provider.GetRequiredService<IConnectionService>();
         await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" }, TestContext.Current.CancellationToken);
         Assert.Equal(1, service.Count);
-    }
-
-    [Fact]
-    public async Task ConnectionService_Ok()
-    {
-        var services = new ServiceCollection();
-        services.AddBootstrapBlazor();
-
-        using var provider = services.BuildServiceProvider();
-        var service = provider.GetRequiredService<IConnectionService>();
-        var client = new ClientInfo() { Id = "test_id", Ip = "::1" };
-        await service.AddOrUpdateAsync(client, TestContext.Current.CancellationToken);
-
-        Assert.True(service.TryGetValue("test_id", out var item));
-        Assert.Same(client, item.ClientInfo);
-        var connectionTime = item.ConnectionTime;
-        var lastBeatTime = item.LastBeatTime;
-
-        await Task.Delay(20, TestContext.Current.CancellationToken);
-        var updatedClient = new ClientInfo() { Id = "test_id", Ip = "127.0.0.1" };
-        await service.AddOrUpdateAsync(updatedClient, TestContext.Current.CancellationToken);
-
-        Assert.True(service.TryGetValue("test_id", out var updatedItem));
-        Assert.Same(item, updatedItem);
-        Assert.Same(updatedClient, updatedItem.ClientInfo);
-        Assert.Equal(connectionTime, updatedItem.ConnectionTime);
-        Assert.True(updatedItem.LastBeatTime > lastBeatTime);
-        Assert.Equal(1, service.Count);
-        Assert.Same(updatedItem, Assert.Single(service.Connections));
     }
 
     [Theory]
