@@ -2,7 +2,7 @@
 @layout MainLayout
 @inject IStringLocalizer<Online> Localizer
 
-<h4>@Localizer["SubTitle"]：@ConnectionService.Connections.Count</h4>
+<h4>@Localizer["SubTitle"]：@ConnectionService.Count</h4>
 
 <section class="mt-3">
     <Table Items="@_items" IsBordered="true" IsStriped="true">

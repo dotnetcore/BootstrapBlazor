@@ -11,10 +11,8 @@ static class MockOnlineContributor
     {
         return dispatchService.DispatchAsync(new DispatchEntry<Contributor>()
         {
-            Name = "Argo Zhang",
-            Avatar = "/images/Argo-C.png",
-            Description = "正在更新单元格 A8",
-            Data = new UniverSheetData()
+            Name = "OnlineSheet-Demo",
+            Entry = new Contributor()
             {
                 Name = "Argo Zhang",
                 Avatar = "/images/Argo-C.png",
@@ -29,6 +27,6 @@ static class MockOnlineContributor
                     }
                 }
             }
-        }
-    });
+        });
+    }
 }
