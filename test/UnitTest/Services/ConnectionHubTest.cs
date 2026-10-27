@@ -15,7 +15,7 @@ namespace UnitTest.Services;
 public class ConnectionHubTest
 {
     [Fact]
-    public void ConnectionItem_JsonRoundTrip()
+    public void ConnectionItem_Serializer_Ok()
     {
         var item = new ConnectionItem
         {
@@ -30,10 +30,12 @@ public class ConnectionHubTest
 
         Assert.NotNull(result);
         Assert.Equal(item.Id, result.Id);
-        Assert.Equal(item.ClientInfo?.Id, result.ClientInfo?.Id);
-        Assert.Equal(item.ClientInfo?.Ip, result.ClientInfo?.Ip);
         Assert.Equal(item.ConnectionTime, result.ConnectionTime);
         Assert.Equal(item.LastBeatTime, result.LastBeatTime);
+
+        Assert.NotNull(result.ClientInfo);
+        Assert.Equal(item.ClientInfo.Id, result.ClientInfo.Id);
+        Assert.Equal(item.ClientInfo.Ip, result.ClientInfo.Ip);
     }
 
     [Fact]
