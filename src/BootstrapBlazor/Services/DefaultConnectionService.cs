@@ -37,7 +37,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
                         try
                         {
-                            var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                            var keys = _connectionCache.Where(i => i.Value.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Key).ToList();
                             keys.ForEach(i => _connectionCache.TryRemove(i, out _));
                         }
                         catch (Exception ex)
