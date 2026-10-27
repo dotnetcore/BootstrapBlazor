@@ -42,7 +42,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
                         try
                         {
-                            var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                            var keys = _connectionCache.Where(i => i.Value.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Key).ToList();
                             keys.ForEach(i => _connectionCache.TryRemove(i, out _));
                         }
                         catch (Exception ex)
@@ -62,6 +62,11 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <inheritdoc/>
     /// </summary>
     public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public ICollection<ConnectionItem> Connections => _connectionCache.Values;
 
     /// <summary>
     /// <inheritdoc/>
@@ -86,12 +91,11 @@ class DefaultConnectionService : IConnectionService, IDisposable
         ClientInfo = client
     };
 
-    private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val)
+    private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val) => item with
     {
-        item.LastBeatTime = DateTimeOffset.Now;
-        item.ClientInfo = val;
-        return item;
-    }
+        LastBeatTime = DateTimeOffset.Now,
+        ClientInfo = val
+    };
 
     /// <summary>
     /// <inheritdoc/>
@@ -99,11 +103,6 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <param name="key"></param>
     /// <param name="value"></param>
     public bool TryGetValue(string key, [NotNullWhen(true)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public ICollection<ConnectionItem> Connections => _connectionCache.Values;
 
     private void Dispose(bool disposing)
     {

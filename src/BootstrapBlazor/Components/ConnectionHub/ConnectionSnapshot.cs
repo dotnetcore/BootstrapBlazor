@@ -6,20 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">服务器在线连接快照</para>
-/// <para lang="en">Server online connection snapshot.</para>
+/// <para lang="zh">连接快照及服务端计算的在线连接数量</para>
+/// <para lang="en">Connection snapshot and the online connection count computed by the server</para>
 /// </summary>
-public class ConnectionSnapshot
-{
-    /// <summary>
-    /// <para lang="zh">获得/设置在线连接数，不包含已超时的连接</para>
-    /// <para lang="en">Gets or sets the online count, excluding timed-out connections.</para>
-    /// </summary>
-    public long Count { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置连接集合，包括尚未被过期扫描移除的记录</para>
-    /// <para lang="en">Gets or sets connections, including records not yet removed by the expiration scan.</para>
-    /// </summary>
-    public ICollection<ConnectionItem> Connections { get; set; } = Array.Empty<ConnectionItem>();
-}
+public sealed record ConnectionSnapshot(long Count, ICollection<ConnectionItem> Connections);

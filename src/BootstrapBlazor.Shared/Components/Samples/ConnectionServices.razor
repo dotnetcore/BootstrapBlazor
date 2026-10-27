@@ -77,28 +77,27 @@ if (ConnectionService.TryGetValue(connectionId, out var connection))
 
 <p class="code-label">@Localizer["EntityTitle", "ConnectionItem"]</p>
 
-<Pre>public class ConnectionItem
+<Pre>public record ConnectionItem
 {
     /// &lt;summary&gt;
     /// @Localizer["ConnectionIdComment"]
     /// &lt;/summary&gt;
-    [NotNull]
-    public string? Id { get; internal set; }
+    public string? Id { get; init; }    
 
     /// &lt;summary&gt;
     /// @Localizer["ClientInfoComment"]
     /// &lt;/summary&gt;
-    public ClientInfo? ClientInfo { get; set; }
+    public ClientInfo? ClientInfo { get; init; }
 
     /// &lt;summary&gt;
     /// @Localizer["ConnectionTimeComment"]
     /// &lt;/summary&gt;
-    public DateTimeOffset ConnectionTime { get; internal set; }
+    public DateTimeOffset ConnectionTime { get; init; }
 
     /// &lt;summary&gt;
     /// @Localizer["LastBeatTimeComment"]
     /// &lt;/summary&gt;
-    public DateTimeOffset LastBeatTime { get; internal set; }
+    public DateTimeOffset LastBeatTime { get; init; }
 }
 </Pre>
 
