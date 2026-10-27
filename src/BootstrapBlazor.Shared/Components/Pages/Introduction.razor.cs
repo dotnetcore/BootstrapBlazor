@@ -5,7 +5,7 @@
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components.Pages;
+namespace BootstrapBlazor.Shared.Components.Pages;
 
 /// <summary>
 /// 

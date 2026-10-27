@@ -25,6 +25,7 @@ builder.Services.Configure<BootstrapBlazor.Shared.Data.WebsiteOptions>(options =
     options.AssetRootPath = settings.AssetRootPath;
     options.ServerUrl = settings.ServerUrl;
     options.AdminUrl = settings.AdminUrl;
+    options.AdminProUrl = settings.AdminProUrl;
     options.BootstrapAdminLink = settings.BootstrapAdminLink;
     options.GithubRepositoryUrl = settings.GithubRepositoryUrl;
     options.GiteeRepositoryUrl = settings.GiteeRepositoryUrl;

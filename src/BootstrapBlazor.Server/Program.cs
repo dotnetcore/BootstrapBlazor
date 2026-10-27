@@ -71,6 +71,7 @@ app.MapGet("/api/layout-settings", (IOptions<WebsiteOptions> website, IOptions<B
         AssetRootPath = website.Value.AssetRootPath,
         ServerUrl = website.Value.ServerUrl,
         AdminUrl = website.Value.AdminUrl,
+        AdminProUrl = website.Value.AdminProUrl,
         BootstrapAdminLink = website.Value.BootstrapAdminLink,
         SupportedCultures = bootstrap.Value.GetSupportedCultures().Select(c => c.Name).ToList(),
         TargetFrameworks = website.Value.TargetFrameworks,

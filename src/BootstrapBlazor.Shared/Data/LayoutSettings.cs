@@ -26,6 +26,11 @@ public sealed class LayoutSettings
     public string AdminUrl { get; set; } = "";
 
     /// <summary>
+    /// Gets or sets the administration Pro demo link.
+    /// </summary>
+    public string AdminProUrl { get; set; } = "";
+
+    /// <summary>
     /// Gets or sets the administration repository link.
     /// </summary>
     public string BootstrapAdminLink { get; set; } = "";
