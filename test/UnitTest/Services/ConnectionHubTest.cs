@@ -15,27 +15,30 @@ namespace UnitTest.Services;
 public class ConnectionHubTest
 {
     [Fact]
-    public void ConnectionItem_Serializer_Ok()
+    public void ConnectionSnapshot_Serializer_Ok()
     {
-        var item = new ConnectionItem
-        {
-            Id = "connection_id",
-            ClientInfo = new ClientInfo { Id = "connection_id", Ip = "::1" },
-            ConnectionTime = new DateTimeOffset(2026, 10, 27, 10, 0, 0, TimeSpan.FromHours(8)),
-            LastBeatTime = new DateTimeOffset(2026, 10, 27, 10, 1, 0, TimeSpan.FromHours(8))
-        };
+        var snapshot = new ConnectionSnapshot(2,
+        [
+            new ConnectionItem
+            {
+                Id = "connection_id",
+                ClientInfo = new ClientInfo { Id = "connection_id", Ip = "::1" },
+                ConnectionTime = new DateTimeOffset(2026, 10, 27, 10, 0, 0, TimeSpan.FromHours(8)),
+                LastBeatTime = new DateTimeOffset(2026, 10, 27, 10, 1, 0, TimeSpan.FromHours(8))
+            }
+        ]);
 
-        var json = System.Text.Json.JsonSerializer.Serialize(item);
-        var result = System.Text.Json.JsonSerializer.Deserialize<ConnectionItem>(json);
+        var json = System.Text.Json.JsonSerializer.Serialize(snapshot);
+        var result = System.Text.Json.JsonSerializer.Deserialize<ConnectionSnapshot>(json);
 
         Assert.NotNull(result);
-        Assert.Equal(item.Id, result.Id);
-        Assert.Equal(item.ConnectionTime, result.ConnectionTime);
-        Assert.Equal(item.LastBeatTime, result.LastBeatTime);
-
-        Assert.NotNull(result.ClientInfo);
-        Assert.Equal(item.ClientInfo.Id, result.ClientInfo.Id);
-        Assert.Equal(item.ClientInfo.Ip, result.ClientInfo.Ip);
+        Assert.Equal(snapshot.Count, result.Count);
+        var item = Assert.Single(result.Connections);
+        Assert.Equal("connection_id", item.Id);
+        Assert.Equal("connection_id", item.ClientInfo?.Id);
+        Assert.Equal("::1", item.ClientInfo?.Ip);
+        Assert.Equal(snapshot.Connections.Single().ConnectionTime, item.ConnectionTime);
+        Assert.Equal(snapshot.Connections.Single().LastBeatTime, item.LastBeatTime);
     }
 
     [Fact]
