@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-rc.2.26504.105" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-rc.3.26522.148" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="11.0.0-rc.2" />
