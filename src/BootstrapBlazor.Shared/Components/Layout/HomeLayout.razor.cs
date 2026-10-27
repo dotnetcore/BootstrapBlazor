@@ -3,9 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace BootstrapBlazor.Server.Components.Layout;
+namespace BootstrapBlazor.Shared.Components.Layout;
 
 /// <summary>
 /// Home 模板
@@ -24,7 +25,11 @@ public partial class HomeLayout
     /// </summary>
     protected override void OnInitialized()
     {
-        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        if (OperatingSystem.IsBrowser())
+        {
+            OS = "WebAssembly";
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
         {
             OS = "Windows";
         }
@@ -42,18 +47,31 @@ public partial class HomeLayout
         }
     }
 
-    private Task SetLang(string cultureName)
+    private async Task SetLang(string cultureName)
     {
-        // 使用 api 方式 适用于 Server-Side 模式
         if (SelectedCulture != cultureName)
         {
+            if (OperatingSystem.IsBrowser())
+            {
+                try
+                {
+                    await JSRuntime.InvokeVoidAsync("bbCulture.set", cultureName);
+                }
+                catch (JSException ex)
+                {
+                    Logger.LogError(ex, "Error setting culture");
+                    return;
+                }
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+                return;
+            }
+
             var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
             var query = $"?culture={Uri.EscapeDataString(cultureName)}&redirectUri={Uri.EscapeDataString(uri)}";
 
             // use a path that matches your culture redirect controller from the previous steps
             NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
         }
-
-        return Task.CompletedTask;
     }
 }

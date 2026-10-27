@@ -5842,5 +5842,23 @@
     "CacheListRefresh": "Refresh",
     "CacheListTitle": "CacheManager",
     "CacheListValue": "Value"
+  },
+  "BootstrapBlazor.Shared.Components.Layout.HomeLayout": {
+    "Community": "Community",
+    "CommunityLi1": "Contribution guide",
+    "CommunityLi2": "Join us",
+    "CommunityLi3": "Contact details",
+    "Footer": "Gitee Hosting Platform",
+    "FooterH1": "Related Works",
+    "FooterLi1": "Slider verification code",
+    "FriendLink": "Links"
+  },
+  "BootstrapBlazor.Shared.Components.Pages.Index": {
+    "Docs": "Read the docs",
+    "DonateH1": "Donate",
+    "DonateH2": "Scan the code to donate and invite the author to have a cup of coffee",
+    "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
+    "Support": "Support",
+    "Title": "Bootstrap Blazor UI"
   }
 }

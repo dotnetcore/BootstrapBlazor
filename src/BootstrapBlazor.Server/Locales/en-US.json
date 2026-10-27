@@ -19,16 +19,6 @@
     "Title": "Methods",
     "Type": "Type"
   },
-  "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
-    "Community": "Community",
-    "CommunityLi1": "Contribution guide",
-    "CommunityLi2": "Join us",
-    "CommunityLi3": "Contact details",
-    "Footer": "Gitee Hosting Platform",
-    "FooterH1": "Related Works",
-    "FooterLi1": "Slider verification code",
-    "FriendLink": "Links"
-  },
   "BootstrapBlazor.Server.Components.Pages.Chats": {
     "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>",
     "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",
@@ -36,14 +26,6 @@
     "ChatsDescription": "Azure OpenAI service is a chatbot based on Azure cloud service, which can interact with users through dialogue",
     "ChatsTitle": "Azure OpenAI",
     "ChatUserTitle": "Chat session"
-  },
-  "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Docs": "Read the docs",
-    "DonateH1": "Donate",
-    "DonateH2": "Scan the code to donate and invite the author to have a cup of coffee",
-    "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
-    "Support": "Support",
-    "Title": "Bootstrap Blazor UI"
   },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "Amount incl. tax",

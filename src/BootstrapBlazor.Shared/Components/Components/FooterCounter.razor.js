@@ -1,4 +1,4 @@
-﻿import Data from "../../_content/BootstrapBlazor/modules/data.js"
+import Data from "../../../BootstrapBlazor/modules/data.js"
 
 export function init(id, totalSeconds) {
     const el = document.getElementById(id);

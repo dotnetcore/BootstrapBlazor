@@ -19,16 +19,6 @@
     "Title": "Methods 方法",
     "Type": "类型"
   },
-  "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
-    "Community": "社区",
-    "CommunityLi1": "贡献指南",
-    "CommunityLi2": "加入我们",
-    "CommunityLi3": "联系方式",
-    "Footer": "码云托管平台",
-    "FooterH1": "相关作品",
-    "FooterLi1": "滑块验证码",
-    "FriendLink": "友情链接"
-  },
   "BootstrapBlazor.Server.Components.Pages.Chats": {
     "ChatInfo": "由于 <code>GPT</code> 无免费接口，体验次数为 <b>{1}</b> 次，当前次数为 <b>{0}</b>",
     "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话",
@@ -36,14 +26,6 @@
     "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
     "ChatsTitle": "Azure OpenAI 服务",
     "ChatUserTitle": "聊天场景"
-  },
-  "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Docs": "阅读文档",
-    "DonateH1": "捐助",
-    "DonateH2": "扫码捐助请作者喝一杯咖啡",
-    "SubTitle": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，无缝整合了 Bootstrap 框架与 Blazor 技术。它提供了一整套强大的工具，使开发者能够轻松创建响应式和交互式的 Web 应用程序。",
-    "Support": "支持",
-    "Title": "Bootstrap Blazor UI"
   },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "价税合计",
