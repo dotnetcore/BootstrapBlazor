@@ -61,6 +61,11 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public ICollection<ConnectionItem> Connections => _connectionCache.Values;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="client"></param>
     /// <param name="cancellationToken"></param>
     public Task AddOrUpdateAsync(ClientInfo client, CancellationToken cancellationToken = default)
@@ -93,11 +98,6 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <param name="key"></param>
     /// <param name="value"></param>
     public bool TryGetValue(string key, [NotNullWhen(true)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public ICollection<ConnectionItem> Connections => _connectionCache.Values;
 
     private void Dispose(bool disposing)
     {
