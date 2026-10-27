@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Extensions;
+namespace BootstrapBlazor.Shared.Extensions;
 
 internal static class IpExtensions
 {

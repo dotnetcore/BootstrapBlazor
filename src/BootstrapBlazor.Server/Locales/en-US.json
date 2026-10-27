@@ -57,21 +57,6 @@
     "Support": "Support",
     "Title": "Bootstrap Blazor UI"
   },
-  "BootstrapBlazor.Server.Components.Pages.Online": {
-    "Browser": "Browser",
-    "City": "City",
-    "ConnectionTime": "ConnectionTime",
-    "Device": "Device",
-    "Dur": "Dur",
-    "Engine": "Engine",
-    "Ip": "Ip",
-    "Language": "Language",
-    "LastBeatTime": "LastBeatTime",
-    "LocalHost": "localhost",
-    "OS": "OS",
-    "RequestUrl": "RequestUrl",
-    "SubTitle": "Online population statistics"
-  },
   "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "AmountInFiguresLabel": "Amount incl. tax",
     "AmountLabel": "Amount",

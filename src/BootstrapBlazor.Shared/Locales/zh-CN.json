@@ -5815,5 +5815,20 @@
     "Para4": "本套组件额外增加了",
     "Para5": "各组件分层如下",
     "Para6": "测试环节"
+  },
+  "BootstrapBlazor.Shared.Components.Pages.Online": {
+    "Browser": "浏览器",
+    "City": "城市",
+    "ConnectionTime": "连接时间",
+    "Device": "设备",
+    "Dur": "持续时间",
+    "Engine": "引擎",
+    "Ip": "IP地址",
+    "Language": "语言",
+    "LastBeatTime": "最后心跳时间",
+    "LocalHost": "本地连接",
+    "OS": "操作系统",
+    "RequestUrl": "请求URL",
+    "SubTitle": "在线人数统计"
   }
 }

@@ -5815,5 +5815,20 @@
     "Para4": "This set of components additionally",
     "Para5": "The components are layered as follows",
     "Para6": "test session"
+  },
+  "BootstrapBlazor.Shared.Components.Pages.Online": {
+    "Browser": "Browser",
+    "City": "City",
+    "ConnectionTime": "ConnectionTime",
+    "Device": "Device",
+    "Dur": "Dur",
+    "Engine": "Engine",
+    "Ip": "Ip",
+    "Language": "Language",
+    "LastBeatTime": "LastBeatTime",
+    "LocalHost": "localhost",
+    "OS": "OS",
+    "RequestUrl": "RequestUrl",
+    "SubTitle": "Online population statistics"
   }
 }

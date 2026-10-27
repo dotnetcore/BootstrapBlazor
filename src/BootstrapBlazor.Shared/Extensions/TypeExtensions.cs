@@ -5,12 +5,12 @@
 
 using System.Reflection;
 
-namespace BootstrapBlazor.Server.Extensions;
+namespace BootstrapBlazor.Shared.Extensions;
 
 /// <summary>
 /// Type 类型扩展方法
 /// </summary>
-public static class TypExtensions
+public static class TypeExtensions
 {
     /// <summary>
     /// 判断是否为布局组件
