@@ -1,7 +1,7 @@
 #Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 #For more information, please see https://aka.ms/containercompat
 
-FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-rc.2 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-rc.3 AS base
 WORKDIR /app
 EXPOSE 8080
 
@@ -11,7 +11,7 @@ RUN apt install -y ./google-chrome-stable_current_amd64.deb
 RUN rm ./google-chrome-stable_current_amd64.deb
 RUN apt install -y fonts-wqy-microhei
 
-FROM mcr.microsoft.com/dotnet/sdk:11.0.100-rc.2 AS build
+FROM mcr.microsoft.com/dotnet/sdk:11.0.100-rc.3 AS build
 WORKDIR /
 COPY . .
 
