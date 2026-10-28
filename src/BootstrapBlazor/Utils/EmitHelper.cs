@@ -5,6 +5,7 @@
 
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
@@ -35,6 +36,7 @@ public static class EmitHelper
     ///  <para lang="zh">动态程序集名称</para>
     ///  <para lang="en">Dynamic assembly name</para>
     /// </param>
+    [UnsupportedOSPlatform("browser")]
     public static Type CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null, string assemblyName = DataTableDynamicContext.DynamicAssemblyName)
     {
         var typeBuilder = CreateTypeBuilderByName(assemblyName, typeName, parent);
