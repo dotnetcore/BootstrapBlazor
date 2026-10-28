@@ -17,6 +17,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.Configure<InteractiveRenderModeOptions>(
+    builder.Configuration.GetSection(InteractiveRenderModeOptions.SectionName));
+
 builder.Services.AddBootstrapBlazorServerService();
 builder.Services.AddBootstrapBlazorHub(options =>
 {

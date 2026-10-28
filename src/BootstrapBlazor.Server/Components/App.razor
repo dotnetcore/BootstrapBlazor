@@ -1,5 +1,6 @@
 @inject IWebHostEnvironment Env
 @inject IOptions<WebsiteOptions> WebsiteOption
+@inject IOptions<InteractiveRenderModeOptions> InteractiveRenderModeOptions
 
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentUICulture.Name" data-bs-theme='light'>
@@ -67,5 +68,5 @@
 </html>
 
 @code {
-    private static readonly IComponentRenderMode RenderMode = new InteractiveAutoRenderMode();
+    private IComponentRenderMode RenderMode => InteractiveRenderModeOptions.Value.GetRenderMode();
 }
