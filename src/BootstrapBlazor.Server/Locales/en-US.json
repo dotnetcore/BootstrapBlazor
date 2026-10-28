@@ -307,28 +307,6 @@
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
   },
-  "BootstrapBlazor.Server.Components.Samples.SignaturePadPageResponsive": {
-    "BackText": "Back",
-    "ResponsiveInterfaceText": "Responsive signature interface",
-    "ResultText": "Your signature",
-    "SignatureText": "Signature",
-    "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background."
-  },
-  "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
-    "BaseUsageIntro": "Signature with touch or mouse",
-    "BaseUsageText": "Basic usage",
-    "ButtonCssStyleIntro": "Set button css",
-    "ButtonCssStyleText": "Button CSS style",
-    "CustomButtonIntro": "Custom button text",
-    "CustomButtonText": "Custom button text",
-    "ResponsiveInterfaceText": "Responsive signature interface",
-    "ResultBase64Text": "Your signature in base64",
-    "ResultText": "Your signature",
-    "SignText": "signature",
-    "Tips": "Complex signatures will cause a large amount of data to be transmitted, and ssr will show a reload error. The configuration changes the maximum size of a single incoming hub message (default 32KB) to solve this problem. <code> builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null); </code> ",
-    "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background.",
-    "Title": "SignaturePad"
-  },
   "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
     "AdaptersDescription": "Receive data through the data adapter and display",
     "AdaptersTitle": "DataPackageAdapter",
@@ -385,11 +363,6 @@
     "SynthesizerNormalTitle": "Common usage",
     "SynthesizersSubTitle": "Convert text content to speech",
     "SynthesizersTitle": "Synthesizer speech synthesis"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
-    "BasicIntro": "Use svg editor",
-    "BasicTitle": "Svg Editor",
-    "SvgEditorTitle": "SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicDataTableIntro": "Only show <code>DataTable</code> data",

@@ -307,28 +307,6 @@
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} 是必填项"
   },
-  "BootstrapBlazor.Server.Components.Samples.SignaturePadPageResponsive": {
-    "BackText": "返回前页",
-    "ResponsiveInterfaceText": "响应式签名界面",
-    "ResultText": "您的签名",
-    "SignatureText": "签名",
-    "TipsResponsive": "设备宽度小于 640px (例如手机) 自动置顶无边框, 宽度小于 500px 按钮自动旋转. 可选透明背景。"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
-    "BaseUsageIntro": "鼠标滑动进行签名",
-    "BaseUsageText": "基础用法",
-    "ButtonCssStyleIntro": "设置按钮样式",
-    "ButtonCssStyleText": "按钮CSS式样",
-    "CustomButtonIntro": "自定义按钮文本",
-    "CustomButtonText": "自定义按钮文本",
-    "ResponsiveInterfaceText": "响应式签名界面",
-    "ResultBase64Text": "签名 Base64",
-    "ResultText": "您的签名",
-    "SignText": "请签名",
-    "Tips": "复杂签名会导致传输数据量大 ssr 会出现断流显示 reload 错误,配置更改单个传入集线器消息的最大大小(默认 32KB)解决这个问题。<code>builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null);</code>",
-    "TipsResponsive": "设备宽度小于 640px (例如手机) 自动置顶无边框, 宽度小于 500px 按钮自动旋转. 可选透明背景。",
-    "Title": "SignaturePad 手写签名"
-  },
   "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
     "AdaptersDescription": "通过数据适配器接收数据并且显示",
     "AdaptersTitle": "Socket 数据适配器示例",
@@ -385,11 +363,6 @@
     "SynthesizerNormalTitle": "普通用法",
     "SynthesizersSubTitle": "将文本内容转化为语音",
     "SynthesizersTitle": "Synthesizer 语音合成"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
-    "BasicIntro": "用于 Svg 编辑",
-    "BasicTitle": "Svg 编辑器",
-    "SvgEditorTitle": "Svg 编辑器"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicDataTableIntro": "仅展示 <code>DataTable</code> 数据",
