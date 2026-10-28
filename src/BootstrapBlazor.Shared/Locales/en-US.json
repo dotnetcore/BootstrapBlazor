@@ -1,4 +1,9 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.HikVisions": {
+    "BasicUsageIntro": "Operations are performed by calling the <code>HikVision</code> component instance method.",
+    "BasicUsageTitle": "Basic usage",
+    "Title": "HikVision"
+  },
   "BootstrapBlazor.Shared.Components.Samples.SignaturePadPageResponsive": {
     "BackText": "Back",
     "ResponsiveInterfaceText": "Responsive signature interface",

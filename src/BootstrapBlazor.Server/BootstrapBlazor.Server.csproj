@@ -22,7 +22,6 @@
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />

@@ -1,4 +1,9 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.HikVisions": {
+    "BasicUsageIntro": "通过调用 <code>HikVision</code> 组件实例方法进行操作",
+    "BasicUsageTitle": "基本用法",
+    "Title": "HikVision 海康摄像头"
+  },
   "BootstrapBlazor.Shared.Components.Samples.SignaturePadPageResponsive": {
     "BackText": "返回前页",
     "ResponsiveInterfaceText": "响应式签名界面",

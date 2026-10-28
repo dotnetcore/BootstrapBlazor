@@ -182,11 +182,6 @@
     "Tips": "目前仅支持 Excel(.xlsx) 和 Word(.docx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:",
     "Title": "FileViewer 文件预览器"
   },
-  "BootstrapBlazor.Server.Components.Samples.HikVisions": {
-    "BasicUsageIntro": "通过调用 <code>HikVision</code> 组件实例方法进行操作",
-    "BasicUsageTitle": "基本用法",
-    "Title": "HikVision 海康摄像头"
-  },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "CommonIssuesTitle": "常见问题",
     "ExportButtonText": "导出 Pdf",

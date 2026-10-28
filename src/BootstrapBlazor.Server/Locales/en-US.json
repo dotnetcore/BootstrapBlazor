@@ -182,11 +182,6 @@
     "Tips": "Currently only supports Excel(.xlsx) and Word(.docx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:",
     "Title": "FileViewer"
   },
-  "BootstrapBlazor.Server.Components.Samples.HikVisions": {
-    "BasicUsageIntro": "Operations are performed by calling the <code>HikVision</code> component instance method.",
-    "BasicUsageTitle": "Basic usage",
-    "Title": "HikVision"
-  },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "CommonIssuesTitle": "Common issues",
     "ExportButtonText": "Export Pdf",

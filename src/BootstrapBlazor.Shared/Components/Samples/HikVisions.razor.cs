@@ -5,7 +5,7 @@
 
 using System.Globalization;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// 海康威视网络摄像机组件
