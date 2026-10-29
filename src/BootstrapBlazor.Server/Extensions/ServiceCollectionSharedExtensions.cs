@@ -44,6 +44,7 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
+        services.AddScoped<ISampleChatService, SampleChatService>();
 
         // 增加 AzureTranslator 服务
         services.AddBootstrapBlazorAzureTranslator();

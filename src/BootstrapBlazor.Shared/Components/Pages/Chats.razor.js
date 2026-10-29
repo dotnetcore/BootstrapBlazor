@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -26,5 +26,5 @@ export function scroll(id) {
 
 export function dispose(id) {
     const el = document.getElementById(id)
-    EventHandler.off(el, 'onkeyup')
+    EventHandler.off(el, 'keyup')
 }

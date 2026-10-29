@@ -19,14 +19,6 @@
     "Title": "Methods 方法",
     "Type": "类型"
   },
-  "BootstrapBlazor.Server.Components.Pages.Chats": {
-    "ChatInfo": "由于 <code>GPT</code> 无免费接口，体验次数为 <b>{1}</b> 次，当前次数为 <b>{0}</b>",
-    "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话",
-    "ChatNormalTitle": "Azure OpenAI 服务",
-    "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
-    "ChatsTitle": "Azure OpenAI 服务",
-    "ChatUserTitle": "聊天场景"
-  },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "BaseUsageIntro": "Excel/Word 文件路径或者URL",
     "BaseUsageIntro2": "使用 Reload 方法重新载入文件",

@@ -20,6 +20,11 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
+            services.AddHttpClient<ISampleChatService, HttpSampleChatService>((provider, client) =>
+            {
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri);
+                client.Timeout = Timeout.InfiniteTimeSpan;
+            });
             services.AddHttpClient<ISampleOcrService, HttpSampleOcrService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             services.AddHttpClient<ISampleLocatorService, HttpSampleLocatorService>((provider, client) =>

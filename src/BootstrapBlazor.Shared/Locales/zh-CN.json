@@ -1,4 +1,14 @@
 {
+  "BootstrapBlazor.Shared.Components.Pages.Chats": {
+    "ChatFailed": "回复生成失败或连接中断，请重试。",
+    "ChatTooLong": "请输入不超过 8000 个字符。",
+    "ChatInfo": "由于 <code>GPT</code> 无免费接口，体验次数为 <b>{1}</b> 次，当前次数为 <b>{0}</b>",
+    "ChatNormalIntro": "支持 Server 与 Auto 模式并逐段显示回复。Azure 密钥与 50 次示例额度留在 Server，WebAssembly 通过 HTTP 聊天服务调用后台。",
+    "ChatNormalTitle": "Azure OpenAI 服务",
+    "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
+    "ChatsTitle": "Azure OpenAI 服务",
+    "ChatUserTitle": "聊天场景"
+  },
   "BootstrapBlazor.Shared.Components.Samples.BaiduOcr": {
     "ImageSizeError": "请选择非空且不超过 4 MB 的发票图片。",
     "RequestFailed": "OCR 请求失败，请稍后重试。",

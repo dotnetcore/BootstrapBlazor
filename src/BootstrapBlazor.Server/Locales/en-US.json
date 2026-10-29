@@ -19,14 +19,6 @@
     "Title": "Methods",
     "Type": "Type"
   },
-  "BootstrapBlazor.Server.Components.Pages.Chats": {
-    "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>",
-    "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",
-    "ChatNormalTitle": "Azure OpenAI",
-    "ChatsDescription": "Azure OpenAI service is a chatbot based on Azure cloud service, which can interact with users through dialogue",
-    "ChatsTitle": "Azure OpenAI",
-    "ChatUserTitle": "Chat session"
-  },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageIntro2": "Using the Reload method",

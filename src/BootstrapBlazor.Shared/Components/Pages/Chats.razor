@@ -1,8 +1,6 @@
 ﻿@page "/ai-chat"
-@using Azure.AI.OpenAI
-@inherits WebSiteModuleComponentBase
-@inject IOptions<WebsiteOptions> WebsiteOption
-@attribute [JSModuleAutoLoader("Pages/Chats.razor.js")]
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/Components/Pages/Chats.razor.js")]
 
 <h3>@Localizer["ChatsTitle"]</h3>
 
@@ -33,9 +31,9 @@
         }
         @foreach (var message in Messages)
         {
-            <div class="@GetStackClass(message.Role)" @key="message">
+            <div class="@GetStackClass(message.IsAssistant)" @key="message">
                 <div class="msg-role">
-                    @if (message.Role == ChatRole.User)
+                    @if (!message.IsAssistant)
                     {
                         <img src="@WebsiteOption.Value.GetAssetUrl("favicon.png")" alt="avatar">
                     }
@@ -47,7 +45,7 @@
                 <div class="msg-body">
                     <div class="msg-time">@message.Time.ToString("HH:mm:ss")</div>
                     <MarkdownContent Content="@message.Content"></MarkdownContent>
-                    @if (message.Role == ChatRole.Assistant)
+                    @if (message.IsAssistant)
                     {
                         <div class="msg-desc">AI-generated content may be incorrect</div>
                     }

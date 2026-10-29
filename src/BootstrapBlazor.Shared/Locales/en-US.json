@@ -1,4 +1,14 @@
 {
+  "BootstrapBlazor.Shared.Components.Pages.Chats": {
+    "ChatFailed": "Chat generation failed or the connection was interrupted. Please try again.",
+    "ChatTooLong": "Enter no more than 8000 characters.",
+    "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>",
+    "ChatNormalIntro": "Supports Server and Auto modes with streamed responses. Azure credentials and the 50-request sample quota stay on Server; WebAssembly uses the HTTP chat service.",
+    "ChatNormalTitle": "Azure OpenAI",
+    "ChatsDescription": "Azure OpenAI service is a chatbot based on Azure cloud service, which can interact with users through dialogue",
+    "ChatsTitle": "Azure OpenAI",
+    "ChatUserTitle": "Chat session"
+  },
   "BootstrapBlazor.Shared.Components.Samples.BaiduOcr": {
     "ImageSizeError": "Select a non-empty invoice image no larger than 4 MB.",
     "RequestFailed": "The OCR request failed. Please try again later.",
