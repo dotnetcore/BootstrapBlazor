@@ -17,6 +17,7 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
     {
         services.AddBootstrapBlazor(configureOptions);
         services.AddHttpClient();
+        services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
             // <para lang="zh">浏览器通过后台生成 PDF，Server 仍使用现有本地实现。</para>

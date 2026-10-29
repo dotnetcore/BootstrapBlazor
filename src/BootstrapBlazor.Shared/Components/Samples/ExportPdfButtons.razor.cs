@@ -3,13 +3,18 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// ExportPdfButtons 组件
+/// <para lang="zh">ExportPdfButtons 组件</para>
+/// <para lang="en">ExportPdfButtons component.</para>
 /// </summary>
 public partial class ExportPdfButtons
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ExportPdfButtons>? Localizer { get; set; }
+
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary

@@ -30,7 +30,16 @@ public sealed class HttpHtml2PdfService(HttpClient client) : IHtml2Pdf
         using var response = await client.PostAsJsonAsync("api/html2pdf", new Html2PdfRequest
         {
             Html = html,
-            Links = links?.ToList() ?? [],
+            // TableExport 将样式链接嵌入 HTML，未单独传 links；由后台内联对应内置样式。
+            // TableExport embeds stylesheet links in HTML instead of passing links; inline the built-in styles on the server.
+            Links = links?.ToList() ??
+            [
+                "_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
+                "_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
+                "_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
+                "_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
+                "_content/BootstrapBlazor/css/motronic.min.css"
+            ],
             Options = options
         });
         response.EnsureSuccessStatusCode();

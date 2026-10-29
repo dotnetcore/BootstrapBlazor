@@ -5,13 +5,26 @@
 
 using System.Text;
 
-namespace BootstrapBlazor.Server.Components.Samples.Table;
+namespace BootstrapBlazor.Shared.Components.Samples.Table;
 
 /// <summary>
-/// 导出示例代码
+/// <para lang="zh">表格导出示例代码。</para>
+/// <para lang="en">Table export examples.</para>
 /// </summary>
 public partial class TablesExport
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<NavMenu>? NavMenuLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesExport>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
+
     /// <summary>
     /// ToastService 服务实例
     /// </summary>

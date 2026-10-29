@@ -1,4 +1,56 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.DialogPdf": {
+    "ExportPdfButton": "Export Pdf",
+    "ExportPdfDialogIntro": "Set <code>ShowExportPdfButtonInHeader</code> to display an export PDF button on the <code>Header</code>",
+    "ExportPdfDialogTip": "More parameters can be set by setting <code>ExportPdfButtonOptions</code>",
+    "ExportPdfDialogTitle": "Pop up window with export Pdf function",
+    "BackToDialogs": "Back to dialog samples"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ExportPdfButtons": {
+    "ExportPdfButtonsDescription": "Export <code>HTML</code> fragments or web page elements as <code>Pdf</code>",
+    "ExportPdfButtonsTitle": "Convert specified webpage content to Pdf",
+    "ExportPdfButtonTips": "<code>IHtml2Pdf</code> service interfaces, please refer to <a target=\"_blank\" href=\"./html2pdf\">[Portal]</a>",
+    "GroupBoxTitle": "Edit form",
+    "NormalIntro": "Export specified elements by <code>Id</code>",
+    "NormalTitle": "ElementId",
+    "SelectorIntro": "Export Pdf by specifying element <code>Selector</code>",
+    "SelectorTitle": "Selector",
+    "ToastContent": "Exporting Pdf file",
+    "ToastDownloadTitle": "Download Pdf",
+    "ToastTitle": "Export Pdf"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ModalPdf": {
+    "BackToModals": "Back to modal samples",
+    "ExportPdfIntro": "Use <code>ShowExportPdfButtonInHeader</code> to show the PDF export button in the modal header",
+    "ExportPdfTitle": "Export PDF",
+    "ModalsScrollBarPopup": "Built-in scroll bar popup"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Table.TablesExport": {
+    "TablesExportButtonCliBoardAllText": "Export All data - ClipBoard",
+    "TablesExportButtonCliBoardText": "Export Page data - ClipBoard",
+    "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
+    "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",
+    "TablesExportButtonExcelAllText": "Export All data - Excel",
+    "TablesExportButtonExcelText": "Export Page data - Excel",
+    "TablesExportDescription1": "By setting <code>ShowExportButton</code> to display the export button, the component has built-in export Excel function",
+    "TablesExportDescription2": "The export function provides an export callback method <code>OnExportAsync</code>, which can be used to export data by providing a custom export method. If no data export method is provided, the component will export data according to the injected export service",
+    "TablesExportNote1": "Add BootstrapBlazor component",
+    "TablesExportNote2": "Add Table Excel export service",
+    "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used. You can set the column property <code>IgnoreWhenExport=\"true\"</code> to ignore this column when exporting",
+    "TablesExportOnExportAsyncTitle": "Custom export method",
+    "TablesExportPdfDesc": "Export Pdf function dependencies on additional packages",
+    "TablesExportPdfNote1": "Injecting the <code>Html2Pdf</code> service",
+    "TablesExportPdfNote2": "Added Html2Pdf export service",
+    "TablesExportShowExportButtonIntro": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
+    "TablesExportShowExportButtonTitle": "Table export function",
+    "TablesExportShowExportCsvButtonIntro": "Show/hide <code>Csv/Pdf</code> button by set <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code>",
+    "TablesExportShowExportCsvButtonTitle": "Export Csv/Pdf Button",
+    "TablesExportTips": "inject service",
+    "TablesExportTitle": "Table Export",
+    "TablesExportToastFailedContent": "Export failed，auto close after 4 second",
+    "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
+    "TablesExportToastTitle": "Export Data"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Html2Pdfs": {
     "AutoModeNote": "Server mode uses the local PDF service; WebAssembly sends HTML to the server and downloads the generated PDF. The remote demo supports built-in styles only and does not execute scripts or load external resources.",
     "CommonIssuesTitle": "Common issues",
@@ -710,7 +762,7 @@
     "Title": "Dispatch message distribution"
   },
   "BootstrapBlazor.Shared.Components.Samples.Dialogs": {
-    "ExportPdfServerNote": "PDF export requires server-side conversion. Open the dedicated sample page.",
+    "ExportPdfServerNote": "PDF export supports Server and Auto modes. In WebAssembly, the server generates the PDF and the browser downloads it.",
     "OpenPdfSample": "Open PDF export sample",
     "ApplyDisplayText": "Primary key parameter",
     "ApplyIntro": "In this example, by passing a primary key, the components in the pop-up window perform data query through this primary key, and display the results in the pop-up window",
@@ -3115,7 +3167,7 @@
   },
   "BootstrapBlazor.Shared.Components.Samples.Modals": {
     "ExportPdfIntro": "Use <code>ShowExportPdfButtonInHeader</code> to show the PDF export button in the modal header",
-    "ExportPdfServerNote": "PDF export requires server-side conversion. Open the dedicated sample page.",
+    "ExportPdfServerNote": "PDF export supports Server and Auto modes. In WebAssembly, the server generates the PDF and the browser downloads it.",
     "ExportPdfTitle": "Export PDF",
     "ModalsBigPopup": "big popup",
     "ModalsCenterVerticallyIntro": "Set the vertical centering of the popup component via <code>IsCentered</code>",

@@ -48,11 +48,6 @@ public static class ServiceCollectionSharedExtensions
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        // 增加 BootstrapBlazor 假日服务
-
-        // 增加 Table Excel 导出服务
-        services.AddBootstrapBlazorTableExportService();
-
         // 增加离线 IP 定位服务
         services.AddBootstrapBlazorIP2RegionService();
 

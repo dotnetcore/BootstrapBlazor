@@ -3,13 +3,18 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// Dialog PDF export sample.
+/// <para lang="zh">Dialog PDF 导出示例。</para>
+/// <para lang="en">Dialog PDF export sample.</para>
 /// </summary>
 public partial class DialogPdf
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DialogPdf>? Localizer { get; set; }
+
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }

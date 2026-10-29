@@ -19,6 +19,9 @@ public sealed class Html2PdfController(IHtml2Pdf pdfService, IWebHostEnvironment
     private static readonly HashSet<string> _styles = new(StringComparer.Ordinal)
     {
         "_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
+        "_content/BootstrapBlazor/css/motronic.min.css",
+        "_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
+        "_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
         "_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"
     };
 

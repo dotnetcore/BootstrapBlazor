@@ -2,6 +2,7 @@
   <Import Project="..\..\Framework.props" />
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <Content Remove="Locales\*.json;docs.json;topology.json" />
     <EmbeddedResource Include="Locales\*.json;docs.json;topology.json" />
   </ItemGroup>

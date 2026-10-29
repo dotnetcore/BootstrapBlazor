@@ -1,4 +1,56 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.DialogPdf": {
+    "ExportPdfButton": "导出 Pdf 弹窗",
+    "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
+    "ExportPdfDialogTip": "可通过设置 <code>ExportPdfButtonOptions</code> 对更多参数进行设置",
+    "ExportPdfDialogTitle": "带导出 Pdf 功能的弹窗",
+    "BackToDialogs": "返回弹窗示例"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ExportPdfButtons": {
+    "ExportPdfButtonsDescription": "将 <code>Html</code> 片段或者网页元素导出为 <code>Pdf</code>",
+    "ExportPdfButtonsTitle": "将指定网页内容转成 Pdf",
+    "ExportPdfButtonTips": "<code>IHtml2Pdf</code> 服务接口请参阅 <a target=\"_blank\" href=\"./html2pdf\">[传送门]</a>",
+    "GroupBoxTitle": "编辑表单",
+    "NormalIntro": "导出指定元素 <code>Id</code>",
+    "NormalTitle": "ElementId",
+    "SelectorIntro": "通过指定元素 <code>Selector</code> 导出 Pdf",
+    "SelectorTitle": "Selector",
+    "ToastContent": "正在导出 Pdf 文件",
+    "ToastDownloadTitle": "下载 Pdf",
+    "ToastTitle": "导出 Pdf"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.ModalPdf": {
+    "BackToModals": "返回模态框示例",
+    "ExportPdfIntro": "通过 <code>ShowExportPdfButtonInHeader</code> 在弹窗标题栏显示 PDF 导出按钮",
+    "ExportPdfTitle": "导出 PDF",
+    "ModalsScrollBarPopup": "内置滚动条弹窗"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Table.TablesExport": {
+    "TablesExportButtonCliBoardAllText": "导出全部页到剪切板",
+    "TablesExportButtonCliBoardText": "导出当前页到剪切板",
+    "TablesExportButtonDropdownTemplateIntro": "通过设置 <code>ExportButtonDropdownTemplate</code> 模板自定义导出按钮下拉框内容",
+    "TablesExportButtonDropdownTemplateTitle": "自定义导出下拉框按钮",
+    "TablesExportButtonExcelAllText": "导出全部数据 Excel",
+    "TablesExportButtonExcelText": "导出当前页数据 Excel",
+    "TablesExportDescription1": "通过设置 <code>ShowExportButton</code> 参数显示导出按钮，组件内置导出 Excel/Csv/Pdf 功能",
+    "TablesExportDescription2": "导出功能提供了导出回调方法 <code>OnExportAsync</code> 使用时可以通过提供自定义的导出方法进行数据导出，如果未提供数据导出方法，组件会根据注入的导出服务进行数据导出",
+    "TablesExportNote1": "增加 BootstrapBlazor 组件",
+    "TablesExportNote2": "增加 Table Excel 导出服务",
+    "TablesExportOnExportAsyncIntro": "通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数，可通过设置列属性 <code>IgnoreWhenExport=\"true\"</code> 导出时忽略此列",
+    "TablesExportOnExportAsyncTitle": "自定义导出方法",
+    "TablesExportPdfDesc": "导出 Pdf 功能依赖额外组件包",
+    "TablesExportPdfNote1": "注入 <code>Html2Pdf</code> 服务",
+    "TablesExportPdfNote2": "增加 Html2Pdf 导出服务",
+    "TablesExportShowExportButtonIntro": "通过设置 <code>ShowExportButton=\"true\"</code> 属性是否显示导出按钮，默认为<code>false</code>",
+    "TablesExportShowExportButtonTitle": "表格导出功能",
+    "TablesExportShowExportCsvButtonIntro": "通过设置 <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code> 控制 <code>Csv/Pdf</code> 导出按钮",
+    "TablesExportShowExportCsvButtonTitle": "导出 Csv/Pdf",
+    "TablesExportTips": "注入服务",
+    "TablesExportTitle": "Table 表格",
+    "TablesExportToastFailedContent": "导出数据失败，4 秒后自动关闭",
+    "TablesExportToastSuccessContent": "导出数据成功，4 秒后自动关闭",
+    "TablesExportToastTitle": "数据导出"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Html2Pdfs": {
     "AutoModeNote": "Server 模式使用本地 PDF 服务；WebAssembly 模式提交 HTML 到后台生成后下载。远程示例仅支持内置样式，不执行脚本或加载外部资源。",
     "CommonIssuesTitle": "常见问题",
@@ -710,7 +762,7 @@
     "Title": "Dispatch 消息分发"
   },
   "BootstrapBlazor.Shared.Components.Samples.Dialogs": {
-    "ExportPdfServerNote": "PDF 导出需要服务端转换，请前往独立示例页面。",
+    "ExportPdfServerNote": "PDF 导出支持 Server 与 Auto 模式；WebAssembly 模式由后台生成 PDF，再由浏览器下载。",
     "OpenPdfSample": "打开 PDF 导出示例",
     "ApplyDisplayText": "主键参数",
     "ApplyIntro": "本例中通过传递一个主键，在弹窗内的组件通过此主键进行数据查询，并将结果显示在弹窗内",
@@ -3115,7 +3167,7 @@
   },
   "BootstrapBlazor.Shared.Components.Samples.Modals": {
     "ExportPdfIntro": "通过 <code>ShowExportPdfButtonInHeader</code> 在弹窗标题栏显示 PDF 导出按钮",
-    "ExportPdfServerNote": "PDF 导出需要服务端转换，请前往独立示例页面。",
+    "ExportPdfServerNote": "PDF 导出支持 Server 与 Auto 模式；WebAssembly 模式由后台生成 PDF，再由浏览器下载。",
     "ExportPdfTitle": "导出 PDF",
     "ModalsBigPopup": "大弹窗",
     "ModalsCenterVerticallyIntro": "通过 <code>IsCentered</code> 设置弹框组件的垂直居中",
