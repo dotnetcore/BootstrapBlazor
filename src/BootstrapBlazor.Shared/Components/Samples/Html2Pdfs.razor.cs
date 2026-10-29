@@ -5,10 +5,11 @@
 
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// Html2Pdf 示例
+/// <para lang="zh">Html2Pdf 示例</para>
+/// <para lang="en">Html2Pdf examples.</para>
 /// </summary>
 public partial class Html2Pdfs
 {
@@ -41,7 +42,8 @@ public partial class Html2Pdfs
     private IJSRuntime? JSRuntime { get; set; }
 
     /// <summary>
-    /// 获得 IconTheme 实例
+    /// <para lang="zh">获得 IconTheme 实例</para>
+    /// <para lang="en">Gets the IconTheme instance.</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -67,11 +69,13 @@ public partial class Html2Pdfs
     private async Task OnExportAsync()
     {
         // 通过脚本 getHtml 获得 table 表格 Html
+        // Get the table HTML through the getHtml script.
         var module = await JSRuntime.LoadUtility();
         var html = await module.GetHtml("table-9527");
         if (!string.IsNullOrEmpty(html))
         {
             // 通过模板生成完整的 Html
+            // Generate a complete HTML document from the template.
             var htmlString = $"""
                 <!DOCTYPE html>
 
@@ -86,15 +90,18 @@ public partial class Html2Pdfs
                 """;
 
             // 增加网页所需样式表文件
+            // Include the styles required by the page.
             using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, [$"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"], options: new PdfOptions()
             {
                 Format = PaperFormat.A4
             });
 
             // 下载 Pdf 文件
+            // Download the PDF returned by the locally registered or HTTP-backed service.
             await DownloadService.DownloadFromStreamAsync($"table-{DateTime.Now:HHmmss}.pdf", stream);
 
             // 提示文件下载成功
+            // Report completion after the download succeeds.
             await ToastService.Success(Localizer["ToastTitle"], Localizer["ToastContent"]);
         }
     }

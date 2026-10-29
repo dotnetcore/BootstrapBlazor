@@ -19,6 +19,10 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddHttpClient();
         if (OperatingSystem.IsBrowser())
         {
+            // <para lang="zh">浏览器通过后台生成 PDF，Server 仍使用现有本地实现。</para>
+            // <para lang="en">The browser generates PDFs through the server; Server keeps its existing local implementation.</para>
+            services.AddHttpClient<IHtml2Pdf, HttpHtml2PdfService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             // WebAssembly 通过同源 HTTP 接口上传，避免在浏览器中访问服务器文件系统。
