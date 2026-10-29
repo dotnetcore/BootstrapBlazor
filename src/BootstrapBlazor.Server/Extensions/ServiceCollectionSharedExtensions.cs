@@ -20,9 +20,6 @@ public static class ServiceCollectionSharedExtensions
         // 增加示例文档源码服务
         services.AddSingleton<ISampleDocumentationService, CodeSnippetService>();
 
-        // 增加示例数据服务
-        services.AddSingleton<MockDataTableDynamicService>();
-
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);
 

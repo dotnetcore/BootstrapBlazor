@@ -1,24 +1,4 @@
 {
-  "BootstrapBlazor.Server.Components.Common.AttributeItem": {
-    "DefaultValue": "默认值",
-    "Description": "说明",
-    "Name": "参数",
-    "Type": "类型",
-    "ValueList": "可选值"
-  },
-  "BootstrapBlazor.Server.Components.Common.EventItem": {
-    "Description": "说明",
-    "Name": "参数",
-    "Type": "类型"
-  },
-  "BootstrapBlazor.Server.Components.Common.MethodItem": {
-    "Description": "说明",
-    "Name": "参数",
-    "Parameters": "参数",
-    "ReturnValue": "返回值",
-    "Title": "Methods 方法",
-    "Type": "类型"
-  },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "BaseUsageIntro": "Excel/Word 文件路径或者URL",
     "BaseUsageIntro2": "使用 Reload 方法重新载入文件",
@@ -74,9 +54,6 @@
     "Step4Title": "4. 浏览",
     "SubscribeButtonText": "订阅",
     "ValueLabel": "节点值"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
-    "Foo.Required": "{0} 是必填项"
   },
   "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
     "AdaptersDescription": "通过数据适配器接收数据并且显示",
@@ -172,24 +149,5 @@
     "Show": "显示",
     "ToolboxCardTitle": "工具栏",
     "Translate": "机翻"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Uploads.Person": {
-    "Name": "姓名",
-    "Name.Required": "{0}不能为空",
-    "Picture": "上传文件",
-    "Picture.Required": "上传文件不能为空"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ValidateForms.ComplexFoo": {
-    "Name": "姓名",
-    "Name.Required": "{0} 值是必填项"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ValidateForms.Dummy2": {
-    "Name": "姓名",
-    "Name.Required": "Dummy2 {0} 值是必填项"
-  },
-  "BootstrapBlazor.Server.Data.EventItem": {
-    "Description": "说明",
-    "Name": "参数",
-    "Type": "类型"
   }
 }

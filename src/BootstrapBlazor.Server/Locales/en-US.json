@@ -1,24 +1,4 @@
 {
-  "BootstrapBlazor.Server.Components.Common.AttributeItem": {
-    "DefaultValue": "DefaultValue",
-    "Description": "Description",
-    "Name": "Parameter",
-    "Type": "Type",
-    "ValueList": "ValueList"
-  },
-  "BootstrapBlazor.Server.Components.Common.EventItem": {
-    "Description": "Description",
-    "Name": "Parameter",
-    "Type": "Type"
-  },
-  "BootstrapBlazor.Server.Components.Common.MethodItem": {
-    "Description": "Description",
-    "Name": "Parameter",
-    "Parameters": "Parameters",
-    "ReturnValue": "ReturnValue",
-    "Title": "Methods",
-    "Type": "Type"
-  },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageIntro2": "Using the Reload method",
@@ -74,9 +54,6 @@
     "Step4Title": "4. Browse",
     "SubscribeButtonText": "Subscribe",
     "ValueLabel": "Value"
-  },
-  "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
-    "Foo.Required": "{0} is required."
   },
   "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
     "AdaptersDescription": "Receive data through the data adapter and display",
@@ -172,24 +149,5 @@
     "Show": "Show",
     "ToolboxCardTitle": "Tools",
     "Translate": "Translate"
-  },
-  "BootstrapBlazor.Server.Components.Samples.Uploads.Person": {
-    "Name": "Name",
-    "Name.Required": "{0} is required",
-    "Picture": "File",
-    "Picture.Required": "{0} is required"
-  },
-  "BootstrapBlazor.Server.Components.Samples.ValidateForms.ComplexFoo": {
-    "Name": "Name",
-    "Name.Required": "{0} is required."
-  },
-  "BootstrapBlazor.Server.Components.Samples.ValidateForms.Dummy2": {
-    "Name": "Name",
-    "Name.Required": "Dummy2 {0} is required"
-  },
-  "BootstrapBlazor.Server.Data.EventItem": {
-    "Description": "Description",
-    "Name": "Name",
-    "Type": "Type"
   }
 }
