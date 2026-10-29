@@ -8,7 +8,8 @@ using Opc.Ua;
 namespace BootstrapBlazor.OpcUa;
 
 /// <summary>
-/// 模拟 OpcUa Client 实现类
+/// <para lang="zh">模拟 OpcUa Client 实现类。</para>
+/// <para lang="en">Mock OpcUa client implementation.</para>
 /// </summary>
 sealed class MockOpcUaClient : IOpcUaClient
 {

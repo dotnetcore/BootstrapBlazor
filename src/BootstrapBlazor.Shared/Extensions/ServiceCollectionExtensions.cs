@@ -20,6 +20,8 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
+            services.AddMockOpcDaClient();
+            services.AddMockOpcUaClient();
             services.AddHttpClient<ISampleFileViewerService, HttpSampleFileViewerService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             services.AddHttpClient<ISampleChatService, HttpSampleChatService>((provider, client) =>

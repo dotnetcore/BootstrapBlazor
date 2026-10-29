@@ -19,7 +19,7 @@ sealed class MockOpcUaSubscription : IOpcUaSubscription, IDisposable
         _publishingInterval = Math.Max(1, publishingInterval);
         _active = active;
         _cancellationTokenSource = new CancellationTokenSource();
-        _ = Task.Run(() => RunAsync(_cancellationTokenSource.Token));
+        _ = RunAsync(_cancellationTokenSource.Token);
     }
 
     public string Name { get; }
@@ -53,20 +53,19 @@ sealed class MockOpcUaSubscription : IOpcUaSubscription, IDisposable
 
     private async Task RunAsync(CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested)
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(_publishingInterval));
+        try
         {
-            try
+            while (await timer.WaitForNextTickAsync(cancellationToken))
             {
                 if (_active)
                 {
                     UpdateValues();
                 }
-                await Task.Delay(_publishingInterval, cancellationToken);
             }
-            catch (OperationCanceledException)
-            {
-                break;
-            }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
         }
     }
 
@@ -74,6 +73,7 @@ sealed class MockOpcUaSubscription : IOpcUaSubscription, IDisposable
     {
         if (disposing && _cancellationTokenSource != null)
         {
+            DataChanged = null;
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;

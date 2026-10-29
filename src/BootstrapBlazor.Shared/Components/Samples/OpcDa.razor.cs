@@ -6,13 +6,18 @@
 using BootstrapBlazor.OpcDa;
 using System.Globalization;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// OpcDa 示例
+/// <para lang="zh">OpcDa 示例。</para>
+/// <para lang="en">OpcDa sample.</para>
 /// </summary>
-public partial class OpcDa : ComponentBase
+public partial class OpcDa : ComponentBase, IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<OpcDa>? Localizer { get; set; }
+
     [Inject]
     [NotNull]
     private IOpcDaClient? OpcDaClient { get; set; }
@@ -30,6 +35,7 @@ public partial class OpcDa : ComponentBase
     private IOpcSubscription? _subscription;
 
     private bool _subscribed;
+    private bool _disposed;
     private CultureInfo? _culture;
     private CultureInfo? _uiCulture;
 
@@ -79,6 +85,7 @@ public partial class OpcDa : ComponentBase
         {
             _subscription.DataChanged -= UpdateValues;
             OpcDaClient.CancelSubscription(_subscription);
+            _subscription = null;
         }
     }
 
@@ -86,6 +93,10 @@ public partial class OpcDa : ComponentBase
     {
         _ = InvokeAsync(() =>
         {
+            if (_disposed || !_subscribed)
+            {
+                return;
+            }
             if (_culture != null)
             {
                 CultureInfo.CurrentCulture = _culture;
@@ -137,5 +148,13 @@ public partial class OpcDa : ComponentBase
             element.HasChildren = false;
         }
         return Task.FromResult(items);
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        _disposed = true;
+        OnCancelSubscription();
+        GC.SuppressFinalize(this);
     }
 }

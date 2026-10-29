@@ -6,13 +6,18 @@
 using BootstrapBlazor.OpcUa;
 using Opc.Ua;
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// OpcUa 示例
+/// <para lang="zh">OpcUa 示例。</para>
+/// <para lang="en">OpcUa sample.</para>
 /// </summary>
-public partial class OpcUa : ComponentBase
+public partial class OpcUa : ComponentBase, IAsyncDisposable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<OpcUa>? Localizer { get; set; }
+
     [Inject]
     [NotNull]
     private IOpcUaClient? OpcUaClient { get; set; }
@@ -24,6 +29,7 @@ public partial class OpcUa : ComponentBase
     private string? _value;
 
     private IOpcUaSubscription? _subscription;
+    private bool _disposed;
 
     private List<TreeViewItem<OpcUaBrowseElement>> _roots = [];
 
@@ -54,19 +60,26 @@ public partial class OpcUa : ComponentBase
     {
         if (!string.IsNullOrEmpty(_nodeId))
         {
-            _subscription = await OpcUaClient.CreateSubscriptionAsync("Subscription1");
-            _subscription.DataChanged = UpdateValues;
-            await _subscription.AddItemsAsync([_nodeId]);
+            var subscription = await OpcUaClient.CreateSubscriptionAsync("Subscription1");
+            if (_disposed)
+            {
+                await OpcUaClient.CancelSubscriptionAsync(subscription);
+                return;
+            }
+            _subscription = subscription;
+            subscription.DataChanged = UpdateValues;
+            await subscription.AddItemsAsync([_nodeId]);
         }
     }
 
     private async Task OnCancelSubscription()
     {
-        if (_subscription != null)
+        var subscription = _subscription;
+        _subscription = null;
+        if (subscription != null)
         {
-            _subscription.DataChanged = null;
-            await OpcUaClient.CancelSubscriptionAsync(_subscription);
-            _subscription = null;
+            subscription.DataChanged = null;
+            await OpcUaClient.CancelSubscriptionAsync(subscription);
         }
     }
 
@@ -74,6 +87,10 @@ public partial class OpcUa : ComponentBase
     {
         _ = InvokeAsync(() =>
         {
+            if (_disposed || _subscription == null)
+            {
+                return;
+            }
             _value = items.FirstOrDefault()?.Value?.ToString();
             StateHasChanged();
         });
@@ -102,4 +119,12 @@ public partial class OpcUa : ComponentBase
         HasChildren = element.NodeClass != NodeClass.Variable,
         Icon = element.NodeClass == NodeClass.Variable ? "fa-solid fa-fw fa-wrench" : "fa-solid fa-fw fa-cube"
     };
+
+    /// <inheritdoc />
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+        await OnCancelSubscription();
+        GC.SuppressFinalize(this);
+    }
 }

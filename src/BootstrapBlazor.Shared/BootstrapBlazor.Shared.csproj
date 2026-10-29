@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="11.0.0-rc.2" />

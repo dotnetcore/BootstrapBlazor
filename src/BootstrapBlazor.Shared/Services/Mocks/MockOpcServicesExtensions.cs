@@ -8,10 +8,15 @@ using BootstrapBlazor.OpcUa;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-static class MockOpcServicesExtensions
+/// <summary>
+/// <para lang="zh">注册浏览器与非 Windows 示例使用的 OPC 模拟服务。</para>
+/// <para lang="en">Registers mock OPC services for browser and non-Windows samples.</para>
+/// </summary>
+public static class MockOpcServicesExtensions
 {
     /// <summary>
-    /// 增加模拟 OpcDaClient 操作服务
+    /// <para lang="zh">增加模拟 OpcDaClient 操作服务。</para>
+    /// <para lang="en">Adds the mock OpcDa client service.</para>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
@@ -22,7 +27,8 @@ static class MockOpcServicesExtensions
     }
 
     /// <summary>
-    /// 增加模拟 OpcUaClient 操作服务
+    /// <para lang="zh">增加模拟 OpcUaClient 操作服务。</para>
+    /// <para lang="en">Adds the mock OpcUa client service.</para>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>

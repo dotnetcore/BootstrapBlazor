@@ -15,11 +15,11 @@ sealed class MockOpcDaSubscription : IOpcSubscription, IDisposable
     public MockOpcDaSubscription(string name, int updateRate = 1000, bool active = true)
     {
         Name = name;
-        _updateRate = updateRate;
+        _updateRate = Math.Max(1, updateRate);
         _active = active;
 
         _cts = new CancellationTokenSource();
-        _ = Task.Run(() => DoTask(_cts.Token));
+        _ = DoTask(_cts.Token);
     }
 
     public string Name { get; }
@@ -35,32 +35,31 @@ sealed class MockOpcDaSubscription : IOpcSubscription, IDisposable
 
     private void UpdateValues()
     {
-        if (DataChanged != null)
+        var callback = DataChanged;
+        if (callback != null)
         {
             var values = _items.Select(i => new OpcReadItem(i, Quality.Good, DateTime.Now, Random.Shared.Next(1000, 2000))).ToList();
-            DataChanged.Invoke(values);
+            callback.Invoke(values);
         }
     }
 
     private async Task DoTask(CancellationToken token)
     {
-        do
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(_updateRate));
+        try
         {
-            try
+            while (await timer.WaitForNextTickAsync(token))
             {
                 if (_active)
                 {
                     UpdateValues();
                 }
-
-                await Task.Delay(_updateRate, token);
-            }
-            catch (OperationCanceledException)
-            {
-                // ignored
             }
         }
-        while (!token.IsCancellationRequested);
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+            // ignored
+        }
     }
 
     private void Dispose(bool disposing)
@@ -69,6 +68,7 @@ sealed class MockOpcDaSubscription : IOpcSubscription, IDisposable
         {
             if (_cts != null)
             {
+                DataChanged = null;
                 _cts.Cancel();
                 _cts.Dispose();
                 _cts = null;

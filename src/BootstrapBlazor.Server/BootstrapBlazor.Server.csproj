@@ -26,8 +26,6 @@
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.3.3" />
-    <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
     <PackageReference Include="Longbow.Logging" Version="10.0.1" />

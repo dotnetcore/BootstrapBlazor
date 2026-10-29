@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.OpcDa;
 
 /// <summary>
-/// 模拟 OpcDa Client 实现类
+/// <para lang="zh">模拟 OpcDa Client 实现类。</para>
+/// <para lang="en">Mock OpcDa client implementation.</para>
 /// </summary>
 sealed class MockOpcDaClient : IOpcDaClient
 {
@@ -25,6 +26,14 @@ sealed class MockOpcDaClient : IOpcDaClient
 
     public void Disconnect()
     {
+        foreach (var subscription in _subscriptions.Values)
+        {
+            if (subscription is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+        _subscriptions.Clear();
         IsConnected = false;
         ServerName = null;
     }
@@ -63,7 +72,8 @@ sealed class MockOpcDaClient : IOpcDaClient
     }
 
     /// <summary>
-    /// 浏览 OPC Server 中的位号 (即数据项或者标签)
+    /// <para lang="zh">浏览 OPC Server 中的位号 (即数据项或者标签)。</para>
+    /// <para lang="en">Browses items or tags in the OPC server.</para>
     /// </summary>
     /// <param name="name"></param>
     /// <param name="filters"></param>
@@ -129,7 +139,8 @@ sealed class MockOpcDaClient : IOpcDaClient
     }
 
     /// <summary>
-    /// 浏览 OPC Server 中的位号 (即数据项或者标签)
+    /// <para lang="zh">浏览 OPC Server 中的位号 (即数据项或者标签)。</para>
+    /// <para lang="en">Continues browsing items or tags in the OPC server.</para>
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
@@ -140,6 +151,6 @@ sealed class MockOpcDaClient : IOpcDaClient
 
     public void Dispose()
     {
-
+        Disconnect();
     }
 }
