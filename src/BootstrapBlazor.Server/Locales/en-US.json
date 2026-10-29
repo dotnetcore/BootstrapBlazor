@@ -1,12 +1,4 @@
 {
-  "BootstrapBlazor.Server.Components.Samples.FileViewers": {
-    "BaseUsageIntro": "Excel/Word file path or URL",
-    "BaseUsageIntro2": "Using the Reload method",
-    "BaseUsageText": "Basic usage",
-    "BaseUsageText2": "Reload file",
-    "Tips": "Currently only supports Excel(.xlsx) and Word(.docx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:",
-    "Title": "FileViewer"
-  },
   "BootstrapBlazor.Server.Components.Samples.OpcDa": {
     "BrowseButtonText": "Browse",
     "CancelButtonText": "Cancel",

@@ -19,6 +19,7 @@ public static class ServiceCollectionSharedExtensions
     {
         // 增加示例文档源码服务
         services.AddSingleton<ISampleDocumentationService, CodeSnippetService>();
+        services.AddScoped<ISampleFileViewerService, SampleFileViewerService>();
 
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);

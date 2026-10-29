@@ -1,4 +1,15 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.FileViewers": {
+    "BaseUsageIntro": "Word 与 Excel 站点示例文件，两种运行模式均在 Server 转换。",
+    "BaseUsageIntro2": "选择或输入 sample.xlsx / sample.docx 重新加载。本示例不接受任意文件路径或远程 URL。",
+    "BaseUsageText": "基础用法",
+    "BaseUsageText2": "重新载入文件",
+    "Load": "加载",
+    "InvalidFile": "请输入 sample.xlsx 或 sample.docx。",
+    "PreviewFailed": "文件预览失败，请重试。",
+    "Tips": "支持 Server 与 Auto 模式。FileViewer 原有的 Word/Excel 转换器及其依赖保留在 Server，WebAssembly 获取转换后的 HTML 并通过沙箱框架展示。FileViewer 组件本身在 Server 端仍支持文件路径、URL 和文件流。",
+    "Title": "FileViewer 文件预览器"
+  },
   "BootstrapBlazor.Shared.Components.Pages.Chats": {
     "ChatFailed": "回复生成失败或连接中断，请重试。",
     "ChatTooLong": "请输入不超过 8000 个字符。",

@@ -38,6 +38,13 @@ public sealed partial class AttributeTable
     public Type? Type { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置预加载的参数文档，避免客户端引用服务器组件程序集。</para>
+    /// <para lang="en">Gets or sets preloaded parameter documentation without referencing server component assemblies on the client.</para>
+    /// </summary>
+    [Parameter]
+    public List<AttributeItem>? Items { get; set; }
+
+    /// <summary>
     /// 是否显示合计信息 默认 false
     /// </summary>
     [Parameter]
@@ -52,7 +59,11 @@ public sealed partial class AttributeTable
     {
         await base.OnParametersSetAsync();
 
-        if (Type != null)
+        if (Items != null)
+        {
+            _items = Items;
+        }
+        else if (Type != null)
         {
             _items = await DocumentationService.GetAttributesAsync(Type);
 

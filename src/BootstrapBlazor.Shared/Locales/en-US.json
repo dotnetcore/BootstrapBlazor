@@ -1,4 +1,15 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.FileViewers": {
+    "BaseUsageIntro": "Word and Excel site samples. Conversion runs on Server in both hosting modes.",
+    "BaseUsageIntro2": "Select or enter sample.xlsx / sample.docx to reload. Arbitrary paths and remote URLs are not accepted by this sample.",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageText2": "Reload file",
+    "Load": "Load",
+    "InvalidFile": "Enter sample.xlsx or sample.docx.",
+    "PreviewFailed": "File preview failed. Please try again.",
+    "Tips": "Supports Server and Auto modes. The original FileViewer Word/Excel converters and dependencies stay on Server; WebAssembly fetches converted HTML and displays it in a sandboxed frame. FileViewer itself also supports file paths, URLs and streams on Server.",
+    "Title": "FileViewer"
+  },
   "BootstrapBlazor.Shared.Components.Pages.Chats": {
     "ChatFailed": "Chat generation failed or the connection was interrupted. Please try again.",
     "ChatTooLong": "Enter no more than 8000 characters.",
