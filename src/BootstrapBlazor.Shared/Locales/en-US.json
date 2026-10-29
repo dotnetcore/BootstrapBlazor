@@ -1,4 +1,32 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.Notice": {
+    "HostingNotice": "Server uses real TCP connections to the site's simulated servers. WebAssembly uses an in-browser Mock for sending, receiving, fragmentation and reconnection, without real Socket communication."
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.Adapters": {
+    "AdaptersDescription": "Receive data through the data adapter and display",
+    "AdaptersTitle": "DataPackageAdapter",
+    "NormalIntro": "After the connection is established, the timestamp data sent by the server is received through the <code>ReceivedCallBack</code> callback method of the <code>DataPackageAdapter</code> data adapter.",
+    "NormalTitle": "Basic usage"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.AutoReceives": {
+    "NormalIntro": "After connecting, the timestamp data sent by the server is automatically received through the <code>ReceivedCallBack</code> callback method",
+    "NormalTitle": "Basic usage",
+    "ReceivesDescription": "Receive data through ReceivedCallBack and display it",
+    "ReceivesTitle": "Socket Receive"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.AutoReconnects": {
+    "AutoReconnectsDescription": "Receive data through the data adapter and display",
+    "AutoReconnectsTitle": "DataPackageAdapter",
+    "NormalIntro": "Enable automatic reconnection by setting <code>IsAutoReconnect</code>",
+    "NormalTitle": "Basic usage"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.ManualReceives": {
+    "NormalIntro": "After the connection is established, the data sent by the server is received through the <code>ReceiveAsync</code> callback method. The data problems of sticking and splitting packets need to be handled by the client.",
+    "NormalTitle": "Basic usage",
+    "ReceivesDescription": "Receive data through call ReceiveAsync and display it",
+    "ReceivesTitle": "Manual Receive"
+  },
+
   "BootstrapBlazor.Shared.Components.Samples.OpcDa": {
     "HostingNotice": "WebAssembly runs an in-browser Mock: connections, random values, subscriptions and browsing are simulated, not real OPC communication. Server keeps the existing Windows client and non-Windows Mock implementations.",
     "BrowseButtonText": "Browse",

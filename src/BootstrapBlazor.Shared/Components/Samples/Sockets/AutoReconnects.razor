@@ -27,9 +27,9 @@
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
             <Button Text="连接" Icon="fa-solid fa-play"
-                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+                    OnClick="OnConnectAsync" IsDisabled="@_started"></Button>
             <Button Text="断开" Icon="fa-solid fa-stop" class="ms-2"
-                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+                    OnClick="OnCloseAsync" IsDisabled="@(!_started)"></Button>
         </div>
         <div class="col-12">
             <Console Items="@_items" Height="496" HeaderText="接收数据（间隔 10 秒）"

@@ -17,15 +17,10 @@
     <p>使用 <code>ReceivedCallback</code> 委托获得接收到的数据，可通过 <code>+=</code> 方法支持多个客户端接收数据</p>
     <Pre>_client.ReceivedCallback += OnReceivedAsync;</Pre>
     <p>特别注意如果当前页面对 <code>ISocketClient</code> 实例不销毁时需要继承 <code>IDisposable</code> 或者 <code>IAsyncDisposable</code> 接口，在 <code>Dispose</code> 或者 <code>DisposeAsync</code> 中移除委托，以防止内存泄露</p>
-    <Pre>private void Dispose(bool disposing)
+    <Pre>public async ValueTask DisposeAsync()
 {
-    if (disposing)
-    {
-        if (_client is { IsConnected: true })
-        {
-            _client.ReceivedCallback -= OnReceivedAsync;
-        }
-    }
+    _client.ReceivedCallback -= OnReceivedAsync;
+    await _client.DisposeAsync();
 }</Pre>
 
     <div class="row form-inline g-3">
@@ -41,4 +36,3 @@
         </div>
     </div>
 </DemoBlock>
-

@@ -1,4 +1,32 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.Notice": {
+    "HostingNotice": "Server 模式使用真实 TCP 连接网站模拟服务端；WebAssembly 模式使用浏览器内存 Mock，模拟收发、分包和断线重连，不进行真实 Socket 通信。"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.Adapters": {
+    "AdaptersDescription": "通过数据适配器接收数据并且显示",
+    "AdaptersTitle": "Socket 数据适配器示例",
+    "NormalIntro": "连接后通过 <code>DataPackageAdapter</code> 数据适配器的 <code>ReceivedCallBack</code> 回调方法接收服务端发送来的时间戳数据",
+    "NormalTitle": "基本用法"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.AutoReceives": {
+    "NormalIntro": "连接后通过 <code>ReceivedCallBack</code> 回调方法自动接收服务端发送来的时间戳数据",
+    "NormalTitle": "基本用法",
+    "ReceivesDescription": "通过 ReceiveCallback 接收数据并且显示",
+    "ReceivesTitle": "自动接收示例"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.AutoReconnects": {
+    "AutoReconnectsDescription": "链路断开后自动重连示例",
+    "AutoReconnectsTitle": "Socket 自动重连示例",
+    "NormalIntro": "通过设置 <code>IsAutoReconnect</code> 开启自动重连机制",
+    "NormalTitle": "基本用法"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Sockets.ManualReceives": {
+    "NormalIntro": "连接后通过 <code>ReceiveAsync</code> 回调方法接收服务端发送来的数据，需要自行处理粘包分包的数据问题",
+    "NormalTitle": "基本用法",
+    "ReceivesDescription": "通过调用 ReceiveAsync 接收数据并且显示",
+    "ReceivesTitle": "手动接收示例"
+  },
+
   "BootstrapBlazor.Shared.Components.Samples.OpcDa": {
     "HostingNotice": "WebAssembly 在浏览器中运行 Mock，连接、随机数值、订阅和节点浏览均为模拟，不进行真实 OPC 通信。Server 保留现有 Windows 客户端及非 Windows Mock 实现。",
     "BrowseButtonText": "浏览",

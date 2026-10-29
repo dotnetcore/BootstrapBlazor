@@ -6,17 +6,19 @@
 using System.Net;
 using System.Text;
 
-namespace BootstrapBlazor.Server.Components.Samples.Sockets;
+namespace BootstrapBlazor.Shared.Components.Samples.Sockets;
 
 /// <summary>
-/// 数据适配器示例
+/// <para lang="zh">Socket 数据适配器示例。</para>
+/// <para lang="en">Socket data adapter sample.</para>
 /// </summary>
-public partial class Adapters : IDisposable
+public partial class Adapters : IAsyncDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
 
     private ITcpSocketClient _client = null!;
+    private bool _disposed;
 
     private List<ConsoleMessageItem> _items = [];
 
@@ -36,7 +38,7 @@ public partial class Adapters : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 ITcpSocketClient 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-adapter", options =>
+        _client = TcpSocketFactory.GetOrCreate(options =>
         {
             // 关闭自动接收功能
             options.IsAutoReceive = true;
@@ -87,6 +89,10 @@ public partial class Adapters : IDisposable
 
     private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
     {
+        if (_disposed)
+        {
+            return;
+        }
         if (_useDataAdapter)
         {
             // 使用数据适配器处理接收的数据
@@ -101,21 +107,27 @@ public partial class Adapters : IDisposable
 
     private async ValueTask UpdateReceiveLog(ReadOnlyMemory<byte> data)
     {
-        var payload = Encoding.UTF8.GetString(data.Span);
-        var body = BitConverter.ToString(data.ToArray());
-
-        _items.Add(new ConsoleMessageItem
+        await InvokeAsync(() =>
         {
-            Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data: {payload} HEX: {body}",
-            Color = Color.Success
+            if (_disposed)
+            {
+                return;
+            }
+            var payload = Encoding.UTF8.GetString(data.Span);
+            var body = BitConverter.ToString(data.ToArray());
+            _items.Add(new ConsoleMessageItem
+            {
+                Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data: {payload} HEX: {body}",
+                Color = Color.Success
+            });
+
+            // 保持队列中最大数量为 50
+            if (_items.Count > 50)
+            {
+                _items.RemoveAt(0);
+            }
+            StateHasChanged();
         });
-
-        // 保持队列中最大数量为 50
-        if (_items.Count > 50)
-        {
-            _items.RemoveAt(0);
-        }
-        await InvokeAsync(StateHasChanged);
     }
 
     private async Task OnCloseAsync()
@@ -138,32 +150,33 @@ public partial class Adapters : IDisposable
         return Task.CompletedTask;
     }
 
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _client.ReceivedCallback -= OnReceivedAsync;
-
-            // 释放连接令牌资源
-            _connectTokenSource.Cancel();
-            _connectTokenSource.Dispose();
-
-            // 释放发送令牌资源
-            _sendTokenSource.Cancel();
-            _sendTokenSource.Dispose();
-
-            // 释放接收令牌资源
-            _receiveTokenSource.Cancel();
-            _receiveTokenSource.Dispose();
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        _disposed = true;
+        _client.ReceivedCallback -= OnReceivedAsync;
+        _dataAdapter.ReceivedCallback = null;
+
+        try
+        {
+            // 释放连接令牌资源
+            _connectTokenSource.Cancel();
+
+            // 释放发送令牌资源
+            _sendTokenSource.Cancel();
+
+            // 释放接收令牌资源
+            _receiveTokenSource.Cancel();
+            await _client.DisposeAsync();
+        }
+        finally
+        {
+            _connectTokenSource.Dispose();
+            _sendTokenSource.Dispose();
+            _receiveTokenSource.Dispose();
+        }
         GC.SuppressFinalize(this);
     }
 }

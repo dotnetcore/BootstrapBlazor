@@ -5,17 +5,19 @@
 
 using System.Net;
 
-namespace BootstrapBlazor.Server.Components.Samples.Sockets;
+namespace BootstrapBlazor.Shared.Components.Samples.Sockets;
 
 /// <summary>
-/// 接收电文示例
+/// <para lang="zh">自动接收电文示例。</para>
+/// <para lang="en">Automatic Socket receive sample.</para>
 /// </summary>
-public partial class AutoReceives : IDisposable
+public partial class AutoReceives : IAsyncDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
 
     private ITcpSocketClient _client = null!;
+    private bool _disposed;
 
     private List<ConsoleMessageItem> _items = [];
 
@@ -29,7 +31,7 @@ public partial class AutoReceives : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-auto-receive", options =>
+        _client = TcpSocketFactory.GetOrCreate(options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
@@ -60,38 +62,36 @@ public partial class AutoReceives : IDisposable
 
     private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
     {
-        // 将数据显示为十六进制字符串
-        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
-        _items.Add(new ConsoleMessageItem
+        await InvokeAsync(() =>
         {
-            Message = $"接收到来自站点的数据为 {payload}"
-        });
-
-        // 保持队列中最大数量为 50
-        if (_items.Count > 50)
-        {
-            _items.RemoveAt(0);
-        }
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_client is { IsConnected: true })
+            if (_disposed)
             {
-                _client.ReceivedCallback -= OnReceivedAsync;
+                return;
             }
-        }
+            // 将数据显示为十六进制字符串
+            var payload = System.Text.Encoding.UTF8.GetString(data.Span);
+            _items.Add(new ConsoleMessageItem
+            {
+                Message = $"接收到来自站点的数据为 {payload}"
+            });
+
+            // 保持队列中最大数量为 50
+            if (_items.Count > 50)
+            {
+                _items.RemoveAt(0);
+            }
+            StateHasChanged();
+        });
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        _disposed = true;
+        _client.ReceivedCallback -= OnReceivedAsync;
+        await _client.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 }

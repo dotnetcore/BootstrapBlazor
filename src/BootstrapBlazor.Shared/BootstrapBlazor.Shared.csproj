@@ -59,6 +59,7 @@
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="11.0.0-rc.2" />
+    <PackageReference Include="Longbow.TcpSocket" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +73,9 @@
     <Using Include="BootstrapBlazor.Shared.Data" />
     <Using Include="BootstrapBlazor.Shared.Extensions" />
     <Using Include="BootstrapBlazor.Shared.Services" />
+    <Using Include="Longbow.Sockets.DataAdapters" />
+    <Using Include="Longbow.Sockets.DataHandlers" />
+    <Using Include="Longbow.TcpSocket" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Configuration" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />

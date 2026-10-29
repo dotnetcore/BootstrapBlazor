@@ -20,6 +20,7 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
+            services.AddScoped<ITcpSocketFactory, MockTcpSocketFactory>();
             services.AddMockOpcDaClient();
             services.AddMockOpcUaClient();
             services.AddHttpClient<ISampleFileViewerService, HttpSampleFileViewerService>((provider, client) =>

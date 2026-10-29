@@ -6,12 +6,13 @@
 using System.Net;
 using System.Text;
 
-namespace BootstrapBlazor.Server.Components.Samples.Sockets;
+namespace BootstrapBlazor.Shared.Components.Samples.Sockets;
 
 /// <summary>
-/// 接收电文示例
+/// <para lang="zh">手动接收电文示例。</para>
+/// <para lang="en">Manual Socket receive sample.</para>
 /// </summary>
-public partial class ManualReceives
+public partial class ManualReceives : IAsyncDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
@@ -30,7 +31,7 @@ public partial class ManualReceives
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-manual-receive", options =>
+        _client = TcpSocketFactory.GetOrCreate(options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
             options.IsAutoReceive = false;
@@ -85,5 +86,12 @@ public partial class ManualReceives
                 });
             }
         }
+    }
+
+    /// <inheritdoc />
+    public async ValueTask DisposeAsync()
+    {
+        await _client.DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 }

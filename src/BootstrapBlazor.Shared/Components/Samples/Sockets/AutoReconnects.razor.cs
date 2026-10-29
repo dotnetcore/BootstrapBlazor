@@ -5,17 +5,20 @@
 
 using System.Net;
 
-namespace BootstrapBlazor.Server.Components.Samples.Sockets;
+namespace BootstrapBlazor.Shared.Components.Samples.Sockets;
 
 /// <summary>
-/// 自动重连示例组件
+/// <para lang="zh">Socket 自动重连示例。</para>
+/// <para lang="en">Socket automatic reconnect sample.</para>
 /// </summary>
-public partial class AutoReconnects : IDisposable
+public partial class AutoReconnects : IAsyncDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
 
     private ITcpSocketClient _client = null!;
+    private bool _started;
+    private bool _disposed;
 
     private List<ConsoleMessageItem> _items = [];
 
@@ -29,39 +32,38 @@ public partial class AutoReconnects : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-auto-connect", options =>
+        _client = TcpSocketFactory.GetOrCreate(options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
             options.IsAutoReconnect = true;
             options.ReconnectInterval = 5000;
         });
         _client.ReceivedCallback += OnReceivedAsync;
-        _client.OnConnecting = async () =>
-        {
-           _items.Add(new ConsoleMessageItem { Message = $"{DateTime.Now} 正在连接到 {_serverEndPoint}，请稍候..." });
-            await InvokeAsync(StateHasChanged);
-        };
-        _client.OnConnected = async () =>
-        {
-            _items.Add(new ConsoleMessageItem { Message = $"{DateTime.Now} 已连接到 {_serverEndPoint}，等待接收数据", Color = Color.Success });
-            await InvokeAsync(StateHasChanged);
-        };
+        _client.OnConnecting = () => AddMessageAsync(new ConsoleMessageItem { Message = $"{DateTime.Now} 正在连接到 {_serverEndPoint}，请稍候..." });
+        _client.OnConnected = () => AddMessageAsync(new ConsoleMessageItem { Message = $"{DateTime.Now} 已连接到 {_serverEndPoint}，等待接收数据", Color = Color.Success });
     }
 
     private async Task OnConnectAsync()
     {
-        if (_client is { IsConnected: false })
+        if (!_started)
         {
-            await _client.ConnectAsync(_serverEndPoint, CancellationToken.None);
+            _started = true;
+            try
+            {
+                _started = await _client.ConnectAsync(_serverEndPoint, CancellationToken.None);
+            }
+            catch
+            {
+                _started = false;
+                throw;
+            }
         }
     }
 
     private async Task OnCloseAsync()
     {
-        if (_client is { IsConnected: true })
-        {
-            await _client.CloseAsync();
-        }
+        _started = false;
+        await _client.CloseAsync();
     }
 
     private Task OnClear()
@@ -74,36 +76,37 @@ public partial class AutoReconnects : IDisposable
     {
         // 将数据显示为十六进制字符串
         var payload = System.Text.Encoding.UTF8.GetString(data.Span);
-        _items.Add(data.IsEmpty
+        await AddMessageAsync(data.IsEmpty
             ? new ConsoleMessageItem { Message = $"{DateTime.Now} 当前连接已关闭，5s 后自动重连", Color = Color.Danger }
             : new ConsoleMessageItem { Message = $"{DateTime.Now} 接收到来自站点的数据为 {payload}" });
+    }
 
+    private Task AddMessageAsync(ConsoleMessageItem item) => InvokeAsync(() =>
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        _items.Add(item);
         // 保持队列中最大数量为 50
         while (_items.Count > 50)
         {
             _items.RemoveAt(0);
         }
-
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_client is { IsConnected: true })
-            {
-                _client.ReceivedCallback -= OnReceivedAsync;
-            }
-        }
-    }
+        StateHasChanged();
+    });
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        _disposed = true;
+        _started = false;
+        _client.ReceivedCallback -= OnReceivedAsync;
+        _client.OnConnecting = null;
+        _client.OnConnected = null;
+        await _client.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 }
