@@ -283,14 +283,6 @@
     "TaskBoardNormalTitle": "基本用法",
     "TaskBoardTitle": "Task DashBoard 任务管理器"
   },
-  "BootstrapBlazor.Server.Components.Samples.Translators": {
-    "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
-    "TranslatorsInjectService": "注入服务",
-    "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
-    "TranslatorsNormalTitle": "基础用法",
-    "TranslatorsTitle": "AzureTranslator 翻译服务",
-    "TranslatorsTranslate": "翻译"
-  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "文件",
     "Hide": "隐藏",

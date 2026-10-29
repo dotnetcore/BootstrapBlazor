@@ -44,6 +44,7 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 AzureTranslator 服务
         services.AddBootstrapBlazorAzureTranslator();
+        services.AddScoped<ISampleTranslationService, SampleTranslationService>();
 
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();

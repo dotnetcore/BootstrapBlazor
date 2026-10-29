@@ -283,14 +283,6 @@
     "TaskBoardNormalTitle": "Basic usage",
     "TaskBoardTitle": "Task DashBoard"
   },
-  "BootstrapBlazor.Server.Components.Samples.Translators": {
-    "TranslatorsDescription": "Converts characters or letters of a source language to the corresponding characters or letters of a target language.",
-    "TranslatorsInjectService": "Inject Service",
-    "TranslatorsNormalIntro": "Call <code>TranslateAsync</code> method for convert target language",
-    "TranslatorsNormalTitle": "Basic usage",
-    "TranslatorsTitle": "Azure Translator",
-    "TranslatorsTranslate": "Translate"
-  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "File",
     "Hide": "Hide",

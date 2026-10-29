@@ -1,5 +1,4 @@
 @page "/translator"
-@inject IStringLocalizer<Translators> Localizer
 
 <h3>@Localizer["TranslatorsTitle"]</h3>
 <h4>@Localizer["TranslatorsDescription"]</h4>
@@ -20,7 +19,7 @@
 
     @if (_results.Any())
     {
-        @foreach (var translation in _results.First().Translations)
+        @foreach (var translation in _results)
         {
             <div class="mt-3">@FormatResult(translation)</div>
         }

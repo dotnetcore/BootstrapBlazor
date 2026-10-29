@@ -1,4 +1,14 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.Translators": {
+    "TranslatorsDescription": "Converts characters or letters of a source language to the corresponding characters or letters of a target language.",
+    "TranslatorsInjectService": "Register the Azure translation service on Server. WebAssembly calls the server through an HTTP translation service.",
+    "TranslatorsNormalIntro": "Call <code>TranslateAsync</code> to translate English text. Supports Server and Auto modes.",
+    "TranslatorsNormalTitle": "Basic usage",
+    "TranslatorsTitle": "Azure Translator",
+    "TranslatorsTranslate": "Translate",
+    "TranslatorsValidation": "Enter 1 to 5000 characters and select at least one target language.",
+    "TranslatorsFailed": "Translation failed. Please try again later."
+  },
   "BootstrapBlazor.Shared.Components.Samples.DialogPdf": {
     "ExportPdfButton": "Export Pdf",
     "ExportPdfDialogIntro": "Set <code>ShowExportPdfButtonInHeader</code> to display an export PDF button on the <code>Header</code>",

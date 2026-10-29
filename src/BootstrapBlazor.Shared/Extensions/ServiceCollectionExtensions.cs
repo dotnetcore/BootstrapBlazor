@@ -20,6 +20,10 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
+            // 翻译密钥与 Azure SDK 留在 Server，浏览器仅提交文本和目标语言。
+            // Keep translation keys and the Azure SDK on Server; the browser sends only text and target languages.
+            services.AddHttpClient<ISampleTranslationService, HttpSampleTranslationService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             // <para lang="zh">浏览器通过后台生成 PDF，Server 仍使用现有本地实现。</para>
             // <para lang="en">The browser generates PDFs through the server; Server keeps its existing local implementation.</para>
             services.AddHttpClient<IHtml2Pdf, HttpHtml2PdfService>((provider, client) =>

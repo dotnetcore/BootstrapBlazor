@@ -1,4 +1,14 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.Translators": {
+    "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
+    "TranslatorsInjectService": "在 Server 注册 Azure 翻译服务，WebAssembly 通过 HTTP 翻译服务调用后台。",
+    "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 翻译英语文本，支持 Server 与 Auto 模式。",
+    "TranslatorsNormalTitle": "基础用法",
+    "TranslatorsTitle": "AzureTranslator 翻译服务",
+    "TranslatorsTranslate": "翻译",
+    "TranslatorsValidation": "请输入 1 至 5000 个字符，并至少选择一种目标语言。",
+    "TranslatorsFailed": "翻译失败，请稍后重试。"
+  },
   "BootstrapBlazor.Shared.Components.Samples.DialogPdf": {
     "ExportPdfButton": "导出 Pdf 弹窗",
     "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
