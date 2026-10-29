@@ -120,6 +120,31 @@ export async function reset(id) {
     }
 }
 
+export async function fitAllColumnWidth(id) {
+    const table = Data.get(id);
+    if (!table?.tables?.length) {
+        return;
+    }
+
+    const columns = [...table.tables[0].querySelectorAll('.col-resizer')];
+
+    if (columns.length > 0) {
+        for (const col of columns) {
+            await autoFitColumnWidth(table, col, false);
+        }
+
+        const state = getColumnStateObject(table);
+        saveColumnStateToLocalstorage(table, state);
+
+        // use first column name to notify
+        await table.invoke.invokeMethodAsync(
+            table.options.resizeColumnCallback,
+            getColumnName(columns[0]),
+            state
+        );
+    }
+}
+
 export async function switchCardView(id) {
     const table = Data.get(id);
 
@@ -616,13 +641,13 @@ const indexOfCol = col => {
     return [...row.children].indexOf(th);
 }
 
-const autoFitColumnWidth = async (table, col) => {
+const autoFitColumnWidth = async (table, col, notify = true) => {
     stopAutoColumnWidth(table);
     const field = getColumnName(col);
     const index = indexOfCol(col);
     let rows = null;
     let maxWidth = getColumnMaxCellWidth(table, index);
-    
+
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = getColumnHeader(col);
         maxWidth = Math.max(maxWidth, getCellWidth(th));
@@ -646,6 +671,11 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         resetColumnWidthTips(table, col);
+
+        // notify or not
+        if (!notify) {
+            return;
+        }
 
         const state = getColumnStateObject(table);
         saveColumnStateToLocalstorage(table, state);
