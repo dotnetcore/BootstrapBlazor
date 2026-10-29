@@ -46,12 +46,15 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
-// 增加上传目录静态资源文件（保证在 UseRouting 前提高性能确保 nosniff 头生效）
+// 在路由匹配前处理上传文件，确保由上传目录中间件提供文件并设置 nosniff 响应头。
+// Serve uploads before route matching so the upload middleware handles files and sets the nosniff header.
 app.UseUploaderStaticFiles();
 
 // 增加 llms 静态资源文件
 app.UseLLMsStaticFiles();
 
+// 显式指定路由匹配位置，避免静态资源端点优先匹配上传文件。
+// Set route matching explicitly so static asset endpoints do not take precedence over upload middleware.
 app.UseRouting();
 
 app.UseAntiforgery();

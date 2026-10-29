@@ -8,14 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace BootstrapBlazor.Controllers.Api;
 
 /// <summary>
-/// Receives attachments for the editor examples.
+/// <para lang="zh">接收编辑器示例的附件上传请求。</para>
+/// <para lang="en">Receives attachment uploads for the editor examples.</para>
 /// </summary>
 [ApiController]
 public sealed class EditorUploadController(IEditorUploadService uploadService) : ControllerBase
 {
     /// <summary>
-    /// Stores an attachment and returns its application-relative URL.
+    /// <para lang="zh">保存原始二进制请求体并返回附件的应用相对 URL。</para>
+    /// <para lang="en">Saves the raw binary request body and returns the attachment's application-relative URL.</para>
     /// </summary>
+    /// <param name="fileName"><para lang="zh">原始文件名，用于校验扩展名。</para><para lang="en">Original file name used to validate the extension.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">请求取消令牌。</para><para lang="en">Request cancellation token.</para></param>
     [HttpPost("api/editor-upload")]
     [Consumes("application/octet-stream")]
     [RequestSizeLimit(IEditorUploadService.MaxFileSize)]

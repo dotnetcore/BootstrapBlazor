@@ -21,6 +21,8 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         {
             services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+            // WebAssembly 通过同源 HTTP 接口上传，避免在浏览器中访问服务器文件系统。
+            // WebAssembly uploads through the same-origin HTTP endpoint instead of accessing the server file system.
             services.AddHttpClient<IEditorUploadService, HttpEditorUploadService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
         }

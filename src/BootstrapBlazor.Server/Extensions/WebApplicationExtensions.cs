@@ -19,7 +19,8 @@ static class WebApplicationExtensions
             FileProvider = new PhysicalFileProvider(uploader),
             RequestPath = "/images/uploader",
 
-            // 严格按照服务器返回的  Content-Type  处理文件，不要自行猜测文件类型
+            // 严格按照服务器返回的 Content-Type 处理文件，禁止猜测文件类型。
+            // Prevent browsers from sniffing a content type different from the response Content-Type.
             OnPrepareResponse = context => context.Context.Response.Headers.XContentTypeOptions = "nosniff"
         });
     }

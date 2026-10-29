@@ -6,11 +6,20 @@
 namespace BootstrapBlazor.Server.Services;
 
 /// <summary>
-/// IEditorUploadService 接口 Server 端实现类
+/// <para lang="zh">IEditorUploadService 接口 Server 端实现类</para>
+/// <para lang="en">Server implementation of IEditorUploadService.</para>
 /// </summary>
-/// <remarks>直接保存上传的文件到服务器指定目录</remarks>
+/// <remarks>
+/// <para lang="zh">组件回调使用原有 SaveToFile 方法保存；HTTP 请求体按实际读取字节数限制大小。</para>
+/// <para lang="en">Component callbacks use the existing SaveToFile methods; HTTP request bodies are bounded by the bytes actually read.</para>
+/// </remarks>
 sealed class EditorUploadService(IWebHostEnvironment environment) : IEditorUploadService
 {
+    private static readonly HashSet<string> _extensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf", ".txt", ".zip"
+    };
+
     /// <inheritdoc />
     public async Task<string> UploadAsync(EditorUploadFile file, CancellationToken cancellationToken = default)
     {
@@ -83,15 +92,28 @@ sealed class EditorUploadService(IWebHostEnvironment environment) : IEditorUploa
         return url;
     }
 
+    /// <summary>
+    /// <para lang="zh">校验扩展名并生成随机存储路径及应用相对 URL。</para>
+    /// <para lang="en">Validates the extension and generates a random storage path and application-relative URL.</para>
+    /// </summary>
     private (string Path, string Url) CreateUploadPath(string fileName)
     {
         var extension = Path.GetExtension(fileName).ToLowerInvariant();
+        if (!_extensions.Contains(extension))
+        {
+            throw new InvalidDataException("This attachment type is not allowed.");
+        }
+
         var folder = Path.Combine(environment.WebRootPath, "images", "uploader");
         Directory.CreateDirectory(folder);
         var name = $"{Guid.NewGuid():N}{extension}";
         return (Path.Combine(folder, name), $"images/uploader/{name}");
     }
 
+    /// <summary>
+    /// <para lang="zh">校验组件提供的附件大小。</para>
+    /// <para lang="en">Validates the attachment size supplied by the component.</para>
+    /// </summary>
     private static void ValidateSize(long size)
     {
         if (size <= 0 || size > IEditorUploadService.MaxFileSize)

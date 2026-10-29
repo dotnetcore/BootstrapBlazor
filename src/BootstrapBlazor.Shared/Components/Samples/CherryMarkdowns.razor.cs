@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// CherryMarkdowns
+/// <para lang="zh">CherryMarkdown 组件示例代码。</para>
+/// <para lang="en">CherryMarkdown component examples.</para>
 /// </summary>
 public partial class CherryMarkdowns
 {
@@ -60,6 +61,10 @@ public partial class CherryMarkdowns
         }
     };
 
+    /// <summary>
+    /// <para lang="zh">通过当前运行模式注册的服务上传附件，失败时提示且不返回成功 URL。</para>
+    /// <para lang="en">Uploads attachments through the service registered for the current host and reports failures without returning a successful URL.</para>
+    /// </summary>
     private async Task<string> OnFileUpload(CherryMarkdownUploadFile arg)
     {
         try

@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// Editor 组件示例代码
+/// <para lang="zh">Editor 组件示例代码</para>
+/// <para lang="en">Editor component examples.</para>
 /// </summary>
 public sealed partial class Editors
 {
@@ -135,6 +136,10 @@ public sealed partial class Editors
         await Editor.DoMethodAsync("pasteHTML", $"<h1>{Localizer["DoMethodAsyncPasteHTML"]}</h1>");
     }
 
+    /// <summary>
+    /// <para lang="zh">通过当前运行模式注册的服务上传图片，失败时提示并阻止回退为本地 Blob URL。</para>
+    /// <para lang="en">Uploads images through the service registered for the current host and reports failures without falling back to a local Blob URL.</para>
+    /// </summary>
     private async Task<string> OnFileUpload(EditorUploadFile uploadFile)
     {
         try

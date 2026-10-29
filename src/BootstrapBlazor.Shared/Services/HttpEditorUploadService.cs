@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Shared.Services;
 
 /// <summary>
-/// IEditorUploadService 接口 wasm 模式实现类
+/// <para lang="zh">IEditorUploadService 接口的 WebAssembly 实现，通过 HTTP 上传附件。</para>
+/// <para lang="en">WebAssembly implementation of IEditorUploadService that uploads attachments over HTTP.</para>
 /// </summary>
 public sealed class HttpEditorUploadService(HttpClient client) : IEditorUploadService
 {

@@ -26,7 +26,8 @@ public static class ServiceCollectionSharedExtensions
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);
 
-        // 增加 Editor/CherryMarkdown 等组件上传文件服务
+        // 注册 Server 上传服务，直接将组件提供的文件保存到服务器。
+        // Register the Server upload service to save component files directly on the server.
         services.AddScoped<IEditorUploadService, EditorUploadService>();
 
         // 增加 Azure 语音服务
