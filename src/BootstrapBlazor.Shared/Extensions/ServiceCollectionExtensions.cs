@@ -21,6 +21,8 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         {
             services.AddHttpClient<ISampleDocumentationService, HttpSampleDocumentationService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+            services.AddHttpClient<IEditorUploadService, HttpEditorUploadService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
         }
         services.AddAuthorizationCore();
         services.AddCascadingAuthenticationState();

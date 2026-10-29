@@ -26,6 +26,9 @@ public static class ServiceCollectionSharedExtensions
         // 增加示例网站配置
         services.AddBootstrapBlazorLayoutServices(configureOptions);
 
+        // 增加 Editor/CherryMarkdown 等组件上传文件服务
+        services.AddScoped<IEditorUploadService, EditorUploadService>();
+
         // 增加 Azure 语音服务
         //services.AddBootstrapBlazorAzureSpeech();
 

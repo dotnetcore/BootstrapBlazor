@@ -1,5 +1,4 @@
 @page "/cherry-markdown"
-@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Header"]</h3>
 <h4>@Localizer["Tip"]</h4>
@@ -21,6 +20,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FileUploadTitle"]" Introduction="@Localizer["FileUploadIntro"]" Name="FileUpload">
+    <p>@Localizer["UploadLimits"]</p>
     <CherryMarkdown OnFileUpload="OnFileUpload" />
 </DemoBlock>
 

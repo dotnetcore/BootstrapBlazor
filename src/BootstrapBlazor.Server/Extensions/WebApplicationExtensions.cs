@@ -17,7 +17,10 @@ static class WebApplicationExtensions
         app.UseStaticFiles(new StaticFileOptions
         {
             FileProvider = new PhysicalFileProvider(uploader),
-            RequestPath = "/images/uploader"
+            RequestPath = "/images/uploader",
+
+            // 严格按照服务器返回的  Content-Type  处理文件，不要自行猜测文件类型
+            OnPrepareResponse = context => context.Context.Response.Headers.XContentTypeOptions = "nosniff"
         });
     }
 

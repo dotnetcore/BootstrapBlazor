@@ -1,10 +1,5 @@
 @page "/editor"
 
-@inject SwalService SwalService
-@inject PackageVersionService VersionManager
-@inject IStringLocalizer<Editors> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
-
 <h3>@Localizer["EditorsTitle"]</h3>
 
 <h4>@((MarkupString)Localizer["EditorsDescription"].Value)</h4>
@@ -18,6 +13,7 @@
 <p class="code-label">@Localizer["EditorsUploadDesc"]</p>
 <Pre>public Func&lt;EditorUploadFile, Task&lt;string&gt;&gt;? OnFileUpload { get; set; }</Pre>
 <p>@((MarkupString)Localizer["EditorsUploadDesc2"].Value)</p>
+<p>@Localizer["UploadLimits"]</p>
 
 <PackageTips Name="BootstrapBlazor.SummerNote" />
 

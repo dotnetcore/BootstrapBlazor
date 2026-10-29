@@ -3,13 +3,25 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// CherryMarkdowns
 /// </summary>
 public partial class CherryMarkdowns
 {
+    [Inject]
+    [NotNull]
+    private IEditorUploadService? UploadService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     [NotNull]
     private CherryMarkdown? MarkdownElement { get; set; }
 
@@ -50,11 +62,26 @@ public partial class CherryMarkdowns
 
     private async Task<string> OnFileUpload(CherryMarkdownUploadFile arg)
     {
-        var url = Path.Combine("images", "uploader",
-            $"{Path.GetFileNameWithoutExtension(arg.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(arg.FileName)}");
-        var fileName = Path.Combine(WebsiteOption.Value.WebRootPath, url);
-        var ret = await arg.SaveToFile(fileName);
-        return ret ? url : "";
+        try
+        {
+            if (arg.FileSize > IEditorUploadService.MaxFileSize)
+            {
+                throw new InvalidDataException(Localizer["UploadTooLarge"]);
+            }
+            if (arg.UploadStream == null || string.IsNullOrEmpty(arg.FileName))
+            {
+                throw new InvalidDataException(Localizer["UploadFailed"]);
+            }
+            var url = await UploadService.UploadAsync(arg);
+            return NavigationManager.ToAbsoluteUri(url).AbsoluteUri;
+        }
+        catch (Exception ex)
+        {
+            arg.Code = 1;
+            arg.Error = ex.Message;
+            await ToastService.Error(Localizer["UploadFailed"], ex.Message);
+            throw;
+        }
     }
 
     [Inject]

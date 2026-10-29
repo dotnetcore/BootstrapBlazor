@@ -46,11 +46,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
-// 增加上传目录静态资源文件
+// 增加上传目录静态资源文件（保证在 UseRouting 前提高性能确保 nosniff 头生效）
 app.UseUploaderStaticFiles();
 
 // 增加 llms 静态资源文件
 app.UseLLMsStaticFiles();
+
+app.UseRouting();
 
 app.UseAntiforgery();
 app.UseBootstrapBlazor();

@@ -3,13 +3,37 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
 /// Editor 组件示例代码
 /// </summary>
 public sealed partial class Editors
 {
+    [Inject]
+    [NotNull]
+    private SwalService? SwalService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private PackageVersionService? VersionManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Editors>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IEditorUploadService? UploadService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     [NotNull]
     private Editor? Editor { get; set; }
 
@@ -113,13 +137,21 @@ public sealed partial class Editors
 
     private async Task<string> OnFileUpload(EditorUploadFile uploadFile)
     {
-        var url = Path.Combine("images", "uploader", $"{Path.GetFileNameWithoutExtension(uploadFile.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(uploadFile.FileName)}");
-        var fileName = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, url);
-        await uploadFile.SaveToFileAsync(fileName);
-
-        // 此处返回空字符串底层使用 URL.createObjectURL 方法创建 Blob 对象地址
-        // 实战中可以返回 SSO 地址或者 base64 字符串等
-        return "";
+        try
+        {
+            if (uploadFile.FileSize > IEditorUploadService.MaxFileSize)
+            {
+                throw new InvalidDataException(Localizer["UploadTooLarge"]);
+            }
+            var url = await UploadService.UploadAsync(uploadFile);
+            return NavigationManager.ToAbsoluteUri(url).AbsoluteUri;
+        }
+        catch (Exception ex)
+        {
+            uploadFile.Error = ex;
+            await ToastService.Error(Localizer["UploadFailed"], ex.Message);
+            throw;
+        }
     }
 
     private string? _editorCode;

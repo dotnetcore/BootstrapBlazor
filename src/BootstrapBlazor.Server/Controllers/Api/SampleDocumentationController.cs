@@ -37,6 +37,8 @@ public class SampleDocumentationController(ISampleDocumentationService documenta
         typeof(TreeViewItem<TreeFoo>),
         typeof(ImageCropper),
         typeof(CodeEditor),
+        typeof(Editor),
+        typeof(CherryMarkdown),
         typeof(BootstrapBlazor.Components.Markdown),
         typeof(MindMap),
         typeof(Vditor),

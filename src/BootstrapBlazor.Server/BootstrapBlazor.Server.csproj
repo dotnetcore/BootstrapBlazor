@@ -18,7 +18,6 @@
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
@@ -30,7 +29,6 @@
     <PackageReference Include="BootstrapBlazor.Middleware" Version="11.0.0-rc.3.3" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.OpcUa" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0-rc.2" />
