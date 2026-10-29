@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Layout;
 /// <summary>
 /// MainLayout 模板
 /// </summary>
-public partial class MainLayout : IDisposable
+public partial class MainLayout : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -41,10 +41,18 @@ public partial class MainLayout : IDisposable
     {
         base.OnInitialized();
 
-        DispatchService.Subscribe(Dispatch);
-
         UpdateTooltip ??= Localizer[nameof(UpdateTooltip)];
         ChatTooltip ??= Localizer[nameof(ChatTooltip)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await DispatchService.SubscribeAsync(Dispatch);
     }
 
     private async Task Dispatch(DispatchEntry<MessageItem> entry)
@@ -53,7 +61,7 @@ public partial class MainLayout : IDisposable
         {
             await Toast.Show(new ToastOption()
             {
-                Title = "Dispatch 服务测试",
+                Title = Localizer["DispatchToastTitle"],
                 Content = entry.Entry.Message,
                 Category = ToastCategory.Information,
                 Delay = 30 * 1000,
@@ -62,20 +70,12 @@ public partial class MainLayout : IDisposable
         }
     }
 
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            DispatchService.UnSubscribe(Dispatch);
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DispatchService.UnSubscribeAsync(Dispatch);
         GC.SuppressFinalize(this);
     }
 }

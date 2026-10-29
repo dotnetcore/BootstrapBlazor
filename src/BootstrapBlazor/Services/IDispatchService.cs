@@ -9,27 +9,65 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">分发服务接口</para>
 /// <para lang="en">Dispatcher Service Interface</para>
 /// </summary>
+/// <remarks>
+/// <para lang="zh">Server 默认提供进程内分发。WebAssembly/Auto 的 Client 工程需引用 BootstrapBlazor.SignalR 并调用 AddBootstrapBlazorDispatchClient；Server 工程需注册 SignalR 分发并映射 Hub。</para>
+/// <para lang="en">Server provides in-process dispatch by default. WebAssembly/Auto clients must reference BootstrapBlazor.SignalR and call AddBootstrapBlazorDispatchClient; the server must register SignalR dispatch and map its Hub.</para>
+/// </remarks>
 public interface IDispatchService<TEntry>
 {
     /// <summary>
     /// <para lang="zh">分发方法</para>
     /// <para lang="en">Dispatch Method</para>
+    /// <para><version>11.0.0</version></para>
     /// </summary>
     /// <param name="entry"></param>
-    void Dispatch(DispatchEntry<TEntry> entry);
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 DispatchAsync 方法; Deprecated. Use DispatchAsync instead")]
+    public void Dispatch(DispatchEntry<TEntry> entry) => _ = DispatchAsync(entry);
 
     /// <summary>
     /// <para lang="zh">订阅分发</para>
     /// <para lang="en">Subscribe Dispatch</para>
+    /// <para><version>11.0.0</version></para>
     /// </summary>
     /// <param name="callback"></param>
-    void Subscribe(Func<DispatchEntry<TEntry>, Task> callback);
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 SubscribeAsync 方法; Deprecated. Use SubscribeAsync instead")]
+    public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = SubscribeAsync(callback);
 
     /// <summary>
     /// <para lang="zh">取消订阅分发</para>
     /// <para lang="en">Unsubscribe Dispatch</para>
+    /// <para><version>11.0.0</version></para>
     /// </summary>
     /// <param name="callback"></param>
     /// <exception cref="NotImplementedException"></exception>
-    void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback);
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 UnSubscribeAsync 方法; Deprecated. Use UnSubscribeAsync instead")]
+    public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = UnSubscribeAsync(callback);
+
+    /// <summary>
+    /// <para lang="zh">异步分发消息并等待处理完成</para>
+    /// <para lang="en">Dispatch a message and await completion.</para>
+    /// <para><version>11.0.0</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">默认进程内实现记录订阅者异常并继续分发。取消会停止等待和后续分发，但不会终止已启动的回调或回滚已完成的处理；重试可能重复投递。</para>
+    /// <para lang="en">The default in-process implementation logs subscriber failures and continues delivery. Cancellation stops waiting and further delivery, but does not terminate callbacks already started or roll back completed processing; retries may deliver duplicates.</para>
+    /// </remarks>
+    Task DispatchAsync(DispatchEntry<TEntry> entry, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// <para lang="zh">订阅消息并等待远程订阅就绪</para>
+    /// <para lang="en">Subscribe and wait until the remote subscription is ready.</para>
+    /// <para><version>11.0.0</version></para>
+    /// </summary>
+    Task SubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// <para lang="zh">取消订阅分发</para>
+    /// <para lang="en">Unsubscribe Dispatch</para>
+    /// <para><version>11.0.0</version></para>
+    /// </summary>
+    Task UnSubscribeAsync(Func<DispatchEntry<TEntry>, Task> callback, CancellationToken cancellationToken = default);
 }

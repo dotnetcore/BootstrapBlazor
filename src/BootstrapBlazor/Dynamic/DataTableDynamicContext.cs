@@ -6,6 +6,7 @@
 using System.Collections.Concurrent;
 using System.Data;
 using System.Reflection.Emit;
+using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
@@ -13,6 +14,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">DataTable 动态数据上下文实现类 <see cref="DynamicObjectContext"/></para>
 /// <para lang="en">DataTable dynamic data context implementation class <see cref="DynamicObjectContext"/></para>
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 public class DataTableDynamicContext : DynamicObjectContext
 {
     /// <summary>

@@ -146,6 +146,7 @@
   },
   "BootstrapBlazor.Server.Components.Layout.MainLayout": {
     "ChatTooltip": "Azure OpenAI",
+    "DispatchToastTitle": "Dispatch 服务测试",
     "UpdateTooltip": "点击查看更新日志"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
@@ -1606,6 +1607,62 @@
     "ValueIntro": "通过设置 <code>Value</code> 属性设定颜色值",
     "ValueTitle": "设置初始值"
   },
+  "BootstrapBlazor.Server.Components.Samples.ConnectionServices": {
+    "AddMiddlewareComment": "增加下面这一行",
+    "AsyncUpdateDescription": "从 <code>11.0.0</code> 起，手动更新连接信息应改用 <code>AddOrUpdateAsync</code> 并等待返回的任务，可传入 <code>CancellationToken</code>。默认服务器实现按 <code>ClientInfo.Id</code> 增加或更新连接及心跳时间，忽略 Id 为空的记录。",
+    "AsyncUpdateTitle": "异步更新与旧接口迁移",
+    "BaiduLocatorAnswer": "这个定位器使用的是 <b>百度智能云</b> 的免费服务，目前使用的作者的免费额度，发布后 <code>api</code> 提供商会根据请求地址做动态调整，所以会出现开发模式时能精确到区县，发布到服务器上后只能精确到省份的现象，这也是一种销售广告的方法",
+    "BaiduLocatorQuestion": "地理位置定位器 <code>BaiduIpLocatorProviderV2</code> 为何本地调试能精确到区县，发布后只能到省份",
+    "BeatIntervalDescription": "通过 <code>BeatInterval</code> 设置心跳间隔",
+    "BrowserThrottlingDescription": "现在大多数浏览器切换标签页后默认都开启了休眠机制，当设置心跳间隔为 <code>10s</code> 标签页休眠后会降频为 <code>1 分钟</code> 一次，所以建议 <code>TimeoutInterval</code> 超时时间间隔至少设置为 <b>2 分钟</b>",
+    "ClientBrowserComment": "获得/设置 客户端浏览器",
+    "ClientCityComment": "获得/设置 客户端地点",
+    "ClientDeviceComment": "获得/设置 客户端设备类型",
+    "ClientEngineComment": "获得/设置 浏览器引擎信息",
+    "ClientIdComment": "获得/设置 操作日志主键ID",
+    "ClientInfoComment": "获得/设置 连接 Ip 地址",
+    "ClientInfoSummary": "客户端请求信息实体类",
+    "ClientIpComment": "获得/设置 客户端IP",
+    "ClientLanguageComment": "获得/设置 客户端浏览器语言",
+    "ClientOSComment": "获得/设置 客户端操作系统",
+    "ClientRequestUrlComment": "获取/设置 请求网址",
+    "ClientUserAgentComment": "获得/设置 客户端 UserAgent",
+    "ConfigurationTitle": "2. 配置",
+    "ConnectionIdComment": "获得/设置 连接 Id",
+    "ConnectionTimeComment": "获得/设置 开始连接时间",
+    "DeprecatedMethodDescription": "同步方法 <code>AddOrUpdate</code> 已弃用，仅为兼容旧接口保留，其接口默认实现为空，不会转发到异步方法。自定义 <code>IConnectionService</code> 实现也需要实现 <code>AddOrUpdateAsync</code>。",
+    "EnableCacheDescription": "<code>EnableCache</code> 是否开启缓存，可避免相同 IP 地址多次请求定位接口，有效减少请求次数",
+    "EnableDescription": "通过 <code>Enable</code> 开启此功能",
+    "EnableIpLocatorDescription": "通过 <code>EnableIpLocator</code> 开启 <code>Ip</code> 地址定位功能",
+    "EntityTitle": "{0} 实体类",
+    "ExpirationScanFrequencyDescription": "通过 <code>ExpirationScanFrequency</code> 设置扫描周期，扫描后移除已经断开的链接",
+    "FaqTitle": "5. 常见问题",
+    "FeatureDescription": "为了节约服务器资源，此功能默认为 <b>关闭</b>，需要通过配置开启。此功能通过客户端脚本与服务器建立心跳机制，超过 <code>TimeoutInterval</code> 未收到心跳时，<code>Count</code> 不再统计该连接，但 <code>Connections</code> 和 <code>TryGetValue</code> 仍可能返回其记录，直到过期扫描将其移除。因此不要使用 <code>Connections.Count</code> 代替在线连接数。",
+    "FeatureTitle": "4. 功能说明",
+    "HeartbeatDescription": "在交互式布局或页面中放置 <code>ConnectionHub</code> 组件，启用功能后由组件自动采集客户端信息并调用 <code>AddOrUpdateAsync</code> 上报心跳，无需在业务代码中重复上报。",
+    "HostingModelDescription": "默认服务器实现保存当前进程内的连接信息，不会自动汇总多个服务器实例的数据。WebAssembly 模式应通过依赖注入注册自己的 <code>IConnectionService</code> 实现，浏览器本地内存中的连接信息不能直接代表服务器在线状态。",
+    "HostingModelTitle": "Server 与 WebAssembly",
+    "InjectServiceTitle": "1. 服务注入",
+    "IpLocatorAnswer": "本套组件库内置了一些免费的 IP 地理位置定位器，可通过如下配置文件开启",
+    "IpLocatorLinkDescription": "更多定位器相关文档请参阅 <a href=\"locator\" target=\"_blank\"><code>IpLocatorFactory</code></a> 服务",
+    "IpLocatorQuestion": "地理位置定位器 <code>IpLocatorFactory</code> 如何配置",
+    "LastBeatTimeComment": "获得/设置 上次心跳时间",
+    "MiddlewareDescription": "本组件依赖 <code>UseBootstrapBlazor</code> 中间件，请正确配置中间件",
+    "MultipleTabsAnswer": "对！不管同时打开多少个标签，服务器端均视为一个链接，在底层为了优化性能，只有一个标签与服务器进行心跳链接，其余标签均处于静默状态，当心跳链接标签被关闭时，其余标签会有一个自动跳跃成为心跳标签与服务器继续保持链接",
+    "MultipleTabsQuestion": "同一个浏览器多个标签视为一个链接吗？",
+    "ProviderNameDescription": "<code>ProviderName</code> 定位器名称，内置定位器名称为 <code>BaiduIpLocatorProvider</code> (国内比较准确) <code>BaiduIpLocatorProviderV2</code> (国际比较准确)",
+    "SameEngineAnswer": "不对！由于浏览器不同他们被视为不同 <code>Client</code> 服务器获得的链路信息中 <code>IP</code> 地址等信息是相同的，但是浏览器 <code>UserAgent</code> 是不同的",
+    "SameEngineQuestion": "不同浏览器相同内核视为一个链接吗？如相同内核版本的 <code>Chrome</code> 与 <code>Edge</code>",
+    "SignalRSetupDescription": "使用 <code>BootstrapBlazor.SignalR</code> 扩展时，在 <code>AddBootstrapBlazor</code> 后调用 <code>AddBootstrapBlazorConnectionClient</code>。服务器需要引用 <code>BootstrapBlazor.Middleware</code>，注册 SignalR 服务并调用 <code>MapBootstrapBlazorHub</code>；快照查询需单独启用，并根据需要配置授权策略。",
+    "SlidingExpirationDescription": "<code>SlidingExpiration</code> 缓存滑动过期时间",
+    "SnapshotDescription": "WebAssembly 扩展通过 SignalR 上报心跳，<code>Count</code>、<code>Connections</code> 和 <code>TryGetValue</code> 同步读取最近一次获取的服务器快照，不会在读取时发起网络请求。首次获取前缓存为空，快照可能存在延迟；缓存更新也不会自动触发页面重渲染，页面应根据自身刷新机制更新显示。",
+    "SnapshotPollingDescription": "扩展在每次快照请求完成后间隔 3 秒刷新，临时查询失败时保留上次数据并记录错误。查询被禁用、未授权或 Hub 请求发生永久 HTTP 错误时，会清空快照并停止轮询，重新加载页面后再次尝试；心跳上报不受快照轮询停止影响。",
+    "SubTitle": "组件库内置了在线连接服务，支持异步更新连接信息和同步查询",
+    "TimeoutIntervalDescription": "通过 <code>TimeoutInterval</code> 设置超时时间间隔，到达指定时间间隔时未接收到心跳视为已断开",
+    "Title": "在线连接服务",
+    "UsageDescription": "通过 <code>Count</code> 获取在线连接数，通过 <code>Connections</code> 获取 <code>ConnectionItem</code> 集合，其中 <code>ClientInfo</code> 包含客户端连接信息；通过 <code>TryGetValue</code> 按连接 Id 查询。",
+    "UsageTitle": "3. 使用服务"
+  },
   "BootstrapBlazor.Server.Components.Samples.Consoles": {
     "ColorIntro": "通过设置 <code>ConsoleMessageItem</code> 的 <code>Color</code> 参数进行对颜色的更改",
     "ColorTitle": "不同颜色的消息",
@@ -1937,8 +1994,10 @@
     "ValidateFormTip": "自定义组件示例代码，通过 <code>ValidateForm</code> 参数 <code>OnFieldValueChanged</code> 获得模型是否被更改"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
+    "AsyncTip": "自 <b>11.0.0</b> 起，请使用并等待 <code>SubscribeAsync</code>、<code>DispatchAsync</code> 和 <code>UnSubscribeAsync</code>。旧同步方法已弃用，不再执行订阅、分发或退订；组件应实现 <code>IAsyncDisposable</code> 释放订阅。",
+    "DeliveryTip": "<code>AddBootstrapBlazor</code> 默认注册单例进程内分发服务，仅通知同一运行实例内、相同泛型类型的订阅者，不提供跨进程或 Server/WebAssembly 网络推送。回调按顺序执行，单个回调异常会记录日志并继续，取消令牌用于停止后续处理；UI 更新应通过 <code>InvokeAsync</code> 切换到组件上下文。",
     "Description": "通过注入服务调用实例方法全站弹出窗口进行消息通知",
-    "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
+    "DispatchIntro": "点击按钮进行消息分发，连接到同一服务端进程并已订阅消息的用户均可收到通知",
     "DispatchNoticeButtonText": "通知",
     "DispatchNoticeMessage": "测试通知消息",
     "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致",
@@ -1951,6 +2010,7 @@
     "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
     "NormalTipsContent": "通知内容",
     "NormalTipsTitle": "通知标题",
+    "PublishTip": "5. 使用 <code>DispatchAsync</code> 分发消息；此处 <code>MessageItem</code> 对应 <code>MainLayout</code> 中的订阅。分发和订阅必须使用相同的泛型类型，等待完成表示当前实现的分发处理结束，不代表离线消息会被保存或补发。",
     "Tips": "本组件使用注入服务的形式提供功能，通常用于全站消息推送等功能；使用本服务使需要在代码中进行 <b>订阅</b> 与 <b>取消订阅</b> 操作",
     "Title": "Dispatch 消息分发"
   },
@@ -5977,8 +6037,15 @@
     "Step3Title": "3. 全站默认设置追悼模式方法",
     "ToggleButtonText": "切换哀悼模式"
   },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineContributor": {
+    "DescriptionLabel": "描述：",
+    "NameLabel": "姓名："
+  },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
-    "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容",
+    "ContributorCellValue": "{0:yyyy-MM-dd HH:mm:ss} {1} 更新此单元格",
+    "ContributorDescription": "正在更新单元格 {0}",
+    "DispatchToastTitle": "Dispatch 服务测试",
+    "ToastOnReadyContent": "表格加载完成，稍后将展示其他协作人员的更新。",
     "ToastOnReadyTitle": "在线表格协作通知"
   },
   "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {

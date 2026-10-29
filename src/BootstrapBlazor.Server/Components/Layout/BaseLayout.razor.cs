@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Server.Components.Layout;
 /// <summary>
 /// 母版页基类
 /// </summary>
-public partial class BaseLayout : IDisposable
+public partial class BaseLayout : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -62,9 +62,6 @@ public partial class BaseLayout : IDisposable
         InstallAppText ??= Localizer[nameof(InstallAppText)];
         InstallText ??= Localizer[nameof(InstallText)];
         CancelText ??= Localizer[nameof(CancelText)];
-
-        CommitDispatchService.Subscribe(NotifyCommit);
-        RebootDispatchService.Subscribe(NotifyReboot);
     }
 
     /// <summary>
@@ -74,6 +71,9 @@ public partial class BaseLayout : IDisposable
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
+        await CommitDispatchService.SubscribeAsync(NotifyCommit);
+        await RebootDispatchService.SubscribeAsync(NotifyReboot);
 
         var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
         await module.InvokeVoidAsync("initTheme");
@@ -124,22 +124,10 @@ public partial class BaseLayout : IDisposable
     /// <summary>
     /// 释放资源
     /// </summary>
-    /// <param name="disposing"></param>
-    private void Dispose(bool disposing)
+    public async ValueTask DisposeAsync()
     {
-        if (disposing)
-        {
-            CommitDispatchService.UnSubscribe(NotifyCommit);
-            RebootDispatchService.UnSubscribe(NotifyReboot);
-        }
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
+        await CommitDispatchService.UnSubscribeAsync(NotifyCommit);
+        await RebootDispatchService.UnSubscribeAsync(NotifyReboot);
         GC.SuppressFinalize(this);
     }
 }

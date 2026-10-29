@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet;
 /// <summary>
 /// Online sheet sample code
 /// </summary>
-public partial class OnlineSheet : IDisposable
+public partial class OnlineSheet : IAsyncDisposable
 {
     [Inject, NotNull]
     private IWebHostEnvironment? WebHost { get; set; }
@@ -61,7 +61,7 @@ public partial class OnlineSheet : IDisposable
         if (firstRender)
         {
             await Task.Delay(5000);
-            MockOnlineContributor.Trigger(DispatchService);
+            await MockOnlineContributor.Trigger(DispatchService, Localizer);
         }
     }
 
@@ -69,7 +69,7 @@ public partial class OnlineSheet : IDisposable
     {
         _inited = true;
         await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
-        DispatchService.Subscribe(Dispatch);
+        await DispatchService.SubscribeAsync(Dispatch);
     }
 
     private async Task Dispatch(DispatchEntry<Contributor> entry)
@@ -83,7 +83,7 @@ public partial class OnlineSheet : IDisposable
         {
             await ToastService.Show(new ToastOption()
             {
-                Title = "Dispatch 服务测试",
+                Title = Localizer["DispatchToastTitle"],
                 ChildContent = BootstrapDynamicComponent.CreateComponent<OnlineContributor>(new Dictionary<string, object?>()
                 {
                     { "Contributor", entry.Entry }
@@ -97,21 +97,12 @@ public partial class OnlineSheet : IDisposable
         }
     }
 
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            DispatchService.UnSubscribe(Dispatch);
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DispatchService.UnSubscribeAsync(Dispatch);
         GC.SuppressFinalize(this);
     }
 }
-
