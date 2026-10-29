@@ -1,4 +1,37 @@
 {
+  "BootstrapBlazor.Shared.Components.Samples.UploadButtons": {
+    "UploadCancelled": "Upload cancelled",
+    "UploadLimits": "Allowed attachments: PNG, JPG, JPEG, GIF, WebP, PDF, TXT and ZIP; maximum 5 MB per file.",
+    "UploadsSaveFileError": "File save failed",
+    "UploadFile": "Upload",
+    "UploadsError": "Simulated upload failure. Please select the file again.",
+    "ButtonUploadIntro": "By setting <code>ShowUploadFileList=\"true\"</code> you can display the uploaded file list, and setting <code>ShowDeleteButton=\"true\"</code> you can display the <b>Delete</b> button",
+    "ButtonUploadTitle": "Basic usage",
+    "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "UploadsSubTitle": "Upload files by clicking on them, usually used to upload file attachments",
+    "UploadsTitle": "ButtonUpload"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.UploadCards": {
+    "UploadCancelled": "Upload cancelled",
+    "UploadLimits": "Allowed attachments: PNG, JPG, JPEG, GIF, WebP, PDF, TXT and ZIP; maximum 5 MB per file.",
+    "ButtonUploadIntro": "Use <code>DefaultFileList</code> to set up uploaded content",
+    "ButtonUploadTitle": "Basic usage",
+    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the <code>ActionButtonTemplate</code> parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the <code>BeforeActionButtonTemplate</code> parameter (insert it before the default button).",
+    "UploadActionButtonTemplateTitle": "Custom action button",
+    "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path",
+    "UploadBase64Title": "Base64 format",
+    "UploadFileIconIntro": "Icons are displayed in different file formats",
+    "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/file-icon\">[FileIcon example]</a>",
+    "UploadFileIconTemplateTitle": "Custom file icon",
+    "UploadFileIconTitle": "The file icon",
+    "UploadsFileError": "The file is larger than 5M. Please reselect the file to upload.",
+    "UploadsFileTitle": "Upload",
+    "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "UploadsSaveFileError": "File save failed",
+    "UploadsSubTitle": "Click the button to pop up the file selection box to select one or more files, which will be presented in a card-style preview mode.",
+    "UploadsSuccess": "File saved successfully",
+    "UploadsTitle": "CardUpload"
+  },
   "BootstrapBlazor.Shared.Components.Samples.Editors": {
     "UploadFailed": "Attachment upload failed",
     "UploadTooLarge": "Attachments must not exceed 5 MB.",

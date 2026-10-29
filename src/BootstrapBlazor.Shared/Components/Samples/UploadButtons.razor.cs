@@ -3,15 +3,31 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
-/// ButtonUpload sample code
+/// <para lang="zh">ButtonUpload 按钮上传示例。</para>
+/// <para lang="en">ButtonUpload component examples.</para>
 /// </summary>
 public partial class UploadButtons : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<UploadButtons>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IEditorUploadService? UploadService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
     private static readonly Random Random = new();
-    private static readonly long MaxFileLength = 5 * 1024 * 1024;
     private CancellationTokenSource? _token;
 
     private bool _isMultiple = true;
@@ -24,6 +40,7 @@ public partial class UploadButtons : IDisposable
     private async Task OnClickToUpload(UploadFile file)
     {
         // 示例代码，模拟 80% 几率保存成功
+        // Simulate an 80% chance of proceeding with the upload.
         var error = Random.Next(1, 100) > 80;
         if (error)
         {
@@ -49,43 +66,28 @@ public partial class UploadButtons : IDisposable
 
     private async Task SaveToFile(UploadFile file)
     {
-        // Server Side 使用
-        // Web Assembly 模式下必须使用 WebApi 方式去保存文件到服务器或者数据库中
-        // 生成写入文件名称
-        if (!string.IsNullOrEmpty(WebsiteOption.Value.WebRootPath))
+        // Server 直接保存文件，WebAssembly 通过 Web API 保存并返回预览地址。
+        // Server saves directly; WebAssembly uses the Web API to save and obtain a preview URL.
+        _token ??= new CancellationTokenSource();
+        var token = _token.Token;
+        try
         {
-            var uploaderFolder = Path.Combine(WebsiteOption.Value.WebRootPath, "images", "uploader");
-            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
-            var fileName = Path.Combine(uploaderFolder, file.FileName);
-
-            _token ??= new CancellationTokenSource();
-            try
-            {
-                var ret = await file.SaveToFileAsync(fileName, MaxFileLength, token: _token.Token);
-
-                if (ret)
-                {
-                    // 保存成功
-                    file.PrevUrl = $"{WebsiteOption.Value.AssetRootPath}images/uploader/{file.FileName}";
-                }
-                else
-                {
-                    var errorMessage = $"{Localizer["UploadsSaveFileError"]} {file.OriginFileName}";
-                    file.Code = 1;
-                    file.Error = errorMessage;
-                    await ToastService.Error(Localizer["UploadFile"], errorMessage);
-                }
-            }
-            catch (OperationCanceledException)
-            {
-
-            }
+            var url = await UploadService.UploadAsync(file, token);
+            // 保存成功后设置服务器生成的文件名与预览地址。
+            // Set the server-generated file name and preview URL after a successful save.
+            file.FileName = Path.GetFileName(url);
+            file.PrevUrl = NavigationManager.ToAbsoluteUri(url).AbsoluteUri;
         }
-        else
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
         {
             file.Code = 1;
-            file.Error = Localizer["UploadsWasmError"];
-            await ToastService.Information(Localizer["UploadsSaveFile"], Localizer["UploadsSaveFileMsg"]);
+            file.Error = Localizer["UploadCancelled"];
+        }
+        catch (Exception ex)
+        {
+            file.Code = 1;
+            file.Error = $"{Localizer["UploadsSaveFileError"]}: {ex.Message}";
+            await ToastService.Error(Localizer["UploadFile"], file.Error);
         }
     }
 

@@ -21,6 +21,28 @@ sealed class EditorUploadService(IWebHostEnvironment environment) : IEditorUploa
     };
 
     /// <inheritdoc />
+    public async Task<string> UploadAsync(UploadFile file, CancellationToken cancellationToken = default)
+    {
+        var browserFile = file.File ?? throw new InvalidDataException("The attachment is missing.");
+        ValidateSize(browserFile.Size);
+        var (path, url) = CreateUploadPath(browserFile.Name);
+        try
+        {
+            if (!await file.SaveToFileAsync(path, IEditorUploadService.MaxFileSize, token: cancellationToken))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                throw new IOException(file.Error ?? "Unable to save the attachment.");
+            }
+        }
+        catch
+        {
+            File.Delete(path);
+            throw;
+        }
+        return url;
+    }
+
+    /// <inheritdoc />
     public async Task<string> UploadAsync(EditorUploadFile file, CancellationToken cancellationToken = default)
     {
         ValidateSize(file.FileSize);

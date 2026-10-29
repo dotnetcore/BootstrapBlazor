@@ -6,16 +6,24 @@
 namespace BootstrapBlazor.Shared.Services;
 
 /// <summary>
-/// <para lang="zh">编辑器附件上传服务，支持 Server 和 WebAssembly 模式。</para>
-/// <para lang="en">Uploads editor attachments in Server and WebAssembly modes.</para>
+/// <para lang="zh">编辑器及上传组件的附件上传服务，支持 Server 和 WebAssembly 模式。</para>
+/// <para lang="en">Uploads attachments for editors and upload components in Server and WebAssembly modes.</para>
 /// </summary>
 public interface IEditorUploadService
 {
     /// <summary>
-    /// <para lang="zh">编辑器附件大小上限（字节）。</para>
-    /// <para lang="en">Maximum size of an editor attachment, in bytes.</para>
+    /// <para lang="zh">附件大小上限（字节）。</para>
+    /// <para lang="en">Maximum size of an attachment, in bytes.</para>
     /// </summary>
     public const long MaxFileSize = 5 * 1024 * 1024;
+
+    /// <summary>
+    /// <para lang="zh">上传文件并更新读取进度，返回应用相对 URL。</para>
+    /// <para lang="en">Uploads a file, updates its read progress and returns an application-relative URL.</para>
+    /// </summary>
+    /// <param name="file"><para lang="zh">上传文件。</para><para lang="en">The file to upload.</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌。</para><para lang="en">Cancellation token.</para></param>
+    Task<string> UploadAsync(UploadFile file, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// <para lang="zh">上传 Editor 图片并返回应用相对 URL。</para>
