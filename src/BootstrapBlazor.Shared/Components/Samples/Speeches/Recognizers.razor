@@ -1,8 +1,5 @@
-﻿@page "/speech/recognizer"
-@inherits BootstrapComponentBase
-@inject IStringLocalizer<Recognizers> Localizer
-@inject RecognizerService RecognizerService
-
+@page "/speech/recognizer"
+@inherits SampleSpeechComponentBase
 <h3>@Localizer["RecognizersTitle"]</h3>
 <h4>@Localizer["RecognizersSubTitle"]</h4>
 
@@ -21,4 +18,3 @@
         </div>
     </div>
 </DemoBlock>
-

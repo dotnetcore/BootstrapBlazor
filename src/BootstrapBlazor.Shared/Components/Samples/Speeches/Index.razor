@@ -1,5 +1,5 @@
-﻿@page "/speech/index"
-@inherits BootstrapComponentBase
+@page "/speech/index"
+@inherits SampleSpeechComponentBase
 @layout MainLayout
 
 <h3>@Localizer["SpeechTitle"]</h3>
@@ -44,9 +44,7 @@
 <Pre>// @Localizer["SpeechTips2Text1"]
 [Inject]
 [NotNull]
-private RecognizerService? RecognizerService { get; set; }
+private ISampleSpeechService? SpeechService { get; set; }
 
 // @Localizer["SpeechTips2Text2"]
-[Inject]
-[NotNull]
-private SynthesizerService? SynthesizerService { get; set; }</Pre>
+// Recognition uses browser audio capture; synthesis returns audio for browser playback.</Pre>

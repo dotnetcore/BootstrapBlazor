@@ -28,6 +28,10 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
             // Keep translation keys and the Azure SDK on Server; the browser sends only text and target languages.
             services.AddHttpClient<ISampleTranslationService, HttpSampleTranslationService>((provider, client) =>
                 client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+            // 百度语音密钥留在 Server，浏览器仅提交录音并获取合成音频。
+            // Keep Baidu Speech credentials on Server; the browser only uploads recordings and receives synthesized audio.
+            services.AddHttpClient<ISampleSpeechService, HttpSampleSpeechService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             // <para lang="zh">浏览器通过后台生成 PDF，Server 仍使用现有本地实现。</para>
             // <para lang="en">The browser generates PDFs through the server; Server keeps its existing local implementation.</para>
             services.AddHttpClient<IHtml2Pdf, HttpHtml2PdfService>((provider, client) =>

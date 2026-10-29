@@ -307,6 +307,41 @@
     "SignatureText": "Signature",
     "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background."
   },
+  "BootstrapBlazor.Shared.Components.Samples.Speeches.Index": {
+    "SpeechRequestFailed": "Speech recognition failed. Check microphone access and try again.",
+    "SpeechButtonText": "Get started",
+    "SpeechDescription": "Converted to text (STT) through microphone voice capture, or read aloud through text (TTS)",
+    "SpeechDescription1": "This set of components is built-in <code>Azure</code> and <code>Baidu</code> Speech service, this example relies on",
+    "SpeechDescription2": "When using this component, you need to reference its component package",
+    "SpeechGroupBoxHeaderText": "command panel",
+    "SpeechGroupBoxTitle": "Command output area",
+    "SpeechLi1": "Click <b>start</b> After pressing the button, speak to the computer <b><i>Please turn on the light for me</i></b>",
+    "SpeechLi2": "After the computer receives the command, it will ask <b><i>Are you sure you want to turn on the light? Please confirm!</i></b>",
+    "SpeechLi3": "You speak to the computer： <b><i>confirm</i></b>",
+    "SpeechLi4": "The computer executes the command and enters it in the text box below <b><i>has been opened for you</i></b> text",
+    "SpeechLiTitle": "Actual combat experience",
+    "SpeechTips1": "1. registration service",
+    "SpeechTips1Text": "Add Baidu voice service",
+    "SpeechTips2": "2. use the service",
+    "SpeechTips2Text1": "speech recognition service",
+    "SpeechTips2Text2": "speech synthesis service",
+    "SpeechTitle": "Speech Recognition and Synthesis"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Speeches.Recognizers": {
+    "SpeechRequestFailed": "Speech recognition failed. Check microphone access and try again.",
+    "RecognizerNormalDescription": "Instructions for use",
+    "RecognizerNormalIntro": "Click to start recognition to recognize the input voice",
+    "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>",
+    "RecognizerNormalTitle": "Common usage",
+    "RecognizersSubTitle": "Convert speech to text with a voice capture device",
+    "RecognizersTitle": "Recognizer Speech Recognition"
+  },
+  "BootstrapBlazor.Shared.Components.Samples.Speeches.Synthesizers": {
+    "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content",
+    "SynthesizerNormalTitle": "Common usage",
+    "SynthesizersSubTitle": "Convert text content to speech",
+    "SynthesizersTitle": "Synthesizer speech synthesis"
+  },
   "BootstrapBlazor.Shared.Components.Samples.SignaturePads": {
     "BaseUsageIntro": "Signature with touch or mouse",
     "BaseUsageText": "Basic usage",

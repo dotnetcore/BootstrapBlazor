@@ -1,15 +1,24 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.Speeches;
+namespace BootstrapBlazor.Shared.Components.Samples.Speeches;
 
 /// <summary>
 /// 语音合成组件示例代码
 /// </summary>
 public partial class Synthesizers
 {
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject, NotNull]
+    private IStringLocalizer<Synthesizers>? Localizer { get; set; }
+
+    [Inject, NotNull]
+    private ILogger<Synthesizers>? Logger { get; set; }
+
     private bool Start { get; set; }
 
     private string? InputText { get; set; }
@@ -18,22 +27,25 @@ public partial class Synthesizers
 
     private async Task OnStart()
     {
-        if (ButtonText == "开始合成")
+        if (Start)
         {
-            if (!string.IsNullOrEmpty(InputText))
+            await CloseSynthesisAsync();
+        }
+        else if (!string.IsNullOrEmpty(InputText))
+        {
+            try
             {
-                try
-                {
-                    await SynthesizerService.SynthesizerOnceAsync(InputText, Synthesizer);
-                }
-                catch (Exception)
-                {
-                }
+                await SynthesizeOnceAsync(InputText, Synthesizer);
             }
-            else
+            catch (Exception ex) when (ex is HttpRequestException or InvalidOperationException or ArgumentException)
             {
-                await SynthesizerService.CloseAsync(Synthesizer);
+                Logger.LogError(ex, "Speech synthesis sample request failed.");
+                await ToastService.Error(Localizer["SynthesizersTitle"], ex.Message);
             }
+        }
+        else
+        {
+            await CloseSynthesisAsync();
         }
     }
 

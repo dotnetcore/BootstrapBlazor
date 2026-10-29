@@ -1,15 +1,18 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.Speeches;
+namespace BootstrapBlazor.Shared.Components.Samples.Speeches;
 
 /// <summary>
 /// 语音识别组件示例代码
 /// </summary>
 public partial class Recognizers
 {
+    [Inject, NotNull]
+    private IStringLocalizer<Recognizers>? Localizer { get; set; }
+
     private bool Start { get; set; }
 
     private string? Result { get; set; }
@@ -20,20 +23,20 @@ public partial class Recognizers
     {
         if (ButtonText == "开始识别")
         {
-            await RecognizerService.RecognizeOnceAsync(Recognize, 5000);
+            await RecognizeOnceAsync(Recognize, 5000);
         }
         else
         {
             Start = false;
             ButtonText = "开始识别";
             StateHasChanged();
-            await RecognizerService.CloseAsync(Recognize);
+            await CloseRecognitionAsync();
         }
     }
 
     private async Task OnTimeout()
     {
-        await RecognizerService.CloseAsync(Recognize);
+        await CloseRecognitionAsync();
     }
 
     private Task Recognize(RecognizerStatus status, string? result)
@@ -51,7 +54,7 @@ public partial class Recognizers
         }
         else
         {
-            Result = "";
+            Result = status == RecognizerStatus.Error ? result ?? Localizer["SpeechRequestFailed"].Value : "";
             Start = false;
             ButtonText = "开始识别";
         }

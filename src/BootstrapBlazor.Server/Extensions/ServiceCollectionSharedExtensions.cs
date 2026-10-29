@@ -35,6 +35,7 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 Baidu 语音服务
         services.AddBootstrapBlazorBaiduSpeech();
+        services.AddScoped<ISampleSpeechService, SampleSpeechService>();
 
         // 增加 Baidu ORC 服务
         services.AddBootstrapBlazorBaiduOcr();
