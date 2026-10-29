@@ -84,11 +84,59 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
         set => IsVisibleWhenEdit = value ?? true;
     }
 
-    bool? IEditorItem.Required { get; set; }
+    private bool? _required;
 
-    bool? ITableColumn.IsRequiredWhenAdd { get; set; }
+    /// <summary>
+    /// <para lang="zh">获得/设置 当前列是否必填。默认值为 null，使用 <see cref="RequiredAttribute"/> 或 <see cref="IsRequiredWhenAdd"/>、<see cref="IsRequiredWhenEdit"/> 值</para>
+    /// <para lang="en">Gets or sets whether the current column is required. Default is null, using the <see cref="RequiredAttribute"/> or the <see cref="IsRequiredWhenAdd"/>, <see cref="IsRequiredWhenEdit"/> values</para>
+    /// </summary>
+    public bool Required
+    {
+        get => _required ?? false;
+        set => _required = value;
+    }
 
-    bool? ITableColumn.IsRequiredWhenEdit { get; set; }
+    bool? IEditorItem.Required
+    {
+        get => _required;
+        set => _required = value;
+    }
+
+    private bool? _isRequiredWhenAdd;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 新建时此列是否必填。默认值为 null，使用 <see cref="Required"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is required when adding a new item. Default is null, using the <see cref="Required"/> value</para>
+    /// </summary>
+    public bool IsRequiredWhenAdd
+    {
+        get => _isRequiredWhenAdd ?? false;
+        set => _isRequiredWhenAdd = value;
+    }
+
+    bool? ITableColumn.IsRequiredWhenAdd
+    {
+        get => _isRequiredWhenAdd;
+        set => _isRequiredWhenAdd = value;
+    }
+
+    private bool? _isRequiredWhenEdit;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 编辑时此列是否必填。默认值为 null，使用 <see cref="Required"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is required when editing an item. Default is null, using the <see cref="Required"/> value</para>
+    /// </summary>
+    public bool IsRequiredWhenEdit
+    {
+        get => _isRequiredWhenEdit ?? false;
+        set => _isRequiredWhenEdit = value;
+    }
+
+    bool? ITableColumn.IsRequiredWhenEdit
+    {
+        get => _isRequiredWhenEdit;
+        set => _isRequiredWhenEdit = value;
+    }
 
     /// <summary>
     /// <inheritdoc/>

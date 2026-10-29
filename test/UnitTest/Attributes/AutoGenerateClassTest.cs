@@ -248,6 +248,57 @@ public class AutoGenerateClassTest
         Assert.Equal("test", attr.RequiredErrorMessage);
     }
 
+    [Fact]
+    public void AutoGenerateColumn_Required_Ok()
+    {
+        var attr = new AutoGenerateColumnAttribute();
+        var editItem = (IEditorItem)attr;
+        var tableColumn = (ITableColumn)attr;
+
+        // 未设置时接口层保持 null 以便回退到 RequiredAttribute 或者 IsRequiredWhenAdd/IsRequiredWhenEdit
+        Assert.False(attr.Required);
+        Assert.Null(editItem.Required);
+        Assert.False(attr.IsRequiredWhenAdd);
+        Assert.Null(tableColumn.IsRequiredWhenAdd);
+        Assert.False(attr.IsRequiredWhenEdit);
+        Assert.Null(tableColumn.IsRequiredWhenEdit);
+
+        // 支持通过特性语法赋值
+        attr = new AutoGenerateColumnAttribute()
+        {
+            Required = true,
+            IsRequiredWhenAdd = true,
+            IsRequiredWhenEdit = true
+        };
+        editItem = attr;
+        tableColumn = attr;
+        Assert.True(attr.Required);
+        Assert.True(editItem.Required);
+        Assert.True(attr.IsRequiredWhenAdd);
+        Assert.True(tableColumn.IsRequiredWhenAdd);
+        Assert.True(attr.IsRequiredWhenEdit);
+        Assert.True(tableColumn.IsRequiredWhenEdit);
+
+        // 显式 false 需要与未设置区分
+        editItem.Required = false;
+        tableColumn.IsRequiredWhenAdd = false;
+        tableColumn.IsRequiredWhenEdit = false;
+        Assert.False(attr.Required);
+        Assert.False(editItem.Required);
+        Assert.False(attr.IsRequiredWhenAdd);
+        Assert.False(tableColumn.IsRequiredWhenAdd);
+        Assert.False(attr.IsRequiredWhenEdit);
+        Assert.False(tableColumn.IsRequiredWhenEdit);
+
+        // 通过接口设置 null 后恢复未设置状态
+        editItem.Required = null;
+        tableColumn.IsRequiredWhenAdd = null;
+        tableColumn.IsRequiredWhenEdit = null;
+        Assert.Null(editItem.Required);
+        Assert.Null(tableColumn.IsRequiredWhenAdd);
+        Assert.Null(tableColumn.IsRequiredWhenEdit);
+    }
+
     class LookupService : LookupServiceBase
     {
         public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
