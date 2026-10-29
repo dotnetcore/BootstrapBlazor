@@ -20,6 +20,10 @@ public static class BootstrapBlazorLayoutServiceCollectionExtensions
         services.AddBootstrapBlazorTableExportService();
         if (OperatingSystem.IsBrowser())
         {
+            services.AddHttpClient<ISampleOcrService, HttpSampleOcrService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
+            services.AddHttpClient<ISampleLocatorService, HttpSampleLocatorService>((provider, client) =>
+                client.BaseAddress = new Uri(provider.GetRequiredService<NavigationManager>().BaseUri));
             // 翻译密钥与 Azure SDK 留在 Server，浏览器仅提交文本和目标语言。
             // Keep translation keys and the Azure SDK on Server; the browser sends only text and target languages.
             services.AddHttpClient<ISampleTranslationService, HttpSampleTranslationService>((provider, client) =>

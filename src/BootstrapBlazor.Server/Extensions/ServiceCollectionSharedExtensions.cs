@@ -38,6 +38,8 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 Baidu ORC 服务
         services.AddBootstrapBlazorBaiduOcr();
+        services.AddScoped<ISampleOcrService, SampleOcrService>();
+        services.AddScoped<ISampleLocatorService, SampleLocatorService>();
 
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();

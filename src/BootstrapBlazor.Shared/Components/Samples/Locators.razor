@@ -46,9 +46,12 @@ Location = await provider.Locate(Ip);</Pre>
     </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">
-            <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged"
-                    ShowLabel="true" DisplayText="LocatorProvider">
-            </Select>
+            @if (_providers.Count > 0)
+            {
+                <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged"
+                        ShowLabel="true" DisplayText="LocatorProvider">
+                </Select>
+            }
         </div>
         <div class="col-12 col-sm-6">
         </div>

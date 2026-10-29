@@ -97,16 +97,16 @@ private IBaiduOcr? OcrService { get; set; }</Pre>
             </div>
             <div class="col-12 col-sm-6">
             </div>
-            @if (Invoice.CommodityName?.Any() ?? false)
+            @if (Invoice.CommodityNames.Count > 0)
             {
                 <div class="col-12 col-sm-6">
-                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityNameLabel"]" Value="Invoice.CommodityName.First().CommodityName"></Display>
+                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityNameLabel"]" Value="Invoice.CommodityNames[0]"></Display>
                 </div>
             }
-            @if (Invoice.CommodityTaxRate?.Any() ?? false)
+            @if (Invoice.CommodityTaxRates.Count > 0)
             {
                 <div class="col-12 col-sm-6">
-                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityTaxRateLabel"]" Value="Invoice.CommodityTaxRate.First().CommodityTaxRate"></Display>
+                    <Display ShowLabel="true" DisplayText="@Localizer["CommodityTaxRateLabel"]" Value="Invoice.CommodityTaxRates[0]"></Display>
                 </div>
             }
         </div>
