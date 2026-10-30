@@ -139,7 +139,7 @@ export async function fitAllColumnWidth(id) {
         // use first column name to notify
         await table.invoke.invokeMethodAsync(
             table.options.resizeColumnCallback,
-            getColumnName(columns[0]),
+            "*",
             state
         );
     }
