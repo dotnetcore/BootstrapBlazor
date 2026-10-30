@@ -87,8 +87,10 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     private bool? _required;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 当前列是否必填。默认值为 null，使用 <see cref="RequiredAttribute"/> 或 <see cref="IsRequiredWhenAdd"/>、<see cref="IsRequiredWhenEdit"/> 值</para>
-    /// <para lang="en">Gets or sets whether the current column is required. Default is null, using the <see cref="RequiredAttribute"/> or the <see cref="IsRequiredWhenAdd"/>, <see cref="IsRequiredWhenEdit"/> values</para>
+    /// <para lang="zh">获得/设置 当前列是否必填。未显式设置时，此属性返回 false，<see cref="IEditorItem.Required"/> 接口属性保持 null</para>
+    /// <para lang="en">Gets or sets whether the current column is required. When not explicitly set, this property returns false while the <see cref="IEditorItem.Required"/> interface property remains null</para>
+    /// <para lang="zh">显式设置后优先于 <see cref="IsRequiredWhenAdd"/>、<see cref="IsRequiredWhenEdit"/>；未设置时按新建或编辑状态使用对应参数，Required 与对应参数均未设置时回退到 <see cref="RequiredAttribute"/> 判断</para>
+    /// <para lang="en">An explicit value takes precedence over <see cref="IsRequiredWhenAdd"/> and <see cref="IsRequiredWhenEdit"/>. Otherwise, the parameter for the current add or edit operation is used; if neither Required nor that parameter is set, the required state falls back to <see cref="RequiredAttribute"/></para>
     /// </summary>
     public bool Required
     {
@@ -105,8 +107,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     private bool? _isRequiredWhenAdd;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 新建时此列是否必填。默认值为 null，使用 <see cref="Required"/> 值</para>
-    /// <para lang="en">Gets or sets whether the column is required when adding a new item. Default is null, using the <see cref="Required"/> value</para>
+    /// <para lang="zh">获得/设置 新建时此列是否必填。仅在 <see cref="Required"/> 未显式设置时生效。未显式设置时，此属性返回 false，<see cref="ITableColumn.IsRequiredWhenAdd"/> 接口属性保持 null</para>
+    /// <para lang="en">Gets or sets whether the column is required when adding a new item. Applies only when <see cref="Required"/> is not explicitly set. When not explicitly set, this property returns false while the <see cref="ITableColumn.IsRequiredWhenAdd"/> interface property remains null</para>
     /// </summary>
     public bool IsRequiredWhenAdd
     {
@@ -123,8 +125,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     private bool? _isRequiredWhenEdit;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑时此列是否必填。默认值为 null，使用 <see cref="Required"/> 值</para>
-    /// <para lang="en">Gets or sets whether the column is required when editing an item. Default is null, using the <see cref="Required"/> value</para>
+    /// <para lang="zh">获得/设置 编辑时此列是否必填。仅在 <see cref="Required"/> 未显式设置时生效。未显式设置时，此属性返回 false，<see cref="ITableColumn.IsRequiredWhenEdit"/> 接口属性保持 null</para>
+    /// <para lang="en">Gets or sets whether the column is required when editing an item. Applies only when <see cref="Required"/> is not explicitly set. When not explicitly set, this property returns false while the <see cref="ITableColumn.IsRequiredWhenEdit"/> interface property remains null</para>
     /// </summary>
     public bool IsRequiredWhenEdit
     {
