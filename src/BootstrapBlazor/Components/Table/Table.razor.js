@@ -120,6 +120,32 @@ export async function reset(id) {
     }
 }
 
+export async function fitAllColumnWidth(id) {
+    const table = Data.get(id);
+    if (!table?.tables?.length) {
+        return;
+    }
+
+    let resized = false;
+    for (const col of getResizableColumns(table)) {
+        if (await autoFitColumnWidth(table, col, false)) {
+            resized = true;
+        }
+    }
+
+    if (resized) {
+        const state = getColumnStateObject(table);
+        saveColumnStateToLocalstorage(table, state);
+
+        // use wildcard to notify all columns have been resized
+        await table.invoke.invokeMethodAsync(
+            table.options.resizeColumnCallback,
+            "*",
+            state
+        );
+    }
+}
+
 export async function switchCardView(id) {
     const table = Data.get(id);
 
@@ -471,7 +497,7 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
+    const columns = getResizableColumns(table);
     columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation());
@@ -610,19 +636,20 @@ const getColumnName = col => getColumnHeader(col).getAttribute('data-bb-field');
 
 const getResizableColumnWidth = col => getWidth(getColumnHeader(col)) | 0;
 
+const getResizableColumns = table => [...table.tables[0].querySelectorAll(':scope > thead > tr > th > .col-resizer')];
+
 const indexOfCol = col => {
     const th = getColumnHeader(col);
     const row = th.parentElement;
     return [...row.children].indexOf(th);
 }
 
-const autoFitColumnWidth = async (table, col) => {
+const autoFitColumnWidth = async (table, col, notify = true) => {
     stopAutoColumnWidth(table);
     const field = getColumnName(col);
     const index = indexOfCol(col);
-    let rows = null;
     let maxWidth = getColumnMaxCellWidth(table, index);
-    
+
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = getColumnHeader(col);
         maxWidth = Math.max(maxWidth, getCellWidth(th));
@@ -630,15 +657,15 @@ const autoFitColumnWidth = async (table, col) => {
 
     if (maxWidth > 0) {
         table.tables.forEach(table => {
-            const colEl = table.querySelectorAll('colgroup col')[index];
+            const colEl = table.querySelectorAll(':scope > colgroup > col')[index];
             if (colEl) {
                 colEl.style.setProperty('width', `${maxWidth}px`);
             }
 
-            const th = table.querySelectorAll('thead > tr > th')[index];
+            const th = table.querySelectorAll(':scope > thead > tr > th')[index];
             if (th) {
                 const span = th.querySelector('.table-text');
-                span.style.removeProperty('width');
+                span?.style.removeProperty('width');
             }
 
             const tableWidth = getTableWidth(table);
@@ -647,26 +674,28 @@ const autoFitColumnWidth = async (table, col) => {
 
         resetColumnWidthTips(table, col);
 
-        const state = getColumnStateObject(table);
-        saveColumnStateToLocalstorage(table, state);
+        // notify or not
+        if (notify) {
+            const state = getColumnStateObject(table);
+            saveColumnStateToLocalstorage(table, state);
 
-        await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
+            await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, field, state);
+        }
+        return true;
     }
+    return false;
 }
 
 const getColumnMaxCellWidth = (table, index) => {
-    let rows = null;
+    const body = table.thead ? table.tables[1] : table.tables[0];
+    const rows = body.querySelectorAll(':scope > tbody > tr:not(.is-detail):not(.is-empty)');
     let maxWidth = 0;
-    if (table.thead) {
-        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
-    else {
-        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
-    }
 
     rows.forEach(row => {
         const cell = row.cells[index];
-        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+        if (cell && cell.colSpan === 1) {
+            maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+        }
     });
 
     return maxWidth;

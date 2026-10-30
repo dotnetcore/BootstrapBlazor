@@ -3153,6 +3153,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         cut.Contains("test-empty");
         cut.Contains("colspan=\"1\"");
+        Assert.Single(cut.FindAll("tbody > tr.is-empty"));
 
         var table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
@@ -9034,8 +9035,10 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
     }
 
-    [Fact]
-    public async Task OnTableColumnClientStatusChanged_ResizeColumn_Ok()
+    [Theory]
+    [InlineData(nameof(Foo.Address))]
+    [InlineData("*")]
+    public async Task OnTableColumnClientStatusChanged_ResizeColumn_Ok(string columnName)
     {
         var state = new TableColumnClientStatus();
         state.TableWidth = 500;
@@ -9045,6 +9048,7 @@ public class TableTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<TableColumnClientStatus>("getColumnStates", "test").SetResult(state);
 
         var name = "";
+        var callbackCount = 0;
         TableColumnClientStatus? clientState = null;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
@@ -9057,6 +9061,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.FitColumnWidthIncludeHeader, true);
                 pb.Add(a => a.OnTableColumnClientStatusChanged, (field, state) =>
                 {
+                    callbackCount++;
                     name = field;
                     clientState = state;
                     return Task.CompletedTask;
@@ -9082,9 +9087,15 @@ public class TableTest : BootstrapBlazorTestBase
         newState.TableWidth = 100;
         newState.Columns.Add(new TableColumnState() { Name = "Name", Width = 50 });
         newState.Columns.Add(new TableColumnState() { Name = "Address", Width = 50 });
-        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(nameof(Foo.Address), newState));
-        Assert.Equal("Address", name);
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(columnName, newState));
+        Assert.Equal(columnName, name);
+        Assert.Equal(1, callbackCount);
         Assert.NotNull(clientState);
+        Assert.Equal(100, clientState.TableWidth);
+        Assert.Equal(50, clientState.Columns.Single(c => c.Name == nameof(Foo.Name)).Width);
+        Assert.Equal(50, clientState.Columns.Single(c => c.Name == nameof(Foo.Address)).Width);
+        Assert.False(clientState.Columns.Single(c => c.Name == nameof(Foo.Name)).Visible);
+        Assert.True(clientState.Columns.Single(c => c.Name == nameof(Foo.Address)).Visible);
     }
 
     [Fact]
