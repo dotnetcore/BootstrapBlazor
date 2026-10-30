@@ -4,8 +4,6 @@ import EventHandler from "../../modules/event-handler.js"
 const getScrollElement = el => {
     let ele = el
     while (ele && ele.scrollHeight <= ele.clientHeight + 1) {
-        // ele.parentNode 会继续找到 document，导致后续调用不存在的 document.scrollTo() 方法报错
-        // 所以这里改为 parentElement，parentElement 到 html 就会返回 null，正确回退到 window
         ele = ele.parentElement
     }
     return ele || window
