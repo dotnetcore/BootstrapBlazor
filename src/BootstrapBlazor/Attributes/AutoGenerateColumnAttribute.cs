@@ -89,6 +89,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <para lang="zh">获得/设置 当前列是否必填。未显式设置时，此属性返回 false，<see cref="IEditorItem.Required"/> 接口属性保持 null 显式设置后优先于 <see cref="IsRequiredWhenAdd"/>、<see cref="IsRequiredWhenEdit"/>；未设置时按新建或编辑状态使用对应参数，Required 与对应参数均未设置时回退到 <see cref="RequiredAttribute"/> 判断</para>
     /// <para lang="en">Gets or sets whether the current column is required. When not explicitly set, this property returns false while the <see cref="IEditorItem.Required"/> interface property remains null. An explicit value takes precedence over <see cref="IsRequiredWhenAdd"/> and <see cref="IsRequiredWhenEdit"/>. Otherwise, the parameter for the current add or edit operation is used; if neither Required nor that parameter is set, the required state falls back to <see cref="RequiredAttribute"/></para>
+    /// <para><version>11.1.0</version></para>
     /// </summary>
     public bool Required
     {
