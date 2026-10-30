@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          global-json-file: global.json
+          dotnet-version: 11.0.x
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
