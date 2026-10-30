@@ -2049,6 +2049,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">获得/设置 表格客户端状态调整回调方法</para>
     /// <para lang="en">Gets or sets Table Column Client Status Changed Callback</para>
+    /// <para lang="zh">第一个参数为发生变化的列名称；调用 <see cref="FitAllColumnWidth"/> 批量调整时为 "*"，第二个参数包含完整列状态。</para>
+    /// <para lang="en">The first argument is the changed column name, or "*" for a batch update by <see cref="FitAllColumnWidth"/>. The second argument contains the full column state.</para>
     /// <para><version>v10.6.1</version></para>
     /// </summary>
     [Parameter]
@@ -2072,6 +2074,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <para lang="zh">列宽自适应方法</para>
     /// <para lang="en">Fit All Column Width Method</para>
+    /// <para lang="zh">启用 <see cref="AllowResizing"/> 时，按当前已渲染内容调整所有可见数据列的宽度；发生调整后统一保存列状态、触发一次回调。</para>
+    /// <para lang="en">When <see cref="AllowResizing"/> is enabled, fits all visible data columns to their currently rendered content, then saves the column state and invokes the callback once if widths were fitted.</para>
     /// </summary>
     public async Task FitAllColumnWidth()
     {
