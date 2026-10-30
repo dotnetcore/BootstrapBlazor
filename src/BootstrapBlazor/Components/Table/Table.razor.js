@@ -136,7 +136,7 @@ export async function fitAllColumnWidth(id) {
         const state = getColumnStateObject(table);
         saveColumnStateToLocalstorage(table, state);
 
-        // use first column name to notify
+        // use wildcard to notify all columns have been resized
         await table.invoke.invokeMethodAsync(
             table.options.resizeColumnCallback,
             "*",
