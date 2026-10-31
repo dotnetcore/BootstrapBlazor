@@ -2,6 +2,7 @@
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesEdit> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
+@inject IStringLocalizer<FooRequired> FooRequiredLocalizer
 @inject ToastService ToastService
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -45,6 +46,20 @@
             <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
             <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
             <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesRequiredTitle"]" Introduction="@Localizer["TablesRequiredIntro"]" Name="Required">
+    <Table TItem="FooRequired" Items="@ItemsRequired.Take(3)" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowColumnList="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" IsRequiredWhenAdd="true" IsRequiredWhenEdit="false" />
+            <TableColumn @bind-Field="@context.Name" Required="true" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" Required="false" IsRequiredWhenAdd="true" IsRequiredWhenEdit="true" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Education" IsRequiredWhenAdd="true" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -329,6 +344,11 @@
                 </div>
             </div>
         </EditTemplate>
+        <EditFooterTemplate Context="model">
+            <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
+            <DialogCloseButton />
+            <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
+        </EditFooterTemplate>
     </Table>
 </DemoBlock>
 

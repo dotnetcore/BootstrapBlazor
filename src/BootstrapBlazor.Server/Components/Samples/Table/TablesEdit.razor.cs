@@ -21,6 +21,9 @@ public partial class TablesEdit
     [NotNull]
     private IEnumerable<Foo>? EditItems { get; set; }
 
+    [NotNull]
+    private List<FooRequired>? ItemsRequired { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new[] { 4, 10, 20 };
 
     [NotNull]
@@ -74,6 +77,8 @@ public partial class TablesEdit
         var keepAddingDrawerItems = Foo.GenerateFoo(FooLocalizer, 4);
         keepAddingDrawerItems.ForEach(i => i.Count = 0);
         KeepAddingDrawerItems = keepAddingDrawerItems;
+
+        ItemsRequired = FooRequired.GenerateFoo(FooRequiredLocalizer, 4);
     }
 
     private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
