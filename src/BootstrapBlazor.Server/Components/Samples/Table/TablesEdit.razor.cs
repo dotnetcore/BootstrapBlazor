@@ -16,10 +16,13 @@ public partial class TablesEdit
     /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
-    private List<Foo>? Items { get; set; }
+    private List<Foo>? Items { get; set; }    
 
     [NotNull]
     private IEnumerable<Foo>? EditItems { get; set; }
+
+    [NotNull]
+    private List<FooRequired>? ItemsRequired { get; set; }
 
     private static IEnumerable<int> PageItemsSource => new[] { 4, 10, 20 };
 
@@ -58,7 +61,7 @@ public partial class TablesEdit
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = Foo.GenerateFoo(FooLocalizer, 4);
+        Items = Foo.GenerateFoo(FooLocalizer, 4);        
         EditItems = Foo.GenerateFoo(FooLocalizer, 4);
         Hobbies = Foo.GenerateHobbies(FooLocalizer);
         CustomerDataService = new FooDataService<Foo>(FooLocalizer);
@@ -74,6 +77,8 @@ public partial class TablesEdit
         var keepAddingDrawerItems = Foo.GenerateFoo(FooLocalizer, 4);
         keepAddingDrawerItems.ForEach(i => i.Count = 0);
         KeepAddingDrawerItems = keepAddingDrawerItems;
+
+        ItemsRequired = FooRequired.GenerateFoo(FooRequiredLocalizer, 4);
     }
 
     private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });

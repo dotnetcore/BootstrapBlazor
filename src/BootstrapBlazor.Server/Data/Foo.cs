@@ -184,6 +184,175 @@ public class Foo
 }
 
 /// <summary>
+/// Demo示例数据
+/// Demo sample data
+/// </summary>
+public class FooRequired
+{
+    // 列头信息支持 Display DisplayName 两种标签
+
+    /// <summary>
+    /// 主键
+    /// </summary>
+    [Key]
+    [Display(Name = "主键")]
+    [AutoGenerateColumn(Ignore = true)]
+    public int Id { get; set; }
+
+    /// <summary>
+    /// 姓名
+    /// </summary>
+    [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
+    [Display(Name = "姓名")]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// 日期
+    /// </summary>
+    [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
+    [Display(Name = "日期")]
+    public DateTime? DateTime { get; set; }
+
+    /// <summary>
+    /// 地址
+    /// </summary>
+    [Display(Name = "地址")]
+    [AutoGenerateColumn(Order = 20, Filterable = true, Searchable = true)]
+    public string? Address { get; set; }
+
+    /// <summary>
+    /// 数量
+    /// </summary>
+    [Display(Name = "数量")]
+    [AutoGenerateColumn(Order = 40, Sortable = true)]
+    public int Count { get; set; }
+
+    /// <summary>
+    /// 是/否
+    /// </summary>
+    [Display(Name = "是/否")]
+    [AutoGenerateColumn(Order = 50)]
+    public bool Complete { get; set; }
+
+    /// <summary>
+    /// 学历
+    /// </summary>
+    [Display(Name = "学历")]
+    [AutoGenerateColumn(Order = 60)]
+    public EnumEducation? Education { get; set; }
+
+    /// <summary>
+    /// 爱好
+    /// </summary>
+    [Display(Name = "爱好")]
+    [AutoGenerateColumn(Order = 70)]
+    public IEnumerable<string> Hobby { get; set; } = new List<string>();
+
+    /// <summary>
+    /// 只读列，模拟数据库计算列
+    /// </summary>
+    [Display(Name = "只读列")]
+    [AutoGenerateColumn(Order = 80, Ignore = true)]
+    public int ReadonlyColumn { get; init; }
+
+    #region Static methods
+    /// <summary>
+    /// 生成FooRequired类,随机数据
+    /// Generate FooRequired class, random data
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static FooRequired Generate(IStringLocalizer<FooRequired> localizer) => new()
+    {
+        Id = 1,
+        Name = localizer["FooRequired.Name", "1000"],
+        DateTime = System.DateTime.Now,
+        Address = localizer["FooRequired.Address", $"{Random.Shared.Next(1000, 2000)}"],
+        Count = Random.Shared.Next(1, 100),
+        Complete = Random.Shared.Next(1, 100) > 50,
+        Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+    };
+
+    /// <summary>
+    /// 生成 Foo 类,随机数据
+    /// Generate Foo class, random data
+    /// </summary>
+    /// <returns>返回一个FooRequired类的List，Return a List of FooRequired class</returns>
+    public static List<FooRequired> GenerateFoo(IStringLocalizer<FooRequired> localizer, int count = 80) => [.. Enumerable.Range(1, count).Select(i => new FooRequired()
+    {
+        Id = i,
+        Name = localizer["FooRequired.Name", $"{i:d4}"],
+        DateTime = System.DateTime.Now.AddDays(i - 1),
+        Address = localizer["FooRequired.Address", $"{Random.Shared.Next(1000, 2000)}"],
+        Count = Random.Shared.Next(1, 100),
+        Complete = Random.Shared.Next(1, 100) > 50,
+        Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle,
+        ReadonlyColumn = Random.Shared.Next(10, 50)
+    })];
+
+    /// <summary>
+    /// 生成 FooRequired 类 Hobbies 数据
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerable<SelectedItem> GenerateHobbies(IStringLocalizer<FooRequired> localizer) => localizer["Hobbies"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
+
+    /// <summary>
+    /// 获取 Complete 转化为 SelectedItem 方法
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static List<SelectedItem> GetCompleteItems(IStringLocalizer<FooRequired> localizer) =>
+    [
+        new("True", localizer["True"]),
+        new("False", localizer["False"])
+    ];
+
+    /// <summary>
+    /// 通过 Count 获得颜色
+    /// </summary>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    public static Color GetProgressColor(int count) => count switch
+    {
+        >= 0 and < 10 => Color.Secondary,
+        >= 10 and < 20 => Color.Danger,
+        >= 20 and < 40 => Color.Warning,
+        >= 40 and < 50 => Color.Info,
+        >= 50 and < 70 => Color.Primary,
+        _ => Color.Success
+    };
+
+    /// <summary>
+    /// 通过 Id 获取 Title
+    /// </summary>
+    /// <returns></returns>
+    private static string GetTitle() => Random.Shared.Next(1, 80) switch
+    {
+        >= 1 and < 10 => "Clerk",
+        >= 10 and < 50 => "Engineer",
+        >= 50 and < 60 => "Manager",
+        >= 60 and < 70 => "Chief",
+        _ => "General Manager"
+    };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static string GetTitle(int id) => Cache.GetOrAdd(id, key => GetTitle());
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static Func<IEnumerable<FooRequired>, string, SortOrder, IEnumerable<FooRequired>> GetNameSortFunc() => Utility.GetSortFunc<FooRequired>();
+
+    private static ConcurrentDictionary<int, string> Cache { get; } = new();
+    #endregion
+}
+
+/// <summary>
 ///
 /// </summary>
 public enum EnumEducation
