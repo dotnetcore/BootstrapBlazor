@@ -5141,7 +5141,7 @@
     "TablesTemplateColumnTitle": "模板列",
     "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>",
     "TablesVisibleTitle": "Table 编辑时显示/隐藏",
-    "TablesRequiredIntro": "<div><code>Required</code> 、<code>IsRequiredWhenAdd</code> 、<code>IsRequiredWhenEdit</code> 默认值均为 <code>null</code> 。<code>Required</code> 是总开关，优先级最高 <code>IsRequiredWhenAdd</code> / <code>IsRequiredWhenEdit</code> 只在 <code>Required</code> 未设置时按“新建/编辑”分别生效。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Required = true)]</code> 启用“新建/编辑”生效，或通过 <code>IsRequiredWhenAdd</code> 、 <code>IsRequiredWhenEdit</code> 单独设置新建/编辑状态下的必填项</div>",
+    "TablesRequiredIntro": "<div><code>Required</code>、<code>IsRequiredWhenAdd</code>、<code>IsRequiredWhenEdit</code> 默认值均为 <code>null</code>。<code>Required</code> 是总开关，优先级最高 <code>IsRequiredWhenAdd</code> / <code>IsRequiredWhenEdit</code> 只在 <code>Required</code> 未设置时按“新建/编辑”分别生效。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Required = true)]</code> 启用“新建/编辑”生效，或通过 <code>IsRequiredWhenAdd</code>、 <code>IsRequiredWhenEdit</code> 单独设置新建/编辑状态下的必填项</div>",
     "TablesRequiredTitle": "Table 编辑/新增时是否为必填项",
     "TableTemplateColumnText1": "模板列",
     "TableTemplateColumnText2": "姓名 & 数量"
