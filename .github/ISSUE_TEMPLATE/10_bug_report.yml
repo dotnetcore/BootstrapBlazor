@@ -70,6 +70,7 @@ body:
   attributes:
     label: .NET Version
     options:
+      - NET11.0
       - NET10.0
       - NET9.0
       - NET8.0
