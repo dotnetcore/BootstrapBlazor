@@ -382,6 +382,7 @@
       "NavbarBrand",
       "NavbarCollapse",
       "NavbarDropdown",
+      "NavbarDropdownDivider",
       "NavbarDropdownItem",
       "NavbarGroup",
       "NavbarItem",
@@ -591,6 +592,8 @@
     "骨架屏组件": [
       "SkeletonAvatar",
       "SkeletonBase",
+      "SkeletonEditor",
+      "SkeletonParagraph",
       "SkeletonTable",
       "SkeletonTree"
     ]
@@ -606,19 +609,33 @@
     "IAudioDevice",
     "IBluetooth",
     "IBrowserFingerService",
+    "ICacheManager",
     "ICalendarFestivals",
     "ICalendarHolidays",
     "IComponentHtmlRenderer",
+    "IComponentIdGenerator",
     "IConnectionService",
+    "IDataService",
+    "IDispatchService",
+    "IEntityFrameworkCoreDataService",
     "IGeoLocationService",
     "IHtml2Image",
     "IHtml2Pdf",
+    "IIconTheme",
+    "IIpLocatorFactory",
     "IIpLocatorProvider",
     "ILookupService",
+    "IMediaDevices",
     "INetworkMonitorService",
     "IPinyinService",
+    "IRecognizerProvider",
+    "IReconnectorProvider",
+    "IRootComponentGenerator",
     "ISerialService",
+    "ISynthesizerProvider",
     "ITableExport",
+    "IThemeProvider",
+    "IThrottleDispatcherFactory",
     "ITotpService",
     "IVersionService",
     "IVideoDevice",
@@ -627,7 +644,9 @@
     "MessageService",
     "NotificationService",
     "PrintService",
+    "RecognizerService",
     "SwalService",
+    "SynthesizerService",
     "TitleService",
     "ToastService",
     "WebClientService",
@@ -638,9 +657,17 @@
       "components": ["AntDesignIcon"],
       "services": []
     },
+    "BootstrapBlazor.Authenticator": {
+      "components": [],
+      "services": ["ITotpService"]
+    },
     "BootstrapBlazor.AzureOpenAI": {
       "components": [],
       "services": ["IAzureOpenAIService"]
+    },
+    "BootstrapBlazor.AzureSpeech": {
+      "components": [],
+      "services": ["IRecognizerProvider", "ISynthesizerProvider"]
     },
     "BootstrapBlazor.AzureTranslator": {
       "components": [],
@@ -649,6 +676,10 @@
     "BootstrapBlazor.BaiduOcr": {
       "components": [],
       "services": ["IBaiduOcr"]
+    },
+    "BootstrapBlazor.BaiduSpeech": {
+      "components": [],
+      "services": ["IRecognizerProvider", "ISynthesizerProvider"]
     },
     "BootstrapBlazor.BarCode": {
       "components": ["BarcodeReader", "QRCode"],
@@ -698,6 +729,10 @@
       "components": ["EmbedPDF"],
       "services": []
     },
+    "BootstrapBlazor.FileSystem": {
+      "components": ["FileSystem"],
+      "services": []
+    },
     "BootstrapBlazor.FileViewer": {
       "components": ["FileViewer"],
       "services": []
@@ -710,11 +745,23 @@
       "components": ["HikVisionWebPlugin"],
       "services": []
     },
+    "BootstrapBlazor.Holiday": {
+      "components": [],
+      "services": ["ICalendarHolidays"]
+    },
     "BootstrapBlazor.Html2Image": {
       "components": [],
       "services": ["IHtml2Image"]
     },
     "BootstrapBlazor.Html2Pdf": {
+      "components": [],
+      "services": ["IHtml2Pdf"]
+    },
+    "BootstrapBlazor.Html2Pdf.Playwright": {
+      "components": [],
+      "services": ["IHtml2Pdf"]
+    },
+    "BootstrapBlazor.Html2Pdf.Select": {
       "components": [],
       "services": ["IHtml2Pdf"]
     },
@@ -726,6 +773,14 @@
       "components": ["ImageCropper"],
       "services": []
     },
+    "BootstrapBlazor.ImageHelper": {
+      "components": ["Dnn", "ImageHelper", "WxQrCode"],
+      "services": []
+    },
+    "BootstrapBlazor.IP2Region": {
+      "components": [],
+      "services": ["IIpLocatorProvider"]
+    },
     "BootstrapBlazor.JitsiMeet": {
       "components": ["Meet"],
       "services": []
@@ -733,6 +788,10 @@
     "BootstrapBlazor.JitViewer": {
       "components": ["JitViewer"],
       "services": []
+    },
+    "BootstrapBlazor.JuHeIpLocatorProvider": {
+      "components": [],
+      "services": ["IIpLocatorProvider"]
     },
     "BootstrapBlazor.Live2DDisplay": {
       "components": ["Live2DDisplay"],
@@ -762,6 +821,10 @@
       "components": ["OctIcon"],
       "services": []
     },
+    "BootstrapBlazor.OfdReader": {
+      "components": ["OfdReader"],
+      "services": []
+    },
     "BootstrapBlazor.OfficeViewer": {
       "components": ["OfficeViewer"],
       "services": []
@@ -772,7 +835,7 @@
     },
     "BootstrapBlazor.OpcDa": {
       "components": [],
-      "services": ["IOpcDaClient", "IOpcItem", "IOpcSubscription"]
+      "services": ["IOpcDaClient", "IOpcDaServer", "IOpcItem", "IOpcSubscription"]
     },
     "BootstrapBlazor.OpcUa": {
       "components": [],
@@ -821,6 +884,14 @@
     "BootstrapBlazor.SvgEditor": {
       "components": ["SvgEditor"],
       "services": []
+    },
+    "BootstrapBlazor.TableExport": {
+      "components": [],
+      "services": ["ITableExport"]
+    },
+    "BootstrapBlazor.TagHelper": {
+      "components": [],
+      "services": ["IVersionService"]
     },
     "BootstrapBlazor.Tasks.Dashboard": {
       "components": ["TaskDashboard", "TaskInfo"],

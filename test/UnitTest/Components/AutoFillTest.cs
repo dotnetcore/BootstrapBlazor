@@ -24,6 +24,18 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SelectAllTextAsync_Ok()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/AutoComplete/AutoComplete.razor.js");
+        var cut = Context.Render<AutoFill<Foo>>();
+
+        await cut.InvokeAsync(async () => await cut.Instance.SelectAllTextAsync());
+
+        var invocation = module.VerifyInvoke("select");
+        Assert.Equal(cut.Find("input").Id, Assert.Single(invocation.Arguments));
+    }
+
+    [Fact]
     public void Items_Ok()
     {
         var cut = Context.Render<AutoFill<Foo>>();
