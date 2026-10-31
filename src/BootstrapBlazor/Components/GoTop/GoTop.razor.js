@@ -1,10 +1,10 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 const getScrollElement = el => {
     let ele = el
     while (ele && ele.scrollHeight <= ele.clientHeight + 1) {
-        ele = ele.parentNode
+        ele = ele.parentElement
     }
     return ele || window
 }
