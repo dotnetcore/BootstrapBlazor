@@ -1,5 +1,5 @@
 ---
-name: bb-dev
+name: BB-Devoloper
 description: BootstrapBlazor 组件开发，负责写代码
 tools: [read, search, edit, terminal, github/*, playwright/*]
 target: github-copilot
