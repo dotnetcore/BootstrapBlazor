@@ -49,6 +49,27 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TablesRequiredTitle"]" Introduction="@Localizer["TablesRequiredIntro"]" Name="Required">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["TablesRequiredDescription1"].Value)</li>
+            <li>@((MarkupString)Localizer["TablesRequiredDescription2"].Value)</li>
+            <li>@((MarkupString)Localizer["TablesRequiredDescription3"].Value)</li>
+        </ul>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowColumnList="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Required="true" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TablesEditTemplateTitle"]" Introduction="@Localizer["TablesEditTemplateIntro"]" Name="EditTemplate">
     <section ignore>@((MarkupString)Localizer["TablesEditTemplateDescription"].Value)</section>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
@@ -72,11 +93,6 @@
             <TableColumn @bind-Field="@context.Count" Align="Alignment.Right"></TableColumn>
             <TableColumn @bind-Field="@context.Hobby"></TableColumn>
         </TableColumns>
-        <EditFooterTemplate>
-            <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(context)"></Button>
-            <DialogCloseButton></DialogCloseButton>
-            <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save"></DialogSaveButton>
-        </EditFooterTemplate>
     </Table>
 </DemoBlock>
 
@@ -329,6 +345,11 @@
                 </div>
             </div>
         </EditTemplate>
+        <EditFooterTemplate Context="model">
+            <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
+            <DialogCloseButton />
+            <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
+        </EditFooterTemplate>
     </Table>
 </DemoBlock>
 
