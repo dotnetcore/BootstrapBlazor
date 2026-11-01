@@ -53,6 +53,9 @@ public partial class DatePickerBody
 
     private bool _showClockPicker;
 
+    [CascadingParameter(Name = "DatePickerBodyHasExternalFooter")]
+    private bool HasExternalFooter { get; set; }
+
     private string? ClassString => CssBuilder.Default("picker-panel")
         .AddClass("is-sidebar", ShowSidebar)
         .AddClass("is-lunar", ShowLunar)
@@ -89,6 +92,8 @@ public partial class DatePickerBody
         .Build();
 
     private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
+
+    internal bool IsTodayDisabled => IsDisabled(DateTime.Today);
 
     /// <summary>
     /// <para lang="zh">获得 上一月按钮样式</para>
@@ -800,7 +805,7 @@ public partial class DatePickerBody
 
     private bool HasSeconds => TimeFormat.Contains('s');
 
-    private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
+    private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || (ShowFooter == false && !HasExternalFooter));
 
     /// <summary>
     /// <para lang="zh">设置组件显示视图方法</para>
@@ -927,7 +932,7 @@ public partial class DatePickerBody
     /// <para lang="zh">点击 此刻时调用此方法</para>
     /// <para lang="en">点击 此刻时调用此方法</para>
     /// </summary>
-    private async Task ClickNowButton()
+    internal async Task ClickNowButton()
     {
         var val = ViewMode switch
         {
@@ -940,7 +945,7 @@ public partial class DatePickerBody
         await ClickConfirmButton();
     }
 
-    private async Task ClickConfirmButton()
+    internal async Task ClickConfirmButton()
     {
         ResetTimePickerPanel();
 
@@ -959,7 +964,7 @@ public partial class DatePickerBody
     /// <para lang="zh">点击 清除按钮调用此方法</para>
     /// <para lang="en">点击 清除button调用此方法</para>
     /// </summary>
-    private async Task ClickClearButton()
+    internal async Task ClickClearButton()
     {
         // 关闭 TimerPicker
         _showClockPicker = false;
@@ -984,6 +989,10 @@ public partial class DatePickerBody
 
         await ClickConfirmButton();
     }
+
+    private Task OnClickSidebarItem(DateTime d) => HasExternalFooter ? OnClickSidebarButton(d) : Task.CompletedTask;
+
+    private Task OnClickSidebarCell(DateTime d) => HasExternalFooter ? Task.CompletedTask : OnClickSidebarButton(d);
 
     private void ResetTimePickerPanel()
     {

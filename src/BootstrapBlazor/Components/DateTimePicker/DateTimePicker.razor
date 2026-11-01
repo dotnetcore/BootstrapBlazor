@@ -7,7 +7,8 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel">
+<div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel"
+     data-bb-mobile="@MobileString">
     @if(IsButton)
     {
         <button type="button" class="@ButtonClassString" disabled="@Disabled"
@@ -28,14 +29,47 @@
             <span class="@ClearClassString" @onclick:stopPropagation @onclick="OnClear"><i class="@ClearIcon"></i></span>
         }
     }
-    <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
-                    ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
-                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
-                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                    OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
-                    AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!"
-                    PickTimeMode="PickTimeMode" OnGetDisabledDaysCallback="OnGetDisabledDaysCallback!"
-                    EnableDisabledDaysCache="EnableDisabledDaysCache">
-        @ChildContent
-    </DatePickerBody>
+    <CascadingValue Name="DatePickerBodyHasExternalFooter" Value="@(_isMobile == true)">
+        <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
+                        ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
+                        DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="@ShowDatePickerFooter"
+                        ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                        OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
+                        AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!"
+                        PickTimeMode="PickTimeMode" OnGetDisabledDaysCallback="OnGetDisabledDaysCallback!"
+                        EnableDisabledDaysCache="EnableDisabledDaysCache">
+            @ChildContent
+        </DatePickerBody>
+    </CascadingValue>
 </div>
+<Responsive OnBreakPointChanged="OnBreakPointChanged" />
+@if (_renderModal)
+{
+    <Modal IsBackdrop="true" IsFade="false" FirstAfterRenderCallbackAsync="OnModalReadyAsync" OnCloseAsync="OnModalClosedAsync">
+        <ModalDialog Class="@ModalClassString" Title="@(DisplayText ?? PlaceholderString)" Size="Size.None"
+                     IsScrolling="true" ShowFooter="true" ShowCloseButton="false">
+            <BodyTemplate>
+                <div class="datetime-picker-modal-body"></div>
+            </BodyTemplate>
+            <FooterTemplate>
+                <div class="flex-fill">
+                    @if (AllowNull)
+                    {
+                        <Button class="picker-panel-link-btn is-confirm" Color="Color.Secondary" OnClickWithoutRender="@_pickerBody.ClickClearButton">
+                            <span>@_pickerBody.ClearButtonText</span>
+                        </Button>
+                    }
+                </div>
+                @if (!_pickerBody.IsTodayDisabled)
+                {
+                    <Button class="picker-panel-link-btn is-now" Color="Color.Secondary" OnClickWithoutRender="@_pickerBody.ClickNowButton">
+                        <span>@_pickerBody.NowButtonText</span>
+                    </Button>
+                }
+                <Button class="picker-panel-link-btn is-confirm" Color="Color.Primary" OnClickWithoutRender="@_pickerBody.ClickConfirmButton">
+                    <span>@_pickerBody.ConfirmButtonText</span>
+                </Button>
+            </FooterTemplate>
+        </ModalDialog>
+    </Modal>
+}

@@ -1,25 +1,25 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="picker-panel-body">
         @if (ShowSidebar)
         {
-            <div class="picker-panel-sidebar">
+            <div class="picker-panel-sidebar @(SidebarTemplate is null && HasExternalFooter ? "is-default" : null)">
                 @if (SidebarTemplate != null)
                 {
                     @SidebarTemplate(OnClickSidebarButton)
                 }
                 else
                 {
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="d => OnClickSidebarButton(d)" />
+                    <div class="sidebar-item @(HasExternalFooter ? "btn btn-secondary" : null)" @onclick="() => OnClickSidebarItem(DateTime.Today)">
+                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="OnClickSidebarCell" />
                     </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="d => OnClickSidebarButton(d)" />
+                    <div class="sidebar-item @(HasExternalFooter ? "btn btn-secondary" : null)" @onclick="() => OnClickSidebarItem(DateTime.Today.AddDays(-1))">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="OnClickSidebarCell" />
                     </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="d => OnClickSidebarButton(d)" />
+                    <div class="sidebar-item @(HasExternalFooter ? "btn btn-secondary" : null)" @onclick="() => OnClickSidebarItem(DateTime.Today.AddDays(-7))">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="OnClickSidebarCell" />
                     </div>
                 }
             </div>
@@ -156,7 +156,7 @@
                     </CascadingValue>
                     <CascadingValue Value="this" IsFixed="true">
                         <ClockPicker @ref="TimePickerPanel" class="clock-panel-body"
-                                     Value="CurrentTime" OnValueChanged="OnTimeChanged" 
+                                     Value="CurrentTime" OnValueChanged="OnTimeChanged"
                                      ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
                                      ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
                         </ClockPicker>
