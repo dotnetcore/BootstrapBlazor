@@ -1,6 +1,6 @@
 ---
 name: bb-dev
-description: BootstrapBlazor 组件开发，写代码+测试
+description: BootstrapBlazor 组件开发，负责写代码
 tools: [read, search, edit, terminal, github/*, playwright/*]
 target: github-copilot
 user-invocable: true
