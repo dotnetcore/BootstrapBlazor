@@ -110,13 +110,25 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = GetWeekList();
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
         WeekHeaderText = Localizer[nameof(WeekHeaderText)];
-        WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
+    }
+
+    /// <summary>
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet method</para>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // <para lang="zh">FirstDayOfWeek 可能在初始化后改变</para>
+        // <para lang="en">FirstDayOfWeek may change after initialization</para>
+        WeekLists = GetWeekList();
+        WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
     }
 
     /// <summary>
@@ -138,7 +150,7 @@ public partial class Calendar
     protected int GetWeekCount()
     {
         var gc = new GregorianCalendar();
-        return gc.GetWeekOfYear(Value, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+        return gc.GetWeekOfYear(Value, CalendarWeekRule.FirstDay, FirstDayOfWeek);
     }
 
     /// <summary>
@@ -151,8 +163,19 @@ public partial class Calendar
     /// <para lang="zh">获得 指定日期所在周的第一天 (根据 <see cref="FirstDayOfWeek"/>)</para>
     /// <para lang="en">Gets the first day of the week containing the specified date, according to <see cref="FirstDayOfWeek"/></para>
     /// </summary>
-    /// <param name="date"></param>
-    private DateTime GetWeekStart(DateTime date) => date.AddDays(-(((int)date.DayOfWeek - (int)FirstDayOfWeek + 7) % 7));
+    /// <param name="date">
+    /// <para lang="zh">要计算所在周的日期</para>
+    /// <para lang="en">The date whose week start is calculated</para>
+    /// </param>
+    /// <returns>
+    /// <para lang="zh">该周的第一天，超出 <see cref="DateTime.MinValue"/> 时返回 <see cref="DateTime.MinValue"/></para>
+    /// <para lang="en">The first day of that week, or <see cref="DateTime.MinValue"/> when it would fall before it</para>
+    /// </returns>
+    private DateTime GetWeekStart(DateTime date)
+    {
+        var days = ((int)date.DayOfWeek - (int)FirstDayOfWeek + 7) % 7;
+        return (date - DateTime.MinValue).TotalDays < days ? DateTime.MinValue : date.AddDays(-days);
+    }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
