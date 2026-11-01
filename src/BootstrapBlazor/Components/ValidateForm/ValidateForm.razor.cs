@@ -41,6 +41,14 @@ public partial class ValidateForm
     public Action<string, object?>? OnFieldValueChanged { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否触发 <see cref="OnFieldValueChanged"/> 回调 默认 true。设置为 false 时仅停止此回调，不影响字段变更记录、模型绑定或验证；支持动态变更</para>
+    /// <para lang="en">Gets or sets whether to invoke the <see cref="OnFieldValueChanged"/> callback. The default is true. Setting this parameter to false only suppresses this callback without affecting field change tracking, model binding or validation. Supports dynamic changes</para>
+    /// <para><version>11.0.3</version></para>
+    /// </summary>
+    [Parameter]
+    public bool EnableFieldValueChanged { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否显示所有验证失败字段的提示信息 默认 false 仅显示第一个验证失败字段的提示信息</para>
     /// <para lang="en">Gets or sets whether to display all validation failure messages. The default is false, which only displays the first validation failure message</para>
     /// </summary>
@@ -747,7 +755,10 @@ public partial class ValidateForm
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
         ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
-        OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
+        if (EnableFieldValueChanged)
+        {
+            OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
+        }
     }
 
     /// <summary>
