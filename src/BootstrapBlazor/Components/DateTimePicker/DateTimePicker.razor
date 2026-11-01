@@ -45,7 +45,7 @@
 <Responsive OnBreakPointChanged="OnBreakPointChanged" />
 @if (_renderModal)
 {
-    <Modal IsBackdrop="true" IsFade="false" FirstAfterRenderCallbackAsync="OnModalReadyAsync" OnCloseAsync="OnModalClosedAsync">
+    <Modal IsBackdrop="true" IsFade="false" ZIndex="@ModalZIndex" FirstAfterRenderCallbackAsync="OnModalReadyAsync" OnCloseAsync="OnModalClosedAsync">
         <ModalDialog Class="@ModalClassString" Title="@(DisplayText ?? PlaceholderString)" Size="Size.None"
                      IsScrolling="true" ShowFooter="true" ShowCloseButton="false">
             <BodyTemplate>

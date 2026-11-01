@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
 
@@ -57,20 +57,11 @@ export function showModal(id, modalId) {
 
     if (picker.modal !== modal) {
         picker.modal = modal;
-        picker.modalShown = () => {
-            if (picker.parentModal) {
-                const zIndex = Number.parseInt(getComputedStyle(picker.parentModal).zIndex) || 1055;
-                modal.style.zIndex = zIndex + 20;
-                bootstrap.Modal.getInstance(modal)._backdrop._getElement().style.zIndex = zIndex + 10;
-            }
-        };
         picker.modalHidden = () => restorePanel(picker);
-        EventHandler.on(modal, 'shown.bs.modal', picker.modalShown);
         EventHandler.on(modal, 'hidden.bs.modal', picker.modalHidden);
     }
 
     picker.parentModal = picker.el.closest('.modal.show');
-    modal.style.zIndex = '';
     picker.modalOpen = true;
     picker.el.classList.add('show');
     body.append(picker.popover.toggleMenu);
@@ -169,7 +160,6 @@ export function dispose(id) {
         const { input, popover } = data;
         disposeInput(input);
         if (data.modal) {
-            EventHandler.off(data.modal, 'shown.bs.modal', data.modalShown);
             EventHandler.off(data.modal, 'hidden.bs.modal', data.modalHidden);
             if (data.modalOpen) {
                 restorePanel(data);
