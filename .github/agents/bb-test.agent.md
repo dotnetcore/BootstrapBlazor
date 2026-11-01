@@ -1,5 +1,5 @@
 ---
-name: bb-test
+name: BB-Test
 description: 给 BootstrapBlazor 新功能/新组件补 bUnit 单元测试
 tools: [read, search, edit, terminal, github/*, playwright/*]
 target: github-copilot

@@ -1,5 +1,5 @@
 ---
-name: bb-review
+name: BB-Review
 description: 审查 BootstrapBlazor 代码 diff
 tools: [read, search, edit, terminal, github/*, playwright/*]
 target: github-copilot
