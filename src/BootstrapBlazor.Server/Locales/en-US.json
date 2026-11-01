@@ -5141,7 +5141,10 @@
     "TablesTemplateColumnTitle": "TemplateColumn",
     "TablesVisibleIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
     "TablesVisibleTitle": "Editor Visible/Hidden",
-    "TablesRequiredIntro": "<div><code>Required</code>, <code>IsRequiredWhenAdd</code>, and <code>IsRequiredWhenEdit</code> default to <code>null</code>. <code>Required</code> has the highest priority. When it is not set, <code>IsRequiredWhenAdd</code> / <code>IsRequiredWhenEdit</code> apply to the \"New/Edit\" states respectively; if neither is set, the model's <code>[Required]</code> attribute is used.</div><div>Use <code>Required</code> to set a column's required state for both states, or use <code>IsRequiredWhenAdd</code> and <code>IsRequiredWhenEdit</code> to configure them separately.</div>",
+    "TablesRequiredIntro": "Set the <code>Required</code> property to control whether a column is required when adding or editing an item.",
+    "TablesRequiredDescription1": "The model's <code>[Required]</code> attribute has the highest priority and overrides other settings when applied.",
+    "TablesRequiredDescription2": "The nearest setting takes precedence: <code>Required</code> on a <code>TableColumn</code> has higher priority than <code>[AutoGenerateColumn(Required = true)]</code>.",
+    "TablesRequiredDescription3": "An explicitly set <code>Required</code> on a <code>TableColumn</code> overrides <code>IsRequiredWhenAdd</code> / <code>IsRequiredWhenEdit</code>. If <code>Required</code> is not set, those parameters are applied according to the <b>Add/Edit</b> state.",
     "TablesRequiredTitle": "Table Required/Optional",
     "TableTemplateColumnText1": "Template",
     "TableTemplateColumnText2": "Name & Count"
