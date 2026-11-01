@@ -69,7 +69,7 @@ public partial class Calendar
     /// <para lang="en">Get week day</para>
     /// </summary>
     /// <param name="offset"></param>
-    private string GetWeekDayString(int offset) => $"{Value.AddDays(offset - (int)Value.DayOfWeek).Day}";
+    private string GetWeekDayString(int offset) => $"{GetWeekStart(Value).AddDays(offset).Day}";
 
     /// <summary>
     /// <para lang="zh">获得 周日期样式</para>
@@ -77,7 +77,7 @@ public partial class Calendar
     /// </summary>
     /// <param name="offset"></param>
     private string? GetWeekDayClassString(int offset) => CssBuilder.Default("week-header")
-            .AddClass("is-today", Value.AddDays(offset - (int)Value.DayOfWeek) == DateTime.Today)
+            .AddClass("is-today", GetWeekStart(Value).AddDays(offset) == DateTime.Today)
             .Build();
 
     private static string? GetCalendarCellString(CalendarCellValue item) => CssBuilder.Default()
@@ -127,9 +127,7 @@ public partial class Calendar
     {
         get
         {
-            var d = Value.AddDays(1 - Value.Day);
-            d = d.AddDays((int)FirstDayOfWeek - (int)d.DayOfWeek);
-            return d;
+            return GetWeekStart(Value.AddDays(1 - Value.Day));
         }
     }
 
@@ -148,6 +146,13 @@ public partial class Calendar
     /// <para lang="en">Gets or sets the calendar end date</para>
     /// </summary>
     protected DateTime EndDate => StartDate.AddDays(42);
+
+    /// <summary>
+    /// <para lang="zh">获得 指定日期所在周的第一天 (根据 <see cref="FirstDayOfWeek"/>)</para>
+    /// <para lang="en">Gets the first day of the week containing the specified date, according to <see cref="FirstDayOfWeek"/></para>
+    /// </summary>
+    /// <param name="date"></param>
+    private DateTime GetWeekStart(DateTime date) => date.AddDays(-(((int)date.DayOfWeek - (int)FirstDayOfWeek + 7) % 7));
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>

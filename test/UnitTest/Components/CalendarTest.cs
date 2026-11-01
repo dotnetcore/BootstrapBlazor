@@ -246,4 +246,42 @@ public class CalendarTest : BootstrapBlazorTestBase
         Assert.Equal("一", labels[0].TextContent);
         Assert.Equal("日", labels[6].TextContent);
     }
+
+    [Theory]
+    [InlineData(DayOfWeek.Sunday, "2026-11-01")]
+    [InlineData(DayOfWeek.Monday, "2026-10-26")]
+    [InlineData(DayOfWeek.Saturday, "2026-10-31")]
+    public void FirstDayOfWeek_MonthStartsOnWeekStart(DayOfWeek firstDayOfWeek, string expected)
+    {
+        // 2026-11-01 is a Sunday: the first row must still contain it
+        var cells = new List<DateTime>();
+        Context.Render<Calendar>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTime(2026, 11, 15));
+            pb.Add(a => a.FirstDayOfWeek, firstDayOfWeek);
+            pb.Add(a => a.CellTemplate, value => builder =>
+            {
+                cells.Add(value.CellValue);
+                builder.AddContent(0, value.CellValue.Day);
+            });
+        });
+        Assert.Equal(DateTime.Parse(expected), cells[0]);
+        Assert.Contains(new DateTime(2026, 11, 1), cells.Take(7));
+        Assert.Equal(firstDayOfWeek, cells[0].DayOfWeek);
+    }
+
+    [Fact]
+    public void FirstDayOfWeek_WeekHeader()
+    {
+        var cut = Context.Render<Calendar>(pb =>
+        {
+            pb.Add(a => a.ViewMode, CalendarViewMode.Week);
+            pb.Add(a => a.Value, new DateTime(2026, 11, 1));
+            pb.Add(a => a.FirstDayOfWeek, DayOfWeek.Monday);
+        });
+
+        // Monday 2026-10-26 ... Sunday 2026-11-01
+        var days = cut.FindAll(".week-header > div:last-child").Select(i => i.TextContent).ToList();
+        Assert.Equal(["26", "27", "28", "29", "30", "31", "1"], days);
+    }
 }
