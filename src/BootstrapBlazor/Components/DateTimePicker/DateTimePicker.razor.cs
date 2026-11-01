@@ -281,13 +281,6 @@ public partial class DateTimePicker<TValue>
     public RenderFragment<DateTime>? DayDisabledTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否启用 HTML 原生移动端组件 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to Use Native Mobile Components. Default is false</para>
-    /// </summary>
-    [Parameter]
-    public bool UseNativeMobileComponents { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Chinese Lunar Calendar. Default is false</para>
     /// </summary>
