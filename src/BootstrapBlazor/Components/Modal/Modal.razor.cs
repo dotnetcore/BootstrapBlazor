@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -26,6 +27,10 @@ public partial class Modal : IClosable
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bs-modal-zindex:{ZIndex};", ZIndex.HasValue)
+        .Build();
+
     /// <summary>
     /// <para lang="zh">获得ModalDialog的集合</para>
     /// <para lang="en">Gets the collection of ModalDialog</para>
@@ -33,6 +38,13 @@ public partial class Modal : IClosable
     protected List<ModalDialog> Dialogs { get; } = new(8);
 
     private readonly ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 模态框的 z-index</para>
+    /// <para lang="en">Gets or sets the z-index of the modal</para>
+    /// </summary>
+    [Parameter]
+    public int? ZIndex { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否在后台关闭弹出窗口，默认为 false</para>
