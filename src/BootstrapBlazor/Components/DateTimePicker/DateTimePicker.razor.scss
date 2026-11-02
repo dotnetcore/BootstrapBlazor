@@ -85,10 +85,31 @@
                 border-right: 0;
                 border-bottom: var(--bs-border-width) solid var(--bs-border-color);
 
-                &.is-default {
+                .picker-panel-sidebar-viewport {
+                    overflow: hidden;
+
+                    &:not(.is-expanded) {
+                        max-height: var(--bb-picker-sidebar-row-height, 2rem);
+                    }
+                }
+
+                .picker-panel-sidebar-content.is-default {
                     display: grid;
                     grid-template-columns: repeat(2, minmax(0, 1fr));
                     gap: .3rem;
+                }
+
+                .picker-panel-sidebar-toggle {
+                    display: block;
+                    width: 100%;
+                    margin-top: .5rem;
+                    padding: 0;
+
+                    &[hidden],
+                    &[aria-expanded="false"] .show-less,
+                    &[aria-expanded="true"] .show-more {
+                        display: none;
+                    }
                 }
             }
 

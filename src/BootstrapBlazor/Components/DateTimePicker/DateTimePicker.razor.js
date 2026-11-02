@@ -65,9 +65,79 @@ export function showModal(id, modalId) {
     picker.modalOpen = true;
     picker.el.classList.add('show');
     body.append(picker.popover.toggleMenu);
+    initSidebar(picker);
+}
+
+const initSidebar = picker => {
+    const panel = picker.popover.toggleMenu;
+    picker.sidebarInertItems = new Set();
+    const update = () => {
+        picker.sidebarInertItems.forEach(el => el.inert = false);
+        picker.sidebarInertItems.clear();
+        const content = panel.querySelector('.picker-panel-sidebar-content');
+        if (!content || !content.getClientRects().length) {
+            return;
+        }
+
+        picker.sidebarResizeObserver.observe(content);
+        const viewport = content.parentElement;
+        const button = viewport.nextElementSibling;
+        let row = content;
+        while (row.children.length === 1) {
+            row = row.firstElementChild;
+        }
+
+        const items = [...row.children].map(el => ({ el, rect: el.getBoundingClientRect() }))
+            .filter(item => item.rect.height > 0);
+        const top = content.getBoundingClientRect().top;
+        const firstTop = Math.min(...items.map(item => item.rect.top));
+        const firstRow = items.filter(item => Math.abs(item.rect.top - firstTop) < 1);
+        const bottom = firstRow.length
+            ? Math.max(...firstRow.map(item => item.rect.bottom))
+            : content.getBoundingClientRect().bottom;
+        const height = Math.ceil(bottom - top);
+        const overflow = content.scrollHeight > height + 1;
+        const expanded = overflow && button.getAttribute('aria-expanded') === 'true';
+        viewport.style.setProperty('--bb-picker-sidebar-row-height', `${height}px`);
+        viewport.classList.toggle('is-expanded', expanded);
+        button.hidden = !overflow;
+        button.setAttribute('aria-expanded', `${expanded}`);
+        for (const { el, rect } of items) {
+            if (!expanded && rect.top >= bottom && !el.inert) {
+                el.inert = true;
+                picker.sidebarInertItems.add(el);
+            }
+        }
+    };
+
+    picker.sidebarResizeObserver = new ResizeObserver(update);
+    picker.sidebarResizeObserver.observe(panel);
+    picker.sidebarMutationObserver = new MutationObserver(update);
+    picker.sidebarMutationObserver.observe(panel, { childList: true, subtree: true, characterData: true });
+    EventHandler.on(panel, 'click', '.picker-panel-sidebar-toggle', e => {
+        const button = e.delegateTarget;
+        button.setAttribute('aria-expanded', `${button.getAttribute('aria-expanded') !== 'true'}`);
+        update();
+    });
+    update();
+}
+
+const disposeSidebar = picker => {
+    picker.sidebarResizeObserver?.disconnect();
+    picker.sidebarMutationObserver?.disconnect();
+    const panel = picker.popover.toggleMenu;
+    EventHandler.off(panel, 'click', '.picker-panel-sidebar-toggle');
+    picker.sidebarInertItems?.forEach(el => el.inert = false);
+    const button = panel.querySelector('.picker-panel-sidebar-toggle');
+    if (button) {
+        button.setAttribute('aria-expanded', 'false');
+        button.hidden = true;
+        button.previousElementSibling.classList.remove('is-expanded');
+    }
 }
 
 const restorePanel = picker => {
+    disposeSidebar(picker);
     picker.el.append(picker.popover.toggleMenu);
     picker.el.classList.remove('show');
     picker.modalOpen = false;
@@ -165,6 +235,7 @@ export function dispose(id) {
                 restorePanel(data);
             }
         }
+        disposeSidebar(data);
         data.el.append(popover.toggleMenu);
         Popover.dispose(popover)
     }
