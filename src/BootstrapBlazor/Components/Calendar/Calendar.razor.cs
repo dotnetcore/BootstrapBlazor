@@ -92,10 +92,7 @@ public partial class Calendar
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized method</para>
-    /// </summary>
+    /// <inheritdoc/>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -117,10 +114,7 @@ public partial class Calendar
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
     }
 
-    /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
-    /// </summary>
+    /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
