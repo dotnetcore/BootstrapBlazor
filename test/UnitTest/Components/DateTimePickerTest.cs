@@ -1084,6 +1084,23 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("日", labels[6].TextContent);
     }
 
+    [Theory]
+    [InlineData(DayOfWeek.Sunday, "1")]
+    [InlineData(DayOfWeek.Monday, "26")]
+    public void FirstDayOfWeek_MonthStartsOnWeekStart_Ok(DayOfWeek firstDayOfWeek, string expected)
+    {
+        // 2026-11-01 is a Sunday: the first row must still contain it
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.FirstDayOfWeek, firstDayOfWeek);
+            pb.Add(a => a.Value, new DateTime(2026, 11, 15));
+        });
+
+        var days = cut.FindAll(".date-table .date-table-row")[0].QuerySelectorAll("td").Select(i => i.TextContent.Trim()).ToList();
+        Assert.Equal(expected, days[0]);
+        Assert.Contains("1", days);
+    }
+
     [Fact]
     public void GetSafeYearDateTime_Ok()
     {

@@ -69,7 +69,7 @@ public partial class Calendar
     /// <para lang="en">Get week day</para>
     /// </summary>
     /// <param name="offset"></param>
-    private string GetWeekDayString(int offset) => $"{Value.AddDays(offset - (int)Value.DayOfWeek).Day}";
+    private string GetWeekDayString(int offset) => $"{GetWeekStart(Value).AddDays(offset).Day}";
 
     /// <summary>
     /// <para lang="zh">获得 周日期样式</para>
@@ -77,7 +77,7 @@ public partial class Calendar
     /// </summary>
     /// <param name="offset"></param>
     private string? GetWeekDayClassString(int offset) => CssBuilder.Default("week-header")
-            .AddClass("is-today", Value.AddDays(offset - (int)Value.DayOfWeek) == DateTime.Today)
+            .AddClass("is-today", GetWeekStart(Value).AddDays(offset) == DateTime.Today)
             .Build();
 
     private static string? GetCalendarCellString(CalendarCellValue item) => CssBuilder.Default()
@@ -92,10 +92,7 @@ public partial class Calendar
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized method</para>
-    /// </summary>
+    /// <inheritdoc/>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -110,13 +107,22 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = GetWeekList();
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
         WeekHeaderText = Localizer[nameof(WeekHeaderText)];
-        WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
+    }
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // <para lang="zh">FirstDayOfWeek 可能在初始化后改变</para>
+        // <para lang="en">FirstDayOfWeek may change after initialization</para>
+        WeekLists = GetWeekList();
+        WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
     }
 
     /// <summary>
@@ -127,9 +133,7 @@ public partial class Calendar
     {
         get
         {
-            var d = Value.AddDays(1 - Value.Day);
-            d = d.AddDays((int)FirstDayOfWeek - (int)d.DayOfWeek);
-            return d;
+            return GetWeekStart(Value.AddDays(1 - Value.Day));
         }
     }
 
@@ -140,7 +144,7 @@ public partial class Calendar
     protected int GetWeekCount()
     {
         var gc = new GregorianCalendar();
-        return gc.GetWeekOfYear(Value, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+        return gc.GetWeekOfYear(Value, CalendarWeekRule.FirstDay, FirstDayOfWeek);
     }
 
     /// <summary>
@@ -148,6 +152,24 @@ public partial class Calendar
     /// <para lang="en">Gets or sets the calendar end date</para>
     /// </summary>
     protected DateTime EndDate => StartDate.AddDays(42);
+
+    /// <summary>
+    /// <para lang="zh">获得 指定日期所在周的第一天 (根据 <see cref="FirstDayOfWeek"/>)</para>
+    /// <para lang="en">Gets the first day of the week containing the specified date, according to <see cref="FirstDayOfWeek"/></para>
+    /// </summary>
+    /// <param name="date">
+    /// <para lang="zh">要计算所在周的日期</para>
+    /// <para lang="en">The date whose week start is calculated</para>
+    /// </param>
+    /// <returns>
+    /// <para lang="zh">该周的第一天，超出 <see cref="DateTime.MinValue"/> 时返回 <see cref="DateTime.MinValue"/></para>
+    /// <para lang="en">The first day of that week, or <see cref="DateTime.MinValue"/> when it would fall before it</para>
+    /// </returns>
+    private DateTime GetWeekStart(DateTime date)
+    {
+        var days = ((int)date.DayOfWeek - (int)FirstDayOfWeek + 7) % 7;
+        return (date - DateTime.MinValue).TotalDays < days ? DateTime.MinValue : date.AddDays(-days);
+    }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
