@@ -301,6 +301,14 @@ public partial class DateTimeRange
     [Parameter]
     public Func<DateTime, Task>? OnDateClick { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 模态框的 z-index 默认 null 使用默认层级</para>
+    /// <para lang="en">Gets or sets the z-index of the modal. Default is null to use the default stacking order</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    [Parameter]
+    public int? ModalZIndex { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
@@ -316,7 +324,98 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private bool _showLeftButtons = false;
+    private bool? _isMobile;
+    private bool? _pendingIsMobile;
+    private bool _renderModal;
+    private bool _isModalOpen;
+    private readonly TaskCompletionSource<Modal> _modalReady = new();
+
+    private string? MobileString => _isMobile.HasValue ? (_isMobile.Value ? "true" : "false") : null;
+
+    private bool IsSinglePanel => _isMobile == true || RenderMode == DateTimeRangeRenderMode.Single;
+
+    private bool CanReselect => SelectedValue.Start != DateTime.MinValue && SelectedValue.End == DateTime.MinValue;
+
+    private string? ModalClassString => CssBuilder.Default("datetime-picker-modal datetime-range-modal")
+        .AddClass(CustomClass)
+        .Build();
+
+    private async Task OnBreakPointChangedAsync(BreakPoint size)
+    {
+        _pendingIsMobile = size < BreakPoint.Medium;
+        if (_isMobile != _pendingIsMobile)
+        {
+            _renderModal |= _pendingIsMobile == true;
+            if (!await InvokeAsync<bool>("isShown", Id))
+            {
+                _isMobile = _pendingIsMobile;
+                StateHasChanged();
+            }
+        }
+    }
+
+    private Task OnModalReadyAsync(Modal modal)
+    {
+        _modalReady.TrySetResult(modal);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// <para lang="zh">客户端在移动端请求显示日期范围弹窗时调用此方法</para>
+    /// <para lang="en">Called by JavaScript to show the date range dialog on small screens</para>
+    /// </summary>
+    [JSInvokable]
+    public async Task<bool> TriggerShowModalCallback()
+    {
+        if (IsDisabled)
+        {
+            return false;
+        }
+
+        if (!_isModalOpen)
+        {
+            _isModalOpen = true;
+            var modal = await _modalReady.Task;
+            await InvokeVoidAsync("showModal", Id, modal.Id);
+            await modal.Show();
+        }
+        return true;
+    }
+
+    private Task OnModalClosedAsync()
+    {
+        _isModalOpen = false;
+        return TriggerHideCallback();
+    }
+
+    private async Task HidePickerAsync()
+    {
+        if (_isModalOpen)
+        {
+            var modal = await _modalReady.Task;
+            await modal.Close();
+        }
+        else
+        {
+            await InvokeVoidAsync("hide", Id);
+        }
+    }
+
+    private void OnReselect()
+    {
+        if (!CanReselect)
+        {
+            return;
+        }
+
+        SelectedValue.NullStart = null;
+        SelectedValue.NullEnd = null;
+        if (ShowSelectedValue)
+        {
+            Value.NullStart = null;
+            Value.NullEnd = null;
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -326,7 +425,6 @@ public partial class DateTimeRange
         base.OnInitialized();
 
         AddRequiredValidator();
-        _showLeftButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>
@@ -379,7 +477,8 @@ public partial class DateTimeRange
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
-        TriggerHideCallback = nameof(TriggerHideCallback)
+        TriggerHideCallback = nameof(TriggerHideCallback),
+        TriggerShowModalCallback = nameof(TriggerShowModalCallback)
     });
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
@@ -388,7 +487,7 @@ public partial class DateTimeRange
         SelectedValue.End = item.EndDateTime;
 
         StartValue = item.StartDateTime;
-        EndValue = StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
+        EndValue = _isMobile == true ? StartValue : StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
 
         if (AutoCloseClickSideBar)
         {
@@ -422,7 +521,7 @@ public partial class DateTimeRange
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
-        await InvokeVoidAsync("hide", Id);
+        await HidePickerAsync();
     }
 
     private Task OnStartDateChanged(DateTime value)
@@ -492,7 +591,7 @@ public partial class DateTimeRange
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
-        await InvokeVoidAsync("hide", Id);
+        await HidePickerAsync();
     }
 
     /// <summary>
@@ -592,6 +691,7 @@ public partial class DateTimeRange
     [JSInvokable]
     public Task TriggerHideCallback()
     {
+        _isMobile = _pendingIsMobile;
         ResetBodyValue();
         StateHasChanged();
         return Task.CompletedTask;

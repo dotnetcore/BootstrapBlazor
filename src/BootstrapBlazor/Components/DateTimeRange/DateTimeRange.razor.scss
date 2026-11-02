@@ -136,3 +136,49 @@
     cursor: pointer;
     color: var(--bb-dt-range-bar-color);
 }
+
+.datetime-range-modal {
+    .range-panel-body {
+        flex-direction: column;
+
+        > .picker-panel {
+            border: 0;
+        }
+
+        > .picker-panel-sidebar {
+            width: 100%;
+            border-right: 0;
+            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+
+            .picker-panel-sidebar-viewport {
+                overflow: hidden;
+
+                &:not(.is-expanded) {
+                    max-height: var(--bb-picker-sidebar-row-height, var(--bb-height));
+                }
+            }
+
+            .picker-panel-sidebar-content {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: calc(var(--bs-modal-padding) / 2);
+
+                .sidebar-item {
+                    white-space: normal;
+                }
+            }
+
+            .picker-panel-sidebar-toggle {
+                display: block;
+                width: 100%;
+                padding: 0;
+
+                &[hidden],
+                &[aria-expanded="false"] .show-less,
+                &[aria-expanded="true"] .show-more {
+                    display: none;
+                }
+            }
+        }
+    }
+}

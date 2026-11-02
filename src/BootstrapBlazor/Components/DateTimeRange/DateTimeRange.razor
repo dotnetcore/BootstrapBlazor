@@ -6,7 +6,8 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body">
+<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body"
+     data-bb-mobile="@MobileString">
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
@@ -24,16 +25,36 @@
             @if (ShowSidebar)
             {
                 <div class="picker-panel-sidebar">
-                    @foreach (var item in SidebarItems)
+                    @if (_isMobile == true)
                     {
-                        <div class="sidebar-item" @key="item">
-                            <div @onclick="() => OnClickSidebarItem(item)">@item.Text</div>
+                        <div class="picker-panel-sidebar-viewport">
+                            <div class="picker-panel-sidebar-content">
+                                @foreach (var item in SidebarItems)
+                                {
+                                    <Button class="sidebar-item" Color="Color.Secondary" OnClick="() => OnClickSidebarItem(item)" @key="item">
+                                        @item.Text
+                                    </Button>
+                                }
+                            </div>
                         </div>
+                        <button type="button" class="btn btn-link picker-panel-sidebar-toggle" aria-expanded="false" hidden>
+                            <span class="show-more">@Localizer["ShowMoreText"]</span>
+                            <span class="show-less">@Localizer["ShowLessText"]</span>
+                        </button>
+                    }
+                    else
+                    {
+                        @foreach (var item in SidebarItems)
+                        {
+                            <div class="sidebar-item" @key="item">
+                                <div @onclick="() => OnClickSidebarItem(item)">@item.Text</div>
+                            </div>
+                        }
                     }
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                @if (RenderMode == DateTimeRangeRenderMode.Double)
+                @if (!IsSinglePanel)
                 {
                     <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
@@ -46,28 +67,67 @@
                                 DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                 ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                ShowLeftButtons="@_showLeftButtons" MaxValue="MaxValue" MinValue="MinValue">
+                                ShowLeftButtons="@IsSinglePanel" MaxValue="MaxValue" MinValue="MinValue">
                 </DatePickerBody>
             </CascadingValue>
         </div>
-        <div class="picker-panel-footer">
-            <div class="flex-fill me-3">
-                @if (ShowClearButton)
+        @if (_isMobile != true)
+        {
+            <div class="picker-panel-footer">
+                <div class="flex-fill me-3">
+                    @if (ShowClearButton)
+                    {
+                        <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
+                            <span>@ClearButtonText</span>
+                        </Button>
+                    }
+                </div>
+                @if (ShowToday)
                 {
-                    <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
-                        <span>@ClearButtonText</span>
+                    <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickTodayButton">
+                        <span>@TodayButtonText</span>
                     </Button>
                 }
-            </div>
-            @if (ShowToday)
-            {
-                <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickTodayButton">
-                    <span>@TodayButtonText</span>
+                <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickConfirmButton">
+                    <span>@ConfirmButtonText</span>
                 </Button>
-            }
-            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickConfirmButton">
-                <span>@ConfirmButtonText</span>
-            </Button>
-        </div>
+            </div>
+        }
     </div>
 </div>
+<Responsive OnBreakPointChanged="OnBreakPointChangedAsync" />
+@if (_renderModal)
+{
+    <Modal IsBackdrop="true" IsFade="false" ZIndex="@ModalZIndex" FirstAfterRenderCallbackAsync="OnModalReadyAsync" OnCloseAsync="OnModalClosedAsync">
+        <ModalDialog Class="@ModalClassString" Title="@(DisplayText ?? Localizer["ModalTitle"])" Size="Size.None"
+                     IsScrolling="true" ShowFooter="true" ShowCloseButton="false">
+            <HeaderToolbarTemplate>
+                <Button Color="Color.Secondary" IsDisabled="@(!CanReselect)" OnClick="OnReselect">
+                    @Localizer["ReselectButtonText"]
+                </Button>
+            </HeaderToolbarTemplate>
+            <BodyTemplate>
+                <div class="datetime-picker-modal-body"></div>
+            </BodyTemplate>
+            <FooterTemplate>
+                <div class="flex-fill">
+                    @if (ShowClearButton)
+                    {
+                        <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.Secondary" OnClick="@ClickClearButton">
+                            <span>@ClearButtonText</span>
+                        </Button>
+                    }
+                </div>
+                @if (ShowToday)
+                {
+                    <Button class="picker-panel-link-btn is-confirm" Color="Color.Secondary" OnClick="@ClickTodayButton">
+                        <span>@TodayButtonText</span>
+                    </Button>
+                }
+                <Button class="picker-panel-link-btn is-confirm" Color="Color.Primary" OnClick="@ClickConfirmButton">
+                    <span>@ConfirmButtonText</span>
+                </Button>
+            </FooterTemplate>
+        </ModalDialog>
+    </Modal>
+}

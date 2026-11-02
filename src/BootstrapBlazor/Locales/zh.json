@@ -64,6 +64,10 @@
     "ShowLessText": "显示更少"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
+    "ModalTitle": "选择日期范围",
+    "ReselectButtonText": "重选",
+    "ShowMoreText": "显示更多",
+    "ShowLessText": "显示更少",
     "SeparateText": "至",
     "StartPlaceHolderText": "开始日期",
     "EndPlaceHolderText": "结束日期",

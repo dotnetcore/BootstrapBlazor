@@ -1798,7 +1798,7 @@
     "Limit": "时间范围",
     "MaxMinValueIntro": "设置时间的取值范围",
     "MaxMinValueTitle": "最大值和最小值",
-    "NormalIntro": "以「日」为基本单位，选择一段时间",
+    "NormalIntro": "以「日」为基本单位，选择一段时间。移动端自动使用单面板弹窗，清空、今天和确定按钮位于弹窗底部；仅选择开始日期后，可通过标题栏的「重选」按钮重新选择开始日期",
     "NormalTitle": "基本功能",
     "SidebarIntro": "设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏",
     "SidebarTip": "通过设置  <code>ShowSidebar</code> 参数开启显示侧边栏快捷选项功能，通过设置 <code>SidebarItems</code> 参数集合替换组件内置的默认快捷项",

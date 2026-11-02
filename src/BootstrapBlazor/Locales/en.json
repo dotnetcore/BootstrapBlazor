@@ -64,6 +64,10 @@
     "ShowLessText": "Show less"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
+    "ModalTitle": "Select date range",
+    "ReselectButtonText": "Reselect",
+    "ShowMoreText": "Show more",
+    "ShowLessText": "Show less",
     "SeparateText": "To",
     "StartPlaceHolderText": "Start date",
     "EndPlaceHolderText": "End date",

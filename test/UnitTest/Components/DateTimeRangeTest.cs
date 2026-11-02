@@ -54,6 +54,292 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.Single(body);
     }
 
+    [Theory]
+    [InlineData(BreakPoint.ExtraSmall, true, DateTimeRangeRenderMode.Double)]
+    [InlineData(BreakPoint.Small, true, DateTimeRangeRenderMode.Single)]
+    [InlineData(BreakPoint.Medium, false, DateTimeRangeRenderMode.Double)]
+    [InlineData(BreakPoint.Large, false, DateTimeRangeRenderMode.Single)]
+    public async Task OnResize_BreakPoint_RendersExpectedPanels(BreakPoint size, bool isMobile, DateTimeRangeRenderMode renderMode)
+    {
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.RenderMode, renderMode);
+            pb.Add(a => a.ShowSidebar, true);
+        });
+
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(size));
+
+        Assert.Equal(isMobile ? "true" : "false", cut.Find(".datetime-range").GetAttribute("data-bb-mobile"));
+        Assert.Equal(isMobile || renderMode == DateTimeRangeRenderMode.Single ? 1 : 2, cut.FindComponents<DatePickerBody>().Count);
+        Assert.Equal(isMobile ? 0 : 1, cut.FindAll(".picker-panel-footer").Count);
+        Assert.Equal(isMobile ? 1 : 0, outlet.FindAll(".datetime-range-modal").Count);
+        Assert.Equal(isMobile ? 1 : 0, cut.FindAll(".picker-panel-sidebar-viewport").Count);
+        Assert.Equal(4, cut.FindAll(".sidebar-item").Count);
+        Assert.Equal(isMobile || renderMode == DateTimeRangeRenderMode.Single, cut.FindComponents<DatePickerBody>().Last().Instance.ShowLeftButtons);
+
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Medium));
+
+        Assert.Equal(renderMode, cut.Instance.RenderMode);
+        Assert.Equal(renderMode == DateTimeRangeRenderMode.Single ? 1 : 2, cut.FindComponents<DatePickerBody>().Count);
+        Assert.Single(cut.FindAll(".picker-panel-footer"));
+        Assert.Empty(cut.FindAll(".picker-panel-sidebar-viewport"));
+    }
+
+    [Fact]
+    public async Task TriggerShowModalCallback_Reopened_PreservesDialogSettings()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.razor.js");
+        module.Mode = JSRuntimeMode.Loose;
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.ModalZIndex, 1088);
+            pb.Add(a => a.CustomClass, "range-modal-test");
+            pb.Add(a => a.DisplayText, "Range");
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+
+        var modal = cut.FindComponent<Modal>();
+        Assert.Contains("--bs-modal-zindex:1088", outlet.Find(".modal").GetAttribute("style"));
+        Assert.NotNull(outlet.Find(".datetime-range-modal.range-modal-test"));
+        Assert.Equal("Range", outlet.Find(".modal-title").TextContent);
+
+        Assert.True(await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback));
+        var invocation = module.VerifyInvoke("showModal");
+        Assert.Equal(cut.Instance.Id, invocation.Arguments[0]);
+        Assert.Equal(modal.Instance.Id, invocation.Arguments[1]);
+
+        Assert.True(await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback));
+        module.VerifyInvoke("showModal", 1);
+
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
+        Assert.True(await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback));
+        module.VerifyInvoke("showModal", 2);
+    }
+
+    [Fact]
+    public async Task TriggerShowModalCallback_Disabled_DoesNotOpen()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.razor.js");
+        module.Mode = JSRuntimeMode.Loose;
+        Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<DateTimeRange>(pb => pb.Add(a => a.IsDisabled, true));
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+
+        Assert.False(await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback));
+        module.VerifyNotInvoke("showModal");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task UpdateValue_MobileRange_RespectsAutoClose(bool autoClose)
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/Modal/Modal.razor.js");
+        module.Mode = JSRuntimeMode.Loose;
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var changes = 0;
+        var confirms = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue { Start = new DateTime(2026, 11, 1), End = new DateTime(2026, 11, 15) });
+            pb.Add(a => a.AutoClose, autoClose);
+            pb.Add(a => a.ValueChanged, _ => changes++);
+            pb.Add(a => a.OnConfirm, _ => { confirms++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+
+        await cut.FindAll(".date-table .cell").First(el => el.TextContent == "10").ClickAsync();
+        Assert.Equal(0, changes);
+        await cut.FindAll(".date-table .cell").First(el => el.TextContent == "5").ClickAsync();
+        Assert.Equal(autoClose ? 1 : 0, changes);
+
+        if (!autoClose)
+        {
+            await outlet.Find(".modal-footer .btn-primary").ClickAsync();
+        }
+
+        Assert.Equal(1, changes);
+        Assert.Equal(1, confirms);
+        Assert.Equal(new DateTime(2026, 11, 5), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2026, 11, 10, 23, 59, 59), cut.Instance.Value.End);
+        Assert.Single(module.Invocations, i => i.Identifier == "execute" && i.Arguments.Last()?.ToString() == "hide");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task OnReselect_IncompleteRange_RestartsSelectionWithoutCallbacks(bool showSelectedValue)
+    {
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var initial = new DateTimeRangeValue { Start = new DateTime(2026, 11, 1), End = new DateTime(2026, 11, 15) };
+        var changes = 0;
+        var clears = 0;
+        var confirms = 0;
+        var clicks = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, initial);
+            pb.Add(a => a.ShowSelectedValue, showSelectedValue);
+            pb.Add(a => a.ValueChanged, _ => changes++);
+            pb.Add(a => a.OnValueChanged, _ => { changes++; return Task.CompletedTask; });
+            pb.Add(a => a.OnClearValue, _ => { clears++; return Task.CompletedTask; });
+            pb.Add(a => a.OnConfirm, _ => { confirms++; return Task.CompletedTask; });
+            pb.Add(a => a.OnDateClick, _ => { clicks++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+        Assert.True(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
+
+        await cut.FindAll(".date-table .cell").First(el => el.TextContent == "5").ClickAsync();
+        Assert.False(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
+        await outlet.Find(".modal-header .btn-secondary").ClickAsync();
+
+        Assert.True(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
+        Assert.Empty(cut.FindAll(".date-table td.start, .date-table td.end"));
+        Assert.Equal(showSelectedValue ? DateTime.MinValue : new DateTime(2026, 11, 1), cut.Instance.Value.Start);
+        Assert.Equal(showSelectedValue ? DateTime.MinValue : new DateTime(2026, 11, 15), cut.Instance.Value.End);
+        Assert.Equal(0, changes);
+        Assert.Equal(0, clears);
+        Assert.Equal(0, confirms);
+        Assert.Equal(1, clicks);
+
+        await cut.FindAll(".date-table .cell").First(el => el.TextContent == "10").ClickAsync();
+        Assert.False(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
+        await cut.FindAll(".date-table .cell").First(el => el.TextContent == "12").ClickAsync();
+        Assert.True(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
+        await outlet.Find(".modal-footer .btn-primary").ClickAsync();
+
+        Assert.Equal(new DateTime(2026, 11, 10), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2026, 11, 12, 23, 59, 59), cut.Instance.Value.End);
+        Assert.Equal(1, confirms);
+        Assert.Equal(0, clears);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Footer_MobileClearOrToday_InvokesExistingCallbacks(bool clear)
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/Modal/Modal.razor.js");
+        module.Mode = JSRuntimeMode.Loose;
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var changes = 0;
+        var clears = 0;
+        var confirms = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Today.AddDays(-7), End = DateTime.Today });
+            pb.Add(a => a.ShowToday, true);
+            pb.Add(a => a.ValueChanged, _ => changes++);
+            pb.Add(a => a.OnValueChanged, _ => { changes++; return Task.CompletedTask; });
+            pb.Add(a => a.OnClearValue, _ => { clears++; return Task.CompletedTask; });
+            pb.Add(a => a.OnConfirm, _ => { confirms++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+
+        await outlet.FindAll(".modal-footer button").First(el => el.TextContent.Trim() == (clear ? "清空" : "今天")).ClickAsync();
+
+        Assert.Equal(clear ? DateTime.MinValue : DateTime.Today, cut.Instance.Value.Start);
+        Assert.Equal(clear ? DateTime.MinValue : DateTime.Today.AddDays(1).AddSeconds(-1), cut.Instance.Value.End);
+        Assert.Equal(2, changes);
+        Assert.Equal(clear ? 1 : 0, clears);
+        Assert.Equal(clear ? 0 : 1, confirms);
+        Assert.Single(module.Invocations, i => i.Identifier == "execute" && i.Arguments.Last()?.ToString() == "hide");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task OnClickSidebarItem_Mobile_RespectsAutoClose(bool autoClose)
+    {
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var confirms = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.AutoCloseClickSideBar, autoClose);
+            pb.Add(a => a.SidebarItems, [new() { Text = "Range", StartDateTime = new DateTime(2026, 10, 5), EndDateTime = new DateTime(2026, 11, 10) }]);
+            pb.Add(a => a.OnConfirm, _ => { confirms++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+
+        await cut.Find(".sidebar-item").ClickAsync();
+
+        Assert.Equal(new DateTime(2026, 10, 5), cut.FindComponent<DatePickerBody>().Instance.Value.Date);
+        Assert.Equal(autoClose ? 1 : 0, confirms);
+        if (!autoClose)
+        {
+            await outlet.Find(".modal-footer .btn-primary").ClickAsync();
+        }
+        Assert.Equal(new DateTime(2026, 10, 5), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2026, 11, 10, 23, 59, 59), cut.Instance.Value.End);
+    }
+
+    [Theory]
+    [InlineData(DatePickerViewMode.Year)]
+    [InlineData(DatePickerViewMode.Month)]
+    public async Task UpdateValue_MobileYearOrMonth_ConfirmsSelectedRange(DatePickerViewMode viewMode)
+    {
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue { Start = new DateTime(2026, 1, 1), End = new DateTime(2026, 11, 15) });
+            pb.Add(a => a.ViewMode, viewMode);
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+
+        if (viewMode == DatePickerViewMode.Year)
+        {
+            await cut.FindAll(".year-table .cell").First(el => el.TextContent == "2027").ClickAsync();
+            await cut.FindAll(".year-table .cell").First(el => el.TextContent == "2028").ClickAsync();
+        }
+        else
+        {
+            await cut.FindAll(".month-table .cell")[2].ClickAsync();
+            await cut.FindAll(".month-table .cell")[4].ClickAsync();
+        }
+        await outlet.Find(".modal-footer .btn-primary").ClickAsync();
+
+        Assert.Equal(viewMode == DatePickerViewMode.Year ? 2027 : 2026, cut.Instance.Value.Start.Year);
+        Assert.Equal(viewMode == DatePickerViewMode.Year ? 2028 : 2026, cut.Instance.Value.End.Year);
+        if (viewMode == DatePickerViewMode.Month)
+        {
+            Assert.Equal(3, cut.Instance.Value.Start.Month);
+            Assert.Equal(5, cut.Instance.Value.End.Month);
+        }
+    }
+
+    [Fact]
+    public async Task OnResize_OpenMobileDialog_DefersDesktopLayoutUntilClosed()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.razor.js");
+        module.Mode = JSRuntimeMode.Loose;
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<DateTimeRange>();
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+        module.Setup<bool>("isShown", _ => true).SetResult(true);
+
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Large));
+
+        Assert.Equal("true", cut.Find(".datetime-range").GetAttribute("data-bb-mobile"));
+        Assert.Single(cut.FindComponents<DatePickerBody>());
+        Assert.Empty(cut.FindAll(".picker-panel-footer"));
+        Assert.Single(outlet.FindAll(".modal-footer .btn-primary"));
+
+        await cut.InvokeAsync(cut.FindComponent<Modal>().Instance.CloseCallback);
+
+        Assert.Equal("false", cut.Find(".datetime-range").GetAttribute("data-bb-mobile"));
+        Assert.Equal(2, cut.FindComponents<DatePickerBody>().Count);
+        Assert.Single(cut.FindAll(".picker-panel-footer"));
+    }
+
     [Fact]
     public void StarEqualEnd_Ok()
     {
