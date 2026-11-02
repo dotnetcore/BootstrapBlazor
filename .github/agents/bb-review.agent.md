@@ -15,6 +15,17 @@ user-invocable: true
 2. 资源释放（IJSObjectReference/Disposable）
 3. 本地化是否硬编码
 4. 是否有对应的单元测试覆盖新增的行为分支
+5. 组件代码 cs 文件中重写的方法注释使用 <inheritdoc/>，尤其是组件生命周期的方法如 OnInitialized、OnParametersSet、OnAfterRender 等
+   示例：
+    ```csharp
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    ```
 
 输出格式：[P0/P1/P2] 文件:行 问题 + 最小修复建议
 
