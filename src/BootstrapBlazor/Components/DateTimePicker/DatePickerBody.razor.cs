@@ -22,7 +22,7 @@ public partial class DatePickerBody
         get
         {
             var d = GetSafeDayDateTime(CurrentDate, 1 - CurrentDate.Day);
-            d = GetSafeDayDateTime(d, (int)FirstDayOfWeek - (int)d.DayOfWeek);
+            d = GetSafeDayDateTime(d, -(((int)d.DayOfWeek - (int)FirstDayOfWeek + 7) % 7));
             return d;
         }
     }
