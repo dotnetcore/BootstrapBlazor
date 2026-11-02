@@ -171,6 +171,37 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
+    public async Task OnReselect_EmptyOrCompleteRange_PreservesValue(bool hasRange)
+    {
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var start = hasRange ? new DateTime(2026, 11, 1) : DateTime.MinValue;
+        var end = hasRange ? new DateTime(2026, 11, 15) : DateTime.MinValue;
+        var changes = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue { Start = start, End = end });
+            pb.Add(a => a.ShowSelectedValue, true);
+            pb.Add(a => a.ValueChanged, _ => changes++);
+            pb.Add(a => a.OnValueChanged, _ => { changes++; return Task.CompletedTask; });
+            pb.Add(a => a.OnClearValue, _ => { changes++; return Task.CompletedTask; });
+            pb.Add(a => a.OnConfirm, _ => { changes++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(BreakPoint.Small));
+        var reselect = outlet.FindComponents<Button>().Single(button => button.Find("button").TextContent.Trim() == "重选");
+        Assert.True(reselect.Instance.IsDisabled);
+
+        await cut.InvokeAsync(() => reselect.Instance.OnClick.InvokeAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs()));
+
+        Assert.Equal(start, cut.Instance.Value.Start);
+        Assert.Equal(end, cut.Instance.Value.End);
+        Assert.Equal(hasRange ? 1 : 0, cut.FindAll(".date-table td.start").Count);
+        Assert.Equal(hasRange ? 1 : 0, cut.FindAll(".date-table td.end").Count);
+        Assert.Equal(0, changes);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
     public async Task OnReselect_IncompleteRange_RestartsSelectionWithoutCallbacks(bool showSelectedValue)
     {
         var outlet = Context.Render<BootstrapBlazorRootOutlet>();
