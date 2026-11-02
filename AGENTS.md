@@ -116,12 +116,13 @@
   - 是否违反 BootstrapBlazor 设计原则
   - 是否破坏现有 API
   - 是否影响主题/本地化
-
+- 本仓库不加载 `bootstrapblazor` skill
+- BootstrapBlazor.Server 项目依赖项源码大部分都在 [Github](https://github.com/BootstrapBlazor/BootstrapBlazor.Extensions) 仓库中，国内镜像站 [Gitee](https://gitee.com/LongbowEnterprise/BootstrapBlazor.Extensions) 有同步
 ---
 
 ## 七、文档与示例
 
-- 新组件必须更新 `docs/`
+- 新组件必须更新 `docs.json` 文件
 - 示例必须可运行
 
 ---
