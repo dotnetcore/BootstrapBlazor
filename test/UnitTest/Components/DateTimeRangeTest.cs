@@ -169,6 +169,70 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Theory]
+    [InlineData(false, -2)]
+    [InlineData(false, 2)]
+    [InlineData(true, -2)]
+    [InlineData(true, 2)]
+    public async Task ClickConfirmButton_EmptySelection_IgnoresUntilStartSelected(bool isMobile, int days)
+    {
+        var pickerModule = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.razor.js");
+        pickerModule.Mode = JSRuntimeMode.Loose;
+        var modalModule = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/Modal/Modal.razor.js");
+        modalModule.Mode = JSRuntimeMode.Loose;
+        var outlet = Context.Render<BootstrapBlazorRootOutlet>();
+        var initial = new DateTimeRangeValue();
+        var changes = 0;
+        var confirms = 0;
+        var cut = Context.Render<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, initial);
+            pb.Add(a => a.ValueChanged, _ => changes++);
+            pb.Add(a => a.OnValueChanged, _ => { changes++; return Task.CompletedTask; });
+            pb.Add(a => a.OnConfirm, _ => { confirms++; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.FindComponent<Responsive>().Instance.OnResize(isMobile ? BreakPoint.Small : BreakPoint.Medium));
+        if (isMobile)
+        {
+            await cut.InvokeAsync(cut.Instance.TriggerShowModalCallback);
+        }
+
+        var confirm = (isMobile ? outlet.FindComponents<Button>() : cut.FindComponents<Button>())
+            .Single(button => button.Find("button").TextContent.Trim() == "确定");
+        Assert.True(confirm.Instance.IsDisabled);
+        Assert.True(confirm.Find("button").HasAttribute("disabled"));
+
+        await cut.InvokeAsync(() => confirm.Instance.OnClick.InvokeAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs()));
+
+        Assert.Same(initial, cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
+        Assert.Equal(0, changes);
+        Assert.Equal(0, confirms);
+        pickerModule.VerifyNotInvoke("hide");
+        Assert.DoesNotContain(modalModule.Invocations, i => i.Identifier == "execute" && i.Arguments.Last()?.ToString() == "hide");
+
+        var today = DateTime.Today;
+        var start = today.AddDays(days);
+        await cut.InvokeAsync(() => cut.FindComponent<DatePickerBody>().Instance.ValueChanged.InvokeAsync(start));
+        Assert.False(confirm.Instance.IsDisabled);
+        Assert.False(confirm.Find("button").HasAttribute("disabled"));
+        await confirm.Find("button").ClickAsync();
+
+        Assert.Equal(days < 0 ? start : today, cut.Instance.Value.Start);
+        Assert.Equal((days < 0 ? today : start).AddDays(1).AddSeconds(-1), cut.Instance.Value.End);
+        Assert.Equal(2, changes);
+        Assert.Equal(1, confirms);
+        if (isMobile)
+        {
+            Assert.Single(modalModule.Invocations, i => i.Identifier == "execute" && i.Arguments.Last()?.ToString() == "hide");
+        }
+        else
+        {
+            pickerModule.VerifyInvoke("hide");
+        }
+    }
+
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public async Task OnReselect_EmptyOrCompleteRange_PreservesValue(bool hasRange)
@@ -204,6 +268,10 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [InlineData(false)]
     public async Task OnReselect_IncompleteRange_RestartsSelectionWithoutCallbacks(bool showSelectedValue)
     {
+        var pickerModule = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/DateTimePicker/DateTimePicker.razor.js");
+        pickerModule.Mode = JSRuntimeMode.Loose;
+        var modalModule = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/Modal/Modal.razor.js");
+        modalModule.Mode = JSRuntimeMode.Loose;
         var outlet = Context.Render<BootstrapBlazorRootOutlet>();
         var initial = new DateTimeRangeValue { Start = new DateTime(2026, 11, 1), End = new DateTime(2026, 11, 15) };
         var changes = 0;
@@ -237,7 +305,25 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.Equal(0, confirms);
         Assert.Equal(1, clicks);
 
+        var confirm = outlet.FindComponents<Button>().Single(button => button.Find("button").TextContent.Trim() == "确定");
+        Assert.True(confirm.Instance.IsDisabled);
+        Assert.True(confirm.Find("button").HasAttribute("disabled"));
+
+        await cut.InvokeAsync(() => confirm.Instance.OnClick.InvokeAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs()));
+
+        Assert.Same(initial, cut.Instance.Value);
+        Assert.Equal(showSelectedValue ? DateTime.MinValue : new DateTime(2026, 11, 1), cut.Instance.Value.Start);
+        Assert.Equal(showSelectedValue ? DateTime.MinValue : new DateTime(2026, 11, 15), cut.Instance.Value.End);
+        Assert.Equal(0, changes);
+        Assert.Equal(0, clears);
+        Assert.Equal(0, confirms);
+        Assert.Equal(1, clicks);
+        pickerModule.VerifyNotInvoke("hide");
+        Assert.DoesNotContain(modalModule.Invocations, i => i.Identifier == "execute" && i.Arguments.Last()?.ToString() == "hide");
+
         await cut.FindAll(".date-table .cell").First(el => el.TextContent == "10").ClickAsync();
+        Assert.False(confirm.Instance.IsDisabled);
+        Assert.False(confirm.Find("button").HasAttribute("disabled"));
         Assert.False(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
         await cut.FindAll(".date-table .cell").First(el => el.TextContent == "12").ClickAsync();
         Assert.True(outlet.Find(".modal-header .btn-secondary").HasAttribute("disabled"));
@@ -844,6 +930,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         var range = cut.FindComponent<DateTimeRange>();
+        await range.Find(".date-table .cell").ClickAsync();
         var confirm = range.Find(".is-confirm");
         await cut.InvokeAsync(() => confirm.Click());
 

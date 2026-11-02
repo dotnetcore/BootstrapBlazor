@@ -560,6 +560,11 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
+        if (SelectedValue.Start == DateTime.MinValue)
+        {
+            return;
+        }
+
         if (SelectedValue.End == DateTime.MinValue)
         {
             if (SelectedValue.Start < DateTime.Today)
