@@ -15,6 +15,7 @@
 - 组件工程：src/BootstrapBlazor/BootstrapBlazor.csproj
 - 文档示例工程：src/BootstrapBlazor.Server/BootstrapBlazor.Server.csproj
 - 测试工程：test/UnitTest/UnitTest.csproj
+
 ---
 
 ## 二、架构与代码边界
@@ -53,7 +54,7 @@
 
 ## 四、测试约定
 
-- 为提高开发效率，新组件在未明确要求编写单元测试的情况下，不要编写单元测试，以及运行现有单元测试
+- 为提高开发效率，新组件在未明确要求编写单元测试的情况下，不要编写单元测试，也不要运行现有单元测试
 - 测试项目：`UnitTest`
 - 测试框架：xUnit + bUnit
 - 测试命名：`MethodName_State_ExpectedResult`
@@ -88,6 +89,7 @@
   - 是否影响主题/本地化
 - 本仓库不加载 `bootstrapblazor` skill
 - BootstrapBlazor.Server 项目依赖项源码大部分都在 [Github](https://github.com/BootstrapBlazor/BootstrapBlazor.Extensions) 仓库中，国内镜像站 [Gitee](https://gitee.com/LongbowEnterprise/BootstrapBlazor.Extensions) 有同步
+
 ---
 
 ## 七、文档与示例
@@ -100,13 +102,13 @@
 ## 八、禁止事项（红线）
 
 - 禁止修改 Bootstrap 原始 CSS（覆盖除外）
+- 禁止直接操作 DOM（除非 JSInterop）
 - 禁止提交包含 `Console.WriteLine` 的生产代码
 
 ---
 
 ## 九、Agent 自检清单（每次生成后）
 
-- [ ] 编译通过
 - [ ] 符合 BootstrapBlazor 架构
 - [ ] 不引入新依赖
 - [ ] 文档/示例已更新
