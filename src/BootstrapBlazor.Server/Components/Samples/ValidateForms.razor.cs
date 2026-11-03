@@ -20,13 +20,6 @@ public partial class ValidateForms
     [NotNull]
     private ConsoleLogger? Logger1 { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 是否触发表单字段值变更回调 默认 true</para>
-    /// <para lang="en">Gets or sets whether to invoke the form field value changed callback. The default is true</para>
-    /// <para><version>11.1.0</version></para>
-    /// </summary>
-    private bool EnableFieldValueChanged { get; set; } = true;
-
     private async Task OnInvalidSubmit1(EditContext context)
     {
         await Task.Delay(1000);

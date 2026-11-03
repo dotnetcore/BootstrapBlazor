@@ -27,10 +27,7 @@
         <p>@((MarkupString)Localizer["LongDisplayDescription"].Value)</p>
     </section>
 
-    <div class="mb-3">
-        <Switch @bind-Value="@EnableFieldValueChanged" DisplayText="@Localizer["EnableFieldValueChangedText"]" ShowLabel="true" />
-    </div>
-    <ValidateForm Model="@Model1" OnFieldValueChanged="@OnFiledChanged" EnableFieldValueChanged="@EnableFieldValueChanged"
+    <ValidateForm Model="@Model1" OnFieldValueChanged="@OnFiledChanged"
                   OnValidSubmit="@OnValidSubmit1" OnInvalidSubmit="@OnInvalidSubmit1">
         <div class="row g-3">
             <div class="col-12">
