@@ -383,8 +383,7 @@ public partial class DateTimePicker<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
