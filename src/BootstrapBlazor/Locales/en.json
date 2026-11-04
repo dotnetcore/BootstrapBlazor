@@ -59,9 +59,15 @@
     "GenericTypeErrorMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "Today",
     "Yesterday": "Yesterday",
-    "Week": "A week ago"
+    "Week": "A week ago",
+    "ShowMoreText": "Show more",
+    "ShowLessText": "Show less"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
+    "ModalTitle": "Select date range",
+    "ReselectButtonText": "Reselect",
+    "ShowMoreText": "Show more",
+    "ShowLessText": "Show less",
     "SeparateText": "To",
     "StartPlaceHolderText": "Start date",
     "EndPlaceHolderText": "End date",
