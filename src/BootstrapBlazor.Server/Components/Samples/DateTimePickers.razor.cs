@@ -12,6 +12,17 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private Task ShowNestedDialogAsync() => DialogService.Show(new DialogOption
+    {
+        Title = Localizer["NestedDialogTitle"],
+        Component = BootstrapDynamicComponent.CreateComponent<DatePickerDialogForm>(),
+        ShowFooter = false
+    });
+
     private DateTime DateTimePickerValue { get; set; }
 
     [NotNull]

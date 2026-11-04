@@ -1,0 +1,57 @@
+@inject IStringLocalizer<BootstrapBlazor.Server.Components.Samples.DateTimePickers> Localizer
+
+<ValidateForm Model="this" OnValidSubmit="OnValidSubmitAsync">
+    <div class="row g-3">
+        <div class="col-12">
+            <DateTimePicker @bind-Value="DateValue" DisplayText="@Localizer["NestedDateLabel"]" />
+        </div>
+        <div class="col-12">
+            <DateTimePicker @bind-Value="DateTimeValue" ViewMode="DatePickerViewMode.DateTime"
+                            PickTimeMode="PickTimeMode.Dropdown" DisplayText="@Localizer["NestedDateTimeLabel"]" />
+        </div>
+        <div class="col-12">
+            <DateTimeRange @bind-Value="RangeValue" ShowSidebar="true" DisplayText="@Localizer["NestedRangeLabel"]" />
+        </div>
+        <div class="col-12">
+            <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" />
+        </div>
+    </div>
+    @if (_submitted)
+    {
+        <div class="mt-3" role="status">@Localizer["NestedSubmitted"]</div>
+    }
+    <div class="mt-3">
+        <output>@DateValue?.ToString("yyyy-MM-dd")</output>
+        <output class="d-block">@DateTimeValue?.ToString("yyyy-MM-dd HH:mm:ss")</output>
+        <output class="d-block">@RangeValue.Start.ToString("yyyy-MM-dd") — @RangeValue.End.ToString("yyyy-MM-dd")</output>
+    </div>
+</ValidateForm>
+
+@code {
+    /// <summary>
+    /// <para lang="zh">获得/设置 表单日期。</para>
+    /// <para lang="en">Gets or sets the form date.</para>
+    /// </summary>
+    [Required]
+    public DateTime? DateValue { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表单日期时间。</para>
+    /// <para lang="en">Gets or sets the form date and time.</para>
+    /// </summary>
+    public DateTime? DateTimeValue { get; set; } = DateTime.Now;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表单日期范围。</para>
+    /// <para lang="en">Gets or sets the form date range.</para>
+    /// </summary>
+    public DateTimeRangeValue RangeValue { get; set; } = new();
+
+    private bool _submitted;
+
+    private Task OnValidSubmitAsync(EditContext context)
+    {
+        _submitted = true;
+        return Task.CompletedTask;
+    }
+}

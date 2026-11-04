@@ -1,8 +1,13 @@
 @page "/datetime-picker"
+@page "/datetime-picker/dialog"
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["Description"]</h4>
+
+<DemoBlock Title="@Localizer["NestedDialogTitle"]" Introduction="@Localizer["NestedDialogIntro"]" Name="NestedDialog">
+    <Button Text="@Localizer["NestedDialogOpen"]" OnClick="ShowNestedDialogAsync" />
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
 	<section ignore class="row g-3 mb-3">
