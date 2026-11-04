@@ -29,14 +29,35 @@
             <span class="@ClearClassString" @onclick:stopPropagation @onclick="OnClear"><i class="@ClearIcon"></i></span>
         }
     }
-    <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
-                    ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
-                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
-                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                    OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
-                    AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!"
-                    PickTimeMode="PickTimeMode" OnGetDisabledDaysCallback="OnGetDisabledDaysCallback!"
-                    EnableDisabledDaysCache="EnableDisabledDaysCache">
-        @ChildContent
-    </DatePickerBody>
+
+    @if (string.IsNullOrEmpty(DialogModeString))
+    {
+        @RenderDatePickerBody
+    }
+    else
+    {
+        <dialog class="datetime-picker-dialog">
+            <div class="datetime-picker-dialog-header">
+                <h5 class="datetime-picker-dialog-header-title">@DialogHeaderText</h5>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="datetime-picker-dialog-body">
+                @RenderDatePickerBody
+            </div>
+        </dialog>
+    }
 </div>
+
+<Responsive OnBreakPointChanged="OnBreakPointChangedAsync" />
+
+@code {
+    RenderFragment RenderDatePickerBody =>@<DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
+        ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
+        DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
+        ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+        OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
+        AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!"
+        PickTimeMode="PickTimeMode" OnGetDisabledDaysCallback="OnGetDisabledDaysCallback!"
+        EnableDisabledDaysCache="EnableDisabledDaysCache" ChildContent="ChildContent">
+    </DatePickerBody>;
+}
