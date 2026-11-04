@@ -371,6 +371,9 @@ public partial class DateTimePicker<TValue>
 
     private DatePickerBody _pickerBody = default!;
 
+    private Size _size = Size.None;
+    private bool? _dialogMode;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -487,11 +490,14 @@ public partial class DateTimePicker<TValue>
         {
             // 首次渲染时同步 IsButton 参数值
             _isButton = IsButton;
+            _dialogMode = DialogModeString != null;
         }
 
-        if (_isButton != IsButton)
+        var dialogMode = DialogModeString != null;
+        if (_isButton != IsButton || _dialogMode != dialogMode)
         {
             _isButton = IsButton;
+            _dialogMode = dialogMode;
             await InvokeVoidAsync("reset", Id);
         }
     }
@@ -648,6 +654,34 @@ public partial class DateTimePicker<TValue>
     public Task TriggerHideCallback()
     {
         StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private string? DialogModeString => _size < Size.Medium ? "true" : null;
+
+    private string? DialogHeaderText => DisplayText ?? PlaceholderString;
+
+    private Task OnBreakPointChangedAsync(BreakPoint breakpoint)
+    {
+        var size = breakpoint switch
+        {
+            BreakPoint.ExtraExtraSmall => Size.ExtraSmall,
+            BreakPoint.ExtraSmall => Size.ExtraSmall,
+            BreakPoint.Small => Size.Small,
+            BreakPoint.Medium => Size.Medium,
+            BreakPoint.Large => Size.Large,
+            BreakPoint.ExtraLarge => Size.ExtraLarge,
+            BreakPoint.ExtraExtraLarge => Size.ExtraExtraLarge,
+            _ => Size.None
+        };
+
+        if (size != _size)
+        {
+            // 更新组件渲染逻辑
+            _size = size;
+            StateHasChanged();
+        }
+
         return Task.CompletedTask;
     }
 }
