@@ -386,80 +386,6 @@ public partial class DateTimePicker<TValue>
 
     private DatePickerBody _pickerBody = default!;
 
-    private bool? _isMobile;
-    private bool _renderModal;
-    private bool _isModalOpen;
-    private readonly TaskCompletionSource<Modal> _modalReady = new();
-
-    private string? MobileString => _isMobile.HasValue ? (_isMobile.Value ? "true" : "false") : null;
-
-    private bool ShowDatePickerFooter => _isMobile != true;
-
-    private string? ModalClassString => CssBuilder.Default("datetime-picker-modal")
-        .AddClass(CustomClass)
-        .Build();
-
-    private async Task OnBreakPointChanged(BreakPoint size)
-    {
-        var isMobile = size < BreakPoint.Medium;
-        if (_isMobile != isMobile)
-        {
-            _isMobile = isMobile;
-            _renderModal |= isMobile;
-            if (!await InvokeAsync<bool>("isShown", Id))
-            {
-                StateHasChanged();
-            }
-        }
-    }
-
-    private Task OnModalReadyAsync(Modal modal)
-    {
-        _modalReady.TrySetResult(modal);
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// <para lang="zh">客户端在移动端请求显示日期弹窗时调用此方法</para>
-    /// <para lang="en">Called by JavaScript to show the date dialog on small screens</para>
-    /// </summary>
-    [JSInvokable]
-    public async Task<bool> TriggerShowModalCallback()
-    {
-        if (IsDisabled)
-        {
-            return false;
-        }
-
-        if (!_isModalOpen)
-        {
-            _isModalOpen = true;
-            var modal = await _modalReady.Task;
-            await InvokeVoidAsync("showModal", Id, modal.Id);
-            await modal.Show();
-        }
-        return true;
-    }
-
-    private Task OnModalClosedAsync()
-    {
-        _isModalOpen = false;
-        return TriggerHideCallback();
-    }
-
-    private async Task HidePickerAsync()
-    {
-        if (_isModalOpen)
-        {
-            var modal = await _modalReady.Task;
-            await modal.Close();
-        }
-        else
-        {
-            await InvokeVoidAsync("hide", Id);
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -626,8 +552,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
-        TriggerHideCallback = nameof(TriggerHideCallback),
-        TriggerShowModalCallback = nameof(TriggerShowModalCallback)
+        TriggerHideCallback = nameof(TriggerHideCallback)
     });
 
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
@@ -652,7 +577,7 @@ public partial class DateTimePicker<TValue>
 
         if (AutoClose)
         {
-            await HidePickerAsync();
+            await ClosePickerPanel();
         }
     }
 
@@ -664,9 +589,11 @@ public partial class DateTimePicker<TValue>
 
         if (AutoClose)
         {
-            await HidePickerAsync();
+            await ClosePickerPanel();
         }
     }
+
+    private Task ClosePickerPanel() => InvokeVoidAsync("hide", Id);
 
     private TValue? GetValue()
     {
