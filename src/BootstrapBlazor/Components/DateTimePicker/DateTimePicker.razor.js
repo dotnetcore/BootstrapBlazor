@@ -10,7 +10,7 @@ export function init(id, invoke, options) {
     }
 
     const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const panel = el.querySelector(el.getAttribute('data-bb-dropdown'));
+    const panel = el.querySelector('.datetime-picker-panel');
     const dialogBody = el.querySelector('.datetime-dialog-body');
     const picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
     const onModeChanged = () => syncPickerMode(id);
@@ -44,7 +44,7 @@ const createPicker = (el, invoke, options, mediaQuery, panel, dialogBody) => {
 
 const createPopover = (el, invoke, options) => {
     const popover = Popover.init(el, {
-        dropdownSelector: el.getAttribute('data-bb-dropdown'),
+        dropdownSelector: '.datetime-picker-panel',
         isDisabled: () => {
             return el.classList.contains('disabled');
         },
