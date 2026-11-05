@@ -202,7 +202,7 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
-    [Obsolete()]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool ShowSidebar { get; set; }
 
@@ -211,6 +211,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
