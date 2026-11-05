@@ -33,8 +33,8 @@
         }
     }
 
-    .picker-panel {
-        display: none
+    .datetime-picker-panel {
+        display: none;
     }
 }
 
@@ -52,94 +52,59 @@
     box-shadow: none;
 }
 
-.datetime-picker-modal {
-    width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
-    max-width: 338px;
-    height: calc(100vh - 1rem);
-    height: calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    min-height: 0;
-    margin: calc(.5rem + env(safe-area-inset-top)) auto calc(.5rem + env(safe-area-inset-bottom));
+.datetime-dialog {
+    overflow: auto;
+    padding: 0;
+    border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+    border-radius: var(--bs-border-radius);
+    outline: 0;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 
-    .modal-content {
-        min-width: 0;
-        min-height: 0;
+    &[open] .datetime-picker-panel {
+        display: flex;
+        flex-direction: column;
     }
 
-    .modal-body {
-        padding: .5rem;
-        overscroll-behavior-y: contain;
-    }
+    .datetime-dialog-header {
+        display: flex;
+        align-items: center;
+        padding: .5rem 1rem;
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs--border-radius);
 
-    .picker-panel {
-        --bb-picker-panel-body-width: min(320px, calc(100vw - 2rem - 2px - env(safe-area-inset-left) - env(safe-area-inset-right)));
-        width: 100%;
+        .datetime-dialog-header-title {
+            flex: 1 1 auto;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+    }
+}
+
+.datetime-picker-panel {
+    display: flex;
+
+    > .picker-panel {
+        display: block;
         border: 0;
         box-shadow: none;
+    }
+}
 
-        .picker-panel-body {
-            flex-direction: column;
+.picker-panel-sidebar {
+    width: 110px;
+    border-right: var(--bs-border-width) solid var(--bs-border-color);
+    padding: 6px 0;
+    overflow: auto;
 
-            .picker-panel-sidebar {
-                width: 100%;
-                overflow: visible;
-                border-right: 0;
-                border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+    .sidebar-item {
+        line-height: 28px;
+        padding: 0 12px;
+        cursor: pointer;
+        transition: color .3s linear;
 
-                .picker-panel-sidebar-viewport {
-                    overflow: hidden;
-
-                    &:not(.is-expanded) {
-                        max-height: var(--bb-picker-sidebar-row-height, 2rem);
-                    }
-                }
-
-                .picker-panel-sidebar-content.is-default {
-                    display: grid;
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                    gap: .3rem;
-                }
-
-                .picker-panel-sidebar-toggle {
-                    display: block;
-                    width: 100%;
-                    margin-top: .5rem;
-                    padding: 0;
-
-                    &[hidden],
-                    &[aria-expanded="false"] .show-less,
-                    &[aria-expanded="true"] .show-more {
-                        display: none;
-                    }
-                }
-            }
-
-            .picker-panel-body-main {
-                width: 100%;
-
-                .picker-panel-date {
-                    width: var(--bb-picker-panel-body-width);
-                    flex-shrink: 0;
-                }
-
-                .picker-panel-content {
-                    width: auto;
-                    margin: .5rem;
-                }
-            }
-        }
-
-        .clock-panel-body {
-            flex-shrink: 0;
-        }
-
-        .picker-panel-time {
-            padding: .5rem;
-            gap: .5rem;
-
-            .form-control {
-                min-width: 0;
-                flex: 1;
-            }
+        &:hover {
+            @include color_409eff
         }
     }
 }

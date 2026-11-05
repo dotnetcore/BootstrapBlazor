@@ -53,11 +53,7 @@ public partial class DatePickerBody
 
     private bool _showClockPicker;
 
-    [CascadingParameter(Name = "DatePickerBodyHasExternalFooter")]
-    private bool HasExternalFooter { get; set; }
-
     private string? ClassString => CssBuilder.Default("picker-panel")
-        .AddClass("is-sidebar", ShowSidebar)
         .AddClass("is-lunar", ShowLunar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -87,13 +83,11 @@ public partial class DatePickerBody
         && day >= Ranger.SelectedValue.Start.Date
         && day <= Ranger.SelectedValue.End.Date;
 
-    private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
+    private string? WrapperClassString => CssBuilder.Default("picker-panel-body")
         .AddClass("is-open", _showClockPicker)
         .Build();
 
     private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
-
-    internal bool IsTodayDisabled => IsDisabled(DateTime.Today);
 
     /// <summary>
     /// <para lang="zh">获得 上一月按钮样式</para>
@@ -208,6 +202,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
@@ -215,6 +211,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -500,15 +498,6 @@ public partial class DatePickerBody
     [NotNull]
     private List<string>? WeekLists { get; set; }
 
-    [NotNull]
-    private string? Today { get; set; }
-
-    [NotNull]
-    private string? Yesterday { get; set; }
-
-    [NotNull]
-    private string? Week { get; set; }
-
     private TimePickerOption TimePickerOption { get; } = new();
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
@@ -578,10 +567,6 @@ public partial class DatePickerBody
         MonthLists = [.. Localizer[nameof(MonthLists)].Value.Split(',')];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
         WeekLists = GetWeekList();
-
-        Today ??= Localizer[nameof(Today)];
-        Yesterday ??= Localizer[nameof(Yesterday)];
-        Week ??= Localizer[nameof(Week)];
 
         PreviousYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousYearIcon);
         PreviousMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousMonthIcon);
@@ -805,7 +790,7 @@ public partial class DatePickerBody
 
     private bool HasSeconds => TimeFormat.Contains('s');
 
-    private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || (ShowFooter == false && !HasExternalFooter));
+    private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
     /// <para lang="zh">设置组件显示视图方法</para>
@@ -932,7 +917,7 @@ public partial class DatePickerBody
     /// <para lang="zh">点击 此刻时调用此方法</para>
     /// <para lang="en">点击 此刻时调用此方法</para>
     /// </summary>
-    internal async Task ClickNowButton()
+    private async Task ClickNowButton()
     {
         var val = ViewMode switch
         {
@@ -945,7 +930,7 @@ public partial class DatePickerBody
         await ClickConfirmButton();
     }
 
-    internal async Task ClickConfirmButton()
+    private async Task ClickConfirmButton()
     {
         ResetTimePickerPanel();
 
@@ -964,7 +949,7 @@ public partial class DatePickerBody
     /// <para lang="zh">点击 清除按钮调用此方法</para>
     /// <para lang="en">点击 清除button调用此方法</para>
     /// </summary>
-    internal async Task ClickClearButton()
+    private async Task ClickClearButton()
     {
         // 关闭 TimerPicker
         _showClockPicker = false;
@@ -981,18 +966,6 @@ public partial class DatePickerBody
             await OnClear();
         }
     }
-
-    private async Task OnClickSidebarButton(DateTime d)
-    {
-        CurrentDate = d.Date;
-        CurrentTime = d.TimeOfDay;
-
-        await ClickConfirmButton();
-    }
-
-    private Task OnClickSidebarItem(DateTime d) => HasExternalFooter ? OnClickSidebarButton(d) : Task.CompletedTask;
-
-    private Task OnClickSidebarCell(DateTime d) => HasExternalFooter ? Task.CompletedTask : OnClickSidebarButton(d);
 
     private void ResetTimePickerPanel()
     {

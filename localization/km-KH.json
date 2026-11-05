@@ -56,10 +56,7 @@
     "Months": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
     "MonthLists": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
     "WeekLists": "អាទិត្យ,ចន្ទ,អង្គារ,ពុធ,ព្រហស្បតិ៍,សុក្រ,សៅរ៍",
-    "GenericTypeErrorMessage": "DateTimePicker ដំណើរការតែ DateTime, DateTime?, DateTimeOffset និង DateTimeOffset? ប៉ុណ្ណោះ",
-    "Today": "ថ្ងៃនេះ",
-    "Yesterday": "ម្សិលមិញ",
-    "Week": "មួយ​សប្តាហ៍​មុន"
+    "GenericTypeErrorMessage": "DateTimePicker ដំណើរការតែ DateTime, DateTime?, DateTimeOffset និង DateTimeOffset? ប៉ុណ្ណោះ"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "ដល់",
