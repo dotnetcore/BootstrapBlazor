@@ -12,7 +12,9 @@
     background-color: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     line-height: 30px;
-    display: inline-block;
+    display: block;
+    width: var(--bb-picker-panel-body-width);
+    overflow: hidden;
 
     .picker-panel-body {
         display: flex;
@@ -68,7 +70,7 @@
     }
 
     .picker-panel-content {
-        width: 290px;
+        width: calc(var(--bb-picker-panel-body-width) - 30px);
         position: relative;
         margin: 15px;
 
@@ -295,6 +297,7 @@
 
     .clock-panel-body {
         width: var(--bb-picker-panel-body-width);
+        padding: 0 28px;
     }
 }
 
