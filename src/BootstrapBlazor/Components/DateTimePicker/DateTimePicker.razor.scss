@@ -60,9 +60,19 @@
     outline: 0;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 
-    &[open] .datetime-picker-panel {
+    .datetime-picker-panel {
         display: flex;
         flex-direction: column;
+    }
+
+    .picker-panel-sidebar {
+        border-right: 0;
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        width: 100%;
+        overflow: auto;
+        max-height: 69px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .datetime-dialog-header {
