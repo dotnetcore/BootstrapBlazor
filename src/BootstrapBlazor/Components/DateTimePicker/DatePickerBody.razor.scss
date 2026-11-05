@@ -3,7 +3,6 @@
 .picker-panel {
     --bb-picker-panel-body-width: 320px;
     --bb-picker-hover-color: #409eff;
-    --bb-picker-panel-side-width: 0;
     --bb-picker-panel-today-color: #fff;
     --bb-picker-panel-today-bg: #409eff;
     color: var(--bs-body-color);
@@ -298,12 +297,6 @@
     .clock-panel-body {
         width: var(--bb-picker-panel-body-width);
         padding: 0 28px;
-    }
-}
-
-.popover-body {
-    .picker-panel {
-        box-shadow: none;
     }
 }
 

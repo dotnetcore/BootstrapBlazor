@@ -48,10 +48,6 @@
     color: var(--bb-dt-picker-bar-color);
 }
 
-.popover .picker-panel {
-    box-shadow: none;
-}
-
 .datetime-dialog {
     overflow: auto;
     padding: 0;
@@ -61,7 +57,6 @@
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 
     .datetime-picker-panel {
-        display: flex;
         flex-direction: column;
     }
 
@@ -81,7 +76,7 @@
         padding: .5rem 1rem;
         border-bottom: var(--bs-border-width) solid var(--bs-border-color);
         border-top-left-radius: var(--bs-border-radius);
-        border-top-right-radius: var(--bs--border-radius);
+        border-top-right-radius: var(--bs-border-radius);
 
         .datetime-dialog-header-title {
             flex: 1 1 auto;
