@@ -57,9 +57,6 @@
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
     "GenericTypeErrorMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
-    "Today": "Today",
-    "Yesterday": "Yesterday",
-    "Week": "A week ago",
     "ShowMoreText": "Show more",
     "ShowLessText": "Show less"
   },
