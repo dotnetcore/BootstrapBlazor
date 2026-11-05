@@ -4861,6 +4861,7 @@
     "TablesAutoRefreshNormalTitle": "Auto Refresh"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
+    "TableCellOnCellRenderTip": "<code>OnCellRender</code> is designed to customize the rendering of individual cells and complements the <code>Template</code> of <code>TableColumn</code>. When <code>OnCellRender</code> is used, the column's <code>Template</code> is ignored. Use <code>Value</code> for simple custom rendering and <code>ValueTemplate</code> for more complex rendering",
     "TableCellMergeCellIntro": "Basic table display usage",
     "TableCellMergeCellTip": "In this example, by setting the <code>OnCellRenderHandler</code> callback delegate, the cell merge operation is performed on the two columns <code>Name</code> and <code>Address</code> through the judgment condition, And set the background color of the merged cell by setting the <code>TableCellArgs</code> attribute <code>Class</code> value to <code>cell-demo</code> style sheet name",
     "TableCellMergeCellTitle": "Merge Cells",

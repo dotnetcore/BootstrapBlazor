@@ -4861,6 +4861,7 @@
     "TablesAutoRefreshNormalTitle": "自动刷新"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
+    "TableCellOnCellRenderTip": "<code>OnCellRender</code> 设计目的是对特定单元格进行自定义渲染，与 <code>TableColumn</code> 的 <code>Template</code> 是补充关系，当使用 <code>OnCellRender</code> 时，列的 <code>Template</code> 将被忽略；通过 <code>Value</code> 可以进行简单的自定义渲染，复杂的请通过 <code>ValueTemplate</code> 操作",
     "TableCellMergeCellIntro": "基础的表格展示用法",
     "TableCellMergeCellTip": "本例中通过设置 <code>OnCellRenderHandler</code> 回调委托，通过判断条件对 <code>Name</code> 与 <code>Address</code> 两列进行单元格合并操作，并且通过设置 <code>TableCellArgs</code> 属性 <code>Class</code> 值为 <code>cell-demo</code> 样式表名称对合并后单元格进行背景色设置",
     "TableCellMergeCellTitle": "合并单元格",
