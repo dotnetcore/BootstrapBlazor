@@ -33,9 +33,23 @@
         }
     }
 
-    .picker-panel {
-        display: none
+    .datetime-picker-panel {
+        display: none;
     }
+}
+
+.datetime-picker-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: var(--bb-height);
+    cursor: pointer;
+    padding: 0 .75rem;
+    color: var(--bb-dt-picker-bar-color);
+}
+
+.popover .picker-panel {
+    box-shadow: none;
 }
 
 .datetime-dialog {
@@ -46,10 +60,9 @@
     outline: 0;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 
-    &[open] .picker-panel {
-        display: block;
-        border: 0;
-        box-shadow: none;
+    &[open] .datetime-picker-panel {
+        display: flex;
+        flex-direction: column;
     }
 
     .datetime-dialog-header {
@@ -68,16 +81,30 @@
     }
 }
 
-.datetime-picker-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    line-height: var(--bb-height);
-    cursor: pointer;
-    padding: 0 .75rem;
-    color: var(--bb-dt-picker-bar-color);
+.datetime-picker-panel {
+    display: flex;
+
+    > .picker-panel {
+        display: block;
+        border: 0;
+        box-shadow: none;
+    }
 }
 
-.popover .picker-panel {
-    box-shadow: none;
+.picker-panel-sidebar {
+    width: 110px;
+    border-right: var(--bs-border-width) solid var(--bs-border-color);
+    padding: 6px 0;
+    overflow: auto;
+
+    .sidebar-item {
+        line-height: 28px;
+        padding: 0 12px;
+        cursor: pointer;
+        transition: color .3s linear;
+
+        &:hover {
+            @include color_409eff
+        }
+    }
 }
