@@ -193,9 +193,10 @@
     <DateTimePicker ShowSidebar="true" SidebarItems="_sidebarItems" @bind-Value="CustomSidebarValue" />
     <DateTimePicker class="mt-3" ShowSidebar="true" @bind-Value="SidebarValue">
         <SidebarTemplate Context="selectDate">
-            <button type="button" class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                @Localizer["SidebarMonthStart"]
-            </button>
+            <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                <i class="fa-fw fa-solid fa-home"></i>
+                <span>@Localizer["SidebarMonthStart"]</span>
+            </div>
         </SidebarTemplate>
     </DateTimePicker>
 </DemoBlock>
