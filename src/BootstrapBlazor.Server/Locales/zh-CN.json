@@ -1806,6 +1806,8 @@
     "SidebarIntro": "设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏",
     "SidebarTip": "通过设置  <code>ShowSidebar</code> 参数开启显示侧边栏快捷选项功能，通过设置 <code>SidebarItems</code> 参数集合替换组件内置的默认快捷项",
     "SidebarTitle": "带快捷键侧边栏",
+    "ResponsiveTitle": "响应式弹窗",
+    "ResponsiveIntro": "宽度小于 768px 时使用原生 dialog，并始终显示单日历视图，支持前后翻页选择日期范围；宽度不小于 768px 时使用 Popover，并按 RenderMode 显示单视图或双视图。跨越断点时关闭面板，再次打开使用新模式。也可在日期选择器的嵌套表单示例中验证弹窗内的范围选择。",
     "SingleViewTitle": "单选模式",
     "Submit": "提交",
     "Title": "DateTimeRange 日期时间段选择器",

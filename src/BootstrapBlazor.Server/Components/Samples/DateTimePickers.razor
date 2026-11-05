@@ -19,7 +19,8 @@
 		</div>
 	</section>
 	<DateTimePicker ViewMode="DatePickerViewMode.DateTime" TimeFormat="hh\:mm" IsButton="_isButton"
-					Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
+					Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged"
+                    PickTimeMode="PickTimeMode.Clock">
 		<TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
 	</DateTimePicker>
 	<ConsoleLogger @ref="TimePickerLogger" class="mt-3" />

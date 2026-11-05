@@ -1806,6 +1806,8 @@
     "SidebarIntro": "When the <code>ShowSidebar</code> property value is set to <code>true</code>, the component displays the shortcut sidebar",
     "SidebarTip": "by setting <code>ShowSidebar</code> The parameter enables the display sidebar shortcut options function, by setting <code>SidebarItems</code> The parameter collection replaces the default shortcuts built into the component",
     "SidebarTitle": "Sidebar with shortcut keys",
+    "ResponsiveTitle": "Responsive dialog",
+    "ResponsiveIntro": "Below 768px, a native dialog always shows one calendar with navigation to select a date range. At 768px and above, a Popover follows RenderMode for single or double view. Crossing the breakpoint closes the panel; reopen it to use the new mode. The date picker's nested form example also demonstrates range selection inside a dialog.",
     "SingleViewTitle": "Single view mode",
     "Submit": "Submit",
     "Title": "Date Time Range Picker",
