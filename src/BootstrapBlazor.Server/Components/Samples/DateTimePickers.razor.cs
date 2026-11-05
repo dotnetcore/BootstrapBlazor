@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Globalization;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -100,6 +98,7 @@ public sealed partial class DateTimePickers
     private DateTime? _disabledNullValue = DateTime.Today;
     private DateTime _disabledValue = DateTime.Today;
     private bool _isButton = false;
+    private PickTimeMode _pickTimeMode = PickTimeMode.Clock;
 
     private async Task<List<DateTime>> OnGetDisabledDaysCallback(DateTime start, DateTime end)
     {

@@ -5,16 +5,33 @@
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
-	<section ignore class="row g-3 mb-3">
-		<div class="col-12 col-sm-6">
-			<BootstrapInputGroup>
-				<BootstrapInputGroupLabel DisplayText="IsButton"></BootstrapInputGroupLabel>
-				<Switch @bind-Value="_isButton"></Switch>
-			</BootstrapInputGroup>
-		</div>
-	</section>
-	<DateTimePicker ViewMode="DatePickerViewMode.DateTime" TimeFormat="hh\:mm" IsButton="_isButton"
-					Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
+    <section ignore>
+        <p>@Localizer["DateTimePickerParameters"]</p>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["DateTimePickerIsButtonIntro"].Value)</li>
+            <li>@((MarkupString)Localizer["DateTimePickerPickTimeModeIntro"].Value)</li>
+        </ul>
+        <div class="row g-3">
+		    <div class="col-12 col-sm-6">
+			    <BootstrapInputGroup>
+				    <BootstrapInputGroupLabel DisplayText="@Localizer["DateTimePickerIsButtonLabel"]"></BootstrapInputGroupLabel>
+				    <Switch @bind-Value="_isButton"></Switch>
+			    </BootstrapInputGroup>
+		    </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["DateTimePickerPickTimeModeLabel"]"></BootstrapInputGroupLabel>
+                    <Segmented @bind-Value="_pickTimeMode">
+                        <SegmentedItem Text="@Localizer["DateTimePickerDropdownText"]" Value="PickTimeMode.Dropdown" />
+                        <SegmentedItem Text="@Localizer["DateTimePickerClockText"]" Value="PickTimeMode.Clock" />
+                    </Segmented>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+	<DateTimePicker ViewMode="DatePickerViewMode.DateTime" TimeFormat="hh\:mm"
+					Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged"
+                    IsButton="_isButton" PickTimeMode="@_pickTimeMode">
 		<TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
 	</DateTimePicker>
 	<ConsoleLogger @ref="TimePickerLogger" class="mt-3" />
