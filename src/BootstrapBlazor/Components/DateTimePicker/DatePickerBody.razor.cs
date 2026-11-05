@@ -498,15 +498,6 @@ public partial class DatePickerBody
     [NotNull]
     private List<string>? WeekLists { get; set; }
 
-    [NotNull]
-    private string? Today { get; set; }
-
-    [NotNull]
-    private string? Yesterday { get; set; }
-
-    [NotNull]
-    private string? Week { get; set; }
-
     private TimePickerOption TimePickerOption { get; } = new();
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
@@ -576,10 +567,6 @@ public partial class DatePickerBody
         MonthLists = [.. Localizer[nameof(MonthLists)].Value.Split(',')];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
         WeekLists = GetWeekList();
-
-        Today ??= Localizer[nameof(Today)];
-        Yesterday ??= Localizer[nameof(Yesterday)];
-        Week ??= Localizer[nameof(Week)];
 
         PreviousYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousYearIcon);
         PreviousMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousMonthIcon);
