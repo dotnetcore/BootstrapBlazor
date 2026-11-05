@@ -54,7 +54,6 @@ public partial class DatePickerBody
     private bool _showClockPicker;
 
     private string? ClassString => CssBuilder.Default("picker-panel")
-        .AddClass("is-sidebar", ShowSidebar)
         .AddClass("is-lunar", ShowLunar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -203,6 +202,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete()]
+    [ExcludeFromCodeCoverage]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
@@ -975,14 +976,6 @@ public partial class DatePickerBody
         {
             await OnClear();
         }
-    }
-
-    private async Task OnClickSidebarButton(DateTime d)
-    {
-        CurrentDate = d.Date;
-        CurrentTime = d.TimeOfDay;
-
-        await ClickConfirmButton();
     }
 
     private void ResetTimePickerPanel()
