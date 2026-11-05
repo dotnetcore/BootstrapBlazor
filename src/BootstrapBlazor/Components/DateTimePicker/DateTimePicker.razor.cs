@@ -194,11 +194,22 @@ public partial class DateTimePicker<TValue>
     public bool ShowSidebar { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
+    /// <para lang="en">Gets or sets Sidebar Items</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public List<DateTimePickerSidebarItem>? SidebarItems { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
+    [Obsolete("已弃用，请使用 SidebarItems 属性设置；Deprecated, please use SidebarItems parameter")]
+    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -396,6 +407,7 @@ public partial class DateTimePicker<TValue>
         DateFormat ??= Localizer[nameof(DateFormat)];
         TimeFormat ??= Localizer[nameof(TimeFormat)];
         PickerButtonText ??= Localizer[nameof(PickerButtonText)];
+        SidebarItems ??= [];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
@@ -441,6 +453,7 @@ public partial class DateTimePicker<TValue>
     }
 
     private List<DateTime> _disabledDaysList = [];
+    private readonly HashSet<DateTime> _disabledSidebarDays = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -448,6 +461,19 @@ public partial class DateTimePicker<TValue>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
+
+        _disabledSidebarDays.Clear();
+        if (ShowSidebar && OnGetDisabledDaysCallback != null)
+        {
+            foreach (var day in SidebarItems.Select(item => item.Value.Date).Distinct())
+            {
+                var disabledDays = await OnGetDisabledDaysCallback(day, day);
+                if (disabledDays.Any(value => value.Date == day))
+                {
+                    _disabledSidebarDays.Add(day);
+                }
+            }
+        }
 
         if (OnGetDisabledDaysCallback != null && DisplayDisabledDayAsEmpty)
         {
@@ -652,4 +678,15 @@ public partial class DateTimePicker<TValue>
     }
 
     private string? DialogHeaderText => DisplayText ?? PlaceholderString;
+
+    private bool IsSidebarValueDisabled(DateTime value) => IsDisabled
+        || value < MinValue || value > MaxValue || _disabledSidebarDays.Contains(value.Date);
+
+    private bool CanTriggerOnclickSidebarItem(DateTime value) => !IsSidebarValueDisabled(value);
+
+    private async Task OnClickSidebarItem(DateTime value)
+    {
+        SelectedValue = value;
+        await OnConfirm();
+    }
 }
