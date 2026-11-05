@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits PopoverDropdownBase<DateTimeRangeValue>
 @attribute [BootstrapModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js", JSObjectReference = true)]
 
@@ -19,7 +19,19 @@
     {
         <i class="range-clear @ClearIcon" @onclick:stopPropagation @onclick="@ClickClearButton"></i>
     }
-    <div class="datetime-range-body">
+    <dialog class="datetime-dialog">
+        <div class="datetime-dialog-header">
+            <h5 class="datetime-dialog-header-title">@DialogHeaderText</h5>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="datetime-dialog-body">
+            @RenderRangeBody
+        </div>
+    </dialog>
+</div>
+
+@code {
+    RenderFragment RenderRangeBody => @<div class="datetime-range-body">
         <div class="range-panel-body">
             @if (ShowSidebar)
             {
@@ -35,18 +47,18 @@
             <CascadingValue Value="this" IsFixed="true">
                 @if (RenderMode == DateTimeRangeRenderMode.Double)
                 {
-                    <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
+                    <DatePickerBody class="range-start-panel" Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                     ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                     ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                     ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     </DatePickerBody>
                 }
-                <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                <DatePickerBody class="@EndPanelClassString" Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
                                 DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                 ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                ShowLeftButtons="@_showLeftButtons" MaxValue="MaxValue" MinValue="MinValue">
+                                MaxValue="MaxValue" MinValue="MinValue">
                 </DatePickerBody>
             </CascadingValue>
         </div>
@@ -69,5 +81,5 @@
                 <span>@ConfirmButtonText</span>
             </Button>
         </div>
-    </div>
-</div>
+    </div>;
+}

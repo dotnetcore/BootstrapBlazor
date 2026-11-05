@@ -144,8 +144,8 @@ public partial class DateTimeRange
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
-    /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
+    /// <para lang="zh">获得/设置 日历视图数量，默认为双视图；屏幕宽度小于 768px 时始终显示单视图</para>
+    /// <para lang="en">Gets or sets the calendar layout. Defaults to double view; below 768px, always displays a single view</para>
     /// </summary>
     [Parameter]
     public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
@@ -316,7 +316,11 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private bool _showLeftButtons = false;
+    private string? DialogHeaderText => DisplayText ?? $"{StartPlaceHolderText} {SeparateText} {EndPlaceHolderText}";
+
+    private string? EndPanelClassString => CssBuilder.Default("range-end-panel")
+        .AddClass("is-double", RenderMode == DateTimeRangeRenderMode.Double)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -326,7 +330,6 @@ public partial class DateTimeRange
         base.OnInitialized();
 
         AddRequiredValidator();
-        _showLeftButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .datetime-range {
     --bb-dt-range-bar-color: #{$bb-dt-range-bar-color};
@@ -135,4 +135,30 @@
     display: none;
     cursor: pointer;
     color: var(--bb-dt-range-bar-color);
+}
+
+@media (min-width: 768px) {
+    .range-end-panel.is-double .picker-panel-header > .picker-panel-icon-btn:nth-child(-n + 2) {
+        display: none;
+    }
+}
+
+.datetime-range .datetime-dialog[open] {
+    .datetime-range-body {
+        display: block;
+    }
+
+    .range-panel-body {
+        flex-wrap: wrap;
+
+        > .picker-panel-sidebar {
+            flex: 0 0 100%;
+            border-right: 0;
+            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        }
+
+        > .range-start-panel {
+            display: none;
+        }
+    }
 }
