@@ -126,7 +126,7 @@
                 </table>
             </div>
         </div>
-        @if (ViewMode == DatePickerViewMode.DateTime)
+        @if (ViewMode == DatePickerViewMode.DateTime && PickTimeMode == PickTimeMode.Clock)
         {
             <CascadingValue Value="TimePickerOption" IsFixed="true">
                 @ChildContent
