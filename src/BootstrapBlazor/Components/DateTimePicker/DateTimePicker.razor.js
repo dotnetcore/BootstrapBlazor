@@ -11,7 +11,7 @@ export function init(id, invoke, options) {
 
     const mediaQuery = window.matchMedia('(min-width: 768px)');
     const panel = el.querySelector(el.getAttribute('data-bb-dropdown'));
-    const dialogBody = el.querySelector('.datetime-picker-dialog-body');
+    const dialogBody = el.querySelector('.datetime-dialog-body');
     const picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
     const onModeChanged = () => syncPickerMode(id);
     const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged, isPopoverHiding: false };

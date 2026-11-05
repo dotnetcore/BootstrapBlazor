@@ -36,34 +36,34 @@
     .picker-panel {
         display: none
     }
+}
 
-    .datetime-picker-dialog {
-        overflow: auto;
-        padding: 0;
-        border: var(--bs-border-width) solid var(--bs-border-color-translucent);
-        border-radius: var(--bs-border-radius);
-        outline: 0;
-        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+.datetime-dialog {
+    overflow: auto;
+    padding: 0;
+    border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+    border-radius: var(--bs-border-radius);
+    outline: 0;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 
-        &[open] .picker-panel {
-            display: block;
-            border: 0;
-            box-shadow: none;
-        }
+    &[open] .picker-panel {
+        display: block;
+        border: 0;
+        box-shadow: none;
+    }
 
-        .datetime-picker-dialog-header {
-            display: flex;
-            align-items: center;
-            padding: .5rem 1rem;
-            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
-            border-top-left-radius: var(--bs-border-radius);
-            border-top-right-radius: var(--bs--border-radius);
+    .datetime-dialog-header {
+        display: flex;
+        align-items: center;
+        padding: .5rem 1rem;
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs--border-radius);
 
-            .datetime-picker-dialog-header-title {
-                flex: 1 1 auto;
-                margin-bottom: 0;
-                line-height: 1.5;
-            }
+        .datetime-dialog-header-title {
+            flex: 1 1 auto;
+            margin-bottom: 0;
+            line-height: 1.5;
         }
     }
 }
