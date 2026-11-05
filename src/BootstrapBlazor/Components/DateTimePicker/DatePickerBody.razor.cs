@@ -83,7 +83,7 @@ public partial class DatePickerBody
         && day >= Ranger.SelectedValue.Start.Date
         && day <= Ranger.SelectedValue.End.Date;
 
-    private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
+    private string? WrapperClassString => CssBuilder.Default("picker-panel-body")
         .AddClass("is-open", _showClockPicker)
         .Build();
 
