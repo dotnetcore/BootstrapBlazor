@@ -56,15 +56,9 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
     "WeekLists": "日,一,二,三,四,五,六",
-    "GenericTypeErrorMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
-    "ShowMoreText": "显示更多",
-    "ShowLessText": "显示更少"
+    "GenericTypeErrorMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
-    "ModalTitle": "选择日期范围",
-    "ReselectButtonText": "重选",
-    "ShowMoreText": "显示更多",
-    "ShowLessText": "显示更少",
     "SeparateText": "至",
     "StartPlaceHolderText": "开始日期",
     "EndPlaceHolderText": "结束日期",

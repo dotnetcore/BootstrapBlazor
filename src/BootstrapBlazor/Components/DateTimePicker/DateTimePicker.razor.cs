@@ -360,13 +360,6 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public Func<string, DateTimeOffset>? ParseDateTimeOffsetCallback { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 模态框的 z-index</para>
-    /// <para lang="en">Gets or sets the z-index of the modal</para>
-    /// </summary>
-    [Parameter]
-    public int? ModalZIndex { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }

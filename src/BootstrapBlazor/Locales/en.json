@@ -56,15 +56,9 @@
     "Months": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-    "GenericTypeErrorMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
-    "ShowMoreText": "Show more",
-    "ShowLessText": "Show less"
+    "GenericTypeErrorMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
-    "ModalTitle": "Select date range",
-    "ReselectButtonText": "Reselect",
-    "ShowMoreText": "Show more",
-    "ShowLessText": "Show less",
     "SeparateText": "To",
     "StartPlaceHolderText": "Start date",
     "EndPlaceHolderText": "End date",
