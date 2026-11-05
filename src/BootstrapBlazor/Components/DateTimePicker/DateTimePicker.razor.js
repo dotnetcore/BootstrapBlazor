@@ -13,11 +13,30 @@ export function init(id, invoke, options) {
     const panel = el.querySelector(el.getAttribute('data-bb-dropdown'));
     const dialogBody = el.querySelector('.datetime-picker-dialog-body');
     const picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
-    const onModeChanged = () => reset(id);
-    const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged };
+    const onModeChanged = () => syncPickerMode(id);
+    const onPopoverHidden = e => {
+        if (data.picker.mode === 'popover' && e.target === data.picker.toggleElement) {
+            data.isPopoverHiding = false;
+            syncPickerMode(id);
+        }
+    };
+    const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged, onPopoverHidden, isPopoverHiding: false };
     data.input = handlerInput(data);
     Data.set(id, data);
     EventHandler.on(mediaQuery, 'change', onModeChanged);
+    EventHandler.on(el, 'hidden.bs.popover', onPopoverHidden);
+}
+
+const syncPickerMode = id => {
+    const data = Data.get(id);
+    if (data) {
+        const { picker, mediaQuery, dialogBody, isPopoverHiding } = data;
+        const isShown = picker.mode === 'dialog' ? picker.isShown() : picker.popover?._isShown();
+        const mode = dialogBody && !mediaQuery.matches ? 'dialog' : 'popover';
+        if (!isShown && !isPopoverHiding && picker.mode !== mode) {
+            reset(id);
+        }
+    }
 }
 
 const createPicker = (el, invoke, options, mediaQuery, panel, dialogBody) => {
@@ -37,6 +56,10 @@ const createPopover = (el, invoke, options) => {
             return el.classList.contains('disabled');
         },
         hideCallback: () => {
+            const data = Data.get(el.id);
+            if (data?.picker === popover) {
+                data.isPopoverHiding = true;
+            }
             if (invoke) {
                 invoke.invokeMethodAsync(options.triggerHideCallback);
             }
@@ -54,6 +77,8 @@ const createDialog = (el, invoke, options) => {
             if (invoke) {
                 invoke.invokeMethodAsync(options.triggerHideCallback);
             }
+            // Keep the dialog hide callback ahead of mode synchronization after rebuilding.
+            syncPickerMode(el.id);
         }
     });
 }
@@ -93,6 +118,7 @@ export function reset(id) {
         disposePicker(picker.picker);
 
         picker.picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
+        picker.isPopoverHiding = false;
         if (input !== el.querySelector('.datetime-picker-input')) {
             disposeInput(input);
             picker.input = handlerInput(picker);
@@ -124,8 +150,9 @@ export function dispose(id) {
     Data.remove(id)
 
     if (data) {
-        const { input, picker, mediaQuery, onModeChanged, panel, dialogBody } = data;
+        const { el, input, picker, mediaQuery, onModeChanged, onPopoverHidden, panel, dialogBody } = data;
         EventHandler.off(mediaQuery, 'change', onModeChanged);
+        EventHandler.off(el, 'hidden.bs.popover', onPopoverHidden);
         disposeInput(input);
         disposePicker(picker);
         if (dialogBody) {
