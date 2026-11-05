@@ -190,7 +190,14 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar">
-	<DateTimePicker ShowSidebar="true" @bind-Value="SidebarValue" />
+    <DateTimePicker ShowSidebar="true" SidebarItems="_sidebarItems" @bind-Value="CustomSidebarValue" />
+    <DateTimePicker class="mt-3" ShowSidebar="true" @bind-Value="SidebarValue">
+        <SidebarTemplate Context="selectDate">
+            <button type="button" class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                @Localizer["SidebarMonthStart"]
+            </button>
+        </SidebarTemplate>
+    </DateTimePicker>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue">

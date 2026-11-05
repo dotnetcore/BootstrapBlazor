@@ -61,6 +61,15 @@ public sealed partial class DateTimePickers
 
     private DateTime SidebarValue { get; set; } = DateTime.Today;
 
+    private DateTime CustomSidebarValue { get; set; } = DateTime.Today;
+
+    private readonly List<DateTimePickerSidebarItem> _sidebarItems =
+    [
+        new() { Text = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(-1) },
+        new() { Text = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(1) },
+        new() { Text = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(7) }
+    ];
+
     private DateTime YearValue { get; set; } = DateTime.Today;
 
     private DateTime MonthValue { get; set; } = DateTime.Today;
