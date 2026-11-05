@@ -14,17 +14,10 @@ export function init(id, invoke, options) {
     const dialogBody = el.querySelector('.datetime-picker-dialog-body');
     const picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
     const onModeChanged = () => syncPickerMode(id);
-    const onPopoverHidden = e => {
-        if (data.picker.mode === 'popover' && e.target === data.picker.toggleElement) {
-            data.isPopoverHiding = false;
-            syncPickerMode(id);
-        }
-    };
-    const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged, onPopoverHidden, isPopoverHiding: false };
+    const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged, isPopoverHiding: false };
     data.input = handlerInput(data);
     Data.set(id, data);
     EventHandler.on(mediaQuery, 'change', onModeChanged);
-    EventHandler.on(el, 'hidden.bs.popover', onPopoverHidden);
 }
 
 const syncPickerMode = id => {
@@ -59,6 +52,14 @@ const createPopover = (el, invoke, options) => {
             const data = Data.get(el.id);
             if (data?.picker === popover) {
                 data.isPopoverHiding = true;
+                popover.onHidden ??= () => {
+                    const current = Data.get(el.id);
+                    if (current?.picker === popover) {
+                        current.isPopoverHiding = false;
+                        syncPickerMode(el.id);
+                    }
+                };
+                EventHandler.one(popover.toggleElement, 'hidden.bs.popover', popover.onHidden);
             }
             if (invoke) {
                 invoke.invokeMethodAsync(options.triggerHideCallback);
@@ -134,6 +135,9 @@ const disposePicker = picker => {
         if (picker.popover?._isShown()) {
             picker.hide();
         }
+        if (picker.onHidden) {
+            EventHandler.off(picker.toggleElement, 'hidden.bs.popover', picker.onHidden);
+        }
         Popover.dispose(picker);
     }
 }
@@ -150,9 +154,8 @@ export function dispose(id) {
     Data.remove(id)
 
     if (data) {
-        const { el, input, picker, mediaQuery, onModeChanged, onPopoverHidden, panel, dialogBody } = data;
+        const { input, picker, mediaQuery, onModeChanged, panel, dialogBody } = data;
         EventHandler.off(mediaQuery, 'change', onModeChanged);
-        EventHandler.off(el, 'hidden.bs.popover', onPopoverHidden);
         disposeInput(input);
         disposePicker(picker);
         if (dialogBody) {
