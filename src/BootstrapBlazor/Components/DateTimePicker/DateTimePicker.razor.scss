@@ -32,7 +32,9 @@
             }
         }
     }
+}
 
+.select {
     .datetime-picker-panel {
         display: none;
     }
@@ -89,7 +91,7 @@
 .datetime-picker-panel {
     display: flex;
 
-    > .picker-panel {
+    .picker-panel {
         border: 0;
         box-shadow: none;
     }

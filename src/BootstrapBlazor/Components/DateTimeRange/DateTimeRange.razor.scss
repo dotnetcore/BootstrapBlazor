@@ -22,10 +22,6 @@
         }
     }
 
-    .datetime-range-body {
-        display: none;
-    }
-
     &:hover:not(.disabled) {
         .range-clear {
             display: inline-block;
@@ -65,11 +61,7 @@
 .range-panel-body {
     display: flex;
 
-    .picker-panel {
-        border: none;
-    }
-
-    .picker-panel:first-child {
+    .range-start-panel {
         border-right: var(--bs-border-width) solid var(--bs-border-color);
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -141,22 +133,6 @@
     }
 }
 
-.datetime-range .datetime-dialog[open] {
-    .datetime-range-body {
-        display: block;
-    }
-
-    .range-panel-body {
-        flex-wrap: wrap;
-
-        > .picker-panel-sidebar {
-            flex: 0 0 100%;
-            border-right: 0;
-            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
-        }
-
-        > .range-start-panel {
-            display: none;
-        }
-    }
+.datetime-dialog .range-panel-body > .range-start-panel {
+    display: none;
 }
