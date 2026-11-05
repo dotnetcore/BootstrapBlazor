@@ -34,6 +34,7 @@
 
 - 所有用户可见文本必须使用 `IStringLocalizer`
 - 禁止硬编码中文/英文 UI 文本
+- 本地化文件使用 json 文件存储在 localization 文件夹与相应项目 Locales 目录下
 
 ---
 
