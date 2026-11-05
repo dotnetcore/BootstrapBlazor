@@ -207,9 +207,6 @@ public partial class DateTimePicker<TValue>
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
-    [NotNull]
-    [Obsolete("已弃用，请使用 SidebarItems 属性设置；Deprecated, please use SidebarItems parameter")]
-    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -463,7 +460,7 @@ public partial class DateTimePicker<TValue>
         await base.OnParametersSetAsync();
 
         _disabledSidebarDays.Clear();
-        if (ShowSidebar && OnGetDisabledDaysCallback != null)
+        if (ShowSidebar && SidebarTemplate == null && OnGetDisabledDaysCallback != null)
         {
             foreach (var day in SidebarItems.Select(item => item.Value.Date).Distinct())
             {
@@ -683,6 +680,23 @@ public partial class DateTimePicker<TValue>
         || value < MinValue || value > MaxValue || _disabledSidebarDays.Contains(value.Date);
 
     private bool CanTriggerOnclickSidebarItem(DateTime value) => !IsSidebarValueDisabled(value);
+
+    private async Task OnClickSidebarTemplate(DateTime value)
+    {
+        if (CanTriggerOnclickSidebarItem(value))
+        {
+            if (OnGetDisabledDaysCallback != null)
+            {
+                var disabledDays = await OnGetDisabledDaysCallback(value.Date, value.Date);
+                if (disabledDays.Any(day => day.Date == value.Date))
+                {
+                    return;
+                }
+            }
+
+            await OnClickSidebarItem(value);
+        }
+    }
 
     private async Task OnClickSidebarItem(DateTime value)
     {
