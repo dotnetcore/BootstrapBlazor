@@ -6,6 +6,37 @@
             <DateTimePicker @bind-Value="DateValue" DisplayText="@Localizer["NestedDateLabel"]" />
         </div>
         <div class="col-12">
+            <DateTimePicker @bind-Value="SidebarDateValue" DisplayText="@Localizer["NestedDateLabel"]"
+                            ShowSidebar="true">
+                <SidebarTemplate Context="selectDate">
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                        <i class="fa-fw fa-solid fa-home"></i>
+                        <span>@Localizer["SidebarMonthStart"]</span>
+                    </div>
+                </SidebarTemplate>
+            </DateTimePicker>
+        </div>
+        <div class="col-12">
             <DateTimePicker @bind-Value="DateTimeValue" ViewMode="DatePickerViewMode.DateTime"
                             PickTimeMode="PickTimeMode.Dropdown" DisplayText="@Localizer["NestedDateTimeLabel"]" />
         </div>
@@ -34,6 +65,12 @@
     /// </summary>
     [Required]
     public DateTime? DateValue { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 自定义侧边栏日期。</para>
+    /// <para lang="en">Gets or sets the custom sidebar date.</para>
+    /// </summary>
+    public DateTime? SidebarDateValue { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 表单日期时间。</para>
