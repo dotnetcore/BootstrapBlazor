@@ -230,6 +230,94 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SidebarItems_DisabledDays()
+    {
+        var disabledDay = DateTime.Today.AddDays(1);
+        var enabledDay = DateTime.Today.AddDays(2);
+        DateTime? changedValue = null;
+        var cut = Context.Render<DateTimePicker<DateTime?>>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.ValueChanged, value => changedValue = value);
+            builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.SidebarItems,
+            [
+                new DateTimePickerSidebarItem { Text = "Disabled", Value = disabledDay },
+                new DateTimePickerSidebarItem { Text = "Enabled", Value = enabledDay }
+            ]);
+            builder.Add(a => a.OnGetDisabledDaysCallback, (start, end) =>
+                Task.FromResult(start == end && start.Date == disabledDay
+                    ? new List<DateTime> { disabledDay }
+                    : new List<DateTime>()));
+        });
+
+        var items = cut.FindAll(".sidebar-item > div");
+        Assert.Equal(2, items.Count);
+
+        await Assert.ThrowsAsync<Bunit.MissingEventHandlerException>(() => cut.InvokeAsync(() => items[0].Click()));
+        Assert.Null(changedValue);
+
+        await cut.InvokeAsync(() => items[1].Click());
+        Assert.Equal(enabledDay, changedValue);
+
+        cut.Render(builder => builder.Add(a => a.IsDisabled, true));
+        await Assert.ThrowsAsync<Bunit.MissingEventHandlerException>(() => cut.InvokeAsync(() => cut.FindAll(".sidebar-item > div")[1].Click()));
+        Assert.Equal(enabledDay, changedValue);
+    }
+
+    [Fact]
+    public async Task SidebarTemplate_DisabledDates()
+    {
+        var callbackDisabledDay = DateTime.Today.AddDays(1);
+        var belowMinDay = DateTime.Today.AddDays(-2);
+        var aboveMaxDay = DateTime.Today.AddDays(4);
+        var enabledDay = DateTime.Today.AddDays(3);
+        DateTime? changedValue = null;
+        var cut = Context.Render<DateTimePicker<DateTime?>>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.ValueChanged, value => changedValue = value);
+            builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
+            builder.Add(a => a.MaxValue, enabledDay);
+            builder.Add(a => a.OnGetDisabledDaysCallback, (start, end) =>
+                Task.FromResult(start == end && start.Date == callbackDisabledDay
+                    ? new List<DateTime> { callbackDisabledDay }
+                    : new List<DateTime>()));
+            builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(onClick => contentBuilder => {
+                contentBuilder.OpenElement(0, "button");
+                contentBuilder.AddAttribute(1, "id", "callback-disabled");
+                contentBuilder.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => onClick(callbackDisabledDay)));
+                contentBuilder.CloseElement();
+                contentBuilder.OpenElement(3, "button");
+                contentBuilder.AddAttribute(4, "id", "below-min");
+                contentBuilder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, () => onClick(belowMinDay)));
+                contentBuilder.CloseElement();
+                contentBuilder.OpenElement(6, "button");
+                contentBuilder.AddAttribute(7, "id", "above-max");
+                contentBuilder.AddAttribute(8, "onclick", EventCallback.Factory.Create(this, () => onClick(aboveMaxDay)));
+                contentBuilder.CloseElement();
+                contentBuilder.OpenElement(9, "button");
+                contentBuilder.AddAttribute(10, "id", "enabled");
+                contentBuilder.AddAttribute(11, "onclick", EventCallback.Factory.Create(this, () => onClick(enabledDay)));
+                contentBuilder.CloseElement();
+            }));
+        });
+
+        await cut.InvokeAsync(() => cut.Find("#callback-disabled").Click());
+        Assert.Null(changedValue);
+
+        await cut.InvokeAsync(() => cut.Find("#below-min").Click());
+        Assert.Null(changedValue);
+
+        await cut.InvokeAsync(() => cut.Find("#above-max").Click());
+        Assert.Null(changedValue);
+
+        await cut.InvokeAsync(() => cut.Find("#enabled").Click());
+        Assert.Equal(enabledDay, changedValue);
+    }
+
+    [Fact]
     public void Placement_Ok()
     {
         var cut = Context.Render<DateTimePicker<DateTime>>(builder => builder.Add(a => a.Placement, Placement.Top));

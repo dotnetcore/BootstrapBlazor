@@ -52,6 +52,18 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
 
         var body = cut.FindComponents<DatePickerBody>();
         Assert.Single(body);
+        var inputs = cut.FindAll(".datetime-range-input");
+        var expectedHeader = $"{inputs[0].GetAttribute("placeholder")} {cut.Find(".range-separator").TextContent} {inputs[1].GetAttribute("placeholder")}";
+        Assert.Equal(expectedHeader, cut.Find(".datetime-dialog-header-title").TextContent);
+
+        cut.Render(builder =>
+        {
+            builder.Add(a => a.RenderMode, DateTimeRangeRenderMode.Double);
+            builder.Add(a => a.DisplayText, "Custom range");
+        });
+        Assert.Equal(2, cut.FindComponents<DatePickerBody>().Count);
+        Assert.Contains("is-double", cut.Find(".range-end-panel").ClassName);
+        Assert.Equal("Custom range", cut.Find(".datetime-dialog-header-title").TextContent);
     }
 
     [Fact]
