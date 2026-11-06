@@ -538,7 +538,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         var range = cut.FindComponent<DateTimeRange>();
-        await range.Find(".date-table .cell").ClickAsync();
         var confirm = range.Find(".is-confirm");
         await cut.InvokeAsync(() => confirm.Click());
 
