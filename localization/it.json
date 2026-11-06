@@ -56,10 +56,7 @@
     "Months": "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre",
     "MonthLists": "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic",
     "WeekLists": "Dom,Lun,Mar,Mer,Gio,Ven,Sab",
-    "GenericTypeErrorMessage": "DateTimePicker supporta solo DateTime o Nullable<DateTime>",
-    "Today": "Oggi",
-    "Yesterday": "Ieri",
-    "Week": "Una settimana fa"
+    "GenericTypeErrorMessage": "DateTimePicker supporta solo DateTime o Nullable<DateTime>"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "A",
