@@ -226,6 +226,8 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         Assert.NotNull(cut.Find(".picker-panel-sidebar"));
+        Assert.Empty(cut.Instance.SidebarItems!);
+        Assert.Empty(cut.FindAll(".sidebar-item"));
     }
 
     [Fact]
@@ -381,6 +383,15 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
             builder.Add(a => a.AutoCloseClickSideBar, true);
+            builder.Add(a => a.SidebarItems,
+            [
+                new DateTimeRangeSidebarItem
+                {
+                    Text = "Last 7 days",
+                    StartDateTime = DateTime.Today.AddDays(-7),
+                    EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1)
+                }
+            ]);
         });
 
         cut.Find(".sidebar-item > div").Click();
