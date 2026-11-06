@@ -744,6 +744,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var ele = cut.Find(".picker-panel-sidebar");
         Assert.NotNull(ele);
+        Assert.Empty(cut.FindAll(".sidebar-item"));
 
         var cells = cut.FindAll(".cell");
         cut.InvokeAsync(() => cells[0].Click());
@@ -1147,6 +1148,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowFooter, false);
             pb.Add(a => a.AutoClose, true);
             pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(onClick => builder =>
+            {
+                builder.OpenElement(0, "button");
+                builder.AddAttribute(1, "class", "sidebar-item");
+                builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, () => onClick(DateTime.Today)));
+                builder.AddContent(3, "Today");
+                builder.CloseElement();
+            }));
             pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
             pb.Add(a => a.OnConfirm, () =>
             {
@@ -1155,7 +1164,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             });
         });
 
-        var cell = cut.Find(".sidebar-item span.cell");
+        var cell = cut.Find(".sidebar-item");
         cut.InvokeAsync(() => cell.Click());
         Assert.True(confirm);
 
