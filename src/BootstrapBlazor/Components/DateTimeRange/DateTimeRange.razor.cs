@@ -533,7 +533,7 @@ public partial class DateTimeRange
             // 结束时间为空
             if (d < SelectedValue.Start)
             {
-                SelectedValue.End = SelectedValue.Start.AddDays(1).AddMilliseconds(-1);
+                SelectedValue.End = GetEndDateTime(SelectedValue.Start);
                 SelectedValue.Start = d;
             }
             else
