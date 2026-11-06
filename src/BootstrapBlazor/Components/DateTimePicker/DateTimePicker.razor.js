@@ -25,12 +25,11 @@ const syncPickerMode = id => {
     if (data) {
         const { picker, mediaQuery, dialogBody, isPopoverHiding } = data;
         const isShown = picker.mode === 'dialog' ? picker.isShown() : picker.popover?._isShown();
-        if (isShown) {
-            picker.hide();
+        if (isShown || isPopoverHiding) {
             return;
         }
         const mode = dialogBody && !mediaQuery.matches ? 'dialog' : 'popover';
-        if (!isShown && !isPopoverHiding && picker.mode !== mode) {
+        if (picker.mode !== mode) {
             reset(id);
         }
     }
