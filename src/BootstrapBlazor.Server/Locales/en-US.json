@@ -1718,7 +1718,7 @@
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "NestedDialogTitle": "Pickers in a nested dialog form",
     "NestedDialogIntro": "Click the button below to try date, clock and date range selection inside a dialog. Custom sidebars provide shortcuts for the first day of this month or the entire month. Clicking This month immediately applies the range and closes the picker. Below 768px, pickers use a native dialog and date ranges show a single calendar; at 768px and above, they use a Popover. Closing a picker lets you continue using the outer dialog. Resizing the window keeps an open picker visible; the new display mode takes effect when it is closed and reopened.",
-    "NestedDialogOpen": "Open form dialog",
+    "NestedDialogOpen": "Open dialog",
     "NestedDateLabel": "Select date",
     "NestedSidebarDateLabel": "Date with custom sidebar",
     "NestedDateTimeLabel": "Date and time (clock picker)",
