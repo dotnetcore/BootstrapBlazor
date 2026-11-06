@@ -99,7 +99,7 @@
 }
 
 .picker-panel-sidebar {
-    width: 110px;
+    min-width: 110px;
     border-right: var(--bs-border-width) solid var(--bs-border-color);
     padding: 6px 0;
     overflow: auto;
