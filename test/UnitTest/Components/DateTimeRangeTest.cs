@@ -263,6 +263,85 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => item.Click());
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task SidebarTemplate_SelectRange_ConfirmsAccordingToAutoClose(bool autoClose)
+    {
+        var start = new DateTime(2026, 6, 1);
+        var end = start.AddDays(7);
+        DateTimeRangeValue? confirmed = null;
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, autoClose);
+            builder.Add(a => a.SidebarItems, [new DateTimeRangeSidebarItem { Text = "hidden item" }]);
+            builder.Add(a => a.OnConfirm, value =>
+            {
+                confirmed = value;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTimeRangeValue, Task>>(select => content =>
+            {
+                content.OpenElement(0, "button");
+                content.AddAttribute(1, "id", "select-range");
+                content.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => select(new() { Start = start, End = end })));
+                content.CloseElement();
+            }));
+        });
+
+        Assert.Empty(cut.FindAll(".sidebar-item"));
+        await cut.InvokeAsync(() => cut.Find("#select-range").Click());
+        if (!autoClose)
+        {
+            Assert.Null(confirmed);
+            await cut.InvokeAsync(() => cut.FindAll(".is-confirm").Last().Click());
+        }
+        Assert.NotNull(confirmed);
+        Assert.Equal(start, confirmed.Start);
+        Assert.Equal(end, confirmed.End.Date);
+    }
+
+    [Theory]
+    [InlineData(-1, 2, false)]
+    [InlineData(0, 8, false)]
+    [InlineData(2, 1, false)]
+    [InlineData(0, 7, true)]
+    public async Task SidebarTemplate_InvalidOrDisabledRange_DoesNotConfirm(int startOffset, int endOffset, bool disabled)
+    {
+        var min = new DateTime(2026, 6, 1);
+        var confirmed = false;
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, true);
+            builder.Add(a => a.IsDisabled, disabled);
+            builder.Add(a => a.MinValue, min);
+            builder.Add(a => a.MaxValue, min.AddDays(7));
+            builder.Add(a => a.OnConfirm, value =>
+            {
+                confirmed = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTimeRangeValue, Task>>(select => content =>
+            {
+                content.OpenElement(0, "button");
+                content.AddAttribute(1, "id", "select-range");
+                content.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => select(new()
+                {
+                    Start = min.AddDays(startOffset),
+                    End = min.AddDays(endOffset)
+                })));
+                content.CloseElement();
+            }));
+        });
+
+        await cut.InvokeAsync(() => cut.Find("#select-range").Click());
+        Assert.False(confirmed);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
+    }
+
     [Fact]
     public async Task OnConfirm_Ok()
     {
