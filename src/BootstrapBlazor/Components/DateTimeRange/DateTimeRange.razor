@@ -29,11 +29,19 @@
                 @if (ShowSidebar)
                 {
                     <div class="picker-panel-sidebar">
-                        @foreach (var item in SidebarItems)
+                        @if (SidebarTemplate != null)
                         {
-                            <div class="sidebar-item" @key="item">
-                                <div @onclick="() => OnClickSidebarItem(item)">@item.Text</div>
-                            </div>
+                            @SidebarTemplate(OnClickSidebarTemplate)
+                        }
+                        else
+                        {
+                            @foreach (var item in SidebarItems)
+                            {
+                                <div class="sidebar-item" @key="item">
+                                    <DynamicElement OnClick="() => OnClickSidebarItem(item)"
+                                                    TriggerClick="CanTriggerOnclickSidebarItem(item)">@item.Text</DynamicElement>
+                                </div>
+                            }
                         }
                     </div>
                 }

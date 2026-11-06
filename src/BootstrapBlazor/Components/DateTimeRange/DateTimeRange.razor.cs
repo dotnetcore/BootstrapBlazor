@@ -229,6 +229,14 @@ public partial class DateTimeRange
     public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏模板 默认 null，模板上下文为选择日期范围的回调</para>
+    /// <para lang="en">Gets or sets Sidebar Template. Default is null; the template context is a callback for selecting a date range</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTimeRangeValue, Task>>? SidebarTemplate { get; set; }
+
+    /// <summary>
     /// <para lang="zh">点击确认按钮回调委托方法</para>
     /// <para lang="en">Callback Method When Confirm Button Clicked</para>
     /// </summary>
@@ -378,6 +386,24 @@ public partial class DateTimeRange
     {
         TriggerHideCallback = nameof(TriggerHideCallback)
     });
+
+    private bool CanTriggerOnclickSidebarItem(DateTimeRangeSidebarItem item) => !IsDisabled
+        && item.StartDateTime <= item.EndDateTime
+        && item.StartDateTime >= MinValue && item.EndDateTime <= MaxValue;
+
+    private async Task OnClickSidebarTemplate(DateTimeRangeValue value)
+    {
+        var item = new DateTimeRangeSidebarItem
+        {
+            StartDateTime = value.Start,
+            EndDateTime = value.End
+        };
+        if (CanTriggerOnclickSidebarItem(item))
+        {
+            await OnClickSidebarItem(item);
+            StateHasChanged();
+        }
+    }
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
