@@ -56,10 +56,7 @@
     "Months": "Січ,Лют,Бер,Квіт,Трав,Черв,Лип,Серп,Вер,Жовт,Лист,Груд",
     "MonthLists": "Січ,Лют,Бер,Квіт,Трав,Черв,Лип,Серп,Вер,Жовт,Лист,Груд",
     "WeekLists": "Нд,Пн,Вт,Ср,Чт,Пт,Сб",
-    "GenericTypeErrorMessage": "DateTimePicker підтримує лише DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
-    "Today": "Сьогодні",
-    "Yesterday": "Вчора",
-    "Week": "Тиждень тому"
+    "GenericTypeErrorMessage": "DateTimePicker підтримує лише DateTime, DateTime?, DateTimeOffset, DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "До",

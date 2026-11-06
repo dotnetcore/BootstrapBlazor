@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
@@ -9,18 +9,6 @@
                 @if (SidebarTemplate != null)
                 {
                     @SidebarTemplate(OnClickSidebarButton)
-                }
-                else
-                {
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
                 }
             </div>
         }
