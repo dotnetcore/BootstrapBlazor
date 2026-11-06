@@ -16,13 +16,15 @@
 
 ## AI 约束
 
+- 不使用 bootstrapblazor skill
 - 改前先读相关源码
 - 不主动引入 NuGet 包
 - 不修改 `Directory.Packages.props`（除非说明理由）
 - 禁止事项：
   - 不改 Bootstrap 原始 CSS（覆盖除外）
   - 不直接操作 DOM（用 JSInterop）
-  - 不提交 `Console.WriteLine` 到生产代码
+  - 不提交 `Console.WriteLine` 到生产代码（C#）
+  - 不提交 `console.log` 到生产代码（Javascript）
 
 ## 参考文档（按需读取）
 
