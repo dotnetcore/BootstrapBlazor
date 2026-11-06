@@ -1717,7 +1717,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "NestedDialogTitle": "Pickers in a nested dialog form",
-    "NestedDialogIntro": "Open the form, then its date or date/time picker. The client checks the viewport directly: below 768px it uses a native dialog; at 768px and above it keeps the existing Popover, without a Responsive component. Crossing the breakpoint closes the current panel and switches modes for the next open. Check that closing the picker returns to the editable form, required validation and submission work, and reopening does not create duplicate dialogs. Also check confirming and canceling the built-in time picker. The outer form uses DialogService; the date picker itself does not require a Dialog host.",
+    "NestedDialogIntro": "This example demonstrates date, date/time and date range selection inside a dialog form, with a custom sidebar for quick date selection. Click the button below to open the form, enter the required date and submit. Below 768px, pickers use a native dialog and date ranges show a single calendar; at 768px and above, they use a Popover. Closing a picker lets you continue editing the form. Resizing the window keeps an open picker visible; the new display mode takes effect when it is closed and reopened.",
     "NestedDialogOpen": "Open form dialog",
     "NestedDateLabel": "Required date",
     "NestedDateTimeLabel": "Date and time (with nested time picker)",

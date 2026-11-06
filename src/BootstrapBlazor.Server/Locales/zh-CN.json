@@ -1717,7 +1717,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "NestedDialogTitle": "嵌套弹窗表单中的日期选择",
-    "NestedDialogIntro": "先打开表单，再打开其中的日期或日期时间选择器。客户端直接判断视口：小于 768px 时使用原生 dialog，不小于 768px 时沿用原有 Popover，无需 Responsive 组件。跨越断点时关闭当前选择面板并切换模式，再次打开使用新模式。检查关闭选择器后仍能编辑原表单、必填验证和提交有效、反复打开不会产生重复弹窗；日期时间选择器还需检查内置时间选择器的确认和取消。外层表单使用 DialogService，日期选择器本身不依赖 Dialog 宿主。",
+    "NestedDialogIntro": "本例展示在表单弹窗中选择日期、日期时间和日期范围，并通过自定义侧边栏快捷选择日期。点击下方按钮打开表单，填写必填日期后提交。屏幕宽度小于 768px 时，选择器使用原生 dialog，日期范围显示单日历；宽度不小于 768px 时使用 Popover。关闭选择器后可继续编辑表单；调整窗口宽度不会关闭已打开的选择器，关闭后再次打开时采用新的显示模式。",
     "NestedDialogOpen": "打开表单弹窗",
     "NestedDateLabel": "必填日期",
     "NestedDateTimeLabel": "日期时间（内含时间选择器）",
