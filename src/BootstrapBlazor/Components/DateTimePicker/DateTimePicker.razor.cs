@@ -194,11 +194,19 @@ public partial class DateTimePicker<TValue>
     public bool ShowSidebar { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
+    /// <para lang="en">Gets or sets Sidebar Items</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public List<DateTimePickerSidebarItem>? SidebarItems { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
-    [NotNull]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -383,8 +391,7 @@ public partial class DateTimePicker<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -397,6 +404,7 @@ public partial class DateTimePicker<TValue>
         DateFormat ??= Localizer[nameof(DateFormat)];
         TimeFormat ??= Localizer[nameof(TimeFormat)];
         PickerButtonText ??= Localizer[nameof(PickerButtonText)];
+        SidebarItems ??= [];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
@@ -442,6 +450,7 @@ public partial class DateTimePicker<TValue>
     }
 
     private List<DateTime> _disabledDaysList = [];
+    private readonly HashSet<DateTime> _disabledSidebarDays = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -449,6 +458,19 @@ public partial class DateTimePicker<TValue>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
+
+        _disabledSidebarDays.Clear();
+        if (ShowSidebar && SidebarTemplate == null && OnGetDisabledDaysCallback != null)
+        {
+            foreach (var day in SidebarItems.Select(item => item.Value.Date).Distinct())
+            {
+                var disabledDays = await OnGetDisabledDaysCallback(day, day);
+                if (disabledDays.Any(value => value.Date == day))
+                {
+                    _disabledSidebarDays.Add(day);
+                }
+            }
+        }
 
         if (OnGetDisabledDaysCallback != null && DisplayDisabledDayAsEmpty)
         {
@@ -548,7 +570,7 @@ public partial class DateTimePicker<TValue>
 
         if (AutoClose)
         {
-            await InvokeVoidAsync("hide", Id);
+            await ClosePickerPanel();
         }
     }
 
@@ -560,9 +582,11 @@ public partial class DateTimePicker<TValue>
 
         if (AutoClose)
         {
-            await InvokeVoidAsync("hide", Id);
+            await ClosePickerPanel();
         }
     }
+
+    private Task ClosePickerPanel() => InvokeVoidAsync("hide", Id);
 
     private TValue? GetValue()
     {
@@ -650,5 +674,35 @@ public partial class DateTimePicker<TValue>
     {
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    private string? DialogHeaderText => DisplayText ?? PlaceholderString;
+
+    private bool IsSidebarValueDisabled(DateTime value) => IsDisabled
+        || value < MinValue || value > MaxValue || _disabledSidebarDays.Contains(value.Date);
+
+    private bool CanTriggerOnclickSidebarItem(DateTime value) => !IsSidebarValueDisabled(value);
+
+    private async Task OnClickSidebarTemplate(DateTime value)
+    {
+        if (CanTriggerOnclickSidebarItem(value))
+        {
+            if (OnGetDisabledDaysCallback != null)
+            {
+                var disabledDays = await OnGetDisabledDaysCallback(value.Date, value.Date);
+                if (disabledDays.Any(day => day.Date == value.Date))
+                {
+                    return;
+                }
+            }
+
+            await OnClickSidebarItem(value);
+        }
+    }
+
+    private async Task OnClickSidebarItem(DateTime value)
+    {
+        SelectedValue = value;
+        await OnConfirm();
     }
 }

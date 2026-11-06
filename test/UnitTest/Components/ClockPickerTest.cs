@@ -190,6 +190,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Value, DateTime.Now);
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.PickTimeMode, PickTimeMode.Clock);
         });
         var span = cut.Find(".bb-time-text");
         await cut.InvokeAsync(() =>

@@ -10,6 +10,17 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
+
+    private Task ShowNestedDialogAsync() => DialogService.Show(new DialogOption
+    {
+        Title = Localizer["NestedDialogTitle"],
+        Component = BootstrapDynamicComponent.CreateComponent<DatePickerDialogForm>(),
+        ShowFooter = false
+    });
+
     private DateTime DateTimePickerValue { get; set; }
 
     [NotNull]
@@ -49,6 +60,15 @@ public sealed partial class DateTimePickers
     private DateTime AllowValue { get; set; } = DateTime.Today;
 
     private DateTime SidebarValue { get; set; } = DateTime.Today;
+
+    private DateTime CustomSidebarValue { get; set; } = DateTime.Today;
+
+    private readonly List<DateTimePickerSidebarItem> _sidebarItems =
+    [
+        new() { Text = DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(-1) },
+        new() { Text = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(1) },
+        new() { Text = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"), Value = DateTime.Today.AddDays(7) }
+    ];
 
     private DateTime YearValue { get; set; } = DateTime.Today;
 

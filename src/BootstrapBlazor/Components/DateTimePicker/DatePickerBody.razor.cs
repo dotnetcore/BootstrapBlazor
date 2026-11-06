@@ -54,7 +54,6 @@ public partial class DatePickerBody
     private bool _showClockPicker;
 
     private string? ClassString => CssBuilder.Default("picker-panel")
-        .AddClass("is-sidebar", ShowSidebar)
         .AddClass("is-lunar", ShowLunar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -84,7 +83,7 @@ public partial class DatePickerBody
         && day >= Ranger.SelectedValue.Start.Date
         && day <= Ranger.SelectedValue.End.Date;
 
-    private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
+    private string? WrapperClassString => CssBuilder.Default("picker-panel-body")
         .AddClass("is-open", _showClockPicker)
         .Build();
 
@@ -203,6 +202,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
@@ -210,6 +211,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -962,14 +965,6 @@ public partial class DatePickerBody
         {
             await OnClear();
         }
-    }
-
-    private async Task OnClickSidebarButton(DateTime d)
-    {
-        CurrentDate = d.Date;
-        CurrentTime = d.TimeOfDay;
-
-        await ClickConfirmButton();
     }
 
     private void ResetTimePickerPanel()

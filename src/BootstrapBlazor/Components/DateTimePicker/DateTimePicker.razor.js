@@ -1,6 +1,7 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
+import Dialog from "../../modules/dialog.js"
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id)
@@ -8,41 +9,98 @@ export function init(id, invoke, options) {
         return
     }
 
-    const popover = createPopover(el, invoke, options);
-    const input = handlerInput(el, popover);
-    Data.set(id, { el, input, invoke, options, popover });
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const panel = el.querySelector('.datetime-picker-panel');
+    const dialogBody = el.querySelector('.datetime-dialog-body');
+    const picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
+    const onModeChanged = () => syncPickerMode(id);
+    const data = { el, invoke, options, picker, mediaQuery, panel, dialogBody, onModeChanged, isPopoverHiding: false };
+    data.input = handlerInput(data);
+    Data.set(id, data);
+    EventHandler.on(mediaQuery, 'change', onModeChanged);
+}
+
+const syncPickerMode = id => {
+    const data = Data.get(id);
+    if (data) {
+        const { picker, mediaQuery, dialogBody, isPopoverHiding } = data;
+        const isShown = picker.mode === 'dialog' ? picker.isShown() : picker.popover?._isShown();
+        if (isShown || isPopoverHiding) {
+            return;
+        }
+        const mode = dialogBody && !mediaQuery.matches ? 'dialog' : 'popover';
+        if (picker.mode !== mode) {
+            reset(id);
+        }
+    }
+}
+
+const createPicker = (el, invoke, options, mediaQuery, panel, dialogBody) => {
+    if (dialogBody && !mediaQuery.matches) {
+        dialogBody.append(panel);
+        return createDialog(el, invoke, options);
+    }
+
+    el.append(panel);
+    return createPopover(el, invoke, options);
 }
 
 const createPopover = (el, invoke, options) => {
     const popover = Popover.init(el, {
-        dropdownSelector: el.getAttribute('data-bb-dropdown'),
+        dropdownSelector: '.datetime-picker-panel',
         isDisabled: () => {
             return el.classList.contains('disabled');
         },
         hideCallback: () => {
-            if (invoke) {
-                invoke.invokeMethodAsync(options.triggerHideCallback);
+            const data = Data.get(el.id);
+            if (data?.picker === popover) {
+                data.isPopoverHiding = true;
+                popover.onHidden ??= () => {
+                    const current = Data.get(el.id);
+                    if (current?.picker === popover) {
+                        current.isPopoverHiding = false;
+                        syncPickerMode(el.id);
+                    }
+                };
+                EventHandler.one(popover.toggleElement, 'hidden.bs.popover', popover.onHidden);
+                if (invoke) {
+                    invoke.invokeMethodAsync(options.triggerHideCallback);
+                }
             }
         }
     });
+    popover.mode = 'popover';
     return popover;
 }
 
-const handlerInput = (el, popover) => {
-    const input = el.querySelector('.datetime-picker-input');
+const createDialog = (el, invoke, options) => {
+    const isDisabled = () => el.classList.contains('disabled') || el.querySelector('.form-control')?.disabled;
+    return Dialog.init(el, {
+        isDisabled,
+        hideCallback: () => {
+            if (invoke) {
+                invoke.invokeMethodAsync(options.triggerHideCallback);
+            }
+            syncPickerMode(el.id);
+        }
+    });
+}
+
+const handlerInput = picker => {
+    const input = picker.el.querySelector('.datetime-picker-input');
     if (input) {
         EventHandler.on(input, 'keydown', e => {
-            if (e.key === 'Tab' && popover.isShown()) {
-                popover.hide();
+            if (e.key === 'Tab' && picker.picker.mode === 'popover' && picker.picker.isShown()) {
+                picker.picker.hide();
             }
         });
         EventHandler.on(input, 'keyup', e => {
             if (e.key === 'Escape') {
-                popover.hide();
+                picker.picker.hide();
                 input.blur();
             }
-            else if (e.key === 'Tab') {
-                popover.show();
+            else if (e.key === 'Tab' && picker.picker.mode === 'popover') {
+                picker.picker.show();
             }
         });
     }
@@ -59,19 +117,37 @@ const disposeInput = input => {
 export function reset(id) {
     const picker = Data.get(id);
     if (picker) {
-        const { el, input, popover, invoke, options } = picker;
-        disposeInput(input);
-        Popover.dispose(popover);
+        const { el, input, invoke, options, mediaQuery, panel, dialogBody } = picker;
+        disposePicker(picker.picker);
 
-        picker.popover = createPopover(el, invoke, options);
-        picker.input = handlerInput(picker.el, picker.popover);
+        picker.picker = createPicker(el, invoke, options, mediaQuery, panel, dialogBody);
+        picker.isPopoverHiding = false;
+        if (input !== el.querySelector('.datetime-picker-input')) {
+            disposeInput(input);
+            picker.input = handlerInput(picker);
+        }
+    }
+}
+
+const disposePicker = picker => {
+    if (picker.mode === 'dialog') {
+        Dialog.dispose(picker);
+    }
+    else {
+        if (picker.popover?._isShown()) {
+            picker.hide();
+        }
+        if (picker.onHidden) {
+            EventHandler.off(picker.toggleElement, 'hidden.bs.popover', picker.onHidden);
+        }
+        Popover.dispose(picker);
     }
 }
 
 export function hide(id) {
     const data = Data.get(id)
     if (data) {
-        data.popover.hide()
+        data.picker.hide()
     }
 }
 
@@ -80,8 +156,12 @@ export function dispose(id) {
     Data.remove(id)
 
     if (data) {
-        const { input, popover } = data;
+        const { input, picker, mediaQuery, onModeChanged, panel, dialogBody } = data;
+        EventHandler.off(mediaQuery, 'change', onModeChanged);
         disposeInput(input);
-        Popover.dispose(popover)
+        disposePicker(picker);
+        if (dialogBody) {
+            dialogBody.append(panel);
+        }
     }
 }

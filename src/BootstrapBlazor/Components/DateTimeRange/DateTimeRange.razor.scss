@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .datetime-range {
     --bb-dt-range-bar-color: #{$bb-dt-range-bar-color};
@@ -20,10 +20,6 @@
         .range-separator {
             opacity: .5;
         }
-    }
-
-    .datetime-range-body {
-        display: none;
     }
 
     &:hover:not(.disabled) {
@@ -65,17 +61,11 @@
 .range-panel-body {
     display: flex;
 
-    .picker-panel {
-        border: none;
-    }
-
-    .picker-panel:first-child {
+    .range-start-panel {
         border-right: var(--bs-border-width) solid var(--bs-border-color);
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
-
-    @include pick-side;
 
     .date-picker-header-label {
         cursor: unset;
@@ -135,4 +125,14 @@
     display: none;
     cursor: pointer;
     color: var(--bb-dt-range-bar-color);
+}
+
+@media (min-width: 768px) {
+    .range-end-panel.is-double .picker-panel-header > .picker-panel-icon-btn:nth-child(-n + 2) {
+        display: none;
+    }
+}
+
+.datetime-dialog .range-panel-body > .range-start-panel {
+    display: none;
 }
