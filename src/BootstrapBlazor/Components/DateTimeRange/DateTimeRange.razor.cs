@@ -105,6 +105,8 @@ public partial class DateTimeRange
     /// <para lang="en">Gets or sets Whether to Auto Close Popup When Sidebar Item Clicked. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
@@ -412,11 +414,7 @@ public partial class DateTimeRange
 
         StartValue = item.StartDateTime;
         EndValue = StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
-
-        if (AutoCloseClickSideBar)
-        {
-            await ClickConfirmButton();
-        }
+        await ClickConfirmButton();
     }
 
     /// <summary>

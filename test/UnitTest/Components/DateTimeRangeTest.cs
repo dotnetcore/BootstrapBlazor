@@ -249,7 +249,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
-            builder.Add(a => a.AutoCloseClickSideBar, true);
             builder.Add(a => a.SidebarItems,
             [
                 new DateTimeRangeSidebarItem(){ Text = "Test" }
@@ -314,7 +313,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.ShowSidebar, true);
-            builder.Add(a => a.AutoCloseClickSideBar, true);
             builder.Add(a => a.IsDisabled, disabled);
             builder.Add(a => a.MinValue, min);
             builder.Add(a => a.MaxValue, min.AddDays(7));
@@ -473,7 +471,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
-            builder.Add(a => a.AutoCloseClickSideBar, true);
             builder.Add(a => a.SidebarItems,
             [
                 new DateTimeRangeSidebarItem
