@@ -1,62 +1,61 @@
 @inject IStringLocalizer<BootstrapBlazor.Server.Components.Samples.DateTimePickers> Localizer
 
-<ValidateForm Model="this" OnValidSubmit="OnValidSubmitAsync">
-    <div class="row g-3">
-        <div class="col-12">
-            <DateTimePicker @bind-Value="DateValue" DisplayText="@Localizer["NestedDateLabel"]" />
-        </div>
-        <div class="col-12">
-            <DateTimePicker @bind-Value="SidebarDateValue" DisplayText="@Localizer["NestedDateLabel"]"
-                            ShowSidebar="true">
-                <SidebarTemplate Context="selectDate">
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                    <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
-                        <i class="fa-fw fa-solid fa-home"></i>
-                        <span>@Localizer["SidebarMonthStart"]</span>
-                    </div>
-                </SidebarTemplate>
-            </DateTimePicker>
-        </div>
-        <div class="col-12">
-            <DateTimePicker @bind-Value="DateTimeValue" ViewMode="DatePickerViewMode.DateTime"
-                            PickTimeMode="PickTimeMode.Clock" DisplayText="@Localizer["NestedDateTimeLabel"]" />
-        </div>
-        <div class="col-12">
-            <DateTimeRange @bind-Value="RangeValue" ShowSidebar="true" DisplayText="@Localizer["NestedRangeLabel"]" />
-        </div>
-        <div class="col-12">
-            <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" />
-        </div>
+<div class="row g-3">
+    <div class="col-12">
+        <DateTimePicker @bind-Value="DateValue" DisplayText="@Localizer["NestedDateLabel"]" ShowLabel="true" />
     </div>
-    @if (_submitted)
-    {
-        <div class="mt-3" role="status">@Localizer["NestedSubmitted"]</div>
-    }
-    <div class="mt-3">
-        <output>@DateValue?.ToString("yyyy-MM-dd")</output>
-        <output class="d-block">@DateTimeValue?.ToString("yyyy-MM-dd HH:mm:ss")</output>
-        <output class="d-block">@RangeValue.Start.ToString("yyyy-MM-dd") — @RangeValue.End.ToString("yyyy-MM-dd")</output>
+    <div class="col-12">
+        <DateTimePicker @bind-Value="SidebarDateValue" DisplayText="@Localizer["NestedSidebarDateLabel"]" ShowLabel="true" ShowSidebar="true">
+            <SidebarTemplate Context="selectDate">
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+                <div class="sidebar-item" @onclick="() => selectDate(DateTime.Today.AddDays(1 - DateTime.Today.Day))">
+                    <i class="fa-fw fa-solid fa-home"></i>
+                    <span>@Localizer["SidebarMonthStart"]</span>
+                </div>
+            </SidebarTemplate>
+        </DateTimePicker>
     </div>
-</ValidateForm>
+    <div class="col-12">
+        <DateTimePicker @bind-Value="DateTimeValue" ViewMode="DatePickerViewMode.DateTime" ShowLabel="true"
+                        PickTimeMode="PickTimeMode.Clock" DisplayText="@Localizer["NestedDateTimeLabel"]" />
+    </div>
+    <div class="col-12">
+        <DateTimeRange @bind-Value="RangeValue" ShowSidebar="false" ShowLabel="true" DisplayText="@Localizer["NestedRangeLabel"]" />
+    </div>
+    <div class="col-12">
+        <DateTimeRange @bind-Value="SidebarRangeValue" ShowSidebar="true" ShowLabel="true" DisplayText="@Localizer["NestedSidebarRangeLabel"]">
+            <SidebarTemplate Context="selectRange">
+                <div class="sidebar-item" @onclick="() => selectRange(new DateTimeRangeValue
+                {
+                    Start = DateTime.Today.AddDays(1 - DateTime.Today.Day),
+                    End = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddMilliseconds(-1)
+                })">
+                    <i class="fa-fw fa-solid fa-calendar-days"></i>
+                    <span>@Localizer["SidebarThisMonth"]</span>
+                </div>
+            </SidebarTemplate>
+        </DateTimeRange>
+    </div>
+</div>
 
 @code {
     /// <summary>
@@ -84,11 +83,9 @@
     /// </summary>
     public DateTimeRangeValue RangeValue { get; set; } = new();
 
-    private bool _submitted;
-
-    private Task OnValidSubmitAsync(EditContext context)
-    {
-        _submitted = true;
-        return Task.CompletedTask;
-    }
+    /// <summary>
+    /// <para lang="zh">获得/设置 自定义侧边栏日期范围。</para>
+    /// <para lang="en">Gets or sets the custom sidebar date range.</para>
+    /// </summary>
+    public DateTimeRangeValue SidebarRangeValue { get; set; } = new();
 }
