@@ -66,11 +66,7 @@
     "TodayButtonText": "今天",
     "ConfirmButtonText": "確定",
     "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
-    "DateFormat": "yyyy-MM-dd",
-    "Last7Days": "最近 7 天",
-    "Last30Days": "最近 30 天",
-    "ThisMonth": "這個月",
-    "LastMonth": "上個月"
+    "DateFormat": "yyyy-MM-dd"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "{0}欄位值必須為 Number 類型"
