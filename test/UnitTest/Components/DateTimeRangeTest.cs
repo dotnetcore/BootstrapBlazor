@@ -265,7 +265,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public async Task SidebarTemplate_SelectRange_ConfirmsAccordingToAutoClose(bool autoClose)
+    public async Task Sidebar_SelectRange_ConfirmsImmediately(bool useTemplate)
     {
         var start = new DateTime(2026, 6, 1);
         var end = start.AddDays(7);
@@ -273,29 +273,29 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.ShowSidebar, true);
-            builder.Add(a => a.AutoCloseClickSideBar, autoClose);
-            builder.Add(a => a.SidebarItems, [new DateTimeRangeSidebarItem { Text = "hidden item" }]);
+            builder.Add(a => a.SidebarItems, [new DateTimeRangeSidebarItem { Text = "Select", StartDateTime = start, EndDateTime = end }]);
             builder.Add(a => a.OnConfirm, value =>
             {
                 confirmed = value;
                 return Task.CompletedTask;
             });
-            builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTimeRangeValue, Task>>(select => content =>
+            if (useTemplate)
             {
-                content.OpenElement(0, "button");
-                content.AddAttribute(1, "id", "select-range");
-                content.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => select(new() { Start = start, End = end })));
-                content.CloseElement();
-            }));
+                builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTimeRangeValue, Task>>(select => content =>
+                {
+                    content.OpenElement(0, "button");
+                    content.AddAttribute(1, "id", "select-range");
+                    content.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => select(new() { Start = start, End = end })));
+                    content.CloseElement();
+                }));
+            }
         });
 
-        Assert.Empty(cut.FindAll(".sidebar-item"));
-        await cut.InvokeAsync(() => cut.Find("#select-range").Click());
-        if (!autoClose)
+        if (useTemplate)
         {
-            Assert.Null(confirmed);
-            await cut.InvokeAsync(() => cut.FindAll(".is-confirm").Last().Click());
+            Assert.Empty(cut.FindAll(".sidebar-item"));
         }
+        await cut.InvokeAsync(() => cut.Find(useTemplate ? "#select-range" : ".sidebar-item > div").Click());
         Assert.NotNull(confirmed);
         Assert.Equal(start, confirmed.Start);
         Assert.Equal(end, confirmed.End.Date);

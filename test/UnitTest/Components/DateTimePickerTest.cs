@@ -229,6 +229,35 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.NotNull(ele);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Sidebar_SelectDate_ConfirmsImmediately(bool useTemplate)
+    {
+        var selected = DateTime.Today.AddDays(2);
+        DateTime? changedValue = null;
+        var cut = Context.Render<DateTimePicker<DateTime?>>(builder =>
+        {
+            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.ValueChanged, value => changedValue = value);
+            builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.SidebarItems, [new DateTimePickerSidebarItem { Text = "Select", Value = selected }]);
+            if (useTemplate)
+            {
+                builder.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(select => content =>
+                {
+                    content.OpenElement(0, "button");
+                    content.AddAttribute(1, "id", "select-date");
+                    content.AddAttribute(2, "onclick", EventCallback.Factory.Create(this, () => select(selected)));
+                    content.CloseElement();
+                }));
+            }
+        });
+
+        await cut.InvokeAsync(() => cut.Find(useTemplate ? "#select-date" : ".sidebar-item > div").Click());
+        Assert.Equal(selected, changedValue);
+    }
+
     [Fact]
     public async Task SidebarItems_DisabledDays()
     {
