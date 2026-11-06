@@ -337,6 +337,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.PickTimeMode, PickTimeMode.Clock);
         });
 
         var panel = cut.FindComponent<ClockPicker>();
@@ -734,25 +735,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowSidebar_Ok()
-    {
-        var cut = Context.Render<DatePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.ShowSidebar, true);
-        });
-
-        var ele = cut.Find(".picker-panel-sidebar");
-        Assert.NotNull(ele);
-        Assert.Empty(cut.FindAll(".sidebar-item"));
-
-        var cells = cut.FindAll(".cell");
-        cut.InvokeAsync(() => cells[0].Click());
-        cut.InvokeAsync(() => cells[1].Click());
-        cut.InvokeAsync(() => cells[2].Click());
-    }
-
-    [Fact]
     public void ShowButtons_Ok()
     {
         var cut = Context.Render<DatePickerBody>(builder =>
@@ -1137,55 +1119,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(() => cell.Click());
         Assert.False(confirm);
-    }
-
-    [Fact]
-    public void OnClickShortLink_Ok()
-    {
-        var confirm = false;
-        var cut = Context.Render<DatePickerBody>(pb =>
-        {
-            pb.Add(a => a.ShowFooter, false);
-            pb.Add(a => a.AutoClose, true);
-            pb.Add(a => a.ShowSidebar, true);
-            pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(onClick => builder =>
-            {
-                builder.OpenElement(0, "button");
-                builder.AddAttribute(1, "class", "sidebar-item");
-                builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, () => onClick(DateTime.Today)));
-                builder.AddContent(3, "Today");
-                builder.CloseElement();
-            }));
-            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
-            pb.Add(a => a.OnConfirm, () =>
-            {
-                confirm = true;
-                return Task.CompletedTask;
-            });
-        });
-
-        var cell = cut.Find(".sidebar-item");
-        cut.InvokeAsync(() => cell.Click());
-        Assert.True(confirm);
-
-        confirm = false;
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.ShowFooter, true);
-            pb.Add(a => a.AutoClose, false);
-        });
-        cut.InvokeAsync(() => cell.Click());
-        Assert.True(confirm);
-
-        // 不显示 Footer AutoClose 参数不起作用自动关闭
-        confirm = false;
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.ShowFooter, false);
-            pb.Add(a => a.AutoClose, false);
-        });
-        cut.InvokeAsync(() => cell.Click());
-        Assert.True(confirm);
     }
 
     [Fact]

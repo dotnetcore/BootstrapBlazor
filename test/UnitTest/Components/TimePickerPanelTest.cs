@@ -131,6 +131,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
         var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.PickTimeMode, PickTimeMode.Clock);
         });
 
         var text = cut.Find(".bb-time-text");
