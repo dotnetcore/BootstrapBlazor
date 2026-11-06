@@ -64,9 +64,9 @@ const createPopover = (el, invoke, options) => {
                     }
                 };
                 EventHandler.one(popover.toggleElement, 'hidden.bs.popover', popover.onHidden);
-            }
-            if (data?.picker === popover && invoke) {
-                invoke.invokeMethodAsync(options.triggerHideCallback);
+                if (invoke) {
+                    invoke.invokeMethodAsync(options.triggerHideCallback);
+                }
             }
         }
     });
