@@ -25,6 +25,10 @@ const syncPickerMode = id => {
     if (data) {
         const { picker, mediaQuery, dialogBody, isPopoverHiding } = data;
         const isShown = picker.mode === 'dialog' ? picker.isShown() : picker.popover?._isShown();
+        if (isShown) {
+            picker.hide();
+            return;
+        }
         const mode = dialogBody && !mediaQuery.matches ? 'dialog' : 'popover';
         if (!isShown && !isPopoverHiding && picker.mode !== mode) {
             reset(id);
@@ -78,7 +82,6 @@ const createDialog = (el, invoke, options) => {
             if (invoke) {
                 invoke.invokeMethodAsync(options.triggerHideCallback);
             }
-            // Keep the dialog hide callback ahead of mode synchronization after rebuilding.
             syncPickerMode(el.id);
         }
     });
