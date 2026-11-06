@@ -66,11 +66,7 @@
     "TodayButtonText": "Hoje",
     "ConfirmButtonText": "Ok",
     "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d/M/yyyy",
-    "Last7Days": "Últimos 7 dias",
-    "Last30Days": "Últimos 30 dias",
-    "ThisMonth": "Este mês",
-    "LastMonth": "Mês passado"
+    "DateFormat": "d/M/yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "O campo {0} deve ser um número."

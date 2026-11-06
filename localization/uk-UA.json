@@ -66,11 +66,7 @@
     "TodayButtonText": "Сьогодні",
     "ConfirmButtonText": "Ок",
     "DateTimeFormat": "d.M.yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d.M.yyyy",
-    "Last7Days": "Останні 7 днів",
-    "Last30Days": "Останні 30 днів",
-    "ThisMonth": "Цей місяць",
-    "LastMonth": "Минулий місяць"
+    "DateFormat": "d.M.yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "Поле {0} має бути числом."

@@ -66,11 +66,7 @@
     "TodayButtonText": "วันนี้",
     "ConfirmButtonText": "ตกลง",
     "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d/M/yyyy",
-    "Last7Days": "7 วันที่ผ่านมา",
-    "Last30Days": "30 วันที่ผ่านมา",
-    "ThisMonth": "เดือนนี้",
-    "LastMonth": "เดือนที่แล้ว"
+    "DateFormat": "d/M/yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "ฟิลด์ {0} ต้องเป็นตัวเลข"
