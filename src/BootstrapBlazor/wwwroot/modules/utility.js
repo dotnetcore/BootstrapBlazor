@@ -773,7 +773,7 @@ export function setTheme(theme, sync) {
         })
         saveTheme(theme);
     }
-    EventHandler.trigger(document, 'changed.bb.theme', { theme: activeTheme });
+    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
 }
 
 export function setActiveTheme(el, activeItem) {
