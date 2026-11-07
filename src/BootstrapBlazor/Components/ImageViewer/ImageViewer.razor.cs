@@ -181,7 +181,7 @@ public partial class ImageViewer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Url, PreviewList, PreviewIndex, Async = IsAsync, PreviewerId, Intersection = IsIntersectionObserver });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Url, PreviewList, Index = PreviewIndex, Async = IsAsync, PreviewerId, Intersection = IsIntersectionObserver });
 
     private RenderFragment RenderChildContent() => builder =>
     {
