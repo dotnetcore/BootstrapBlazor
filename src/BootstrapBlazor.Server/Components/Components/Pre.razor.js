@@ -1,4 +1,4 @@
-﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getTheme, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getTheme, getAutoThemeValue, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title, assetRoot) {
@@ -88,6 +88,7 @@ export async function highlight(id) {
 }
 
 export async function switchTheme(theme) {
+    theme = theme === 'auto' ? getAutoThemeValue() : theme;
     if (theme === 'dark') {
         removeLink(`./lib/highlight/vs.min.css`);
         await addLink(`./lib/highlight/vs2015.min.css`);

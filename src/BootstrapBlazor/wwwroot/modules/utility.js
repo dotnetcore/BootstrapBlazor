@@ -762,12 +762,8 @@ export function getAutoThemeValue() {
 }
 
 export function setTheme(theme, sync) {
-    if (theme === 'auto') {
-        document.documentElement.setAttribute('data-bs-theme', getAutoThemeValue())
-    }
-    else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
+    const activeTheme = theme === 'auto' ? getAutoThemeValue() : theme;
+    document.documentElement.setAttribute('data-bs-theme', activeTheme);
 
     if (sync === true) {
         const providers = document.querySelectorAll('.bb-theme-mode');
@@ -777,7 +773,7 @@ export function setTheme(theme, sync) {
         })
         saveTheme(theme);
     }
-    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
+    EventHandler.trigger(document, 'changed.bb.theme', { theme: activeTheme });
 }
 
 export function setActiveTheme(el, activeItem) {
