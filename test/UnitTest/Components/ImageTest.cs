@@ -8,6 +8,26 @@ namespace UnitTest.Components;
 public class ImageTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void PreviewIndex_IsPassedAsIndexToJavaScript()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/ImageViewer/ImageViewer.razor.js");
+        Context.Render<ImageViewer>(pb =>
+        {
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
+            pb.Add(a => a.PreviewIndex, 2);
+        });
+
+        var options = module.VerifyInvoke("init").Arguments[1]!;
+        var json = System.Text.Json.JsonSerializer.Serialize(options, new System.Text.Json.JsonSerializerOptions
+        {
+            PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase
+        });
+        using var document = System.Text.Json.JsonDocument.Parse(json);
+
+        Assert.Equal(2, document.RootElement.GetProperty("index").GetInt32());
+    }
+
+    [Fact]
     public void ShowImage_Ok()
     {
         var cut = Context.Render<ImageViewer>(pb =>
