@@ -38,7 +38,7 @@
     <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.0-rc.3.4" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="11.0.1-beta04" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.0-rc.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
