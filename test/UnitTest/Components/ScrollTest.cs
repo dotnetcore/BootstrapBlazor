@@ -60,44 +60,19 @@ public class ScrollTest : BootstrapBlazorTestBase
         Assert.Contains("I am scroll", cut.Markup);
     }
 
-    [Fact]
-    public async Task ScrollToBottom_Ok()
-    {
-        var cut = Context.Render<Scroll>(builder => builder.Add(a => a.ChildContent, r =>
-        {
-            r.OpenElement(0, "div");
-            r.AddContent(1, "I am scroll");
-            r.CloseComponent();
-        }));
-
-        await cut.InvokeAsync(() => cut.Instance.ScrollToBottom());
-    }
-
-    [Fact]
-    public async Task ScrollToEnd_DefaultDirection_OkAsync()
-    {
-        var cut = Context.Render<Scroll>();
-        var handler = Context.JSInterop.SetupVoid("scrollToEnd", cut.Instance.Id, "bottom");
-        handler.SetVoidResult();
-
-        await cut.InvokeAsync(() => cut.Instance.ScrollToEnd());
-
-        handler.VerifyInvoke("scrollToEnd");
-    }
-
     [Theory]
     [InlineData("bottom")]
     [InlineData("top")]
     [InlineData("left")]
     [InlineData("right")]
-    public async Task ScrollToEnd_Direction_OkAsync(string direction)
+    public async Task ScrollTo_Ok(string direction)
     {
         var cut = Context.Render<Scroll>();
-        var handler = Context.JSInterop.SetupVoid("scrollToEnd", cut.Instance.Id, direction);
+        var handler = Context.JSInterop.SetupVoid("scrollTo", cut.Instance.Id, direction);
         handler.SetVoidResult();
 
-        await cut.InvokeAsync(() => cut.Instance.ScrollToEnd(direction));
+        await cut.InvokeAsync(() => cut.Instance.ScrollTo(Enum.Parse<ScrollDirection>(direction, true)));
 
-        handler.VerifyInvoke("scrollToEnd");
+        handler.VerifyInvoke("scrollTo");
     }
 }
