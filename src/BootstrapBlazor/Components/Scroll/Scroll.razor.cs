@@ -71,4 +71,12 @@ public partial class Scroll
     /// <para lang="en">Scroll To Bottom</para>
     /// </summary>
     public Task ScrollToBottom() => InvokeVoidAsync("scrollToBottom", Id);
+
+    /// <summary>
+    /// <para lang="zh">滚动到指定方向末端</para>
+    /// <para lang="en">Scrolls the associated element to the specified end.</para>
+    /// </summary>
+    /// <param name="direction">The scroll target direction, such as "left" or "bottom" or "top".</param>
+    /// <returns>A task that represents the asynchronous scroll operation.</returns>
+    public Task ScrollToEnd(string direction = "bottom") => InvokeVoidAsync("scrollToEnd", Id, direction);
 }

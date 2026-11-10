@@ -72,4 +72,32 @@ public class ScrollTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.ScrollToBottom());
     }
+
+    [Fact]
+    public async Task ScrollToEnd_DefaultDirection_OkAsync()
+    {
+        var cut = Context.Render<Scroll>();
+        var handler = Context.JSInterop.SetupVoid("scrollToEnd", cut.Instance.Id, "bottom");
+        handler.SetVoidResult();
+
+        await cut.InvokeAsync(() => cut.Instance.ScrollToEnd());
+
+        handler.VerifyInvoke("scrollToEnd");
+    }
+
+    [Theory]
+    [InlineData("bottom")]
+    [InlineData("top")]
+    [InlineData("left")]
+    [InlineData("right")]
+    public async Task ScrollToEnd_Direction_OkAsync(string direction)
+    {
+        var cut = Context.Render<Scroll>();
+        var handler = Context.JSInterop.SetupVoid("scrollToEnd", cut.Instance.Id, direction);
+        handler.SetVoidResult();
+
+        await cut.InvokeAsync(() => cut.Instance.ScrollToEnd(direction));
+
+        handler.VerifyInvoke("scrollToEnd");
+    }
 }

@@ -25,4 +25,25 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ScrollToEndTitle"]" Introduction="@Localizer["ScrollToEndIntro"]" Name="ScrollToEnd">
+    <div class="scroll-demo border">
+        <Scroll @ref="_scrollToEnd" Height="200px">
+            <div class="m-1">@Localizer["ScrollNormalDescription"]</div>
+            <div class="bg-primary" style="height: 100px;width:2000px;"></div>
+            <div class="bg-secondary" style="height: 100px;"></div>
+            <div class="bg-warning" style="height: 100px;"></div>
+            <div class="bg-success" style="height: 100px;"></div>
+            <div class="bg-info" style="height: 100px;"></div>
+            <div class="m-1">@Localizer["ScrollNormalBottom"]</div>
+        </Scroll>
+        <Divider />
+        <div class="m-3">
+            <Button OnClick="@(() => ScrollToEndAsync("right"))" Text="@Localizer["ScrollToRight"]"></Button>
+            <Button OnClick="@(() => ScrollToEndAsync("left"))" Text="@Localizer["ScrollToLeft"]"></Button>
+            <Button OnClick="@(() => ScrollToEndAsync("bottom"))" Text="@Localizer["ScrollToBottom"]"></Button>
+            <Button OnClick="@(() => ScrollToEndAsync("top"))" Text="@Localizer["ScrollToTop"]"></Button>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Type="typeof(Scroll)" />
