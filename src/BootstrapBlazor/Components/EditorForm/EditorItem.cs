@@ -45,7 +45,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <inheritdoc cref="IEditorItem.Editable"/>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，是否可编辑改用 Readonly 参数，是否可见改用 Ignore 参数; Deprecated If it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
+    [Obsolete("已弃用，是否可编辑改用 Readonly 参数，是否可见改用 Ignore 参数; Deprecated, if it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
     [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 

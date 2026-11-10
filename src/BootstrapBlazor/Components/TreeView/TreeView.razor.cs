@@ -32,7 +32,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <para lang="zh">获得/设置 是否显示加载动画，默认为 false</para>
     /// <para lang="en">Gets or sets whether to show the loading animation. Default is false</para>
     /// </summary>
-    [Obsolete("Deprecated. Please remove it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool IsReset { get; set; }
 

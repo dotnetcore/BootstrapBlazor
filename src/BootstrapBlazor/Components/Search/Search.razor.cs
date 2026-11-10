@@ -120,11 +120,11 @@ public partial class Search<TValue>
     public RenderFragment<SearchContext<TValue>>? PrefixIconTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索后是否自动清空搜索框（已弃用）</para>
-    /// <para lang="en">Gets or sets whether to automatically clear the search box after searching. Deprecated</para>
+    /// <para lang="zh">获得/设置 搜索后是否自动清空搜索框</para>
+    /// <para lang="en">Gets or sets whether to automatically clear the search box after searching.</para>
     /// </summary>
     [Parameter]
-    [Obsolete("Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool IsAutoClearAfterSearch { get; set; }
 
@@ -155,7 +155,7 @@ public partial class Search<TValue>
     /// <para lang="en">Gets or sets the event callback when the clear button is clicked. Default is null</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已取消 合并到 OnSearch 方法中; Deprecated. Merged into the OnSearch method")]
+    [Obsolete("已弃用，合并到 OnSearch 方法中；Deprecated, merged into the OnSearch method")]
     [ExcludeFromCodeCoverage]
     public Func<Task>? OnClear { get; set; }
 

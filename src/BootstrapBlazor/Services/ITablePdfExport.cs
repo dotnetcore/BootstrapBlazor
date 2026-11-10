@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Table 组件 Pdf 导出接口</para>
 /// <para lang="en">Table Component PDF Export Interface</para>
 /// </summary>
-[Obsolete("已过期，统一使用 ITableExport 接口")]
+[Obsolete("已弃用，统一使用 ITableExport 接口；Deprecated, please use ITableExport instead")]
 public interface ITablePdfExport
 {
     /// <summary>

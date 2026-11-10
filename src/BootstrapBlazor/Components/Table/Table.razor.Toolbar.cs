@@ -317,7 +317,7 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Whether to show inline extension edit button. Default null. use <see cref="ShowExtendEditButton"/> value if not set</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 ShowExtendEditButtonCallback 参数. Deprecated Use ShowExtendEditButtonCallback instead.")]
+    [Obsolete("已弃用，请使用 ShowExtendEditButtonCallback 参数. Deprecated, use ShowExtendEditButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowEditButtonCallback
     {
@@ -344,7 +344,7 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Whether to show inline extension delete button. Default null. use <see cref="ShowExtendDeleteButton"/> value if not set</para>
     /// </summary>
     [Parameter]
-    [Obsolete(" 已过期，请使用 ShowExtendDeleteButtonCallback 参数. Deprecated Use ShowExtendDeleteButtonCallback instead.")]
+    [Obsolete("已弃用，请使用 ShowExtendDeleteButtonCallback 参数. Deprecated, use ShowExtendDeleteButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowDeleteButtonCallback
     {

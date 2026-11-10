@@ -94,7 +94,7 @@ public partial class AutoFill<TValue>
     /// <para lang="en">Gets or sets the candidate item template. Default is null</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
+    [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated, please use ItemTemplate parameter")]
     [ExcludeFromCodeCoverage]
     public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
 

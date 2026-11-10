@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">默认定位实现类</para>
 /// <para lang="en">Default IP Locator Implementation Class</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class DefaultIPLocator : IIPLocator
 {

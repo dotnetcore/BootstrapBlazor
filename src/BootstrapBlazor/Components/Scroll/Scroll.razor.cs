@@ -70,7 +70,7 @@ public partial class Scroll
     /// <para lang="zh">滚动到底部方法</para>
     /// <para lang="en">Scrolls to the bottom</para>
     /// </summary>
-    [Obsolete("已过期，请使用 ScrollTo 方法；Deprecated, please use the ScrollTo method")]
+    [Obsolete("已弃用，请使用 ScrollTo 方法；Deprecated, please use the ScrollTo method")]
     [ExcludeFromCodeCoverage]
     public Task ScrollToBottom() => ScrollTo(ScrollDirection.Bottom);
 

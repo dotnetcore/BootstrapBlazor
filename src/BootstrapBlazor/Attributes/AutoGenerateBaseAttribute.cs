@@ -15,7 +15,7 @@ public abstract class AutoGenerateBaseAttribute : Attribute
     /// <para lang="zh">获得/设置 当前列是否可编辑。默认为 true。当设置为 false 时，自动编辑 UI 不会生成此列</para>
     /// <para lang="en">Gets or sets whether the current column is editable. Default is true. When set to false, the auto-generated edit UI will not generate this column</para>
     /// </summary>
-    [Obsolete("Deprecated. If it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
+    [Obsolete("已弃用，是否可编辑改用 Readonly 参数，是否可见改用 Ignore 参数；Deprecated, if it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
     [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 

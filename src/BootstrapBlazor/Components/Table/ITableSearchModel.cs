@@ -15,7 +15,7 @@ public interface ITableSearchModel
     /// <para lang="zh">获得 搜索集合</para>
     /// <para lang="en">Gets search collection</para>
     /// </summary>
-    [Obsolete("This method is obsolete. Use GetSearches instead. 已过期，请使用 GetSearches 方法")]
+    [Obsolete("已弃用，请使用 GetSearches 方法；Deprecated, use GetSearches instead.")]
     [ExcludeFromCodeCoverage]
     IEnumerable<IFilterAction> GetSearchs() => GetSearches();
 

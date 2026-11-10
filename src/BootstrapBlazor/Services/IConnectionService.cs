@@ -32,7 +32,7 @@ public interface IConnectionService
     /// </remarks>
     /// <param name="client"><para lang="zh">客户端连接信息</para><para lang="en">The client connection information.</para></param>
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，请使用 AddOrUpdateAsync 方法; Deprecated. Use AddOrUpdateAsync instead")]
+    [Obsolete("已弃用，请使用 AddOrUpdateAsync 方法; Deprecated, use AddOrUpdateAsync instead")]
     public void AddOrUpdate(ClientInfo client) { }
 
     /// <summary>

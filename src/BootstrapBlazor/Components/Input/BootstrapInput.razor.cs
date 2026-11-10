@@ -30,7 +30,7 @@ public partial class BootstrapInput<TValue>
     /// <para lang="en">Gets or sets whether to show clear button. Default is false</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 IsClearable 参数；Deprecated use the IsClearable parameter")]
+    [Obsolete("已弃用，请使用 IsClearable 参数；Deprecated, use the IsClearable parameter")]
     [ExcludeFromCodeCoverage]
     public bool Clearable { get => IsClearable; set => IsClearable = value; }
 
@@ -53,7 +53,7 @@ public partial class BootstrapInput<TValue>
     /// <para lang="en">Gets or sets the clear button icon. Default is null</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 ClearIcon 参数；Deprecated use the ClearIcon parameter")]
+    [Obsolete("已弃用，请使用 ClearIcon 参数；Deprecated, use the ClearIcon parameter")]
     [ExcludeFromCodeCoverage]
     public string? ClearableIcon { get => ClearIcon; set => ClearIcon = value; }
 
