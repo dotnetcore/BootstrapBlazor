@@ -14,5 +14,10 @@ public sealed partial class Scrolls
     [NotNull]
     private Scroll? _scroll = null;
 
-    private Task ScrollToBottom() => _scroll.ScrollToBottom();
+    [NotNull]
+    private Scroll? _scrollTo = null;
+
+    private Task ScrollToBottom() => _scroll.ScrollTo(ScrollDirection.Bottom);
+
+    private Task ScrollToAsync(ScrollDirection direction) => _scrollTo.ScrollTo(direction);
 }

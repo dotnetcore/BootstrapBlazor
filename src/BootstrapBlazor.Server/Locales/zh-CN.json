@@ -4158,7 +4158,12 @@
     "ScrollNormalTitle": "普通用法",
     "ScrollTips": "其元素必须拥有固定高度时才可呈现滚动条，可以通过外套元素设置其 <code>height</code> 属性",
     "ScrollTitle": "Scroll 滚动条",
-    "ScrollToBottom": "滚动到底部"
+    "ScrollToBottom": "滚动到底部",
+    "ScrollToIntro": "调用 <code>ScrollTo</code> 方法并传入 <code>ScrollDirection</code> 枚举（<code>Top</code>、<code>Bottom</code>、<code>Left</code>、<code>Right</code>）可滚动到对应方向的边缘。<code>direction</code> 参数默认为 <code>ScrollDirection.Bottom</code>。点击下方按钮体验不同方向的滚动效果。",
+    "ScrollToLeft": "滚动到最左侧",
+    "ScrollToRight": "滚动到最右侧",
+    "ScrollToTitle": "滚动到指定方向边缘",
+    "ScrollToTop": "滚动到顶部"
   },
   "BootstrapBlazor.Server.Components.Samples.SearchDialogs": {
     "SearchDialogOptionAttr": "SearchDialogOption 属性",

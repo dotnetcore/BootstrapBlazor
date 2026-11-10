@@ -25,4 +25,25 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ScrollToTitle"]" Introduction="@Localizer["ScrollToIntro"]" Name="ScrollTo">
+    <div class="scroll-demo border">
+        <Scroll @ref="_scrollTo" Height="200px">
+            <div class="m-1">@Localizer["ScrollNormalDescription"]</div>
+            <div class="bg-primary" style="height: 100px;width:2000px;"></div>
+            <div class="bg-secondary" style="height: 100px;"></div>
+            <div class="bg-warning" style="height: 100px;"></div>
+            <div class="bg-success" style="height: 100px;"></div>
+            <div class="bg-info" style="height: 100px;"></div>
+            <div class="m-1">@Localizer["ScrollNormalBottom"]</div>
+        </Scroll>
+        <Divider/>
+        <div class="m-3">
+            <Button OnClick="@(() => ScrollToAsync(ScrollDirection.Right))" Text="@Localizer["ScrollToRight"]"></Button>
+            <Button OnClick="@(() => ScrollToAsync(ScrollDirection.Left))" Text="@Localizer["ScrollToLeft"]"></Button>
+            <Button OnClick="@(() => ScrollToAsync(ScrollDirection.Bottom))" Text="@Localizer["ScrollToBottom"]"></Button>
+            <Button OnClick="@(() => ScrollToAsync(ScrollDirection.Top))" Text="@Localizer["ScrollToTop"]"></Button>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Type="typeof(Scroll)" />

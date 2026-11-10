@@ -4158,7 +4158,12 @@
     "ScrollNormalTitle": "Common usage",
     "ScrollTips": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
     "ScrollTitle": "Scroll",
-    "ScrollToBottom": "Scroll to bottom"
+    "ScrollToBottom": "Scroll to bottom",
+    "ScrollToIntro": "Call <code>ScrollTo</code> with a <code>ScrollDirection</code> value (<code>Top</code>, <code>Bottom</code>, <code>Left</code>, <code>Right</code>) to scroll to the corresponding edge. The <code>direction</code> parameter defaults to <code>ScrollDirection.Bottom</code>. Click the buttons below to try each direction.",
+    "ScrollToLeft": "Scroll to left",
+    "ScrollToRight": "Scroll to right",
+    "ScrollToTitle": "Scroll to a specified edge",
+    "ScrollToTop": "Scroll to top"
   },
   "BootstrapBlazor.Server.Components.Samples.SearchDialogs": {
     "SearchDialogOptionAttr": "SearchDialogOption property",
