@@ -21,7 +21,7 @@ public interface IEditorItem : ILookup
     /// <para lang="zh">获得/设置 是否可编辑，默认为 true</para>
     /// <para lang="en">Gets or sets whether the current edit item is editable. Default is true</para>
     /// </summary>
-    [Obsolete("Deprecated. Use the Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing. Use the Readonly parameter for read-only. IsReadonlyWhenAdd should be used when creating a new one, and IsReadonlyWhenEdit should be used when editing.")]
+    [Obsolete("已弃用，是否可见改用 Visible 参数，新增时使用 IsVisibleWhenAdd，编辑时使用 IsVisibleWhenEdit；是否只读改用 Readonly 参数，新增时使用 IsReadonlyWhenAdd，编辑时使用 IsReadonlyWhenEdit；Deprecated, use the Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing. Use the Readonly parameter for read-only. IsReadonlyWhenAdd should be used when creating a new one, and IsReadonlyWhenEdit should be used when editing.")]
     bool Editable { get; set; }
 
     /// <summary>

@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">默认 IP 地理位置定位器</para>
 /// <para lang="en">Default IP Geolocation Provider</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 internal class DefaultIPLocatorProvider : IIPLocatorProvider
 {

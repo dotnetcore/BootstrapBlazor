@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Table 组件 Excel 导出接口</para>
 /// <para lang="en">Table Component Excel Export Interface</para>
 /// </summary>
-[Obsolete("已过期，请使用 ITableExport 代替 Please use ITableExport instead")]
+[Obsolete("已弃用，请使用 ITableExport 代替；Deprecated, please use ITableExport instead")]
 public interface ITableExcelExport
 {
     /// <summary>

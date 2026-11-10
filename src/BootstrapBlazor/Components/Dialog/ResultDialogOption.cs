@@ -73,7 +73,7 @@ public class ResultDialogOption : DialogOption
     /// <para lang="zh">获得/设置 关闭按钮文本</para>
     /// <para lang="en">Gets or sets Close Button Text</para>
     /// </summary>
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public string? ButtonCloseText { get; set; }
 
@@ -81,7 +81,7 @@ public class ResultDialogOption : DialogOption
     /// <para lang="zh">获得/设置 关闭按钮图标</para>
     /// <para lang="en">Gets or sets Close Button Icon</para>
     /// </summary>
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public string? ButtonCloseIcon { get; set; }
 
@@ -89,7 +89,7 @@ public class ResultDialogOption : DialogOption
     /// <para lang="zh">获得/设置 关闭按钮颜色</para>
     /// <para lang="en">Gets or sets Close Button Color</para>
     /// </summary>
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
@@ -97,7 +97,7 @@ public class ResultDialogOption : DialogOption
     /// <para lang="zh">获得/设置 组件参数集合</para>
     /// <para lang="en">Gets or sets Component Parameters</para>
     /// </summary>
-    [Obsolete("已过期，单词拼写错误。请使用 ComponentParameters 代替 Please use ComponentParameters")]
+    [Obsolete("已弃用，单词拼写错误。请使用 ComponentParameters 代替；Deprecated, please use ComponentParameters")]
     [ExcludeFromCodeCoverage]
     public Dictionary<string, object>? ComponentParamters
     {

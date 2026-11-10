@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">IP 地址定位接口</para>
 /// <para lang="en">IP Address Locator Interface</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 public interface IIPLocator
 {
     /// <summary>

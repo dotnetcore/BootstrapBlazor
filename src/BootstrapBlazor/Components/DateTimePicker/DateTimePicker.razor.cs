@@ -96,7 +96,7 @@ public partial class DateTimePicker<TValue>
     /// <para lang="en">Gets or sets Date Time Format String. Default is null</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 DateTimeFormat/DateFormat/TimeFormat 分别设置; Please use DateTimeFormat/DateFormat/TimeFormat")]
+    [Obsolete("已弃用，请使用 DateTimeFormat/DateFormat/TimeFormat 分别设置; Deprecated, please use DateTimeFormat/DateFormat/TimeFormat")]
     [ExcludeFromCodeCoverage]
     public string? Format
     {

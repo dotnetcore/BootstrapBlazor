@@ -72,7 +72,7 @@ public class JsonLocalizationOptions : LocalizationOptions
     /// <para lang="zh">获得/设置 资源文件是否热加载 默认 false</para>
     /// <para lang="en">Gets or sets whether resource file is hot reloaded default false</para>
     /// </summary>
-    [Obsolete("已弃用 Deprecated")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool ReloadOnChange { get; set; }
 

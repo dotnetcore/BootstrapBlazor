@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">多重过滤器基类</para>
 /// <para lang="en">Multiple filter base class</para>
 /// </summary>
-[Obsolete("Deprecated. Please use FilterBase class. 已弃用 请使用 FilterBase 类")]
+[Obsolete("已弃用，请使用 FilterBase 类；Deprecated, please use FilterBase class.")]
 [ExcludeFromCodeCoverage]
 public abstract class MultipleFilterBase : FilterBase
 {

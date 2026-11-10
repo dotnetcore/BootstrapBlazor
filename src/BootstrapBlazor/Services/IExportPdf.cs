@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">导出 Pdf 接口</para>
 /// <para lang="en">Export PDF Interface</para>
 /// </summary>
-[Obsolete("已弃用，删除即可，组件内部已不使用，直接调用 IHtml2Pdf 接口方法")]
+[Obsolete("已弃用，请删除，组件内部已不使用，直接调用 IHtml2Pdf 接口方法；Deprecated, please delete. It is no longer used internally; call the IHtml2Pdf interface methods directly.")]
 public interface IExportPdf
 {
     /// <summary>

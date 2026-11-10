@@ -22,7 +22,7 @@ public interface IDispatchService<TEntry>
     /// </summary>
     /// <param name="entry"></param>
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，请使用 DispatchAsync 方法; Deprecated. Use DispatchAsync instead")]
+    [Obsolete("已弃用，请使用 DispatchAsync 方法; Deprecated, use DispatchAsync instead")]
     public void Dispatch(DispatchEntry<TEntry> entry) => _ = DispatchAsync(entry);
 
     /// <summary>
@@ -32,7 +32,7 @@ public interface IDispatchService<TEntry>
     /// </summary>
     /// <param name="callback"></param>
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，请使用 SubscribeAsync 方法; Deprecated. Use SubscribeAsync instead")]
+    [Obsolete("已弃用，请使用 SubscribeAsync 方法; Deprecated, use SubscribeAsync instead")]
     public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = SubscribeAsync(callback);
 
     /// <summary>
@@ -43,7 +43,7 @@ public interface IDispatchService<TEntry>
     /// <param name="callback"></param>
     /// <exception cref="NotImplementedException"></exception>
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，请使用 UnSubscribeAsync 方法; Deprecated. Use UnSubscribeAsync instead")]
+    [Obsolete("已弃用，请使用 UnSubscribeAsync 方法; Deprecated, use UnSubscribeAsync instead")]
     public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback) => _ = UnSubscribeAsync(callback);
 
     /// <summary>

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="en">Tree Component</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
-[Obsolete("已弃用，请使用 TreeView 组件代替；Deprecated Please use TreeView component")]
+[Obsolete("已弃用，请使用 TreeView 组件代替；Deprecated, please use TreeView component")]
 public partial class Tree
 {
     [NotNull]
