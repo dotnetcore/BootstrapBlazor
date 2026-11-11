@@ -18,14 +18,6 @@ jobs:
       with:
         dotnet-version: 11.0.x
 
-    - name: Cache NuGet packages
-      uses: actions/cache@v5
-      with:
-        path: ~/.nuget/packages
-        key: ${{runner.os}}-nuget-bb-${{hashFiles('**/*.csproj', 'test/Directory.Build.props', 'global.json')}}
-        restore-keys: |
-          ${{runner.os}}-nuget-bb-
-
     - name: Restore dependencies
       run: dotnet restore src/BootstrapBlazor
 
@@ -44,7 +36,7 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: TestResults/**/coverage.cobertura*.xml
+        directory: TestResults
 
     - name: Check Router
       run: |

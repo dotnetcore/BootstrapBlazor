@@ -22,14 +22,6 @@ jobs:
       with:
         dotnet-version: 11.0.x
 
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{runner.os}}-nuget-bb-${{hashFiles('**/*.csproj')}}
-        restore-keys: |
-          ${{runner.os}}-nuget-bb-
-
     - name: Restore dependencies
       run: dotnet restore src/BootstrapBlazor
 
