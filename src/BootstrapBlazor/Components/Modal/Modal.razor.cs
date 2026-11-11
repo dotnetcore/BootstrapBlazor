@@ -34,6 +34,8 @@ public partial class Modal : IClosable
 
     private readonly ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
 
+    private Func<Task<bool>>? _onClosingCallback;
+
     /// <summary>
     /// <para lang="zh">获得/设置 是否在后台关闭弹出窗口，默认为 false</para>
     /// <para lang="en">Gets or sets whether to close the popup in the background, default is false</para>
@@ -199,14 +201,28 @@ public partial class Modal : IClosable
     /// <para lang="zh">弹出窗口关闭前回调方法，由 JSInvoke 调用</para>
     /// <para lang="en">Callback method when the popup before close, called by JSInvoke</para>
     /// </summary>
+    /// <remarks>
+    /// <para lang="zh">先执行参数回调，再执行注册回调，按调用列表顺序逐个等待；任一回调返回 false 时阻止关闭。调用期间的回调变更在下次关闭时生效。</para>
+    /// <para lang="en">Parameter callbacks run before registered callbacks, each awaited in invocation-list order. Any false result prevents closing. Callback changes during invocation apply to the next close attempt.</para>
+    /// </remarks>
     [JSInvokable]
     public async Task<bool> BeforeCloseCallback()
     {
         var result = true;
         if (OnClosingAsync != null)
         {
-            result = await OnClosingAsync();
+            result &= await OnClosingAsync();
         }
+
+        // 不管 Result 结果如何所有注册的回调都要执行，避免回调中有副作用的逻辑没有执行
+        if (_onClosingCallback != null)
+        {
+            foreach (Func<Task<bool>> callback in _onClosingCallback.GetInvocationList())
+            {
+                result &= await callback();
+            }
+        }
+
         return result;
     }
 
@@ -287,7 +303,7 @@ public partial class Modal : IClosable
     /// </param>
     public void RegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
     {
-        OnClosingAsync += onClosingCallback;
+        _onClosingCallback += onClosingCallback;
     }
 
     /// <summary>
@@ -301,6 +317,6 @@ public partial class Modal : IClosable
     /// </param>
     public void UnRegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
     {
-        OnClosingAsync -= onClosingCallback;
+        _onClosingCallback -= onClosingCallback;
     }
 }
