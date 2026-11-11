@@ -212,11 +212,18 @@ public partial class Modal : IClosable
         var callbacks = OnClosingAsync + _onClosingCallback;
         if (callbacks != null)
         {
-            foreach (Func<Task<bool>> callback in callbacks.GetInvocationList())
+            result &= await OnClosingAsync();
+        }
+
+        // 不管 Result 结果如何所有注册的回调都要执行，避免回调中有副作用的逻辑没有执行
+        if (_onClosingCallback != null)
+        {
+            foreach (Func<Task<bool>> callback in _onClosingCallback.GetInvocationList())
             {
                 result &= await callback();
             }
         }
+
         return result;
     }
 
