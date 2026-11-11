@@ -33,7 +33,7 @@ jobs:
         dotnet test --project test/UnitTest --results-directory TestResults --coverlet --coverlet-output-format cobertura
 
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v6
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         directory: TestResults
