@@ -40,12 +40,16 @@ public class JSModuleTest
         await module.DisposeAsync();
     }
 
-    [Fact]
-    public async Task Dispose_Error()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Dispose_Error(bool asyncDispose)
     {
-        var js = new MockErrorJSObjectReference();
+        var js = new MockErrorJSObjectReference(asyncDispose);
         var module = new JSModule(js);
-        await module.DisposeAsync();
+        var exception = await Record.ExceptionAsync(async () => await module.DisposeAsync());
+        Assert.Null(exception);
+        Assert.Equal(1, js.DisposeCallCount);
     }
 
     [Fact]
@@ -126,17 +130,24 @@ public class JSModuleTest
         await module.ToggleMemorialModeAsync();
     }
 
-    private class MockErrorJSObjectReference : MockJSObjectReference
+    private class MockErrorJSObjectReference(bool asyncDispose) : MockJSObjectReference
     {
-        public override ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+        public int DisposeCallCount { get; private set; }
+
+        public override ValueTask DisposeAsync()
         {
+            DisposeCallCount++;
+            if (asyncDispose)
+            {
+                return ValueTask.FromException(new InvalidOperationException());
+            }
             throw new InvalidOperationException();
         }
     }
 
     private class MockJSObjectReference : IJSObjectReference
     {
-        public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        public virtual ValueTask DisposeAsync() => ValueTask.CompletedTask;
 
         public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
         {
