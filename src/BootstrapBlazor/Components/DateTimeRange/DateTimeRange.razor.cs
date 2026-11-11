@@ -105,6 +105,8 @@ public partial class DateTimeRange
     /// <para lang="en">Gets or sets Whether to Auto Close Popup When Sidebar Item Clicked. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
@@ -144,8 +146,8 @@ public partial class DateTimeRange
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
-    /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
+    /// <para lang="zh">获得/设置 日历视图数量，默认为双视图；屏幕宽度小于 768px 时始终显示单视图</para>
+    /// <para lang="en">Gets or sets the calendar layout. Defaults to double view; below 768px, always displays a single view</para>
     /// </summary>
     [Parameter]
     public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
@@ -184,7 +186,7 @@ public partial class DateTimeRange
     /// <para lang="en">Gets or sets Whether to Allow Null. Default is true</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 ShowClearButton 代替")]
+    [Obsolete("已弃用，请使用 ShowClearButton 代替；Deprecated, please use ShowClearButton instead")]
     [ExcludeFromCodeCoverage]
     public bool AllowNull
     {
@@ -227,6 +229,14 @@ public partial class DateTimeRange
     [Parameter]
     [NotNull]
     public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏模板 默认 null，模板上下文为选择日期范围的回调</para>
+    /// <para lang="en">Gets or sets Sidebar Template. Default is null; the template context is a callback for selecting a date range</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTimeRangeValue, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">点击确认按钮回调委托方法</para>
@@ -316,7 +326,11 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private bool _showLeftButtons = false;
+    private string? DialogHeaderText => DisplayText ?? $"{StartPlaceHolderText} {SeparateText} {EndPlaceHolderText}";
+
+    private string? EndPanelClassString => CssBuilder.Default("range-end-panel")
+        .AddClass("is-double", RenderMode == DateTimeRangeRenderMode.Double)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -326,7 +340,6 @@ public partial class DateTimeRange
         base.OnInitialized();
 
         AddRequiredValidator();
-        _showLeftButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>
@@ -352,13 +365,7 @@ public partial class DateTimeRange
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
 
-        SidebarItems ??=
-        [
-            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today.AddDays(1).AddMilliseconds(-1) },
-            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today.AddDays(1).AddMilliseconds(-1) },
-            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddMilliseconds(-1) },
-            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMilliseconds(-1) },
-        ];
+        SidebarItems ??= [];
 
         ResetBodyValue();
         SelectedValue.Start = Value.Start;
@@ -382,6 +389,24 @@ public partial class DateTimeRange
         TriggerHideCallback = nameof(TriggerHideCallback)
     });
 
+    private bool CanTriggerOnclickSidebarItem(DateTimeRangeSidebarItem item) => !IsDisabled
+        && item.StartDateTime <= item.EndDateTime
+        && item.StartDateTime >= MinValue && item.EndDateTime <= MaxValue;
+
+    private async Task OnClickSidebarTemplate(DateTimeRangeValue value)
+    {
+        var item = new DateTimeRangeSidebarItem
+        {
+            StartDateTime = value.Start,
+            EndDateTime = value.End
+        };
+        if (CanTriggerOnclickSidebarItem(item))
+        {
+            await OnClickSidebarItem(item);
+            StateHasChanged();
+        }
+    }
+
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
         SelectedValue.Start = item.StartDateTime;
@@ -389,11 +414,7 @@ public partial class DateTimeRange
 
         StartValue = item.StartDateTime;
         EndValue = StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
-
-        if (AutoCloseClickSideBar)
-        {
-            await ClickConfirmButton();
-        }
+        await ClickConfirmButton();
     }
 
     /// <summary>
@@ -512,7 +533,7 @@ public partial class DateTimeRange
             // 结束时间为空
             if (d < SelectedValue.Start)
             {
-                SelectedValue.End = SelectedValue.Start.AddDays(1).AddMilliseconds(-1);
+                SelectedValue.End = GetEndDateTime(SelectedValue.Start);
                 SelectedValue.Start = d;
             }
             else

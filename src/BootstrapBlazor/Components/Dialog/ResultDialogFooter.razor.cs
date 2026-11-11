@@ -78,7 +78,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Show Close Button</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool ShowCloseButton { get; set; } = true;
 
@@ -87,7 +87,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Close Button Text</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public string? ButtonCloseText { get; set; }
 
@@ -96,7 +96,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Close Button Icon</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public string? ButtonCloseIcon { get; set; }
 
@@ -105,7 +105,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Close Button Color</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
@@ -114,7 +114,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Gets or sets Click Close Button Callback Method</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickClose { get; set; }
 
@@ -123,7 +123,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Gets or sets Click Yes Button Callback Method</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickYes { get; set; }
 
@@ -132,7 +132,7 @@ public partial class ResultDialogFooter
     /// <para lang="en">Gets or sets Click No Button Callback Method</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickNo { get; set; }
 

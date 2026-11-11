@@ -117,7 +117,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
-    [Obsolete("已过期，请使用 IsEditable Please use IsEditable parameter")]
+    [Obsolete("已弃用，请使用 IsEditable；Deprecated, please use IsEditable parameter")]
     public bool IsEdit { get => IsEditable; set => IsEditable = value; }
 
     /// <summary>

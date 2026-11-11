@@ -120,7 +120,7 @@ public partial class Transfer<TValue>
     /// <para lang="en">Gets or sets the left panel search box placeholder text</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 (Deprecated, please use LeftPanelSearchPlaceHolderString)")]
+    [Obsolete("已弃用，请使用 LeftPanelSearchPlaceHolderString 代替 (Deprecated, please use LeftPanelSearchPlaceHolderString)")]
     [ExcludeFromCodeCoverage]
     public string? LeftPannelSearchPlaceHolderString { get => LeftPanelSearchPlaceHolderString; set => LeftPanelSearchPlaceHolderString = value; }
 
@@ -136,7 +136,7 @@ public partial class Transfer<TValue>
     /// <para lang="en">Gets or sets the right panel search box placeholder text</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 (Deprecated, please use RightPanelSearchPlaceHolderString)")]
+    [Obsolete("已弃用，请使用 RightPanelSearchPlaceHolderString 代替 (Deprecated, please use RightPanelSearchPlaceHolderString)")]
     [ExcludeFromCodeCoverage]
     public string? RightPannelSearchPlaceHolderString { get => RightPanelSearchPlaceHolderString; set => RightPanelSearchPlaceHolderString = value; }
 

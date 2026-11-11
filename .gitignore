@@ -391,4 +391,6 @@ src/**/wwwroot/**/uploader
 
 # AI
 .workbuddy
-docs
+
+# Playwright-MCP
+.playwright-mcp

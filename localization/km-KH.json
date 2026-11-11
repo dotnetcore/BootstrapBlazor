@@ -56,10 +56,7 @@
     "Months": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
     "MonthLists": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
     "WeekLists": "អាទិត្យ,ចន្ទ,អង្គារ,ពុធ,ព្រហស្បតិ៍,សុក្រ,សៅរ៍",
-    "GenericTypeErrorMessage": "DateTimePicker ដំណើរការតែ DateTime, DateTime?, DateTimeOffset និង DateTimeOffset? ប៉ុណ្ណោះ",
-    "Today": "ថ្ងៃនេះ",
-    "Yesterday": "ម្សិលមិញ",
-    "Week": "មួយ​សប្តាហ៍​មុន"
+    "GenericTypeErrorMessage": "DateTimePicker ដំណើរការតែ DateTime, DateTime?, DateTimeOffset និង DateTimeOffset? ប៉ុណ្ណោះ"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "ដល់",
@@ -69,11 +66,7 @@
     "TodayButtonText": "ថ្ងៃនេះ",
     "ConfirmButtonText": "យល់ព្រម",
     "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "M/d/yyyy",
-    "Last7Days": "7 ថ្ងៃ​ចុងក្រោយ",
-    "Last30Days": "30 ថ្ងៃ​ចុងក្រោយ",
-    "ThisMonth": "ខែ​នេះ",
-    "LastMonth": "ខែ​មុន"
+    "DateFormat": "M/d/yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "ទិន្នន័យ {0} ត្រូវ​តែ​ជា​លេខ។"

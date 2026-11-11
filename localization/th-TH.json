@@ -56,10 +56,7 @@
     "Months": "ม.ค.,ก.พ.,มี.ค.,เม.ย.,พ.ค.,มิ.ย.,ก.ค.,ส.ค.,ก.ย.,ต.ค.,พ.ย.,ธ.ค.",
     "MonthLists": "ม.ค.,ก.พ.,มี.ค.,เม.ย.,พ.ค.,มิ.ย.,ก.ค.,ส.ค.,ก.ย.,ต.ค.,พ.ย.,ธ.ค.",
     "WeekLists": "อา,จ,อ,พ,พฤ,ศ,ส",
-    "GenericTypeErrorMessage": "DateTimePicker รองรับเฉพาะ DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
-    "Today": "วันนี้",
-    "Yesterday": "เมื่อวาน",
-    "Week": "หนึ่งสัปดาห์ก่อน"
+    "GenericTypeErrorMessage": "DateTimePicker รองรับเฉพาะ DateTime, DateTime?, DateTimeOffset, DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "ถึง",
@@ -69,11 +66,7 @@
     "TodayButtonText": "วันนี้",
     "ConfirmButtonText": "ตกลง",
     "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d/M/yyyy",
-    "Last7Days": "7 วันที่ผ่านมา",
-    "Last30Days": "30 วันที่ผ่านมา",
-    "ThisMonth": "เดือนนี้",
-    "LastMonth": "เดือนที่แล้ว"
+    "DateFormat": "d/M/yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "ฟิลด์ {0} ต้องเป็นตัวเลข"

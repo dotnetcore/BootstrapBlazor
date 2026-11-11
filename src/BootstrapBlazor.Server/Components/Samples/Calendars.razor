@@ -15,6 +15,11 @@
     <BootstrapInput @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["FirstDayOfWeekTitle"]" Introduction="@Localizer["FirstDayOfWeekIntro"]" Name="FirstDayOfWeek">
+    <Calendar Value="DateTime.Today" FirstDayOfWeek="DayOfWeek.Monday" />
+    <Calendar Value="DateTime.Today" FirstDayOfWeek="DayOfWeek.Monday" ViewMode="CalendarViewMode.Week" class="mt-3" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["CellTemplateTitle"]" Introduction="@Localizer["CellTemplateIntro"]" Name="CellTemplate">
     <Calendar>
         <CellTemplate>

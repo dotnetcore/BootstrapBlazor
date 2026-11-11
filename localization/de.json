@@ -56,10 +56,7 @@
     "Months": "Jan,Feb,Mär,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez",
     "MonthLists": "Jan,Feb,Mär,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez",
     "WeekLists": "So,Mo,Di,Mi,Do,Fr,Sa",
-    "GenericTypeErrorMessage": "DateTimePicker unterstützt nur DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
-    "Today": "Heute",
-    "Yesterday": "Gestern",
-    "Week": "Vor einer Woche"
+    "GenericTypeErrorMessage": "DateTimePicker unterstützt nur DateTime, DateTime?, DateTimeOffset, DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "Bis",
@@ -69,11 +66,7 @@
     "TodayButtonText": "Heute",
     "ConfirmButtonText": "OK",
     "DateTimeFormat": "d.M.yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d.M.yyyy",
-    "Last7Days": "Letzte 7 Tage",
-    "Last30Days": "Letzte 30 Tage",
-    "ThisMonth": "Dieser Monat",
-    "LastMonth": "Letzter Monat"
+    "DateFormat": "d.M.yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "Das Feld {0} muss eine Zahl sein."

@@ -67,8 +67,24 @@ public partial class Scroll
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
-    /// <para lang="zh">滚动到底部</para>
-    /// <para lang="en">Scroll To Bottom</para>
+    /// <para lang="zh">滚动到底部方法</para>
+    /// <para lang="en">Scrolls to the bottom</para>
     /// </summary>
-    public Task ScrollToBottom() => InvokeVoidAsync("scrollToBottom", Id);
+    [Obsolete("已弃用，请使用 ScrollTo 方法；Deprecated, please use the ScrollTo method")]
+    [ExcludeFromCodeCoverage]
+    public Task ScrollToBottom() => ScrollTo(ScrollDirection.Bottom);
+
+    /// <summary>
+    /// <para lang="zh">滚动到指定方向的边缘方法</para>
+    /// <para lang="en">Scrolls the associated element to the specified edge</para>
+    /// </summary>
+    /// <param name="direction">
+    /// <para lang="zh">滚动方向，默认值为 <see cref="ScrollDirection.Bottom"/></para>
+    /// <para lang="en">The scroll direction. Default value is <see cref="ScrollDirection.Bottom"/></para>
+    /// </param>
+    /// <returns>
+    /// <para lang="zh">表示异步滚动操作的任务</para>
+    /// <para lang="en">A task that represents the asynchronous scroll operation</para>
+    /// </returns>
+    public Task ScrollTo(ScrollDirection direction = ScrollDirection.Bottom) => InvokeVoidAsync("scrollTo", Id, direction.ToDescriptionString());
 }

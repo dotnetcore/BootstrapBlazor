@@ -1,169 +1,144 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <div class="picker-panel-body">
-        @if (ShowSidebar)
-        {
-            <div class="picker-panel-sidebar">
-                @if (SidebarTemplate != null)
+    <div class="@WrapperClassString">
+        <div class="picker-panel-date">
+            <div class="picker-panel-header">
+                @if (ShowLeftButtons)
                 {
-                    @SidebarTemplate(OnClickSidebarButton)
+                    <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
+                        <i class="@PreviousYearIcon"></i>
+                    </button>
+                    <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
+                        <i class="@PreviousMonthIcon"></i>
+                    </button>
                 }
-                else
+                <div class="@HeaderLabelString">
+                    <span role="button" class="picker-panel-header-label" @onclick="() => SwitchView(DatePickerViewMode.Year)">@YearString</span>
+                    <span role="button" class="@CurrentMonthViewClassName" @onclick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</span>
+                    @if (IsDateTimeMode && PickTimeMode == PickTimeMode.Clock)
+                    {
+                        <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime.ToString(TimeFormat)</span>
+                    }
+                </div>
+                @if (ShowRightButtons)
                 {
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
-                    <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="d => OnClickSidebarButton(d)" />
-                    </div>
+                    <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
+                        <i class="@NextMonthIcon"></i>
+                    </button>
+                    <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
+                        <i class="@NextYearIcon"></i>
+                    </button>
                 }
             </div>
-        }
-        <div class="picker-panel-body-main">
-            <div class="@WrapperClassString">
-                <div class="picker-panel-date">
-                    <div class="picker-panel-header">
-                        @if (ShowLeftButtons)
-                        {
-                            <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
-                                <i class="@PreviousYearIcon"></i>
-                            </button>
-                            <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
-                                <i class="@PreviousMonthIcon"></i>
-                            </button>
-                        }
-                        <div class="@HeaderLabelString">
-                            <span role="button" class="picker-panel-header-label" @onclick="() => SwitchView(DatePickerViewMode.Year)">@YearString</span>
-                            <span role="button" class="@CurrentMonthViewClassName" @onclick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</span>
-                            @if (IsDateTimeMode && PickTimeMode == PickTimeMode.Clock)
+            <div class="picker-panel-content">
+                <table cellspacing="0" cellpadding="0" class="@DateViewClassName">
+                    <tbody>
+                        <tr>
+                            @foreach (var w in WeekLists)
                             {
-                                <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime.ToString(TimeFormat)</span>
+                                <th>@w</th>
                             }
-                        </div>
-                        @if (ShowRightButtons)
+                        </tr>
+                        @for (var week = StartDate; week < EndDate; week = GetSafeDayDateTime(week, 7))
                         {
-                            <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
-                                <i class="@NextMonthIcon"></i>
-                            </button>
-                            <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
-                                <i class="@NextYearIcon"></i>
-                            </button>
+                            <tr class="date-table-row">
+                                @for (var index = 0; index < 7; index++)
+                                {
+                                    var day = GetSafeDayDateTime(week, index);
+                                    var text = GetDayText(day.Day);
+                                    var isOverflow = IsDayOverflow(week, index);
+                                    <td class="@GetDayClass(day, isOverflow)">
+                                        @if (isOverflow)
+                                        {
+                                            <span class="cell"> - </span>
+                                        }
+                                        else if (IsDisabled(day))
+                                        {
+                                            <span class="cell">
+                                                @if (ShowLunar)
+                                                {
+                                                    <span>@text</span>
+                                                    <span class="bb-picker-body-lunar-text">@GetLunarText(day)</span>
+                                                }
+                                                else if (DayDisabledTemplate != null)
+                                                {
+                                                    @DayDisabledTemplate(day)
+                                                }
+                                                else
+                                                {
+                                                    @text
+                                                }
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <DatePickerCell Value="@GetSafeDayDateTime(week, index)" Text="@text" OnClick="d => OnClickDateTime(d)" Template="DayTemplate!"
+                                                            ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays">
+                                            </DatePickerCell>
+                                        }
+                                    </td>
+                                }
+                            </tr>
                         }
-                    </div>
-                    <div class="picker-panel-content">
-                        <table cellspacing="0" cellpadding="0" class="@DateViewClassName">
-                            <tbody>
-                                <tr>
-                                    @foreach (var w in WeekLists)
-                                    {
-                                        <th>@w</th>
-                                    }
-                                </tr>
-                                @for (var week = StartDate; week < EndDate; week = GetSafeDayDateTime(week, 7))
+                    </tbody>
+                </table>
+                <table class="@YearViewClassName">
+                    <tbody>
+                        @for (var row = 0; row < 5; row++)
+                        {
+                            <tr>
+                                @for (var index = 0; index < 4; index++)
                                 {
-                                    <tr class="date-table-row">
-                                        @for (var index = 0; index < 7; index++)
+                                    var year = index + row * 4;
+                                    var isOverflow = IsYearOverflow(CurrentDate, year - (CurrentDate.Year % 20));
+                                    <td class="@GetYearClassName(year, isOverflow)">
+                                        @if (isOverflow)
                                         {
-                                            var day = GetSafeDayDateTime(week, index);
-                                            var text = GetDayText(day.Day);
-                                            var isOverflow = IsDayOverflow(week, index);
-                                            <td class="@GetDayClass(day, isOverflow)">
-                                                @if (isOverflow)
-                                                {
-                                                    <span class="cell"> - </span>
-                                                }
-                                                else if (IsDisabled(day))
-                                                {
-                                                    <span class="cell">
-                                                        @if (ShowLunar)
-                                                        {
-                                                            <span>@text</span>
-                                                            <span class="bb-picker-body-lunar-text">@GetLunarText(day)</span>
-                                                        }
-                                                        else if (DayDisabledTemplate != null)
-                                                        {
-                                                            @DayDisabledTemplate(day)
-                                                        }
-                                                        else
-                                                        {
-                                                            @text
-                                                        }
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <DatePickerCell Value="@GetSafeDayDateTime(week, index)" Text="@text" OnClick="d => OnClickDateTime(d)" Template="DayTemplate!"
-                                                                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays">
-                                                    </DatePickerCell>
-                                                }
-                                            </td>
+                                            <span class="cell"> - </span>
                                         }
-                                    </tr>
+                                        else
+                                        {
+                                            <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewMode.Month, d)" />
+                                        }
+                                    </td>
                                 }
-                            </tbody>
-                        </table>
-                        <table class="@YearViewClassName">
-                            <tbody>
-                                @for (var row = 0; row < 5; row++)
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <table class="@MonthViewClassName">
+                    <tbody>
+                        @for (var row = 0; row < 3; row++)
+                        {
+                            <tr>
+                                @for (var index = 0; index < 4; index++)
                                 {
-                                    <tr>
-                                        @for (var index = 0; index < 4; index++)
-                                        {
-                                            var year = index + row * 4;
-                                            var isOverflow = IsYearOverflow(CurrentDate, year - (CurrentDate.Year % 20));
-                                            <td class="@GetYearClassName(year, isOverflow)">
-                                                @if (isOverflow)
-                                                {
-                                                    <span class="cell"> - </span>
-                                                }
-                                                else
-                                                {
-                                                    <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewMode.Month, d)" />
-                                                }
-                                            </td>
-                                        }
-                                    </tr>
+                                    var month = index + row * 4 + 1;
+                                    <td class="@GetMonthClassName(month)">
+                                        <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(ViewMode == DatePickerViewMode.Date ? DatePickerViewMode.Date : DatePickerViewMode.DateTime, d)" />
+                                    </td>
                                 }
-                            </tbody>
-                        </table>
-                        <table class="@MonthViewClassName">
-                            <tbody>
-                                @for (var row = 0; row < 3; row++)
-                                {
-                                    <tr>
-                                        @for (var index = 0; index < 4; index++)
-                                        {
-                                            var month = index + row * 4 + 1;
-                                            <td class="@GetMonthClassName(month)">
-                                                <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(ViewMode == DatePickerViewMode.Date ? DatePickerViewMode.Date : DatePickerViewMode.DateTime, d)" />
-                                            </td>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @if (ViewMode == DatePickerViewMode.DateTime)
-                {
-                    <CascadingValue Value="TimePickerOption" IsFixed="true">
-                        @ChildContent
-                    </CascadingValue>
-                    <CascadingValue Value="this" IsFixed="true">
-                        <ClockPicker @ref="TimePickerPanel" class="clock-panel-body"
-                                     Value="CurrentTime" OnValueChanged="OnTimeChanged" 
-                                     ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
-                                     ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
-                        </ClockPicker>
-                    </CascadingValue>
-                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+        @if (ViewMode == DatePickerViewMode.DateTime && PickTimeMode == PickTimeMode.Clock)
+        {
+            <CascadingValue Value="TimePickerOption" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
+            <CascadingValue Value="this" IsFixed="true">
+                <ClockPicker @ref="TimePickerPanel" class="clock-panel-body"
+                             Value="CurrentTime" OnValueChanged="OnTimeChanged"
+                             ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
+                             ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
+                </ClockPicker>
+            </CascadingValue>
+        }
     </div>
     @if (IsDateTimeMode && PickTimeMode == PickTimeMode.Dropdown)
     {

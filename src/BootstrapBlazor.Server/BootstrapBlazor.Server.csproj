@@ -34,22 +34,22 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0-rc.2.1" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.2.1" />
-    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.0-rc.3.2" />
-    <PackageReference Include="BootstrapBlazor.DriverJs" Version="11.0.1-beta04" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0-rc.3" />
+    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.0-rc.3.6" />
+    <PackageReference Include="BootstrapBlazor.DriverJs" Version="11.0.1-beta05" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.0-rc.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.0-rc.3" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="11.0.0-rc.2" />
-    <PackageReference Include="BootstrapBlazor.IP2Region" Version="11.0.0-rc.2" />
+    <PackageReference Include="BootstrapBlazor.IP2Region" Version="11.0.0-rc.3" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="11.0.0-rc.2" />
     <PackageReference Include="BootstrapBlazor.JitViewer" Version="11.0.0-rc.2.1" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="11.0.0-rc.2" />

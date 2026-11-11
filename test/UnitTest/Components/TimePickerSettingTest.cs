@@ -13,6 +13,7 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
         var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.PickTimeMode, PickTimeMode.Clock);
             pb.AddChildContent<TimePickerSetting>(pb =>
             {
                 pb.Add(a => a.ShowMinute, false);

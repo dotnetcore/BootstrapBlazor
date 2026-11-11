@@ -22,7 +22,7 @@ public partial class DatePickerBody
         get
         {
             var d = GetSafeDayDateTime(CurrentDate, 1 - CurrentDate.Day);
-            d = GetSafeDayDateTime(d, (int)FirstDayOfWeek - (int)d.DayOfWeek);
+            d = GetSafeDayDateTime(d, -(((int)d.DayOfWeek - (int)FirstDayOfWeek + 7) % 7));
             return d;
         }
     }
@@ -54,7 +54,6 @@ public partial class DatePickerBody
     private bool _showClockPicker;
 
     private string? ClassString => CssBuilder.Default("picker-panel")
-        .AddClass("is-sidebar", ShowSidebar)
         .AddClass("is-lunar", ShowLunar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -84,7 +83,7 @@ public partial class DatePickerBody
         && day >= Ranger.SelectedValue.Start.Date
         && day <= Ranger.SelectedValue.End.Date;
 
-    private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
+    private string? WrapperClassString => CssBuilder.Default("picker-panel-body")
         .AddClass("is-open", _showClockPicker)
         .Build();
 
@@ -203,6 +202,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
@@ -210,6 +211,8 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
@@ -254,7 +257,7 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Allow Null. Default is false</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 ShowClearButton 代替 Please use ShowClearButton")]
+    [Obsolete("已弃用，请使用 ShowClearButton 代替；Deprecated, please use ShowClearButton")]
     [ExcludeFromCodeCoverage]
     public bool AllowNull
     {
@@ -495,15 +498,6 @@ public partial class DatePickerBody
     [NotNull]
     private List<string>? WeekLists { get; set; }
 
-    [NotNull]
-    private string? Today { get; set; }
-
-    [NotNull]
-    private string? Yesterday { get; set; }
-
-    [NotNull]
-    private string? Week { get; set; }
-
     private TimePickerOption TimePickerOption { get; } = new();
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
@@ -573,10 +567,6 @@ public partial class DatePickerBody
         MonthLists = [.. Localizer[nameof(MonthLists)].Value.Split(',')];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
         WeekLists = GetWeekList();
-
-        Today ??= Localizer[nameof(Today)];
-        Yesterday ??= Localizer[nameof(Yesterday)];
-        Week ??= Localizer[nameof(Week)];
 
         PreviousYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousYearIcon);
         PreviousMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousMonthIcon);
@@ -975,14 +965,6 @@ public partial class DatePickerBody
         {
             await OnClear();
         }
-    }
-
-    private async Task OnClickSidebarButton(DateTime d)
-    {
-        CurrentDate = d.Date;
-        CurrentTime = d.TimeOfDay;
-
-        await ClickConfirmButton();
     }
 
     private void ResetTimePickerPanel()

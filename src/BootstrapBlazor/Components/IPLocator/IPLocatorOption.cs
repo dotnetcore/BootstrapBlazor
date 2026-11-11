@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">IP定位器配置项</para>
 /// <para lang="en">IP Locator Options</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class IPLocatorOption
 {

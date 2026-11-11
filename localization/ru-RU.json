@@ -56,10 +56,7 @@
     "Months": "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек",
     "MonthLists": "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек",
     "WeekLists": "Вс,Пн,Вт,Ср,Чт,Пт,Сб",
-    "GenericTypeErrorMessage": "DateTimePicker поддерживает только DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
-    "Today": "Сегодня",
-    "Yesterday": "Вчера",
-    "Week": "Неделю назад"
+    "GenericTypeErrorMessage": "DateTimePicker поддерживает только DateTime, DateTime?, DateTimeOffset, DateTimeOffset?"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "До",
@@ -69,11 +66,7 @@
     "TodayButtonText": "Сегодня",
     "ConfirmButtonText": "Ок",
     "DateTimeFormat": "d.M.yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "d.M.yyyy",
-    "Last7Days": "Последние 7 дней",
-    "Last30Days": "Последние 30 дней",
-    "ThisMonth": "Этот месяц",
-    "LastMonth": "Прошлый месяц"
+    "DateFormat": "d.M.yyyy"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "Поле {0} должно быть числом."

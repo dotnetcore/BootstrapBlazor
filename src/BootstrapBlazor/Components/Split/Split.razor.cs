@@ -79,7 +79,7 @@ public sealed partial class Split
     /// <para lang="en">Gets or sets Callback method when panel is collapsed. parameter bool value true means collapsed, false means second panel collapsed</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 OnResizedAsync 回调方法 Deprecated. Please use OnResizedAsync")]
+    [Obsolete("已弃用，请使用 OnResizedAsync 回调方法 Deprecated, please use OnResizedAsync")]
     [ExcludeFromCodeCoverage]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
 
