@@ -13,7 +13,6 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
 
   <ItemGroup>
