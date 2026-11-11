@@ -61,7 +61,7 @@ public partial class OnlineSheet : IAsyncDisposable
         if (firstRender)
         {
             await Task.Delay(5000);
-            await MockOnlineContributor.Trigger(DispatchService, Localizer);
+            await MockOnlineContributor.Trigger(DispatchService, Localizer["ContributorDescription", "A8"], Localizer["ContributorCellValue", DateTime.Now, "Argo"]);
         }
     }
 
