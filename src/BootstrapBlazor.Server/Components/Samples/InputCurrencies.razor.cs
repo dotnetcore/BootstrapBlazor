@@ -16,5 +16,6 @@ public partial class InputCurrencies
     private decimal _value2 = 2m;
 
     private bool _showIsoCurrencySymbol;
+
     private bool _showClearIcon;
 }
