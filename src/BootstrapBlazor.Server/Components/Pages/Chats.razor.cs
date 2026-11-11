@@ -99,10 +99,7 @@ public partial class Chats
                 if (!string.IsNullOrEmpty(chatMessage.Content))
                 {
                     msg.Content += chatMessage.Content;
-                    // TODO: NET 11 误报警告
-#pragma warning disable BL0012 // Unnecessary StateHasChanged call
-                    StateHasChanged();
-#pragma warning restore BL0012 // Unnecessary StateHasChanged call
+                    await InvokeAsync(StateHasChanged);
                 }
             }
 
