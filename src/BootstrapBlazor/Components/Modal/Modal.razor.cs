@@ -209,8 +209,7 @@ public partial class Modal : IClosable
     public async Task<bool> BeforeCloseCallback()
     {
         var result = true;
-        var callbacks = OnClosingAsync + _onClosingCallback;
-        if (callbacks != null)
+        if (OnClosingAsync != null)
         {
             result &= await OnClosingAsync();
         }
