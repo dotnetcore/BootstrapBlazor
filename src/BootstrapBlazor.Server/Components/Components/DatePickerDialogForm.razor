@@ -1,5 +1,3 @@
-@inject IStringLocalizer<BootstrapBlazor.Server.Components.Samples.DateTimePickers> Localizer
-
 <div class="row g-3">
     <div class="col-12">
         <DateTimePicker @bind-Value="DateValue" DisplayText="@Localizer["NestedDateLabel"]" ShowLabel="true" />
@@ -56,36 +54,3 @@
         </DateTimeRange>
     </div>
 </div>
-
-@code {
-    /// <summary>
-    /// <para lang="zh">获得/设置 表单日期。</para>
-    /// <para lang="en">Gets or sets the form date.</para>
-    /// </summary>
-    [Required]
-    public DateTime? DateValue { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自定义侧边栏日期。</para>
-    /// <para lang="en">Gets or sets the custom sidebar date.</para>
-    /// </summary>
-    public DateTime? SidebarDateValue { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 表单日期时间。</para>
-    /// <para lang="en">Gets or sets the form date and time.</para>
-    /// </summary>
-    public DateTime? DateTimeValue { get; set; } = DateTime.Now;
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 表单日期范围。</para>
-    /// <para lang="en">Gets or sets the form date range.</para>
-    /// </summary>
-    public DateTimeRangeValue RangeValue { get; set; } = new();
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 自定义侧边栏日期范围。</para>
-    /// <para lang="en">Gets or sets the custom sidebar date range.</para>
-    /// </summary>
-    public DateTimeRangeValue SidebarRangeValue { get; set; } = new();
-}
