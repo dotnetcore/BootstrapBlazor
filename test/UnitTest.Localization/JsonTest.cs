@@ -11,6 +11,13 @@ namespace UnitTest.Localization;
 
 public class JsonTest
 {
+    private readonly ITestOutputHelper _logger;
+
+    public JsonTest(ITestOutputHelper logger)
+    {
+        _logger = logger;
+    }
+
     [Theory]
     [InlineData("zh-CN.json")]
     [InlineData("en-US.json")]
@@ -78,6 +85,7 @@ public class JsonTest
                         }
                     }
 
+                    _logger.WriteLine($"Deleted localization entry: {sectionName}.{key} = {c.Value}");
                     c.Value = null;
                 }
             }
