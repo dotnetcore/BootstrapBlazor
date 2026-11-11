@@ -128,11 +128,6 @@ public class JSModuleTest
 
     private class MockErrorJSObjectReference : MockJSObjectReference
     {
-        protected override ValueTask DisposeAsyncCore(bool disposing)
-        {
-            throw new InvalidOperationException();
-        }
-
         public override ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
         {
             throw new InvalidOperationException();
@@ -141,19 +136,7 @@ public class JSModuleTest
 
     private class MockJSObjectReference : IJSObjectReference
     {
-        protected virtual ValueTask DisposeAsyncCore(bool disposing)
-        {
-            return ValueTask.CompletedTask;
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            // TODO: NET 11 误报警告
-#pragma warning disable BL0016 // Unguarded JS interop call
-            await DisposeAsyncCore(true);
-#pragma warning restore BL0016 // Unguarded JS interop call
-            GC.SuppressFinalize(this);
-        }
+        public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 
         public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
         {
