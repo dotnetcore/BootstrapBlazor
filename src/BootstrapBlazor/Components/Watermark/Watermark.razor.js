@@ -188,19 +188,34 @@ const getWatermark = props => {
     const ctx = canvas.getContext('2d');
 
     ctx.font = font;
-    const { width } = ctx.measureText(props.text);
-    const canvasSize = Math.max(100, width) + props.gap * devicePixelRatio;
+    const lines = props.text.split(/\r\n|\n/);
+    const width = lines.reduce((max, line) => Math.max(max, ctx.measureText(line).width), 0);
+    const lineHeight = fontSize * 1.2;
+    const angle = (Math.PI / 180) * props.rotate;
+    let contentSize = width;
+    if (lines.length > 1) {
+        const height = lines.length * lineHeight;
+        const cos = Math.abs(Math.cos(angle));
+        const sin = Math.abs(Math.sin(angle));
+        contentSize = Math.max(width, width * cos + height * sin, width * sin + height * cos);
+    }
+    let canvasSize = Math.max(100, contentSize) + props.gap * devicePixelRatio;
+    if (lines.length > 1) {
+        canvasSize = Math.ceil(canvasSize);
+    }
     canvas.width = canvasSize;
     canvas.height = canvasSize;
     ctx.translate(canvas.width / 2, canvas.height / 2);
 
-    ctx.rotate((Math.PI / 180) * props.rotate);
+    ctx.rotate(angle);
     ctx.fillStyle = props.color;
     ctx.font = font;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    ctx.fillText(props.text, 0, 0);
+    lines.forEach((line, index) => {
+        ctx.fillText(line, 0, (index - (lines.length - 1) / 2) * lineHeight);
+    });
     return {
         base64: canvas.toDataURL(),
         size: canvasSize,

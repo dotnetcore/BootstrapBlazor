@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Watermarks
 {
-    private string _text = "BootstrapBlazor";
+    private string _text = "Bootstrap\nBlazor";
 
     private int _fontSize = 16;
 
