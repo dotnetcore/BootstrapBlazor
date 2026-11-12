@@ -16,7 +16,7 @@ public partial class FullScreenButton
     /// <para lang="en">Gets or sets Full Screen Icon Default fa-solid fa-maximize</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 Icon 参数；Deprecated. Please use Icon parameter")]
+    [Obsolete("已弃用，请使用 Icon 参数；Deprecated, please use Icon parameter")]
     [ExcludeFromCodeCoverage]
     public string? FullScreenIcon { get => FullScreenExitIcon; set => FullScreenExitIcon = value; }
 

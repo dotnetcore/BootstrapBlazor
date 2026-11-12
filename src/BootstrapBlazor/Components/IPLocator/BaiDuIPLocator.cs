@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">百度搜索引擎 IP 定位器</para>
 /// <para lang="en">Baidu Search Engine IP Locator</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class BaiDuIPLocator : DefaultIPLocator
 {
@@ -55,7 +55,7 @@ public class BaiDuIPLocator : DefaultIPLocator
 /// <para lang="zh">LocationInfo 结构体</para>
 /// <para lang="en">LocationInfo Struct</para>
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator；Deprecated, please refer to https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public struct LocationInfo
 {

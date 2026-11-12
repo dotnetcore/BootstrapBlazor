@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="2.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="11.*" />
   </ItemGroup>
 
   <ItemGroup>

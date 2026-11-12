@@ -760,7 +760,7 @@ public partial class ValidateForm
     /// <para lang="zh">获得 当前表单值改变的属性集合</para>
     /// <para lang="en">Gets the collection of properties whose values have changed in the current form</para>
     /// </summary>
-    [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated Please use ValueChangedFields instead. wrong typo")]
+    [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated, please use ValueChangedFields instead. wrong typo")]
     [ExcludeFromCodeCoverage]
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
 }

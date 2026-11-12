@@ -197,24 +197,42 @@ public class ModalTest : BootstrapBlazorTestBase
     public async Task RegisterOnClosingAsync_Ok()
     {
         var closing = false;
+        var closing1 = false;
+        var closing2 = false;
         var cut = Context.Render<Modal>(builder =>
         {
             builder.AddChildContent<ModalDialog>(pb =>
             {
 
             });
+            builder.Add(a => a.OnClosingAsync, async () =>
+            {
+                closing = true;
+                await Task.Yield();
+                return true;
+            });
         });
 
-        var closingHandler = async () =>
+        var closingHandler1 = async () =>
         {
-            closing = true;
+            closing1 = true;
             await Task.Yield();
             return true;
         };
-        cut.Instance.RegisterOnClosingCallback(closingHandler);
+        var closingHandler2 = async () =>
+        {
+            closing2 = true;
+            await Task.Yield();
+            return true;
+        };
+        cut.Instance.RegisterOnClosingCallback(closingHandler1);
+        cut.Instance.RegisterOnClosingCallback(closingHandler2);
         await cut.InvokeAsync(() => cut.Instance.Close());
-        cut.Instance.UnRegisterOnClosingCallback(closingHandler);
         Assert.True(closing);
+        Assert.True(closing1);
+        Assert.True(closing2);
+        cut.Instance.UnRegisterOnClosingCallback(closingHandler1);
+        cut.Instance.UnRegisterOnClosingCallback(closingHandler2);
     }
 
     private class MockComponent : ComponentBase

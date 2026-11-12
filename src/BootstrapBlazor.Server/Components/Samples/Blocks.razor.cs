@@ -10,8 +10,11 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// 
 /// </summary>
-public partial class Blocks
+public partial class Blocks : IAsyncDisposable
 {
+    private bool _isDisposed;
+    private long _authenticationStateVersion;
+
     private bool IsShow { get; set; } = true;
 
     private string GetIcon() => IsShow ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
@@ -45,6 +48,49 @@ public partial class Blocks
 
     private string GetUserText() => IsAuth ? Localizer["Logout"] : Localizer["Login"];
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AuthenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+        await UpdateAuthenticationStateAsync(AuthenticationStateProvider.GetAuthenticationStateAsync());
+    }
+
+    private void OnAuthenticationStateChanged(Task<AuthenticationState> authenticationStateTask)
+        => _ = UpdateAuthenticationStateAsync(authenticationStateTask);
+
+    private async Task UpdateAuthenticationStateAsync(Task<AuthenticationState> authenticationStateTask)
+    {
+        var version = Interlocked.Increment(ref _authenticationStateVersion);
+        try
+        {
+            await InvokeAsync(async () =>
+            {
+                if (_isDisposed || version != Interlocked.Read(ref _authenticationStateVersion))
+                {
+                    return;
+                }
+
+                var state = await authenticationStateTask;
+                if (_isDisposed || version != Interlocked.Read(ref _authenticationStateVersion))
+                {
+                    return;
+                }
+
+                IsAuth = state.User.Identity?.IsAuthenticated ?? false;
+                UserName = IsAuth ? state.User.Identity?.Name ?? "" : "";
+                StateHasChanged();
+            });
+        }
+        catch (Exception ex)
+        {
+            await DispatchExceptionAsync(ex);
+        }
+    }
+
     private async Task ToggleAuthor()
     {
         if (AuthenticationStateProvider is MockAuthenticationStateProvider mock)
@@ -52,18 +98,11 @@ public partial class Blocks
             if (!IsAuth)
             {
                 mock.Login();
-                // TODO: NET 11 误报警告
-#pragma warning disable BL0013 // AuthenticationStateProvider.GetAuthenticationStateAsync used without subscribing to AuthenticationStateChanged
-                var state = await mock.GetAuthenticationStateAsync();
-#pragma warning restore BL0013 // AuthenticationStateProvider.GetAuthenticationStateAsync used without subscribing to AuthenticationStateChanged
-                UserName = state.User.Identity?.Name;
-                IsAuth = state.User.Identity?.IsAuthenticated ?? false;
+                await mock.GetAuthenticationStateAsync();
             }
             else
             {
                 mock.Logout();
-                IsAuth = false;
-                UserName = "";
             }
         }
     }
@@ -73,4 +112,21 @@ public partial class Blocks
     private Task<bool> OnQueryCondition2(string name) => Task.FromResult(IsShow2);
 
     private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
+
+    private ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing && !_isDisposed)
+        {
+            _isDisposed = true;
+            AuthenticationStateProvider.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+        }
+
+        return ValueTask.CompletedTask;
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }

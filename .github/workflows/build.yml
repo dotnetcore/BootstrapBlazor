@@ -11,20 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        global-json-file: global.json
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{runner.os}}-nuget-bb-${{hashFiles('**/*.csproj')}}
-        restore-keys: |
-          ${{runner.os}}-nuget-bb-
+        dotnet-version: 11.0.x
 
     - name: Restore dependencies
       run: dotnet restore src/BootstrapBlazor
@@ -38,17 +30,18 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test test/UnitTest --collect:"XPlat Code Coverage"
+        dotnet test --project test/UnitTest --results-directory TestResults --coverlet --coverlet-output-format cobertura
 
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v6
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        directory: TestResults
 
     - name: Check Router
       run: |
-        dotnet test test/UnitTestDocs
+        dotnet test --project test/UnitTestDocs
 
     - name: Check Localizer
       run: |
-        dotnet test test/UnitTest.Localization
+        dotnet test --project test/UnitTest.Localization

@@ -20,15 +20,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        global-json-file: global.json
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{runner.os}}-nuget-bb-${{hashFiles('**/*.csproj')}}
-        restore-keys: |
-          ${{runner.os}}-nuget-bb-
+        dotnet-version: 11.0.x
 
     - name: Restore dependencies
       run: dotnet restore src/BootstrapBlazor

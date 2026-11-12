@@ -186,7 +186,7 @@ public partial class DateTimeRange
     /// <para lang="en">Gets or sets Whether to Allow Null. Default is true</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 ShowClearButton 代替")]
+    [Obsolete("已弃用，请使用 ShowClearButton 代替；Deprecated, please use ShowClearButton instead")]
     [ExcludeFromCodeCoverage]
     public bool AllowNull
     {

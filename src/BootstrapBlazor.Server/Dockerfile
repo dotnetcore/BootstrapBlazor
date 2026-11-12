@@ -1,7 +1,8 @@
+# syntax=docker/dockerfile:1
 #Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 #For more information, please see https://aka.ms/containercompat
 
-FROM mcr.microsoft.com/dotnet/aspnet:11.0.0-rc.3 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:11.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
@@ -11,11 +12,14 @@ RUN apt install -y ./google-chrome-stable_current_amd64.deb
 RUN rm ./google-chrome-stable_current_amd64.deb
 RUN apt install -y fonts-wqy-microhei
 
-FROM mcr.microsoft.com/dotnet/sdk:11.0.100-rc.3 AS build
-WORKDIR /
+FROM mcr.microsoft.com/dotnet/sdk:11.0 AS build
+# Keep the repository below / so the LLMs generator can resolve parent directories.
+WORKDIR /repo
 COPY . .
+# The documentation generator also analyzes the sibling extensions repository.
+ADD https://github.com/BootstrapBlazor/BootstrapBlazor.Extensions.git#8b459306358699f40e338dc0b07ccded51ce83aa /BootstrapBlazor.Extensions
 
-WORKDIR "src/BootstrapBlazor.Server"
+WORKDIR /repo/src/BootstrapBlazor.Server
 FROM build AS publish
 RUN dotnet build
 RUN dotnet publish -c Release -o /app

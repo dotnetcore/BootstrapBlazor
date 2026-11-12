@@ -60,16 +60,19 @@ public class ScrollTest : BootstrapBlazorTestBase
         Assert.Contains("I am scroll", cut.Markup);
     }
 
-    [Fact]
-    public async Task ScrollToBottom_Ok()
+    [Theory]
+    [InlineData("bottom")]
+    [InlineData("top")]
+    [InlineData("left")]
+    [InlineData("right")]
+    public async Task ScrollTo_Ok(string direction)
     {
-        var cut = Context.Render<Scroll>(builder => builder.Add(a => a.ChildContent, r =>
-        {
-            r.OpenElement(0, "div");
-            r.AddContent(1, "I am scroll");
-            r.CloseComponent();
-        }));
+        var cut = Context.Render<Scroll>();
+        var handler = Context.JSInterop.SetupVoid("scrollTo", cut.Instance.Id, direction);
+        handler.SetVoidResult();
 
-        await cut.InvokeAsync(() => cut.Instance.ScrollToBottom());
+        await cut.InvokeAsync(() => cut.Instance.ScrollTo(Enum.Parse<ScrollDirection>(direction, true)));
+
+        handler.VerifyInvoke("scrollTo");
     }
 }

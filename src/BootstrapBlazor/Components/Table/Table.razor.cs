@@ -21,7 +21,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets whether to auto search on fuzzy search bar input. Default false</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，直接删除即可。Deprecated, please remove this parameter directly.")]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool AutoSearchOnInput { get; set; }
 
@@ -2170,7 +2170,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
     /// </summary>
     [JSInvokable]
-    [Obsolete("已弃用，请使用 ResizeColumnCallback 代替；Deprecated. Please use ResizeColumnCallback instead.")]
+    [Obsolete("已弃用，请使用 ResizeColumnCallback 代替；Deprecated, please use ResizeColumnCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Task AutoFitColumnWidthCallback(string fieldName, TableColumnClientStatus columnState) => ResizeColumnCallback(fieldName, columnState);
 
