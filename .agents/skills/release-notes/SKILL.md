@@ -12,7 +12,7 @@ Create matching English and Chinese release-note drafts for this repository. Do 
 1. Identify the latest published stable release tag from the repository's releases/tags. Do not use prereleases as the baseline unless requested.
 2. Get the target version from the user's request; if the request says "current version", check the project version. Use the requested release date; if none is given, use the current date.
 3. Compare the target version with the latest stable version. If the target is not newer, stop and tell the user that no release notes are needed until a newer release tag is available; do not generate notes or create/update files. In particular, a project prerelease for a version that is already stable does not count as a newer release.
-4. Use GitHub's generated release notes as the default source; the user does not need to provide a separate raw file. For `dotnetcore/BootstrapBlazor`, generate notes without creating a release:
+4. Use GitHub's generated release notes as the default source; the user does not need to provide a separate raw file. This step requires the `gh` CLI, an authenticated GitHub account (`gh auth status`), and network access; cloud or CI agents may not have them. For `dotnetcore/BootstrapBlazor`, generate notes without creating a release:
 
    ```sh
    gh api --method POST repos/dotnetcore/BootstrapBlazor/releases/generate-notes \
@@ -22,7 +22,7 @@ Create matching English and Chinese release-note drafts for this repository. Do 
      --jq .body
    ```
 
-   Replace the example tag values with the confirmed target and previous tags. The endpoint returns generated text; it does not publish a release. The GitHub draft page at `https://github.com/dotnetcore/BootstrapBlazor/releases/new` can also generate the same source. If GitHub access or authentication is unavailable, explain the blocker and use raw change data only if the user provides it.
+   Replace the example tag values with the confirmed target and previous tags. The endpoint returns generated text; it does not publish a release. The GitHub draft page at `https://github.com/dotnetcore/BootstrapBlazor/releases/new` can also generate the same source. If the `gh` CLI, authentication, or GitHub access is unavailable, explain the blocker and use raw change data only if the user provides it.
 5. If the user supplies a source file or explicit change list, use that as the scope instead of adding unrelated PRs from elsewhere.
 
 ## Curate the changes
