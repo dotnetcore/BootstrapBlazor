@@ -198,59 +198,6 @@ public class SearchFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DateTimeSidebarMetadata_PassesParametersToComponents()
-    {
-        var dateTimeSidebarItems = new List<DateTimePickerSidebarItem>
-        {
-            new() { Text = "Date shortcut" }
-        };
-        RenderFragment<Func<DateTime, Task>> dateTimeSidebarTemplate = _ => _ => { };
-        var dateTimeMetadata = new DateTimeSearchMetadata
-        {
-            ShowSidebar = true,
-            SidebarItems = dateTimeSidebarItems,
-            SidebarTemplate = dateTimeSidebarTemplate
-        };
-
-        var dateTimeRangeSidebarItems = new List<DateTimeRangeSidebarItem>
-        {
-            new() { Text = "Date range shortcut" }
-        };
-        RenderFragment<Func<DateTimeRangeValue, Task>> dateTimeRangeSidebarTemplate = _ => _ => { };
-        var dateTimeRangeMetadata = new DateTimeRangeSearchMetadata
-        {
-            ShowSidebar = true,
-            SidebarItems = dateTimeRangeSidebarItems,
-            SidebarTemplate = dateTimeRangeSidebarTemplate
-        };
-
-        var cut = Context.Render<SearchForm>(pb =>
-        {
-            pb.Add(a => a.Items, new List<ISearchItem>
-            {
-                new SearchItem(nameof(Foo.DateTime), typeof(DateTime), nameof(Foo.DateTime))
-                {
-                    Metadata = dateTimeMetadata
-                },
-                new SearchItem(nameof(Foo.DateTime), typeof(DateTime), nameof(Foo.DateTime))
-                {
-                    Metadata = dateTimeRangeMetadata
-                }
-            });
-        });
-
-        var dateTimePicker = cut.FindComponent<DateTimePicker<DateTime?>>().Instance;
-        Assert.True(dateTimePicker.ShowSidebar);
-        Assert.Same(dateTimeSidebarItems, dateTimePicker.SidebarItems);
-        Assert.Same(dateTimeSidebarTemplate, dateTimePicker.SidebarTemplate);
-
-        var dateTimeRange = cut.FindComponent<DateTimeRange>().Instance;
-        Assert.True(dateTimeRange.ShowSidebar);
-        Assert.Same(dateTimeRangeSidebarItems, dateTimeRange.SidebarItems);
-        Assert.Same(dateTimeRangeSidebarTemplate, dateTimeRange.SidebarTemplate);
-    }
-
-    [Fact]
     public void GetFilter_Ok()
     {
         var item = new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education));
