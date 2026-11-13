@@ -15,6 +15,7 @@ public class DateTimeSearchMetadata : SearchFormItemMetadataBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
+    /// <para><version>11.1.0</version></para>
     /// </summary>
     public bool ShowSidebar { get; set; }
 
@@ -28,6 +29,7 @@ public class DateTimeSearchMetadata : SearchFormItemMetadataBase
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
     /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
+    /// <para><version>11.1.0</version></para>
     /// </summary>
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 

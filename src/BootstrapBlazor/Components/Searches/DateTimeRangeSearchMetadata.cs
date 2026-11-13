@@ -15,12 +15,14 @@ public class DateTimeRangeSearchMetadata : SearchFormItemMetadataBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
+    /// <para><version>11.1.0</version></para>
     /// </summary>
     public bool ShowSidebar { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
     /// <para lang="en">Gets or sets Sidebar Items</para>
+    /// <para><version>11.1.0</version></para>
     /// </summary>
     public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
 
