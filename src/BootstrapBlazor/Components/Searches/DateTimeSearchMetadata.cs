@@ -13,8 +13,8 @@ namespace BootstrapBlazor.Components;
 public class DateTimeSearchMetadata : SearchFormItemMetadataBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
-    /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is not shown</para>
+    /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     public bool ShowSidebar { get; set; }
 
