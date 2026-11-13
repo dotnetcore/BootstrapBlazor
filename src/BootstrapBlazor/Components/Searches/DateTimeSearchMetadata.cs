@@ -13,6 +13,25 @@ namespace BootstrapBlazor.Components;
 public class DateTimeSearchMetadata : SearchFormItemMetadataBase
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is not shown</para>
+    /// </summary>
+    public bool ShowSidebar { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
+    /// <para lang="en">Gets or sets Sidebar Items</para>
+    /// <para><version>11.1.0</version></para>
+    /// </summary>
+    public List<DateTimePickerSidebarItem>? SidebarItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
+    /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
+    /// </summary>
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>
     /// <para lang="en">Gets or sets the search start value</para>
     /// </summary>
