@@ -72,6 +72,7 @@ const createWatermark = watermark => {
         gap: 40,
         fontSize: 16,
         text: 'BootstrapBlazor',
+        textAlign: 'center',
         rotate: -40,
         color: '#0000004d',
         zIndex: '9999'
@@ -188,7 +189,7 @@ const getWatermark = props => {
     const ctx = canvas.getContext('2d');
 
     ctx.font = font;
-    const lines = props.text.split(/\r\n|\n/);
+    const lines = props.text.split(/\r\n|\n|\\r\\n|\\n/);
     const width = lines.reduce((max, line) => Math.max(max, ctx.measureText(line).width), 0);
     const lineHeight = fontSize * 1.2;
     const angle = (Math.PI / 180) * props.rotate;
@@ -210,11 +211,13 @@ const getWatermark = props => {
     ctx.rotate(angle);
     ctx.fillStyle = props.color;
     ctx.font = font;
-    ctx.textAlign = 'center';
+    const textAlign = props.textAlign === 'start' || props.textAlign === 'end' ? props.textAlign : 'center';
+    const x = textAlign === 'start' ? -width / 2 : textAlign === 'end' ? width / 2 : 0;
+    ctx.textAlign = textAlign;
     ctx.textBaseline = 'middle';
 
     lines.forEach((line, index) => {
-        ctx.fillText(line, 0, (index - (lines.length - 1) / 2) * lineHeight);
+        ctx.fillText(line, x, (index - (lines.length - 1) / 2) * lineHeight);
     });
     return {
         base64: canvas.toDataURL(),
