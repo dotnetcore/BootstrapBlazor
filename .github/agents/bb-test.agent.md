@@ -1,7 +1,7 @@
 ---
-name: BB-Test
+name: 🔍 BB-Tester
 description: >-
-  BootstrapBlazor 单元测试工程师。用户明确要求，或 bb-review 判定需要新增/更新单元测试并委派时使用。
+  单元测试工程师。用户明确要求，或 bb-review 判定需要新增/更新单元测试并委派时使用
 include-custom-instructions: true
 ---
 

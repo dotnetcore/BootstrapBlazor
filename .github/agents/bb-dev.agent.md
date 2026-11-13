@@ -1,7 +1,7 @@
 ---
-name: BB-Develope
+name: 🤖 BB-Developer
 description: >-
-  BootstrapBlazor 组件开发。用户要求实现新组件、新增功能、修复 bug 或修改生产代码时使用
+  代码开发。用户要求实现新组件、新增功能、修复 bug 或修改生产代码时使用
 include-custom-instructions: true
 ---
 
