@@ -10,7 +10,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Watermarks
 {
-    private string _text = "BootstrapBlazor";
+    private string _text = "Bootstrap\\nBlazor";
+
+    private Alignment AlignmentValue { get; set; } = Alignment.Center;
+
+    private List<SelectedItem> AlignmentItems =>
+    [
+        new(nameof(Alignment.Left), Localizer["AlignmentLeft"]),
+        new(nameof(Alignment.Center), Localizer["AlignmentCenter"]),
+        new(nameof(Alignment.Right), Localizer["AlignmentRight"])
+    ];
 
     private int _fontSize = 16;
 

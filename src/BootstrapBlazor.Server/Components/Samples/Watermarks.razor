@@ -9,18 +9,26 @@
     <section ignore>
         @((MarkupString)Localizer["WatermarkDescription"].Value)
         <Pre>&lt;Layout&gt;&lt;/Layout&gt;
-&lt;Watermark IsPage="true" Text="BootstrapBlazor" FontSize="20" Color="#ddd" Rotate="-45" Gap="40"&gt;&lt;/Watermark&gt;</Pre>
+&lt;Watermark IsPage="true" Text="Bootstrap\nBlazor" Alignment="Alignment.Center" FontSize="20" Color="#ddd" Rotate="-45" Gap="40"&gt;&lt;/Watermark&gt;</Pre>
         <div class="row form-inline g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="Text" Width="76"></BootstrapInputGroupLabel>
-                    <BootstrapInput @bind-Value="@_text"></BootstrapInput>
+                    <Tooltip Title="@Localizer["WatermarkTextHint"]">
+                        <BootstrapInput @bind-Value="@_text"></BootstrapInput>
+                    </Tooltip>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="FontSize" Width="76"></BootstrapInputGroupLabel>
                     <Slider @bind-Value="@_fontSize" Min="12" Max="20"></Slider>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["AlignmentLabel"]" Width="76"></BootstrapInputGroupLabel>
+                    <Select @bind-Value="AlignmentValue" Items="AlignmentItems"></Select>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
@@ -43,7 +51,7 @@
             </div>
         </div>
     </section>
-    <Watermark Text="@_text" FontSize="@_fontSize" Color="@_color" Rotate="@_rotate"
+    <Watermark Text="@_text" Alignment="@AlignmentValue" FontSize="@_fontSize" Color="@_color" Rotate="@_rotate"
                Gap="@_gap">
         <div style="height: 500px; padding-top: 40px; text-align: center;">
             <p>this is a watermark demo</p>

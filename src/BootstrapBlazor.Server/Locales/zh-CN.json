@@ -6310,10 +6310,15 @@
     "VideoPlayersTitle": "VideoPlayer 视频播放器"
   },
   "BootstrapBlazor.Server.Components.Samples.Watermarks": {
+    "AlignmentCenter": "居中",
+    "AlignmentLabel": "对齐",
+    "AlignmentLeft": "左对齐",
+    "AlignmentRight": "右对齐",
     "WatermarkDescription": "<p>全局增加水印实现方法</p><p>可以在模板页 <code>MainLayout</code> 中加水印组件并设置 <code>IsPage=\"true\"</code> 即可</p>",
     "WatermarkIntro": "在页面上添加文本或图片等水印信息",
     "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容",
     "WatermarkNormalTitle": "基础用法",
+    "WatermarkTextHint": "输入字面文本 \\n 或 \\r\\n 可使水印换行。",
     "WatermarkTitle": "Watermark 水印组件"
   },
   "BootstrapBlazor.Server.Components.Samples.WebSerials": {

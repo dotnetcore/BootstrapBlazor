@@ -26,6 +26,14 @@ public partial class Watermark
     public string? Text { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 水印文本对齐方式 默认 <see cref="Alignment.Center"/> None 或无效值按居中处理</para>
+    /// <para lang="en">Gets or sets watermark text alignment. Default is <see cref="Alignment.Center"/>. None or invalid values are treated as centered</para>
+    /// <para><version>11.1.1</version></para>
+    /// </summary>
+    [Parameter]
+    public Alignment Alignment { get; set; } = Alignment.Center;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 字体大小 默认 null 未设置 默认使用 16px 字体大小 单位 px</para>
     /// <para lang="en">Gets or sets font size Default is null Not set Default is 16px Font size Unit is px</para>
     /// </summary>
@@ -109,6 +117,12 @@ public partial class Watermark
     private object GetOptions() => new
     {
         Text,
+        TextAlign = Alignment switch
+        {
+            Alignment.Left => "start",
+            Alignment.Right => "end",
+            _ => "center"
+        },
         FontSize,
         Color,
         Rotate,

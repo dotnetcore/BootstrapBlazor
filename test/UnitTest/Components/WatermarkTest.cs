@@ -3,10 +3,40 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Text.Json;
+
 namespace UnitTest.Components;
 
 public class WatermarkTest : BootstrapBlazorTestBase
 {
+    private static readonly JsonSerializerOptions _option = new(JsonSerializerDefaults.Web);
+
+    [Theory]
+    [InlineData(Alignment.Center, "center")]
+    [InlineData(Alignment.Left, "start")]
+    [InlineData(Alignment.Right, "end")]
+    [InlineData(Alignment.None, "center")]
+    [InlineData((Alignment)(-1), "center")]
+    public void Alignment_Ok(Alignment alignment, string expected)
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/Components/Watermark/Watermark.razor.js");
+        var cut = Context.Render<Watermark>();
+
+        AssertTextAlign(module.VerifyInvoke("init").Arguments[1]!, "center");
+
+        cut.Render(pb => pb.Add(a => a.Alignment, alignment));
+
+        AssertTextAlign(module.VerifyInvoke("update").Arguments[1]!, expected);
+
+        static void AssertTextAlign(object options, string expected)
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(options, _option);
+            using var document = System.Text.Json.JsonDocument.Parse(json);
+
+            Assert.Equal(expected, document.RootElement.GetProperty("textAlign").GetString());
+        }
+    }
+
     [Fact]
     public void Watermark_Ok()
     {
