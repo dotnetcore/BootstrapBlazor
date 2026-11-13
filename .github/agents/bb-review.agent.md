@@ -1,5 +1,5 @@
 ---
-name: bb-review
+name: BB-Review
 description: >-
   BootstrapBlazor 代码审查员。用户要求审查 diff / review / 检查改动，或实现完成后需要复核时使用；
   发现代码问题或需要补测试时，可自动委派 bb-dev / bb-test 处理；本角色不自行改功能代码。
