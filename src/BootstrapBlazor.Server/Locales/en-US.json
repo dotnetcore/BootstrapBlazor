@@ -6310,10 +6310,15 @@
     "VideoPlayersTitle": "VideoPlayer"
   },
   "BootstrapBlazor.Server.Components.Samples.Watermarks": {
+    "AlignmentCenter": "Center",
+    "AlignmentLabel": "Alignment",
+    "AlignmentLeft": "Left",
+    "AlignmentRight": "Right",
     "WatermarkDescription": "<p>How to add a watermark globally</p><p>You can add a watermark component to the template page <code>MainLayout</code> and set <code>IsPage=\"true\"</code></p>",
     "WatermarkIntro": "Add specific text or patterns to the page",
     "WatermarkNormalIntro": "Use the <code>Text</code> property to set a string to specify the watermark text",
     "WatermarkNormalTitle": "Basic usage",
+    "WatermarkTextHint": "Type literal \\n or \\r\\n to create line breaks in the watermark.",
     "WatermarkTitle": "Watermark"
   },
   "BootstrapBlazor.Server.Components.Samples.WebSerials": {
