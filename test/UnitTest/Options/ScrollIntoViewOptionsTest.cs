@@ -9,6 +9,8 @@ namespace UnitTest.Options;
 
 public class ScrollIntoViewOptionsTest
 {
+    private static readonly JsonSerializerOptions _option = new(JsonSerializerDefaults.Web);
+
     [Fact]
     public void Options_Ok()
     {
@@ -18,7 +20,7 @@ public class ScrollIntoViewOptionsTest
             Block = ScrollIntoViewBlock.Center,
             Inline = ScrollIntoViewInline.End
         };
-        var json = JsonSerializer.Serialize(options, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+        var json = JsonSerializer.Serialize(options, _option);
         Assert.Equal("{\"behavior\":\"auto\",\"block\":\"center\",\"inline\":\"end\"}", json);
     }
 }
