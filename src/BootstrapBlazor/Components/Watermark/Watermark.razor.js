@@ -189,7 +189,7 @@ const getWatermark = props => {
     const ctx = canvas.getContext('2d');
 
     ctx.font = font;
-    const lines = props.text.split(/\r\n|\n|\\r\\n|\\n/);
+    const lines = props.text.split(/\r\n|\r|\n|\\r\\n|\\r|\\n/);
     const width = lines.reduce((max, line) => Math.max(max, ctx.measureText(line).width), 0);
     const lineHeight = fontSize * 1.2;
     const angle = (Math.PI / 180) * props.rotate;
