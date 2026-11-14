@@ -94,9 +94,4 @@
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)skills/bootstrapblazor/references/llms.txt')">
-    <None Include="$(MSBuildThisFileDirectory)../../.agents/skills/bootstrapblazor/SKILL.md" Pack="true" PackagePath="skills/bootstrapblazor/" />
-    <None Include="$(MSBuildThisFileDirectory)skills/bootstrapblazor/references/**/*" Pack="true" PackagePath="skills/bootstrapblazor/references/" />
-  </ItemGroup>
-
 </Project>
