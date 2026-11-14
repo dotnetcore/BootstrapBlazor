@@ -24,8 +24,16 @@
 
   <Target Name="GeneratePackageSkillDocs" BeforeTargets="_GetPackageFiles" Condition="'$(IsPackable)' == 'true'">
     <Message Text="Generating BootstrapBlazor package skill docs ..." Importance="high" />
-    <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet llms-docs --core-only --root &quot;$(BootstrapBlazorRepositoryRoot)/src/BootstrapBlazor.Server&quot; --output &quot;$(BootstrapBlazorSkillDocsWorkRoot)/out&quot;" />
+    <PropertyGroup>
+      <RepositoryRoot>$(MSBuildThisFileDirectory)../..</RepositoryRoot>
+      <BootstrapBlazorSkillDocsPath>$(MSBuildThisFileDirectory)skills/bootstrapblazor/references</BootstrapBlazorSkillDocsPath>
+    </PropertyGroup>
+    <Exec Command="dotnet tool restore" WorkingDirectory="$(RepositoryRoot)" />
+    <RemoveDir Directories="$(BootstrapBlazorSkillDocsPath)" />
+    <Exec Command='dotnet llms-docs --core-only --root "$(RepositoryRoot)/src/BootstrapBlazor.Server" --output "$(BootstrapBlazorSkillDocsPath)"' WorkingDirectory="$(RepositoryRoot)" />
+    <ItemGroup>
+      <None Include="$(MSBuildThisFileDirectory)skills/bootstrapblazor/**/*" Pack="true" PackagePath="skills/bootstrapblazor" />
+    </ItemGroup>
   </Target>
 
 </Project>
