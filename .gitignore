@@ -388,6 +388,7 @@ src/**/wwwroot/**/uploader
 
 # generated skill references packed into BootstrapBlazor.nupkg
 src/BootstrapBlazor/skills/bootstrapblazor/references/
+src/BootstrapBlazor/skills/bb-api/references/
 
 # Kiro
 .kiro
