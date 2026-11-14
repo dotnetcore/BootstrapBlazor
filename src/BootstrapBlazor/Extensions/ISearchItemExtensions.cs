@@ -203,6 +203,9 @@ public static class ISearchItemExtensions
             builder.AddAttribute(40, nameof(DateTimeRange.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(DateTimeRange.DisplayText), item.Text);
             builder.AddAttribute(60, nameof(DateTimeRange.SkipValidate), true);
+            builder.AddAttribute(70, nameof(DateTimeRange.ShowSidebar), datetimeRangeSearchMetadata.ShowSidebar);
+            builder.AddAttribute(80, nameof(DateTimeRange.SidebarItems), datetimeRangeSearchMetadata.SidebarItems);
+            builder.AddAttribute(90, nameof(DateTimeRange.SidebarTemplate), datetimeRangeSearchMetadata.SidebarTemplate);
             builder.CloseComponent();
         }
 
@@ -216,6 +219,9 @@ public static class ISearchItemExtensions
             builder.AddAttribute(50, nameof(DateTimePicker<>.DisplayText), item.Text);
             builder.AddAttribute(60, nameof(DateTimePicker<>.SkipValidate), true);
             builder.AddAttribute(70, nameof(DateTimePicker<>.DatePlaceHolderText), datetimeSearchMetadata.PlaceHolder);
+            builder.AddAttribute(80, nameof(DateTimePicker<>.ShowSidebar), datetimeSearchMetadata.ShowSidebar);
+            builder.AddAttribute(90, nameof(DateTimePicker<>.SidebarItems), datetimeSearchMetadata.SidebarItems);
+            builder.AddAttribute(100, nameof(DateTimePicker<>.SidebarTemplate), datetimeSearchMetadata.SidebarTemplate);
             builder.CloseComponent();
         }
     }
