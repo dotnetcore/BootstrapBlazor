@@ -21,7 +21,4 @@
     <Project Path="test/UnitTest/UnitTest.csproj" />
     <Project Path="test/UnitTestDocs/UnitTestDocs.csproj" />
   </Folder>
-  <Folder Name="/tools/">
-    <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
-  </Folder>
 </Solution>
