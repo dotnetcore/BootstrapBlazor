@@ -22,4 +22,18 @@
     <Exec Command="dotnet css-bundler $(MSBuildThisFileDirectory)bundler.json"></Exec>
   </Target>
 
+  <Target Name="GeneratePackageSkillDocs" BeforeTargets="_GetPackageFiles" Condition="'$(IsPackable)' == 'true'">
+    <Message Text="Generating BootstrapBlazor package skill docs ..." Importance="high" />
+    <PropertyGroup>
+      <RepositoryRoot>$(MSBuildThisFileDirectory)../..</RepositoryRoot>
+      <BootstrapBlazorSkillDocsPath>$(MSBuildThisFileDirectory)skills/bb-api/references</BootstrapBlazorSkillDocsPath>
+    </PropertyGroup>
+    <Exec Command="dotnet tool restore" WorkingDirectory="$(RepositoryRoot)" />
+    <RemoveDir Directories="$(BootstrapBlazorSkillDocsPath)" />
+    <Exec Command='dotnet llms-docs --core-only --root "$(RepositoryRoot)/src/BootstrapBlazor.Server" --output "$(BootstrapBlazorSkillDocsPath)"' WorkingDirectory="$(RepositoryRoot)" />
+    <ItemGroup>
+      <None Include="$(MSBuildThisFileDirectory)skills/bb-api/**/*" Pack="true" PackagePath="skills/bb-api" />
+    </ItemGroup>
+  </Target>
+
 </Project>

@@ -4,6 +4,11 @@
 
 ## 编码规范
 
+### 术语
+- BootstrapBlazor 组件库：简称 BB
+- BootstrapBlazor 组件：简称 BB 组件
+- BootstrapBlazor.Extensions 简称 BB.Extensions
+
 ### C#
 
 - 异步方法加 `Async` 后缀
