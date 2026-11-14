@@ -94,8 +94,6 @@
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <!-- Agent skill shipped with the package. The condition keeps local builds from
-       producing a package with SKILL.md but no generated reference docs. -->
   <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)skills/bootstrapblazor/references/llms.txt')">
     <None Include="$(MSBuildThisFileDirectory)../../.agents/skills/bootstrapblazor/SKILL.md" Pack="true" PackagePath="skills/bootstrapblazor/" />
     <None Include="$(MSBuildThisFileDirectory)skills/bootstrapblazor/references/**/*" Pack="true" PackagePath="skills/bootstrapblazor/references/" />

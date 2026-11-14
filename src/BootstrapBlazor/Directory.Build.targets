@@ -22,33 +22,10 @@
     <Exec Command="dotnet css-bundler $(MSBuildThisFileDirectory)bundler.json"></Exec>
   </Target>
 
-  <Target Name="GeneratePackageSkillDocs" BeforeTargets="_GetPackageFiles" Condition="'$(MSBuildProjectName)' == 'BootstrapBlazor' and '$(IsPackable)' == 'true' and '$(IsInnerBuild)' != 'true'">
+  <Target Name="GeneratePackageSkillDocs" BeforeTargets="_GetPackageFiles" Condition="'$(IsPackable)' == 'true'">
     <Message Text="Generating BootstrapBlazor package skill docs ..." Importance="high" />
-    <PropertyGroup>
-      <BootstrapBlazorRepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))</BootstrapBlazorRepositoryRoot>
-      <BootstrapBlazorSkillDocsWorkRoot>$(MSBuildThisFileDirectory)obj/skill-docs-$([System.Guid]::NewGuid().ToString('N'))</BootstrapBlazorSkillDocsWorkRoot>
-    </PropertyGroup>
-    <RegisterBootstrapBlazorSkillDocsCleanup DirectoryPath="$(BootstrapBlazorSkillDocsWorkRoot)" />
-    <MakeDir Directories="$(BootstrapBlazorSkillDocsWorkRoot)" />
-    <Exec Command="dotnet tool restore" WorkingDirectory="$(BootstrapBlazorRepositoryRoot)" />
-    <Exec Command="dotnet llms-docs --core-only --root &quot;$(BootstrapBlazorRepositoryRoot)/src/BootstrapBlazor.Server&quot; --output &quot;$(BootstrapBlazorSkillDocsWorkRoot)/out&quot;" WorkingDirectory="$(BootstrapBlazorRepositoryRoot)" />
-    <ValidateBootstrapBlazorSkillReferences GeneratedDirectory="$(BootstrapBlazorSkillDocsWorkRoot)/out/wwwroot/llms" />
-    <ItemGroup>
-      <BootstrapBlazorSkillReference Include="$(BootstrapBlazorSkillDocsWorkRoot)/out/wwwroot/llms/llms.txt" PackagePath="skills/bootstrapblazor/references/llms.txt" />
-      <BootstrapBlazorSkillReference Include="$(BootstrapBlazorSkillDocsWorkRoot)/out/wwwroot/llms/components/*.txt" PackagePath="skills/bootstrapblazor/references/components/" />
-    </ItemGroup>
-    <Error Condition="!Exists('skills/bootstrapblazor/SKILL.md')" Text="BootstrapBlazor package SKILL.md is missing." />
-    <Error Condition="'@(BootstrapBlazorSkillReference)' == ''" Text="BootstrapBlazor package skill references are empty." />
-    <ItemGroup>
-      <None Remove="skills/bootstrapblazor/SKILL.md;skills/bootstrapblazor/references/**/*" />
-      <None Include="skills/bootstrapblazor/SKILL.md" Pack="true" PackagePath="skills/bootstrapblazor/SKILL.md" />
-      <None Include="@(BootstrapBlazorSkillReference)" Pack="true" PackagePath="%(BootstrapBlazorSkillReference.PackagePath)" />
-    </ItemGroup>
-    <OnError ExecuteTargets="CleanupPackageSkillDocs" />
-  </Target>
-
-  <Target Name="CleanupPackageSkillDocs" AfterTargets="Pack">
-    <RemoveDir Directories="$(BootstrapBlazorSkillDocsWorkRoot)" Condition="'$(BootstrapBlazorSkillDocsWorkRoot)' != '' and Exists('$(BootstrapBlazorSkillDocsWorkRoot)')" />
+    <Exec Command="dotnet tool restore" />
+    <Exec Command="dotnet llms-docs --core-only --root &quot;$(BootstrapBlazorRepositoryRoot)/src/BootstrapBlazor.Server&quot; --output &quot;$(BootstrapBlazorSkillDocsWorkRoot)/out&quot;" />
   </Target>
 
 </Project>
