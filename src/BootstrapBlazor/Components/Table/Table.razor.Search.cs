@@ -181,7 +181,7 @@ public partial class Table<TItem>
 
     private List<ISearchItem> GetSearchFormItems()
     {
-        if (SearchItems != null)
+        if (SearchItems?.Count() > 0)
         {
             return SearchItems.ToList();
         }
@@ -190,7 +190,8 @@ public partial class Table<TItem>
         {
             SearchFormLocalizerOptions = SearchFormLocalizer.GetSearchFormLocalizerOptions();
         }
-        return GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
+        SearchItems = GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
+        return SearchItems.ToList<ISearchItem>();
     }
 
     private Task OnSearchFormFilterChanged(FilterKeyValueAction action)
