@@ -27,32 +27,32 @@ export function init(id, invoke, shownCallback, closeCallback) {
     EventHandler.on(window, 'popstate', modal.pop)
 
     modal.show = () => {
-        backupBodyStyle(modal);
         const dialogs = el.querySelectorAll('.modal-dialog')
-        if (dialogs.length === 1) {
-            let backdrop = el.getAttribute('data-bs-backdrop') !== 'static'
-            if (!backdrop) {
-                backdrop = 'static'
-            }
-            if (!modal.modal) {
-                modal.modal = bootstrap.Modal.getOrCreateInstance(el)
-                // hack: fix focusin event
-                modal.modal._focustrap._handleFocusin = e => { }
-            }
+        if (dialogs.length === 0) {
+            return
+        }
 
-            modal.modal._dialog = dialogs[0]
-            modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
-            modal.modal._config.backdrop = backdrop
+        backupBodyStyle(modal);
+        if (!modal.modal) {
+            modal.modal = bootstrap.Modal.getOrCreateInstance(el)
+            // hack: fix focusin event
+            modal.modal._focustrap._handleFocusin = e => { }
+        }
+
+        const multiple = dialogs.length > 1
+        modal.modal._dialog = dialogs[0]
+        modal.modal._config.keyboard = !multiple && el.getAttribute('data-bs-keyboard') === 'true'
+        modal.modal._config.backdrop = multiple || el.getAttribute('data-bs-backdrop') === 'static' ? 'static' : true
+
+        if (multiple) {
+            modal.handlerKeyboardAndBackdrop()
+        }
+
+        if (!modal.modal._isShown) {
             modal.modal.show()
         }
-        else {
+        else if (multiple && !modal.modal._isTransitioning) {
             modal.invoke.invokeMethodAsync(modal.shownCallback)
-
-            modal.modal._config.keyboard = false
-            modal.modal._config.backdrop = 'static'
-
-            modal.handlerKeyboardAndBackdrop()
-            el.classList.add('show');
         }
     }
 
