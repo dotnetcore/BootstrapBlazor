@@ -59,11 +59,6 @@ public partial class Dialog : IDisposable
 
     private async Task Show(DialogOption option)
     {
-        if (_currentParameter != null && _modal != null)
-        {
-            await _modal.WaitForHideAsync();
-        }
-
         _onShownAsync = async () =>
         {
             if (option.OnShownAsync != null)
