@@ -246,6 +246,12 @@ public partial class Modal : IClosable
         await InvokeVoidAsync("execute", Id, "show");
     }
 
+    internal async Task WaitForHideAsync()
+    {
+        await ModuleInitTask.Task;
+        await InvokeVoidAsync("execute", Id, "waitForHide");
+    }
+
     /// <summary>
     /// <para lang="zh">关闭当前弹出窗口的方法</para>
     /// <para lang="en">Method to close the current popup</para>

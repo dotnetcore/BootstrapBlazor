@@ -20,33 +20,45 @@ export function init(id, invoke, shownCallback, closeCallback) {
     EventHandler.on(el, 'shown.bs.modal', () => {
         invoke.invokeMethodAsync(shownCallback)
     })
-    EventHandler.on(el, 'hidden.bs.modal', e => {
+    EventHandler.on(el, 'hide.bs.modal', e => {
+        if (e.target === el) {
+            modal.hiddenTask = new Promise(resolve => modal.resolveHidden = resolve)
+        }
+    })
+    EventHandler.on(el, 'hidden.bs.modal', async e => {
         e.stopPropagation();
-        invoke.invokeMethodAsync(closeCallback)
+        const resolveHidden = modal.resolveHidden
+        modal.hiddenTask = null
+        modal.resolveHidden = null
+        try {
+            await invoke.invokeMethodAsync(closeCallback)
+        }
+        finally {
+            resolveHidden?.()
+        }
     })
     EventHandler.on(window, 'popstate', modal.pop)
 
     modal.show = () => {
         const dialogs = el.querySelectorAll('.modal-dialog')
-        if (dialogs.length === 0) {
+        const dialog = [...dialogs].reverse().find(d => !d.classList.contains('d-none'))
+        if (!dialog) {
             return
         }
 
         backupBodyStyle(modal);
         if (!modal.modal) {
+            // Handle nested dismissal before Bootstrap's native listeners.
+            modal.handlerKeyboardAndBackdrop()
             modal.modal = bootstrap.Modal.getOrCreateInstance(el)
             // hack: fix focusin event
             modal.modal._focustrap._handleFocusin = e => { }
         }
 
         const multiple = dialogs.length > 1
-        modal.modal._dialog = dialogs[0]
+        modal.modal._dialog = dialog
         modal.modal._config.keyboard = !multiple && el.getAttribute('data-bs-keyboard') === 'true'
         modal.modal._config.backdrop = multiple || el.getAttribute('data-bs-backdrop') === 'static' ? 'static' : true
-
-        if (multiple) {
-            modal.handlerKeyboardAndBackdrop()
-        }
 
         if (!modal.modal._isShown) {
             modal.modal.show()
@@ -86,8 +98,22 @@ export function init(id, invoke, shownCallback, closeCallback) {
         if (!modal.hook_keyboard_backdrop) {
             modal.hook_keyboard_backdrop = true;
 
+            const isMultiple = () => el.querySelectorAll('.modal-dialog').length > 1
+            modal.handlerKeydown = e => {
+                if (isMultiple() && e.key === 'Escape' && el.getAttribute('data-bs-keyboard') === 'true') {
+                    e.stopImmediatePropagation()
+                }
+            }
+            modal.handlerMousedown = e => {
+                if (isMultiple() && e.target === el && el.getAttribute('data-bs-backdrop') !== 'static') {
+                    e.stopImmediatePropagation()
+                }
+            }
+            EventHandler.on(el, 'keydown', modal.handlerKeydown)
+            EventHandler.on(el, 'mousedown', modal.handlerMousedown)
+
             modal.handlerEscape = async e => {
-                if (e.key === 'Escape') {
+                if (isMultiple() && e.key === 'Escape') {
                     const keyboard = el.getAttribute('data-bs-keyboard')
                     if (keyboard === 'true') {
                         modal.close();
@@ -97,7 +123,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
 
             EventHandler.on(document, 'keyup', modal.handlerEscape)
             EventHandler.on(el, 'click', e => {
-                if (e.target.closest('.modal-dialog') === null) {
+                if (isMultiple() && e.target.closest('.modal-dialog') === null) {
                     const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
                         modal.close();
@@ -134,6 +160,9 @@ export function execute(id, method) {
     else if (method === 'toggle') {
         modal.toggle()
     }
+    else if (method === 'waitForHide') {
+        return modal.modal?._isShown ? null : modal.hiddenTask
+    }
 }
 
 export function dispose(id) {
@@ -142,11 +171,14 @@ export function dispose(id) {
 
     if (modal) {
         EventHandler.off(modal.el, 'shown.bs.modal')
+        EventHandler.off(modal.el, 'hide.bs.modal')
         EventHandler.off(modal.el, 'hidden.bs.modal')
         EventHandler.off(modal.el, 'click')
 
         if (modal.hook_keyboard_backdrop) {
             EventHandler.off(document, 'keyup', modal.handlerEscape)
+            EventHandler.off(modal.el, 'keydown', modal.handlerKeydown)
+            EventHandler.off(modal.el, 'mousedown', modal.handlerMousedown)
         }
 
         EventHandler.off(window, 'popstate', modal.pop)
@@ -160,6 +192,7 @@ export function dispose(id) {
             restoreBodyStyle(modal);
             dialog.dispose()
         }
+        modal.resolveHidden?.()
     }
 }
 

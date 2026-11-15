@@ -8,6 +8,35 @@ namespace UnitTest.Components;
 public class DialogTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task Show_WaitsForPreviousDialogToCloseAsync()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, false);
+            pb.AddChildContent<MockDialogTest>();
+        });
+        var service = cut.FindComponent<MockDialogTest>().Instance.DialogService;
+        await cut.InvokeAsync(() => service.Show(new DialogOption { Title = "Previous dialog" }));
+        var modal = cut.FindComponent<Modal>();
+        var wait = Context.JSInterop.SetupVoid("execute", modal.Instance.Id, "waitForHide");
+
+        var showTask = cut.InvokeAsync(() => service.Show(new DialogOption { Title = "New dialog" }));
+        cut.WaitForAssertion(() => wait.VerifyInvoke("execute"));
+
+        Assert.False(showTask.IsCompleted);
+        Assert.Equal("Previous dialog", cut.Find(".modal-title").TextContent);
+
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
+        Assert.Empty(cut.FindComponents<ModalDialog>());
+
+        wait.SetVoidResult();
+        await showTask;
+
+        Assert.Single(cut.FindComponents<ModalDialog>());
+        Assert.Equal("New dialog", cut.Find(".modal-title").TextContent);
+    }
+
+    [Fact]
     public async Task ShowModal_Ok()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
