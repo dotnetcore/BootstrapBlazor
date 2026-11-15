@@ -30,7 +30,7 @@
     </PropertyGroup>
     <Exec Command="dotnet tool restore" WorkingDirectory="$(RepositoryRoot)" />
     <RemoveDir Directories="$(BootstrapBlazorSkillDocsPath)" />
-    <Exec Command='dotnet llms-docs --core-only --root "$(RepositoryRoot)/src/BootstrapBlazor.Server" --output "$(BootstrapBlazorSkillDocsPath)"' WorkingDirectory="$(RepositoryRoot)" />
+    <Exec Command='dotnet llms-docs --core-only --output "$(BootstrapBlazorSkillDocsPath)"' WorkingDirectory="$(RepositoryRoot)" />
     <ItemGroup>
       <None Include="$(MSBuildThisFileDirectory)skills/bb-api/**/*" Pack="true" PackagePath="skills/bb-api" />
     </ItemGroup>
