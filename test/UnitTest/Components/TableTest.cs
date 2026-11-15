@@ -730,6 +730,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task SearchItems_AutoGenerate_Ok(bool emptySearchItems, bool searchable)
     {
         QueryPageOptions? queryOptions = null;
+        var searchItems = emptySearchItems ? new List<ISearchItem>() : null;
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -738,7 +739,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.UseSearchForm, true);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
-                pb.Add(a => a.SearchItems, emptySearchItems ? new List<ISearchItem>() : null);
+                pb.Add(a => a.SearchItems, searchItems);
                 pb.Add(a => a.OnQueryAsync, options =>
                 {
                     queryOptions = options;
@@ -762,19 +763,17 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         var searchForm = cut.FindComponent<SearchForm>();
-        Assert.NotNull(table.Instance.SearchItems);
+        Assert.Same(searchItems, table.Instance.SearchItems);
         Assert.NotNull(searchForm.Instance.Items);
 
-        if (!searchable)
+        if (emptySearchItems || !searchable)
         {
-            Assert.Empty(table.Instance.SearchItems);
             Assert.Empty(searchForm.Instance.Items);
             return;
         }
 
-        var searchItem = Assert.Single(table.Instance.SearchItems);
+        var searchItem = Assert.Single(searchForm.Instance.Items);
         Assert.Equal(nameof(Foo.Name), searchItem.FieldName);
-        Assert.Same(searchItem, Assert.Single(searchForm.Instance.Items));
         var metadata = Assert.IsType<StringSearchMetadata>(searchItem.Metadata);
         await cut.InvokeAsync(() => metadata.ValueChangedHandler("test"));
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
@@ -783,7 +782,7 @@ public class TableTest : BootstrapBlazorTestBase
         var filter = Assert.Single(Assert.Single(queryOptions.Searches).GetFilterConditions().Filters);
         Assert.Equal(nameof(Foo.Name), filter.FieldKey);
         Assert.Equal("test", filter.FieldValue);
-        Assert.Same(searchItem, Assert.Single(table.Instance.SearchItems!));
+        Assert.Same(searchItem, Assert.Single(searchForm.Instance.Items!));
     }
 
     [Fact]
