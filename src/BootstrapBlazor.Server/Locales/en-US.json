@@ -1803,8 +1803,6 @@
     "ViewModeTitle": "Selector with time"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimeRanges": {
-    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
-    "AutoCloseTitle": "AutoClose",
     "BindValueIntro": "Click the confirm button, the time selection box value is the same as the text box value. Enable auto-close by setting <code>AutoClose=\"true\"</code>. Directly display the selected value by setting <code>ShowSelectedValue=\"true\"</code>",
     "BindValueTitle": "Data two-way binding",
     "Description": "Select a date in the same picker",
@@ -1822,8 +1820,12 @@
     "NormalTitle": "Basic skills",
     "ResponsiveIntro": "Below 768px, a native dialog always shows one calendar with navigation to select a date range. At 768px and above, a Popover follows RenderMode for single or double view. Crossing the breakpoint closes the panel; reopen it to use the new mode. The date picker's nested form example also demonstrates range selection inside a dialog.",
     "ResponsiveTitle": "Responsive dialog",
-    "SidebarIntro": "When the <code>ShowSidebar</code> property value is set to <code>true</code>, the component displays the shortcut sidebar",
+    "SidebarIntro": "When the <code>ShowSidebar</code> property value is set to <code>true</code>, the component displays the shortcut sidebar. Clicking a sidebar shortcut closes the popup automatically.",
     "SidebarTip": "by setting <code>ShowSidebar</code> The parameter enables the display sidebar shortcut options function, by setting <code>SidebarItems</code> The parameter collection replaces the default shortcuts built into the component",
+    "SidebarLastMonth": "Last month",
+    "SidebarLastWeek": "Last week",
+    "SidebarThisMonth": "This month",
+    "SidebarThisWeek": "This week",
     "SidebarTitle": "Sidebar with shortcut keys",
     "SingleViewTitle": "Single view mode",
     "Submit": "Submit",
