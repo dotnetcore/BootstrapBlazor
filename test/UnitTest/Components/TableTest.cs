@@ -673,6 +673,8 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task SearchItems_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var searchItem = new SearchItem("Name", typeof(string), "名称") { Metadata = new StringSearchMetadata() };
+        var searchItems = new List<SearchItem>() { searchItem };
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -681,10 +683,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.UseSearchForm, true);
-                pb.Add(a => a.SearchItems, new List<SearchItem>()
-                {
-                    new SearchItem("Name", typeof(string), "名称") { Metadata = new StringSearchMetadata() }
-                });
+                pb.Add(a => a.SearchItems, searchItems);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -692,6 +691,12 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.AddAttribute(3, nameof(ITableColumn.Searchable), true);
                     builder.CloseComponent();
                 });
             });
@@ -702,6 +707,7 @@ public class TableTest : BootstrapBlazorTestBase
         // 触发 Filter
         var searchForm = cut.FindComponent<SearchForm>();
         Assert.NotNull(searchForm);
+        Assert.Same(searchItem, Assert.Single(searchForm.Instance.Items!));
 
         var input = searchForm.FindComponent<BootstrapInput<string>>();
         Assert.NotNull(input);
@@ -712,7 +718,149 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.NotNull(table);
+        Assert.Same(searchItems, table.Instance.SearchItems);
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    public async Task SearchItems_AutoGenerate_Ok(bool emptySearchItems, bool searchable)
+    {
+        QueryPageOptions? queryOptions = null;
+        var searchItems = emptySearchItems ? new List<ISearchItem>() : null;
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.UseSearchForm, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.SearchItems, searchItems);
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    queryOptions = options;
+                    return Task.FromResult(new QueryData<Foo>() { Items = [] });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(ITableColumn.Searchable), searchable);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var searchForm = cut.FindComponent<SearchForm>();
+        Assert.Same(searchItems, table.Instance.SearchItems);
+        Assert.NotNull(searchForm.Instance.Items);
+
+        if (emptySearchItems || !searchable)
+        {
+            Assert.Empty(searchForm.Instance.Items);
+            return;
+        }
+
+        var searchItem = Assert.Single(searchForm.Instance.Items);
+        Assert.Equal(nameof(Foo.Name), searchItem.FieldName);
+        var metadata = Assert.IsType<StringSearchMetadata>(searchItem.Metadata);
+        await cut.InvokeAsync(() => metadata.ValueChangedHandler("test"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        Assert.NotNull(queryOptions);
+        var filter = Assert.Single(Assert.Single(queryOptions.Searches).GetFilterConditions().Filters);
+        Assert.Equal(nameof(Foo.Name), filter.FieldKey);
+        Assert.Equal("test", filter.FieldValue);
+        Assert.Same(searchItem, Assert.Single(searchForm.Instance.Items!));
+    }
+
+    [Fact]
+    public async Task SearchItems_Changed_UpdatesQueryFilter()
+    {
+        QueryPageOptions? queryOptions = null;
+        var queryCount = 0;
+        var oldMetadata = new StringSearchMetadata();
+        var oldItems = new List<ISearchItem>
+        {
+            new SearchItem(nameof(Foo.Name), typeof(string), "Name") { Metadata = oldMetadata }
+        };
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.UseSearchForm, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.SearchItems, oldItems);
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    queryCount++;
+                    queryOptions = options;
+                    return Task.FromResult(new QueryData<Foo>() { Items = [] });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.AddAttribute(3, nameof(ITableColumn.Searchable), true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => oldMetadata.ValueChangedHandler("old"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Equal("old", Assert.Single(Assert.Single(queryOptions!.Searches).GetFilterConditions().Filters).FieldValue);
+
+        var newItems = new List<ISearchItem>
+        {
+            new SearchItem(nameof(Foo.Address), typeof(string), "Address")
+            {
+                Metadata = new StringSearchMetadata { Value = "new" }
+            }
+        };
+        var previousQueryCount = queryCount;
+        table.Render(pb => pb.Add(a => a.SearchItems, newItems));
+        Assert.Equal(previousQueryCount, queryCount);
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        var filter = Assert.Single(Assert.Single(queryOptions!.Searches).GetFilterConditions().Filters);
+        Assert.Equal(nameof(Foo.Address), filter.FieldKey);
+        Assert.Equal("new", filter.FieldValue);
+
+        newItems.Clear();
+        newItems.Add(new SearchItem(nameof(Foo.Name), typeof(string), "Name")
+        {
+            Metadata = new StringSearchMetadata { Value = "updated" }
+        });
+        table.Render(pb => pb.Add(a => a.SearchItems, newItems));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        filter = Assert.Single(Assert.Single(queryOptions!.Searches).GetFilterConditions().Filters);
+        Assert.Equal(nameof(Foo.Name), filter.FieldKey);
+        Assert.Equal("updated", filter.FieldValue);
+
+        newItems.Clear();
+        table.Render(pb => pb.Add(a => a.SearchItems, newItems));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Empty(queryOptions!.Searches.SelectMany(i => i.GetFilterConditions().Filters));
+
+        table.Render(pb => pb.Add(a => a.SearchItems, null));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Empty(queryOptions!.Searches.SelectMany(i => i.GetFilterConditions().Filters));
+        Assert.Equal(nameof(Foo.Name), Assert.Single(cut.FindComponent<SearchForm>().Instance.Items).FieldName);
     }
 
     [Fact]
