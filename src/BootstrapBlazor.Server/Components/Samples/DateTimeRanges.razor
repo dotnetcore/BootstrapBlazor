@@ -92,7 +92,6 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SingleViewTitle"]" Introduction="@Localizer["SingleViewTitle"]" Name="SingleView">
-    <section ignore class="mb-3">@((MarkupString)Localizer["SingleViewTitle"].Value)</section>
     <DateTimeRange Value="@TodayDateTimeRangeValue" RenderMode="DateTimeRangeRenderMode.Single" />
 </DemoBlock>
 
@@ -117,12 +116,16 @@
 <DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@YearRangeValue" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy">
-            </DateTimeRange>
+            <DateTimeRange @bind-Value="@YearRangeValue" ViewMode="DatePickerViewMode.Year" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@MonthRangeValue" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM">
-            </DateTimeRange>
+            <DateTimeRange @bind-Value="@MonthRangeValue" ViewMode="DatePickerViewMode.Month" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimeRange @bind-Value="@DateTimeRangeValue" ViewMode="DatePickerViewMode.Date" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimeRange @bind-Value="@DateTimeRangeValue" ViewMode="DatePickerViewMode.DateTime" />
         </div>
     </div>
 </DemoBlock>
