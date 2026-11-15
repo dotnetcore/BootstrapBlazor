@@ -71,7 +71,7 @@ public partial class SearchDialog<TModel>
     /// <para lang="en">Gets or sets Search Form Items collection</para>
     /// </summary>
     [Parameter]
-    public List<ISearchItem>? SearchItems { get; set; }
+    public IEnumerable<ISearchItem>? SearchItems { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>

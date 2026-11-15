@@ -167,31 +167,26 @@ public partial class Table<TItem>
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
     private FilterKeyValueAction? _searchFilter;
-    private List<ISearchItem>? _searchItems;
+    private IEnumerable<ISearchItem>? _searchItems;
     private FilterKeyValueAction? _advanceSearchFilter;
 
-    private List<ISearchItem> SearchFormItems
+    private IEnumerable<ISearchItem> SearchFormItems
     {
         get
         {
-            _searchItems ??= GetSearchFormItems();
+            _searchItems ??= SearchItems ?? GetSearchFormItems();
             return _searchItems;
         }
     }
 
-    private List<ISearchItem> GetSearchFormItems()
+    private IEnumerable<ISearchItem> GetSearchFormItems()
     {
-        if (SearchItems?.Count() > 0)
-        {
-            return SearchItems.ToList();
-        }
-
         if (SearchFormLocalizerOptions is null)
         {
             SearchFormLocalizerOptions = SearchFormLocalizer.GetSearchFormLocalizerOptions();
         }
-        SearchItems = GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
-        return SearchItems.ToList<ISearchItem>();
+
+        return GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
     }
 
     private Task OnSearchFormFilterChanged(FilterKeyValueAction action)

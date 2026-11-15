@@ -103,7 +103,7 @@ public class SearchDialogOption<TModel> : DialogOption
     /// <para lang="zh">获得/设置 搜索表单项集合</para>
     /// <para lang="en">Gets or sets Search Form Items collection</para>
     /// </summary>
-    public List<ISearchItem>? SearchItems { get; set; }
+    public IEnumerable<ISearchItem>? SearchItems { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
