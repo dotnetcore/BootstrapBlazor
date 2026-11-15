@@ -23,7 +23,6 @@
 
 - 不使用 bootstrapblazor skill
 - 改前先读相关源码
-- 正常对话中的功能开发等任务，默认不新增、修改或运行单元测试，除非用户明确要求，以提高效率。
 - 不主动引入 NuGet 包
 - 不修改 `Directory.Packages.props`（除非说明理由）
 - 禁止事项：
