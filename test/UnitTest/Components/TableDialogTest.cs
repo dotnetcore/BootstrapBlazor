@@ -14,6 +14,67 @@ namespace UnitTest.Components;
 public class TableDialogTest : TableDialogTestBase
 {
     [Fact]
+    public async Task SearchItems_Changed_UpdatesAdvancedQueryFilter()
+    {
+        QueryPageOptions? queryOptions = null;
+        var oldMetadata = new StringSearchMetadata { Value = "initial" };
+        var oldItems = new List<ISearchItem>
+        {
+            new SearchItem(nameof(Foo.Name), typeof(string), "Name") { Metadata = oldMetadata }
+        };
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.UseSearchForm, true);
+                pb.Add(a => a.SearchMode, SearchMode.Popup);
+                pb.Add(a => a.SearchItems, oldItems);
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    queryOptions = options;
+                    return Task.FromResult(new QueryData<Foo>() { Items = [] });
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => cut.Find(".fa-magnifying-glass-plus").Click());
+        await cut.WaitForAssertionAsync(() => cut.FindComponent<SearchDialog<Foo>>());
+        await cut.InvokeAsync(() => oldMetadata.ValueChangedHandler("old"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.Equal("old", Assert.Single(Assert.Single(queryOptions!.AdvanceSearches).GetFilterConditions().Filters).FieldValue);
+        Assert.Empty(queryOptions.Searches.SelectMany(i => i.GetFilterConditions().Filters));
+        await cut.InvokeAsync(() => cut.FindComponent<Modal>().Instance.CloseCallback());
+
+        var newMetadata = new StringSearchMetadata { Value = "new" };
+        var newItems = new List<ISearchItem>
+        {
+            new SearchItem(nameof(Foo.Address), typeof(string), "Address")
+            {
+                Metadata = newMetadata
+            }
+        };
+        table.Render(pb => pb.Add(a => a.SearchItems, newItems));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        var filter = Assert.Single(Assert.Single(queryOptions!.AdvanceSearches).GetFilterConditions().Filters);
+        Assert.Equal(nameof(Foo.Address), filter.FieldKey);
+        Assert.Equal("new", filter.FieldValue);
+        Assert.Empty(queryOptions.Searches.SelectMany(i => i.GetFilterConditions().Filters));
+
+        await cut.InvokeAsync(() => cut.Find(".fa-magnifying-glass-plus").Click());
+        await cut.WaitForAssertionAsync(() => cut.FindComponent<SearchDialog<Foo>>());
+        await cut.InvokeAsync(() => newMetadata.ValueChangedHandler("updated"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        filter = Assert.Single(Assert.Single(queryOptions!.AdvanceSearches).GetFilterConditions().Filters);
+        Assert.Equal("updated", filter.FieldValue);
+        Assert.Empty(queryOptions.Searches.SelectMany(i => i.GetFilterConditions().Filters));
+        await cut.InvokeAsync(() => cut.FindComponent<Modal>().Instance.CloseCallback());
+    }
+
+    [Fact]
     public async Task EditAsync_Ok()
     {
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
