@@ -110,8 +110,8 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false</para>
-    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false</para>
+    /// <para lang="zh">获得/设置 选择日期范围后是否自动关闭弹窗，默认为 false。日期时间模式下选择日期后需要手动确认。</para>
+    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false. DateTime mode requires manual confirmation after selecting dates.</para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
@@ -253,8 +253,8 @@ public partial class DateTimeRange
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
-    /// <para lang="en">Gets or sets Time Format String. Default is "HH:mm:ss"</para>
+    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "hh\:mm\:ss"</para>
+    /// <para lang="en">Gets or sets Time Format String. Default is "hh\:mm\:ss"</para>
     /// </summary>
     [Parameter]
     [NotNull]
