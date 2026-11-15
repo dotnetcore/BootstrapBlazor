@@ -40,6 +40,9 @@ public partial class DateTimeRange
     /// </summary>
     internal DateTimeRangeValue SelectedValue { get; } = new DateTimeRangeValue();
 
+    private static readonly TimeSpan _startTimeValue = TimeSpan.Zero;
+    private static readonly TimeSpan _endTimeValue = new(23, 59, 59);
+
     private DateTime StartValue { get; set; }
 
     private string? StartValueString
@@ -583,7 +586,7 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     public override bool IsComplexValue(object? propertyValue) => false;
 
-    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.Add(_endTimeValue);
 
     private void ResetBodyValue()
     {
