@@ -1062,6 +1062,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             _searchFilter = SearchFormItems.ToFilter();
         }
+        _lastSearchItems = SearchItems;
     }
 
     /// <summary>
@@ -1136,6 +1137,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 重置搜索表单条件
         _searchItems = null;
+
+        // 未提供 SearchItems 时，仅在参数变为 null 后重建过滤条件。
+        if (!_firstRender && UseSearchForm && (SearchItems is not null || !ReferenceEquals(_lastSearchItems, SearchItems)))
+        {
+            var filter = SearchFormItems.ToFilter();
+            if (_advanceSearchFilter is not null)
+            {
+                _searchFilter = null;
+                _advanceSearchFilter = filter;
+            }
+            else
+            {
+                _searchFilter = filter.Filters.Count > 0 ? filter : null;
+            }
+        }
+        _lastSearchItems = SearchItems;
 
         if (IsExcel)
         {

@@ -168,6 +168,7 @@ public partial class Table<TItem>
 
     private FilterKeyValueAction? _searchFilter;
     private IEnumerable<ISearchItem>? _searchItems;
+    private IEnumerable<ISearchItem>? _lastSearchItems;
     private FilterKeyValueAction? _advanceSearchFilter;
 
     private IEnumerable<ISearchItem> SearchFormItems
@@ -332,6 +333,7 @@ public partial class Table<TItem>
             SearchItems = SearchFormItems,
             OnFilterChanged = action =>
             {
+                _searchFilter = null;
                 _advanceSearchFilter = action;
                 return Task.CompletedTask;
             }
