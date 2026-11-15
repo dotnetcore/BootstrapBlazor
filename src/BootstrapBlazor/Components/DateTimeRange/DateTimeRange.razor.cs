@@ -350,8 +350,6 @@ public partial class DateTimeRange
     /// </summary>
     protected override void OnParametersSet()
     {
-        CheckValid();
-
         base.OnParametersSet();
 
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
@@ -373,15 +371,6 @@ public partial class DateTimeRange
         ResetBodyValue();
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
-
-        [ExcludeFromCodeCoverage]
-        void CheckValid()
-        {
-            if (ViewMode == DatePickerViewMode.DateTime)
-            {
-                throw new InvalidOperationException("DateTime 模式暂时不支持，The DateTime mode is currently not supported yet");
-            }
-        }
     }
 
     /// <summary>
