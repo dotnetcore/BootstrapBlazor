@@ -35,7 +35,7 @@
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="11.0.0" />
-    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.0" />
+    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="11.0.2" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="11.0.1" />
@@ -77,7 +77,7 @@
     <PackageReference Include="BootstrapBlazor.Splitting" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="11.0.0" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.0" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.Term" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.Theme.Fluent" Version="11.0.0" />
