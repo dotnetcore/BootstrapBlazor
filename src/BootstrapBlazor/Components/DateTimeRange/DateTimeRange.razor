@@ -104,11 +104,8 @@
         <input type="text" autocomplete="off" readonly class="form-control"
                aria-label="@GetTimeText(isStart)" value="@GetTime(isStart).ToString(TimeFormat)"
                @onclick="() => ShowTimePicker(isStart)" />
-        @if (RenderMode == DateTimeRangeRenderMode.Double || _activeTimePicker == isStart)
-        {
-            <TimePicker Value="GetTime(isStart)" HasSeconds="HasSeconds"
-                        ShowRequired="false" ShowLabel="false" SkipValidate="true"
-                        OnClose="CloseTimePickerAsync" OnConfirm="@(isStart ? UpdateStartTimeAsync : UpdateEndTimeAsync)" />
-        }
+        <TimePicker Value="GetTime(isStart)" HasSeconds="HasSeconds"
+                    ShowRequired="false" ShowLabel="false" SkipValidate="true"
+                    OnClose="CloseTimePickerAsync" OnConfirm="@(isStart ? UpdateStartTimeAsync : UpdateEndTimeAsync)" />
     </div>;
 }
