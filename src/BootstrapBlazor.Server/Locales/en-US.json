@@ -1835,7 +1835,7 @@
     "TodayTitle": "Show today button",
     "ValidateFormIntro": "Build components into <code>ValidateForm</code> used in",
     "ValidateFormTitle": "Used in the form",
-    "ViewModeIntro": "By setting <code>ViewMode=\"DatePickerViewMode.Year\"</code>, the component view is the year view, and by setting <code>ViewMode=\"DatePickerViewMode.Month\"</code>, the component view is the year view.",
+    "ViewModeIntro": "Use <code>ViewMode</code> to select year, month, date or date-time views. In double view, <code>DatePickerViewMode.DateTime</code> uses the left panel for the start time and the right panel for the end time. Single view and mobile provide both time inputs in one panel. Manual confirmation is required even with <code>AutoClose=\"true\"</code>. Use <code>DateTimeFormat</code> for the input format and <code>TimeFormat</code> for the time picker format. Confirmation is disabled when the start is after the end or either value is outside the minimum and maximum.",
     "ViewModeTitle": "ViewMode"
   },
   "BootstrapBlazor.Server.Components.Samples.DialButtons": {

@@ -1835,7 +1835,7 @@
     "TodayTitle": "显示今天按钮",
     "ValidateFormIntro": "将组件内置到 <code>ValidateForm</code> 中使用",
     "ValidateFormTitle": "表单中使用",
-    "ViewModeIntro": "通过设置 <code>ViewMode=\"DatePickerViewMode.Year\"</code> 使组件视图为年视图，设置 <code>ViewMode=\"DatePickerViewMode.Month\"</code> 使组件视图为年视图",
+    "ViewModeIntro": "通过设置 <code>ViewMode</code> 选择年、月、日期或日期时间视图。<code>DatePickerViewMode.DateTime</code> 在双视图中通过左侧面板选择开始时间、右侧面板选择结束时间，单视图与移动端在同一面板提供两个时间入口；即使设置 <code>AutoClose=\"true\"</code>，仍需点击确认。通过 <code>DateTimeFormat</code> 设置输入框格式，通过 <code>TimeFormat</code> 设置时间选择格式；开始时间晚于结束时间或超出最大、最小值时不能确认。",
     "ViewModeTitle": "显示模式"
   },
   "BootstrapBlazor.Server.Components.Samples.DialButtons": {

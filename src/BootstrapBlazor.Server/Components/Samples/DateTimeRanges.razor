@@ -116,16 +116,21 @@
 <DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@YearRangeValue" ViewMode="DatePickerViewMode.Year" />
+            <DateTimeRange @bind-Value="@YearRangeValue" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@MonthRangeValue" ViewMode="DatePickerViewMode.Month" />
+            <DateTimeRange @bind-Value="@MonthRangeValue" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateRangeValue" ViewMode="DatePickerViewMode.Date" />
+            <DateTimeRange @bind-Value="@DateRangeValue" ViewMode="DatePickerViewMode.Date" DateFormat="yyyy-MM-dd" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@DateTimeRangeValue" ViewMode="DatePickerViewMode.DateTime" />
+            <DateTimeRange @bind-Value="@DateTimeRangeValue" ViewMode="DatePickerViewMode.DateTime" DateFormat="yyyy-MM-dd" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimeRange @bind-Value="@SingleDateTimeRangeValue" ViewMode="DatePickerViewMode.DateTime"
+                           RenderMode="DateTimeRangeRenderMode.Single" IsEditable="true"
+                           DateTimeFormat="yyyy-MM-dd HH:mm" TimeFormat="hh\:mm" />
         </div>
     </div>
 </DemoBlock>

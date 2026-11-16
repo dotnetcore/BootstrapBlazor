@@ -23,6 +23,8 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue DateTimeRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(9), End = DateTime.Today.AddHours(17) };
 
+    private DateTimeRangeValue SingleDateTimeRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(9), End = DateTime.Today.AddHours(17) };
+
     private Task OnNormalConfirm(DateTimeRangeValue value)
     {
         NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd HH:mm:ss} - {value.End:yyyy-MM-dd HH:mm:ss}");
