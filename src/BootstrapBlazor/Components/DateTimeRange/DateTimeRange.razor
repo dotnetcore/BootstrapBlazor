@@ -50,14 +50,16 @@
                         <CascadingValue Value="this" IsFixed="true">
                             @if (RenderMode == DateTimeRangeRenderMode.Double)
                             {
-                                <DatePickerBody class="range-start-panel" Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
+                                <DatePickerBody class="range-start-panel" Value="@StartValue" ValueChanged="UpdateValue"
+                                                OnDateChanged="OnStartDateChanged"
                                                 DateFormat="@DateFormat" ViewMode="PickerBodyViewMode"
                                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                                 ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                                 ShowRightButtons="false" MaxValue="PickerBodyMaxValue" MinValue="PickerBodyMinValue">
                                 </DatePickerBody>
                             }
-                            <DatePickerBody class="@EndPanelClassString" Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                            <DatePickerBody class="@EndPanelClassString" Value="@EndValue" ValueChanged="UpdateValue"
+                                            OnDateChanged="OnEndDateChanged"
                                             DateFormat="@DateFormat" ViewMode="PickerBodyViewMode"
                                             ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                             ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
