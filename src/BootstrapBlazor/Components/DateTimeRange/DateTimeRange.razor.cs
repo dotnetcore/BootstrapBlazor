@@ -397,7 +397,7 @@ public partial class DateTimeRange
         return UpdateTimeValueAsync();
     }
 
-    private Task UpudateEndTimeAsync(TimeSpan time)
+    private Task UpdateEndTimeAsync(TimeSpan time)
     {
         EndValue = EndValue.Date + time;
         if (SelectedValue.End != DateTime.MinValue)

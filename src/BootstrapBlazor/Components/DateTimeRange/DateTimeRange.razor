@@ -108,7 +108,7 @@
         {
             <TimePicker Value="GetTime(isStart)" HasSeconds="HasSeconds"
                         ShowRequired="false" ShowLabel="false" SkipValidate="true"
-                        OnClose="CloseTimePickerAsync" OnConfirm="@(isStart ? UpdateStartTimeAsync : UpudateEndTimeAsync)" />
+                        OnClose="CloseTimePickerAsync" OnConfirm="@(isStart ? UpdateStartTimeAsync : UpdateEndTimeAsync)" />
         }
     </div>;
 }
