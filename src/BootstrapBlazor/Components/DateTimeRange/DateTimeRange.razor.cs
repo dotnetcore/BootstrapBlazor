@@ -369,6 +369,10 @@ public partial class DateTimeRange
         .AddClass("show", _activeTimePicker == isStart)
         .Build();
 
+    /// <summary>
+    /// 标间 TimerPick 是否显示
+    /// null 表示都关闭 true 表示显示开始时间 false 表示显示结束时间
+    /// </summary>
     private bool? _activeTimePicker;
 
     private bool HasSeconds => TimeFormat.Contains('s');
