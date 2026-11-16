@@ -19,6 +19,8 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue MonthRangeValue { get; set; } = new() { Start = DateTime.Today.AddMonths(-1), End = DateTime.Today };
 
+    private DateTimeRangeValue DateRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(1), End = DateTime.Today.AddHours(10) };
+
     private DateTimeRangeValue DateTimeRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(9), End = DateTime.Today.AddHours(17) };
 
     private Task OnNormalConfirm(DateTimeRangeValue value)
