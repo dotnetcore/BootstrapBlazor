@@ -460,8 +460,6 @@ public partial class DateTimeRange
         SidebarItems ??= [];
 
         ResetBodyValue();
-        SelectedValue.Start = Value.Start;
-        SelectedValue.End = Value.End;
     }
 
     /// <summary>
@@ -701,6 +699,9 @@ public partial class DateTimeRange
         Value ??= new DateTimeRangeValue();
         EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
 
+        SelectedValue.Start = Value.Start;
+        SelectedValue.End = Value.End;
+
         if (ViewMode == DatePickerViewMode.Year)
         {
             var d = DateTime.Today.AddYears(-1);
@@ -711,13 +712,14 @@ public partial class DateTimeRange
             var d = DateTime.Today.AddMonths(-1);
             StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
         }
+        else if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            StartValue = EndValue.GetSafeMonthDateTime(-1).Date
+                + (Value.Start == DateTime.MinValue ? _startTimeValue : Value.Start.TimeOfDay);
+        }
         else
         {
             StartValue = EndValue.GetSafeMonthDateTime(-1).Date;
-            if (ViewMode == DatePickerViewMode.DateTime)
-            {
-                StartValue += Value.Start == DateTime.MinValue ? _startTimeValue : Value.Start.TimeOfDay;
-            }
         }
     }
 
@@ -729,11 +731,6 @@ public partial class DateTimeRange
     public Task TriggerHideCallback()
     {
         ResetBodyValue();
-        if (ViewMode == DatePickerViewMode.DateTime)
-        {
-            SelectedValue.Start = Value.Start;
-            SelectedValue.End = Value.End;
-        }
         StateHasChanged();
         return Task.CompletedTask;
     }
