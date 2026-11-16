@@ -19,6 +19,12 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue MonthRangeValue { get; set; } = new() { Start = DateTime.Today.AddMonths(-1), End = DateTime.Today };
 
+    private DateTimeRangeValue DateRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(1), End = DateTime.Today.AddHours(10) };
+
+    private DateTimeRangeValue DateTimeRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(9), End = DateTime.Today.AddHours(17) };
+
+    private DateTimeRangeValue SingleDateTimeRangeValue { get; set; } = new() { Start = DateTime.Today.AddHours(9), End = DateTime.Today.AddHours(17) };
+
     private Task OnNormalConfirm(DateTimeRangeValue value)
     {
         NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd HH:mm:ss} - {value.End:yyyy-MM-dd HH:mm:ss}");
@@ -84,6 +90,8 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue SidebarDateTimeRangeValue { get; set; } = new();
 
+    private List<DateTimeRangeSidebarItem> SidebarItems { get; set; } = [];
+
     private DateTimeRangeValue TodayDateTimeRangeValue { get; set; } = new();
 
     [NotNull]
@@ -101,6 +109,18 @@ public sealed partial class DateTimeRanges
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        var today = DateTime.Today;
+        var daysFromMonday = ((int)today.DayOfWeek + 6) % 7;
+        var thisWeekStart = today.AddDays(-daysFromMonday);
+        var thisMonthStart = new DateTime(today.Year, today.Month, 1);
+        SidebarItems =
+        [
+            new() { Text = Localizer["SidebarThisWeek"].Value, StartDateTime = thisWeekStart, EndDateTime = thisWeekStart.AddDays(7).AddMilliseconds(-1) },
+            new() { Text = Localizer["SidebarLastWeek"].Value, StartDateTime = thisWeekStart.AddDays(-7), EndDateTime = thisWeekStart.AddMilliseconds(-1) },
+            new() { Text = Localizer["SidebarThisMonth"].Value, StartDateTime = thisMonthStart, EndDateTime = thisMonthStart.AddMonths(1).AddMilliseconds(-1) },
+            new() { Text = Localizer["SidebarLastMonth"].Value, StartDateTime = thisMonthStart.AddMonths(-1), EndDateTime = thisMonthStart.AddMilliseconds(-1) }
+        ];
 
         ValidateFormModel = new ValidateFormRangeFoo()
         {
@@ -124,6 +144,4 @@ public sealed partial class DateTimeRanges
         [Display(Name = "时间范围")]
         public DateTimeRangeValue Range { get; set; } = new();
     }
-
-    private DateTimeRangeValue AutoCloseDateTimeRangeValue { get; set; } = new();
 }

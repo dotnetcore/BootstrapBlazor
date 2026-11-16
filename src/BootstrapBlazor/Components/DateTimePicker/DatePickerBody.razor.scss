@@ -303,6 +303,7 @@
 .picker-panel-time {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: nowrap;
     padding: 4px 1rem;
     border-top: var(--bs-border-width) solid var(--bs-border-color);

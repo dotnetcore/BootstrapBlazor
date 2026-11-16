@@ -40,14 +40,18 @@ public partial class DateTimeRange
     /// </summary>
     internal DateTimeRangeValue SelectedValue { get; } = new DateTimeRangeValue();
 
+    private static readonly TimeSpan _startTimeValue = TimeSpan.Zero;
+    private static readonly TimeSpan _endTimeValue = new(23, 59, 59);
+
     private DateTime StartValue { get; set; }
 
     private string? StartValueString
     {
         set
         {
-            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-            var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var startDateValue);
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var culture = ViewMode == DatePickerViewMode.DateTime ? CultureInfo.CurrentCulture : CultureInfo.InvariantCulture;
+            var ret = DateTime.TryParseExact(value, format, culture, DateTimeStyles.None, out var startDateValue);
             if (ret)
             {
                 StartValue = startDateValue;
@@ -57,7 +61,7 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.Start != DateTime.MinValue ? Value.Start.ToString(format) : null;
         }
     }
@@ -68,8 +72,9 @@ public partial class DateTimeRange
     {
         set
         {
-            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-            var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var endDateValue);
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var culture = ViewMode == DatePickerViewMode.DateTime ? CultureInfo.CurrentCulture : CultureInfo.InvariantCulture;
+            var ret = DateTime.TryParseExact(value, format, culture, DateTimeStyles.None, out var endDateValue);
             if (ret)
             {
                 EndValue = endDateValue;
@@ -79,16 +84,28 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.End != DateTime.MinValue ? Value.End.ToString(format) : null;
         }
     }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 开始日期占位文本，默认使用本地化文本</para>
+    /// <para lang="en">Gets or sets the start date placeholder text. Defaults to localized text.</para>
+    /// <para><version>11.1.1</version></para>
+    /// </summary>
+    [Parameter]
     [NotNull]
-    private string? StartPlaceHolderText { get; set; }
+    public string? StartPlaceHolderText { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 结束日期占位文本，默认使用本地化文本</para>
+    /// <para lang="en">Gets or sets the end date placeholder text. Defaults to localized text.</para>
+    /// <para><version>11.1.1</version></para>
+    /// </summary>
+    [Parameter]
     [NotNull]
-    private string? EndPlaceHolderText { get; set; }
+    public string? EndPlaceHolderText { get; set; }
 
     [NotNull]
     private string? SeparateText { get; set; }
@@ -110,8 +127,8 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false</para>
-    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false</para>
+    /// <para lang="zh">获得/设置 选择日期范围后是否自动关闭弹窗，默认为 false。日期时间模式下选择日期后需要手动确认。</para>
+    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false. DateTime mode requires manual confirmation after selecting dates.</para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
@@ -253,8 +270,8 @@ public partial class DateTimeRange
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
-    /// <para lang="en">Gets or sets Time Format String. Default is "HH:mm:ss"</para>
+    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "hh\:mm\:ss"</para>
+    /// <para lang="en">Gets or sets Time Format String. Default is "hh\:mm\:ss"</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -332,6 +349,82 @@ public partial class DateTimeRange
         .AddClass("is-double", RenderMode == DateTimeRangeRenderMode.Double)
         .Build();
 
+    private bool IsConfirmDisabled => ViewMode == DatePickerViewMode.DateTime
+        && ((SelectedValue.Start != DateTime.MinValue && (SelectedValue.Start < MinValue || SelectedValue.Start > MaxValue))
+            || (SelectedValue.End != DateTime.MinValue && (SelectedValue.End < MinValue || SelectedValue.End > MaxValue))
+            || (SelectedValue.Start != DateTime.MinValue && SelectedValue.End != DateTime.MinValue && SelectedValue.Start > SelectedValue.End));
+
+    private DatePickerViewMode PickerBodyViewMode => ViewMode == DatePickerViewMode.DateTime ? DatePickerViewMode.Date : ViewMode;
+
+    private DateTime PickerBodyMinValue => ViewMode == DatePickerViewMode.DateTime ? MinValue.Date : MinValue;
+
+    private DateTime PickerBodyMaxValue => ViewMode == DatePickerViewMode.DateTime ? MaxValue.Date : MaxValue;
+
+    private string? TimePanelClassString => CssBuilder.Default("range-panel-time")
+        .AddClass("is-single", RenderMode == DateTimeRangeRenderMode.Single)
+        .Build();
+
+    private string? GetTimePickerClassString(bool isStart) => CssBuilder.Default("picker-panel-time")
+        .AddClass(isStart ? "range-start-time" : "range-end-time")
+        .AddClass("show", _activeTimePicker == isStart)
+        .Build();
+
+    /// <summary>
+    /// 标间 TimerPick 是否显示
+    /// null 表示都关闭 true 表示显示开始时间 false 表示显示结束时间
+    /// </summary>
+    private bool? _activeTimePicker;
+
+    private bool HasSeconds => TimeFormat.Contains('s');
+
+    private TimeSpan GetTime(bool isStart) => isStart ? StartValue.TimeOfDay : EndValue.TimeOfDay;
+
+    private string? GetTimeText(bool isStart) => isStart ? StartPlaceHolderText : EndPlaceHolderText;
+
+    private void ShowTimePicker(bool isStart) => _activeTimePicker = isStart;
+
+    private Task CloseTimePickerAsync()
+    {
+        _activeTimePicker = null;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task UpdateStartTimeAsync(TimeSpan time)
+    {
+        StartValue = StartValue.Date + time;
+        if (SelectedValue.Start != DateTime.MinValue)
+        {
+            SelectedValue.Start = SelectedValue.Start.Date + time;
+        }
+
+        return UpdateTimeValueAsync();
+    }
+
+    private Task UpdateEndTimeAsync(TimeSpan time)
+    {
+        EndValue = EndValue.Date + time;
+        if (SelectedValue.End != DateTime.MinValue)
+        {
+            SelectedValue.End = SelectedValue.End.Date + time;
+        }
+
+        return UpdateTimeValueAsync();
+    }
+
+    private Task UpdateTimeValueAsync()
+    {
+        _activeTimePicker = null;
+        if (ShowSelectedValue)
+        {
+            Value.Start = SelectedValue.Start;
+            Value.End = SelectedValue.End;
+        }
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -347,8 +440,6 @@ public partial class DateTimeRange
     /// </summary>
     protected override void OnParametersSet()
     {
-        CheckValid();
-
         base.OnParametersSet();
 
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
@@ -361,6 +452,7 @@ public partial class DateTimeRange
 
         DateFormat ??= Localizer[nameof(DateFormat)];
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+        TimeFormat ??= Localizer[nameof(TimeFormat)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
@@ -368,17 +460,6 @@ public partial class DateTimeRange
         SidebarItems ??= [];
 
         ResetBodyValue();
-        SelectedValue.Start = Value.Start;
-        SelectedValue.End = Value.End;
-
-        [ExcludeFromCodeCoverage]
-        void CheckValid()
-        {
-            if (ViewMode == DatePickerViewMode.DateTime)
-            {
-                throw new InvalidOperationException("DateTime 模式暂时不支持，The DateTime mode is currently not supported yet");
-            }
-        }
     }
 
     /// <summary>
@@ -449,15 +530,17 @@ public partial class DateTimeRange
     private Task OnStartDateChanged(DateTime value)
     {
         StartValue = value.Date + StartValue.TimeOfDay;
-        EndValue = GetEndDateTime(StartValue.AddMonths(1).Date);
+        EndValue = ViewMode == DatePickerViewMode.DateTime
+            ? StartValue.GetSafeMonthDateTime(1).Date + EndValue.TimeOfDay
+            : GetEndDateTime(StartValue.AddMonths(1).Date);
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnEndDateChanged(DateTime value)
     {
-        EndValue = GetEndDateTime(value);
-        StartValue = value.AddMonths(-1).Date + StartValue.TimeOfDay;
+        EndValue = ViewMode == DatePickerViewMode.DateTime ? value.Date + EndValue.TimeOfDay : GetEndDateTime(value);
+        StartValue = value.GetSafeMonthDateTime(-1).Date + StartValue.TimeOfDay;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -482,7 +565,30 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            if (SelectedValue.Start == DateTime.MinValue)
+            {
+                SelectedValue.Start = DateTime.Today + StartValue.TimeOfDay;
+            }
+            if (SelectedValue.End == DateTime.MinValue)
+            {
+                if (SelectedValue.Start.Date > DateTime.Today)
+                {
+                    SelectedValue.End = SelectedValue.Start.Date + EndValue.TimeOfDay;
+                    SelectedValue.Start = DateTime.Today + StartValue.TimeOfDay;
+                }
+                else
+                {
+                    SelectedValue.End = DateTime.Today + EndValue.TimeOfDay;
+                }
+            }
+            if (IsConfirmDisabled)
+            {
+                return;
+            }
+        }
+        else if (SelectedValue.End == DateTime.MinValue)
         {
             if (SelectedValue.Start < DateTime.Today)
             {
@@ -494,8 +600,8 @@ public partial class DateTimeRange
                 SelectedValue.Start = DateTime.Today;
             }
         }
-        Value.Start = SelectedValue.Start.Date;
-        Value.End = GetEndDateTime(SelectedValue.End);
+        Value.Start = ViewMode == DatePickerViewMode.DateTime ? SelectedValue.Start : SelectedValue.Start.Date;
+        Value.End = ViewMode == DatePickerViewMode.DateTime ? SelectedValue.End : GetEndDateTime(SelectedValue.End);
 
         if (ValueChanged.HasDelegate)
         {
@@ -526,25 +632,27 @@ public partial class DateTimeRange
         if (SelectedValue.Start == DateTime.MinValue)
         {
             // 开始时间为空
-            SelectedValue.Start = d;
+            SelectedValue.Start = ViewMode == DatePickerViewMode.DateTime ? d.Date + StartValue.TimeOfDay : d;
         }
         else if (SelectedValue.End == DateTime.MinValue)
         {
             // 结束时间为空
-            if (d < SelectedValue.Start)
+            if (ViewMode == DatePickerViewMode.DateTime ? d.Date < SelectedValue.Start.Date : d < SelectedValue.Start)
             {
-                SelectedValue.End = GetEndDateTime(SelectedValue.Start);
-                SelectedValue.Start = d;
+                SelectedValue.End = ViewMode == DatePickerViewMode.DateTime
+                    ? SelectedValue.Start.Date + EndValue.TimeOfDay
+                    : GetEndDateTime(SelectedValue.Start);
+                SelectedValue.Start = ViewMode == DatePickerViewMode.DateTime ? d.Date + StartValue.TimeOfDay : d;
             }
             else
             {
-                SelectedValue.End = d;
+                SelectedValue.End = ViewMode == DatePickerViewMode.DateTime ? d.Date + EndValue.TimeOfDay : d;
             }
         }
         else
         {
             // 开始时间、结束时间均不为空
-            SelectedValue.Start = d;
+            SelectedValue.Start = ViewMode == DatePickerViewMode.DateTime ? d.Date + StartValue.TimeOfDay : d;
             SelectedValue.End = DateTime.MinValue;
         }
 
@@ -571,7 +679,7 @@ public partial class DateTimeRange
             await OnDateClick(d);
         }
 
-        if (AutoClose && SelectedValue.Start != DateTime.MinValue && SelectedValue.End != DateTime.MinValue)
+        if (AutoClose && ViewMode != DatePickerViewMode.DateTime && SelectedValue.Start != DateTime.MinValue && SelectedValue.End != DateTime.MinValue)
         {
             await ClickConfirmButton();
         }
@@ -583,12 +691,16 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     public override bool IsComplexValue(object? propertyValue) => false;
 
-    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.Add(_endTimeValue);
 
     private void ResetBodyValue()
     {
+        _activeTimePicker = null;
         Value ??= new DateTimeRangeValue();
         EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
+
+        SelectedValue.Start = Value.Start;
+        SelectedValue.End = Value.End;
 
         if (ViewMode == DatePickerViewMode.Year)
         {
@@ -600,9 +712,14 @@ public partial class DateTimeRange
             var d = DateTime.Today.AddMonths(-1);
             StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
         }
+        else if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            StartValue = EndValue.GetSafeMonthDateTime(-1).Date
+                + (Value.Start == DateTime.MinValue ? _startTimeValue : Value.Start.TimeOfDay);
+        }
         else
         {
-            StartValue = EndValue.AddMonths(-1).Date;
+            StartValue = EndValue.GetSafeMonthDateTime(-1).Date;
         }
     }
 

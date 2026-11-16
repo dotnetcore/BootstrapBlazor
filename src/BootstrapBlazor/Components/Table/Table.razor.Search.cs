@@ -180,7 +180,7 @@ public partial class Table<TItem>
         }
     }
 
-    private IEnumerable<ISearchItem> GetSearchFormItems()
+    private List<ISearchItem> GetSearchFormItems()
     {
         if (SearchFormLocalizerOptions is null)
         {

@@ -65,9 +65,9 @@ public partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default()
         .AddClass("prev-month", IsPrevMonth(day))
         .AddClass("next-month", IsNextMonth(day))
-        .AddClass("current", day.Date == SelectValue.Date && Ranger == null && day.Month == SelectValue.Month && !overflow)
-        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date && IsCurrentMonth(day))
-        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date && IsCurrentMonth(day))
+        .AddClass("current", day.Date == SelectValue.Date && Range == null && day.Month == SelectValue.Month && !overflow)
+        .AddClass("start", Range != null && day == Range.SelectedValue.Start.Date && IsCurrentMonth(day))
+        .AddClass("end", Range != null && day == Range.SelectedValue.End.Date && IsCurrentMonth(day))
         .AddClass("range", IsRange(day) && IsCurrentMonth(day))
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
@@ -79,9 +79,9 @@ public partial class DatePickerBody
 
     private bool IsCurrentMonth(DateTime day) => day.Month == CurrentDate.Month;
 
-    private bool IsRange(DateTime day) => Ranger != null
-        && day >= Ranger.SelectedValue.Start.Date
-        && day <= Ranger.SelectedValue.End.Date;
+    private bool IsRange(DateTime day) => Range != null
+        && day >= Range.SelectedValue.Start.Date
+        && day <= Range.SelectedValue.End.Date;
 
     private string? WrapperClassString => CssBuilder.Default("picker-panel-body")
         .AddClass("is-open", _showClockPicker)
@@ -435,7 +435,7 @@ public partial class DatePickerBody
     /// <para lang="en">Gets or sets Whether to Use in Range. Default is false</para>
     /// </summary>
     [CascadingParameter]
-    private DateTimeRange? Ranger { get; set; }
+    private DateTimeRange? Range { get; set; }
 
     /// <summary>
     /// <para lang="zh">获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭</para>
@@ -738,7 +738,7 @@ public partial class DatePickerBody
         CurrentDate = d;
         SelectValue = d;
 
-        if (Ranger != null || ShouldConfirm)
+        if (Range != null || ShouldConfirm)
         {
             await ClickConfirmButton();
         }
@@ -838,7 +838,7 @@ public partial class DatePickerBody
     {
         CurrentDate = d;
 
-        if (Ranger != null && (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month))
+        if (Range != null && (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month))
         {
             await ClickConfirmButton();
             StateHasChanged();

@@ -50,21 +50,30 @@
                         <CascadingValue Value="this" IsFixed="true">
                             @if (RenderMode == DateTimeRangeRenderMode.Double)
                             {
-                                <DatePickerBody class="range-start-panel" Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
-                                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                                <DatePickerBody class="range-start-panel" Value="@StartValue" ValueChanged="UpdateValue"
+                                                OnDateChanged="OnStartDateChanged"
+                                                DateFormat="@DateFormat" ViewMode="PickerBodyViewMode"
                                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                                 ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                                ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                                                ShowRightButtons="false" MaxValue="PickerBodyMaxValue" MinValue="PickerBodyMinValue">
                                 </DatePickerBody>
                             }
-                            <DatePickerBody class="@EndPanelClassString" Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
-                                            DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                            <DatePickerBody class="@EndPanelClassString" Value="@EndValue" ValueChanged="UpdateValue"
+                                            OnDateChanged="OnEndDateChanged"
+                                            DateFormat="@DateFormat" ViewMode="PickerBodyViewMode"
                                             ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
                                             ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                            MaxValue="MaxValue" MinValue="MinValue">
+                                            MaxValue="PickerBodyMaxValue" MinValue="PickerBodyMinValue">
                             </DatePickerBody>
                         </CascadingValue>
                     </div>
+                    @if (ViewMode == DatePickerViewMode.DateTime)
+                    {
+                        <div class="@TimePanelClassString">
+                            @RenderTimePicker(true)
+                            @RenderTimePicker(false)
+                        </div>
+                    }
                     <div class="picker-panel-footer">
                         <div class="flex-fill me-3">
                             @if (ShowClearButton)
@@ -80,7 +89,7 @@
                                 <span>@TodayButtonText</span>
                             </Button>
                         }
-                        <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickConfirmButton">
+                        <Button class="picker-panel-link-btn is-confirm" Color="Color.None" IsDisabled="IsConfirmDisabled" OnClick="@ClickConfirmButton">
                             <span>@ConfirmButtonText</span>
                         </Button>
                     </div>
@@ -89,3 +98,16 @@
         </div>
     </dialog>
 </div>
+
+@code {
+    private RenderFragment<bool> RenderTimePicker => isStart =>
+    @<div class="@GetTimePickerClassString(isStart)">
+        <span>@GetTimeText(isStart)</span>
+        <input type="text" autocomplete="off" readonly class="form-control"
+               aria-label="@GetTimeText(isStart)" value="@GetTime(isStart).ToString(TimeFormat)"
+               @onclick="() => ShowTimePicker(isStart)" />
+        <TimePicker Value="GetTime(isStart)" HasSeconds="HasSeconds"
+                    ShowRequired="false" ShowLabel="false" SkipValidate="true"
+                    OnClose="CloseTimePickerAsync" OnConfirm="@(isStart ? UpdateStartTimeAsync : UpdateEndTimeAsync)" />
+    </div>;
+}

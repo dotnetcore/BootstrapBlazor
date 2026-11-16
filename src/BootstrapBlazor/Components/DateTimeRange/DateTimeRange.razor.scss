@@ -7,7 +7,6 @@
     background-color: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     border: var(--bs-border-width) solid var(--bs-border-color);
-    display: inline-block;
     outline: none;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     position: relative;
@@ -76,6 +75,19 @@
     }
 }
 
+.range-panel-time {
+    display: flex;
+
+    &.is-single {
+        flex-direction: column;
+    }
+
+    .picker-panel-time {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
 .is-lunar .picker-panel-body {
     .picker-panel-body-main .picker-panel-content table td {
         &.range {
@@ -128,8 +140,18 @@
 }
 
 @media (min-width: 768px) {
+    .range-panel-time:not(.is-single) .range-start-time {
+        border-right: var(--bs-border-width) solid var(--bs-border-color);
+    }
+
     .range-end-panel.is-double .picker-panel-header > .picker-panel-icon-btn:nth-child(-n + 2) {
         display: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .range-panel-time {
+        flex-direction: column;
     }
 }
 

@@ -60,13 +60,14 @@
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "To",
-    "StartPlaceHolderText": "Start date",
-    "EndPlaceHolderText": "End date",
+    "StartPlaceHolderText": "Start time",
+    "EndPlaceHolderText": "End time",
     "ClearButtonText": "Clear",
     "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
     "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "M/d/yyyy"
+    "DateFormat": "M/d/yyyy",
+    "TimeFormat": "hh\\:mm\\:ss"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "The {0} field must be a number."
