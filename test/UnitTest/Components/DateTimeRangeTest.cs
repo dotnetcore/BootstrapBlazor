@@ -144,19 +144,184 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnTimeChanged_Ok()
+    public void ViewMode_DateTime_RendersTimePickers()
     {
-        // TODO: 等待 Range 支持 DateTime 模式
-        //var cut = Context.Render<DateTimeRange>(builder =>
-        //{
-        //    builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-        //});
+        var start = new DateTime(2024, 1, 2, 8, 15, 30);
+        var end = new DateTime(2024, 1, 3, 17, 45, 0);
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue { Start = start, End = end });
+            builder.Add(a => a.DateTimeFormat, "yyyy-MM-dd HH:mm:ss");
+            builder.Add(a => a.TimeFormat, @"hh\:mm\:ss");
+        });
 
-        //var panel = cut.FindComponent<ClockPicker>();
-        //cut.InvokeAsync(() => panel.Instance.SetTime(0, 0, 0));
+        Assert.Contains("has-time", cut.Find(".datetime-range").ClassName);
+        Assert.All(cut.FindComponents<DatePickerBody>(), body => Assert.Equal(DatePickerViewMode.Date, body.Instance.ViewMode));
+        Assert.Equal(2, cut.FindComponents<TimePicker>().Count);
+        var timeInputs = cut.FindAll(".range-panel-time input");
+        Assert.Equal(start.TimeOfDay.ToString(@"hh\:mm\:ss"), timeInputs[0].GetAttribute("value"));
+        Assert.Equal(end.TimeOfDay.ToString(@"hh\:mm\:ss"), timeInputs[1].GetAttribute("value"));
+    }
 
-        //var body = cut.FindComponent<DatePickerBody>();
-        //Assert.Equal(TimeSpan.Zero, body.Instance.Value.TimeOfDay);
+    [Fact]
+    public async Task OnTimeChanged_Ok()
+    {
+        var start = new DateTime(2024, 1, 2, 8, 15, 30);
+        var end = new DateTime(2024, 1, 3, 17, 45, 0);
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue { Start = start, End = end });
+            builder.Add(a => a.ShowSelectedValue, true);
+            builder.Add(a => a.TimeFormat, @"hh\:mm\:ss");
+        });
+
+        var picker = cut.FindComponents<TimePicker>().First();
+        await cut.InvokeAsync(() => picker.Instance.OnConfirm!(new TimeSpan(10, 20, 30)));
+
+        Assert.Equal(start.Date.Add(new TimeSpan(10, 20, 30)), cut.Instance.Value.Start);
+        Assert.Equal(end, cut.Instance.Value.End);
+    }
+
+    [Fact]
+    public async Task OnEndTimeChanged_Ok()
+    {
+        var start = new DateTime(2024, 1, 2, 8, 15, 30);
+        var end = new DateTime(2024, 1, 3, 17, 45, 0);
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue { Start = start, End = end });
+            builder.Add(a => a.ShowSelectedValue, true);
+            builder.Add(a => a.TimeFormat, @"hh\:mm\:ss");
+        });
+
+        var picker = cut.FindComponents<TimePicker>().Last();
+        await cut.InvokeAsync(() => picker.Instance.OnConfirm!(new TimeSpan(19, 20, 30)));
+
+        Assert.Equal(start, cut.Instance.Value.Start);
+        Assert.Equal(end.Date.Add(new TimeSpan(19, 20, 30)), cut.Instance.Value.End);
+    }
+
+    [Fact]
+    public async Task CloseTimePickerAsync_ClosesPicker()
+    {
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+        });
+
+        var timeInput = cut.Find(".range-start-time input");
+        await cut.InvokeAsync(() => timeInput.Click());
+        Assert.Contains("show", cut.Find(".range-start-time").ClassName);
+
+        var picker = cut.FindComponents<TimePicker>().First();
+        await cut.InvokeAsync(() => picker.Instance.OnClose!());
+
+        Assert.DoesNotContain("show", cut.Find(".range-start-time").ClassName);
+    }
+
+    [Fact]
+    public async Task OnConfirm_DateTimeMode_PreservesTime()
+    {
+        var start = new DateTime(2024, 1, 2, 8, 15, 30);
+        var end = new DateTime(2024, 1, 3, 17, 45, 0);
+        DateTimeRangeValue? confirmedValue = null;
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue { Start = start, End = end });
+            builder.Add(a => a.OnConfirm, value =>
+            {
+                confirmedValue = value;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.FindAll(".is-confirm").Last().Click());
+
+        Assert.NotNull(confirmedValue);
+        Assert.Equal(start, confirmedValue.Start);
+        Assert.Equal(end, confirmedValue.End);
+    }
+
+    [Fact]
+    public void DateTimeMode_DisablesConfirmForInvalidRange()
+    {
+        var reversedRange = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.Value, new DateTimeRangeValue
+            {
+                Start = new DateTime(2024, 1, 3, 9, 0, 0),
+                End = new DateTime(2024, 1, 2, 17, 0, 0)
+            });
+        });
+        Assert.True(reversedRange.FindAll(".is-confirm").Last().HasAttribute("disabled"));
+
+        var outOfBoundsRange = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.MinValue, new DateTime(2024, 1, 2, 10, 0, 0));
+            builder.Add(a => a.Value, new DateTimeRangeValue
+            {
+                Start = new DateTime(2024, 1, 2, 9, 0, 0),
+                End = new DateTime(2024, 1, 3, 17, 0, 0)
+            });
+        });
+        Assert.True(outOfBoundsRange.FindAll(".is-confirm").Last().HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task DateTimeMode_AutoCloseDoesNotConfirmAfterDateSelection()
+    {
+        var confirmed = false;
+        var cut = Context.Render<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.AutoClose, true);
+            builder.Add(a => a.OnConfirm, _ =>
+            {
+                confirmed = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var datePickers = cut.FindComponents<DatePickerBody>();
+        var startDate = datePickers[0].Find(".date-table tbody span");
+        await cut.InvokeAsync(() => startDate.Click());
+        var endDate = datePickers[1].Find(".date-table tbody span");
+        await cut.InvokeAsync(() => endDate.Click());
+
+        Assert.False(confirmed);
+    }
+
+    [Fact]
+    public async Task IsEditable_DateTime_UsesCurrentCulture()
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo("fr-FR");
+            var cut = Context.Render<DateTimeRange>(builder =>
+            {
+                builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+                builder.Add(a => a.IsEditable, true);
+                builder.Add(a => a.DateTimeFormat, "dd MMMM yyyy HH:mm:ss");
+                builder.Add(a => a.Value, new DateTimeRangeValue());
+            });
+
+            var startInput = cut.FindAll(".datetime-range-input")[0];
+            await cut.InvokeAsync(() => startInput.Change("31 janvier 2024 14:30:45"));
+
+            Assert.Equal(new DateTime(2024, 1, 31, 14, 30, 45), cut.Instance.Value.Start);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
     }
 
     [Fact]
