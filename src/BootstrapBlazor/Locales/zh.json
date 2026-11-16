@@ -60,8 +60,8 @@
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "至",
-    "StartPlaceHolderText": "开始日期",
-    "EndPlaceHolderText": "结束日期",
+    "StartPlaceHolderText": "开始时间",
+    "EndPlaceHolderText": "结束时间",
     "ClearButtonText": "清空",
     "TodayButtonText": "今天",
     "ConfirmButtonText": "确定",
