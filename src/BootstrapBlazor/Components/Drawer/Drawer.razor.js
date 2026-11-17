@@ -85,6 +85,7 @@ export function init(id, invoke, method) {
     const dw = {
         el,
         body: document.querySelector('body'),
+        open: null,
         animationId: null
     }
     Data.set(id, dw)
@@ -104,13 +105,30 @@ export function init(id, invoke, method) {
 export function execute(id, open) {
     const dw = Data.get(id)
     const { el, body } = dw
+    const drawerBody = el.querySelector('.drawer-body')
+    const drawerBackdrop = el.querySelector('.drawer-backdrop')
+    const animationFrame = getComputedStyle(drawerBody).getPropertyValue('transition') !== 'none';
+
+    if (open) {
+        const scroll = el.getAttribute('data-bb-scroll') === "true";
+        if (scroll === false) {
+            body.classList.add('drawer-overflow-hidden');
+        }
+        else {
+            restoreBodyScroll(el, body);
+        }
+    }
+
+    // Renders in the same state must not restart a pending animation.
+    if (dw.animationId && dw.open === open) {
+        return animationFrame;
+    }
+    dw.open = open;
+
     if (dw.animationId) {
         cancelAnimationFrame(dw.animationId);
         dw.animationId = null;
     }
-    const drawerBody = el.querySelector('.drawer-body')
-    const drawerBackdrop = el.querySelector('.drawer-backdrop')
-    const animationFrame = getComputedStyle(drawerBody).getPropertyValue('transition') !== 'none';
 
     let start = void 0
     const show = ts => {
@@ -129,8 +147,9 @@ export function execute(id, open) {
     const showDrawer = () => {
         dw.animationId = null;
         drawerBody.classList.add('show');
-        if (drawerBackdrop) {
-            drawerBackdrop.classList.add('show');
+        const backdrop = el.querySelector('.drawer-backdrop');
+        if (backdrop) {
+            backdrop.classList.add('show');
         }
         el.focus();
     }
@@ -146,16 +165,12 @@ export function execute(id, open) {
         else {
             dw.animationId = null;
             el.classList.remove('show');
+            restoreBodyScroll(el, body);
         }
     }
 
     if (open) {
         el.classList.add('show')
-
-        const scroll = el.getAttribute('data-bb-scroll') === "true";
-        if (scroll === false) {
-            body.classList.add('drawer-overflow-hidden');
-        }
 
         if (animationFrame) {
             dw.animationId = requestAnimationFrame(show)
