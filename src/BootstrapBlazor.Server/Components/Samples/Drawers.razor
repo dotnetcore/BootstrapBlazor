@@ -17,10 +17,7 @@
     </section>
 
     <Drawer Placement="@DrawerAlign" @bind-IsOpen="@IsOpen" AllowResize="true">
-        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
-            <p>@Localizer["Content"]</p>
-            <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = false)">@Localizer["Close"]</button>
-        </div>
+        @RenderDrawerContent
     </Drawer>
 </DemoBlock>
 
@@ -40,10 +37,7 @@
         <button type="button" class="btn btn-primary" @onclick="@OpenNoBackdropDrawer">@Localizer["Open"]</button>
     </section>
     <Drawer Placement="Placement.Left" @bind-IsOpen="@IsShowBackdropOpen" ShowBackdrop="false">
-        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
-            <p>@Localizer["Content"]</p>
-            <button type="button" class="btn btn-primary" @onclick="@(e => IsShowBackdropOpen = false)">@Localizer["Close"]</button>
-        </div>
+        @RenderDrawerContent
     </Drawer>
 </DemoBlock>
 
@@ -52,10 +46,7 @@
         <button type="button" class="btn btn-primary" @onclick="@OpenKeyboardDrawer">@Localizer["Open"]</button>
     </section>
     <Drawer Placement="Placement.Left" @bind-IsOpen="@IsKeyboardOpen" IsKeyboard="true">
-        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
-            <p>@Localizer["Content"]</p>
-            <button type="button" class="btn btn-primary" @onclick="@(e => IsKeyboardOpen = false)">@Localizer["Close"]</button>
-        </div>
+        @RenderDrawerContent
     </Drawer>
 </DemoBlock>
 
@@ -64,10 +55,7 @@
         <button type="button" class="btn btn-primary" @onclick="@OpenBodyScrollDrawer">@Localizer["Open"]</button>
     </section>
     <Drawer Placement="Placement.Left" @bind-IsOpen="@IsBodyScrollOpen" BodyScroll="true">
-        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
-            <p>@Localizer["Content"]</p>
-            <button type="button" class="btn btn-primary" @onclick="@(e => IsBodyScrollOpen = false)">@Localizer["Close"]</button>
-        </div>
+        @RenderDrawerContent
     </Drawer>
 </DemoBlock>
 
@@ -79,3 +67,10 @@
 </DemoBlock>
 
 <AttributeTable Type="typeof(Drawer)" />
+
+@code {
+    private RenderFragment RenderDrawerContent =>@<div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+        <p>@Localizer["Content"]</p>
+        <DialogCloseButton Color="Color.Primary" Text="@Localizer["Close"]" />
+    </div>;
+}
