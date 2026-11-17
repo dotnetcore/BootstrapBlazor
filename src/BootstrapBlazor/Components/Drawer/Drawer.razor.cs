@@ -216,44 +216,58 @@ public partial class Drawer : IClosable
     /// <para lang="zh">点击背景遮罩方法</para>
     /// <para lang="en">Backdrop Click Method</para>
     /// </summary>
-    public async Task OnContainerClick()
-    {
-        if (OnClickBackdrop != null)
-        {
-            await OnClickBackdrop();
-        }
-        await Close();
-    }
+    public Task OnContainerClick() => CloseAsync(true);
+
+    private bool _isClosing;
 
     /// <summary>
     /// <para lang="zh">关闭抽屉方法</para>
     /// <para lang="en">Close Drawer Method</para>
     /// </summary>
     [JSInvokable]
-    public async Task Close()
+    public Task Close() => CloseAsync(false);
+
+    private async Task CloseAsync(bool clickBackdrop)
     {
-        if (OnClosingAsync != null && !await OnClosingAsync())
+        if (_isClosing || !IsOpen)
         {
             return;
         }
 
-        IsOpen = false;
-        var animation = await InvokeAsync<bool>("execute", Id, false);
-        if (animation)
+        _isClosing = true;
+        try
         {
-            await Task.Delay(300);
+            if (clickBackdrop && OnClickBackdrop != null)
+            {
+                await OnClickBackdrop();
+            }
+            if (OnClosingAsync != null && !await OnClosingAsync())
+            {
+                return;
+            }
+
+            IsOpen = false;
+            var animation = await InvokeAsync<bool>("execute", Id, false);
+            if (animation)
+            {
+                await Task.Delay(300);
+            }
+            if (OnCloseAsync != null)
+            {
+                await OnCloseAsync();
+            }
+            if (IsOpenChanged.HasDelegate)
+            {
+                await IsOpenChanged.InvokeAsync(IsOpen);
+            }
+            else
+            {
+                StateHasChanged();
+            }
         }
-        if (OnCloseAsync != null)
+        finally
         {
-            await OnCloseAsync();
-        }
-        if (IsOpenChanged.HasDelegate)
-        {
-            await IsOpenChanged.InvokeAsync(IsOpen);
-        }
-        else
-        {
-            StateHasChanged();
+            _isClosing = false;
         }
     }
 }
