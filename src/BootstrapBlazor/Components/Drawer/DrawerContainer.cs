@@ -116,8 +116,11 @@ public class DrawerContainer : ComponentBase, IDisposable
             await option.OnCloseAsync();
         }
 
-        _option = null;
-        StateHasChanged();
+        if (ReferenceEquals(_option, option))
+        {
+            _option = null;
+            StateHasChanged();
+        }
     }
 
     /// <summary>

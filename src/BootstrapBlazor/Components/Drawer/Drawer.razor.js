@@ -2,6 +2,14 @@ import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
+const restoreBodyScroll = (el, body) => {
+    const hasOpenDrawer = [...document.querySelectorAll('.drawer.show')]
+        .some(drawer => drawer !== el && drawer.getAttribute('data-bb-scroll') !== 'true');
+    if (!hasOpenDrawer) {
+        body.classList.remove('drawer-overflow-hidden');
+    }
+}
+
 const initDrag = el => {
     let originX = 0
     let originY = 0;
@@ -76,7 +84,8 @@ export function init(id, invoke, method) {
 
     const dw = {
         el,
-        body: document.querySelector('body')
+        body: document.querySelector('body'),
+        animationId: null
     }
     Data.set(id, dw)
 
@@ -95,6 +104,10 @@ export function init(id, invoke, method) {
 export function execute(id, open) {
     const dw = Data.get(id)
     const { el, body } = dw
+    if (dw.animationId) {
+        cancelAnimationFrame(dw.animationId);
+        dw.animationId = null;
+    }
     const drawerBody = el.querySelector('.drawer-body')
     const drawerBackdrop = el.querySelector('.drawer-backdrop')
     const animationFrame = getComputedStyle(drawerBody).getPropertyValue('transition') !== 'none';
@@ -106,7 +119,7 @@ export function execute(id, open) {
         }
         const elapsed = ts - start;
         if (elapsed < 20) {
-            requestAnimationFrame(show);
+            dw.animationId = requestAnimationFrame(show);
         }
         else {
             showDrawer();
@@ -114,6 +127,7 @@ export function execute(id, open) {
     }
 
     const showDrawer = () => {
+        dw.animationId = null;
         drawerBody.classList.add('show');
         if (drawerBackdrop) {
             drawerBackdrop.classList.add('show');
@@ -127,9 +141,10 @@ export function execute(id, open) {
         }
         const elapsed = ts - start;
         if (elapsed < 320) {
-            requestAnimationFrame(hide);
+            dw.animationId = requestAnimationFrame(hide);
         }
         else {
+            dw.animationId = null;
             el.classList.remove('show');
         }
     }
@@ -143,7 +158,7 @@ export function execute(id, open) {
         }
 
         if (animationFrame) {
-            requestAnimationFrame(show)
+            dw.animationId = requestAnimationFrame(show)
         }
         else {
             showDrawer();
@@ -154,9 +169,9 @@ export function execute(id, open) {
         if (drawerBackdrop) {
             drawerBackdrop.classList.remove('show');
         }
-        body.classList.remove('drawer-overflow-hidden');
+        restoreBodyScroll(el, body);
         if (animationFrame) {
-            requestAnimationFrame(hide)
+            dw.animationId = requestAnimationFrame(hide)
         }
         else {
             el.classList.remove('show');
@@ -170,6 +185,9 @@ export function dispose(id) {
     Data.remove(id);
 
     const { el, body } = dw;
+    if (dw.animationId) {
+        cancelAnimationFrame(dw.animationId);
+    }
     EventHandler.off(el, 'keyup');
 
     if (el.classList.contains('show')) {
@@ -179,8 +197,8 @@ export function dispose(id) {
         if (drawerBody) {
             drawerBody.classList.remove('show')
         }
-        body.classList.remove('overflow-hidden')
     }
+    restoreBodyScroll(el, body);
 
     const drawerBody = el.querySelector('.drawer-body');
     if (drawerBody !== null) {
