@@ -257,6 +257,57 @@ public class ToastTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Close_WithoutCallback_Ok()
+    {
+        var cut = Context.Render<ToastContainer>();
+        var service = Context.Services.GetRequiredService<ToastService>();
+        var option = new ToastOption();
+        await service.Show(option);
+
+        Assert.Single(cut.FindComponents<Toast>());
+
+        await cut.InvokeAsync(() => cut.Instance.Close(option));
+
+        Assert.Empty(cut.FindComponents<Toast>());
+    }
+
+    [Fact]
+    public async Task Close_IgnoresConcurrentCall()
+    {
+        var closeStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var continueClose = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var closeCount = 0;
+        var cut = Context.Render<ToastContainer>();
+        var service = Context.Services.GetRequiredService<ToastService>();
+        var option = new ToastOption()
+        {
+            OnCloseAsync = async () =>
+            {
+                closeCount++;
+                closeStarted.TrySetResult();
+                await continueClose.Task;
+            }
+        };
+        await service.Show(option);
+
+        var firstClose = cut.InvokeAsync(() => cut.Instance.Close(option));
+        Task secondClose = Task.CompletedTask;
+        try
+        {
+            await closeStarted.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+            secondClose = cut.InvokeAsync(() => cut.Instance.Close(option));
+            Assert.Equal(1, closeCount);
+            Assert.Empty(cut.FindComponents<Toast>());
+        }
+        finally
+        {
+            continueClose.TrySetResult();
+        }
+
+        await Task.WhenAll(firstClose, secondClose);
+    }
+
+    [Fact]
     public void StyleString_Ok()
     {
         var cut = Context.Render<Toast>(pb =>
