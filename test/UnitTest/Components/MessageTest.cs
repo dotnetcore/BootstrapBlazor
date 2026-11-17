@@ -95,9 +95,10 @@ public class MessageTest : BootstrapBlazorTestBase
         Assert.NotNull(alert);
         Assert.NotNull(alert.Id);
 
-        await cut.Instance.Dismiss(alert.Id);
+        var alertId = alert.Id;
+        await cut.Instance.Dismiss(alertId);
         await cut.Instance.Dismiss("test_id");
-        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
+        await cut.InvokeAsync(() => cut.Instance.Clear(alertId));
 
         await cut.InvokeAsync(() => service.Show(new MessageOption()
         {
