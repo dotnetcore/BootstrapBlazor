@@ -68,7 +68,7 @@ public partial class Message
 
     private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
 
-    private string? _msgId;
+    private readonly HashSet<MessageOption> _pendingMessages = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -76,11 +76,17 @@ public partial class Message
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        var messages = _pendingMessages.ToArray();
+        _pendingMessages.Clear();
+
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!string.IsNullOrEmpty(_msgId))
+        foreach (var option in messages)
         {
-            await InvokeVoidAsync("show", Id, _msgId);
+            if (_messages.Contains(option))
+            {
+                await InvokeVoidAsync("show", Id, GetItemId(option));
+            }
         }
     }
 
@@ -99,13 +105,14 @@ public partial class Message
         if (option.ShowMode == MessageShowMode.Single)
         {
             _messages.Clear();
+            _pendingMessages.Clear();
         }
 
         if (!_messages.Contains(option))
         {
             _messages.Add(option);
         }
-        _msgId = GetItemId(option);
+        _pendingMessages.Add(option);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -120,6 +127,7 @@ public partial class Message
         if (option != null)
         {
             _messages.Remove(option);
+            _pendingMessages.Remove(option);
         }
 
         StateHasChanged();
@@ -133,11 +141,18 @@ public partial class Message
     public async ValueTask Dismiss(string id)
     {
         var option = _messages.Find(i => GetItemId(i) == id);
-        if (option is { OnDismiss: not null })
+        if (option == null)
+        {
+            return;
+        }
+
+        _messages.Remove(option);
+        _pendingMessages.Remove(option);
+        await InvokeAsync(StateHasChanged);
+
+        if (option.OnDismiss != null)
         {
             await option.OnDismiss();
-            _messages.Remove(option);
-            StateHasChanged();
         }
     }
 
