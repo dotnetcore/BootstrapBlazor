@@ -7,6 +7,115 @@ namespace UnitTest.Components;
 
 public class SwalTest : BootstrapBlazorTestBase
 {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task ShowModal_ReturnsConfirmationResult_Ok(bool expected)
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockSwalTest>();
+        });
+        var swal = cut.FindComponent<MockSwalTest>().Instance.SwalService;
+        var option = new SwalOption();
+        var modalTask = Task.FromResult(false);
+
+        await cut.InvokeAsync(() =>
+        {
+            modalTask = swal.ShowModal(option);
+        });
+
+        var modal = cut.FindComponents<Modal>().Last();
+        await cut.InvokeAsync(() => cut.Find(expected ? ".btn-danger" : ".btn-secondary").Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        Assert.Equal(expected, await modalTask);
+        Assert.True(option.IsConfirm);
+    }
+
+    [Fact]
+    public async Task ShowModal_IgnoresRequestsWhileBusy_Ok()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockSwalTest>();
+        });
+        var swal = cut.FindComponent<MockSwalTest>().Instance.SwalService;
+        var option = new SwalOption()
+        {
+            Content = "Active Swal"
+        };
+        var modalTask = Task.FromResult(false);
+
+        await cut.InvokeAsync(() =>
+        {
+            modalTask = swal.ShowModal(option);
+        });
+
+        var newOption = new SwalOption()
+        {
+            Content = "Ignored Swal"
+        };
+        var newRequestTask = Task.FromResult(true);
+        await cut.InvokeAsync(() =>
+        {
+            newRequestTask = swal.ShowModal(newOption);
+        });
+
+        Assert.False(await newRequestTask);
+        Assert.False(newOption.IsConfirm);
+
+        var repeatedRequestTask = Task.FromResult(true);
+        await cut.InvokeAsync(() =>
+        {
+            repeatedRequestTask = swal.ShowModal(option);
+        });
+
+        Assert.False(await repeatedRequestTask);
+        Assert.True(option.IsConfirm);
+        Assert.Contains("Active Swal", cut.Markup);
+        Assert.DoesNotContain("Ignored Swal", cut.Markup);
+
+        var modal = cut.FindComponents<Modal>().Last();
+        await cut.InvokeAsync(() => cut.Find(".btn-danger").Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        Assert.True(await modalTask);
+    }
+
+    [Fact]
+    public async Task CloseAsync_IgnoresConcurrentCall_Ok()
+    {
+        var callbackStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var continueCallback = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var callbackCount = 0;
+        var cut = Context.Render<SweetAlertBody>(pb =>
+        {
+            pb.Add(a => a.IsConfirm, true);
+            pb.Add(a => a.OnConfirmAsync, async () =>
+            {
+                callbackCount++;
+                callbackStarted.TrySetResult();
+                await continueCallback.Task;
+            });
+        });
+
+        var firstClick = cut.InvokeAsync(() => cut.Find(".btn-danger").Click());
+        try
+        {
+            await callbackStarted.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+            await cut.InvokeAsync(() => cut.Find(".btn-danger").Click());
+
+            Assert.Equal(1, callbackCount);
+        }
+        finally
+        {
+            continueCallback.TrySetResult();
+        }
+
+        await firstClick;
+    }
+
     [Fact]
     public void Show_Ok()
     {
