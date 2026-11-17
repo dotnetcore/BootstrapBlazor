@@ -18,7 +18,6 @@ public class DrawerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Width, "");
         });
         Assert.DoesNotContain("--bb-drawer-width", cut.Markup);
-        Assert.DoesNotContain("tabindex", cut.Markup);
     }
 
     [Fact]
@@ -74,6 +73,15 @@ public class DrawerTest : BootstrapBlazorTestBase
 
         cut.Find(".drawer-backdrop").Click();
         Assert.False(isOpen);
+    }
+
+    [Fact]
+    public void Esc_Ok()
+    {
+        // 通过 tabindex="-1" 让组件可以获取焦点, ESC 事件才能触发
+        var cut = Context.Render<Drawer>();
+
+        cut.Contains("tabindex=\"-1\"");
     }
 
     [Fact]
