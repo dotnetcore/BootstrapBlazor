@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, callback) {
@@ -12,7 +12,9 @@ export function init(id, invoke, callback) {
         showProgress: () => {
             return toast.toast._config.autohide
         },
-        progressElement
+        progressElement,
+        closing: false,
+        closed: false
     }
     Data.set(id, toast);
 
@@ -26,8 +28,24 @@ export function init(id, invoke, callback) {
             progressElement.style.width = '100%'
         }
     })
+    EventHandler.on(el, 'hide.bs.toast', e => {
+        if (toast.closing) {
+            e.preventDefault();
+        }
+        else {
+            toast.closing = true;
+            queueMicrotask(() => {
+                if (e.defaultPrevented) {
+                    toast.closing = false;
+                }
+            });
+        }
+    })
     EventHandler.on(el, 'hidden.bs.toast', () => {
-        invoke.invokeMethodAsync(toast.callback)
+        if (!toast.closed) {
+            toast.closed = true;
+            invoke.invokeMethodAsync(toast.callback)
+        }
     })
     EventHandler.on(progressElement, 'transitionend', e => {
         if (toast.toast._config.autohide === false) {
@@ -62,6 +80,7 @@ export function dispose(id) {
 
     const { element, progressElement } = toast;
     EventHandler.off(element, 'shown.bs.toast');
+    EventHandler.off(element, 'hide.bs.toast');
     EventHandler.off(element, 'hidden.bs.toast');
     EventHandler.off(progressElement, 'transitionend');
 
