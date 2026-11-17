@@ -14,15 +14,29 @@ public static class SwalExtensions
     /// <summary>
     /// <para lang="zh">异步回调方法</para>
     /// <para lang="en">异步callback method</para>
+    /// <para lang="zh">已有弹窗显示时忽略新请求并返回 false。</para>
+    /// <para lang="en">Ignores a new request and returns false while a popup is already displayed.</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="option"></param>
     /// <param name="swal"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">指定弹窗component default is为 null 使用 <see cref="BootstrapBlazorRoot"/> component内置弹窗component</para></param>
     public static async Task<bool> ShowModal(this SwalService service, SwalOption option, SweetAlert? swal = null)
     {
+        var isConfirm = option.IsConfirm;
         option.IsConfirm = true;
-        await service.Show(option, swal);
-        return await option.ConfirmContext.ConfirmTask.Task;
+        var previousContext = option.ConfirmContext;
+        // An accepted request assigns its context before awaiting rendering.
+        var showTask = service.Show(option, swal);
+        var context = option.ConfirmContext;
+        await showTask;
+
+        if (context == null || context == previousContext)
+        {
+            option.IsConfirm = isConfirm;
+            return false;
+        }
+
+        return await context.ConfirmTask.Task;
     }
 
     /// <summary>
