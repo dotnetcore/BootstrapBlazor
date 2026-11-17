@@ -24,6 +24,21 @@ export function show(id, msgId) {
         return;
     }
 
+    const close = method => {
+        if (!msg.items.includes(msgItem)) {
+            return;
+        }
+
+        if (msgItem.animationId) {
+            cancelAnimationFrame(msgItem.animationId);
+            msgItem.animationId = null;
+        }
+        EventHandler.off(el, 'click');
+        el.classList.add("d-none");
+        msg.items = msg.items.filter(i => i !== msgItem);
+        return msg.invoke.invokeMethodAsync(method, msgId);
+    };
+
     const autoHide = el.getAttribute('data-bb-autohide') === 'true';
     if (autoHide) {
         const delay = parseInt(el.getAttribute('data-bb-delay'));
@@ -35,7 +50,7 @@ export function show(id, msgId) {
 
             const elapsed = ts - start;
             if (elapsed > delay) {
-                close();
+                close("Clear");
             }
             else {
                 msgItem.animationId = requestAnimationFrame(autoCloseAnimation);
@@ -45,26 +60,11 @@ export function show(id, msgId) {
     }
     el.classList.add('show');
 
-    const close = () => {
-        el.classList.add("d-none");
-
-        msg.items = msg.items.filter(i => i.el.id !== msgId);
-        msg.invoke.invokeMethodAsync("Clear", msgId);
-    };
-
     EventHandler.on(el, 'click', '.btn-close', async e => {
         e.preventDefault();
         e.stopPropagation();
 
-        const alert = e.delegateTarget.closest('.alert');
-        if (alert) {
-            EventHandler.off(el, 'click')
-            alert.classList.add("d-none");
-
-            const alertId = alert.getAttribute('id');
-            msg.items = msg.items.filter(i => i.el.id !== alertId);
-            await msg.invoke.invokeMethodAsync('Dismiss', alertId);
-        }
+        await close('Dismiss');
     });
 }
 
