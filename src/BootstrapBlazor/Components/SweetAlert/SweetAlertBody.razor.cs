@@ -174,41 +174,29 @@ public partial class SweetAlertBody
         ConfirmButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SweetAlertConfirmIcon);
     }
 
-    private bool _isClosing;
-
-    private bool _actionCompleted;
-
-    private Task OnClickClose() => CloseAsync(OnCloseAsync);
-
-    private Task OnClickConfirm() => CloseAsync(OnConfirmAsync);
-
-    private async Task CloseAsync(Func<Task>? callback)
+    private async Task OnClickClose()
     {
-        if (_isClosing)
+        if (OnCloseAsync != null)
         {
-            return;
+            await OnCloseAsync();
         }
 
-        _isClosing = true;
-        try
+        if (CloseModal != null)
         {
-            if (!_actionCompleted)
-            {
-                if (callback != null)
-                {
-                    await callback();
-                }
-                _actionCompleted = true;
-            }
-
-            if (CloseModal != null)
-            {
-                await CloseModal();
-            }
+            await CloseModal();
         }
-        finally
+    }
+
+    private async Task OnClickConfirm()
+    {
+        if (OnConfirmAsync != null)
         {
-            _isClosing = false;
+            await OnConfirmAsync();
+        }
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
         }
     }
 }
