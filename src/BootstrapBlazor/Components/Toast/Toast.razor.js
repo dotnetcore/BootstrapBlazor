@@ -34,6 +34,11 @@ export function init(id, invoke, callback) {
         }
         else {
             toast.closing = true;
+            queueMicrotask(() => {
+                if (e.defaultPrevented) {
+                    toast.closing = false;
+                }
+            });
         }
     })
     EventHandler.on(el, 'hidden.bs.toast', () => {
