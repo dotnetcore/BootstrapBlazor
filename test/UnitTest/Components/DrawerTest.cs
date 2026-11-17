@@ -299,6 +299,47 @@ public class DrawerTest : BootstrapBlazorTestBase
         Assert.Equal(["closing", "close", "changed"], callbacks);
     }
 
+    [Fact]
+    public async Task Close_IgnoresConcurrentCall()
+    {
+        var closingStarted = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var continueClosing = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var closingCount = 0;
+        var closeCount = 0;
+        var changedCount = 0;
+        var cut = Context.Render<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsOpen, true);
+            builder.Add(a => a.OnClosingAsync, async () =>
+            {
+                closingCount++;
+                closingStarted.SetResult(true);
+                await continueClosing.Task;
+                return true;
+            });
+            builder.Add(a => a.OnCloseAsync, () =>
+            {
+                closeCount++;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, _ => changedCount++));
+        });
+
+        var firstClose = cut.InvokeAsync(cut.Instance.Close);
+        await closingStarted.Task;
+        await cut.InvokeAsync(cut.Instance.Close);
+
+        Assert.Equal(1, closingCount);
+        Assert.True(cut.Instance.IsOpen);
+
+        continueClosing.SetResult(true);
+        await firstClose;
+
+        Assert.False(cut.Instance.IsOpen);
+        Assert.Equal(1, closeCount);
+        Assert.Equal(1, changedCount);
+    }
+
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]
