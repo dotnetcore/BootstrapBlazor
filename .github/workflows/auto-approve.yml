@@ -14,7 +14,7 @@ on:
 jobs:
   auto_approve:
     name: auto approve
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # Only auto-approve PRs from trusted authors; add accounts to the list as needed
     if: |
       github.event.pull_request.draft == false &&
