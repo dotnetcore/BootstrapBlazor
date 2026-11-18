@@ -7,7 +7,7 @@
   </Target>
 
   <Target Name="CopyXmlDocs2Output" BeforeTargets="Build" DependsOnTargets="CollectXmlDocs">
-    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
+    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="high" />
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
   </Target>
 
@@ -18,7 +18,7 @@
   </Target>
 
   <Target Name="CopyXmlDocs2Publish" AfterTargets="LLMs" DependsOnTargets="CollectXmlDocs">
-    <Message Text="Copying XML docs to publish path: $(PublishDir)" Importance="High" />
+    <Message Text="Copying XML docs to publish path: $(PublishDir)" Importance="high" />
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(PublishDir)" />
   </Target>
 
