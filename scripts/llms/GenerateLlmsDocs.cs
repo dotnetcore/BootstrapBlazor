@@ -20,7 +20,7 @@ if (args.Length != 5)
 var core = Path.GetFullPath(args[2]);
 if (!File.Exists(Path.Combine(core, "llms.txt")))
 {
-    Console.Error.WriteLine($"BootstrapBlazor LLM documentation not found at {core}. Pack BootstrapBlazor before publishing the server.");
+    Console.Error.WriteLine($"BootstrapBlazor LLM documentation not found at {core}. Expected llms.txt in the generated core documentation directory.");
     return 1;
 }
 
