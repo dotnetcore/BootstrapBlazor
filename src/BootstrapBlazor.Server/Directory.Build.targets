@@ -14,14 +14,13 @@
   <Target Name="LLMs" AfterTargets="Publish">
     <PropertyGroup>
       <LlmsScript>$(MSBuildThisFileDirectory)..\..\scripts\llms\GenerateLlmsDocs.cs</LlmsScript>
-      <LlmsCoreProject>$(MSBuildThisFileDirectory)..\BootstrapBlazor</LlmsCoreProject>
-      <LlmsCoreDocs>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)', 'llms-core'))</LlmsCoreDocs>
-      <LlmsWorkingDirectory>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', '$(IntermediateOutputPath)', 'llms'))</LlmsWorkingDirectory>
+      <LlmsCoreDocs>$(IntermediateOutputPath)llms-core</LlmsCoreDocs>
+      <LlmsWorkingDirectory>$(IntermediateOutputPath)llms</LlmsWorkingDirectory>
       <LlmsPublishDirectory>$(PublishDir)wwwroot\llms</LlmsPublishDirectory>
     </PropertyGroup>
     <Message Text="Generating LLMs documentation ..." Importance="high" />
     <Exec Command="dotnet tool restore" />
-    <Exec Command='dotnet llms-docs --output "$(LlmsCoreDocs)"' WorkingDirectory="$(LlmsCoreProject)" />
+    <Exec Command='dotnet llms-docs --project "$(MSBuildThisFileDirectory)..\BootstrapBlazor" --output "$(LlmsCoreDocs)"' />
     <Exec Command='dotnet run --file "$(LlmsScript)" -- "$(ProjectAssetsFile)" "$(TargetFramework)" "$(LlmsCoreDocs)" "$(LlmsWorkingDirectory)" "$(LlmsPublishDirectory)"' />
   </Target>
 
