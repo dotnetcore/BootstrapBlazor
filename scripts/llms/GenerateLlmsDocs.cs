@@ -13,14 +13,15 @@ if (args.Length == 2 && args[0] == "--clean")
 
 if (args.Length != 5)
 {
-    Console.Error.WriteLine("Usage: GenerateLlmsDocs <project.assets.json> <target framework> <BB docs directory> <working directory> <publish directory> | --clean <output directory>");
+    Console.Error.WriteLine("Usage: dotnet run --file GenerateLlmsDocs.cs -- <project.assets.json> <target framework> <core docs directory> <working directory> <publish directory>");
+    Console.Error.WriteLine("       dotnet run --file GenerateLlmsDocs.cs -- --clean <output directory>");
     return 1;
 }
 
 var core = Path.GetFullPath(args[2]);
 if (!File.Exists(Path.Combine(core, "llms.txt")))
 {
-    Console.Error.WriteLine($"BootstrapBlazor LLM documentation not found at {core}. Pack BootstrapBlazor before publishing the server.");
+    Console.Error.WriteLine($"BootstrapBlazor documentation index not found: {Path.Combine(core, "llms.txt")}. Check that the preceding 'dotnet llms-docs' command completed successfully and used this output directory.");
     return 1;
 }
 
@@ -51,13 +52,13 @@ foreach (var package in target.EnumerateObject().OrderBy(package => package.Name
     var packagePath = library.GetProperty("path").GetString()!;
     var directory = packageFolders.Select(folder => Path.Combine(folder, packagePath))
         .FirstOrDefault(Directory.Exists)
-        ?? throw new DirectoryNotFoundException($"Restored package not found: {package.Name}");
+        ?? throw new DirectoryNotFoundException($"Restored package directory not found for {package.Name}. Run 'dotnet restore' for the server project and retry.");
     var files = library.GetProperty("files").EnumerateArray().Select(file => file.GetString()!).ToArray();
     var indexFiles = files.Where(file => Regex.IsMatch(file, @"^skills/[^/]+/references/llms\.txt$"))
         .OrderBy(file => file, StringComparer.Ordinal).ToList();
     if (indexFiles.Count == 0)
     {
-        Console.Error.WriteLine($"No LLM docs in {package.Name}");
+        Console.Error.WriteLine($"No LLMs docs in {package.Name}");
         continue;
     }
 
@@ -85,13 +86,13 @@ foreach (var package in target.EnumerateObject().OrderBy(package => package.Name
             var document = Path.Combine(referenceDirectory, "components", name);
             if (!File.Exists(document))
             {
-                throw new FileNotFoundException($"Indexed LLM document not found in {package.Name}", document);
+                throw new FileNotFoundException($"LLMs document referenced by '{source}' was not found in {package.Name}. The package documentation is incomplete.", document);
             }
             Directory.CreateDirectory(destination);
             var destinationFile = Path.Combine(destination, name);
             if (File.Exists(destinationFile))
             {
-                throw new IOException($"Refusing to overwrite an existing LLM document: {destinationFile}");
+                throw new IOException($"Cannot copy LLMs documentation from {package.Name}: the destination file already exists and will not be overwritten: {destinationFile}");
             }
             File.Copy(document, destinationFile);
             index.AppendLine(line.Replace($"(components/{name})", $"({relativeDirectory}/{name})"));
@@ -102,6 +103,7 @@ foreach (var package in target.EnumerateObject().OrderBy(package => package.Name
 File.WriteAllText(indexPath, index.ToString(), new UTF8Encoding(false));
 CleanGeneratedExtensions(publish);
 CopyDocs(output, publish);
+Console.WriteLine($"Merged LLMs documentation published to {Path.Combine(publish, "llms.txt")}");
 return 0;
 
 static void CopyDocs(string source, string destination)
