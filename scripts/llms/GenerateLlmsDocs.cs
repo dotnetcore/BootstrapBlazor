@@ -20,7 +20,7 @@ if (args.Length != 5)
 var core = Path.GetFullPath(args[2]);
 if (!File.Exists(Path.Combine(core, "llms.txt")))
 {
-    Console.Error.WriteLine($"BootstrapBlazor LLM documentation not found at {core}. Expected llms.txt in the generated core documentation directory.");
+    Console.Error.WriteLine($"BootstrapBlazor LLMs documentation not found at {core}. Expected llms.txt in the generated core documentation directory.");
     return 1;
 }
 
@@ -57,7 +57,7 @@ foreach (var package in target.EnumerateObject().OrderBy(package => package.Name
         .OrderBy(file => file, StringComparer.Ordinal).ToList();
     if (indexFiles.Count == 0)
     {
-        Console.Error.WriteLine($"No LLM docs in {package.Name}");
+        Console.Error.WriteLine($"No LLMs docs in {package.Name}");
         continue;
     }
 
@@ -85,13 +85,13 @@ foreach (var package in target.EnumerateObject().OrderBy(package => package.Name
             var document = Path.Combine(referenceDirectory, "components", name);
             if (!File.Exists(document))
             {
-                throw new FileNotFoundException($"Indexed LLM document not found in {package.Name}", document);
+                throw new FileNotFoundException($"Indexed LLMs document not found in {package.Name}", document);
             }
             Directory.CreateDirectory(destination);
             var destinationFile = Path.Combine(destination, name);
             if (File.Exists(destinationFile))
             {
-                throw new IOException($"Refusing to overwrite an existing LLM document: {destinationFile}");
+                throw new IOException($"Refusing to overwrite an existing LLMs document: {destinationFile}");
             }
             File.Copy(document, destinationFile);
             index.AppendLine(line.Replace($"(components/{name})", $"({relativeDirectory}/{name})"));
