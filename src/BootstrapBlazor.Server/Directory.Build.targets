@@ -18,9 +18,11 @@
       <LlmsWorkingDirectory>$(IntermediateOutputPath)llms</LlmsWorkingDirectory>
       <LlmsPublishDirectory>$(PublishDir)wwwroot\llms</LlmsPublishDirectory>
     </PropertyGroup>
-    <Message Text="Generating LLMs documentation ..." Importance="high" />
+    <Message Text="Generating BootstrapBlazor package skill docs ..." Importance="high" />
     <Exec Command="dotnet tool restore" />
     <Exec Command='dotnet llms-docs --project "$(MSBuildThisFileDirectory)..\BootstrapBlazor" --output "$(LlmsCoreDocs)"' />
+    
+    <Message Text="Generating BootstrapBlazor.Extensions package skill docs ..." Importance="high" />
     <Exec Command='dotnet run --file "$(LlmsScript)" -- "$(ProjectAssetsFile)" "$(TargetFramework)" "$(LlmsCoreDocs)" "$(LlmsWorkingDirectory)" "$(LlmsPublishDirectory)"' />
   </Target>
 
