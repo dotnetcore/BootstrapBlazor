@@ -12,9 +12,14 @@
   </Target>
 
   <Target Name="LLMs" AfterTargets="Publish">
-    <Message Text="LLMs documentation generating ..." Importance="high"></Message>
-    <Exec Command="dotnet tool restore"></Exec>
-    <Exec Command="dotnet llms-docs --output=$(PublishDir)"></Exec>
+    <PropertyGroup>
+      <LlmsScript>$(MSBuildThisFileDirectory)..\..\scripts\llms\GenerateLlmsDocs.cs</LlmsScript>
+      <LlmsCoreDocs>$(MSBuildThisFileDirectory)..\BootstrapBlazor\skills\bb-api\references</LlmsCoreDocs>
+      <LlmsWorkingDirectory>$(MSBuildProjectDirectory)\$(IntermediateOutputPath)llms</LlmsWorkingDirectory>
+      <LlmsPublishDirectory>$(PublishDir)wwwroot\llms</LlmsPublishDirectory>
+    </PropertyGroup>
+    <Message Text="Generating LLMs documentation ..." Importance="high" />
+    <Exec Command='dotnet run --file "$(LlmsScript)" -- "$(ProjectAssetsFile)" "$(TargetFramework)" "$(LlmsCoreDocs)" "$(LlmsWorkingDirectory)" "$(LlmsPublishDirectory)"' />
   </Target>
 
   <Target Name="CopyXmlDocs2Publish" AfterTargets="LLMs" DependsOnTargets="CollectXmlDocs">
