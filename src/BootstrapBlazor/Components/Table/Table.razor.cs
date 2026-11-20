@@ -1254,8 +1254,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
             _loop = true;
-            await LoopQueryAsync();
-            _loop = false;
+            try
+            {
+                await LoopQueryAsync();
+            }
+            finally
+            {
+                _loop = false;
+            }
         }
     }
 
@@ -1676,8 +1682,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             AutoRefreshCancelTokenSource ??= new();
             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
-            await QueryAsync();
-            StateHasChanged();
+
+            // 等待期间 IsAutoRefresh 可能被关闭，此时放弃本次已排队的自动刷新
+            if (IsAutoRefresh)
+            {
+                await QueryAsync();
+                StateHasChanged();
+            }
         }
         catch (TaskCanceledException) { }
     }
