@@ -68,7 +68,7 @@
 
 ## 代码审查
 
-单独输入 `review`、`代码审查` 或 `审查代码` 时，按 `.github/copilot-instructions.md` 中的快捷审查流程执行。
+单独输入 `review`、`代码审查` 或 `审查代码`，或在 Copilot CLI 中使用 `/bb-review`，按 `.agents/skills/bb-review/SKILL.md` 中的快捷审查流程执行。内置 `/review` 与该流程不同。
 
 ```text
 审查 [PR、分支、commit 范围或工作区改动]。
