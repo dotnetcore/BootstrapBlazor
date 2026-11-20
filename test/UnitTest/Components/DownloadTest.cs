@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace UnitTest.Components;
 
 public class DownloadTest : BootstrapBlazorTestBase
@@ -74,6 +76,51 @@ public class DownloadTest : BootstrapBlazorTestBase
         var btn = cut.Find("button");
         await cut.InvokeAsync(() => btn.Click());
         Assert.True(download);
+    }
+
+    [Fact]
+    public async Task DownloadFromStreamAsync_UsesUrlAtConfiguredThreshold()
+    {
+        var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 2 }));
+        using var stream = new MemoryStream([0x01, 0x02]);
+
+        await downloadService.DownloadFromStreamAsync(new DownloadOption() { FileStream = stream, Url = "/download" });
+
+        Assert.True(downloadService.UrlCalled);
+        Assert.False(downloadService.StreamCalled);
+    }
+
+    [Fact]
+    public async Task DownloadFromStreamAsync_UsesStreamBelowConfiguredThreshold()
+    {
+        var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 3 }));
+        using var stream = new MemoryStream([0x01, 0x02]);
+
+        await downloadService.DownloadFromStreamAsync(new DownloadOption() { FileStream = stream, Url = "/download" });
+
+        Assert.True(downloadService.StreamCalled);
+        Assert.False(downloadService.UrlCalled);
+    }
+
+    [Fact]
+    public async Task DownloadFromStreamAsync_RequiresUrlAtConfiguredThreshold()
+    {
+        var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 2 }));
+        using var stream = new MemoryStream([0x01, 0x02]);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => downloadService.DownloadFromStreamAsync(new DownloadOption() { FileStream = stream }));
+    }
+
+    [Fact]
+    public async Task DownloadFromStreamAsync_UsesUrlForUnknownLength()
+    {
+        var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 3 }));
+        using var stream = new NonSeekableStream([0x01, 0x02]);
+
+        await downloadService.DownloadFromStreamAsync(new DownloadOption() { FileStream = stream, Url = "/download" });
+
+        Assert.True(downloadService.UrlCalled);
+        Assert.False(downloadService.StreamCalled);
     }
 
     [Fact]
@@ -196,5 +243,32 @@ public class DownloadTest : BootstrapBlazorTestBase
         });
         btn = cut.Find("button");
         await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+    }
+
+    private sealed class TestDownloadService : DownloadService
+    {
+        public TestDownloadService(IOptions<BootstrapBlazorOptions> options) : base(options)
+        {
+            RegisterStream(null!, _ =>
+            {
+                StreamCalled = true;
+                return Task.CompletedTask;
+            });
+        }
+
+        public bool StreamCalled { get; private set; }
+
+        public bool UrlCalled { get; private set; }
+
+        public override Task DownloadFromUrlAsync(DownloadOption option)
+        {
+            UrlCalled = true;
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class NonSeekableStream(byte[] content) : MemoryStream(content)
+    {
+        public override bool CanSeek => false;
     }
 }
