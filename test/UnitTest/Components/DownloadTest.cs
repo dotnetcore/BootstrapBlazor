@@ -91,6 +91,19 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DownloadFromStreamAsync_WithUrl_UsesUrlAtConfiguredThreshold()
+    {
+        var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 2 }));
+        using var stream = new MemoryStream([0x01, 0x02]);
+
+        await downloadService.DownloadFromStreamAsync("test.txt", stream, "/download");
+
+        Assert.True(downloadService.UrlCalled);
+        Assert.Equal("/download", downloadService.LastUrl);
+        Assert.False(downloadService.StreamCalled);
+    }
+
+    [Fact]
     public async Task DownloadFromStreamAsync_UsesStreamBelowConfiguredThreshold()
     {
         var downloadService = new TestDownloadService(Microsoft.Extensions.Options.Options.Create(new BootstrapBlazorOptions() { MaxStreamDownloadSize = 3 }));
@@ -260,9 +273,12 @@ public class DownloadTest : BootstrapBlazorTestBase
 
         public bool UrlCalled { get; private set; }
 
+        public string? LastUrl { get; private set; }
+
         public override Task DownloadFromUrlAsync(DownloadOption option)
         {
             UrlCalled = true;
+            LastUrl = option.Url;
             return Task.CompletedTask;
         }
     }
