@@ -36,4 +36,5 @@
 - 依赖：`docs/agents/dependencies.md`
 - PR 规范：`docs/agents/pr-guide.md`
 - 新组件流程：`docs/agents/component-checklist.md`
+- 快捷代码审查：用户提示去除首尾空白后恰为 `review`、`代码审查` 或 `审查代码` 时，读取并遵循 `.agents/skills/bb-review/SKILL.md`；各工具接入方式见 `docs/agents/skills.md`。
 - 发布说明：涉及生成、翻译或校对 release notes 时，读取并遵循 `.agents/skills/release-notes/SKILL.md`；这是仓库级 skill 的唯一副本。各工具接入方式见 `docs/agents/skills.md`。
