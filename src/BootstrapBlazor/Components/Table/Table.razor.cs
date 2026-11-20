@@ -1254,8 +1254,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
             _loop = true;
-            await LoopQueryAsync();
-            _loop = false;
+            try
+            {
+                await LoopQueryAsync();
+            }
+            finally
+            {
+                _loop = false;
+            }
         }
     }
 
