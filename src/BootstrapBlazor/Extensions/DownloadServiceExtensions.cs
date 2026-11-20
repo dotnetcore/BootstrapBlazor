@@ -29,6 +29,29 @@ public static class DownloadServiceExtensions
     public static Task DownloadFromStreamAsync(this DownloadService download, string downloadFileName, Stream stream) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
 
     /// <summary>
+    /// <para lang="zh">根据文件大小下载文件。文件达到 <see cref="BootstrapBlazorOptions.MaxStreamDownloadSize"/> 配置的阈值（默认为 250 MB），或流长度未知时，使用提供的 HTTP 下载地址；否则通过流下载。</para>
+    /// <para lang="en">Downloads a file based on its size. Uses the supplied HTTP download URL when the configured <see cref="BootstrapBlazorOptions.MaxStreamDownloadSize"/> threshold (250 MB by default) is reached, or when the stream length is unknown; otherwise downloads from the stream.</para>
+    /// <para><version>11.1.2</version></para>
+    /// </summary>
+    /// <param name="download">
+    ///   <para lang="zh">下载服务实例</para>
+    ///   <para lang="en">The instance of DownloadService</para>
+    /// </param>
+    /// <param name="downloadFileName">
+    ///   <para lang="zh">文件名</para>
+    ///   <para lang="en">File name</para>
+    /// </param>
+    /// <param name="stream">
+    ///   <para lang="zh">文件流</para>
+    ///   <para lang="en">File stream</para>
+    /// </param>
+    /// <param name="url">
+    ///   <para lang="zh">大文件的 HTTP 下载地址；达到阈值或流长度未知时必须提供</para>
+    ///   <para lang="en">The HTTP download URL for a large file; required when the threshold is reached or the stream length is unknown</para>
+    /// </param>
+    public static Task DownloadFromStreamAsync(this DownloadService download, string downloadFileName, Stream stream, string url) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream, Url = url });
+
+    /// <summary>
     /// <para lang="zh">下载文件方法</para>
     /// <para lang="en">Download file</para>
     /// </summary>
