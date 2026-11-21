@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits AlertBase
 
 <div @attributes="@AdditionalAttributes" role="alert" class="@ClassName">
@@ -9,7 +9,7 @@
     @ChildContent
     @if (ShowDismiss)
     {
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @onclick="@OnClick">
+        <button type="button" class="btn-close" aria-label="Close" @onclick="@OnClick">
         </button>
     }
 </div>
