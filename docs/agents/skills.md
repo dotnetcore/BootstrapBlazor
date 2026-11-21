@@ -8,6 +8,7 @@
 
 - `.agents/skills/release-notes/SKILL.md`：生成、翻译、校对中英文版本发布说明。
 - `.agents/skills/bb-review/SKILL.md`：快捷代码审查、修复和复查。
+- `.agents/skills/github-issue-pr/SKILL.md`：按仓库约定创建 GitHub Issue 和关联 PR。
 
 `.agents/skills/` 是 Agent Skills 开放标准的跨工具目录。`SKILL.md` 的 frontmatter 只保留 `name` 和 `description`，不写任何工具专有字段；新增 skill 时同样遵守。
 
@@ -17,21 +18,18 @@
 | --- | --- |
 | GitHub Copilot（CLI、云端 agent、VS Code / VS / JetBrains） | 自动发现，无需配置 |
 | Codex、Cursor、Gemini CLI | 自动发现，无需配置 |
-| Claude Code、WorkBuddy 等只读 `AGENTS.md` 的工具 | 按根 `AGENTS.md` 的指路读取该文件；不会自动加载，也不能用斜杠命令调用 |
+| Claude Code 等只读 `AGENTS.md` 的工具 | 按根 `AGENTS.md` 的指路读取该文件；不会自动加载，也不能用斜杠命令调用 |
 
 Copilot CLI 中可使用 `/bb-review` 调用快捷审查 skill。内置 `/review` 是独立的代码审查命令，不等同于本仓库的快捷审查流程。
 
 需要斜杠调用时，可在自己的用户级目录做一次性安装（这些目录被 `.gitignore` 忽略，不要提交）：
 
 ```sh
-mkdir -p ~/.claude/skills ~/.workbuddy/skills
+mkdir -p ~/.claude/skills
 cp -r .agents/skills/release-notes ~/.claude/skills/
-cp -r .agents/skills/release-notes ~/.workbuddy/skills/
 cp -r .agents/skills/bb-review ~/.claude/skills/
-cp -r .agents/skills/bb-review ~/.workbuddy/skills/
+cp -r .agents/skills/github-issue-pr ~/.claude/skills/
 ```
-
-Windows PowerShell 可用 `Copy-Item -Recurse .agents\skills\bb-review $HOME\.workbuddy\skills\`。仓库中的 skill 更新后，需要同步更新个人副本。
 
 ## 约束
 
