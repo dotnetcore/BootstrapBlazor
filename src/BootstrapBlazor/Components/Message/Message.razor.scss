@@ -5,6 +5,20 @@
     z-index: 1090;
     pointer-events: none;
 
+    &[popover] {
+        inset: auto;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        max-width: none;
+        overflow: visible;
+        color: inherit;
+        background: transparent;
+    }
+
     .alert {
         display: flex;
         align-items: baseline;

@@ -1,9 +1,16 @@
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
+import { attachOverlay, supportsPopover } from "../../modules/fullscreen.js"
 
 export function init(id, invoke) {
     const el = document.getElementById(id)
     const msg = { el, invoke, items: [] }
+    if (supportsPopover(el)) {
+        msg.detachOverlay = attachOverlay(el)
+    }
+    else {
+        el.removeAttribute('popover')
+    }
     Data.set(id, msg)
 }
 
@@ -14,6 +21,16 @@ export function show(id, msgId) {
     }
 
     const msg = Data.get(id)
+    msg.items = msg.items.filter(item => {
+        if (item.el.isConnected) {
+            return true
+        }
+        if (item.animationId) {
+            cancelAnimationFrame(item.animationId)
+        }
+        EventHandler.off(item.el, 'click')
+        return false
+    })
     let msgItem = msg.items.find(i => i.el.id === msgId)
     if (msgItem === void 0) {
         msgItem = { el, animationId: null }
@@ -22,6 +39,10 @@ export function show(id, msgId) {
 
     if (msgItem.animationId) {
         return;
+    }
+
+    if (msg.el.hasAttribute('popover') && supportsPopover(msg.el) && !msg.el.matches(':popover-open')) {
+        msg.el.showPopover()
     }
 
     const close = method => {
@@ -36,6 +57,9 @@ export function show(id, msgId) {
         EventHandler.off(el, 'click');
         el.classList.add("d-none");
         msg.items = msg.items.filter(i => i !== msgItem);
+        if (msg.items.length === 0 && msg.el.hasAttribute('popover') && supportsPopover(msg.el) && msg.el.matches(':popover-open')) {
+            msg.el.hidePopover()
+        }
         return msg.invoke.invokeMethodAsync(method, msgId);
     };
 
@@ -71,12 +95,17 @@ export function show(id, msgId) {
 export function dispose(id) {
     const msg = Data.get(id)
     if (msg) {
+        if (msg.el.hasAttribute('popover') && supportsPopover(msg.el) && msg.el.matches(':popover-open')) {
+            msg.el.hidePopover()
+        }
         msg.items.forEach(item => {
+            EventHandler.off(item.el, 'click')
             if (item.animationId) {
                 cancelAnimationFrame(item.animationId);
                 item.animationId = null;
             }
         });
+        msg.detachOverlay?.()
     }
     Data.remove(id)
 }
