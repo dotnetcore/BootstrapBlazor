@@ -193,11 +193,11 @@ else
         <span class="tabs-item-text">@item.Text</span>
         @if (ShowFullScreen && item.ShowFullScreen)
         {
-            <FullScreenButton></FullScreenButton>
+            <FullScreenButton IsDisabled="@item.IsDisabled"></FullScreenButton>
         }
         @if (ShowClose && item.Closable)
         {
-            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
+            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => CloseTabFromHeaderAsync(item)">
                 <i class="@CloseIcon"></i>
             </span>
         }

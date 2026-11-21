@@ -1183,6 +1183,14 @@ public partial class Tab
         }
     }
 
+    private async Task CloseTabFromHeaderAsync(TabItem item)
+    {
+        if (!item.IsDisabled)
+        {
+            await RemoveTab(item);
+        }
+    }
+
     private async Task ToggleActiveTabFullscreenAsync()
     {
         var item = GetActiveTab();
