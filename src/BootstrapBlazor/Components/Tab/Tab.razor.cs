@@ -621,6 +621,7 @@ public partial class Tab
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
         RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
+        FullscreenToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
 
         ContextMenuRefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuRefreshIcon);
         ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
