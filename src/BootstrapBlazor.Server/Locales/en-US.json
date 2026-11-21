@@ -5590,6 +5590,14 @@
     "TablesWrapTip": "<b>Note:</b>Because the <code>Table</code> component has realized the function of adapting to the mobile terminal, this demo needs to be viewed on the computer side"
   },
   "BootstrapBlazor.Server.Components.Samples.Tabs": {
+    "TabsFullscreenTitle": "Fullscreen dialogs and notifications",
+    "TabsFullscreenIntro": "Use the right toolbar button to make the entire Tab fullscreen. Select a tab and use its fullscreen button to make its content fullscreen; press Esc to exit. Use the buttons below to check Dialog, Message, Toast, Swal and Alert. Message and Toast stay visible until dismissed; Alert is displayed inside the tab.",
+    "TabsFullscreenDialogButton": "Open Dialog",
+    "TabsFullscreenMessageButton": "Show Message",
+    "TabsFullscreenToastButton": "Show Toast",
+    "TabsFullscreenSwalButton": "Open Swal",
+    "TabsFullscreenAlertButton": "Show Alert",
+    "TabsFullscreenContent": "This is {0}. Check its visibility and dismissal while the tab is fullscreen.",
     "ActiveButtonText": "Activate the first one",
     "AddButtonText": "Add",
     "BackText1": "Counter",
