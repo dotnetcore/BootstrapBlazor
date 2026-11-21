@@ -1,7 +1,8 @@
 @namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Toast/ToastContainer.razor.js")]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" popover="manual">
     <CascadingValue Value="this" IsFixed="true">
         @foreach (var option in Toasts)
         {
