@@ -13,6 +13,10 @@
 
 当用户提示去除首尾空白后恰为 `review`、`代码审查` 或 `审查代码` 时，读取并遵循 `.agents/skills/bb-review/SKILL.md` 中的快捷审查流程。
 
+## GitHub Issue 和 PR
+
+用户要求按仓库约定创建或更新 Issue 和关联 PR 时，读取并遵循 `.agents/skills/github-issue-pr/SKILL.md`。各工具接入方式见 `docs/agents/skills.md`。
+
 ## 任务
 
 - 任务完成后显示耗时。

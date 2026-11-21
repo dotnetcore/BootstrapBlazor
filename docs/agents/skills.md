@@ -18,20 +18,18 @@
 | --- | --- |
 | GitHub Copilot（CLI、云端 agent、VS Code / VS / JetBrains） | 自动发现，无需配置 |
 | Codex、Cursor、Gemini CLI | 自动发现，无需配置 |
-| Claude Code、WorkBuddy 等只读 `AGENTS.md` 的工具 | 按根 `AGENTS.md` 的指路读取该文件；不会自动加载，也不能用斜杠命令调用 |
+| Claude Code 等只读 `AGENTS.md` 的工具 | 按根 `AGENTS.md` 的指路读取该文件；不会自动加载，也不能用斜杠命令调用 |
 
 Copilot CLI 中可使用 `/bb-review` 调用快捷审查 skill。内置 `/review` 是独立的代码审查命令，不等同于本仓库的快捷审查流程。
 
 需要斜杠调用时，可在自己的用户级目录做一次性安装（这些目录被 `.gitignore` 忽略，不要提交）：
 
 ```sh
-mkdir -p ~/.claude/skills ~/.workbuddy/skills
+mkdir -p ~/.claude/skills
 cp -r .agents/skills/release-notes ~/.claude/skills/
 cp -r .agents/skills/bb-review ~/.claude/skills/
 cp -r .agents/skills/github-issue-pr ~/.claude/skills/
 ```
-
-Windows PowerShell 可用 `Copy-Item -Recurse .agents\skills\github-issue-pr $HOME\.workbuddy\skills\`。仓库中的 skill 更新后，需要同步更新个人副本。
 
 ## 约束
 

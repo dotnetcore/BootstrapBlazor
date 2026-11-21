@@ -10,6 +10,7 @@
 
 ## Issue 与 PR
 
+- 创建或更新 GitHub Issue / PR 时，优先遵循 `.agents/skills/github-issue-pr/SKILL.md`；该 skill 是当前仓库的唯一来源，各工具接入方式见 `skills.md`。
 - 先检查仓库近期提交、Issue、PR 惯例及 `.github/ISSUE_TEMPLATE/`，避免重复创建。
 - 创建或更新 PR 正文前，必须读取 `.github/pull_request_template.md`；若存在 `.github/PULL_REQUEST_TEMPLATE/`，也应检查适用模板。
 - 保留模板的标题、注释、清单和顺序，按实际改动填写。
