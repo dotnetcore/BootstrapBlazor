@@ -129,6 +129,20 @@ public partial class Layout : ITabHeader
     public bool IsExpandOnHover { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否在桌面端侧栏折叠时悬浮显示子菜单而不展开整个侧栏，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to display popup submenus instead of expanding the collapsed sidebar on desktop. Default is false</para>
+    /// <para><version>v11.1.2</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">启用后桌面端折叠状态下 <see cref="IsExpandOnHover"/> 不生效，移动端保留原有侧栏行为</para>
+    /// <para lang="en">When enabled, <see cref="IsExpandOnHover"/> does not apply to the collapsed sidebar on desktop. Mobile sidebar behavior is unchanged</para>
+    /// </remarks>
+    [Parameter]
+    public bool EnableCollapsedSubMenuPopup { get; set; }
+
+    private bool IsCollapsedMenuPopup => EnableCollapsedSubMenuPopup && IsCollapsed && !IsSmallScreen;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 菜单手风琴效果</para>
     /// <para lang="en">Gets or sets Menu Accordion effect</para>
     /// </summary>
@@ -490,8 +504,9 @@ public partial class Layout : ITabHeader
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
-        .AddClass("is-collapsed", IsCollapsed && IsExpandOnHover)
-        .AddClass("is-click-expand", IsCollapsed && !IsExpandOnHover)
+        .AddClass("is-collapsed", IsCollapsed && (IsExpandOnHover || IsCollapsedMenuPopup))
+        .AddClass("is-click-expand", IsCollapsed && !IsExpandOnHover && !IsCollapsedMenuPopup)
+        .AddClass("is-menu-popup", IsCollapsedMenuPopup)
         .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
         .AddClass("is-page", IsPage)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -690,7 +705,7 @@ public partial class Layout : ITabHeader
     {
         base.OnParametersSet();
 
-        if (!IsCollapsed || IsExpandOnHover)
+        if (!IsCollapsed || IsExpandOnHover || IsCollapsedMenuPopup)
         {
             _isSidebarExpand = false;
         }
@@ -721,7 +736,15 @@ public partial class Layout : ITabHeader
     [JSInvokable]
     public void SetCollapsed(int width)
     {
-        IsSmallScreen = width < 768;
+        var isSmallScreen = width < 768;
+        if (IsSmallScreen != isSmallScreen)
+        {
+            IsSmallScreen = isSmallScreen;
+            if (EnableCollapsedSubMenuPopup)
+            {
+                StateHasChanged();
+            }
+        }
     }
 
     /// <summary>
@@ -817,7 +840,7 @@ public partial class Layout : ITabHeader
     /// </summary>
     private void OnClickSidebar()
     {
-        if (IsCollapsed && !IsExpandOnHover && !_isSidebarExpand)
+        if (IsCollapsed && !IsExpandOnHover && !IsCollapsedMenuPopup && !_isSidebarExpand)
         {
             _isSidebarExpand = true;
         }

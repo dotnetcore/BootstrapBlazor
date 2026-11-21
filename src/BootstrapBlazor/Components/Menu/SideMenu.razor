@@ -1,25 +1,34 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<ul @attributes="@AdditionalAttributes" id="@Id" class="@GetMenuClassString">
+<ul @attributes="@AdditionalAttributes" id="@Id" class="@GetMenuClassString"
+    role="@(Parent.IsCollapsedPopup ? "menu" : null)" popover="@PopoverString"
+    aria-label="@(Parent.IsCollapsedPopup ? MenuItem?.Text : null)">
     @foreach (var item in Items)
     {
         if (item.Items.Any())
         {
-            <li>
-                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" />
+            <li @key="item" role="@(Parent.IsCollapsedPopup ? "none" : null)">
+                <MenuLink Item="@item" ArrowIcon="@ArrowIcon"
+                          data-bs-toggle="@(Parent.IsCollapsedPopup ? null : "collapse")"
+                          data-bs-target="@(Parent.IsCollapsedPopup ? null : GetTargetIdString(item))"
+                          data-bb-menu-popup="@(Parent.IsCollapsedPopup && !item.IsDisabled ? GetTargetId(item) : null)"
+                          aria-controls="@(Parent.IsCollapsedPopup && !item.IsDisabled ? GetTargetId(item) : null)"
+                          aria-haspopup="@(Parent.IsCollapsedPopup && !item.IsDisabled ? "menu" : null)" />
                 @if (!item.IsDisabled)
                 {
                     <CascadingValue Value="item" IsFixed="true">
-                        <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon" class="collapse" data-bs-parent="@ParentIdString" />
+                        <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon"
+                                  class="@(Parent.IsCollapsedPopup ? null : "collapse")" data-bs-parent="@ParentIdString" />
                     </CascadingValue>
                 }
             </li>
         }
         else
         {
-            <li @onclick:stopPropagation @onclick="() => OnClickItem(item)">
-                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" />
+            <li @key="item" role="@(Parent.IsCollapsedPopup ? "none" : null)" @onclick:stopPropagation @onclick="() => OnClickItem(item)">
+                <MenuLink Item="@item" ArrowIcon="@ArrowIcon"
+                          data-bb-menu-tooltip="@(Parent.IsCollapsedPopup && MenuItem == null && !item.IsDisabled ? item.Text : null)" />
             </li>
         }
     }

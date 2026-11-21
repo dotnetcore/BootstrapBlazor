@@ -109,12 +109,14 @@
         @if (IsFixedTabHeader || IsFullSide)
         {
             <Scroll>
-                <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="ClickMenu"></Menu>
+                <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="ClickMenu"
+                      EnableCollapsedSubMenuPopup="@EnableCollapsedSubMenuPopup" IsCollapsed="@IsCollapsedMenuPopup"></Menu>
             </Scroll>
         }
         else
         {
-            <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="ClickMenu"></Menu>
+            <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="ClickMenu"
+                  EnableCollapsedSubMenuPopup="@EnableCollapsedSubMenuPopup" IsCollapsed="@IsCollapsedMenuPopup"></Menu>
         }
     </div>;
 
