@@ -5591,7 +5591,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Tabs": {
     "TabsFullscreenTitle": "Fullscreen dialogs and notifications",
-    "TabsFullscreenIntro": "Use the right toolbar button to make the entire Tab fullscreen. Select a tab and use its fullscreen button to make its content fullscreen; press Esc to exit. Use the buttons below to check Dialog, Message, Toast, Swal and Alert. Message and Toast stay visible until dismissed; Alert is displayed inside the tab.",
+    "TabsFullscreenIntro": "Use the right toolbar button to make the entire <code>Tab</code> fullscreen. Select a tab and use its fullscreen button to make its content fullscreen; press <kbd>Esc</kbd> to exit. Use the buttons below to check <code>Dialog</code>, <code>Message</code>, <code>Toast</code>, <code>Swal</code> and <code>Alert</code>. <code>Message</code> and <code>Toast</code> stay visible until dismissed; <code>Alert</code> is displayed inside the tab.",
     "TabsFullscreenDialogButton": "Open Dialog",
     "TabsFullscreenMessageButton": "Show Message",
     "TabsFullscreenToastButton": "Show Toast",

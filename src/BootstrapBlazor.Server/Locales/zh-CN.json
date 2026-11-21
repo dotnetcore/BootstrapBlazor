@@ -5591,7 +5591,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Tabs": {
     "TabsFullscreenTitle": "全屏弹窗与通知",
-    "TabsFullscreenIntro": "右侧工具栏全屏按钮将整个 Tab 组件全屏；先选中标签页，再点击标签上的全屏按钮可将该标签页内容全屏，按 Esc 退出。使用下方按钮验证 Dialog、Message、Toast、Swal 和 Alert。Message 和 Toast 不自动关闭；Alert 在标签页内显示。",
+    "TabsFullscreenIntro": "右侧工具栏全屏按钮将整个 <code>Tab</code> 组件全屏；先选中标签页，再点击标签上的全屏按钮可将该标签页内容全屏，按 <kbd>Esc</kbd> 退出。使用下方按钮验证 <code>Dialog</code>、<code>Message</code>、<code>Toast</code>、<code>Swal</code> 和 <code>Alert</code>。<code>Message</code> 和 <code>Toast</code> 不自动关闭；<code>Alert</code> 在标签页内显示。",
     "TabsFullscreenDialogButton": "打开 Dialog",
     "TabsFullscreenMessageButton": "显示 Message",
     "TabsFullscreenToastButton": "显示 Toast",
