@@ -1,12 +1,14 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <BootstrapBlazorRootContent>
-    <div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" id="@Id"
-         data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString">
-        <CascadingValue Value="this" IsFixed="true">
-            @ChildContent
-        </CascadingValue>
-    </div>
+    <dialog class="bb-modal-host">
+        <div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="presentation" id="@Id"
+             data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString">
+            <CascadingValue Value="this" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
+        </div>
+    </dialog>
 </BootstrapBlazorRootContent>
