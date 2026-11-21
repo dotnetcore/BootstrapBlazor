@@ -38,6 +38,11 @@
 
     .tabs-body-content {
         background-color: var(--bs-body-bg);
+
+        &:fullscreen {
+            overflow: auto;
+            padding: 1rem;
+        }
     }
 }
 
