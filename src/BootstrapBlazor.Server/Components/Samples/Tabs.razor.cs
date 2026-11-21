@@ -10,6 +10,45 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Tabs
 {
+    private bool _showFullscreenAlert;
+
+    private Task ShowFullscreenDialogAsync() => DialogService.Show(new DialogOption
+    {
+        Title = Localizer["TabsFullscreenDialogButton"],
+        BodyTemplate = builder => builder.AddContent(0, Localizer["TabsFullscreenContent", "Dialog"])
+    });
+
+    private Task ShowFullscreenMessageAsync() => MessageService.Show(new MessageOption
+    {
+        Content = Localizer["TabsFullscreenContent", "Message"],
+        Color = Color.Success,
+        ShowDismiss = true,
+        IsAutoHide = false
+    });
+
+    private Task ShowFullscreenToastAsync() => ToastService.Show(new ToastOption
+    {
+        Title = Localizer["TabsFullscreenToastButton"],
+        Content = Localizer["TabsFullscreenContent", "Toast"],
+        Category = ToastCategory.Success,
+        IsAutoHide = false
+    });
+
+    private Task ShowFullscreenSwalAsync() => SwalService.Show(new SwalOption
+    {
+        Title = Localizer["TabsFullscreenSwalButton"],
+        Content = Localizer["TabsFullscreenContent", "Swal"],
+        Category = SwalCategory.Success
+    });
+
+    private void ShowFullscreenAlert() => _showFullscreenAlert = true;
+
+    private Task DismissFullscreenAlertAsync()
+    {
+        _showFullscreenAlert = false;
+        return InvokeAsync(StateHasChanged);
+    }
+
     [NotNull]
     private Tab? TabSet { get; set; }
 

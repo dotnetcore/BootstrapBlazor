@@ -129,8 +129,8 @@ public partial class Tab
     public bool ShowClose { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示全屏按钮，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to show full screen button. Default is false</para>
+    /// <para lang="zh">获得/设置 是否显示标签页内容全屏按钮，仅活动标签可使用，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the tab content fullscreen button, which is available only for the active tab. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowFullScreen { get; set; }
@@ -375,8 +375,8 @@ public partial class Tab
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示全屏按钮，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to show the full screen button. Default is true</para>
+    /// <para lang="zh">获得/设置 是否显示 Tab 组件全屏工具栏按钮，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show the Tab component fullscreen toolbar button. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowFullscreenToolbarButton { get; set; } = true;
@@ -621,6 +621,7 @@ public partial class Tab
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
         RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
+        FullscreenToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
 
         ContextMenuRefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuRefreshIcon);
         ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
@@ -1181,6 +1182,16 @@ public partial class Tab
             StateHasChanged();
         }
     }
+
+    private async Task CloseTabFromHeaderAsync(TabItem item)
+    {
+        if (!item.IsDisabled)
+        {
+            await RemoveTab(item);
+        }
+    }
+
+    private Task ToggleTabFullscreenAsync() => FullScreenService.ToggleById(Id);
 
     private async Task OnRefreshAsync()
     {

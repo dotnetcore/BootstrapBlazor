@@ -1,6 +1,9 @@
 @page "/tab"
 @inject IStringLocalizer<Tabs> Localizer
 @inject ToastService ToastService
+@inject DialogService DialogService
+@inject MessageService MessageService
+@inject SwalService SwalService
 
 <h3>@Localizer["TabsTitle"]</h3>
 
@@ -90,6 +93,29 @@ private void Navigation()
         </TabItem>
         <TabItem Text="@Localizer["TabItem4Text"]">
             <div>@Localizer["TabItem4Content"]</div>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsFullscreenTitle"]" Introduction="@Localizer["TabsFullscreenIntro"]" Name="Fullscreen">
+    <Tab IsCard="true" ShowToolbar="true" ShowFullScreen="true">
+        <TabItem Text="@Localizer["TabsFullscreenTitle"]">
+            <div class="d-flex flex-wrap gap-2">
+                <Button Text="@Localizer["TabsFullscreenDialogButton"]" OnClickWithoutRender="ShowFullscreenDialogAsync" />
+                <Button Text="@Localizer["TabsFullscreenMessageButton"]" OnClickWithoutRender="ShowFullscreenMessageAsync" />
+                <Button Text="@Localizer["TabsFullscreenToastButton"]" OnClickWithoutRender="ShowFullscreenToastAsync" />
+                <Button Text="@Localizer["TabsFullscreenSwalButton"]" OnClickWithoutRender="ShowFullscreenSwalAsync" />
+                <Button Text="@Localizer["TabsFullscreenAlertButton"]" OnClick="ShowFullscreenAlert" />
+            </div>
+            @if (_showFullscreenAlert)
+            {
+                <Alert class="mt-3" Color="Color.Info" ShowDismiss="true" OnDismiss="DismissFullscreenAlertAsync">
+                    @Localizer["TabsFullscreenContent", "Alert"]
+                </Alert>
+            }
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div class="p-3">@Localizer["TabItem2Content"]</div>
         </TabItem>
     </Tab>
 </DemoBlock>
