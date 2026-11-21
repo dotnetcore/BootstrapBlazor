@@ -1,3 +1,11 @@
 ﻿.layout-menu-demo {
     border: 1px solid var(--bs-border-color);
 }
+
+.popup-menu-demo {
+    width: 220px;
+    height: 180px;
+    overflow: auto;
+    border: 1px solid var(--bs-border-color);
+    margin-bottom: 1rem;
+}
