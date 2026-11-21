@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Toast 弹出窗容器组件</para>
 /// <para lang="en">Toast Popup Window Container Component</para>
 /// </summary>
-public partial class ToastContainer : IDisposable
+public partial class ToastContainer
 {
     private string? ClassString => CssBuilder.Default("toast-container")
         .AddClass("top-0 start-0", Placement == Placement.TopStart)
