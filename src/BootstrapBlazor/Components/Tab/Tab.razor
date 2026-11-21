@@ -91,7 +91,7 @@ else
                     @if (ShowFullscreenToolbarButton)
                     {
                         <TabToolbarButton class="tabs-nav-toolbar-refresh"
-                                          Icon="@FullscreenToolbarButtonIcon" OnClickAsync="ToggleActiveTabFullscreenAsync"
+                                          Icon="@FullscreenToolbarButtonIcon" OnClickAsync="ToggleTabFullscreenAsync"
                                           TooltipText="@FullscreenToolbarTooltipText"></TabToolbarButton>
                     }
                     @if (ToolbarTemplate != null)
@@ -193,7 +193,7 @@ else
         <span class="tabs-item-text">@item.Text</span>
         @if (ShowFullScreen && item.ShowFullScreen)
         {
-            <FullScreenButton IsDisabled="@item.IsDisabled"></FullScreenButton>
+            <FullScreenButton TargetId="@item.Id" IsDisabled="@(item.IsDisabled || !item.IsActive)"></FullScreenButton>
         }
         @if (ShowClose && item.Closable)
         {
