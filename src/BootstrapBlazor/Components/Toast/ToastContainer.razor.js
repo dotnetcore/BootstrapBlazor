@@ -10,8 +10,9 @@ export function init(id) {
         else {
             el.removeAttribute('popover')
         }
+
+        toggle(id, false)
     }
-    toggle(id, false)
 }
 
 export function toggle(id, show) {
