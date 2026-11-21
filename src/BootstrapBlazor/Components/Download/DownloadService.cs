@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">文件下载服务类</para>
 /// <para lang="en">Download Service Class</para>
 /// </summary>
-public class DownloadService
+public class DownloadService(IOptions<BootstrapBlazorOptions> options)
 {
     /// <summary>
     /// <para lang="zh">获得 回调委托缓存集合</para>
@@ -72,6 +72,22 @@ public class DownloadService
     /// <param name="option"><para lang="zh">文件下载选项</para><para lang="en">文件下载选项</para></param>
     public virtual async Task DownloadFromStreamAsync(DownloadOption option)
     {
+        var stream = option.FileStream;
+        if (stream != null)
+        {
+            var useUrl = !stream.CanSeek || stream.Length - stream.Position >= (options.Value.MaxStreamDownloadSize);
+            if (useUrl)
+            {
+                if (string.IsNullOrEmpty(option.Url))
+                {
+                    throw new InvalidOperationException($"A download URL is required when the stream reaches the configured {nameof(BootstrapBlazorOptions.MaxStreamDownloadSize)} threshold, or when the stream length is unknown.");
+                }
+
+                await DownloadFromUrlAsync(option);
+                return;
+            }
+        }
+
         var cb = StreamCache.LastOrDefault().Callback;
         if (cb != null)
         {

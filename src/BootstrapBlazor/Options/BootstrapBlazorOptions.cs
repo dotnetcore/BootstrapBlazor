@@ -112,6 +112,13 @@ public class BootstrapBlazorOptions
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置通过流下载的最大文件大小，单位为字节。达到此大小时使用 HTTP 下载地址。默认为 250 MB</para>
+    /// <para lang="en">Gets or sets the maximum file size for stream downloads, in bytes. Files at or above this size use the HTTP download URL. Defaults to 250 MB</para>
+    /// <para><version>11.1.2</version></para>
+    /// </summary>
+    public long MaxStreamDownloadSize { get; set; } = 250L * 1024 * 1024;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 <see cref="TableSettings"/> 配置实例</para>
     /// <para lang="en">Gets or sets the <see cref="TableSettings"/> configuration instance</para>
     /// </summary>
