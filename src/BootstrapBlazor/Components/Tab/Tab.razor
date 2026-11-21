@@ -193,18 +193,15 @@ else
             <i class="@GetIconClassString(item.Icon)"></i>
         }
         <span class="tabs-item-text">@item.Text</span>
-        @if (!item.IsDisabled)
+        @if (ShowFullScreen && item.ShowFullScreen)
         {
-            @if (ShowFullScreen && item.ShowFullScreen)
-            {
-                <FullScreenButton></FullScreenButton>
-            }
-            @if (ShowClose && item.Closable)
-            {
-                <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
-                    <i class="@CloseIcon"></i>
-                </span>
-            }
+            <FullScreenButton></FullScreenButton>
+        }
+        @if (ShowClose && item.Closable)
+        {
+            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
+                <i class="@CloseIcon"></i>
+            </span>
         }
     </div>;
 }
