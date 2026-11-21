@@ -1194,7 +1194,7 @@ public partial class Tab
     private async Task ToggleActiveTabFullscreenAsync()
     {
         var item = GetActiveTab();
-        if (item == null)
+        if (item == null || item.IsDisabled)
         {
             return;
         }
