@@ -1,10 +1,13 @@
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
+import { setModalOverlay } from "../../modules/fullscreen.js"
 
 export function init(id, invoke, shownCallback, closeCallback) {
     const el = document.getElementById(id)
+    const host = el.closest('dialog')
     const modal = {
         el,
+        host,
         invoke,
         shownCallback,
         closeCallback,
@@ -22,9 +25,35 @@ export function init(id, invoke, shownCallback, closeCallback) {
     })
     EventHandler.on(el, 'hidden.bs.modal', e => {
         e.stopPropagation();
+        if (host.open) {
+            host.close()
+        }
+        setModalOverlay(host, false)
+        restoreBodyStyle(modal)
         invoke.invokeMethodAsync(closeCallback)
     })
     EventHandler.on(window, 'popstate', modal.pop)
+    EventHandler.on(host, 'cancel', e => {
+        e.preventDefault()
+        if (el.getAttribute('data-bs-keyboard') === 'true'
+            && modal.modal?._isShown && !modal.modal._isTransitioning) {
+            modal.close()
+        }
+    })
+    EventHandler.on(host, 'click', e => {
+        if ((e.target === host || e.target === modal.modal?._backdrop._element)
+            && el.getAttribute('data-bs-backdrop') !== 'static') {
+            modal.close()
+        }
+    })
+    modal.movePopover = e => {
+        const tip = document.getElementById(e.target.getAttribute('aria-describedby'))
+        if (tip && !host.contains(tip)) {
+            host.append(tip)
+        }
+    }
+    EventHandler.on(host, 'inserted.bs.tooltip', modal.movePopover)
+    EventHandler.on(host, 'inserted.bs.popover', modal.movePopover)
 
     modal.show = () => {
         const dialogs = el.querySelectorAll('.modal-dialog')
@@ -32,9 +61,15 @@ export function init(id, invoke, shownCallback, closeCallback) {
             return
         }
 
+        const opening = !host.open
+        if (opening) {
+            host.showModal()
+        }
+
         backupBodyStyle(modal);
         if (!modal.modal) {
             modal.modal = bootstrap.Modal.getOrCreateInstance(el)
+            modal.modal._backdrop._config.rootElement = host
             // hack: fix focusin event
             modal.modal._focustrap._handleFocusin = e => { }
         }
@@ -50,6 +85,17 @@ export function init(id, invoke, shownCallback, closeCallback) {
 
         if (!modal.modal._isShown) {
             modal.modal.show()
+            if (opening) {
+                if (modal.modal._isShown) {
+                    setModalOverlay(host, true)
+                }
+                else {
+                    if (host.open) {
+                        host.close()
+                    }
+                    restoreBodyStyle(modal)
+                }
+            }
         }
         else if (multiple && !modal.modal._isTransitioning) {
             modal.invoke.invokeMethodAsync(modal.shownCallback)
@@ -59,7 +105,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
     modal.hide = () => {
         if (el.children.length === 1) {
             modal.modal.hide();
-            restoreBodyStyle(modal);
         }
         else {
             modal.invoke.invokeMethodAsync(modal.closeCallback)
@@ -67,7 +112,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
     }
 
     modal.toggle = () => {
-        if (modal.modal) {
+        if (modal.modal?._isShown) {
             modal.modal.toggle()
         }
         else {
@@ -86,16 +131,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
         if (!modal.hook_keyboard_backdrop) {
             modal.hook_keyboard_backdrop = true;
 
-            modal.handlerEscape = async e => {
-                if (e.key === 'Escape') {
-                    const keyboard = el.getAttribute('data-bs-keyboard')
-                    if (keyboard === 'true') {
-                        modal.close();
-                    }
-                }
-            }
-
-            EventHandler.on(document, 'keyup', modal.handlerEscape)
             EventHandler.on(el, 'click', e => {
                 if (e.target.closest('.modal-dialog') === null) {
                     const backdrop = el.getAttribute('data-bs-backdrop')
@@ -144,15 +179,15 @@ export function dispose(id) {
         EventHandler.off(modal.el, 'shown.bs.modal')
         EventHandler.off(modal.el, 'hidden.bs.modal')
         EventHandler.off(modal.el, 'click')
-
-        if (modal.hook_keyboard_backdrop) {
-            EventHandler.off(document, 'keyup', modal.handlerEscape)
-        }
+        EventHandler.off(modal.host, 'cancel')
+        EventHandler.off(modal.host, 'click')
+        EventHandler.off(modal.host, 'inserted.bs.tooltip', modal.movePopover)
+        EventHandler.off(modal.host, 'inserted.bs.popover', modal.movePopover)
 
         EventHandler.off(window, 'popstate', modal.pop)
         const dialog = modal.modal;
         if (dialog) {
-            if (document.body.classList.contains('modal-open')) {
+            if (dialog._isShown || dialog._isTransitioning) {
                 dialog._backdrop._config.isAnimated = false;
                 dialog._hideModal();
             }
@@ -160,6 +195,11 @@ export function dispose(id) {
             restoreBodyStyle(modal);
             dialog.dispose()
         }
+
+        if (modal.host.open) {
+            modal.host.close()
+        }
+        setModalOverlay(modal.host, false)
     }
 }
 
@@ -172,6 +212,6 @@ const backupBodyStyle = modal => {
 const restoreBodyStyle = modal => {
     if (modal.originalStyle !== null) {
         document.body.style.cssText = modal.originalStyle;
-        delete modal.originalStyle;
+        modal.originalStyle = null;
     }
 }

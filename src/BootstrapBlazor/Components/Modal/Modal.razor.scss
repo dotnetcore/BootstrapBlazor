@@ -1,4 +1,10 @@
-﻿.is-draggable .modal-header {
+dialog {
+    &::backdrop {
+        background: transparent;
+    }
+}
+
+.is-draggable .modal-header {
     cursor: pointer;
 }
 
