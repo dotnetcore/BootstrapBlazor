@@ -116,12 +116,10 @@ public class TabTest : BootstrapBlazorTestBase
         });
         Assert.Contains("Tab1-Content", cut.Markup);
         var links = cut.FindAll("a");
-        Assert.Single(links);
+        var item = Assert.Single(links);
 
-        var link = links[0];
-        Assert.NotNull(link);
-
-        Assert.False(link.HasAttribute("href"));
+        Assert.NotNull(item);
+        Assert.False(item.HasAttribute("href"));
     }
 
     [Fact]
@@ -310,11 +308,9 @@ public class TabTest : BootstrapBlazorTestBase
         });
 
         var links = cut.FindAll("a");
-        Assert.Single(links);
+        var link = Assert.Single(links);
 
-        var link = links[0];
         Assert.NotNull(link);
-
         Assert.True(link.HasAttribute("href"));
 
         cut.InvokeAsync(() => cut.Instance.AddTab("/", "Index"));
@@ -1349,6 +1345,29 @@ public class TabTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowFullscreenToolbarButton, false);
         });
         cut.DoesNotContain("tabs-nav-toolbar-fs");
+    }
+
+    [Fact]
+    public async Task FullscreenToolbarButton_Ok()
+    {
+        var module = Context.JSInterop.SetupModule("./_content/BootstrapBlazor/modules/fullscreen.js");
+        var cut = Context.Render<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowFullscreenToolbarButton, true);
+        });
+
+        var button = cut.Find(".tabs-nav-toolbar-fs");
+        await cut.InvokeAsync(() => button.Click());
+
+        var invocation = module.VerifyInvoke("toggle");
+        var option = Assert.IsType<FullScreenOption>(Assert.Single(invocation.Arguments));
+        var tabId = cut.Find(".tabs").Id;
+        Assert.False(string.IsNullOrEmpty(tabId));
+        Assert.Equal(tabId, option.Id);
+
+        await cut.InvokeAsync(() => button.Click());
+        module.VerifyInvoke("toggle", 2);
     }
 
     [Fact]

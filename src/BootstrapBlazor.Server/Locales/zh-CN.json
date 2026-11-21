@@ -5590,6 +5590,14 @@
     "TablesWrapTip": "<b>注意：</b>由于 <code>Table</code> 组件已实现适配移动端功能，此演示需在电脑端查看"
   },
   "BootstrapBlazor.Server.Components.Samples.Tabs": {
+    "TabsFullscreenTitle": "全屏弹窗与通知",
+    "TabsFullscreenIntro": "右侧工具栏全屏按钮将整个 <code>Tab</code> 组件全屏；先选中标签页，再点击标签上的全屏按钮可将该标签页内容全屏，按 <kbd>Esc</kbd> 退出。使用下方按钮验证 <code>Dialog</code>、<code>Message</code>、<code>Toast</code>、<code>Swal</code> 和 <code>Alert</code>。<code>Message</code> 和 <code>Toast</code> 不自动关闭；<code>Alert</code> 在标签页内显示。",
+    "TabsFullscreenDialogButton": "打开 Dialog",
+    "TabsFullscreenMessageButton": "显示 Message",
+    "TabsFullscreenToastButton": "显示 Toast",
+    "TabsFullscreenSwalButton": "打开 Swal",
+    "TabsFullscreenAlertButton": "显示 Alert",
+    "TabsFullscreenContent": "这是 {0}，用于验证标签页全屏时的显示与关闭。",
     "ActiveButtonText": "激活第一个",
     "AddButtonText": "添加",
     "BackText1": "计数器",

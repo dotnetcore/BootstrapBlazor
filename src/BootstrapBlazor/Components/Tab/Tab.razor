@@ -90,11 +90,9 @@ else
                     }
                     @if (ShowFullscreenToolbarButton)
                     {
-                        <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
-                            <FullScreenButton Icon="@FullscreenToolbarButtonIcon"
-                                              TooltipText="@FullscreenToolbarTooltipText"
-                                              TooltipPlacement="Placement.Bottom" TooltipTrigger="hover"></FullScreenButton>
-                        </div>
+                        <TabToolbarButton class="tabs-nav-toolbar-fs"
+                                          Icon="@FullscreenToolbarButtonIcon" OnClickAsync="ToggleTabFullscreenAsync"
+                                          TooltipText="@FullscreenToolbarTooltipText"></TabToolbarButton>
                     }
                     @if (ToolbarTemplate != null)
                     {
@@ -193,18 +191,15 @@ else
             <i class="@GetIconClassString(item.Icon)"></i>
         }
         <span class="tabs-item-text">@item.Text</span>
-        @if (!item.IsDisabled)
+        @if (ShowFullScreen && item.ShowFullScreen)
         {
-            @if (ShowFullScreen && item.ShowFullScreen)
-            {
-                <FullScreenButton></FullScreenButton>
-            }
-            @if (ShowClose && item.Closable)
-            {
-                <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
-                    <i class="@CloseIcon"></i>
-                </span>
-            }
+            <FullScreenButton TargetId="@item.Id" IsDisabled="@(item.IsDisabled || !item.IsActive)"></FullScreenButton>
+        }
+        @if (ShowClose && item.Closable)
+        {
+            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => CloseTabFromHeaderAsync(item)">
+                <i class="@CloseIcon"></i>
+            </span>
         }
     </div>;
 }

@@ -61,5 +61,11 @@ public partial class FullScreenButton
         FullScreenExitIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenExitButtonIcon);
     }
 
-    private Task ToggleFullScreen() => FullScreenService.Toggle(new FullScreenOption() { Id = TargetId });
+    private async Task ToggleFullScreen()
+    {
+        if (!IsDisabled)
+        {
+            await FullScreenService.Toggle(new FullScreenOption() { Id = TargetId });
+        }
+    }
 }

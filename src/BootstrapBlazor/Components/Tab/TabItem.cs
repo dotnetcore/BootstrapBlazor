@@ -76,8 +76,8 @@ public class TabItem : IdComponentBase
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示全屏按钮，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to show the full screen button. Default is true</para>
+    /// <para lang="zh">获得/设置 是否显示标签页内容全屏按钮，仅活动标签可使用，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show the tab content fullscreen button, which is available only for the active tab. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowFullScreen { get; set; } = true;

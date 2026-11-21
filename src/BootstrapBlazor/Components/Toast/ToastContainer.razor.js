@@ -4,12 +4,10 @@ import { attachOverlay, supportsPopover } from "../../modules/fullscreen.js"
 export function init(id) {
     const el = document.getElementById(id)
     if (el) {
-        if (supportsPopover(el)) {
-            Data.set(id, { detachOverlay: attachOverlay(el) })
-        }
-        else {
+        if (!supportsPopover(el)) {
             el.removeAttribute('popover')
         }
+        Data.set(id, { detachOverlay: attachOverlay(el) })
 
         toggle(id, false)
     }

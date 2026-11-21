@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 const getPosition = el => {
@@ -36,7 +36,6 @@ const resize = tab => {
             }
         }
         else {
-            // Item 总宽度大于 Nav 宽度
             const tabWidth = scroll.offsetWidth
             let itemWidth = 0
             tabNav.querySelectorAll('.tabs-item-wrap').forEach(v => {
