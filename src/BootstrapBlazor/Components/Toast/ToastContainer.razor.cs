@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Toast 弹出窗容器组件</para>
 /// <para lang="en">Toast Popup Window Container Component</para>
 /// </summary>
-public partial class ToastContainer : IDisposable
+public partial class ToastContainer
 {
     private string? ClassString => CssBuilder.Default("toast-container")
         .AddClass("top-0 start-0", Placement == Placement.TopStart)
@@ -43,8 +43,7 @@ public partial class ToastContainer : IDisposable
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
-    /// <para lang="zh">组件初始化方法</para>
-    /// <para lang="en">Component initialization method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -54,6 +53,17 @@ public partial class ToastContainer : IDisposable
 
         // 注册 Toast 弹窗事件
         ToastService.Register(this, Show);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        await InvokeVoidAsync("toggle", Id, Toasts.Count > 0);
     }
 
     private async Task Show(ToastOption option)
@@ -106,25 +116,16 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             ToastService.UnRegister(this);
         }
-    }
 
-    /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }
