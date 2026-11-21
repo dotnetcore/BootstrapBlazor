@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div id="@Id" class="@ClassString" style="@StyleName" role="alert">
+<div id="@Id" class="@ClassString" style="@StyleName" role="alert" popover="manual">
     @foreach (var item in MessagesForRender)
     {
         <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay" style="@GetItemStyleString(item)">
