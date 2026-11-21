@@ -1182,6 +1182,17 @@ public partial class Tab
         }
     }
 
+    private async Task ToggleActiveTabFullscreenAsync()
+    {
+        var item = GetActiveTab();
+        if (item == null)
+        {
+            return;
+        }
+
+        await FullScreenService.ToggleById(item.Id);
+    }
+
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
