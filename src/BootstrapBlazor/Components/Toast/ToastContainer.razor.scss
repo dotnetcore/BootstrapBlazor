@@ -2,6 +2,17 @@
     position: fixed;
 }
 
+.toast-container[popover] {
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: none;
+    overflow: visible;
+    color: inherit;
+    background: transparent;
+}
+
 .toast-container.top-0 {
     top: 1rem !important;
 }
