@@ -1,9 +1,27 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<ul @attributes="@AdditionalAttributes" id="@Id" class="@GetMenuClassString"
-    role="@(Parent.IsCollapsedPopup ? "menu" : null)" popover="@PopoverString"
-    aria-label="@(Parent.IsCollapsedPopup ? MenuItem?.Text : null)">
+@if (IsSingleItemPopup)
+{
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@GetMenuClassString" popover="@PopoverString">
+        <span class="menu-popup-arrow" aria-hidden="true"></span>
+        <ul class="submenu menu-popup-content" role="menu" aria-label="@MenuItem?.Text">
+            @RenderItems
+        </ul>
+    </div>
+}
+else
+{
+    <ul @attributes="@AdditionalAttributes" id="@Id" class="@GetMenuClassString"
+        role="@(Parent.IsCollapsedPopup ? "menu" : null)" popover="@PopoverString"
+        aria-label="@(Parent.IsCollapsedPopup ? MenuItem?.Text : null)">
+        @RenderItems
+    </ul>
+}
+
+@code {
+    RenderFragment RenderItems =>
+    @<text>
     @foreach (var item in Items)
     {
         if (item.Items.Any())
@@ -32,4 +50,5 @@
             </li>
         }
     }
-</ul>
+    </text>;
+}
