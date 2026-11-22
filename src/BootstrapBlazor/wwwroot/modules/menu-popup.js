@@ -23,7 +23,10 @@ const close = (popup, depth = 0) => {
     }
 }
 
-const getLinks = panel => [...panel.querySelectorAll(':scope > li > .nav-link:not(.disabled)')]
+const getLinks = panel => {
+    const list = panel.querySelector(':scope > .menu-popup-content') ?? panel
+    return [...list.querySelectorAll(':scope > li > .nav-link:not(.disabled)')]
+}
 
 const getDepth = (popup, link) => {
     const panel = link.closest('.menu-popup')
@@ -60,12 +63,14 @@ const open = (popup, trigger, focus = false) => {
         panel.removeAttribute('popover')
     }
 
+    const arrowElement = panel.querySelector(':scope > .menu-popup-arrow')
     const update = async () => {
+        const side = getComputedStyle(trigger).direction === 'rtl' ? 'left' : 'right'
         const position = await computePosition(trigger, panel, {
-            placement: getComputedStyle(trigger).direction === 'rtl' ? 'left-start' : 'right-start',
+            placement: arrowElement ? side : `${side}-start`,
             strategy: 'fixed',
             middleware: [
-                offset(4),
+                offset(arrowElement ? 10 : 4),
                 flip(),
                 shift({ padding: 5, crossAxis: true }),
                 size({
@@ -92,6 +97,10 @@ const open = (popup, trigger, focus = false) => {
             top: `${position.y}px`,
             visibility: ''
         })
+        if (arrowElement) {
+            const side = position.placement.split('-')[0]
+            panel.setAttribute('data-bb-placement', side)
+        }
         if (entry.focus) {
             entry.focus = false
             getLinks(panel)[0]?.focus()
