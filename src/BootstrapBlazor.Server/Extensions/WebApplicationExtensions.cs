@@ -36,6 +36,9 @@ static class WebApplicationExtensions
             }
         });
 
+        app.MapGet("/components/{name}.txt", RedirectLlms);
+        app.MapGet("/extensions/{package}/{name}.txt", RedirectLlms);
+
         app.MapGet("/llms.txt", async context =>
         {
             context.Response.Headers.ContentType = "text/plain; charset=utf-8";
@@ -54,5 +57,10 @@ static class WebApplicationExtensions
             context.Response.ContentLength = defaultContent.Length;
             await context.Response.WriteAsync(defaultContent);
         });
+    }
+
+    private static void RedirectLlms(HttpContext context)
+    {
+        context.Response.Redirect($"{context.Request.PathBase}/llms{context.Request.Path}{context.Request.QueryString}");
     }
 }
