@@ -88,6 +88,54 @@
         &::backdrop {
             background: transparent;
         }
+
+        &.menu-popup-single {
+            min-width: 0;
+            padding: 0;
+            overflow: visible;
+
+            > .menu-popup-content {
+                padding: .5rem;
+                max-width: inherit;
+                max-height: inherit;
+                overflow: auto;
+                border-radius: inherit;
+            }
+
+            > .menu-popup-arrow {
+                position: absolute;
+                top: 50%;
+                width: .75rem;
+                height: .75rem;
+                transform: translateY(-50%);
+                pointer-events: none;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background-color: var(--bb-menu-sub-bg);
+                    border-top: 1px solid var(--bs-border-color);
+                    border-left: 1px solid var(--bs-border-color);
+                }
+            }
+
+            &[data-bb-placement="right"] > .menu-popup-arrow {
+                left: -.375rem;
+
+                &::before {
+                    transform: rotate(-45deg);
+                }
+            }
+
+            &[data-bb-placement="left"] > .menu-popup-arrow {
+                right: -.375rem;
+
+                &::before {
+                    transform: rotate(135deg);
+                }
+            }
+        }
     }
 }
 
