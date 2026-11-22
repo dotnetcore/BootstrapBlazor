@@ -41,6 +41,9 @@ app.UseUploaderStaticFiles();
 // 增加 llms 静态资源文件
 app.UseLLMsStaticFiles();
 
+// 增加静态资源文件端点映射
+app.UseRouting();
+
 app.UseAntiforgery();
 app.UseBootstrapBlazor();
 
