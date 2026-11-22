@@ -131,11 +131,23 @@ public partial class NullSwitch
         OffInnerText ??= Localizer[nameof(OffInnerText)];
     }
 
-    private async Task OnClick()
+    private Task OnClick() => UpdateValueAsync(!ComponentValue);
+
+    private Task OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is not bool value)
+        {
+            throw new InvalidOperationException("The switch checkbox value must be a boolean.");
+        }
+
+        return UpdateValueAsync(value);
+    }
+
+    private async Task UpdateValueAsync(bool value)
     {
         if (!IsDisabled)
         {
-            Value = !ComponentValue;
+            Value = value;
             if (ValueChanged.HasDelegate)
             {
                 await ValueChanged.InvokeAsync(Value);

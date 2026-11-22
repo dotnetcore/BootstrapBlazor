@@ -132,11 +132,23 @@ public partial class Switch
     /// <para lang="zh">点击控件时触发此方法</para>
     /// <para lang="en">Method triggered when clicking the control</para>
     /// </summary>
-    private async Task OnClick()
+    private Task OnClick() => UpdateValueAsync(!Value);
+
+    private Task OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is not bool value)
+        {
+            throw new InvalidOperationException("The switch checkbox value must be a boolean.");
+        }
+
+        return UpdateValueAsync(value);
+    }
+
+    private async Task UpdateValueAsync(bool value)
     {
         if (!IsDisabled)
         {
-            Value = !Value;
+            Value = value;
 
             if (ValueChanged.HasDelegate)
             {
