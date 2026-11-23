@@ -1,4 +1,4 @@
-﻿.section {
+.section {
     position: relative;
 }
 
@@ -157,6 +157,14 @@
         top: 0;
         border-right: solid 1px var(--bs-border-color);
         margin-top: calc(var(--bs-header-height) * -1);
+    }
+
+    .is-sidebar-collapsed .sidebar {
+        --bb-layout-sidebar-width: 64px;
+    }
+
+    .is-sidebar-collapsed .sidebar-text {
+        display: none;
     }
 
     .sidebar-bar {

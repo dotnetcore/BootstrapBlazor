@@ -1,5 +1,6 @@
 import { getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
+import MenuPopup from "../../modules/menu-popup.js"
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -48,7 +49,57 @@ export function init(id) {
     }
     Data.set(id, menu)
 
+    MenuPopup.refresh(menu)
     scrollElementToView(menu)
+}
+
+export function prepare(id, collapsed) {
+    const menu = Data.get(id)
+    if (menu) {
+        if (collapsed) {
+            menu.expandedMenus = new Map([...menu.collapses].map(el => {
+                const target = getTargetElement(el)
+                return [getMenuKey(menu, target), target.classList.contains('show') || el.getAttribute('aria-expanded') === 'true']
+            }))
+            menu.expandedLocation = window.location.pathname
+            menu.collapses.forEach(el => {
+                const target = getTargetElement(el)
+                if (target.classList.contains('collapsing')) {
+                    target.dispatchEvent(new Event('transitionend'))
+                }
+                bootstrap.Collapse.getInstance(target)?.dispose()
+            })
+        }
+        MenuPopup.dispose(menu)
+    }
+}
+
+export function refresh(id) {
+    const menu = Data.get(id)
+    if (menu) {
+        menu.collapses = menu.element.querySelectorAll('[data-bs-toggle="collapse"]')
+        MenuPopup.refresh(menu)
+        if (!menu.element.classList.contains('is-collapsed') && menu.expandedMenus) {
+            const expandAll = menu.element.getAttribute('data-bb-expand') === 'true'
+            const locationChanged = menu.expandedLocation !== window.location.pathname
+            menu.collapses.forEach(el => {
+                const target = getTargetElement(el)
+                const expanded = expandAll || locationChanged && target.querySelector('.nav-link.active') !== null
+                    || menu.expandedMenus.get(getMenuKey(menu, target))
+                if (expanded !== void 0) {
+                    target.classList.toggle('show', expanded)
+                    el.setAttribute('aria-expanded', expanded ? 'true' : 'false')
+                }
+            })
+            delete menu.expandedMenus
+            delete menu.expandedLocation
+        }
+    }
+}
+
+const getMenuKey = (menu, target) => {
+    const prefix = `${menu.element.id}_`
+    return target.id.startsWith(prefix) ? target.id.substring(prefix.length) : target.id
 }
 
 export function update(id) {
@@ -88,6 +139,11 @@ export function dispose(id) {
     const menu = Data.get(id)
     Data.remove(id);
 
+    if (!menu) {
+        return
+    }
+    MenuPopup.dispose(menu)
+
     if (menu.handler) {
         clearInterval(menu.handler);
         menu.handler = null;
@@ -105,7 +161,7 @@ export function dispose(id) {
 const scrollElementToView = menu => {
     const { element } = menu;
     const scroll = element.hasAttribute('data-bb-scroll-view')
-    if (scroll) {
+    if (scroll && !element.classList.contains('is-collapsed')) {
         let count = 0;
         menu.handler = setInterval(() => {
             if (count < 3) {

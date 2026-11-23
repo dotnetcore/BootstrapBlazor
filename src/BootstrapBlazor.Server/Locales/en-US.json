@@ -159,6 +159,8 @@
     "UpdateTooltip": "View update log"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
+    "CollapseSidebar": "Collapse sidebar",
+    "ExpandSidebar": "Expand sidebar",
     "Affix": "Affix",
     "Ajax": "Ajax",
     "Alert": "Alert",
@@ -3371,6 +3373,13 @@
     "MenusClickShrinkMenuTitle": "Admin",
     "MenusClickShrinkSpanSpan": "I am the title of the website",
     "MenusClickShrinkTitle": "Sidebar effect with shrink",
+    "MenusPopupTitle": "Collapsed popup submenus",
+    "MenusPopupIntro": "Set <code>EnableCollapsedSubMenuPopup</code>, <code>IsVertical</code> and <code>IsCollapsed</code> to <code>true</code>. Hover over a parent item to open its submenu, including nested submenus. Leaf items show tooltips. The popup is not clipped by the scroll container.",
+    "MenusPopupCollapsed": "Collapsed",
+    "MenusPopupExpanded": "Expanded",
+    "MenusPopupLayoutTitle": "Popup submenus in Layout",
+    "MenusPopupLayoutIntro": "Enable <code>EnableCollapsedSubMenuPopup</code> on <code>Layout</code> to keep the collapsed desktop sidebar at its icon-only width. Hover opens submenus instead of expanding the entire sidebar. Mobile behavior is unchanged.",
+    "MenusPopupLayoutContent": "Hover over a sidebar icon to open its submenu. Use the header button to expand or collapse the sidebar.",
     "MenusCustomNodeDescription": "In this example, the <b>permission settings</b>node is expanded and the remaining nodes are in the recess state",
     "MenusCustomNodeIntro": "Set whether the node is receding by setting the <code>IsCollapsed</code> property of the <code>MenuItem</code>",
     "MenusCustomNodeTitle": "Custom node shrinkage",

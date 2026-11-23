@@ -18,6 +18,7 @@ public partial class Menu
     protected string? ClassString => CssBuilder.Default("menu")
         .AddClass("is-bottom", IsBottom)
         .AddClass("is-vertical", IsVertical)
+        .AddClass("is-collapsed", IsCollapsedPopup)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -71,6 +72,20 @@ public partial class Menu
     /// </summary>
     [Parameter]
     public bool IsCollapsed { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否在竖向菜单折叠时悬浮显示子菜单，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to display popup submenus when the vertical menu is collapsed. Default is false</para>
+    /// <para><version>v11.1.2</version></para>
+    /// </summary>
+    /// <remarks>
+    /// <para lang="zh">仅在 <see cref="IsVertical"/> 和 <see cref="IsCollapsed"/> 均为 true 时生效</para>
+    /// <para lang="en">Only takes effect when both <see cref="IsVertical"/> and <see cref="IsCollapsed"/> are true</para>
+    /// </remarks>
+    [Parameter]
+    public bool EnableCollapsedSubMenuPopup { get; set; }
+
+    internal bool IsCollapsedPopup => EnableCollapsedSubMenuPopup && IsVertical && IsCollapsed;
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧栏垂直模式 默认 false</para>
@@ -129,6 +144,20 @@ public partial class Menu
 
     private bool _isExpandAll;
     private bool _isAccordion;
+    private bool _wasCollapsedPopup;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (Module != null && _wasCollapsedPopup != IsCollapsedPopup)
+        {
+            await InvokeVoidAsync("prepare", Id, IsCollapsedPopup);
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -182,8 +211,11 @@ public partial class Menu
 
         if (!firstRender)
         {
+            await InvokeVoidAsync("refresh", Id);
             await InvokeUpdateAsync();
         }
+
+        _wasCollapsedPopup = IsCollapsedPopup;
     }
 
     /// <summary>
@@ -267,7 +299,7 @@ public partial class Menu
                         ActiveMenu.IsActive = false;
                     }
                     item.IsActive = true;
-                    if (IsCollapsed)
+                    if (IsCollapsed && !IsCollapsedPopup)
                     {
                         item.CascadingSetActive();
                     }

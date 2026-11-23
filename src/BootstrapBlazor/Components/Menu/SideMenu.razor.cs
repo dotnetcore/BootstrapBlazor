@@ -14,15 +14,23 @@ namespace BootstrapBlazor.Components;
 public partial class SideMenu
 {
     private string? GetMenuClassString => CssBuilder.Default("submenu")
-        .AddClass("show", MenuItem is { IsCollapsed: false })
+        .AddClass("show", !Parent.IsCollapsedPopup && MenuItem is { IsCollapsed: false })
+        .AddClass("menu-popup", Parent.IsCollapsedPopup && MenuItem != null)
+        .AddClass("menu-popup-single", IsSingleItemPopup)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ParentIdString => Parent.IsAccordion ? $"#{Id}" : null;
+    private string? ParentIdString => Parent.IsAccordion && !Parent.IsCollapsedPopup ? $"#{Id}" : null;
+
+    private string? PopoverString => Parent.IsCollapsedPopup && MenuItem != null ? "manual" : null;
+
+    private bool IsSingleItemPopup => Parent.IsCollapsedPopup && MenuItem != null && Items.Take(2).Count() == 1;
 
     private string? GetTargetIdString(MenuItem item) => $"#{GetTargetId(item)}";
 
-    private string GetTargetId(MenuItem item) => ComponentIdGenerator.Generate(item);
+    private string GetTargetId(MenuItem item) => Parent.EnableCollapsedSubMenuPopup
+        ? $"{Parent.Id}_{ComponentIdGenerator.Generate(item)}"
+        : ComponentIdGenerator.Generate(item);
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单数据集合</para>

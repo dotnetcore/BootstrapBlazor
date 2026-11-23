@@ -1,15 +1,15 @@
 @inherits LayoutComponentBase
 @layout BaseLayout
 
-<section class="section">
+<section class="@SectionString">
     <aside class="sidebar">
         <div class="sidebar-title">
             <a href="/">
                 <BBLogo />
             </a>
-            <span class="sidebar-text">Bootstrap Blazor</span>
+            <span class="sidebar-text ms-3">Bootstrap Blazor</span>
         </div>
-        <NavMenu />
+        <NavMenu @bind-IsCollapsed="@IsSidebarCollapsed" />
         <LayoutSplitBar Min="250" Max="380" ContainerSelector=".section"></LayoutSplitBar>
     </aside>
 
