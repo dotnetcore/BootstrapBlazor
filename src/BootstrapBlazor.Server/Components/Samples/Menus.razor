@@ -94,6 +94,39 @@
     <Menu Items="@WidgetIconSideMenuItems" DisableNavigation="true" IsVertical="true" style="border-right: 1px solid #e6e6e6; width:220px;"></Menu>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MenusPopupTitle"]"
+           Introduction="@Localizer["MenusPopupIntro"]"
+           Name="CollapsedPopup">
+    <Switch @bind-Value="_popupMenuCollapsed" OnText="@Localizer["MenusPopupCollapsed"]" OffText="@Localizer["MenusPopupExpanded"]" class="mb-3" />
+    <div class="popup-menu-demo">
+        <Menu Items="@PopupMenuItems" IsVertical="true" IsCollapsed="@_popupMenuCollapsed"
+              EnableCollapsedSubMenuPopup="true" DisableNavigation="true" OnClick="OnClickPopupMenuAsync" />
+    </div>
+    <ConsoleLogger @ref="PopupLogger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MenusPopupLayoutTitle"]"
+           Introduction="@Localizer["MenusPopupLayoutIntro"]"
+           Name="CollapsedPopupLayout">
+    <div class="layout-menu-demo">
+        <Layout IsFullSide="true" ShowCollapseBar="true" Menus="@PopupLayoutMenuItems"
+                IsCollapsed="true" EnableCollapsedSubMenuPopup="true" style="--bb-layout-height: 260px;">
+            <Header>
+                <div class="ms-3">@Localizer["MenusClickShrinkSpanSpan"]</div>
+            </Header>
+            <Side>
+                <div class="layout-banner">
+                    <img class="layout-logo" src="@WebsiteOption.Value.GetAssetUrl("images/logo.png")" />
+                    <div class="layout-title">@Localizer["MenusClickShrinkMenuTitle"]</div>
+                </div>
+            </Side>
+            <Main>
+                <div class="p-3">@Localizer["MenusPopupLayoutContent"]</div>
+            </Main>
+        </Layout>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["MenusCustomNodeTitle"]"
            Introduction="@Localizer["MenusCustomNodeIntro"]"
            Name="CustomNode">

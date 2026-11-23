@@ -133,6 +133,59 @@ public class NullSwitchTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task CheckboxChange_UpdatesNullableValueAndCallbacks()
+    {
+        var changes = new List<string>();
+        var cut = Context.Render<NullSwitch>(builder =>
+        {
+            builder.Add(a => a.DefaultValueWhenNull, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<bool?>(this, value => changes.Add($"ValueChanged:{value}")));
+            builder.Add(a => a.OnValueChanged, value => { changes.Add($"OnValueChanged:{value}"); return Task.CompletedTask; });
+        });
+
+        Assert.Null(cut.Instance.Value);
+        Assert.True(cut.Find("input").HasAttribute("checked"));
+
+        await cut.InvokeAsync(() => cut.Find("input[type=checkbox]").Change(false));
+        Assert.False(cut.Instance.Value);
+        Assert.False(cut.Find("input").HasAttribute("checked"));
+        Assert.DoesNotContain("is-checked", cut.Find(".switch").ClassList);
+
+        await cut.InvokeAsync(() => cut.Find("input[type=checkbox]").Change(true));
+        Assert.True(cut.Instance.Value);
+        Assert.True(cut.Find("input").HasAttribute("checked"));
+        Assert.Contains("is-checked", cut.Find(".switch").ClassList);
+        Assert.Equal(["ValueChanged:False", "OnValueChanged:False", "ValueChanged:True", "OnValueChanged:True"], changes);
+    }
+
+    [Fact]
+    public async Task CheckboxChange_RejectsInvalidValue()
+    {
+        var cut = Context.Render<NullSwitch>();
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            cut.InvokeAsync(() => cut.Find("input[type=checkbox]").Change(new ChangeEventArgs { Value = null })));
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task CheckboxChange_DisabledDoesNotUpdateValue()
+    {
+        var callbackInvoked = false;
+        var cut = Context.Render<NullSwitch>(builder =>
+        {
+            builder.Add(a => a.IsDisabled, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<bool?>(this, _ => callbackInvoked = true));
+            builder.Add(a => a.OnValueChanged, _ => { callbackInvoked = true; return Task.CompletedTask; });
+        });
+
+        Assert.True(cut.Find("input").HasAttribute("disabled"));
+        await cut.InvokeAsync(() => cut.Find("input[type=checkbox]").Change(true));
+        Assert.Null(cut.Instance.Value);
+        Assert.False(callbackInvoked);
+    }
+
+    [Fact]
     public void IsDisabled_Ok()
     {
         var cut = Context.Render<NullSwitch>(builder =>

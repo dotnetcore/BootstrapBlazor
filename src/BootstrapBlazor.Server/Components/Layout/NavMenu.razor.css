@@ -1,16 +1,30 @@
-﻿.sidebar-switch {
+.sidebar-switch {
     display: flex;
     border-bottom: solid 1px var(--bs-border-color);
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
     .sidebar-switch ::deep .form-label {
-        margin: 0 0.5rem 0 0;
+        margin: 0 0.25rem 0 0;
     }
 
     .sidebar-switch ::deep .switch {
         width: auto;
+    }
+
+.sidebar-toggle {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: var(--bs-border-radius);
+    background: transparent;
+    color: var(--bs-body-color);
+    cursor: pointer;
+}
+
+    .sidebar-toggle:hover {
+        background-color: var(--bs-tertiary-bg);
     }
 
 .navbar {
@@ -51,5 +65,9 @@
 
         ::deep .scroll .menu {
             width: var(--bb-sidebar-width);
+        }
+
+        .sidebar-content.is-collapsed ::deep .scroll .menu {
+            width: 64px;
         }
 }

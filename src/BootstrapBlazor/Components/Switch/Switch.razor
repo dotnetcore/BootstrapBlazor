@@ -3,9 +3,10 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@SwitchStyleName">
+    <input id="@Id" class="switch-input visually-hidden" type="checkbox" role="switch" checked="@Value" disabled="@IsDisabled" @onchange="OnChange" />
     <span class="@CoreClassName" data-inner-text="@GetInnerText()" style="@StyleName" @onclick:stopPropagation @onclick="OnClick" />
     @if (!string.IsNullOrEmpty(Text))
     {

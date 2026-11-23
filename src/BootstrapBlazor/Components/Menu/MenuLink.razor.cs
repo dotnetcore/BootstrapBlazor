@@ -30,7 +30,8 @@ public sealed partial class MenuLink
 
     private bool PreventDefault => HrefString == "#";
 
-    private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
+    private string? AriaExpandedString => Parent.IsCollapsedPopup ? (Item.Items.Any() ? "false" : null)
+        : (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
     /// <summary>
     /// <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
@@ -59,7 +60,7 @@ public sealed partial class MenuLink
         .AddClass(Item.Icon)
         .Build();
 
-    private string? StyleClassString => Parent.IsVertical
+    private string? StyleClassString => Parent.IsVertical && !Parent.IsCollapsedPopup
         ? (Item.Indent == 0
             ? null
             : $"padding-left: {Item.Indent * Parent.IndentSize}px;")

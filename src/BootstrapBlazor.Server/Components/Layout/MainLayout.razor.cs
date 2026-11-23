@@ -34,6 +34,12 @@ public partial class MainLayout : IAsyncDisposable
     [NotNull]
     private string? ChatTooltip { get; set; }
 
+    private bool IsSidebarCollapsed { get; set; }
+
+    private string? SectionString => CssBuilder.Default("section")
+        .AddClass("is-sidebar-collapsed", IsSidebarCollapsed)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
