@@ -721,7 +721,8 @@
     "LocalHost": "localhost",
     "OS": "OS",
     "RequestUrl": "RequestUrl",
-    "SubTitle": "Online population statistics"
+    "SubTitle": "Online population statistics",
+    "TimeUntilRemoval": "Time Until Timeout"
   },
   "BootstrapBlazor.Server.Components.Pages.Template": {
     "P1": "In order to make it easier for everyone to use this set of components to quickly build projects, the author has made <b>Project Templates</code></b>, using <code>dotnet new</code> command line mode, using Proceed as follows:",
@@ -1627,7 +1628,7 @@
     "BaiduLocatorAnswer": "This locator uses the free <b>Baidu AI Cloud</b> service with the author's free quota. After deployment, the <code>API</code> provider adjusts results based on the request source, so local debugging may resolve a district or county while a deployed server only receives province-level results. This also serves as advertising for the provider's paid services.",
     "BaiduLocatorQuestion": "Why can <code>BaiduIpLocatorProviderV2</code> resolve districts or counties locally but only provinces after deployment?",
     "BeatIntervalDescription": "Use <code>BeatInterval</code> to set the heartbeat interval.",
-    "BrowserThrottlingDescription": "Most browsers throttle inactive tabs. A heartbeat interval of <code>10 seconds</code> may be reduced to once per <code>minute</code>, so a <code>TimeoutInterval</code> of at least <b>2 minutes</b> is recommended.",
+    "BrowserThrottlingDescription": "Browsers can throttle timers in background tabs. For example, Chrome checks them once per minute under some conditions. The example uses a <code>TimeoutInterval</code> of <b>2 minutes</b> to allow for that throttling and network delays. If a tab is frozen, heartbeats may pause for longer.",
     "ClientBrowserComment": "Gets or sets the client browser",
     "ClientCityComment": "Gets or sets the client location",
     "ClientDeviceComment": "Gets or sets the client device type",

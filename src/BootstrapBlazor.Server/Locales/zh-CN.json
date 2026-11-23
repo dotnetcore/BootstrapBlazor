@@ -721,7 +721,8 @@
     "LocalHost": "本地连接",
     "OS": "操作系统",
     "RequestUrl": "请求URL",
-    "SubTitle": "在线人数统计"
+    "SubTitle": "在线人数统计",
+    "TimeUntilRemoval": "超时倒计时"
   },
   "BootstrapBlazor.Server.Components.Pages.Template": {
     "P1": "为了方便大家利用这套组件快速搭建项目，作者制作了 <b>项目模板（<code>Project Templates</code>）</b>，使用 <code>dotnet new</code> 命令行模式，使用步骤如下：",
@@ -1627,7 +1628,7 @@
     "BaiduLocatorAnswer": "这个定位器使用的是 <b>百度智能云</b> 的免费服务，目前使用的作者的免费额度，发布后 <code>api</code> 提供商会根据请求地址做动态调整，所以会出现开发模式时能精确到区县，发布到服务器上后只能精确到省份的现象，这也是一种销售广告的方法",
     "BaiduLocatorQuestion": "地理位置定位器 <code>BaiduIpLocatorProviderV2</code> 为何本地调试能精确到区县，发布后只能到省份",
     "BeatIntervalDescription": "通过 <code>BeatInterval</code> 设置心跳间隔",
-    "BrowserThrottlingDescription": "现在大多数浏览器切换标签页后默认都开启了休眠机制，当设置心跳间隔为 <code>10s</code> 标签页休眠后会降频为 <code>1 分钟</code> 一次，所以建议 <code>TimeoutInterval</code> 超时时间间隔至少设置为 <b>2 分钟</b>",
+    "BrowserThrottlingDescription": "浏览器可能限制后台标签页的定时器。例如，Chrome 在特定条件下每分钟才检查一次。示例将 <code>TimeoutInterval</code> 设为 <b>2 分钟</b>，为这种限速和网络延迟留出余量。如果标签页被冻结，心跳可能暂停更久。",
     "ClientBrowserComment": "获得/设置 客户端浏览器",
     "ClientCityComment": "获得/设置 客户端地点",
     "ClientDeviceComment": "获得/设置 客户端设备类型",

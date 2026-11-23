@@ -18,7 +18,7 @@ public class OnlineTest
         var now = DateTimeOffset.Now;
         var service = new CustomConnectionService(
         [
-            new ConnectionItem { Id = "active", LastBeatTime = now },
+            new ConnectionItem { Id = "active", LastBeatTime = now.AddSeconds(-20) },
             new ConnectionItem { Id = "expired", LastBeatTime = now.AddMinutes(-2) }
         ]);
         var page = new Online();
@@ -30,26 +30,37 @@ public class OnlineTest
                 ConnectionHubOptions = new() { TimeoutInterval = TimeSpan.FromMinutes(1) }
             }));
 
-        type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, null);
+        var buildContext = type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        buildContext.Invoke(page, [now]);
 
         var items = Assert.IsType<List<ConnectionItem>>(type.GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(page));
-        Assert.Equal("active", Assert.Single(items).Id);
+        var active = Assert.Single(items);
+        Assert.Equal("active", active.Id);
+        var remaining = type.GetMethod("GetTimeUntilRemoval", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, [active]);
+        Assert.Equal("00:00:40", remaining);
+
+        buildContext.Invoke(page, [now.AddSeconds(40)]);
+        Assert.Empty(items);
     }
 
     [Fact]
     public void Online_LargeTimeoutDoesNotOverflow()
     {
-        var service = new CustomConnectionService([new ConnectionItem { Id = "active", LastBeatTime = DateTimeOffset.Now }]);
+        var now = DateTimeOffset.Now;
+        var service = new CustomConnectionService([new ConnectionItem { Id = "active", LastBeatTime = now.AddSeconds(1) }]);
         var page = new Online();
         var type = typeof(Online);
         type.GetProperty("ConnectionService", BindingFlags.NonPublic | BindingFlags.Instance)!.SetValue(page, service);
         type.GetProperty("Options", BindingFlags.NonPublic | BindingFlags.Instance)!.SetValue(page,
             Options.Create(new BootstrapBlazorOptions { ConnectionHubOptions = new() { TimeoutInterval = TimeSpan.MaxValue } }));
 
-        type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, null);
+        type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, [now]);
 
         var items = Assert.IsType<List<ConnectionItem>>(type.GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(page));
-        Assert.Equal("active", Assert.Single(items).Id);
+        var active = Assert.Single(items);
+        Assert.Equal("active", active.Id);
+        var remaining = type.GetMethod("GetTimeUntilRemoval", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, [active]);
+        Assert.Equal("10675199.02:48:05", remaining);
     }
 
     private sealed class CustomConnectionService(ICollection<ConnectionItem> connections) : IConnectionService

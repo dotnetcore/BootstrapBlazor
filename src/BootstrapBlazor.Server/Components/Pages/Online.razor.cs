@@ -22,6 +22,8 @@ public partial class Online : IDisposable
 
     private readonly List<ConnectionItem> _items = [];
     private static readonly Comparison<ConnectionItem> ConnectionComparer = static (x, y) => x.ConnectionTime.CompareTo(y.ConnectionTime);
+    private DateTimeOffset _refreshedAt;
+    private TimeSpan _timeoutInterval;
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _refreshTask;
 
@@ -32,7 +34,7 @@ public partial class Online : IDisposable
     {
         base.OnInitialized();
 
-        BuildContext();
+        BuildContext(DateTimeOffset.Now);
     }
 
     /// <summary>
@@ -60,7 +62,7 @@ public partial class Online : IDisposable
             {
                 await InvokeAsync(() =>
                 {
-                    BuildContext();
+                    BuildContext(DateTimeOffset.Now);
                     StateHasChanged();
                 });
             }
@@ -68,13 +70,25 @@ public partial class Online : IDisposable
         catch (OperationCanceledException) { }
     }
 
-    private void BuildContext()
+    private void BuildContext(DateTimeOffset now)
     {
+        _refreshedAt = now;
+        _timeoutInterval = Options.Value.ConnectionHubOptions.TimeoutInterval;
         _items.Clear();
-        var now = DateTimeOffset.Now;
-        var timeout = Options.Value.ConnectionHubOptions.TimeoutInterval;
-        _items.AddRange(ConnectionService.Connections.Where(item => now - item.LastBeatTime < timeout));
+        _items.AddRange(ConnectionService.Connections.Where(item => now - item.LastBeatTime < _timeoutInterval));
         _items.Sort(ConnectionComparer);
+    }
+
+    private string GetTimeUntilRemoval(ConnectionItem item)
+    {
+        var elapsed = _refreshedAt - item.LastBeatTime;
+        if (elapsed < TimeSpan.Zero)
+        {
+            elapsed = TimeSpan.Zero;
+        }
+
+        var remaining = elapsed < _timeoutInterval ? _timeoutInterval - elapsed : TimeSpan.Zero;
+        return remaining.ToString(remaining.Days > 0 ? @"d\.hh\:mm\:ss" : @"hh\:mm\:ss");
     }
 
     private static string GetDurString(ConnectionItem item)
