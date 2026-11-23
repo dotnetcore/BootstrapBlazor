@@ -90,9 +90,10 @@ else
                     }
                     @if (ShowFullscreenToolbarButton)
                     {
-                        <TabToolbarButton class="tabs-nav-toolbar-fs"
-                                          Icon="@FullscreenToolbarButtonIcon" OnClickAsync="ToggleTabFullscreenAsync"
-                                          TooltipText="@FullscreenToolbarTooltipText"></TabToolbarButton>
+                        <Tooltip Title="@FullscreenToolbarTooltipText" Placement="Placement.Bottom" Trigger="hover">
+                            <FullScreenButton class="tabs-nav-toolbar-button tabs-nav-toolbar-fs"
+                                              Icon="@FullscreenToolbarButtonIcon" TargetId="@Id"></FullScreenButton>
+                        </Tooltip>
                     }
                     @if (ToolbarTemplate != null)
                     {

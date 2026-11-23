@@ -98,6 +98,8 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.Contains("test-refresh-icon");
         cut.Contains("test-refresh-tooltip-text");
+        cut.Contains("test-fullscreen-icon");
+        cut.Contains("test-fullscreen-tooltip-text");
     }
 
     [Fact]
@@ -1358,6 +1360,8 @@ public class TabTest : BootstrapBlazorTestBase
         });
 
         var button = cut.Find(".tabs-nav-toolbar-fs");
+        Assert.NotNull(button.QuerySelector("i.bb-fs-off"));
+        Assert.NotNull(button.QuerySelector("i.bb-fs-on"));
         await cut.InvokeAsync(() => button.Click());
 
         var invocation = module.VerifyInvoke("toggle");

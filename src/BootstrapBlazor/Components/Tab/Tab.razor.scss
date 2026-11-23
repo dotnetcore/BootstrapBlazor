@@ -789,8 +789,17 @@
                     background-color: var(--bb-tabs-item-hover-bg-color);
                 }
 
+                &.tabs-nav-toolbar-refresh,
                 &.tabs-nav-toolbar-fs {
+                    inline-size: 2.5rem;
                     padding: 0;
+                    justify-content: center;
+                }
+
+                &.tabs-nav-toolbar-fs {
+                    border: 0;
+                    color: inherit;
+                    font: inherit;
                 }
             }
         }

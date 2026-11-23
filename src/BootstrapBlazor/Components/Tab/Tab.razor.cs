@@ -1191,8 +1191,6 @@ public partial class Tab
         }
     }
 
-    private Task ToggleTabFullscreenAsync() => FullScreenService.ToggleById(Id);
-
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
