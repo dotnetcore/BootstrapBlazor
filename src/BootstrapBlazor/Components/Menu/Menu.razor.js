@@ -1,4 +1,4 @@
-import { getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
+import { getOverflowParent, getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import MenuPopup from "../../modules/menu-popup.js"
 
@@ -160,21 +160,42 @@ export function dispose(id) {
 
 const scrollElementToView = menu => {
     const { element } = menu;
-    const scroll = element.hasAttribute('data-bb-scroll-view')
-    if (scroll && !element.classList.contains('is-collapsed')) {
-        let count = 0;
-        menu.handler = setInterval(() => {
-            if (count < 3) {
-                var links = [...element.querySelectorAll('.nav-link.active')]
-                if (links.length > 0) {
-                    clearInterval(menu.handler);
-                    menu.handler = null;
 
-                    var link = links.pop()
-                    link.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'start' });
-                }
-            }
-            count++;
-        }, 100);
+    if (menu.handler) {
+        clearInterval(menu.handler);
+        menu.handler = null;
     }
+
+    if (!element.hasAttribute('data-bb-scroll-view') || element.classList.contains('is-collapsed')) {
+        return;
+    }
+
+    let attempts = 0;
+    menu.handler = setInterval(() => {
+        const links = element.querySelectorAll('.nav-link.active');
+        const link = links[links.length - 1];
+        const hasLayout = link?.getClientRects().length > 0;
+        if (!hasLayout && ++attempts < 3) {
+            return;
+        }
+
+        clearInterval(menu.handler);
+        menu.handler = null;
+        if (!hasLayout) {
+            return;
+        }
+
+        const container = getOverflowParent(link);
+        if (container === window || container === document.body || container === document.documentElement
+            || container.scrollHeight <= container.clientHeight) {
+            return;
+        }
+
+        const viewportTop = container.getBoundingClientRect().top + container.clientTop;
+        const viewportBottom = viewportTop + container.clientHeight;
+        const { top, bottom } = link.getBoundingClientRect();
+        if (top < viewportTop || bottom > viewportBottom) {
+            container.scrollBy({ top: (top + bottom - viewportTop - viewportBottom) / 2, behavior: 'smooth' });
+        }
+    }, 100);
 }
