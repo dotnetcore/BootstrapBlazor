@@ -239,6 +239,40 @@ public class ConnectionHubTest
         Assert.Null(item);
     }
 
+    [Fact]
+    public async Task ExpirationScanFrequency_Error()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        var logger = new RecordingLoggerProvider();
+        services.AddLogging(builder => builder.AddProvider(logger));
+        var exception = new InvalidOperationException("Failed to clear dispatcher");
+        var throttleFactory = new ThrowingThrottleDispatcherFactory(exception);
+        services.AddSingleton<IThrottleDispatcherFactory>(throttleFactory);
+
+        using var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromMilliseconds(10),
+            TimeoutInterval = TimeSpan.FromMilliseconds(30),
+            BeatInterval = TimeSpan.FromMilliseconds(1)
+        };
+        var service = provider.GetRequiredService<IConnectionService>();
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "first" }, TestContext.Current.CancellationToken);
+
+        var entry = await logger.Logged.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+        Assert.Equal(LogLevel.Error, entry.Level);
+        Assert.Same(exception, entry.Exception);
+        Assert.Equal("Unable to remove expired connections.", entry.Message);
+        Assert.False(service.TryGetValue("first", out _));
+
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "second" }, TestContext.Current.CancellationToken);
+        var cleared = await throttleFactory.Cleared.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+        Assert.Equal("second", cleared);
+        Assert.False(service.TryGetValue("second", out _));
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -266,12 +300,10 @@ public class ConnectionHubTest
     }
 
     [Fact]
-    public async Task ExpirationScanFrequency_Error()
+    public async Task ExpirationScanFrequency_LargeTimeout()
     {
         var services = new ServiceCollection();
         services.AddBootstrapBlazor();
-        var logger = new RecordingLoggerProvider();
-        services.AddLogging(builder => builder.AddProvider(logger));
 
         using var provider = services.BuildServiceProvider();
         var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
@@ -283,13 +315,10 @@ public class ConnectionHubTest
         };
         var service = provider.GetRequiredService<IConnectionService>();
         await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" }, TestContext.Current.CancellationToken);
+        await Task.Delay(60, TestContext.Current.CancellationToken);
+        Assert.Equal(1, service.Count);
+        Assert.Single(service.Connections);
 
-        var entry = await logger.Logged.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
-        Assert.Equal(LogLevel.Error, entry.Level);
-        Assert.IsType<ArgumentOutOfRangeException>(entry.Exception);
-        Assert.Equal("Unable to remove expired connections.", entry.Message);
-
-        // 异常后清理任务继续运行
         options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.Zero;
         var deadline = DateTime.UtcNow.AddSeconds(5);
         while (service.Connections.Count > 0 && DateTime.UtcNow < deadline)
@@ -326,6 +355,163 @@ public class ConnectionHubTest
         using var provider = services.BuildServiceProvider();
         var service = provider.GetRequiredService<IConnectionService>();
         await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" }, TestContext.Current.CancellationToken);
+        Assert.Equal(1, service.Count);
+    }
+
+    [Theory]
+    [InlineData(5000, 10000)]
+    [InlineData(5000, 9000)]
+    [InlineData(30000, 180000)]
+    [InlineData(3, 21)]
+    [InlineData(32, 54)]
+    public void ConnectionHubOptions_ConfiguredIntervalsAreAccepted(int beatMilliseconds, int timeoutMilliseconds)
+    {
+        using var context = new BunitContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var module = context.JSInterop.SetupModule("./_content/BootstrapBlazor/modules/hub.js");
+        context.Services.AddBootstrapBlazor();
+        context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            BeatInterval = TimeSpan.FromMilliseconds(beatMilliseconds),
+            TimeoutInterval = TimeSpan.FromMilliseconds(timeoutMilliseconds)
+        };
+
+        context.Render<ConnectionHub>();
+        var options = module.VerifyInvoke("init").Arguments[1]!;
+        var beat = Assert.IsType<double>(options.GetType().GetProperty("Interval")?.GetValue(options));
+        Assert.Equal((double)beatMilliseconds, beat);
+    }
+
+    [Theory]
+    [InlineData(5000, 6000)]
+    [InlineData(5000, 8126)]
+    [InlineData(3, 20)]
+    [InlineData(0, 10000)]
+    [InlineData(-1, 10000)]
+    [InlineData(2147483648, 10000000000)]
+    [InlineData(5000, -1)]
+    public void ConnectionHubOptions_InvalidIntervalsAreRejected(long beatMilliseconds, long timeoutMilliseconds)
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            BeatInterval = TimeSpan.FromMilliseconds(beatMilliseconds),
+            TimeoutInterval = TimeSpan.FromMilliseconds(timeoutMilliseconds)
+        };
+
+        var exception = Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
+        Assert.Contains("ConnectionHub", exception.Message);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(4294967295)]
+    public void ConnectionHubOptions_InvalidScanFrequencyIsRejected(long milliseconds)
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromMilliseconds(milliseconds)
+        };
+
+        var exception = Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
+        Assert.Contains("ExpirationScanFrequency", exception.Message);
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_TimeoutMustExceedTakeoverBound()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
+        options.Enable = true;
+        options.TimeoutInterval = TimeSpan.FromMilliseconds(8126);
+        Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
+
+        options.TimeoutInterval += TimeSpan.FromTicks(1);
+        Assert.NotNull(provider.GetRequiredService<IConnectionService>());
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_ExtremeBeatIsRejectedWithoutOverflow()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
+        options.Enable = true;
+        options.BeatInterval = TimeSpan.MaxValue;
+        options.TimeoutInterval = TimeSpan.MaxValue;
+
+        var exception = Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
+        Assert.Contains("BeatInterval", exception.Message);
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_SubMillisecondBeatIsRejected()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
+        options.Enable = true;
+        options.BeatInterval = TimeSpan.FromTicks(1);
+
+        var exception = Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
+        Assert.Contains("BeatInterval", exception.Message);
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_CustomServiceStillValidates()
+    {
+        using var context = new BunitContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+        context.Services.AddSingleton<IConnectionService>(new MockConnectionService());
+        var options = context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
+        options.Enable = true;
+        options.TimeoutInterval = TimeSpan.FromSeconds(6);
+
+        var exception = Assert.Throws<InvalidOperationException>(() => context.Render<ConnectionHub>());
+        Assert.Contains("TimeoutInterval", exception.Message);
+    }
+
+    [Fact]
+    public async Task Callback_SharedBrowserTakeoverAfterSuppressedHeartbeat()
+    {
+        using var context = new BunitContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+        context.Services.AddScoped<AuthenticationStateProvider>(_ => new MockAuthenticationStateProvider());
+        context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            BeatInterval = TimeSpan.FromMilliseconds(160),
+            TimeoutInterval = TimeSpan.FromSeconds(2)
+        };
+        var service = context.Services.GetRequiredService<IConnectionService>();
+        var leader = context.Render<ConnectionHub>();
+        var follower = context.Render<ConnectionHub>();
+
+        await leader.InvokeAsync(() => leader.Instance.Callback(new ClientInfo { Id = "browser", Ip = "leader" }));
+        await follower.InvokeAsync(() => follower.Instance.Callback(new ClientInfo { Id = "browser", Ip = "follower" }));
+        Assert.True(service.TryGetValue("browser", out var original));
+        Assert.Equal("leader", original.ClientInfo?.Ip);
+
+        await Task.Delay(190, TestContext.Current.CancellationToken);
+        await follower.InvokeAsync(() => follower.Instance.Callback(new ClientInfo { Id = "browser", Ip = "follower" }));
+        Assert.True(service.TryGetValue("browser", out var updated));
+        Assert.Equal("follower", updated.ClientInfo?.Ip);
+        Assert.Equal(original.ConnectionTime, updated.ConnectionTime);
         Assert.Equal(1, service.Count);
     }
 
@@ -402,11 +588,112 @@ public class ConnectionHubTest
         Assert.Same(item, Assert.Single(service.Connections));
     }
 
+    [Fact]
+    public async Task AddOrUpdateAsync_SharedBrowserId()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        using var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/first" }, TestContext.Current.CancellationToken);
+        Assert.True(service.TryGetValue("browser", out var original));
+
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/second" }, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, service.Count);
+        var item = Assert.Single(service.Connections);
+        Assert.Equal(original.ConnectionTime, item.ConnectionTime);
+        Assert.Equal("/second", item.ClientInfo?.RequestUrl);
+    }
+
+    [Fact]
+    public async Task ExpirationScan_ConcurrentHeartbeats()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        options.Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromMilliseconds(1),
+            TimeoutInterval = TimeSpan.FromMilliseconds(200),
+            BeatInterval = TimeSpan.FromMilliseconds(100)
+        };
+        var service = provider.GetRequiredService<IConnectionService>();
+        var clients = Enumerable.Range(0, 500).Select(i => new ClientInfo { Id = $"browser-{i}" }).ToArray();
+        foreach (var client in clients)
+        {
+            await service.AddOrUpdateAsync(client, TestContext.Current.CancellationToken);
+        }
+
+        await Task.Delay(250, TestContext.Current.CancellationToken);
+        options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.FromSeconds(10);
+        await Parallel.ForEachAsync(clients, TestContext.Current.CancellationToken, async (client, token) =>
+        {
+            await service.AddOrUpdateAsync(client, token);
+        });
+
+        Assert.Equal(clients.Length, service.Count);
+        foreach (var client in clients)
+        {
+            Assert.True(service.TryGetValue(client.Id!, out _));
+        }
+    }
+
+    [Fact]
+    public async Task ExpirationScan_ClearsDispatcherOnlyForRemovedEntry()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        var service = provider.GetRequiredService<IConnectionService>();
+        var throttleFactory = provider.GetRequiredService<IThrottleDispatcherFactory>();
+        var dispatcher = throttleFactory.GetOrCreate("browser");
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/old" }, TestContext.Current.CancellationToken);
+        Assert.True(service.TryGetValue("browser", out var expiredSnapshot));
+        options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.Zero;
+
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/new" }, TestContext.Current.CancellationToken);
+        var remove = service.GetType().GetMethod("RemoveExpiredConnection", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(remove);
+        remove.Invoke(service, [new KeyValuePair<string, ConnectionItem>("browser", expiredSnapshot)]);
+
+        Assert.True(service.TryGetValue("browser", out var refreshed));
+        Assert.Equal("/new", refreshed.ClientInfo?.RequestUrl);
+        Assert.Same(dispatcher, throttleFactory.GetOrCreate("browser"));
+
+        remove.Invoke(service, [new KeyValuePair<string, ConnectionItem>("browser", refreshed)]);
+        Assert.False(service.TryGetValue("browser", out _));
+        Assert.NotSame(dispatcher, throttleFactory.GetOrCreate("browser"));
+    }
+
     private static CancellationTokenSource GetCancellationTokenSource(IConnectionService service)
     {
         var field = service.GetType().GetField("_cancellationTokenSource", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(field);
         return Assert.IsType<CancellationTokenSource>(field.GetValue(service));
+    }
+
+    private sealed class ThrowingThrottleDispatcherFactory(Exception exception) : IThrottleDispatcherFactory
+    {
+        private int _clearCount;
+
+        public TaskCompletionSource<string?> Cleared { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null) => throw new NotSupportedException();
+
+        public void Clear(string? key = null)
+        {
+            if (Interlocked.Increment(ref _clearCount) == 1)
+            {
+                throw exception;
+            }
+            Cleared.TrySetResult(key);
+        }
     }
 
     class RecordingLoggerProvider : ILoggerProvider
