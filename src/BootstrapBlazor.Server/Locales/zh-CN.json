@@ -1648,7 +1648,7 @@
     "EnableDescription": "通过 <code>Enable</code> 开启此功能",
     "EnableIpLocatorDescription": "通过 <code>EnableIpLocator</code> 开启 <code>Ip</code> 地址定位功能",
     "EntityTitle": "{0} 实体类",
-    "ExpirationScanFrequencyDescription": "通过 <code>ExpirationScanFrequency</code> 设置扫描周期，扫描后移除已经断开的链接",
+    "ExpirationScanFrequencyDescription": "通过 <code>ExpirationScanFrequency</code> 设置清理超时连接记录的扫描周期，默认 1 分钟。",
     "FaqTitle": "5. 常见问题",
     "FeatureDescription": "为了节约服务器资源，此功能默认为 <b>关闭</b>，需要通过配置开启。此功能通过客户端脚本与服务器建立心跳机制，超过 <code>TimeoutInterval</code> 未收到心跳时，<code>Count</code> 不再统计该连接，但 <code>Connections</code> 和 <code>TryGetValue</code> 仍可能返回其记录，直到过期扫描将其移除。因此不要使用 <code>Connections.Count</code> 代替在线连接数。",
     "FeatureTitle": "4. 功能说明",

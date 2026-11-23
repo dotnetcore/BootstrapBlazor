@@ -24,8 +24,8 @@ public class ConnectionHubOptions
     public bool EnableIpLocator { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过期扫描周期 默认 10 分钟</para>
-    /// <para lang="en">Gets or sets expiration scan frequency default 10 minutes</para>
+    /// <para lang="zh">获得/设置 过期扫描周期 默认 1 分钟</para>
+    /// <para lang="en">Gets or sets the expiration scan frequency. The default is 1 minute.</para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">定期清理最后一次心跳超过 <see cref="TimeoutInterval"/> 的连接。在线数 <see cref="IConnectionService.Count"/> 按超时间隔计算，不受扫描周期影响。</para>
@@ -33,7 +33,7 @@ public class ConnectionHubOptions
     /// <para lang="zh">启用时须在 1 至 4294967294 毫秒之间。</para>
     /// <para lang="en">When enabled, this must be between 1 and 4294967294 milliseconds.</para>
     /// </remarks>
-    public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(10);
+    public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(1);
 
     /// <summary>
     /// <para lang="zh">获得/设置 超时间隔 默认 10 秒</para>

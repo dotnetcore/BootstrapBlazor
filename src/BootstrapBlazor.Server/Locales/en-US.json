@@ -1648,7 +1648,7 @@
     "EnableDescription": "Set <code>Enable</code> to enable this feature.",
     "EnableIpLocatorDescription": "Set <code>EnableIpLocator</code> to enable <code>Ip</code> geolocation.",
     "EntityTitle": "{0} entity",
-    "ExpirationScanFrequencyDescription": "Use <code>ExpirationScanFrequency</code> to set how often disconnected connections are scanned and removed.",
+    "ExpirationScanFrequencyDescription": "Use <code>ExpirationScanFrequency</code> to set how often expired connection records are removed. The default is 1 minute.",
     "FaqTitle": "5. Frequently asked questions",
     "FeatureDescription": "To save server resources, this feature is <b>disabled</b> by default and must be enabled through configuration. Client scripts send heartbeats to the server. If no heartbeat is received within <code>TimeoutInterval</code>, <code>Count</code> no longer includes the connection, but <code>Connections</code> and <code>TryGetValue</code> may still return its record until the expiration scan removes it. Do not use <code>Connections.Count</code> as the online connection count.",
     "FeatureTitle": "4. How it works",
