@@ -73,7 +73,7 @@ public partial class Online : IDisposable
         _items.Clear();
         var now = DateTimeOffset.Now;
         var timeout = Options.Value.ConnectionHubOptions.TimeoutInterval;
-        _items.AddRange(ConnectionService.Connections.Where(item => item.LastBeatTime.Add(timeout) > now));
+        _items.AddRange(ConnectionService.Connections.Where(item => now - item.LastBeatTime < timeout));
         _items.Sort(ConnectionComparer);
     }
 

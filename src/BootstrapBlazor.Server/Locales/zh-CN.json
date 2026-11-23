@@ -1669,7 +1669,7 @@
     "SnapshotDescription": "WebAssembly 扩展通过 SignalR 上报心跳，<code>Count</code>、<code>Connections</code> 和 <code>TryGetValue</code> 同步读取最近一次获取的服务器快照，不会在读取时发起网络请求。首次获取前缓存为空，快照可能存在延迟；缓存更新也不会自动触发页面重渲染，页面应根据自身刷新机制更新显示。",
     "SnapshotPollingDescription": "扩展在每次快照请求完成后间隔 3 秒刷新，临时查询失败时保留上次数据并记录错误。查询被禁用、未授权或 Hub 请求发生永久 HTTP 错误时，会清空快照并停止轮询，重新加载页面后再次尝试；心跳上报不受快照轮询停止影响。",
     "SubTitle": "组件库内置了在线连接服务，支持异步更新连接信息和同步查询",
-    "TimeoutIntervalDescription": "通过 <code>TimeoutInterval</code> 设置超时时间间隔，到达指定时间间隔时未接收到心跳视为已断开",
+    "TimeoutIntervalDescription": "通过 <code>TimeoutInterval</code> 设置未收到心跳时视为断开的时间。启用时必须大于 B + max(4P, ceil(B/2) + P) + 1 毫秒，其中 B 为向上取整到毫秒的 <code>BeatInterval</code>，P = max(4, ceil(BeatInterval/8)) 毫秒；无效配置会被拒绝。浏览器限速和网络延迟仍可能使接管不及时，请留出额外余量。",
     "Title": "在线连接服务",
     "UsageDescription": "通过 <code>Count</code> 获取在线连接数，通过 <code>Connections</code> 获取 <code>ConnectionItem</code> 集合，其中 <code>ClientInfo</code> 包含客户端连接信息；通过 <code>TryGetValue</code> 按连接 Id 查询。",
     "UsageTitle": "3. 使用服务"
