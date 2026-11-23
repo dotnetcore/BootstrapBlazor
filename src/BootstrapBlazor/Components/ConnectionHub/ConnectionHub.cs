@@ -56,6 +56,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
         var options = BootstrapBlazorOptions.Value.ConnectionHubOptions;
         if (options.Enable)
         {
+            options.Validate();
             // Allow for heartbeats that arrive slightly earlier than scheduled.
             _throttleOptions = new ThrottleOptions() { Interval = options.BeatInterval / 2 };
             await InvokeVoidAsync("init", Id, new

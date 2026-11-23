@@ -29,6 +29,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
         if (_options.Enable)
         {
+            _options.Validate();
             var token = _cancellationTokenSource.Token;
             Task.Run(async () =>
             {
@@ -61,7 +62,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now);
+    public long Count => _connectionCache.Values.LongCount(i => DateTimeOffset.Now - i.LastBeatTime < _options.TimeoutInterval);
 
     /// <summary>
     /// <inheritdoc/>
@@ -106,7 +107,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
         {
             if (!_connectionCache.TryGetValue(item.Key, out var current)
                 || !ReferenceEquals(current, item.Value)
-                || current.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now)
+                || DateTimeOffset.Now - current.LastBeatTime < _options.TimeoutInterval)
             {
                 return;
             }
