@@ -36,6 +36,22 @@ public class OnlineTest
         Assert.Equal("active", Assert.Single(items).Id);
     }
 
+    [Fact]
+    public void Online_LargeTimeoutDoesNotOverflow()
+    {
+        var service = new CustomConnectionService([new ConnectionItem { Id = "active", LastBeatTime = DateTimeOffset.Now }]);
+        var page = new Online();
+        var type = typeof(Online);
+        type.GetProperty("ConnectionService", BindingFlags.NonPublic | BindingFlags.Instance)!.SetValue(page, service);
+        type.GetProperty("Options", BindingFlags.NonPublic | BindingFlags.Instance)!.SetValue(page,
+            Options.Create(new BootstrapBlazorOptions { ConnectionHubOptions = new() { TimeoutInterval = TimeSpan.MaxValue } }));
+
+        type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, null);
+
+        var items = Assert.IsType<List<ConnectionItem>>(type.GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(page));
+        Assert.Equal("active", Assert.Single(items).Id);
+    }
+
     private sealed class CustomConnectionService(ICollection<ConnectionItem> connections) : IConnectionService
     {
         public long Count => connections.Count;
