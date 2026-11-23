@@ -228,6 +228,61 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.WaitForAssertion(() => Assert.DoesNotContain("is-collapsed", cut.Markup));
     }
 
+    [Theory]
+    [InlineData(false, false, 767, false)]
+    [InlineData(false, false, 768, false)]
+    [InlineData(false, true, 767, false)]
+    [InlineData(false, true, 768, false)]
+    [InlineData(true, false, 767, false)]
+    [InlineData(true, false, 768, false)]
+    [InlineData(true, true, 767, false)]
+    [InlineData(true, true, 768, true)]
+    public async Task CollapsedSubMenuPopup_RequiresEnabledCollapsedDesktop(bool enabled, bool collapsed, int width, bool expectedPopup)
+    {
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Side, CreateSide());
+            pb.Add(a => a.Menus, new[] { new MenuItem("Parent") { Items = [new("Child")] } });
+            pb.Add(a => a.EnableCollapsedSubMenuPopup, enabled);
+            pb.Add(a => a.IsCollapsed, collapsed);
+            pb.Add(a => a.IsExpandOnHover, false);
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.SetCollapsed(width));
+
+        Assert.Equal(expectedPopup, cut.Find("section.layout").ClassList.Contains("is-menu-popup"));
+        Assert.Equal(expectedPopup, cut.FindComponent<Menu>().Instance.IsCollapsed);
+        Assert.Equal(enabled, cut.FindComponent<Menu>().Instance.EnableCollapsedSubMenuPopup);
+        Assert.Equal(expectedPopup, cut.Find("nav.menu").ClassList.Contains("is-collapsed"));
+        Assert.Equal(expectedPopup, cut.FindAll("[popover='manual']").Count > 0);
+        Assert.Equal(collapsed && !expectedPopup, cut.Find("section.layout").ClassList.Contains("is-click-expand"));
+    }
+
+    [Fact]
+    public async Task CollapsedSubMenuPopup_TracksScreenSizeChanges()
+    {
+        var cut = Context.Render<Layout>(pb =>
+        {
+            pb.Add(a => a.Side, CreateSide());
+            pb.Add(a => a.IsFullSide, true);
+            pb.Add(a => a.Menus, new[] { new MenuItem("Parent") { Items = [new("Child")] } });
+            pb.Add(a => a.EnableCollapsedSubMenuPopup, true);
+            pb.Add(a => a.IsCollapsed, true);
+            pb.Add(a => a.IsExpandOnHover, false);
+        });
+
+        Assert.Contains("is-menu-popup", cut.Find("section.layout").ClassList);
+        await cut.InvokeAsync(() => cut.Instance.SetCollapsed(767));
+        Assert.DoesNotContain("is-menu-popup", cut.Find("section.layout").ClassList);
+        Assert.False(cut.FindComponent<Menu>().Instance.IsCollapsed);
+        await cut.Find(".layout-side").ClickAsync();
+        Assert.Contains("is-expand", cut.Find(".layout-side").ClassList);
+
+        await cut.InvokeAsync(() => cut.Instance.SetCollapsed(768));
+        Assert.Contains("is-menu-popup", cut.Find("section.layout").ClassList);
+        Assert.True(cut.FindComponent<Menu>().Instance.IsCollapsed);
+    }
+
     [Fact]
     public async Task IsExpandOnHover_OK()
     {
