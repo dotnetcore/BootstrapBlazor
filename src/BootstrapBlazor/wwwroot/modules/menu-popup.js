@@ -17,7 +17,14 @@ const close = (popup, depth = 0) => {
             entry.panel.hidePopover()
         }
         entry.panel.classList.remove('show')
-        entry.panel.style.visibility = ''
+        Object.assign(entry.panel.style, {
+            left: '',
+            top: '',
+            maxHeight: '',
+            maxWidth: '',
+            visibility: ''
+        })
+        entry.panel.removeAttribute('data-bb-placement')
         entry.trigger.classList.remove('menu-open')
         entry.trigger.setAttribute('aria-expanded', 'false')
     }
@@ -76,6 +83,9 @@ const open = (popup, trigger, focus = false) => {
                 size({
                     padding: 5,
                     apply({ availableHeight, availableWidth, elements }) {
+                        if (!popup.path.includes(entry)) {
+                            return
+                        }
                         Object.assign(elements.floating.style, {
                             maxHeight: `${Math.max(0, availableHeight)}px`,
                             maxWidth: `${Math.max(0, availableWidth)}px`
