@@ -20,6 +20,7 @@ public partial class Online : IDisposable
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
+    private static readonly TimeSpan RefreshInterval = TimeSpan.FromSeconds(10);
     private readonly List<ConnectionItem> _items = [];
     private static readonly Comparison<ConnectionItem> ConnectionComparer = static (x, y) => x.ConnectionTime.CompareTo(y.ConnectionTime);
     private DateTimeOffset _refreshedAt;
@@ -54,20 +55,37 @@ public partial class Online : IDisposable
 
     private async Task RefreshAsync(CancellationToken cancellationToken)
     {
-        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
-
         try
         {
-            while (await timer.WaitForNextTickAsync(cancellationToken))
+            while (!cancellationToken.IsCancellationRequested)
             {
+                await Task.Delay(GetNextRefreshDelay(DateTimeOffset.Now), cancellationToken);
                 await InvokeAsync(() =>
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
                     BuildContext(DateTimeOffset.Now);
                     StateHasChanged();
                 });
             }
         }
-        catch (OperationCanceledException) { }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
+    }
+
+    private TimeSpan GetNextRefreshDelay(DateTimeOffset now)
+    {
+        if (_items.Count == 0)
+        {
+            return RefreshInterval;
+        }
+
+        var oldestHeartbeat = _items.Min(item => item.LastBeatTime);
+        var remaining = GetRemainingTime(now, oldestHeartbeat);
+        var seconds = Math.Clamp(Math.Ceiling(remaining.TotalSeconds), 1, RefreshInterval.TotalSeconds);
+        return TimeSpan.FromSeconds(seconds);
     }
 
     private void BuildContext(DateTimeOffset now)
@@ -81,14 +99,21 @@ public partial class Online : IDisposable
 
     private string GetTimeUntilRemoval(ConnectionItem item)
     {
-        var elapsed = _refreshedAt - item.LastBeatTime;
+        var remaining = GetRemainingTime(_refreshedAt, item.LastBeatTime);
+        var seconds = (long)Math.Ceiling(remaining.TotalSeconds);
+        var displayTime = TimeSpan.FromSeconds(Math.Min(seconds, TimeSpan.MaxValue.Ticks / TimeSpan.TicksPerSecond));
+        return displayTime.ToString(displayTime.Days > 0 ? @"d\.hh\:mm\:ss" : @"hh\:mm\:ss");
+    }
+
+    private TimeSpan GetRemainingTime(DateTimeOffset now, DateTimeOffset lastHeartbeat)
+    {
+        var elapsed = now - lastHeartbeat;
         if (elapsed < TimeSpan.Zero)
         {
             elapsed = TimeSpan.Zero;
         }
 
-        var remaining = elapsed < _timeoutInterval ? _timeoutInterval - elapsed : TimeSpan.Zero;
-        return remaining.ToString(remaining.Days > 0 ? @"d\.hh\:mm\:ss" : @"hh\:mm\:ss");
+        return elapsed < _timeoutInterval ? _timeoutInterval - elapsed : TimeSpan.Zero;
     }
 
     private static string GetDurString(ConnectionItem item)

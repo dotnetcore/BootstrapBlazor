@@ -36,24 +36,24 @@ public class ConnectionHubOptions
     public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(1);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 超时间隔 默认 10 秒</para>
-    /// <para lang="en">Gets or sets timeout interval default 10 seconds</para>
+    /// <para lang="zh">获得/设置 超时间隔，默认 2 分钟</para>
+    /// <para lang="en">Gets or sets the timeout interval. The default is 2 minutes.</para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">启用时必须大于 B + max(4P, ceil(B/2) + P) + 1 毫秒；B 为向上取整到毫秒的心跳间隔，P = max(4, ceil(心跳间隔/8)) 毫秒。请为网络延迟及浏览器定时器限速留出额外余量；无法保证实时切换。</para>
     /// <para lang="en">When enabled, this must be greater than B + max(4P, ceil(B/2) + P) + 1 ms, where B is the heartbeat interval rounded up to milliseconds and P = max(4, ceil(heartbeat interval/8)) ms. Allow extra time for network delays and browser timer throttling; failover is not guaranteed in real time.</para>
     /// </remarks>
-    public TimeSpan TimeoutInterval { get; set; } = TimeSpan.FromSeconds(10);
+    public TimeSpan TimeoutInterval { get; set; } = TimeSpan.FromMinutes(2);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 ConnectionHub 组件心跳间隔 默认 5000 单位毫秒</para>
-    /// <para lang="en">Gets or sets ConnectionHub component heartbeat interval default 5000 ms</para>
+    /// <para lang="zh">获得/设置 ConnectionHub 组件心跳间隔，默认 30 秒</para>
+    /// <para lang="en">Gets or sets the ConnectionHub component heartbeat interval. The default is 30 seconds.</para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">启用时须在 1 至 2147483647 毫秒之间。请在服务初始化前完成所有间隔配置，运行时不要修改。</para>
     /// <para lang="en">When enabled, this must be between 1 and 2147483647 milliseconds. Configure all intervals before service initialization and do not change them at runtime.</para>
     /// </remarks>
-    public TimeSpan BeatInterval { get; set; } = TimeSpan.FromSeconds(5);
+    public TimeSpan BeatInterval { get; set; } = TimeSpan.FromSeconds(30);
 
     internal void Validate()
     {
