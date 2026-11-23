@@ -1,5 +1,7 @@
-﻿@inherits WebSiteModuleComponentBase
+@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Layout/NavMenu.razor.js")]
+
+<Responsive OnBreakPointChanged="OnBreakPointChangedAsync" />
 
 <nav class="navbar navbar-dark d-flex d-md-none px-3" id="@Id">
     <a class="navbar-brand" href="">Bootstrap Blazor</a>
@@ -8,13 +10,22 @@
     </button>
 </nav>
 
-<nav class="sidebar-content collapse d-md-block">
+<nav class="@NavString">
     <div class="sidebar-switch">
-        <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
-        <div style="width:1rem;"></div>
-        <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
+        @if (!IsCollapsedPopup)
+        {
+            <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
+            <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
+        }
+        <Tooltip Trigger="hover" Placement="Placement" Title="@SidebarToggleText" class="d-none d-md-inline-block">
+            <button type="button" class="sidebar-toggle" @onclick="ToggleSidebarAsync"
+                    aria-label="@SidebarToggleText" aria-expanded="@(IsCollapsedPopup ? "false" : "true")">
+                <i class="@CollapseIconString" aria-hidden="true"></i>
+            </button>
+        </Tooltip>
     </div>
     <div class="scroll">
-        <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu" />
+        <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" IsExpandAll="@IsExpandAll" OnClick="@OnClickMenu"
+              IsCollapsed="@IsCollapsedPopup" EnableCollapsedSubMenuPopup="true" />
     </div>
 </nav>

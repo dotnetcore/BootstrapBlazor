@@ -159,6 +159,8 @@
     "UpdateTooltip": "点击查看更新日志"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
+    "CollapseSidebar": "收起侧栏",
+    "ExpandSidebar": "展开侧栏",
     "Affix": "固钉组件 Affix",
     "Ajax": "数据传输 Ajax",
     "Alert": "警告框 Alert",

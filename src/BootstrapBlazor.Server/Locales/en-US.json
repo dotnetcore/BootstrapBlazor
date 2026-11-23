@@ -159,6 +159,8 @@
     "UpdateTooltip": "View update log"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
+    "CollapseSidebar": "Collapse sidebar",
+    "ExpandSidebar": "Expand sidebar",
     "Affix": "Affix",
     "Ajax": "Ajax",
     "Alert": "Alert",
