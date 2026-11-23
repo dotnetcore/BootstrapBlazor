@@ -31,15 +31,23 @@ public class OnlineTest
             }));
 
         var buildContext = type.GetMethod("BuildContext", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        var getNextRefreshDelay = type.GetMethod("GetNextRefreshDelay", BindingFlags.NonPublic | BindingFlags.Instance)!;
         buildContext.Invoke(page, [now]);
 
         var items = Assert.IsType<List<ConnectionItem>>(type.GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(page));
         var active = Assert.Single(items);
         Assert.Equal("active", active.Id);
-        var remaining = type.GetMethod("GetTimeUntilRemoval", BindingFlags.NonPublic | BindingFlags.Instance)!.Invoke(page, [active]);
-        Assert.Equal("00:00:40", remaining);
+        var getTimeUntilRemoval = type.GetMethod("GetTimeUntilRemoval", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        Assert.Equal("00:00:40", getTimeUntilRemoval.Invoke(page, [active]));
+        Assert.Equal(TimeSpan.FromSeconds(10), getNextRefreshDelay.Invoke(page, [now]));
 
-        buildContext.Invoke(page, [now.AddSeconds(40)]);
+        var justBeforeTimeout = now.AddMilliseconds(39500);
+        buildContext.Invoke(page, [justBeforeTimeout]);
+        Assert.Same(active, Assert.Single(items));
+        Assert.Equal("00:00:01", getTimeUntilRemoval.Invoke(page, [active]));
+        Assert.Equal(TimeSpan.FromSeconds(1), getNextRefreshDelay.Invoke(page, [justBeforeTimeout]));
+
+        buildContext.Invoke(page, [justBeforeTimeout.AddSeconds(1)]);
         Assert.Empty(items);
     }
 

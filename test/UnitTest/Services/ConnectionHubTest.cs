@@ -353,6 +353,12 @@ public class ConnectionHubTest
         services.AddBootstrapBlazor();
 
         using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
+        Assert.Equal(TimeSpan.FromSeconds(30), options.BeatInterval);
+        Assert.Equal(TimeSpan.FromMinutes(2), options.TimeoutInterval);
+        Assert.Equal(TimeSpan.FromMinutes(1), options.ExpirationScanFrequency);
+        options.Enable = true;
+
         var service = provider.GetRequiredService<IConnectionService>();
         await service.AddOrUpdateAsync(new ClientInfo() { Id = "test_id" }, TestContext.Current.CancellationToken);
         Assert.Equal(1, service.Count);
@@ -434,7 +440,7 @@ public class ConnectionHubTest
         using var provider = services.BuildServiceProvider();
         var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions;
         options.Enable = true;
-        options.TimeoutInterval = TimeSpan.FromMilliseconds(8126);
+        options.TimeoutInterval = TimeSpan.FromMilliseconds(48751);
         Assert.Throws<InvalidOperationException>(() => provider.GetRequiredService<IConnectionService>());
 
         options.TimeoutInterval += TimeSpan.FromTicks(1);
