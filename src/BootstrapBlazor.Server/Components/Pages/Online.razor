@@ -17,6 +17,11 @@
                     <span>@v.Row.LastBeatTime.ToString("yyyy/MM/dd HH:mm:ss")</span>
                 </Template>
             </TableTemplateColumn>
+            <TableTemplateColumn FieldName="TimeUntilRemoval" Text="@Localizer["TimeUntilRemoval"]" Width="140">
+                <Template Context="v">
+                    <span>@GetTimeUntilRemoval(v.Row)</span>
+                </Template>
+            </TableTemplateColumn>
             <TableTemplateColumn FieldName="Dur" Text="@Localizer["Dur"]" Width="54">
                 <Template Context="v">
                     <span>@GetDurString(v.Row)</span>

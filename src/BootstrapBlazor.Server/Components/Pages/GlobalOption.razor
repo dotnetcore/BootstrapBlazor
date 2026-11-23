@@ -82,13 +82,13 @@
 
 <p class="code-label"><code>StepSettings</code> 步长全局统一配置各种数据类型的步长值</p>
 
-<p class="code-label"><code>ConnectionHubOptions</code> 步长全局统一配置各种数据类型的步长值</p>
+<p class="code-label"><code>ConnectionHubOptions</code> 在线连接统计配置</p>
 <ul class="ul-demo">
     <li><code>Enable</code> 是否开启</li>
     <li><code>EnableIpLocator</code> 是否开启 IP 定位功能</li>
-    <li><code>ExpirationScanFrequency</code> 过期扫描周期</li>
-    <li><code>TimeoutInterval</code> 超时间隔</li>
-    <li><code>BeatInterval</code> 组件心跳间隔</li>
+    <li><code>ExpirationScanFrequency</code> 过期扫描周期，默认 1 分钟</li>
+    <li><code>TimeoutInterval</code> 自最后一次收到心跳起，判定连接离线的等待时间，默认 2 分钟</li>
+    <li><code>BeatInterval</code> 组件心跳间隔，默认 30 秒</li>
 </ul>
 
 <p class="code-label"><code>WebClientOptions</code> <code>WebClientService</code> 配置项</p>
@@ -153,13 +153,13 @@
     "ConnectionHubOptions": {
       "Enable": true,
       "EnableIpLocator": true,
-      "ExpirationScanFrequency": "00:05:00",
-      "TimeoutInterval": "00:03:00",
+      "ExpirationScanFrequency": "00:01:00",
+      "TimeoutInterval": "00:02:00",
       "BeatInterval": "00:00:30"
     },
     "IpLocatorOptions": {
       "EnableCache": true,
-      "SlidingExpiration": "24:00:00",
+      "SlidingExpiration": "1.00:00:00",
       "ProviderName": "BaiduIpLocatorProvider"
     },
     "WebClientOptions": {

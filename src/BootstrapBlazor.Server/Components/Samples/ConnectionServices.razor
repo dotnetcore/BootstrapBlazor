@@ -27,8 +27,8 @@ private IConnectionService? ConnectionService { get; set; }</Pre>
     "ConnectionHubOptions": {
       "Enable": true,
       "EnableIpLocator": true,
-      "ExpirationScanFrequency": "00:05:00",
-      "TimeoutInterval": "00:03:00",
+      "ExpirationScanFrequency": "00:01:00",
+      "TimeoutInterval": "00:02:00",
       "BeatInterval": "00:00:30"
     }
   }
@@ -40,6 +40,17 @@ private IConnectionService? ConnectionService { get; set; }</Pre>
     <li>@((MarkupString)Localizer["ExpirationScanFrequencyDescription"].Value)</li>
     <li>@((MarkupString)Localizer["TimeoutIntervalDescription"].Value)</li>
     <li>@((MarkupString)Localizer["BeatIntervalDescription"].Value)</li>
+</ul>
+
+<p class="code-label">@Localizer["TimeConfigTitle"]</p>
+
+<p>@((MarkupString)Localizer["TimeConfigDescription"].Value)</p>
+
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["BeatIntervalRelation"].Value)</li>
+    <li>@((MarkupString)Localizer["TimeoutRelation"].Value)</li>
+    <li>@((MarkupString)Localizer["ScanRelation"].Value)</li>
+    <li>@((MarkupString)Localizer["OnlineSampleRelation"].Value)</li>
 </ul>
 
 <p>@((MarkupString)Localizer["HeartbeatDescription"].Value)</p>
@@ -190,7 +201,7 @@ public class ClientInfo
 <Pre>"BootstrapBlazorOptions": {
   "IpLocatorOptions": {
       "EnableCache": true,
-      "SlidingExpiration": "24:00:00",
+      "SlidingExpiration": "1.00:00:00",
       "ProviderName": "BaiduIpLocatorProviderV2"
   }
 }</Pre>
