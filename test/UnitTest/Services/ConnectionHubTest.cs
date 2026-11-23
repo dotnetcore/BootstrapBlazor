@@ -330,6 +330,30 @@ public class ConnectionHubTest
     }
 
     [Theory]
+    [InlineData(5000, 10000)]
+    [InlineData(5000, 9000)]
+    [InlineData(30000, 180000)]
+    [InlineData(3, 10)]
+    public void ConnectionHubOptions_ConfiguredIntervalsAreAccepted(int beatMilliseconds, int timeoutMilliseconds)
+    {
+        using var context = new BunitContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        var module = context.JSInterop.SetupModule("./_content/BootstrapBlazor/modules/hub.js");
+        context.Services.AddBootstrapBlazor();
+        context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            BeatInterval = TimeSpan.FromMilliseconds(beatMilliseconds),
+            TimeoutInterval = TimeSpan.FromMilliseconds(timeoutMilliseconds)
+        };
+
+        context.Render<ConnectionHub>();
+        var options = module.VerifyInvoke("init").Arguments[1]!;
+        var beat = Assert.IsType<double>(options.GetType().GetProperty("Interval")?.GetValue(options));
+        Assert.Equal((double)beatMilliseconds, beat);
+    }
+
+    [Theory]
     [InlineData(null)]
     [InlineData("")]
     public async Task AddOrUpdateAsync_EmptyId(string? id)
@@ -400,6 +424,89 @@ public class ConnectionHubTest
         Assert.Equal(0, service.Count);
         Assert.True(service.TryGetValue("test_id", out var item));
         Assert.Same(item, Assert.Single(service.Connections));
+    }
+
+    [Fact]
+    public async Task AddOrUpdateAsync_SharedBrowserId()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        using var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/first" }, TestContext.Current.CancellationToken);
+        Assert.True(service.TryGetValue("browser", out var original));
+
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/second" }, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, service.Count);
+        var item = Assert.Single(service.Connections);
+        Assert.Equal(original.ConnectionTime, item.ConnectionTime);
+        Assert.Equal("/second", item.ClientInfo?.RequestUrl);
+    }
+
+    [Fact]
+    public async Task ExpirationScan_ConcurrentHeartbeats()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        options.Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromMilliseconds(1),
+            TimeoutInterval = TimeSpan.FromMilliseconds(200),
+            BeatInterval = TimeSpan.FromMilliseconds(100)
+        };
+        var service = provider.GetRequiredService<IConnectionService>();
+        var clients = Enumerable.Range(0, 500).Select(i => new ClientInfo { Id = $"browser-{i}" }).ToArray();
+        foreach (var client in clients)
+        {
+            await service.AddOrUpdateAsync(client, TestContext.Current.CancellationToken);
+        }
+
+        await Task.Delay(250, TestContext.Current.CancellationToken);
+        options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.FromSeconds(10);
+        await Parallel.ForEachAsync(clients, TestContext.Current.CancellationToken, async (client, token) =>
+        {
+            await service.AddOrUpdateAsync(client, token);
+        });
+
+        Assert.Equal(clients.Length, service.Count);
+        foreach (var client in clients)
+        {
+            Assert.True(service.TryGetValue(client.Id!, out _));
+        }
+    }
+
+    [Fact]
+    public async Task ExpirationScan_ClearsDispatcherOnlyForRemovedEntry()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        using var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        var service = provider.GetRequiredService<IConnectionService>();
+        var throttleFactory = provider.GetRequiredService<IThrottleDispatcherFactory>();
+        var dispatcher = throttleFactory.GetOrCreate("browser");
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/old" }, TestContext.Current.CancellationToken);
+        Assert.True(service.TryGetValue("browser", out var expiredSnapshot));
+        options.Value.ConnectionHubOptions.TimeoutInterval = TimeSpan.Zero;
+
+        await service.AddOrUpdateAsync(new ClientInfo { Id = "browser", RequestUrl = "/new" }, TestContext.Current.CancellationToken);
+        var remove = service.GetType().GetMethod("RemoveExpiredConnection", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(remove);
+        remove.Invoke(service, [new KeyValuePair<string, ConnectionItem>("browser", expiredSnapshot)]);
+
+        Assert.True(service.TryGetValue("browser", out var refreshed));
+        Assert.Equal("/new", refreshed.ClientInfo?.RequestUrl);
+        Assert.Same(dispatcher, throttleFactory.GetOrCreate("browser"));
+
+        remove.Invoke(service, [new KeyValuePair<string, ConnectionItem>("browser", refreshed)]);
+        Assert.False(service.TryGetValue("browser", out _));
+        Assert.NotSame(dispatcher, throttleFactory.GetOrCreate("browser"));
     }
 
     private static CancellationTokenSource GetCancellationTokenSource(IConnectionService service)

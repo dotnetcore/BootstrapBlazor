@@ -12,8 +12,8 @@ namespace BootstrapBlazor.Components;
 public class ConnectionHubOptions
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否开启 CollectionHub 功能 默认 false 未开启</para>
-    /// <para lang="en">Gets or sets whether to enable CollectionHub feature default false</para>
+    /// <para lang="zh">获得/设置 是否开启 ConnectionHub 功能 默认 false 未开启</para>
+    /// <para lang="en">Gets or sets whether to enable ConnectionHub feature default false</para>
     /// </summary>
     public bool Enable { get; set; }
 
@@ -24,17 +24,23 @@ public class ConnectionHubOptions
     public bool EnableIpLocator { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过期扫描周期 默认 1 分钟</para>
-    /// <para lang="en">Gets or sets expiration scan frequency default 1 minute</para>
+    /// <para lang="zh">获得/设置 过期扫描周期 默认 10 分钟</para>
+    /// <para lang="en">Gets or sets expiration scan frequency default 10 minutes</para>
     /// </summary>
-    /// <remarks><para lang="zh">自动清理超时 5 倍心跳时间的客户端信息</para><para lang="en">Automatically clean up client information with timeout 5 times heartbeat time</para></remarks>
+    /// <remarks>
+    /// <para lang="zh">定期清理最后一次心跳超过 <see cref="TimeoutInterval"/> 的连接。在线数 <see cref="IConnectionService.Count"/> 按超时间隔计算，不受扫描周期影响。</para>
+    /// <para lang="en">Periodically removes connections whose last heartbeat exceeds <see cref="TimeoutInterval"/>. The online count <see cref="IConnectionService.Count"/> is based on the timeout regardless of the scan frequency.</para>
+    /// </remarks>
     public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(10);
 
     /// <summary>
     /// <para lang="zh">获得/设置 超时间隔 默认 10 秒</para>
     /// <para lang="en">Gets or sets timeout interval default 10 seconds</para>
     /// </summary>
-    /// <remarks><para lang="zh">不能小于 <see cref="BeatInterval"/> 心跳间隔</para><para lang="en">Cannot be less than <see cref="BeatInterval"/> heartbeat interval</para></remarks>
+    /// <remarks>
+    /// <para lang="zh">建议至少为 <see cref="BeatInterval"/> 的两倍，并为网络延迟、后台标签页定时器限速留出余量。</para>
+    /// <para lang="en">At least twice <see cref="BeatInterval"/> is recommended. Allow additional time for network latency and browser timer throttling in background tabs.</para>
+    /// </remarks>
     public TimeSpan TimeoutInterval { get; set; } = TimeSpan.FromSeconds(10);
 
     /// <summary>

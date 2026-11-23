@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Pages;
 
 /// <summary>
@@ -13,6 +15,10 @@ public partial class Online : IDisposable
     [Inject]
     [NotNull]
     private IConnectionService? ConnectionService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
     private readonly List<ConnectionItem> _items = [];
     private static readonly Comparison<ConnectionItem> ConnectionComparer = static (x, y) => x.ConnectionTime.CompareTo(y.ConnectionTime);
@@ -52,8 +58,11 @@ public partial class Online : IDisposable
         {
             while (await timer.WaitForNextTickAsync(cancellationToken))
             {
-                BuildContext();
-                await InvokeAsync(StateHasChanged);
+                await InvokeAsync(() =>
+                {
+                    BuildContext();
+                    StateHasChanged();
+                });
             }
         }
         catch (OperationCanceledException) { }
@@ -62,7 +71,9 @@ public partial class Online : IDisposable
     private void BuildContext()
     {
         _items.Clear();
-        _items.AddRange(ConnectionService.Connections);
+        var now = DateTimeOffset.Now;
+        var timeout = Options.Value.ConnectionHubOptions.TimeoutInterval;
+        _items.AddRange(ConnectionService.Connections.Where(item => item.LastBeatTime.Add(timeout) > now));
         _items.Sort(ConnectionComparer);
     }
 

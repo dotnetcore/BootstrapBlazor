@@ -18,11 +18,14 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
     private readonly ConnectionHubOptions _options;
 
+    private readonly IThrottleDispatcherFactory _throttleDispatcherFactory;
+
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options, ILogger<DefaultConnectionService> logger)
+    public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options, IThrottleDispatcherFactory throttleDispatcherFactory, ILogger<DefaultConnectionService> logger)
     {
         _options = options.Value.ConnectionHubOptions;
+        _throttleDispatcherFactory = throttleDispatcherFactory;
 
         if (_options.Enable)
         {
@@ -37,8 +40,10 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
                         try
                         {
-                            var keys = _connectionCache.Where(i => i.Value.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Key).ToList();
-                            keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                            foreach (var item in _connectionCache)
+                            {
+                                RemoveExpiredConnection(item);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -73,7 +78,10 @@ class DefaultConnectionService : IConnectionService, IDisposable
         cancellationToken.ThrowIfCancellationRequested();
         if (!string.IsNullOrEmpty(client.Id))
         {
-            _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
+            lock (_connectionCache)
+            {
+                _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
+            }
         }
         return Task.CompletedTask;
     }
@@ -91,6 +99,23 @@ class DefaultConnectionService : IConnectionService, IDisposable
         LastBeatTime = DateTimeOffset.Now,
         ClientInfo = val
     };
+
+    private void RemoveExpiredConnection(KeyValuePair<string, ConnectionItem> item)
+    {
+        lock (_connectionCache)
+        {
+            if (!_connectionCache.TryGetValue(item.Key, out var current)
+                || !ReferenceEquals(current, item.Value)
+                || current.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now)
+            {
+                return;
+            }
+
+            // Clear the dispatcher before another heartbeat can insert a new entry for this ID.
+            _connectionCache.TryRemove(item.Key, out _);
+            _throttleDispatcherFactory.Clear(item.Key);
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>

@@ -4,72 +4,110 @@ import EventHandler from "./event-handler.js";
 
 export async function init(id, options) {
     const { invoke, method, interval = 3000, url, connectionId } = options;
-    const elKey = 'bb_hub_el_id';
-    if (localStorage.getItem(elKey) === null) {
-        localStorage.setItem(elKey, id);
+    if (Data.get(id)) {
+        return;
     }
 
+    const pollInterval = Math.min(2147483647, Math.max(4, interval / 8));
+    const leaseInterval = pollInterval * 2;
     const connectionIdKey = 'bb_hub_connection_id';
-    let clientId = localStorage.getItem(connectionIdKey);
-    if (clientId === null) {
+    const leaseKey = 'bb_hub_leader_lease';
+
+    if (localStorage.getItem(connectionIdKey) === null) {
         localStorage.setItem(connectionIdKey, connectionId);
-        clientId = connectionId;
     }
 
-    const hubs = [];
-    const chanel = new BroadcastChannel('bb_hubs_chanel');
-    EventHandler.on(chanel, 'message', e => {
-        const { id, type } = e.data;
-        if (type === 'ping' && hubs.find(v => v === id) === void 0) {
-            hubs.push(id);
+    const hub = { active: true, handler: null, info: null, nextBeat: 0, retryAfter: 0, inFlight: false };
+    const getLease = () => {
+        const lease = localStorage.getItem(leaseKey) || '';
+        const separator = lease.lastIndexOf(':');
+        return { owner: lease.substring(0, separator), expires: Number(lease.substring(separator + 1)) };
+    };
+    const releaseLease = () => {
+        if (getLease().owner === connectionId) {
+            localStorage.removeItem(leaseKey);
         }
-        else if (type === 'dispose') {
-            const index = hubs.indexOf(id);
-            if (index > -1) {
-                hubs.splice(index, 1);
-            }
-            if (localStorage.getItem(elKey) === id) {
-                localStorage.removeItem(elKey);
-            }
-        }
-    });
-
-    const info = await getClientInfo(url);
-    info.id = clientId;
-
+    };
     const callback = async () => {
-        chanel.postMessage({ id, type: 'ping' });
-
-        let hubId = localStorage.getItem(elKey);
-        if (hubId === null || hubs.length === 0) {
-            localStorage.setItem(elKey, id);
-            hubId = id;
+        const now = Date.now();
+        if (!hub.active || now < hub.retryAfter) {
+            return;
         }
-        if (hubId === id) {
-            await invoke.invokeMethodAsync(method, info);
+
+        const lease = getLease();
+        const ownsLease = lease.owner === connectionId;
+        if (!ownsLease && lease.expires > now) {
+            return;
         }
-    }
-    await callback();
 
-    const handler = setInterval(async () => {
-        await callback();
-    }, interval);
+        // Give another tab time to report if this heartbeat is still pending halfway to the next one.
+        if (hub.inFlight && (!ownsLease || now >= hub.nextBeat - interval / 2)) {
+            return;
+        }
 
-    EventHandler.on(window, 'pagehide', () => {
-        dispose(id);
-    });
+        if (!ownsLease) {
+            hub.nextBeat = 0;
+        }
+        localStorage.setItem(leaseKey, `${connectionId}:${now + leaseInterval}`);
+        if (hub.inFlight || now < hub.nextBeat || getLease().owner !== connectionId) {
+            return;
+        }
 
-    const hub = { handler, chanel };
+        hub.nextBeat = now + interval;
+        hub.inFlight = true;
+        try {
+            hub.info.id = localStorage.getItem(connectionIdKey);
+            await invoke.invokeMethodAsync(method, hub.info);
+        }
+        catch {
+            // Let another tab take over before retrying a disconnected circuit.
+            hub.retryAfter = Date.now() + interval;
+            releaseLease();
+        }
+        finally {
+            hub.inFlight = false;
+        }
+    };
+    const start = () => {
+        if (hub.active && hub.info && hub.handler === null) {
+            hub.handler = setInterval(callback, pollInterval);
+            callback();
+        }
+    };
+    hub.hide = () => {
+        hub.active = false;
+        clearInterval(hub.handler);
+        hub.handler = null;
+        releaseLease();
+    };
+    hub.show = event => {
+        if (event.persisted && !hub.active) {
+            hub.active = true;
+            start();
+        }
+    };
+    EventHandler.on(window, 'pagehide', hub.hide);
+    EventHandler.on(window, 'pageshow', hub.show);
     Data.set(id, hub);
+
+    try {
+        hub.info = await getClientInfo(url);
+        start();
+    }
+    catch (error) {
+        if (Data.get(id) === hub) {
+            dispose(id);
+        }
+        throw error;
+    }
 }
 
-export async function dispose(id) {
+export function dispose(id) {
     const hub = Data.get(id);
-
     if (hub) {
-        EventHandler.off(window, 'pagehide');
-        clearInterval(hub.handler);
-        hub.chanel.postMessage({ id, type: 'dispose' });
-        hub.chanel.close();
+        hub.hide();
+        EventHandler.off(window, 'pagehide', hub.hide);
+        EventHandler.off(window, 'pageshow', hub.show);
+        Data.remove(id);
     }
 }
