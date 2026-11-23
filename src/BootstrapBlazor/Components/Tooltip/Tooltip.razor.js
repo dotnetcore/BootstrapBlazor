@@ -10,6 +10,7 @@ export function init(id) {
         const tip = {
             tooltip: new bootstrap.Tooltip(el, {
                 sanitize: el.getAttribute('data-bs-sanitize') !== 'false',
+                placement: () => el.getAttribute('data-bs-placement') || 'top',
                 title: () => {
                     return el.getAttribute('data-bs-original-title')
                 },
