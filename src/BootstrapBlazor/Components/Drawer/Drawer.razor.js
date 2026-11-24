@@ -1,6 +1,7 @@
 import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
+import { attachOverlay } from "../../modules/fullscreen.js"
 
 const restoreBodyScroll = (el, body) => {
     const hasOpenDrawer = [...document.querySelectorAll('.drawer.show')]
@@ -85,6 +86,7 @@ export function init(id, invoke, method) {
     const dw = {
         el,
         body: document.querySelector('body'),
+        detachOverlay: el.hasAttribute('data-bb-drawer-service') ? attachOverlay(el) : null,
         open: null,
         animationId: null
     }
@@ -199,6 +201,10 @@ export function dispose(id) {
     const dw = Data.get(id)
     Data.remove(id);
 
+    if (!dw) {
+        return;
+    }
+
     const { el, body } = dw;
     if (dw.animationId) {
         cancelAnimationFrame(dw.animationId);
@@ -214,6 +220,7 @@ export function dispose(id) {
         }
     }
     restoreBodyScroll(el, body);
+    dw.detachOverlay?.();
 
     const drawerBody = el.querySelector('.drawer-body');
     if (drawerBody !== null) {

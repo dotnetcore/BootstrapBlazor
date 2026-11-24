@@ -61,6 +61,7 @@ export function attachOverlay(el) {
     el.before(placeholder)
 
     const move = parent => {
+        const focused = document.activeElement
         const open = el.hasAttribute('popover') && el.matches(':popover-open')
         if (open) {
             el.hidePopover()
@@ -76,17 +77,29 @@ export function attachOverlay(el) {
         if (open && el.isConnected) {
             el.showPopover()
         }
+        if (el.contains(focused)) {
+            focused.focus({ preventScroll: true })
+        }
     }
 
     const update = () => {
+        const fullscreen = document.fullscreenElement
+        if (!el.parentNode || !placeholder.isConnected || el.contains(fullscreen)) {
+            return
+        }
+
         const host = [...modalHosts].reverse().find(host => host.isConnected && host.open)
-        const target = host ?? document.fullscreenElement
+        const target = host ?? fullscreen
+        if (el.contains(target)) {
+            return
+        }
+
         if (target && !target.contains(placeholder)) {
             if (el.parentNode !== target) {
                 move(target)
             }
         }
-        else if (placeholder.parentNode && el.parentNode !== placeholder.parentNode) {
+        else if (el.parentNode !== placeholder.parentNode) {
             move(null)
         }
     }
@@ -98,8 +111,13 @@ export function attachOverlay(el) {
     return () => {
         document.removeEventListener('fullscreenchange', update)
         document.removeEventListener(overlayChangeEvent, update)
-        if (placeholder.parentNode && el.parentNode !== placeholder.parentNode) {
-            move(null)
+        if (el.parentNode && el.parentNode !== placeholder.parentNode) {
+            if (placeholder.isConnected) {
+                move(null)
+            }
+            else {
+                el.remove()
+            }
         }
         placeholder.remove()
     }
