@@ -59,8 +59,10 @@ public class DialButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

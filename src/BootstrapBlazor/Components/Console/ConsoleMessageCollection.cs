@@ -70,7 +70,8 @@ public class ConsoleMessageCollection(int maxCount = 2000) : IEnumerable<Console
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh">销毁资源</para>
+    /// <para lang="en">Dispose resources</para>
     /// </summary>
     public void Dispose()
     {

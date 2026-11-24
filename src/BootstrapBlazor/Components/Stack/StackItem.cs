@@ -73,8 +73,10 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh">销毁资源</para>
+    /// <para lang="en">Dispose</para>
     /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);
