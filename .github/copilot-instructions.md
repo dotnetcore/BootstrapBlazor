@@ -1,22 +1,6 @@
-## 开发与测试
+# BootstrapBlazor Copilot 指引
 
-- 修改前阅读相关代码和相近实现，沿用现有模式，只做任务所需的改动。
-- 保持公开 API 兼容；新增公开组件 API 时补充中英文 XML 注释和版本信息。
-- 用户可见文本使用 `IStringLocalizer`；WASM 的 JS 互操作使用异步 API。
-- 新增组件时更新 `docs.json` 和可运行示例。
-- 任何任务（包括快捷代码审查）均不得针对组件 JavaScript 脚本逻辑新增、修改或运行测试，也不得修改 GitHub Actions 增加 JavaScript 测试环节。涉及 JavaScript 的改动不限制对相关 C# 组件逻辑进行单元测试；是否新增、修改或运行单元测试仍遵循下方规则。
-- 运行与改动相关的验证；如实报告执行结果和未完成的检查。
-- 不默认启动或打开浏览器，除非用户要求预览或验证 UI 确有必要。
-- 普通功能开发、缺陷修复等任务，默认不新增、修改或运行单元测试，除非用户明确要求。快捷代码审查按下文规则执行；需要补充测试时，优先验证行为和边界，而非实现细节。
+开始任务前读取并遵守仓库根目录的 [AGENTS.md](../AGENTS.md)。其中包含项目入口、开发与测试约定，以及各项任务对应的指南。
 
-## 快捷代码审查
-
-当用户提示去除首尾空白后恰为 `review`、`代码审查` 或 `审查代码` 时，读取并遵循 `.agents/skills/bb-review/SKILL.md` 中的快捷审查流程。
-
-## GitHub Issue 和 PR
-
-用户要求按仓库约定创建或更新 Issue 和关联 PR 时，读取并遵循 `.agents/skills/github-issue-pr/SKILL.md`。各工具接入方式见 `docs/agents/skills.md`。
-
-## 任务
-
+- Copilot CLI 的 `/bb-review` 调用仓库快捷审查流程，`/review` 调用 Copilot CLI 内置审查。
 - 任务完成后显示耗时。

@@ -5,7 +5,7 @@ description: Review and fix BootstrapBlazor changes using the repository's quick
 
 # BootstrapBlazor 快捷代码审查
 
-遵守根 `AGENTS.md` 和 `.github/copilot-instructions.md` 中的通用约束，按以下流程审查。用户明确要求只报告或禁止修改时，遵守用户限制。
+遵守当前仓库根目录 `AGENTS.md` 中的通用约束，按以下流程审查。用户明确要求只报告或禁止修改时，遵守用户限制。
 
 ## 审查范围
 
@@ -20,7 +20,7 @@ description: Review and fix BootstrapBlazor changes using the repository's quick
 - 检查公开 API 兼容性、资源释放、本地化和行为测试覆盖；涉及 JavaScript 时仍须审查相关代码，但不得测试组件 JavaScript 脚本逻辑。
 - 检查组件代码重写方法是否使用 `<inheritdoc/>` 注释。
 - 检查文件是否为 UTF-8 无 BOM；无法确认时明确说明。
-- 逐项检查新增公开类型和成员（包括非 `[Parameter]` 的公开属性）是否有中英文 XML 注释，以及版本标记。每个新增声明自身的 `<summary>` 内须包含 `<para><version>正式版版本号</version></para>`，且 `<version>` 须是 `<para>` 的直接子元素。
+- 逐项检查新增公开类型和成员（包括非 `[Parameter]` 的公开属性）是否符合组件规范中的双语 XML 注释和版本标记要求。
 - 已有版本标记保持原样；仅缺少标记时才补充版本号。
 - 版本号缺乏可靠依据时先向用户确认，不猜测。
 
