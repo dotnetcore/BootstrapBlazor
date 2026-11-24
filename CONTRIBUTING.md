@@ -13,9 +13,9 @@ For bugs or feature requests, log a new issue on the [issues list](https://githu
 BootstrapBlazor accepts fixes and features. Here is what you should do when writing code for BootstrapBlazor:
 
 - Follow the coding conventions used throughout the bUnit project. In general, they align with the AspNetCore teams [coding guidelines](https://github.com/dotnet/aspnetcore/wiki/Engineering-guidelines#coding-guidelines).
-- Add, remove, or delete unit tests to cover your changes. Make sure tests are specific to the changes you are making. Tests need to be provided for every bug/feature that is completed.
+- Add or update focused unit tests for bug fixes and features where applicable. For AI-assisted work, see the [repository rules for local testing](./AGENTS.md#测试约定).
 - This repository follows the truck-based development approach, meaning changes should be based on the `main` branch.
-- When adding a property to a class, include an XML documentation version marker in its documentation: `<para><version>v{version}</version></para>`. Use the next planned stable release version; when the project version has a prerelease suffix (for example, `11.0.2-beta01`), use its stable version (`11.0.2`).
+- Follow the [XML documentation and version marker requirements](./docs/agents/component-checklist.md#参数与-api) when adding public API.
 - Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) style commit messages.
 - Any code or documentation you share with the bUnit projects should fall under the project's license agreement.
 
@@ -34,8 +34,8 @@ All code submissions will be reviewed and tested, and only those that meet the e
 
 ### Submitting a Pull Request
 
-If you don't know what a pull request is, read this article: https://help.github.com/articles/using-pull-requests. Make sure the repository can build and all tests pass. It is also a good idea to familiarize yourself with the project workflow and our coding conventions.
+See the [GitHub guide to pull requests](https://help.github.com/articles/using-pull-requests) and the [repository's PR guide](./docs/agents/pr-guide.md). Report the checks you ran locally. The required CI checks must pass before merge.
 
 ## Code of Conduct
 
-See [CODE-OF-CONDUCT.md](./CODE-OF-CONDUCT.md)
+See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).

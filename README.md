@@ -24,7 +24,7 @@ English | <a href="README.zh-CN.md">中文</a>
 
 ## Environment
 
-- Install .net SDK [Official website](https://dotnet.microsoft.com/download)
+- Install the [.NET SDK](https://dotnet.microsoft.com/download) version used by the [build workflow](.github/workflows/build.yml). See the [repository paths and commands](AGENTS.md#项目与命令) for local development.
 - Install Visual Studio latest [Official website](https://visualstudio.microsoft.com/vs)
 
 ## Quick Installation Guide
