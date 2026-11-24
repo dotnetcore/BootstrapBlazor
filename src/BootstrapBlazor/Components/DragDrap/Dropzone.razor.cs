@@ -392,8 +392,7 @@ public partial class Dropzone<TItem> : IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

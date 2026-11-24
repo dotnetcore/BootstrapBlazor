@@ -147,8 +147,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose method</para>
+    /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

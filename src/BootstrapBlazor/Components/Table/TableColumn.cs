@@ -584,7 +584,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn, I
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public virtual async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);
