@@ -1,6 +1,6 @@
 ---
 name: github-issue-pr
-description: 按 BootstrapBlazor 仓库约定创建、复用或更新 GitHub Issue 和 Pull Request。用于单独处理 Issue、单独发布或更新 PR，以及提交并发布关联 Issue 的 PR。
+description: 按 BootstrapBlazor 仓库约定将当前分支的改动发布为新 Issue 和关联 PR，也可按明确要求单独处理 Issue 或 PR。
 ---
 
 # GitHub Issue 和 Pull Request
@@ -9,24 +9,32 @@ description: 按 BootstrapBlazor 仓库约定创建、复用或更新 GitHub Iss
 
 ## 确认任务范围
 
+- 直接调用本 skill 且未指定其他 Issue 或 PR 操作时，按当前分支相对目标仓库默认分支的待发布差异，先创建新 Issue，再创建指向默认分支并关联该 Issue 的新 PR。直接调用即授权完成这套发布流程。
 - 仅处理 Issue 时，确认仓库并按任务创建、复用或更新 Issue。
-- 发布 PR 必须关联 Issue。优先使用用户指定或已有的匹配 Issue。查重后没有匹配项且任务已授权创建 Issue 时，才新建 Issue。仅获授权发布 PR 时，如缺少 Issue，请用户指定 Issue 或授权新建。
+- 单独发布 PR 时，必须关联 Issue，优先使用用户指定或已有的匹配 Issue。如缺少 Issue，请用户指定 Issue 或授权新建。
 - 更新现有 PR 时，按用户提供的编号或 URL 核对目标。仅更新文案时，用 `gh pr view` 和 `gh pr diff` 核对远端 PR 的提交和差异，直接更新请求涉及的字段。只有需要更新分支内容时，才执行本地提交与推送的步骤。
 - 用户明确要求发布时，完成授权范围内的操作并返回结果。合并需要用户明确授权，并遵守仓库 CI 要求。
 
-## 1. 确认仓库和权限
+## 1. 确认仓库并检查当前分支
 
 根据用户指定的仓库、Issue 或 PR 链接及本地远端确认目标。若本地连接的是 Fork，核对其上游。按任务选用以下 PowerShell 示例，将仓库、远端、标题、查询词和文件路径替换为实际值。`$targetRepo` 是接收 PR 的仓库。仅处理 Issue 时，它是 Issue 所在仓库。`$issueRepo` 默认与 `$targetRepo` 相同，关联用户指定的跨仓库 Issue 时设为该 Issue 所在仓库。`gh issue` 和 `gh pr` 命令均显式传入对应的 `--repo`。
+
+确定目标仓库后，先只读查询当前分支和 GitHub 返回的默认分支。当前分支是默认分支时，立即结束本次调用并告知用户，跳过后续所有步骤，包括拉取、切换或创建分支、提交、推送和创建或更新 Issue / PR。即使任务指定了其他 PR 基准分支，也先执行这项检查。
 
 ```powershell
 $targetRepo = 'owner/repo'
 $issueRepo = $targetRepo
 git --no-pager rev-parse --show-toplevel
 git --no-pager remote -v
-gh auth status
-$repoInfo = gh repo view "$targetRepo" --json nameWithOwner,defaultBranchRef,isFork,parent,viewerPermission
+$currentBranch = git --no-pager branch --show-current
+if ($LASTEXITCODE -ne 0) { throw '无法读取当前分支。' }
+$repoInfo = gh repo view "$targetRepo" --json 'nameWithOwner,defaultBranchRef,isFork,parent,viewerPermission'
 if ($LASTEXITCODE -ne 0) { throw '无法查询目标仓库。' }
 $repo = $repoInfo | ConvertFrom-Json -ErrorAction Stop
+$defaultBranch = $repo.defaultBranchRef.name
+if (-not $defaultBranch) { throw '无法确定目标仓库的默认分支。' }
+if ($currentBranch -ceq $defaultBranch) { throw "当前分支 $currentBranch 是默认分支，已停止。" }
+gh auth status
 ```
 
 GitHub 操作优先使用已认证的 `gh`，发布时传入非交互参数。按任务检查网络和操作权限。发布 PR 时，先确认有本次任务的改动可发布，且基准分支、可写的推送目标和 PR 创建方式均已确定，再创建配套的新 Issue。上游无推送权限时，优先使用可写且与上游关联的 Fork。
@@ -37,7 +45,8 @@ GitHub 操作优先使用已认证的 `gh`，发布时传入非交互参数。�
 
 ```powershell
 $baseRemote = 'upstream'
-$baseBranch = $repo.defaultBranchRef.name  # 更新现有 PR 或用户指定基准时，按上文设置
+$baseBranch = $defaultBranch  # 更新现有 PR 或用户指定基准时，按上文设置
+if (-not $currentBranch) { throw '未检出本地分支。' }
 git --no-pager status --short --branch
 if (-not $baseBranch) { throw '无法确定 PR 的基准分支。' }
 git --no-pager fetch "$baseRemote" "refs/heads/$baseBranch"
@@ -63,7 +72,7 @@ gh pr list --repo "$targetRepo" --head "$headBranch" --state open --limit 100 --
 if ($LASTEXITCODE -ne 0) { throw '无法查询该分支的现有 PR。' }
 ```
 
-`gh pr list --head` 只接收分支名。用 `headRepository.nameWithOwner`、`headRefName` 和 `baseRefName` 核对来源及目标。若返回 100 条，将同一命令的 `--limit` 提高到 200。`gh` 会自动翻页，结果仍达到上限时继续提高，直到返回条数低于上限。复用与当前任务匹配的打开 PR，若其基准分支与初次比较时不同，按实际基准重新比较。若同一 head 已用于其他打开的 PR，选择新的任务分支并重新检查。
+`gh pr list --head` 只接收分支名。用 `headRepository.nameWithOwner`、`headRefName` 和 `baseRefName` 核对来源及目标。若返回 100 条，将同一命令的 `--limit` 提高到 200。`gh` 会自动翻页，结果仍达到上限时继续提高，直到返回条数低于上限。默认流程发现同一 head 和 base 已有打开的 PR 时，返回该 PR 链接并在创建 Issue 前结束。其他任务可复用与当前任务匹配的打开 PR，若其基准分支与初次比较时不同，按实际基准重新比较。若同一 head 已用于其他打开的 PR，选择新的任务分支并重新检查。
 
 ## 3. 查模板和近期先例
 
@@ -73,7 +82,7 @@ if ($LASTEXITCODE -ne 0) { throw '无法查询该分支的现有 PR。' }
 
 ## 4. 创建、复用或更新 Issue
 
-用 `gh issue view` 核对用户指定或查重找到的 Issue 的正文和状态。优先复用明确匹配的打开 Issue。已关闭的 Issue 只有在用户明确指定时复用。
+默认流程根据第 2 节核对的待发布差异拟定新 Issue 的标题和正文，说明这些改动要解决的问题或实现的目标。需要复用 Issue 时，用 `gh issue view` 核对用户指定或查重找到的 Issue 的正文和状态，优先复用明确匹配的打开 Issue。已关闭的 Issue 只有在用户明确指定时复用。
 
 ```powershell
 $issueId = '123'  # 换成实际编号或 URL
