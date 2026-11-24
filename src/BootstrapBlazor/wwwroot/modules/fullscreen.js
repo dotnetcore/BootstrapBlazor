@@ -1,4 +1,4 @@
-import { isElement } from "./utility.js"
+import { getDescribedElement, getDescribedOwner, isElement } from "./utility.js"
 
 export async function toggle(options) {
     let el = null;
@@ -37,6 +37,62 @@ const exitFullscreen = async el => {
 const isFullscreen = () => {
     return document.fullscreenElement !== null;
 }
+
+export function getFullscreenContainer(reference, container) {
+    const fullscreen = document.fullscreenElement
+    return fullscreen?.contains(reference) && !fullscreen.contains(container) ? fullscreen : container
+}
+
+const floatingOverlayContainers = new WeakMap()
+
+const moveFloatingOverlay = (reference, overlay) => {
+    const original = floatingOverlayContainers.get(overlay) ?? overlay.parentElement
+    const container = original?.isConnected ? original : document.body
+    const target = getFullscreenContainer(reference, container)
+    if (target === overlay.parentElement) {
+        return false
+    }
+
+    if (target === container) {
+        floatingOverlayContainers.delete(overlay)
+    }
+    else {
+        floatingOverlayContainers.set(overlay, container)
+    }
+
+    const focused = document.activeElement
+    target.append(overlay)
+    if (overlay.contains(focused)) {
+        focused.focus({ preventScroll: true })
+    }
+    return true
+}
+
+const mountFloatingOverlay = ({ target }) => {
+    if (document.fullscreenElement?.contains(target)) {
+        const overlay = getDescribedElement(target)
+        if (overlay) {
+            moveFloatingOverlay(target, overlay)
+        }
+    }
+}
+
+document.addEventListener('inserted.bs.tooltip', mountFloatingOverlay)
+document.addEventListener('inserted.bs.popover', mountFloatingOverlay)
+document.addEventListener('fullscreenchange', () => {
+    document.querySelectorAll('.tooltip.show, .popover.show').forEach(overlay => {
+        const reference = getDescribedOwner(overlay)
+        if (!reference) {
+            return
+        }
+
+        const component = overlay.classList.contains('popover') ? window.bootstrap?.Popover : window.bootstrap?.Tooltip
+        const instance = component?.getInstance(reference)
+        if (instance?.tip === overlay && moveFloatingOverlay(reference, overlay)) {
+            instance?._popper?.setOptions({})
+        }
+    })
+})
 
 export function supportsPopover(el) {
     return typeof el.showPopover === 'function' && typeof el.hidePopover === 'function'
