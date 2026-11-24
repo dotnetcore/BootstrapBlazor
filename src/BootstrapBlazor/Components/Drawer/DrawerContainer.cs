@@ -68,6 +68,7 @@ public class DrawerContainer : ComponentBase, IDisposable
     {
         var parameters = new Dictionary<string, object>()
         {
+            ["data-bb-drawer-service"] = true,
             [nameof(Drawer.IsOpen)] = true,
             [nameof(Drawer.IsKeyboard)] = option.IsKeyboard,
             [nameof(Drawer.BodyScroll)] = option.BodyScroll,
@@ -137,8 +138,7 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

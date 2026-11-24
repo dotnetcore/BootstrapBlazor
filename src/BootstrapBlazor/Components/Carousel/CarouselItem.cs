@@ -92,8 +92,7 @@ public class CarouselItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose method</para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {
