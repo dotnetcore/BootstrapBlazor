@@ -47,10 +47,14 @@ public partial class Table<TItem>
     /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">开启后新建编辑弹窗/抽屉的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持编辑界面打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
-    /// <para lang="en">When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog/drawer. Clicking it saves the current item, keeps the edit UI open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
-    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时使用 <see cref="OnAddAsync"/> 创建下一条数据</para>
-    /// <para lang="en">Use <see cref="OnAddAsync"/> to create the next item when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// <para lang="zh">
+    ///     <para>开启后新建编辑弹窗/抽屉的 Footer 中会显示「保存并新增」按钮，点击时先保存当前数据，保存成功后保持编辑界面打开并调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据继续录入</para>
+    ///     <para>未设置 <see cref="OnKeepAddingAsync"/> 时使用 <see cref="OnAddAsync"/> 创建下一条数据</para>
+    /// </para>
+    /// <para lang="en">
+    ///     <para>When enabled, a "Save and Add" button is shown in the Footer of the add edit dialog/drawer. Clicking it saves the current item, keeps the edit UI open and calls <see cref="OnKeepAddingAsync"/> to create the next item for continuous input</para>
+    ///     <para>Use <see cref="OnAddAsync"/> to create the next item when <see cref="OnKeepAddingAsync"/> is not set</para>
+    /// </para>
     /// </remarks>
     [Parameter]
     public bool ShowKeepAddingButton { get; set; }
@@ -85,12 +89,16 @@ public partial class Table<TItem>
     /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">仅在 <see cref="ShowKeepAddingButton"/> 为 true 时生效，可基于上一条已保存数据预填下一条数据，例如数量递增、沿用上一次的类别等</para>
-    /// <para lang="en">Only works when <see cref="ShowKeepAddingButton"/> is true. It can prefill the next item from the saved one, such as increasing the count or reusing the previous category</para>
-    /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
-    /// <para lang="en">The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
-    /// <para lang="zh">回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
-    /// <para lang="en">The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// <para lang="zh">
+    ///     <para>仅在 <see cref="ShowKeepAddingButton"/> 为 true 时生效，可基于上一条已保存数据预填下一条数据，例如数量递增、沿用上一次的类别等</para>
+    ///     <para>参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
+    ///     <para>回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
+    /// </para>
+    /// <para lang="en">
+    ///     <para>Only works when <see cref="ShowKeepAddingButton"/> is true. It can prefill the next item from the saved one, such as increasing the count or reusing the previous category</para>
+    ///     <para>The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
+    ///     <para>The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// </para>
     /// </remarks>
     [Parameter]
     public Func<TItem, Task<TItem>>? OnKeepAddingAsync { get; set; }

@@ -84,12 +84,16 @@ public partial class EditDialog<TModel> where TModel : class
     /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗/抽屉保持打开状态以便连续录入</para>
-    /// <para lang="en">Clicking the "Save and Add" button saves the current edit model first, then calls <see cref="OnKeepAddingAsync"/> to create the next model and rebinds the form while keeping the dialog/drawer open for continuous input</para>
-    /// <para lang="zh">未设置 <see cref="OnKeepAddingAsync"/> 时点击该按钮等同于点击主保存按钮 保存成功后直接关闭弹窗/抽屉</para>
-    /// <para lang="en">When <see cref="OnKeepAddingAsync"/> is not set, clicking this button behaves the same as the main save button and the dialog/drawer is closed after saving successfully</para>
-    /// <para lang="zh">「保存并新增」按钮位于主保存按钮之前 并作为表单默认按钮 因此在未禁用回车提交（<see cref="DisableAutoSubmitFormByEnter"/>）时 输入框内回车提交等价于点击「保存并新增」</para>
-    /// <para lang="en">The "Save and Add" button is rendered before the main save button as the form default button, so pressing Enter inside an input equals clicking "Save and Add" unless Enter submission is disabled by <see cref="DisableAutoSubmitFormByEnter"/></para>
+    /// <para lang="zh">
+    ///     <para>点击「保存并新增」按钮时先保存当前编辑模型，保存成功后调用 <see cref="OnKeepAddingAsync"/> 创建下一条数据模型并重新绑定表单，弹窗/抽屉保持打开状态以便连续录入</para>
+    ///     <para>未设置 <see cref="OnKeepAddingAsync"/> 时点击该按钮等同于点击主保存按钮 保存成功后直接关闭弹窗/抽屉</para>
+    ///     <para>「保存并新增」按钮位于主保存按钮之前 并作为表单默认按钮 因此在未禁用回车提交（<see cref="DisableAutoSubmitFormByEnter"/>）时 输入框内回车提交等价于点击「保存并新增」</para>
+    /// </para>
+    /// <para lang="en">
+    ///     <para>Clicking the "Save and Add" button saves the current edit model first, then calls <see cref="OnKeepAddingAsync"/> to create the next model and rebinds the form while keeping the dialog/drawer open for continuous input</para>
+    ///     <para>When <see cref="OnKeepAddingAsync"/> is not set, clicking this button behaves the same as the main save button and the dialog/drawer is closed after saving successfully</para>
+    ///     <para>The "Save and Add" button is rendered before the main save button as the form default button, so pressing Enter inside an input equals clicking "Save and Add" unless Enter submission is disabled by <see cref="DisableAutoSubmitFormByEnter"/></para>
+    /// </para>
     /// </remarks>
     [Parameter]
     public bool ShowKeepAddingButton { get; set; }
@@ -124,10 +128,14 @@ public partial class EditDialog<TModel> where TModel : class
     /// <para><version>v11.0.1</version></para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
-    /// <para lang="en">The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
-    /// <para lang="zh">回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
-    /// <para lang="en">The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// <para lang="zh">
+    ///     <para>参数为刚刚保存成功的模型实例，如需修改请克隆或者新建实例，避免直接修改该实例以免影响已保存的数据</para>
+    ///     <para>回调必须返回非空模型实例，返回 null 时表单内容将被清空</para>
+    /// </para>
+    /// <para lang="en">
+    ///     <para>The parameter is the model saved just now. Please clone it or create a new instance if you want to modify it, in case the saved data is affected</para>
+    ///     <para>The callback must return a non-null model, otherwise the form content is cleared</para>
+    /// </para>
     /// </remarks>
     [Parameter]
     public Func<TModel, Task<TModel>>? OnKeepAddingAsync { get; set; }

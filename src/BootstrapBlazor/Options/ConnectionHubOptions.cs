@@ -28,10 +28,14 @@ public class ConnectionHubOptions
     /// <para lang="en">Gets or sets the expiration scan frequency. The default is 1 minute.</para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">定期清理最后一次心跳超过 <see cref="TimeoutInterval"/> 的连接。在线数 <see cref="IConnectionService.Count"/> 按超时间隔计算，不受扫描周期影响。</para>
-    /// <para lang="en">Periodically removes connections whose last heartbeat exceeds <see cref="TimeoutInterval"/>. The online count <see cref="IConnectionService.Count"/> is based on the timeout regardless of the scan frequency.</para>
-    /// <para lang="zh">启用时须在 1 至 4294967294 毫秒之间。</para>
-    /// <para lang="en">When enabled, this must be between 1 and 4294967294 milliseconds.</para>
+    /// <para lang="zh">
+    ///     <para>定期清理最后一次心跳超过 <see cref="TimeoutInterval"/> 的连接。在线数 <see cref="IConnectionService.Count"/> 按超时间隔计算，不受扫描周期影响。</para>
+    ///     <para>启用时须在 1 至 4294967294 毫秒之间。</para>
+    /// </para>
+    /// <para lang="en">
+    ///     <para>Periodically removes connections whose last heartbeat exceeds <see cref="TimeoutInterval"/>. The online count <see cref="IConnectionService.Count"/> is based on the timeout regardless of the scan frequency.</para>
+    ///     <para>When enabled, this must be between 1 and 4294967294 milliseconds.</para>
+    /// </para>
     /// </remarks>
     public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(1);
 
