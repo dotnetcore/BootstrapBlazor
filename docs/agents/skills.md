@@ -9,6 +9,7 @@
 - `.agents/skills/release-notes/SKILL.md`：生成、翻译、校对中英文版本发布说明。
 - `.agents/skills/bb-review/SKILL.md`：快捷代码审查、修复和复查。
 - `.agents/skills/github-issue-pr/SKILL.md`：按仓库约定创建 GitHub Issue 和关联 PR。
+- `.agents/skills/update-extension-dependency/SKILL.md`：按组件名同步 BB.Extensions NuGet 引用或更新上游依赖。
 
 `.agents/skills/` 是 Agent Skills 开放标准的跨工具目录。`SKILL.md` 的 frontmatter 只保留 `name` 和 `description`，不写任何工具专有字段；新增 skill 时同样遵守。
 
