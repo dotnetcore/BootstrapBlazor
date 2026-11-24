@@ -1,6 +1,7 @@
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import { createPopper, computePosition } from '../../modules/floating-ui.js'
+import { getFullscreenContainer } from "../../modules/fullscreen.js"
 import { registerBootstrapBlazorModule } from "../../modules/utility.js"
 
 export function init(id) {
@@ -31,6 +32,7 @@ export function init(id) {
             }
             EventHandler.on(document, 'click', context.cancelContextMenuHandler)
             EventHandler.on(document, 'contextmenu', context.cancelContextMenuHandler)
+            EventHandler.on(document, 'fullscreenchange', context.cancelContextMenuHandler)
         })
     }
 }
@@ -43,8 +45,7 @@ export function show(id, event) {
             const el = cm.el
             const zone = cm.zone
 
-            const body = document.body
-            body.appendChild(el)
+            getFullscreenContainer(zone, document.body).appendChild(el)
 
             if (cm.popper) {
                 cm.popper()
@@ -70,6 +71,7 @@ export function dispose(id) {
         ContextMenu.dispose(id, context => {
             EventHandler.off(document, 'click', context.cancelContextMenuHandler)
             EventHandler.off(document, 'contextmenu', context.cancelContextMenuHandler)
+            EventHandler.off(document, 'fullscreenchange', context.cancelContextMenuHandler)
         });
     }
 }
