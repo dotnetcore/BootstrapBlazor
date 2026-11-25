@@ -64,7 +64,9 @@ export async function highlight(id) {
 
     if (el) {
         const invoke = () => {
-            hljs.highlightElement(el.querySelector('code'));
+            if (!el.classList.contains('no-highlight')) {
+                hljs.highlightElement(el.querySelector('code'));
+            }
             el.querySelector('.loading').classList.add('d-none')
             el.classList.remove('loaded')
         }
