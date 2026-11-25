@@ -25,6 +25,9 @@ public partial class HikVisions
     private string _password = "vhbn8888";
     private string _userName = "admin";
     private bool _inited;
+    private bool _loginInProgress;
+
+    private bool IsDisabledLoginButton => _loginStatus || _loginInProgress;
 
     private bool _loginStatus => _hikVision.IsMultipleWindowType ? false : _hikVision.IsLogin;
     private bool _logoutStatus => _hikVision.IsMultipleWindowType ? false : !_hikVision.IsLogin;
@@ -38,13 +41,7 @@ public partial class HikVisions
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
     private int _streamType = 1;
-    private readonly List<SelectedItem> _streamTypes =
-    [
-        new SelectedItem("1", "主码流"),
-        new SelectedItem("2", "子码流"),
-        new SelectedItem("3", "第三码流"),
-        new SelectedItem("4", "转码码流")
-    ];
+    private readonly List<SelectedItem> _streamTypes = [];
     private readonly List<SelectedItem> _iWndTypes =
     [
         new SelectedItem("1", "1*1"),
@@ -54,134 +51,134 @@ public partial class HikVisions
         new SelectedItem("1*2", "1*2"),
         new SelectedItem("2*1", "2*1")
     ];
+
     private string _iWndType = "1";
-    private async Task OnLogin()
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
     {
-        await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http);
+        base.OnInitialized();
+        _streamTypes.AddRange(
+        [
+            new SelectedItem("1", Localizer["MainStream"]),
+            new SelectedItem("2", Localizer["SubStream"]),
+            new SelectedItem("3", Localizer["ThirdStream"]),
+            new SelectedItem("4", Localizer["TranscodedStream"])
+        ]);
     }
 
-    private async Task OnLogout()
+    private async Task OnLoginClickAsync()
     {
-        _analogChannels.Clear();
-        await _hikVision.Logout();
-    }
-
-    private async Task OnStartRealPlay()
-    {
-        await _hikVision.StartRealPlay(_streamType, _channelId);
-    }
-
-    private async Task OnStopRealPlay()
-    {
-        await _hikVision.StopRealPlay();
-    }
-
-    private async Task OnOpenSound()
-    {
-        var result = await _hikVision.OpenSound();
-        if (result)
+        if (_loginInProgress)
         {
-            await ToastService.Success("消息通知", "打开声音成功");
+            return;
+        }
+
+        _loginInProgress = true;
+        try
+        {
+            if (!await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http))
+            {
+                await ToastService.Error(Localizer["OperationFailed", Localizer["Login"].Value], Localizer["LoginFailed"]);
+            }
+        }
+        finally
+        {
+            _loginInProgress = false;
+        }
+    }
+
+    private Task OnLogoutClickAsync() => _hikVision.Logout();
+
+    private Task OnStartRealPlayAsync() => _hikVision.StartRealPlay(_streamType, _channelId);
+
+    private Task OnStopRealPlayAsync() => _hikVision.StopRealPlay();
+
+    private async Task OnOpenSoundAsync()
+    {
+        if (await _hikVision.OpenSound())
+        {
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["OpenSound"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "打开声音失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["OpenSound"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
-    private async Task OnCloseSound()
+    private async Task OnCloseSoundAsync()
     {
-        var result = await _hikVision.CloseSound();
-        if (result)
+        if (await _hikVision.CloseSound())
         {
-            await ToastService.Success("消息通知", "关闭声音成功");
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["CloseSound"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "关闭声音失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["CloseSound"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
-    private async Task OnCapture()
+    private async Task OnCaptureAsync()
     {
-        var result = await _hikVision.CapturePicture();
-        if (result)
+        if (await _hikVision.CapturePicture())
         {
-            await ToastService.Success("消息通知", "抓图成功");
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["CapturePicture"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "抓图失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["CapturePicture"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
-    private async Task OnCaptureAndDownload()
+    private async Task OnCaptureAndDownloadAsync()
     {
-        var result = await _hikVision.CapturePictureAndDownload();
-        if (result)
+        if (await _hikVision.CapturePictureAndDownload())
         {
-            await ToastService.Success("消息通知", "抓图成功");
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["CapturePictureAndDownload"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "抓图失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["CapturePictureAndDownload"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
-    private async Task OnStartRecord()
+    private async Task OnStartRecordAsync()
     {
-        var result = await _hikVision.StartRecord();
-        if (result)
+        if (await _hikVision.StartRecord())
         {
-            await ToastService.Success("消息通知", "开始录像成功");
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["StartRecord"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "开始录像失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["StartRecord"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
-    private async Task OnStopRecord()
+    private async Task OnStopRecordAsync()
     {
-        var result = await _hikVision.StopRecord();
-        if (result)
+        if (await _hikVision.StopRecord())
         {
-            await ToastService.Success("消息通知", "结束录像成功");
+            await ToastService.Success(Localizer["NotificationTitle"], Localizer["OperationSucceeded", Localizer["StopRecord"].Value]);
         }
         else
         {
-            await ToastService.Error("消息通知", "结束录像失败");
+            await ToastService.Error(Localizer["OperationFailed", Localizer["StopRecord"].Value], Localizer["OperationFailedMessage"]);
         }
     }
 
     private async Task OnInitedAsync(bool initialized)
     {
         _inited = initialized;
-        if (_inited)
-        {
-            StateHasChanged();
-        }
-        else
+        StateHasChanged();
+        if (!initialized)
         {
             await SwalService.Show(new SwalOption()
             {
                 Category = SwalCategory.Error,
-                Title = "组件初始化错误",
-                Content = "组件初始化失败，请检查浏览器是否安装海康威视插件或插件是否启用",
+                Title = Localizer["OperationFailed", Localizer["TriggerInited"].Value],
+                Content = Localizer["InitializationFailed"],
                 ShowFooter = true,
-                FooterTemplate = new RenderFragment(builder =>
-                {
-                    builder.OpenElement(0, "div");
-                    builder.AddContent(1, "请访问");
-                    builder.OpenElement(10, "a");
-                    builder.AddAttribute(11, "href", "https://open.hikvision.com/download/5cda567cf47ae80dd41a54b3?type=20&id=77c7f9ab64da4dbe8b2df7efe3365ec2");
-                    builder.AddAttribute(12, "target", "_blank");
-                    builder.AddAttribute(13, "style", "margin:0 8px;");
-                    builder.AddContent(14, "海康威视官网下载插件");
-                    builder.CloseElement();
-                    builder.AddContent(2, "进行安装。");
-                    builder.CloseElement();
-                })
+                FooterTemplate = RenderPluginDownloadFooter
             });
         }
     }
@@ -202,6 +199,8 @@ public partial class HikVisions
 
     private Task OnLogoutAsync()
     {
+        _analogChannels.Clear();
+        _channelId = 1;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -218,10 +217,15 @@ public partial class HikVisions
         return Task.CompletedTask;
     }
 
-    private async Task OnWndTypeChanged(SelectedItem item)
+    private async Task OnWndTypeChangedAsync(SelectedItem item)
     {
-        _iWndType = item.Value;
-        await _hikVision.ChangeWindowNum(_iWndType);
-        StateHasChanged();
+        if (await _hikVision.ChangeWindowNum(item.Value))
+        {
+            _iWndType = item.Value;
+        }
+        else
+        {
+            await ToastService.Error(Localizer["OperationFailed", Localizer["ChangeWindowNum"].Value], Localizer["OperationFailedMessage"]);
+        }
     }
 }

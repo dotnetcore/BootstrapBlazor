@@ -6,29 +6,29 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <Tips>
-    <p>本组件依赖 <code>BootstrapBlazor.HikVision</code> 扩展包，需要依照下面步骤进行引用</p>
+    <p>@((MarkupString)Localizer["PackageIntro"].Value)</p>
 </Tips>
 
 <PackageTips Name="BootstrapBlazor.HikVision" />
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <section ignore>
-        <p class="code-label">注意事项：</p>
+        <p class="code-label">@Localizer["NotesTitle"]</p>
         <ul class="ul-demo">
-            <li><code>HikVisionWebPlugin</code> 组件依赖海康威视 Web 插件包，仅支持 windows 平台</li>
-            <li>由于核心功能均由海康威视 Web 插件提供所有浏览器控制台中会有部分提示或者报错信息均属于正常现象</li>
-            <li>由海康威视 Web 插件绘制的预览窗口并不是 html dom 元素，所以出现被截断遮挡其他窗口，多屏显示不正确时请刷新浏览器即可</li>
+            <li>@((MarkupString)Localizer["PluginNote"].Value)</li>
+            <li>@Localizer["ConsoleNote"]</li>
+            <li>@Localizer["PreviewWindowNote"]</li>
         </ul>
-        <p class="code-label">抓图功能说明：</p>
+        <p class="code-label">@Localizer["CaptureNotesTitle"]</p>
         <ul class="ul-demo">
-            <li>必须登录并且开始预览后才可以开启抓图功能</li>
-            <li>抓图后，文件默认存储在插件安装路径文件夹内（C:\Users\<code>[UserName]</code>\HCWebSDKPlugins\CaptureFiles）</li>
-            <li>组件提供两种抓图方法，<code>CapturePicture</code> 方法直接抓图到本地存储路径；<code>CapturePictureAndDownload</code> 方法抓图后直接弹窗下载文件</li>
+            <li>@Localizer["CaptureRequiresPreview"]</li>
+            <li>@((MarkupString)Localizer["CaptureStorageNote"].Value)</li>
+            <li>@((MarkupString)Localizer["CaptureMethodsNote"].Value)</li>
         </ul>
-        <p class="code-label">录像功能说明：</p>
+        <p class="code-label">@Localizer["RecordingNotesTitle"]</p>
         <ul class="ul-demo">
-            <li>必须登录并且开始预览后才可以开启录像功能</li>
-            <li>开始录像后，文件默认存储在插件安装路径文件夹内（C:\Users\<code>[UserName]</code>\HCWebSDKPlugins\RecordFiles）</li>
+            <li>@Localizer["RecordingRequiresPreview"]</li>
+            <li>@((MarkupString)Localizer["RecordingStorageNote"].Value)</li>
         </ul>
     </section>
     <HikVisionWebPlugin @ref="_hikVision" OnInitedAsync="OnInitedAsync"
@@ -38,25 +38,25 @@
         <div class="row form-inline g-3" style="--bb-input-group-label-width: 88px;">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IP 地址"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["IpAddress"]"></BootstrapInputGroupLabel>
                     <BootstrapInput @bind-Value="@_ip"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="网络端口"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["Port"]"></BootstrapInputGroupLabel>
                     <BootstrapInput @bind-Value="@_port"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="用户名"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["UserName"]"></BootstrapInputGroupLabel>
                     <BootstrapInput @bind-Value="@_userName"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="密码"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["Password"]"></BootstrapInputGroupLabel>
                     <BootstrapPassword @bind-Value="@_password"></BootstrapPassword>
                 </BootstrapInputGroup>
             </div>
@@ -64,52 +64,53 @@
             {
                 <div class="col-12 col-sm-6">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="码流类型"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["StreamType"]"></BootstrapInputGroupLabel>
                         <Select @bind-Value="_streamType" Items="_streamTypes"></Select>
                     </BootstrapInputGroup>                    
                 </div>
                 <div class="col-12 col-sm-6">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="视频通道"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["VideoChannel"]"></BootstrapInputGroupLabel>
                         <Select @bind-Value="_channelId" Items="_analogChannels"></Select>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12">
                     <div class="hik-controls">
-                        <Button OnClick="OnLogin" IsDisabled="_loginStatus">
-                            <span>登录</span>
+                        <Button OnClick="OnLoginClickAsync" IsDisabled="@IsDisabledLoginButton"
+                                IsKeepDisabled="@IsDisabledLoginButton" IsAsync="true">
+                            <span>@Localizer["Login"]</span>
                         </Button>
-                        <Button OnClick="OnLogout" IsDisabled="_logoutStatus">
-                            <span>退出</span>
+                        <Button OnClick="OnLogoutClickAsync" IsDisabled="_logoutStatus" IsKeepDisabled="_logoutStatus" IsAsync="true">
+                            <span>@Localizer["Logout"]</span>
                         </Button>
-                        <Button OnClick="OnStartRealPlay" IsDisabled="_startRealPlayStatus">
-                            <span>开始预览</span>
+                        <Button OnClick="OnStartRealPlayAsync" IsDisabled="_startRealPlayStatus">
+                            <span>@Localizer["StartRealPlay"]</span>
                         </Button>
-                        <Button OnClick="OnStopRealPlay" IsDisabled="_stopRealPlayStatus">
-                            <span>停止预览</span>
+                        <Button OnClick="OnStopRealPlayAsync" IsDisabled="_stopRealPlayStatus">
+                            <span>@Localizer["StopRealPlay"]</span>
                         </Button>
-                        <Button OnClick="OnOpenSound" IsDisabled="_openSoundStatus">
-                            <span>打开声音</span>
+                        <Button OnClick="OnOpenSoundAsync" IsDisabled="_openSoundStatus">
+                            <span>@Localizer["OpenSound"]</span>
                         </Button>
-                        <Button OnClick="OnCloseSound" IsDisabled="_closeSoundStatus">
-                            <span>关闭声音</span>
+                        <Button OnClick="OnCloseSoundAsync" IsDisabled="_closeSoundStatus">
+                            <span>@Localizer["CloseSound"]</span>
                         </Button>
-                        <Button OnClick="OnCapture" IsDisabled="_stopRealPlayStatus">
-                            <span>抓图</span>
+                        <Button OnClick="OnCaptureAsync" IsDisabled="_stopRealPlayStatus">
+                            <span>@Localizer["CapturePicture"]</span>
                         </Button>
-                        <Button OnClick="OnCaptureAndDownload" IsDisabled="_stopRealPlayStatus">
-                            <span>抓图下载</span>
+                        <Button OnClick="OnCaptureAndDownloadAsync" IsDisabled="_stopRealPlayStatus">
+                            <span>@Localizer["CapturePictureAndDownload"]</span>
                         </Button>
-                        <Button OnClick="OnStartRecord" IsDisabled="_startRecordStatus">
-                            <span>开始录像</span>
+                        <Button OnClick="OnStartRecordAsync" IsDisabled="_startRecordStatus">
+                            <span>@Localizer["StartRecord"]</span>
                         </Button>
-                        <Button OnClick="OnStopRecord" IsDisabled="_stopRecordStatus">
-                            <span>停止录像</span>
+                        <Button OnClick="OnStopRecordAsync" IsDisabled="_stopRecordStatus">
+                            <span>@Localizer["StopRecord"]</span>
                         </Button>
                         <Dropdown Value="@_iWndType" IsDisabled="false" Items="_iWndTypes"
-                                  MenuAlignment="Alignment.Right" OnSelectedItemChanged="OnWndTypeChanged">
+                                  MenuAlignment="Alignment.Right" OnSelectedItemChanged="OnWndTypeChangedAsync">
                             <ButtonTemplate>
-                                <span>分屏 (@context.Text)</span>
+                                <span>@Localizer["WindowLayout", context.Text]</span>
                             </ButtonTemplate>
                         </Dropdown>
                     </div>
@@ -118,3 +119,8 @@
         </div>
     </section>
 </DemoBlock>
+
+@code {
+    private RenderFragment RenderPluginDownloadFooter =>
+    @<div>@Localizer["PluginDownloadBefore"].Value<a href="https://open.hikvision.com/download/5cda567cf47ae80dd41a54b3?type=20&id=77c7f9ab64da4dbe8b2df7efe3365ec2" target="_blank" style="margin:0 8px;">@Localizer["PluginDownloadLink"].Value</a>@Localizer["PluginDownloadAfter"].Value</div>;
+}
