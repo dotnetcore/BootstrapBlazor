@@ -17,6 +17,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddBootstrapBlazorServerService();
+builder.Services.AddRtspServer();
 
 var app = builder.Build();
 
