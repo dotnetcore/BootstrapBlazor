@@ -2691,7 +2691,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.HikVisions": {
     "WebRtcTitle": "Plugin-free WebRTC live preview",
-    "WebRtcIntro": "Run scripts\\Start-HikVisionWebRtc.ps1 on this machine first. The gateway pulls channel 1's main stream over RTSP/TCP on port 9954.",
+    "WebRtcConnect": "Connect",
+    "WebRtcDisconnect": "Disconnect",
+    "WebRtcIntro": "In Development, AddRtspServer starts the MediaMTX gateway with settings from appsettings.Development.json. The sample uses camera 47.121.113.151, RTSP port 9954, channel 1 main stream, and user admin. Set Rtsp:Password, preferably through User Secrets, and do not commit the password.",
     "WebRtcTestPage": "Open the standalone test page",
     "WebRtcGateway": "Open the MediaMTX player directly",
     "WebRtcLocalOnly": "This sample is enabled only in the local development environment.",

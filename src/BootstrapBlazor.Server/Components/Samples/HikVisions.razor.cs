@@ -22,10 +22,11 @@ public partial class HikVisions
 
     private string _ip = "47.121.113.151";
     private int _port = 9980;
-    private string _password = "vhbn8888";
+    private string _password = "";
     private string _userName = "admin";
     private bool _inited;
     private bool _loginInProgress;
+    private bool _showWebRtc;
 
     private bool IsDisabledLoginButton => _loginStatus || _loginInProgress;
 
@@ -53,6 +54,8 @@ public partial class HikVisions
     ];
 
     private string _iWndType = "1";
+
+    private void ToggleWebRtc() => _showWebRtc = !_showWebRtc;
 
     /// <inheritdoc />
     protected override void OnInitialized()

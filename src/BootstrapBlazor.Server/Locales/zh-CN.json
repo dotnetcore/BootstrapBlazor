@@ -2691,7 +2691,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.HikVisions": {
     "WebRtcTitle": "WebRTC 无插件实时预览",
-    "WebRtcIntro": "先在本机运行 scripts\\Start-HikVisionWebRtc.ps1。网关通过 RTSP/TCP 从 9954 端口拉取第 1 通道主码流。",
+    "WebRtcConnect": "连接",
+    "WebRtcDisconnect": "断开",
+    "WebRtcIntro": "开发环境启动示例站点时会由 AddRtspServer 自动启动 MediaMTX 网关，配置位于 appsettings.Development.json；摄像机地址为 47.121.113.151，RTSP 端口 9954、通道 1 主码流，用户名 admin。请将密码填入 Rtsp:Password，建议使用 User Secrets，避免提交密码。",
     "WebRtcTestPage": "打开独立测试页",
     "WebRtcGateway": "直接打开 MediaMTX 播放器",
     "WebRtcLocalOnly": "此示例仅在本地开发环境启用。",
