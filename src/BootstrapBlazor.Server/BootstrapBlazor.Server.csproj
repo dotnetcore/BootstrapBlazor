@@ -43,7 +43,7 @@
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="11.0.0" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="11.0.1" />
-    <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.1" />
+    <PackageReference Include="BootstrapBlazor.HikVision" Version="11.0.2-beta01" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="11.0.3" />
@@ -71,6 +71,7 @@
     <PackageReference Include="BootstrapBlazor.Player" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.Region" Version="11.0.1" />
+    <PackageReference Include="BootstrapBlazor.Rtsp" Version="11.0.0-beta01" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="11.0.1" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="11.0.2" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="11.0.1" />
@@ -95,6 +96,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--<ProjectReference Include="..\..\..\..\orca\workspaces\BootstrapBlazor.Extensions\dev-rtsp\src\components\BootstrapBlazor.HikVision\BootstrapBlazor.HikVision.csproj" />
+    <ProjectReference Include="..\..\..\..\orca\workspaces\BootstrapBlazor.Extensions\dev-rtsp\src\extensions\BootstrapBlazor.Rtsp\BootstrapBlazor.Rtsp.csproj" />-->
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
