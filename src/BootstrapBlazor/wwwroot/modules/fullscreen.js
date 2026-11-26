@@ -145,7 +145,7 @@ export function attachOverlay(el) {
         }
 
         const host = [...modalHosts].reverse().find(host => host.isConnected && host.open)
-        const target = host ?? fullscreen
+        const target = fullscreen && host?.contains(fullscreen) ? fullscreen : host ?? fullscreen
         if (el.contains(target)) {
             return
         }
