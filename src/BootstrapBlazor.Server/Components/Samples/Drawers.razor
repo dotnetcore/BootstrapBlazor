@@ -66,11 +66,21 @@
     <Button OnClickWithoutRender="@DrawerServiceShow" Text="@Localizer["Open"]"></Button>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DrawerDialogTitle"]" Introduction="@Localizer["DrawerDialogIntro"]" Name="DrawerDialog">
+    <Button OnClickWithoutRender="@OpenDialogDrawerAsync" Text="@Localizer["Open"]" />
+</DemoBlock>
+
 <AttributeTable Type="typeof(Drawer)" />
 
 @code {
-    private RenderFragment RenderDrawerContent =>@<div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+    RenderFragment RenderDrawerContent =>@<div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
         <p>@Localizer["Content"]</p>
         <DialogCloseButton Color="Color.Primary" Text="@Localizer["Close"]" />
+    </div>;
+
+    RenderFragment dialogDrawerContent => @<div class="d-flex justify-content-center align-items-center flex-column gap-3" style="height: 290px;">
+        <p>@Localizer["DrawerDialogContent"]</p>
+        <Button Color="Color.Primary" Text="@Localizer["DrawerDialogOpen"]" OnClickWithoutRender="@OpenDialogAsync" />
+        <DialogCloseButton Color="Color.Secondary" Text="@Localizer["Close"]" />
     </div>;
 }
