@@ -100,6 +100,7 @@ export function supportsPopover(el) {
 
 const modalHosts = []
 const overlayChangeEvent = 'bb.overlaychange'
+const getActiveModalHost = () => [...modalHosts].reverse().find(host => host.isConnected && host.open)
 
 export function setModalOverlay(host, open) {
     const index = modalHosts.indexOf(host)
@@ -112,9 +113,10 @@ export function setModalOverlay(host, open) {
     document.dispatchEvent(new Event(overlayChangeEvent))
 }
 
-export function attachOverlay(el) {
+export function attachOverlay(el, { followModal = true } = {}) {
     const placeholder = document.createComment('fullscreen-overlay')
     el.before(placeholder)
+    let ownerHost = followModal ? null : getActiveModalHost()
 
     const move = parent => {
         const focused = document.activeElement
@@ -144,8 +146,12 @@ export function attachOverlay(el) {
             return
         }
 
-        const host = [...modalHosts].reverse().find(host => host.isConnected && host.open)
-        const target = host ?? fullscreen
+        if (ownerHost && (!ownerHost.isConnected || !ownerHost.open)) {
+            ownerHost = null
+        }
+        const activeHost = getActiveModalHost()
+        const host = followModal ? activeHost : ownerHost
+        const target = host ?? (!followModal && activeHost?.contains(fullscreen) ? null : fullscreen)
         if (el.contains(target)) {
             return
         }

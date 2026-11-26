@@ -86,7 +86,7 @@ export function init(id, invoke, method) {
     const dw = {
         el,
         body: document.querySelector('body'),
-        detachOverlay: el.hasAttribute('data-bb-drawer-service') ? attachOverlay(el) : null,
+        detachOverlay: el.hasAttribute('data-bb-drawer-service') ? attachOverlay(el, { followModal: false }) : null,
         open: null,
         animationId: null
     }
