@@ -151,7 +151,9 @@ export function attachOverlay(el, { followModal = true } = {}) {
         }
         const activeHost = getActiveModalHost()
         const host = followModal ? activeHost : ownerHost
-        const target = host ?? (!followModal && activeHost?.contains(fullscreen) ? null : fullscreen)
+        const target = followModal && fullscreen && host?.contains(fullscreen)
+            ? fullscreen
+            : host ?? (!followModal && activeHost?.contains(fullscreen) ? null : fullscreen)
         if (el.contains(target)) {
             return
         }

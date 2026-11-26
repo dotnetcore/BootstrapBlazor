@@ -31,3 +31,8 @@
         align-items: center;
     }
 }
+
+:fullscreen > .bb-mask-viewport,
+.bb-modal-host > .bb-mask-viewport {
+    position: fixed;
+}
