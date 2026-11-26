@@ -13,6 +13,9 @@ public sealed partial class Drawers
     [Inject, NotNull]
     private DrawerService? DrawerService { get; set; }
 
+    [Inject, NotNull]
+    private DialogService? DialogService { get; set; }
+
     private bool IsOpen { get; set; }
 
     private Placement DrawerAlign { get; set; }
@@ -69,5 +72,20 @@ public sealed partial class Drawers
         AllowResize = true,
         IsBackdrop = true,
         Width = "50%"
+    });
+
+    private Task OpenDialogDrawerAsync() => DrawerService.Show(new DrawerOption
+    {
+        Placement = Placement.Right,
+        Width = "50%",
+        IsBackdrop = true,
+        ChildContent = dialogDrawerContent
+    });
+
+    private Task OpenDialogAsync() => DialogService.Show(new DialogOption
+    {
+        Title = Localizer["DrawerDialogModalTitle"],
+        Size = Size.Medium,
+        BodyTemplate = builder => builder.AddContent(0, Localizer["DrawerDialogModalContent"].Value)
     });
 }
